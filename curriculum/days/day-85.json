@@ -1,0 +1,344 @@
+{
+  "id": "day-85",
+  "day_number": 85,
+  "active_minutes": 480,
+  "topic_category": "agents",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-84"
+  ],
+  "recovery_links": [
+    "day-84"
+  ],
+  "activities": [
+    {
+      "id": "day-85-act-01",
+      "lesson_id": "les-85",
+      "title": "Capstone Charter: Problem, User, and Bounded Scope",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-84"
+      ],
+      "source_resources": [
+        {
+          "id": "yao-react-2022",
+          "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+          "author": "Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, Yuan Cao",
+          "original_url": "https://arxiv.org/abs/2210.03629",
+          "relevant_timestamp": "Sections 2-4: interleaved reasoning/action protocol; Figure 1 trace format",
+          "version_or_verification_date": "ICLR 2023 / arXiv:2210.03629v3 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Language-model prompting, tool-call loops, and basic action/observation traces.",
+          "selection_rationale": "Primary literature for interleaving explicit reasoning steps with bounded tool actions; anchors the capstone's requirement that every step produces an inspectable observation inside a budgeted loop.",
+          "known_availability_limitations": "Freely available on arXiv; conference version hosted on OpenReview.",
+          "safe_fallback": "The curriculum restates the action/observation loop and reimplements a deterministic three-tool agent locally; no paper text is imported.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Wei et al.: Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+              "url": "https://arxiv.org/abs/2201.11903",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Pure reasoning traces without tool actions; ReAct adds the observable action/observation protocol that the capstone harness enforces."
+            },
+            {
+              "candidate_name": "Huang et al.: Inner Monologue: Embodied Reasoning through Planning with Language Models",
+              "url": "https://arxiv.org/abs/2207.05608",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Embodied closed-loop planning for robotics; ReAct's text-domain tool protocol maps directly onto the capstone's bounded tools."
+            }
+          ]
+        },
+        {
+          "id": "mitchell-model-cards-2019",
+          "title": "Model Cards for Model Reporting",
+          "author": "Margaret Mitchell, Simone Wu, Andrew Zaldivar, Parker Barnes, Lucy Vasserman, Ben Hutchinson, Elena Spitzer, Inioluwa Deborah Raji, Timnit Gebru",
+          "original_url": "https://arxiv.org/abs/1810.03993",
+          "relevant_timestamp": "Section 4 Model Card Sections (4.1-4.9)",
+          "version_or_verification_date": "FAT* 2019 / arXiv:1810.03993v3 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Basic model evaluation vocabulary: dataset, metric, intended use.",
+          "selection_rationale": "Standard framework for disclosing a model's intended use, evaluation conditions, and limitations; supplies the capstone's model-choice and provenance documentation pattern.",
+          "known_availability_limitations": "Freely available on arXiv and in the ACM digital library.",
+          "safe_fallback": "The curriculum provides a local model-decision table template covering intended use, evaluation data, and caveats.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Gebru et al.: Datasheets for Datasets",
+              "url": "https://arxiv.org/abs/1803.09010",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Dataset-side documentation rather than model-side; used alongside Model Cards in the provenance table rather than as a replacement."
+            },
+            {
+              "candidate_name": "OpenAI GPT-4 System Card",
+              "url": "https://openai.com/research/gpt-4-system-card",
+              "license": "All Rights Reserved (web publication)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Vendor-specific safety disclosure; Model Cards provide the general reusable schema."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-85-act-02",
+      "lesson_id": "les-85",
+      "title": "Acceptance Contract: Fixed Tasks, Baseline, and Ceilings",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-85-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "liu-agentbench-2023",
+          "title": "AgentBench: Evaluating LLMs as Agents",
+          "author": "Xiao Liu, Hao Yu, Hanchen Zhang, Yifan Xu, Xuanyu Lei, Hanyu Lai, Yu Gu, Hangliang Ding, Kaiwen Men, Kejuan Yang, et al.",
+          "original_url": "https://arxiv.org/abs/2308.03688",
+          "relevant_timestamp": "Section 4.1 Evaluation Setup and Section 4.3 Analysis",
+          "version_or_verification_date": "ICLR 2024 / arXiv:2308.03688v4 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Agent loops, tool use, and benchmark design fundamentals.",
+          "selection_rationale": "Systematic multi-environment agent benchmark; supplies the capstone's fixed-task-set discipline and per-task scoring decomposition used by the acceptance contract.",
+          "known_availability_limitations": "Freely available on arXiv; benchmark code and data on GitHub under their own license.",
+          "safe_fallback": "The capstone task set is fixed locally in the acceptance contract and does not require downloading the benchmark.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Zhou et al.: WebArena: A Realistic Web Environment for Building Autonomous Agents",
+              "url": "https://arxiv.org/abs/2307.13854",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Deep single-domain web tasks with hosted infrastructure; AgentBench's multi-environment view better fits a general agent evaluation."
+            },
+            {
+              "candidate_name": "Mialon et al.: GAIA: a benchmark for General AI Assistants",
+              "url": "https://arxiv.org/abs/2311.12983",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Assistant-level real-world questions; also cited by the capstone for outcome-level task design."
+            }
+          ]
+        },
+        {
+          "id": "mialon-gaia-2023",
+          "title": "GAIA: a benchmark for General AI Assistants",
+          "author": "Gregoire Mialon, Clementine Fourrier, Craig Swift, Thomas Wolf, Yann LeCun, Thomas Scialom",
+          "original_url": "https://arxiv.org/abs/2311.12983",
+          "relevant_timestamp": "Sections 3-4: level design, tooling requirements, human vs agent gap",
+          "version_or_verification_date": "arXiv:2311.12983v3 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Agent capabilities, tool use, and evaluation metrics.",
+          "selection_rationale": "Defines graded assistant tasks with unambiguous factual scoring; motivates the capstone's distinction between success tasks, malformed-request handling, and failure cases.",
+          "known_availability_limitations": "Freely available on arXiv; question set hosted on Hugging Face with its own terms.",
+          "safe_fallback": "The capstone evaluation tasks are defined in the local acceptance contract and need no external download.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Liu et al.: AgentBench: Evaluating LLMs as Agents",
+              "url": "https://arxiv.org/abs/2308.03688",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Multi-environment execution benchmark; GAIA adds graded real-world assistance tasks, and both inform the fixed task taxonomy."
+            },
+            {
+              "candidate_name": "Zhou et al.: WebArena",
+              "url": "https://arxiv.org/abs/2307.13854",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Web-only task environment; GAIA covers general assistant capability beyond browsing."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-85-act-03",
+      "lesson_id": "les-85",
+      "title": "Model Selection: Trained Adapters vs Existing Models",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-85-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "gebru-datasheets-2021",
+          "title": "Datasheets for Datasets",
+          "author": "Timnit Gebru, Jamie Morgenstern, Briana Vecchione, Jennifer Wortman Vaughan, Hanna Wallach, Hal Daumé III, Kate Crawford",
+          "original_url": "https://arxiv.org/abs/1803.09010",
+          "relevant_timestamp": "Section 3 Questions and Workflow (3.1 Motivation through 3.7 Maintenance)",
+          "version_or_verification_date": "Communications of the ACM 64(12) / arXiv:1803.09010v8 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Dataset provenance, splits, and licensing vocabulary.",
+          "selection_rationale": "Standard questionnaire for documenting dataset origin, composition, rights, and maintenance; structures the capstone evidence package's data-provenance table.",
+          "known_availability_limitations": "Freely available on arXiv and in the ACM digital library.",
+          "safe_fallback": "The provenance table template in the capstone instructions restates the required disclosure fields locally.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Mitchell et al.: Model Cards for Model Reporting",
+              "url": "https://arxiv.org/abs/1810.03993",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Model-side reporting rather than dataset-side; the capstone provenance table cites both."
+            },
+            {
+              "candidate_name": "Bender & Friedman: Data Statements for Natural Language Processing",
+              "url": "https://aclanthology.org/Q18-1041/",
+              "license": "CC BY 4.0 (ACL Anthology, 2016 or later)",
+              "status": "compared_alternative",
+              "comparison_rationale": "NLP-specific demographic disclosure; Datasheets cover the general lifecycle needed for arbitrary capstone data."
+            }
+          ]
+        },
+        {
+          "id": "mitchell-model-cards-2019",
+          "title": "Model Cards for Model Reporting",
+          "author": "Margaret Mitchell, Simone Wu, Andrew Zaldivar, Parker Barnes, Lucy Vasserman, Ben Hutchinson, Elena Spitzer, Inioluwa Deborah Raji, Timnit Gebru",
+          "original_url": "https://arxiv.org/abs/1810.03993",
+          "relevant_timestamp": "Section 4 Model Card Sections (4.1-4.9)",
+          "version_or_verification_date": "FAT* 2019 / arXiv:1810.03993v3 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Basic model evaluation vocabulary: dataset, metric, intended use.",
+          "selection_rationale": "Standard framework for disclosing a model's intended use, evaluation conditions, and limitations; supplies the capstone's model-choice and provenance documentation pattern.",
+          "known_availability_limitations": "Freely available on arXiv and in the ACM digital library.",
+          "safe_fallback": "The curriculum provides a local model-decision table template covering intended use, evaluation data, and caveats.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Gebru et al.: Datasheets for Datasets",
+              "url": "https://arxiv.org/abs/1803.09010",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Dataset-side documentation rather than model-side; used alongside Model Cards in the provenance table rather than as a replacement."
+            },
+            {
+              "candidate_name": "OpenAI GPT-4 System Card",
+              "url": "https://openai.com/research/gpt-4-system-card",
+              "license": "All Rights Reserved (web publication)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Vendor-specific safety disclosure; Model Cards provide the general reusable schema."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-85-act-04",
+      "lesson_id": "les-85",
+      "title": "Assessment: Charter Review Gate and Scope Freeze",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-85-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "yao-react-2022",
+          "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+          "author": "Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, Yuan Cao",
+          "original_url": "https://arxiv.org/abs/2210.03629",
+          "relevant_timestamp": "Sections 2-4: interleaved reasoning/action protocol; Figure 1 trace format",
+          "version_or_verification_date": "ICLR 2023 / arXiv:2210.03629v3 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Language-model prompting, tool-call loops, and basic action/observation traces.",
+          "selection_rationale": "Primary literature for interleaving explicit reasoning steps with bounded tool actions; anchors the capstone's requirement that every step produces an inspectable observation inside a budgeted loop.",
+          "known_availability_limitations": "Freely available on arXiv; conference version hosted on OpenReview.",
+          "safe_fallback": "The curriculum restates the action/observation loop and reimplements a deterministic three-tool agent locally; no paper text is imported.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Wei et al.: Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+              "url": "https://arxiv.org/abs/2201.11903",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Pure reasoning traces without tool actions; ReAct adds the observable action/observation protocol that the capstone harness enforces."
+            },
+            {
+              "candidate_name": "Huang et al.: Inner Monologue: Embodied Reasoning through Planning with Language Models",
+              "url": "https://arxiv.org/abs/2207.05608",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Embodied closed-loop planning for robotics; ReAct's text-domain tool protocol maps directly onto the capstone's bounded tools."
+            }
+          ]
+        },
+        {
+          "id": "liu-agentbench-2023",
+          "title": "AgentBench: Evaluating LLMs as Agents",
+          "author": "Xiao Liu, Hao Yu, Hanchen Zhang, Yifan Xu, Xuanyu Lei, Hanyu Lai, Yu Gu, Hangliang Ding, Kaiwen Men, Kejuan Yang, et al.",
+          "original_url": "https://arxiv.org/abs/2308.03688",
+          "relevant_timestamp": "Section 4.1 Evaluation Setup and Section 4.3 Analysis",
+          "version_or_verification_date": "ICLR 2024 / arXiv:2308.03688v4 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Agent loops, tool use, and benchmark design fundamentals.",
+          "selection_rationale": "Systematic multi-environment agent benchmark; supplies the capstone's fixed-task-set discipline and per-task scoring decomposition used by the acceptance contract.",
+          "known_availability_limitations": "Freely available on arXiv; benchmark code and data on GitHub under their own license.",
+          "safe_fallback": "The capstone task set is fixed locally in the acceptance contract and does not require downloading the benchmark.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Zhou et al.: WebArena: A Realistic Web Environment for Building Autonomous Agents",
+              "url": "https://arxiv.org/abs/2307.13854",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Deep single-domain web tasks with hosted infrastructure; AgentBench's multi-environment view better fits a general agent evaluation."
+            },
+            {
+              "candidate_name": "Mialon et al.: GAIA: a benchmark for General AI Assistants",
+              "url": "https://arxiv.org/abs/2311.12983",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Assistant-level real-world questions; also cited by the capstone for outcome-level task design."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

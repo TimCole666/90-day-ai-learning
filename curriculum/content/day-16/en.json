@@ -1,0 +1,144 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 16: Functions, slopes, and limits",
+  "day_subtitle": "Functions and change become calculable through definitions, worked derivations, retrieval, and honest numerical evidence.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Mathematics & Calculus",
+  "common": {
+    "nav_calendar": "Curriculum Calendar",
+    "day_label": "Day 16",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Record your prediction, work, observed result, review, and recovery evidence here...",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis"
+  },
+  "activities": {
+    "day-16-act-01": {
+      "title": "Functions as mappings",
+      "prerequisites": "Complete the previous activity and use the listed recovery source if blocked.",
+      "objective": "Treat a function as a rule that maps each allowed input in its domain to exactly one output. Build a table and state the domain, range, units, and assumptions before using a formula.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "1. Read the definition first: a function f from a domain D assigns to every input x in D exactly one output f(x). Write D, the output set and the units (here plain numbers) before touching the formula.\n2. Predict before calculating: which input gives the smallest output, and which pairs of inputs share an output?\n3. Build the table column by column: x, then x^2, then x^2+1. Squaring before adding 1 is where most slips happen; (-2)^2 is 4, not -4.\n4. Read the range from the algebra, not only from the table: x^2 ≥ 0 for every real x, so x^2+1 ≥ 1, and every y ≥ 1 is reached by x = sqrt(y-1).\n5. Test the definition on the practice items: a relation stops being a function as soon as one input is paired with two different outputs.\n6. Compare your prediction with the table and write one sentence about any mismatch.\n\n**Time plan (120 min): reading 30 + exercise 60 + check 30.** Reading: OpenStax Calculus Vol. 1 Section 2.1 (definition, domain and range, vertical line test). Exercise: the table and practice items (b) and (c). Check: close the notes, redo the mastery item, and compare line by line with the reference answer.",
+      "exercise_prompt": "(a) For f(x)=x^2+1, make a table for x=-2,-1,0,1,2. State the domain and range over the real numbers. Then explain why one input cannot have two outputs. (b) For h(x)=sqrt(x-2), state the real domain and range, then compute h(2), h(3) and h(6). (c) Decide whether each is a function of x: the relation {(1,2), (2,3), (1,4)}, and the rule x = y^2.",
+      "hint": "Write the mapping arrow x -> f(x) and label the input and output columns. Check the square before adding 1. Recovery: OpenStax Calculus Vol. 1, Section 2.1; if unavailable, redraw the five-row table and use the definition above.",
+      "answer": "(a) Row by row, squaring first:\nx = -2: x^2 = 4, f(-2) = 5\nx = -1: x^2 = 1, f(-1) = 2\nx = 0: x^2 = 0, f(0) = 1\nx = 1: x^2 = 1, f(1) = 2\nx = 2: x^2 = 4, f(2) = 5\nDomain: every real x, because squaring and adding 1 are defined for all reals. Range: y ≥ 1. Reason: x^2 ≥ 0 with equality only at x = 0, so f(x) ≥ 1; and every y ≥ 1 is reached, since x = sqrt(y - 1) gives f(x) = y. The table shows only five outputs; the range claim needs this algebra.\nOne output per input: a function is a deterministic rule, so evaluating f(2) twice must give 5 both times. Two inputs may share an output (f(-2) = f(2) = 5); that is allowed. One input with two outputs is not.\n\n(b) sqrt needs a non-negative argument, so x - 2 ≥ 0 and the domain is x ≥ 2. h(2) = sqrt(0) = 0, h(3) = sqrt(1) = 1, h(6) = sqrt(4) = 2. Range: y ≥ 0, because the principal square root is never negative and every y ≥ 0 is reached by x = y^2 + 2.\n\n(c) {(1,2), (2,3), (1,4)} is not a function: input 1 is paired with both 2 and 4. x = y^2 does not define y as a function of x: x = 4 gives y = 2 and y = -2. Restricting to y ≥ 0 gives the function y = sqrt(x).\n\nCommon errors: writing (-2)^2 + 1 = -3; giving the range as all reals by copying the domain; calling f \"not a function\" because two inputs give 5.",
+      "mastery_criterion": "Without assistance, define domain and range, produce the five correct outputs, and name the one-output-per-input assumption.",
+      "source_recovery": "OpenStax Sections 2.1-3.2 and SciPy derivative documentation; if unavailable, the worked derivation and pure-Python tables in this activity are the offline fallback."
+    },
+    "day-16-act-02": {
+      "title": "Average change and secant slope",
+      "prerequisites": "Complete the previous activity and use the listed recovery source if blocked.",
+      "objective": "Calculate average rate of change as (f(b)-f(a))/(b-a), interpret its units, and distinguish a secant line through two points from a tangent line at one point.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "Study source: within this activity's existing reading/practice time, use MIT OCW 18.01SC Single Variable Calculus, Unit 1: Differentiation; Part A: Definition and Basic Rules; derivative introduction and worked practice, then explain one connection to the local task in your own words. Keep the local exercise and acceptance checks; use its original explanation if the external source is unavailable. 1. Name the endpoints a and b, compute f(a) and f(b) separately, and write both points (a, f(a)) and (b, f(b)).\n2. Predict the sign of the slope from the shape: x^2+1 increases for x ≥ 0, so on [2,5] the slope should be positive.\n3. Form the quotient (f(b)-f(a))/(b-a), keeping numerator and denominator in the same order, and attach units: output units per input unit.\n4. Turn the slope into the secant line with point-slope form y - f(a) = m(x - a), and check that it passes through (b, f(b)).\n5. Shrink the interval toward a = 2 and watch the average slope; this table is the bridge to Day 17's derivative.\n6. Compare prediction and result; if they disagree, recompute the endpoint values first.\n\n**Time plan (120 min): reading 25 + exercise 65 + check 30.** Reading: OpenStax Section 2.2 (secant slope, average rate of change). Exercise: items (a)-(d). Check: the mastery item on f(x)=3x-4, unaided, then compare.",
+      "exercise_prompt": "(a) For the function f(x)=x^2+1 on [2,5], calculate the endpoint values, the average rate of change, and the secant line slope. Predict whether the slope is positive before calculating. (b) Write the equation of that secant line and verify it at x=5. (c) Compute the average rate of change on [2,2.5], [2,2.1] and [2,2.01], and describe the pattern. (d) If x is time in seconds and f(x) is distance in metres, state the units and the meaning of the slope from (a).",
+      "hint": "Keep numerator and denominator in the same order. Units are output-units/input-units. Recovery: OpenStax Section 2.2; offline fallback is the displayed quotient and the two-point graph you draw.",
+      "answer": "(a) f(2) = 4 + 1 = 5 and f(5) = 25 + 1 = 26. Average rate of change = (26 - 5)/(5 - 2) = 21/3 = 7. The secant slope is the same number: the line through (2, 5) and (5, 26) rises 7 output units per input unit. Positive, as predicted.\n\n(b) Point-slope form: y - 5 = 7(x - 2), so y = 7x - 9. Check: 7(5) - 9 = 26 = f(5), and 7(2) - 9 = 5 = f(2).\n\n(c) f(2.5) = 7.25, slope (7.25 - 5)/0.5 = 4.5. f(2.1) = 5.41, slope 0.41/0.1 = 4.1. f(2.01) = 5.0401, slope 0.0401/0.01 = 4.01. The slopes approach 4.\nWhy: for this function the slope on [a, b] is ((b^2 + 1) - (a^2 + 1))/(b - a) = (b - a)(b + a)/(b - a) = a + b, valid because b != a. That explains every value: 2 + 5 = 7, 2 + 2.5 = 4.5, and a + b approaches 4 as b approaches 2. Day 17 calls that limit the derivative, f'(2) = 4.\n\n(d) Units: metres per second. Over the 3 seconds from t = 2 to t = 5 the object covers 21 m, so its average speed is 7 m/s. This says nothing about the speed at any single instant.\n\nA secant needs two distinct inputs: with b = a the quotient is 0/0 and undefined, which is why the instantaneous slope needs a limit.",
+      "mastery_criterion": "Unaided, compute the average slope for f(x)=3x-4 on [1,6] as 3 and explain why a secant uses two distinct inputs.",
+      "source_recovery": "OpenStax Sections 2.1-3.2 and SciPy derivative documentation; if unavailable, the worked derivation and pure-Python tables in this activity are the offline fallback.",
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-16-act-03": {
+      "title": "Limits from nearby values",
+      "prerequisites": "Complete the previous activity and use the listed recovery source if blocked.",
+      "objective": "Use a two-sided limit as a prediction of nearby output values, state the approach assumptions, and simplify a removable hole without silently redefining the original function.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "1. Check the domain before substituting: g(x)=(x^2-1)/(x-1) is defined only for x != 1. Substituting x = 1 gives 0/0, which is not a value.\n2. Predict the limit from the shape of the expression before factoring.\n3. Factor x^2 - 1 = (x - 1)(x + 1) and cancel (x - 1), stating that the cancellation is valid because x != 1.\n4. Build the table from both sides (x = 0.9, 0.99 and x = 1.01, 1.1) with the original formula, then confirm that the simplified formula gives the same values.\n5. State a two-sided limit only if the left and right values approach the same number; otherwise write \"does not exist\" and give both one-sided limits.\n6. Keep g(1) and the limit separate in your write-up: one is a value of the function, the other describes nearby values.\n\n**Time plan (120 min): reading 30 + exercise 60 + check 30.** Reading: OpenStax Section 2.3 (limit laws, removable discontinuities, one-sided limits). Exercise: items (a)-(c). Check: explain g(1) versus the limit in writing, unaided, then compare.",
+      "exercise_prompt": "(a) Let g(x)=(x^2-1)/(x-1) for x != 1. Factor the numerator, make a near-1 table using x=.9,.99,1.01,1.1, and state lim(x->1)g(x). Is g(1) defined by the given rule? (b) Repeat for k(x)=(x^2-4)/(x-2) near x=2 using x=1.9 and 2.1. (c) For s(x)=|x|/x, compute s(-0.1), s(-0.01), s(0.01) and s(0.1), and decide whether lim(x->0)s(x) exists.",
+      "hint": "Do not substitute 1 before checking the domain. Factor first, then evaluate the simplified expression at nearby, not necessarily equal, inputs. Recovery: OpenStax Section 2.3; offline fallback is the factorization and table in this card.",
+      "answer": "(a) For x != 1, g(x) = (x - 1)(x + 1)/(x - 1) = x + 1. The cancellation is legal only because x - 1 != 0.\nTable with the original formula: x = 0.9: (0.81 - 1)/(-0.1) = 1.9; x = 0.99: (0.9801 - 1)/(-0.01) = 1.99; x = 1.01: (1.0201 - 1)/0.01 = 2.01; x = 1.1: (1.21 - 1)/0.1 = 2.1. The simplified x + 1 gives the same four values.\nFrom the left the outputs climb 1.9, 1.99 toward 2; from the right they fall 2.1, 2.01 toward 2. Both sides agree, so lim(x->1) g(x) = 2.\ng(1) is not defined: the rule excludes x = 1. The graph is the line y = x + 1 with a hole at (1, 2). Writing g(1) = 2 would define a new function; it does not follow from the limit.\n\n(b) k(x) = (x - 2)(x + 2)/(x - 2) = x + 2 for x != 2. k(1.9) = (3.61 - 4)/(-0.1) = 3.9 and k(2.1) = (4.41 - 4)/0.1 = 4.1, so lim(x->2) k(x) = 4, while k(2) is undefined.\n\n(c) For positive x, |x|/x = x/x = 1; for negative x, |x|/x = -x/x = -1. So s(-0.1) = s(-0.01) = -1 and s(0.01) = s(0.1) = 1. The left limit is -1 and the right limit is 1. They differ, so lim(x->0) s(x) does not exist, and no factoring can repair it. Unlike (a), this is a jump, not a removable hole.\n\nCommon errors: substituting x = 1 into the original rule and writing 0/0 = 1; using values from one side only; claiming g(1) = 2.",
+      "mastery_criterion": "Without AI, explain the difference between g(1) and the limit, and correctly predict the four table values and two-sided limit.",
+      "source_recovery": "OpenStax Sections 2.1-3.2 and SciPy derivative documentation; if unavailable, the worked derivation and pure-Python tables in this activity are the offline fallback."
+    },
+    "day-16-act-04": {
+      "title": "Retrieval and independent bridge",
+      "prerequisites": "Complete the previous activity and use the listed recovery source if blocked.",
+      "objective": "Retrieve functions, secant slope, and limits, then connect them to the idea that an instantaneous derivative is a limit of secant slopes. Record prediction, work, observation, and a recovery action.",
+      "instructions": "1. Work closed book: notes, the earlier answers on this page and AI tools stay closed until you have written an answer for every item.\n2. Write the general quotient with the endpoint 3 + h before inserting any number.\n3. Expand (3 + h)^2 fully, subtract p(3), and cancel h only after stating h != 0.\n4. Evaluate the simplified quotient for h = 0.1, 0.01, 0.001 and for h = -0.1, -0.01, so both sides of 3 are covered.\n5. Name, in your own words, the assumptions a derivative at 3 needs.\n6. Then open the reference answer, mark every line as matched or missed, and for each miss record which activity (1, 2 or 3) you will revisit. Recovery is a fresh attempt at an equivalent item, not a copy of the answer.\n\n**Time plan (120 min): reading 15 + exercise 60 + check 45.** Reading: only your own notes from Activities 1-3. Exercise: items (1)-(4), closed book. Check: mark the attempt, revisit the activity behind each miss, then solve item (4) again at a=1.",
+      "exercise_prompt": "Closed book: (1) find the average slope of p(x)=x^2 on [3,3.1]; (2) predict what happens as the second endpoint approaches 3; (3) state the assumptions needed for a derivative at 3. Show every substitution. (4) Repeat (1)-(2) at a=-1: write the quotient for p on [-1,-1+h] and find its limit.",
+      "hint": "First write the quotient with h, then expand and cancel only a factor known nonzero (h != 0). Recovery: revisit Activities 1-3 or the OpenStax Sections 2.1-2.3 link; record the exact mismatch instead of copying the answer.",
+      "answer": "(1) p(3) = 9 and p(3.1) = 3.1^2 = 9.61. Average slope = (9.61 - 9)/(3.1 - 3) = 0.61/0.1 = 6.1.\n\n(2) With endpoint 3 + h: (p(3 + h) - p(3))/h = ((9 + 6h + h^2) - 9)/h = (6h + h^2)/h = 6 + h, valid for h != 0.\nh = 0.1 gives 6.1 (matching (1)), h = 0.01 gives 6.01, h = 0.001 gives 6.001; from the left, h = -0.1 gives 5.9 and h = -0.01 gives 5.99. Both sides approach 6, so the secant slopes tend to 6, the instantaneous slope at 3.\n\n(3) Assumptions: p is defined on an open interval around 3 (here, all reals); the quotient is formed only for h != 0; and the two-sided limit of the quotient exists, meaning the left and right values approach the same number. If the one-sided limits differed, as for |x| at 0, there would be no derivative.\n\n(4) p(-1 + h) = 1 - 2h + h^2, so (p(-1 + h) - p(-1))/h = (-2h + h^2)/h = -2 + h for h != 0, which tends to -2. The slope at -1 is negative because the parabola is falling there. In general the limit is 2a, a pattern Day 17 proves.\n\nMarking guide: dropping the h^2 term, cancelling h without stating h != 0, and checking only positive h are the three misses to record. Each points back to Activity 2 (secant quotient) or Activity 3 (limits).",
+      "mastery_criterion": "Independent Mastery Check: with no AI or answer lookup, derive the h-expression, evaluate h=.1, and justify the limiting value 6 in complete steps.",
+      "source_recovery": "OpenStax Sections 2.1-3.2 and SciPy derivative documentation; if unavailable, the worked derivation and pure-Python tables in this activity are the offline fallback.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance)"
+    }
+  },
+  "source_resources": [
+    {
+      "id": "openstax-calculus-1",
+      "title": "OpenStax Calculus Volume 1",
+      "author": "Gilbert Strang and Edwin Herman / OpenStax",
+      "original_url": "https://openstax.org/details/books/calculus-volume-1",
+      "relevant_timestamp": "Sections 2.1-2.3 (Functions, Limits, and the Derivative); Sections 3.1-3.2 (Derivative Rules)",
+      "version_or_verification_date": "3rd edition, verified 2026-10-30",
+      "reuse_category": "linking",
+      "source_type": "open_textbook",
+      "license": "CC BY-NC-SA 4.0",
+      "license_restrictions": [
+        "attribution",
+        "noncommercial",
+        "share-alike"
+      ],
+      "permission_basis": "Linking and short, independently authored examples; no textbook prose is reproduced or translated.",
+      "prerequisites": "Algebra, coordinate geometry, and function notation",
+      "selection_rationale": "Open, systematic treatment of the limit definition and derivative rules with stable section locations.",
+      "known_availability_limitations": "The hosted textbook may be unavailable offline or blocked by a network policy.",
+      "safe_fallback": "The authored derivations, tables, and exercises in these three Study Days are complete offline recovery material; use the linked section only for optional comparison.",
+      "compared_candidates": [
+        {
+          "candidate_name": "MIT OpenCourseWare 18.01SC Single Variable Calculus",
+          "url": "https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/",
+          "license": "CC BY-NC-SA 4.0",
+          "status": "compared_selected_for_visual_practice",
+          "comparison_rationale": "Excellent exercises and transcripts, but the noncommercial share-alike terms and course navigation make OpenStax the primary stable text."
+        },
+        {
+          "candidate_name": "Paul's Online Math Notes: Calculus I",
+          "url": "https://tutorial.math.lamar.edu/Classes/CalcI/CalcI.aspx",
+          "license": "All Rights Reserved",
+          "status": "compared_rejected_for_reuse",
+          "comparison_rationale": "Useful reference, but rights and redistribution terms are less suitable for embedded recovery material."
+        },
+        {
+          "candidate_name": "SciPy Numerical Differentiation Documentation",
+          "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+          "license": "BSD-3-Clause",
+          "status": "compared_selected_for_numerics",
+          "comparison_rationale": "A primary API reference for numerical derivative step-size behavior; it complements rather than replaces the hand derivation."
+        }
+      ]
+    },
+    {
+      "id": "scipy-derivative",
+      "title": "SciPy numerical derivative reference",
+      "author": "SciPy Developers",
+      "original_url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+      "relevant_timestamp": "derivative API: finite differences, step-size iteration, tolerances",
+      "version_or_verification_date": "SciPy documentation, verified 2026-10-30",
+      "reuse_category": "linking",
+      "source_type": "documentation",
+      "license": "BSD-3-Clause",
+      "license_restrictions": [],
+      "permission_basis": "Link only; all learner-facing explanations and examples are original.",
+      "prerequisites": "Python arithmetic and the definition of a derivative",
+      "selection_rationale": "Documents numerical differentiation as an approximation with finite step sizes and stopping criteria.",
+      "known_availability_limitations": "Requires network access for the current hosted API page.",
+      "safe_fallback": "The local Day 18 tables and pure-Python snippets reproduce the relevant finite-difference behavior without SciPy.",
+      "compared_candidates": []
+    }
+  ]
+}

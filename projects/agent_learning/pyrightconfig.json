@@ -1,0 +1,6 @@
+{
+  "include": ["*.py", "../../tests/projects/test_agent_learning.py"],
+  "pythonVersion": "3.13",
+  "extraPaths": ["../.."],
+  "exclude": ["**/__pycache__"]
+}

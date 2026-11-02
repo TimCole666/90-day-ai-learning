@@ -1,0 +1,354 @@
+{
+  "id": "day-78",
+  "day_number": 78,
+  "active_minutes": 480,
+  "topic_category": "agents",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-77"
+  ],
+  "recovery_links": [
+    "day-77"
+  ],
+  "activities": [
+    {
+      "id": "day-78-act-01",
+      "lesson_id": "les-78",
+      "title": "Retry Budgets, Exponential Backoff, and Jitter",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-77"
+      ],
+      "source_resources": [
+        {
+          "id": "aws-exponential-backoff-jitter",
+          "title": "Exponential Backoff And Jitter",
+          "author": "Marc Brooker, AWS Architecture Blog",
+          "original_url": "https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/",
+          "version_or_verification_date": "AWS Architecture Blog 2015 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "article",
+          "license": "Amazon Web Services site content / linked reference",
+          "license_restrictions": [
+            "noncommercial"
+          ],
+          "permission_basis": "Lawful external technical reference under public blog terms.",
+          "prerequisites": "Retries, timeouts, and basic probability of correlated load.",
+          "selection_rationale": "Detailed practitioner reference proving that full jitter (sleep = random_between(0, min(cap, base*2**attempt))) prevents synchronized retry storms and reduces total work during contention.",
+          "known_availability_limitations": "Public AWS blog post; stable URL since 2015.",
+          "safe_fallback": "The backoff exercise is implemented in pure Python with a local flaky stub; the derivation of jitter benefits is fully reproduced in lesson instructions.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Google Cloud retry strategy documentation",
+              "url": "https://cloud.google.com/storage/docs/retry-strategy",
+              "license": "CC BY 4.0 / documentation terms",
+              "status": "compared_alternative",
+              "comparison_rationale": "Product-scoped truncated exponential backoff recipe; Brooker's analysis explains why jitter matters, not just what to configure."
+            },
+            {
+              "candidate_name": "Polly resilience library retry policies (.NET)",
+              "url": "https://www.pollydocs.org/",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "Library implementation reference; the AWS article supplies the comparative evidence (with/without jitter) that anchors the lesson."
+            }
+          ],
+          "relevant_timestamp": "Adding Backoff; Adding Jitter (Full Jitter, Equal Jitter, Decorrelated Jitter)"
+        },
+        {
+          "id": "google-sre-cascading-failures",
+          "title": "Site Reliability Engineering, Chapter 22: Addressing Cascading Failures",
+          "author": "Mike Ulrich, in Site Reliability Engineering (eds. Betsy Beyer, Chris Jones, Jennifer Petoff, Niall Richard Murphy; Google)",
+          "original_url": "https://sre.google/sre-book/addressing-cascading-failures/",
+          "version_or_verification_date": "O'Reilly 2016 free online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-ND 4.0",
+          "license_restrictions": [
+            "noncommercial",
+            "no-derivatives"
+          ],
+          "permission_basis": "Lawful external hyperlink to Google's free web edition, published under CC BY-NC-ND 4.0 (Copyright 2017 Google, Inc.; published by O'Reilly Media); no text is imported.",
+          "prerequisites": "Retries, queueing, and load-shedding basics.",
+          "selection_rationale": "Primary analysis of how unbounded retries amplify partial outages into cascading failures, motivating hard retry budgets and deadlines in agent runtimes.",
+          "known_availability_limitations": "Free online HTML edition hosted by Google; pagination differs from print.",
+          "safe_fallback": "The retry-amplification scenario and budget arithmetic are fully reproduced in the lesson's worked example.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Release It! (Michael Nygard) - Stability patterns",
+              "url": "https://pragprog.com/titles/mnee2/release-it-second-edition/",
+              "license": "Commercial book",
+              "status": "compared_alternative",
+              "comparison_rationale": "Broader stability-pattern catalog (circuit breakers, bulkheads); the SRE chapter is free and directly quantifies retry amplification."
+            },
+            {
+              "candidate_name": "AWS Builder's Library: Timeouts, retries, and backoff with jitter",
+              "url": "https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/",
+              "license": "Amazon site content",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong companion article; the SRE chapter frames the failure mode (cascading overload) that the retry budget defends against."
+            }
+          ],
+          "relevant_timestamp": "Preventing Server Overload: Retries",
+          "locator_url": "https://sre.google/sre-book/addressing-cascading-failures/#retires"
+        }
+      ]
+    },
+    {
+      "id": "day-78-act-02",
+      "lesson_id": "les-78",
+      "title": "Timeouts, Deadlines, and the Empirical Kill Boundary",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-78-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "python-subprocess-docs",
+          "title": "Python Standard Library: subprocess - Subprocess Management",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/subprocess.html",
+          "version_or_verification_date": "Python 3.13 documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under PSF open documentation terms; no source text imported into curriculum content.",
+          "prerequisites": "Processes, arguments, exit codes, and context managers.",
+          "selection_rationale": "Normative reference for subprocess.run(timeout=...), TimeoutExpired, DEVNULL stdin, and the documented kill scope: timeout terminates the child process; it does not define process-tree cleanup semantics.",
+          "known_availability_limitations": "Hosted on python.org; versioned per CPython release.",
+          "safe_fallback": "The kill-boundary experiment runs entirely in the standard library, so the documented semantics are exercised offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "POSIX standard: process creation and termination",
+              "url": "https://pubs.opengroup.org/onlinepubs/9699919799/",
+              "license": "IEEE/Open Group standard",
+              "status": "compared_alternative",
+              "comparison_rationale": "Formal POSIX semantics; the Python docs map directly onto the commands learners type."
+            },
+            {
+              "candidate_name": "psutil process-tree utilities",
+              "url": "https://psutil.readthedocs.io/",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "Third-party tree enumeration; the exercise deliberately demonstrates the stdlib boundary before reaching for helpers."
+            }
+          ],
+          "relevant_timestamp": "Using the subprocess Module (subprocess.run timeout) and Notes: Timeout Behavior",
+          "locator_url": "https://docs.python.org/3/library/subprocess.html#timeout-behavior"
+        },
+        {
+          "id": "man7-process-groups",
+          "title": "Linux man-pages: credentials(7) and setpgid(2) - Process Groups and Sessions",
+          "author": "Linux man-pages project (Michael Kerrisk et al.)",
+          "original_url": "https://man7.org/linux/man-pages/man7/credentials.7.html",
+          "version_or_verification_date": "man-pages 6.x online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Linux man-pages license (freely distributable)",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external technical reference under open man-pages terms.",
+          "prerequisites": "POSIX processes, signals, and fork/exec model.",
+          "selection_rationale": "Normative reference for process-group semantics (PGID, sessions, killpg): the mechanism a runner must use to signal a whole descendant tree, which the lab runner and subprocess timeout path do not employ.",
+          "known_availability_limitations": "Hosted on man7.org; mirrors exist on every Linux system via man credentials.",
+          "safe_fallback": "Process-group behavior is demonstrated live with os.setsid and process inspection; local man pages cover the same text offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "POSIX.1-2017 specification: setpgid",
+              "url": "https://pubs.opengroup.org/onlinepubs/9699919799/functions/setpgid.html",
+              "license": "IEEE/Open Group standard",
+              "status": "compared_alternative",
+              "comparison_rationale": "Formal standard text; the man page presents the same contract with implementation notes learners can test directly."
+            },
+            {
+              "candidate_name": "Advanced Programming in the UNIX Environment (Stevens), Chapter 9",
+              "url": "https://www.informit.com/store/advanced-programming-in-the-unix-environment-9780321637734",
+              "license": "Commercial book",
+              "status": "compared_alternative",
+              "comparison_rationale": "Detailed textbook treatment of sessions and job control; the man page is the free, always-current operational reference."
+            }
+          ],
+          "relevant_timestamp": "credentials(7) DESCRIPTION: Process group and session",
+          "locator_url": "https://man7.org/linux/man-pages/man7/credentials.7.html#DESCRIPTION"
+        }
+      ]
+    },
+    {
+      "id": "day-78-act-03",
+      "lesson_id": "les-78",
+      "title": "Isolation Layers: Validation Rules, Resource Limits, and OS Sandboxes",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-78-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "man7-namespaces",
+          "title": "Linux man-pages: namespaces(7) - Overview of Linux Namespaces",
+          "author": "Linux man-pages project (Michael Kerrisk et al.)",
+          "original_url": "https://man7.org/linux/man-pages/man7/namespaces.7.html",
+          "version_or_verification_date": "man-pages 6.x online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Linux man-pages license (freely distributable)",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external technical reference under open man-pages terms.",
+          "prerequisites": "Processes, mounts, network interfaces, and cgroups basics.",
+          "selection_rationale": "Normative reference enumerating the eight Linux namespace types; establishes what genuine OS-level isolation requires (mount, PID, network, user namespaces plus seccomp and cgroup limits), all of which the learning project deliberately does not provide.",
+          "known_availability_limitations": "Hosted on man7.org; identical content ships with every Linux distribution.",
+          "safe_fallback": "Namespace concepts are analyzed against project code, not exercised; unshare(1) examples are optional enrichment.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Docker Engine security documentation",
+              "url": "https://docs.docker.com/engine/security/",
+              "license": "Apache-2.0 / documentation terms",
+              "status": "compared_alternative",
+              "comparison_rationale": "Product view assembling namespaces and cgroups into containers; namespaces(7) supplies the primitive inventory the lesson enumerates."
+            },
+            {
+              "candidate_name": "LWN.net series: Namespaces in operation",
+              "url": "https://lwn.net/Articles/531114/",
+              "license": "LWN site content",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong narrative walkthrough; the man page is the maintained reference surface."
+            }
+          ],
+          "relevant_timestamp": "namespaces(7) DESCRIPTION: Namespace types",
+          "locator_url": "https://man7.org/linux/man-pages/man7/namespaces.7.html#DESCRIPTION"
+        },
+        {
+          "id": "agache-firecracker-2020",
+          "title": "Firecracker: Lightweight Virtualization for Serverless Applications",
+          "author": "Alexandru Agache, Marc Brooker, Alexandra Iordache, Anthony Liguori, Rolf Neugebauer, Phil Piwonka, Diana-Maria Popa",
+          "original_url": "https://www.usenix.org/conference/nsdi20/presentation/agache",
+          "version_or_verification_date": "NSDI 2020 / USENIX open access (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "USENIX open access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under USENIX open-access terms.",
+          "prerequisites": "Virtualization basics, KVM, process isolation, and threat models.",
+          "selection_rationale": "Primary literature on production multi-tenant code execution: Firecracker wraps workloads in hardware-virtualized microVMs because containers alone are not a sufficient security boundary, the reference standard for what genuine isolation means.",
+          "known_availability_limitations": "Freely available via USENIX; PDF and slides hosted on usenix.org.",
+          "safe_fallback": "The isolation-layer analysis compares documented properties only; no virtualization is launched in the lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "gVisor architecture documentation",
+              "url": "https://gvisor.dev/docs/",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "User-space kernel interception alternative; Firecracker's hardware boundary provides the stronger reference point for the guarantee matrix."
+            },
+            {
+              "candidate_name": "Kata Containers architecture",
+              "url": "https://katacontainers.io/",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "VM-backed container runtime; Firecracker's NSDI paper supplies the peer-reviewed threat-model justification."
+            }
+          ],
+          "relevant_timestamp": "Section 3.4 Security and Section 3.4.1 Jailer (nsdi20-paper-agache.pdf)"
+        }
+      ]
+    },
+    {
+      "id": "day-78-act-04",
+      "lesson_id": "les-78",
+      "title": "Assessment: Execution-Limit Guarantee Matrix Audit",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-78-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "python-ast-docs",
+          "title": "Python Standard Library: ast - Abstract Syntax Trees",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/ast.html",
+          "version_or_verification_date": "Python 3.13 documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under PSF open documentation terms; no source text imported into curriculum content.",
+          "prerequisites": "Python syntax, parse trees, and compile pipeline basics.",
+          "selection_rationale": "Normative reference for ast.parse used by scripts/check_snippets.py as the static admission gate: AST rules inspect source structure before any execution and cannot evaluate runtime behavior.",
+          "known_availability_limitations": "Hosted on python.org; grammar evolves between minor versions.",
+          "safe_fallback": "Every AST check in the lesson runs in the standard library; no external validator is fetched.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Ruff linter documentation (AST-based rules)",
+              "url": "https://docs.astral.sh/ruff/",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Production AST linter; the stdlib ast module is the minimal sufficient tool for the admission-gate exercise."
+            },
+            {
+              "candidate_name": "Bandit security linter",
+              "url": "https://bandit.readthedocs.io/",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Security-oriented AST rules; deliberately cited as a comparison to show AST gating is necessary but never sufficient for safety."
+            }
+          ],
+          "relevant_timestamp": "ast helpers (ast.parse, ast.walk)",
+          "locator_url": "https://docs.python.org/3/library/ast.html#ast-helpers"
+        },
+        {
+          "id": "kubernetes-resource-limits",
+          "title": "Kubernetes Documentation: Resource Management for Pods and Containers",
+          "author": "Kubernetes Documentation Contributors",
+          "original_url": "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
+          "version_or_verification_date": "Kubernetes documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external technical reference under Creative Commons license.",
+          "prerequisites": "Containers, CPU/memory accounting, and QoS classes.",
+          "selection_rationale": "Primary reference for cgroup-enforced resource limits (CPU throttling, memory OOM-kill): demonstrates that production limits are kernel-enforced accounting, contrasted with the project's application-level counters.",
+          "known_availability_limitations": "Public documentation; behavior details depend on cgroup v1 vs v2 deployments.",
+          "safe_fallback": "The lesson contrasts documented cgroup semantics with the project's counters; no cluster is required.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Linux man-pages: cgroups(7)",
+              "url": "https://man7.org/linux/man-pages/man7/cgroups.7.html",
+              "license": "Linux man-pages license",
+              "status": "compared_alternative",
+              "comparison_rationale": "Kernel-level primitive reference; Kubernetes docs present the enforcement outcome (throttle vs OOM-kill) learners recognize from operations."
+            },
+            {
+              "candidate_name": "Docker resource constraints documentation",
+              "url": "https://docs.docker.com/engine/containers/resource_constraints/",
+              "license": "Apache-2.0 / documentation terms",
+              "status": "compared_alternative",
+              "comparison_rationale": "Single-host flag surface; Kubernetes documentation covers limit semantics plus QoS classification."
+            }
+          ],
+          "relevant_timestamp": "How Kubernetes applies resource requests and limits"
+        }
+      ]
+    }
+  ]
+}

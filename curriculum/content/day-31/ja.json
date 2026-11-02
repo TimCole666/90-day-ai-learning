@@ -1,0 +1,170 @@
+{
+  "language": "ja",
+  "language_label": "日本語",
+  "day_title": "第 31 日：順方向計算グラフ、局所導関数と逆伝播連鎖律",
+  "day_subtitle": "自動微分の基礎を習得する：スカラー有向非巡回グラフ（DAG）の構築、基本演算子の局所導関数の導出、および逆伝播の手計算トレース。",
+  "time_budget_label": "480 分（8 時間の集中学習）",
+  "category_label": "数学とアルゴリズム基礎",
+  "common": {
+    "nav_calendar": "📅 カリキュラムカレンダー",
+    "day_label": "第 31 日",
+    "prerequisites_title": "前提条件",
+    "objective_title": "学習目標",
+    "instructions_title": "手順",
+    "exercise_title": "演習と予測記録",
+    "hint_title": "ヒントを確認",
+    "reveal_answer": "参考解答と分析を表示",
+    "mastery_title": "独立習得基準",
+    "draft_placeholder": "ここに手計算による微分導出、順方向計算値、逆方向勾配トレースを入力してください...",
+    "dev_slice_notice": "90 日 AI 学習プラットフォームの検証済み正式モジュールです。",
+    "sources_heading": "公式ソースリソースと権利証跡",
+    "source_author_label": "著者・提供機関",
+    "source_url_label": "オリジナル出所URL",
+    "source_range_label": "該当セクション・タイムスタンプ",
+    "source_verification_label": "検証バージョンと日付",
+    "source_reuse_label": "再利用区分",
+    "source_license_label": "ライセンスと権利情報",
+    "source_rationale_label": "選定理由",
+    "source_prereqs_label": "ソース前提知識",
+    "source_fallback_label": "安全フォールバック（オフライン回復性）",
+    "compared_candidates_heading": "比較対象候補リソースと選定評価",
+    "compared_status_label": "評価結果",
+    "auth": {
+      "sign_in": "Googleでログイン",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "ログアウト",
+      "signed_in_as": "ログイン中:",
+      "guest": "ゲストモード",
+      "link_github": "GitHubを連携",
+      "link_google": "Googleを連携",
+      "linked_identities": "連携済みアカウント",
+      "auth_errors": {
+        "access_denied": "認証がキャンセルされたか、アクセスが拒否されました。",
+        "invalid_state": "無効または期限切れの認証状態です。再試行してください。",
+        "identity_conflict": "このIDは既に別のアカウントに連携されています。",
+        "provider_error": "認証プロバイダーでエラーが発生しました。",
+        "server_error": "認証プロバイダーでエラーが発生しました。",
+        "session_expired": "セッションの有効期限が切れました。再度ログインしてください。"
+      }
+    },
+    "progress": {
+      "save_btn": "進捗を保存",
+      "saved": "保存済み",
+      "saving": "保存中...",
+      "save_error": "保存に失敗しました",
+      "offline": "オフライン",
+      "mark_completed": "完了としてマーク",
+      "completed_badge": "完了"
+    },
+    "quiz": {
+      "quiz_title": "客観的理解度チェック：計算グラフと逆伝播連鎖律",
+      "quiz_instructions": "以下の設問に解答して理解度を確認してください。提出前に利用した補助条件を誠実に申告してください。",
+      "assistance_mode_label": "申告補助条件",
+      "mode_independent": "独立習得確認 (AI支援なし)",
+      "mode_agent_assisted": "Agent支援エンジニアリング確認 (AI支援あり)",
+      "mode_disclaimer": "注記: AI不使用は誠実な申告条件であり、監視や強制検知ではありません。",
+      "submit_btn": "解答を提出",
+      "retry_btn": "クイズをやり直す",
+      "view_hint": "ヒントを確認",
+      "mastery_criterion_label": "習得基準",
+      "mastery_criterion_desc": "独立習得確認モードで100%（3問中3問正解）を獲得すること。",
+      "score_label": "得点",
+      "passed_badge": "合格",
+      "failed_badge": "要復習",
+      "independent_pass_badge": "独立習得合格",
+      "agent_assisted_pass_badge": "Agent支援合格",
+      "self_reported_badge": "自己申告完了",
+      "stale_badge": "過去の記録 (コンテンツ更新のため再検証が必要)",
+      "attempts_history_title": "解答根拠と履歴",
+      "no_attempts": "提出履歴はありません。"
+    }
+  },
+  "activities": {
+    "day-31-act-01": {
+      "title": "計算グラフの構築とスカラー順方向評価",
+      "prerequisites": "第30日の数学基礎、Pythonオブジェクト指向の基礎、参照モデルの理解。",
+      "objective": "スカラー算術式がどのように `Value` ノードからなる有向非巡回グラフ（DAG）にマッピングされ、順方向計算が評価されるかを理解する。",
+      "assistance_policy_label": "Agent支援エンジニアリング確認",
+      "instructions": "自動微分では、計算グラフは数学演算を内部ノード、オペランドを入力エッジとして表現します。次のコマンドを実行してグラフ構造を確認してください:\n\n```bash\npython3 projects/autograd/cli.py graph --preset neuron --format ascii\n```\n\n$x_1 w_1 + x_2 w_2 + b$ が活性化関数 $o = \\tanh(n)$ に流れ込む様子と、順方向の計算値を確認します。",
+      "exercise_prompt": "$f(x, y) = (x \\cdot y + 2)^2$ を $x = 1.5, y = -2.0$ において評価します:\n1. 中間ノードを定義します: $u = x \\cdot y$, $v = u + 2$, $f = v^2$。\n2. $u, v, f$ の数値を計算します。\n3. コードを実行する前に、予測値をエディタに記録してください。",
+      "hint": "順次計算します: $u = 1.5 \\times (-2.0) = -3.0$、次に $v = -3.0 + 2 = -1.0$、最後に $f = (-1.0)^2 = 1.0$ です。",
+      "answer": "参考解答:\n- $u = 1.5 \\times (-2.0) = -3.0$\n- $v = -3.0 + 2 = -1.0$\n- $f = (-1.0)^2 = 1.0$\n計算グラフは2つの葉ノード ($x, y$)、1つの定数ノード ($2$)、3つの演算ノード ($*, +, **2$) で構成されます。",
+      "mastery_criterion": "スカラー算術演算を親依存ノード (`_prev`) とスカラー値 (`data`) を持つ DAG ノードとして正確に分解できること。"
+    },
+    "day-31-act-02": {
+      "title": "局所導関数の導出と基本演算子の微分規則",
+      "prerequisites": "一変数微積分の基礎（冪乗、指数、対数、tanhの微分）。",
+      "objective": "主要演算子 (+, -, *, /, pow, exp, log, relu, tanh) の局所偏導関数を手計算で導出し、`_backward` クロージャを設計する。",
+      "assistance_policy_label": "独立習得確認",
+      "instructions": "演算ノード $z = f(x, y)$ ごとに、上流からの勾配 (`out.grad`) に局所導関数 $\\frac{\\partial z}{\\partial x}$ を掛ける `_backward()` クロージャを実装します。`projects/autograd/docs/guide.ja.md` の演算子微分一覧表を参照してください。",
+      "exercise_prompt": "以下の局所導関数を手計算で導出してください:\n1. 乗算 $z = x \\cdot y$: $\\frac{\\partial z}{\\partial x}$ と $\\frac{\\partial z}{\\partial y}$。\n2. 冪乗 $z = x^n$（$n$ は定数）: $\\frac{\\partial z}{\\partial x}$。\n3. 双曲線正接 $z = \\tanh(x)$: $z$ 自身を用いて $\\frac{\\partial z}{\\partial x}$ を表す。",
+      "hint": "$\\frac{d}{dx} \\tanh(x) = 1 - \\tanh^2(x)$ です。$z = \\tanh(x)$ はすでにノードの順方向データ `self.data` に保持されているため、超越関数を再計算せず $1.0 - z^2$ として直接計算できます。",
+      "answer": "参考導出:\n1. 乗算 $z = x \\cdot y$: $\\frac{\\partial z}{\\partial x} = y$, $\\frac{\\partial z}{\\partial y} = x$。\n2. 冪乗 $z = x^n$: $\\frac{\\partial z}{\\partial x} = n x^{n-1}$。\n3. 双曲線正接 $z = \\tanh(x)$: $\\frac{\\partial z}{\\partial x} = 1 - z^2$。Pythonでの実装: `self.grad += (1.0 - out.data ** 2) * out.grad`。",
+      "mastery_criterion": "表の参照やAI支援なしで、主要演算子の局所導関数および勾配更新式を独立して記述できること。"
+    },
+    "day-31-act-03": {
+      "title": "逆伝播連鎖律の直感と単一ニューロンの逆方向手計算トレース",
+      "prerequisites": "アクティビティ 31-01 および 31-02 の完了。",
+      "objective": "多変数連鎖律が損失から入力重みへと勾配をどのように伝播するかを理解し、単一ニューロンの順方向・逆方向を手計算で追跡する。",
+      "assistance_policy_label": "Agent支援エンジニアリング確認",
+      "instructions": "ニューロンのプリセットに対して順方向および逆方向コマンドを実行します:\n\n```bash\npython3 projects/autograd/cli.py forward-backward --preset neuron\n```\n\n逆伝播が $o.\\text{grad} = 1.0$ から開始され、$n = x_1 w_1 + x_2 w_2 + b$ を経由して $\\frac{\\partial o}{\\partial w_1} = 1.0$ および $\\frac{\\partial o}{\\partial x_1} = -1.5$ に到達することを確認します。",
+      "exercise_prompt": "$o = \\tanh(n)$、$n = 0.8814$（$o \\approx 0.7071$）とします:\n1. $\\frac{\\partial o}{\\partial n} = 1 - o^2$ を計算します。\n2. $n = x_1 w_1 + x_2 w_2 + b$（$x_1 = 2.0, w_1 = -3.0$）において、$\\frac{\\partial o}{\\partial x_1}$ と $\\frac{\\partial o}{\\partial w_1}$ を計算します。\n3. 手計算の数値を CLI の出力結果と比較します。",
+      "hint": "$1 - 0.70710678^2 = 1 - 0.5 = 0.5$ です。連鎖律により、$\\frac{\\partial o}{\\partial x_1} = 0.5 \\times w_1 = 0.5 \\times (-3.0) = -1.5$、$\\frac{\\partial o}{\\partial w_1} = 0.5 \\times x_1 = 0.5 \\times 2.0 = 1.0$ となります。",
+      "answer": "参考解答:\n- 局所 tanh 導関数: $1 - (0.70710678)^2 = 0.500000$\n- $\\frac{\\partial o}{\\partial n} = 0.5$\n- $\\frac{\\partial o}{\\partial x_1} = 0.5 \\times (-3.0) = -1.5$\n- $\\frac{\\partial o}{\\partial w_1} = 0.5 \\times 2.0 = 1.0$\n`projects/autograd/cli.py forward-backward --preset neuron` の出力と完全に一致します。",
+      "mastery_criterion": "階層的な計算ノードを通じて連鎖律の積を漏れなく適用し、中間スケール係数を見落とさずに追跡できること。"
+    },
+    "day-31-act-04": {
+      "title": "独立習得確認：スカラー計算グラフの手計算導出と逆伝播クイズ",
+      "prerequisites": "アクティビティ 31-01 から 31-03。",
+      "objective": "AI支援のない宣言された環境下で、スカラー計算グラフと連鎖律の逆伝播を独立して導出できる能力を検証する。",
+      "assistance_policy_label": "独立習得確認",
+      "instructions": "LLMや数式処理ツールを使用せず、独立した環境で以下の導出を行ってください。演習エリアに途中式と結果を記録してください。",
+      "exercise_prompt": "損失関数 $L = (x \\cdot y + 2)^2$ を $x = 1.5, y = -2.0$ において評価します:\n解析的偏導関数 $\\frac{\\partial L}{\\partial x}$ および $\\frac{\\partial L}{\\partial y}$ を連鎖律を用いて厳密に計算してください。",
+      "hint": "$u = x \\cdot y + 2$ と置くと、$L = u^2$ です。$\\frac{\\partial L}{\\partial u} = 2u$。これに $\\frac{\\partial u}{\\partial x} = y$ および $\\frac{\\partial u}{\\partial y} = x$ を適用します。",
+      "answer": "参考解答:\n$u = 1.5 \\times (-2.0) + 2 = -1.0$\n$L = (-1.0)^2 = 1.0$\n$\\frac{\\partial L}{\\partial u} = 2u = -2.0$\n$\\frac{\\partial L}{\\partial x} = \\frac{\\partial L}{\\partial u} \\cdot y = (-2.0) \\times (-2.0) = 4.0$\n$\\frac{\\partial L}{\\partial y} = \\frac{\\partial L}{\\partial u} \\cdot x = (-2.0) \\times 1.5 = -3.0$",
+      "mastery_criterion": "中間変数の定義と連鎖律の積を示し、$\\frac{\\partial L}{\\partial x} = 4.0$ および $\\frac{\\partial L}{\\partial y} = -3.0$ を正しく導出できること。",
+      "quiz": {
+        "title": "客観的理解度チェック：計算グラフと逆伝播連鎖律",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "逆伝播自動微分において、DAG を逆方向に巡回する前に、根損失ノード（Loss）の勾配 `loss.grad` は初期値として何に設定する必要がありますか？",
+            "options": {
+              "a": "0.0",
+              "b": "1.0",
+              "c": "損失テンソル自身の順方向値",
+              "d": "グローバル学習率"
+            },
+            "hint": "数学的定義である $\\frac{\\partial L}{\\partial L}$ の値を考慮してください。",
+            "explanation": "$\\frac{\\partial L}{\\partial L} = 1.0$ であるため、逆伝播はシード勾配 `grad = 1.0` で開始する必要があります。"
+          },
+          {
+            "id": "q2",
+            "prompt": "演算ノード $z = x \\cdot y$ において、現在の `z.grad` が $5.0$、入力が $x = 2.0, y = -3.0$ である場合、入力 $x$ に伝播される勾配はいくらですか？",
+            "options": {
+              "a": "10.0",
+              "b": "-6.0",
+              "c": "-15.0",
+              "d": "2.5"
+            },
+            "hint": "連鎖律: $\\frac{\\partial L}{\\partial x} = \\frac{\\partial L}{\\partial z} \\cdot \\frac{\\partial z}{\\partial x} = z.\\text{grad} \\cdot y$。",
+            "explanation": "$\\frac{\\partial L}{\\partial x} = z.\\text{grad} \\times y = 5.0 \\times (-3.0) = -15.0$ です。"
+          },
+          {
+            "id": "q3",
+            "prompt": "ニューラルネットワークの学習において、逆伝播型自動微分が順方向微分に対して漸近計算量で優れている本質的な理由は何ですか？",
+            "options": {
+              "a": "1 回の逆方向パス（順方向と同等の計算量）で、1 つのスカラー損失に対するすべての N 個のパラメータの勾配を同時に計算できるため。",
+              "b": "浮動小数点数の丸め誤差を完全に排除できるため。",
+              "c": "メモリ上に中間活性化値を保持する必要が一切ないため。",
+              "d": "スカラー入力とベクトル出力の関数しか扱えないため。"
+            },
+            "hint": "出力が 1 つの損失で、パラメータが数百万個存在するネットワークを想定してください。",
+            "explanation": "スカラー損失 $L \\in \\mathbb{R}^1$ に対して全パラメータ $N$ 個の勾配 $\\nabla L \\in \\mathbb{R}^N$ を求める場合、逆伝播は 1 回の後退パスで完了しますが、順方向微分は $N$ 回の前進パスを必要とします。"
+          }
+        ]
+      }
+    }
+  }
+}

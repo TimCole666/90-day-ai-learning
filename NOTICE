@@ -1,0 +1,57 @@
+90-Day AI Learning Platform and Curriculum
+Copyright (c) 2026. All rights reserved.
+
+========================================================================
+1. ORIGINAL PLATFORM SOFTWARE CODE
+========================================================================
+All newly authored software platform code (including server.cjs, packaging,
+operations, and test scripts) is licensed under the Apache License,
+Version 2.0 (the "Apache-2.0 License").
+See the LICENSE file for the full license text.
+
+========================================================================
+2. ORIGINAL CURRICULUM AND EDUCATIONAL CONTENT
+========================================================================
+All original curriculum design, study day specifications, lesson texts,
+exercise descriptions, hints, solutions, and explanatory texts located under
+the curriculum/ directory are licensed under the Creative Commons
+Attribution-ShareAlike 4.0 International Public License (CC BY-SA 4.0).
+See the LICENSE-CC-BY-SA-4.0 file for the full license text.
+
+========================================================================
+3. THIRD-PARTY DEPENDENCIES AND EMBEDDED COMPONENTS
+========================================================================
+The platform and client-side interfaces integrate or reference the following
+open-source components:
+
+- Pyodide (Python in WebAssembly)
+  License: Mozilla Public License Version 2.0 (MPL-2.0)
+  Source: https://github.com/pyodide/pyodide
+
+- KaTeX (Fast math typesetting for the web)
+  License: MIT License
+  Source: https://github.com/KaTeX/KaTeX
+
+- Mermaid (Diagramming and charting tool)
+  License: MIT License
+  Source: https://github.com/mermaid-js/mermaid
+
+========================================================================
+4. THIRD-PARTY CITATIONS, REFERENCES, AND FAIR USE
+========================================================================
+This curriculum references external educational materials (such as lecture
+series, papers, and public repositories including Stanford CS231n/CS336 and
+3Blue1Brown). All such citations retain the original authors' copyrights and
+are referenced for educational evaluation. Third-party video streams and
+external media are not re-hosted or bundled into the release package. In
+accordance with platform design, all lessons remain fully usable with
+local text and exercises when external media is unavailable.
+
+========================================================================
+5. EXCLUDED MATERIAL AND PROVENANCE NOTICE
+========================================================================
+Historical research repositories, raw transcription archives, private notes,
+and legacy experimental directories (including archive/, selfteaching/,
+zettelkasten/, self-media/, and reference/) are explicitly excluded from
+the release distribution package due to unverified third-party redistribution
+rights. No blanket license is applied to unverified materials.

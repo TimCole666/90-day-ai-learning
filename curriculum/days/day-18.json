@@ -1,0 +1,388 @@
+{
+  "id": "day-18",
+  "day_number": 18,
+  "active_minutes": 480,
+  "topic_category": "mathematics",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-17"
+  ],
+  "recovery_links": [
+    "day-17"
+  ],
+  "activities": [
+    {
+      "id": "day-18-act-01",
+      "lesson_id": "les-18",
+      "title": "Finite differences are approximations",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "prerequisites": [
+        "day-17"
+      ],
+      "source_resources": [
+        {
+          "id": "openstax-calculus-1",
+          "title": "OpenStax Calculus Volume 1",
+          "author": "OpenStax, Rice University (Gilbert Strang, Edwin Herman, et al.)",
+          "original_url": "https://openstax.org/details/books/calculus-volume-1",
+          "relevant_timestamp": "Sections 2.1-2.3 (Functions, Limits, and the Derivative); Sections 3.1-3.2 (Derivative Rules)",
+          "version_or_verification_date": "3rd edition, verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "open_textbook",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "attribution",
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking and short, independently authored examples; no textbook prose is reproduced or translated.",
+          "prerequisites": "Algebra, coordinate geometry, and function notation",
+          "selection_rationale": "Open, systematic treatment of the limit definition and derivative rules with stable section locations.",
+          "known_availability_limitations": "The hosted textbook may be unavailable offline or blocked by a network policy.",
+          "safe_fallback": "The authored derivations, tables, and exercises in these three Study Days are complete offline recovery material; use the linked section only for optional comparison.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OpenCourseWare 18.01SC Single Variable Calculus",
+              "url": "https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_selected_for_visual_practice",
+              "comparison_rationale": "Strong exercises and transcripts, but the noncommercial share-alike terms and course navigation make OpenStax the primary stable text."
+            },
+            {
+              "candidate_name": "Paul's Online Math Notes: Calculus I",
+              "url": "https://tutorial.math.lamar.edu/Classes/CalcI/CalcI.aspx",
+              "license": "All Rights Reserved",
+              "status": "compared_rejected_for_reuse",
+              "comparison_rationale": "Useful reference, but rights and redistribution terms are less suitable for embedded recovery material."
+            },
+            {
+              "candidate_name": "SciPy Numerical Differentiation Documentation",
+              "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+              "license": "BSD-3-Clause",
+              "status": "compared_selected_for_numerics",
+              "comparison_rationale": "A primary API reference for numerical derivative step-size behavior; it complements rather than replaces the hand derivation."
+            }
+          ]
+        },
+        {
+          "id": "scipy-derivative",
+          "title": "SciPy numerical derivative reference",
+          "author": "SciPy Developers",
+          "original_url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+          "relevant_timestamp": "derivative API: finite differences, step-size iteration, tolerances",
+          "version_or_verification_date": "SciPy documentation, verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD-3-Clause",
+          "license_restrictions": [],
+          "permission_basis": "Link only; all learner-facing explanations and examples are original.",
+          "prerequisites": "Python arithmetic and the definition of a derivative",
+          "selection_rationale": "Documents numerical differentiation as an approximation with finite step sizes and stopping criteria.",
+          "known_availability_limitations": "Requires network access for the current hosted API page.",
+          "safe_fallback": "The local Day 18 tables and pure-Python snippets reproduce the relevant finite-difference behavior without SciPy.",
+          "compared_candidates": [
+            {
+              "candidate_name": "NumPy: numpy.gradient",
+              "url": "https://numpy.org/doc/stable/reference/generated/numpy.gradient.html",
+              "license": "BSD 3-Clause License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Array-oriented gradient estimation on sampled grids; the SciPy derivative reference matches the pointwise finite-difference helper the exercises implement."
+            },
+            {
+              "candidate_name": "SymPy Calculus tutorial",
+              "url": "https://docs.sympy.org/latest/tutorials/intro-tutorial/calculus.html",
+              "license": "BSD License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Symbolic rather than numerical differentiation; useful for exact cross-checks but not the finite-difference practice target."
+            }
+          ]
+        }
+      ],
+      "content_revision": "2026.11.01-rev3"
+    },
+    {
+      "id": "day-18-act-02",
+      "lesson_id": "les-18",
+      "title": "Step size: truncation versus roundoff",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "prerequisites": [
+        "day-18-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "openstax-calculus-1",
+          "title": "OpenStax Calculus Volume 1",
+          "author": "OpenStax, Rice University (Gilbert Strang, Edwin Herman, et al.)",
+          "original_url": "https://openstax.org/details/books/calculus-volume-1",
+          "relevant_timestamp": "Sections 2.1-2.3 (Functions, Limits, and the Derivative); Sections 3.1-3.2 (Derivative Rules)",
+          "version_or_verification_date": "3rd edition, verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "open_textbook",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "attribution",
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking and short, independently authored examples; no textbook prose is reproduced or translated.",
+          "prerequisites": "Algebra, coordinate geometry, and function notation",
+          "selection_rationale": "Open, systematic treatment of the limit definition and derivative rules with stable section locations.",
+          "known_availability_limitations": "The hosted textbook may be unavailable offline or blocked by a network policy.",
+          "safe_fallback": "The authored derivations, tables, and exercises in these three Study Days are complete offline recovery material; use the linked section only for optional comparison.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OpenCourseWare 18.01SC Single Variable Calculus",
+              "url": "https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_selected_for_visual_practice",
+              "comparison_rationale": "Strong exercises and transcripts, but the noncommercial share-alike terms and course navigation make OpenStax the primary stable text."
+            },
+            {
+              "candidate_name": "Paul's Online Math Notes: Calculus I",
+              "url": "https://tutorial.math.lamar.edu/Classes/CalcI/CalcI.aspx",
+              "license": "All Rights Reserved",
+              "status": "compared_rejected_for_reuse",
+              "comparison_rationale": "Useful reference, but rights and redistribution terms are less suitable for embedded recovery material."
+            },
+            {
+              "candidate_name": "SciPy Numerical Differentiation Documentation",
+              "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+              "license": "BSD-3-Clause",
+              "status": "compared_selected_for_numerics",
+              "comparison_rationale": "A primary API reference for numerical derivative step-size behavior; it complements rather than replaces the hand derivation."
+            }
+          ]
+        },
+        {
+          "id": "scipy-derivative",
+          "title": "SciPy numerical derivative reference",
+          "author": "SciPy Developers",
+          "original_url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+          "relevant_timestamp": "derivative API: finite differences, step-size iteration, tolerances",
+          "version_or_verification_date": "SciPy documentation, verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD-3-Clause",
+          "license_restrictions": [],
+          "permission_basis": "Link only; all learner-facing explanations and examples are original.",
+          "prerequisites": "Python arithmetic and the definition of a derivative",
+          "selection_rationale": "Documents numerical differentiation as an approximation with finite step sizes and stopping criteria.",
+          "known_availability_limitations": "Requires network access for the current hosted API page.",
+          "safe_fallback": "The local Day 18 tables and pure-Python snippets reproduce the relevant finite-difference behavior without SciPy.",
+          "compared_candidates": [
+            {
+              "candidate_name": "NumPy: numpy.gradient",
+              "url": "https://numpy.org/doc/stable/reference/generated/numpy.gradient.html",
+              "license": "BSD 3-Clause License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Array-oriented gradient estimation on sampled grids; the SciPy derivative reference matches the pointwise finite-difference helper the exercises implement."
+            },
+            {
+              "candidate_name": "SymPy Calculus tutorial",
+              "url": "https://docs.sympy.org/latest/tutorials/intro-tutorial/calculus.html",
+              "license": "BSD License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Symbolic rather than numerical differentiation; useful for exact cross-checks but not the finite-difference practice target."
+            }
+          ]
+        }
+      ],
+      "content_revision": "2026.11.01-rev3"
+    },
+    {
+      "id": "day-18-act-03",
+      "lesson_id": "les-18",
+      "title": "Numerical experiment and failure analysis",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "prerequisites": [
+        "day-18-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "openstax-calculus-1",
+          "title": "OpenStax Calculus Volume 1",
+          "author": "OpenStax, Rice University (Gilbert Strang, Edwin Herman, et al.)",
+          "original_url": "https://openstax.org/details/books/calculus-volume-1",
+          "relevant_timestamp": "Sections 2.1-2.3 (Functions, Limits, and the Derivative); Sections 3.1-3.2 (Derivative Rules)",
+          "version_or_verification_date": "3rd edition, verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "open_textbook",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "attribution",
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking and short, independently authored examples; no textbook prose is reproduced or translated.",
+          "prerequisites": "Algebra, coordinate geometry, and function notation",
+          "selection_rationale": "Open, systematic treatment of the limit definition and derivative rules with stable section locations.",
+          "known_availability_limitations": "The hosted textbook may be unavailable offline or blocked by a network policy.",
+          "safe_fallback": "The authored derivations, tables, and exercises in these three Study Days are complete offline recovery material; use the linked section only for optional comparison.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OpenCourseWare 18.01SC Single Variable Calculus",
+              "url": "https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_selected_for_visual_practice",
+              "comparison_rationale": "Strong exercises and transcripts, but the noncommercial share-alike terms and course navigation make OpenStax the primary stable text."
+            },
+            {
+              "candidate_name": "Paul's Online Math Notes: Calculus I",
+              "url": "https://tutorial.math.lamar.edu/Classes/CalcI/CalcI.aspx",
+              "license": "All Rights Reserved",
+              "status": "compared_rejected_for_reuse",
+              "comparison_rationale": "Useful reference, but rights and redistribution terms are less suitable for embedded recovery material."
+            },
+            {
+              "candidate_name": "SciPy Numerical Differentiation Documentation",
+              "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+              "license": "BSD-3-Clause",
+              "status": "compared_selected_for_numerics",
+              "comparison_rationale": "A primary API reference for numerical derivative step-size behavior; it complements rather than replaces the hand derivation."
+            }
+          ]
+        },
+        {
+          "id": "scipy-derivative",
+          "title": "SciPy numerical derivative reference",
+          "author": "SciPy Developers",
+          "original_url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+          "relevant_timestamp": "derivative API: finite differences, step-size iteration, tolerances",
+          "version_or_verification_date": "SciPy documentation, verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD-3-Clause",
+          "license_restrictions": [],
+          "permission_basis": "Link only; all learner-facing explanations and examples are original.",
+          "prerequisites": "Python arithmetic and the definition of a derivative",
+          "selection_rationale": "Documents numerical differentiation as an approximation with finite step sizes and stopping criteria.",
+          "known_availability_limitations": "Requires network access for the current hosted API page.",
+          "safe_fallback": "The local Day 18 tables and pure-Python snippets reproduce the relevant finite-difference behavior without SciPy.",
+          "compared_candidates": [
+            {
+              "candidate_name": "NumPy: numpy.gradient",
+              "url": "https://numpy.org/doc/stable/reference/generated/numpy.gradient.html",
+              "license": "BSD 3-Clause License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Array-oriented gradient estimation on sampled grids; the SciPy derivative reference matches the pointwise finite-difference helper the exercises implement."
+            },
+            {
+              "candidate_name": "SymPy Calculus tutorial",
+              "url": "https://docs.sympy.org/latest/tutorials/intro-tutorial/calculus.html",
+              "license": "BSD License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Symbolic rather than numerical differentiation; useful for exact cross-checks but not the finite-difference practice target."
+            }
+          ]
+        }
+      ],
+      "content_revision": "2026.11.01-rev3"
+    },
+    {
+      "id": "day-18-act-04",
+      "lesson_id": "les-18",
+      "title": "Retrieval, review, and independent mastery",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "prerequisites": [
+        "day-18-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "openstax-calculus-1",
+          "title": "OpenStax Calculus Volume 1",
+          "author": "OpenStax, Rice University (Gilbert Strang, Edwin Herman, et al.)",
+          "original_url": "https://openstax.org/details/books/calculus-volume-1",
+          "relevant_timestamp": "Sections 2.1-2.3 (Functions, Limits, and the Derivative); Sections 3.1-3.2 (Derivative Rules)",
+          "version_or_verification_date": "3rd edition, verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "open_textbook",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "attribution",
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking and short, independently authored examples; no textbook prose is reproduced or translated.",
+          "prerequisites": "Algebra, coordinate geometry, and function notation",
+          "selection_rationale": "Open, systematic treatment of the limit definition and derivative rules with stable section locations.",
+          "known_availability_limitations": "The hosted textbook may be unavailable offline or blocked by a network policy.",
+          "safe_fallback": "The authored derivations, tables, and exercises in these three Study Days are complete offline recovery material; use the linked section only for optional comparison.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OpenCourseWare 18.01SC Single Variable Calculus",
+              "url": "https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_selected_for_visual_practice",
+              "comparison_rationale": "Strong exercises and transcripts, but the noncommercial share-alike terms and course navigation make OpenStax the primary stable text."
+            },
+            {
+              "candidate_name": "Paul's Online Math Notes: Calculus I",
+              "url": "https://tutorial.math.lamar.edu/Classes/CalcI/CalcI.aspx",
+              "license": "All Rights Reserved",
+              "status": "compared_rejected_for_reuse",
+              "comparison_rationale": "Useful reference, but rights and redistribution terms are less suitable for embedded recovery material."
+            },
+            {
+              "candidate_name": "SciPy Numerical Differentiation Documentation",
+              "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+              "license": "BSD-3-Clause",
+              "status": "compared_selected_for_numerics",
+              "comparison_rationale": "A primary API reference for numerical derivative step-size behavior; it complements rather than replaces the hand derivation."
+            }
+          ]
+        },
+        {
+          "id": "scipy-derivative",
+          "title": "SciPy numerical derivative reference",
+          "author": "SciPy Developers",
+          "original_url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+          "relevant_timestamp": "derivative API: finite differences, step-size iteration, tolerances",
+          "version_or_verification_date": "SciPy documentation, verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD-3-Clause",
+          "license_restrictions": [],
+          "permission_basis": "Link only; all learner-facing explanations and examples are original.",
+          "prerequisites": "Python arithmetic and the definition of a derivative",
+          "selection_rationale": "Documents numerical differentiation as an approximation with finite step sizes and stopping criteria.",
+          "known_availability_limitations": "Requires network access for the current hosted API page.",
+          "safe_fallback": "The local Day 18 tables and pure-Python snippets reproduce the relevant finite-difference behavior without SciPy.",
+          "compared_candidates": [
+            {
+              "candidate_name": "NumPy: numpy.gradient",
+              "url": "https://numpy.org/doc/stable/reference/generated/numpy.gradient.html",
+              "license": "BSD 3-Clause License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Array-oriented gradient estimation on sampled grids; the SciPy derivative reference matches the pointwise finite-difference helper the exercises implement."
+            },
+            {
+              "candidate_name": "SymPy Calculus tutorial",
+              "url": "https://docs.sympy.org/latest/tutorials/intro-tutorial/calculus.html",
+              "license": "BSD License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Symbolic rather than numerical differentiation; useful for exact cross-checks but not the finite-difference practice target."
+            }
+          ]
+        }
+      ],
+      "content_revision": "2026.11.01-rev3"
+    }
+  ]
+}

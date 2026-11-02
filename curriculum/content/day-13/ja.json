@@ -1,0 +1,75 @@
+{
+  "language": "ja",
+  "language_label": "日本語",
+  "day_title": "Day 13: テキストとデータの学習プロジェクト",
+  "day_subtitle": "既存の text_tools プロジェクトを、再現可能なコーパスからアーティファクトへのパイプラインとして完成させます。",
+  "time_budget_label": "480 分（8 時間の集中学習）",
+  "category_label": "自律学習と Python",
+  "common": {
+    "nav_calendar": "カリキュラムカレンダー",
+    "day_label": "学習日 13",
+    "prerequisites_title": "前提条件",
+    "objective_title": "学習目標",
+    "instructions_title": "手順",
+    "exercise_title": "演習と予測",
+    "hint_title": "ヒント",
+    "reveal_answer": "参考解答",
+    "mastery_title": "独立習得基準",
+    "draft_placeholder": "予測、証拠、回復をここに記録...",
+    "sources_heading": "ソースリソースと出所",
+    "source_author_label": "著者・提供機関",
+    "source_url_label": "オリジナル出所URL",
+    "source_range_label": "該当セクション・タイムスタンプ",
+    "source_verification_label": "検証バージョンと日付",
+    "source_rationale_label": "選定理由",
+    "source_prereqs_label": "ソース前提知識",
+    "source_fallback_label": "安全フォールバック（オフライン回復性）",
+    "compared_candidates_heading": "比較対象候補リソースと選定評価"
+  },
+  "activities": {
+    "day-13-act-01": {
+      "title": "CLI コアの構築",
+      "prerequisites": "Day 01〜12: 文字列、辞書、ファイル、例外、テスト、ターミナル操作。",
+      "objective": "projects/text_tools/core.py と cli.py を実装または精査し、統計、決定的な分割、出所マニフェスト、明示的なエンコーディングエラーを確認する。",
+      "instructions": "必須作業: この演習専用の private ワークスペースを作成し（`WORKDIR=$(mktemp -d)`）、小さなコーパスを `$WORKDIR/corpus.txt` に書き込み、予測を記録してから、完全な呼び出し `python3 projects/text_tools/cli.py --input \"$WORKDIR/corpus.txt\" --stats --json --split --output-dir \"$WORKDIR/artifacts\"` を実行する。差分を確認し、--input、--stats、--split、--output-dir、--seed、--encoding、--errors を試す。任意作業: Python ドキュメントのリンクを比較する。",
+      "exercise_prompt": "繰り返しトークン、CJK、発音記号付き文字、絵文字を含む小さなコーパスを使う。文字数とトークン数を予測してから stats.json と manifest.json を検証する — `source_sha256` が元の入力バイト列の SHA256（例: `sha256sum \"$WORKDIR/corpus.txt\"`）と一致し、`input_decoding` がエンコーディング・エラー処理・改行方針を記録していることも確認する。",
+      "hint": "計算は core.py、表示は cli.py に分離する。random.Random(seed)、順序付きインデックス、SHA256、ゼロトークン時のガードを使う。",
+      "answer": "妥当な解法は、トークンと文字に Counter、Unicode コードポイント数に len(text)、list(range(n)) 上の random.Random(seed)、互いに素なインデックス集合、および source/split ハッシュ、比率、件数、環境、no_leakage_verified を含むマニフェスト項目を用いる。 マニフェストには元バイト列の `source_sha256`、`decoded_text_sha256`、`input_decoding` 方針、`normalized_ratios` も記録され、入出力パスの衝突は書き込み前に拒否される。",
+      "mastery_criterion": "学習者は実際の text_tools CLI を説明し実行でき、予測と証拠を記録しており、エージェントが書いた差分を独立した理解の証明とは主張しない。",
+      "assistance_policy_label": "エージェント支援は予測の記録後にのみ許可。生成された差分はすべて確認しテストすること。"
+    },
+    "day-13-act-02": {
+      "title": "独立したコア実装",
+      "prerequisites": "Day 13 アクティビティ 1 を完了し、参照タブをすべて閉じること。",
+      "objective": "AI の支援なしに、実際のプロジェクトインターフェースに沿って統計または分割の限定関数を実装する。",
+      "instructions": "必須作業: 評価対象のインターフェースを 1 つだけ独立に実装し、どちらを選んだか明記する — `analyze_text(text) -> dict`（統計）または `compute_splits(lines, train_ratio, val_ratio, test_ratio, seed) -> dict`（分割）。その後、結果を先に予測した「別の新しい無支援入力」でテストする。任意作業: 提出後にのみ参考と比較する。正準の作例出力は公開の参考であり、隠れた評価ではない。",
+      "exercise_prompt": "評価対象のインターフェースを 1 つ選んで宣言する。ルート A `analyze_text(text) -> dict`: 入力 'a a\\n猫🙂' の完全な結果を予測する — キーは total_chars、total_tokens、vocab_size、char_vocab_size、token_frequencies、char_frequencies、min_token_length、max_token_length、avg_token_length、char_distribution。ルート B `compute_splits(lines, train_ratio, val_ratio, test_ratio, seed) -> dict`: ['a','b','c','d','e']、シード 7、比率 .6/.2/.2 で件数を予測し、インデックス集合が対ごとに互いに素であることを証明する。選んだルートが依拠する区別ルールも説明する（B: 等しいテキスト値でもインデックス単位のチェックが必要。A: 等しいテキスト値は語彙を水増ししない）。",
+      "hint": "期待結果を先に記録する。ルート A: 空白 `split()` で 3 トークン。'猫🙂' は 2 コードポイントの 1 トークン。avg_token_length は厳密な平均 4/3 を小数 4 桁に丸める。空入力では件数と平均が 0、頻度辞書は空、char_distribution は 5 つのキーを保ち値はすべて 0。ルート B: 比率の合計を検証し、順序付きインデックスを明示し、集合反復を入力順に使わない。",
+      "answer": "ルート A 参考: analyze_text('a a\\n猫🙂') -> total_chars=6, total_tokens=3, vocab_size=2, char_vocab_size=5, token_frequencies={'a':2, '猫🙂':1}, char_frequencies={'a':2,' ':1,'\\n':1,'猫':1,'🙂':1}, min_token_length=1, max_token_length=2, avg_token_length=1.3333（厳密な平均 4/3 を小数 4 桁に丸め）, char_distribution={'alphabetic':3,'digits':0,'whitespace':2,'punctuation':0,'other':1}。空入力 -> 数値統計（件数、語彙サイズ、min/max_token_length、avg_token_length=0.0）は 0、token_frequencies と char_frequencies は空の辞書 {}、char_distribution は 5 つのキー alphabetic・digits・whitespace・punctuation・other を保ち、各値は 0。\nルート B 参考: シード 7 -> 3, 1, 1 レコード。各元インデックスがちょうど 1 回割り当てられ、対ごとのインデックス交差は 0。等しいテキスト値はインデックスの互いに素を無効にしないが、重複排除方針は明記する。非有限または範囲外の比率は割当前に拒否される。\n評価される試行は、独自の新しい無支援入力と予測結果を使う。これらの正準例は公開の参考であり、隠れた評価ではない。",
+      "mastery_criterion": "独自の新しい無支援入力での独立したコードが持ち出し動作チェックを通過し、文章の説明がインデックス漏洩・重複レコード・トークン/文字カウント・評価の限界を区別する。",
+      "assistance_policy_label": "独立習得チェック: AI、写した答え、エージェント生成コードは不可。"
+    },
+    "day-13-act-03": {
+      "title": "ホールドアウト動作チェックとデバッグ",
+      "prerequisites": "独立実装した関数と、クリーンな一時出力ディレクトリがあること。",
+      "objective": "カリキュラムリポジトリを変更せずに実際の障害を診断する: 入力ファイル欠落、不正な UTF-8、空入力、不正な比率、非決定的な順序。",
+      "instructions": "必須作業: 各デバッグケースをプロセス分離された一時ディレクトリで実行し、終了ステータスと標準エラーを記録し、ホールドアウトデータからアーティファクトを再生成する。任意作業: エージェントにテスト案を提案させ、不安全またはトートロジーなテストを棄却する。",
+      "exercise_prompt": "ホールドアウト動作チェックは空ファイル、壊れたバイト、多言語行、同じシードの 2 回実行を使う。どの呼び出しが成功し、どれが失敗し、どのアーティファクトのバイトが一致しなければならないかを予測する。",
+      "hint": "strict デコードは説明的に失敗し、replace は U+FFFD を現す。空入力の平均は 0.0。マニフェストのタイムスタンプではなく出力バイトを比較する。",
+      "answer": "ファイル欠落、strict での不正入力、不正な比率合計は診断付きで非ゼロを返す。replace は成功する。空入力は有効なゼロ統計を生成する。同一シードは、同一の元入力バイト列・比率・デコード/改行方針・実装/ランタイム/プラットフォームの下でのみ分割ファイルのバイト列を再現する（manifest の created_at は変わる。セマンティックな来歴を比較し、manifest バイト列は比較しない）。リークはインデックスで検査される。 生成アーティファクト名と衝突する入力パスは書き込み前に拒否され、ソースはバイト単位で無変更のまま残る。非有限・範囲外の比率も拒否される。",
+      "mastery_criterion": "証拠にはコマンド、終了コード、観測出力、少なくとも 3 件の診断と対処が含まれ、サブプロセスの成功を習得と混同しない。",
+      "assistance_policy_label": "エージェント支援型エンジニアリングチェック: エージェントを指揮し、差分を確認し、ホールドアウトチェックは自分で実行する。"
+    },
+    "day-13-act-04": {
+      "title": "プロジェクトレポート: 前提と限界",
+      "prerequisites": "前の 3 つのアクティビティを完了し、証拠を保持していること。",
+      "objective": "決定的なデータ準備が後のトークナイザ・モデル実験とどう結びつくかを、前提と限界を明示した短いレポートにまとめる。",
+      "instructions": "必須作業: まず無支援のレポートを書いて確定（提出・日付記録）する — ソースの帰属、エンコーディング、トークン定義、分割比率/シード、リーク方針、観測した計測値、再現性、限界を含める。後の支援付き推敲は別ラベルのアーティファクトであり確定版を置き換えない。支援で実質的な欠落が判明した場合は、習得とみなす前に新たな無支援チェックで回復する。任意作業: このプロジェクトを変更せずに後のトークナイザ実験を提案する。",
+      "exercise_prompt": "固定された train/validation/test アーティファクトが Makemore、minbpe、NanoGPT で再利用できる理由と、固定分割がモデルの汎化を証明しない理由を説明する。",
+      "hint": "観測事実と理論的主張を分ける。Unicode コードポイントとバイト、重複レコード、シード/バージョン依存、ライブクラウドやモデル結果がない点に触れる。",
+      "answer": "マニフェストはデータ同一性と分割メンバーシップを後の実験で監査可能にするが、分布シフト、重複コンテンツのリーク、エンコーディング/トークン化の選択、環境差を除去しない。プロジェクトはソーステキストの複写ではなくリンク/帰属を用いる。",
+      "mastery_criterion": "レポートが完全で、実際のプロジェクトアーティファクトを引用し、少なくとも 3 つの前提と 3 つの限界を列挙し、確定済みの無支援ドラフトと別ラベルの支援付き推敲を区別している。",
+      "assistance_policy_label": "独立習得チェック: 最初の無支援レポートを先に確定・提出する。後の AI による文章磨きは別ラベルの非評価アーティファクトであり、独立した証拠を置き換えない。"
+    }
+  }
+}

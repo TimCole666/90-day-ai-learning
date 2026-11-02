@@ -1,0 +1,380 @@
+{
+  "id": "day-63",
+  "day_number": 63,
+  "active_minutes": 480,
+  "topic_category": "models-and-training",
+  "is_review_day": true,
+  "status": "available",
+  "prerequisites": [
+    "day-62"
+  ],
+  "recovery_links": [
+    "day-56"
+  ],
+  "activities": [
+    {
+      "id": "day-63-act-01",
+      "lesson_id": "les-63",
+      "title": "New Material: Benchmark Contamination, N-gram Decontamination, and Quality Filters",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev2",
+      "prerequisites": [
+        "day-62"
+      ],
+      "source_resources": [
+        {
+          "id": "brown-gpt3-contamination-2020",
+          "title": "Language Models are Few-Shot Learners (Appendix C: Benchmark Contamination)",
+          "author": "Tom B. Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared Kaplan, et al.",
+          "original_url": "https://arxiv.org/abs/2005.14165",
+          "version_or_verification_date": "arXiv:2005.14165v4 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Open access scientific paper citation.",
+          "prerequisites": "NLP evaluation metrics, n-gram text modeling.",
+          "selection_rationale": "Groundbreaking formal methodology for measuring benchmark data leakage via 13-gram overlap filtering and conservative dirty vs clean score reporting.",
+          "known_availability_limitations": "Freely accessible on arXiv.",
+          "safe_fallback": "The 13-gram overlap equations, tokenization normalization rules, and clean/dirty evaluation derivations are fully provided.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Carlini et al. Quantifying Memorization Across Neural Language Models",
+              "url": "https://arxiv.org/abs/2202.07646",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Measures verbatim memorization via k-shot prompting; GPT-3 Appendix C establishes benchmark n-gram contamination methodology."
+            },
+            {
+              "candidate_name": "Razeghi et al. Impact of Pretraining Term Frequencies on Few-Shot Numerical Reasoning",
+              "url": "https://arxiv.org/abs/2202.07206",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Examines frequency bias; Brown et al. provides the direct algorithmic decontamination standard."
+            }
+          ],
+          "relevant_timestamp": "Section 4 Measuring and Preventing Memorization Of Benchmarks; Appendix C Details of Test Set Contamination Studies"
+        },
+        {
+          "id": "openai-evals-framework",
+          "title": "OpenAI Evals: Framework for Evaluating LLMs and Contamination Checks",
+          "author": "OpenAI Research",
+          "original_url": "https://github.com/openai/evals",
+          "version_or_verification_date": "OpenAI Evals Repository (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Permissive open source reference under MIT license.",
+          "prerequisites": "Python, evaluation harnesses (MMLU, GSM8K), JSONL datasets.",
+          "selection_rationale": "Standardized evaluation repository specifying rigorous separation of eval prompts, canary GUID strings, and contamination test protocols.",
+          "known_availability_limitations": "Public GitHub repository.",
+          "safe_fallback": "Canary GUID matching, token set intersection, and leak detection scripts are implemented in the curriculum.",
+          "compared_candidates": [
+            {
+              "candidate_name": "EleutherAI LM Evaluation Harness",
+              "url": "https://github.com/EleutherAI/lm-evaluation-harness",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Widely adopted evaluation harness; OpenAI Evals provides explicit canary guidance and contamination check specifications."
+            },
+            {
+              "candidate_name": "Hugging Face Lighteval",
+              "url": "https://github.com/huggingface/lighteval",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Modern lightweight eval framework; OpenAI Evals illustrates standard test-set integrity guarantees."
+            }
+          ],
+          "locator_status": "whole_source_reference"
+        },
+        {
+          "id": "broder-minhash-1997",
+          "title": "On the resemblance and containment of documents",
+          "author": "Andrei Z. Broder",
+          "original_url": "https://doi.org/10.1109/SEQUEN.1997.666900",
+          "version_or_verification_date": "IEEE Compression and Complexity of Sequences (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "IEEE Computer Society copyright / Academic linking only",
+          "license_restrictions": [],
+          "permission_basis": "Academic citation and mathematical presentation of public algorithm.",
+          "prerequisites": "Jaccard similarity, hash functions, set theory.",
+          "selection_rationale": "Original description of the MinHash resemblance estimate that the lesson's minhash_signature exercise implements; the course explains the method in its own words.",
+          "known_availability_limitations": "Published academic paper available via IEEE and university archives.",
+          "safe_fallback": "MinHash algorithm derivation, signature matrix computation, and Jaccard estimation formulas are thoroughly explained and coded in the lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Charikar Similarity Estimation Techniques from Rounding Algorithms (SimHash)",
+              "url": "https://dl.acm.org/doi/10.1145/509907.509965",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Hamming distance-based fuzzy hashing; MinHash is the dominant standard for document Jaccard similarity in NLP."
+            },
+            {
+              "candidate_name": "Exact MD5/SHA256 Content Hashing",
+              "url": "https://en.wikipedia.org/wiki/Cryptographic_hash_function",
+              "license": "Public Domain",
+              "status": "compared_alternative",
+              "comparison_rationale": "Detects only 100% identical documents; MinHash detects near-duplicates differing by small edits or formatting."
+            }
+          ],
+          "relevant_timestamp": "Section 3 Estimating the resemblance and the containment; Section 4.1 Choosing a random permutation and a sample"
+        }
+      ]
+    },
+    {
+      "id": "day-63-act-02",
+      "lesson_id": "les-63",
+      "title": "Review Drill: Fault Tolerance, Preflight Budgets, and Telemetry (Days 57-59)",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.11.01-rev2",
+      "prerequisites": [
+        "day-63-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "pytorch-save-load",
+          "title": "PyTorch Tutorial: Saving and Loading Models",
+          "author": "PyTorch Documentation Team",
+          "original_url": "https://pytorch.org/tutorials/beginner/saving_loading_models.html",
+          "version_or_verification_date": "PyTorch 2.x Documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD-3-Clause",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under BSD open source documentation license.",
+          "prerequisites": "Python, PyTorch tensors and nn.Module basics.",
+          "selection_rationale": "Official documentation detailing state_dict serialization, optimizer state saving, and safe loading patterns.",
+          "known_availability_limitations": "Freely available on pytorch.org.",
+          "safe_fallback": "All checkpoint serialization semantics, dictionary schema keys, and safe recovery steps are self-contained in lesson code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "TensorFlow tf.train.Checkpoint Guide",
+              "url": "https://www.tensorflow.org/guide/checkpoint",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "TensorFlow trackable checkpoint architecture; PyTorch's explicit dictionary is our target implementation standard."
+            },
+            {
+              "candidate_name": "Hugging Face Safetensors Documentation",
+              "url": "https://huggingface.co/docs/safetensors",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Safetensors provides safe zero-copy tensor storage without pickle, compared directly when discussing pickle execution risks."
+            }
+          ],
+          "relevant_timestamp": "Saving & Loading a General Checkpoint for Inference and/or Resuming Training",
+          "locator_url": "https://pytorch.org/tutorials/beginner/saving_loading_models.html#saving-loading-a-general-checkpoint-for-inference-and-or-resuming-training"
+        },
+        {
+          "id": "cs336-basics",
+          "title": "CS336 Assignment 1: Basics (Spring 2025 tagged release)",
+          "author": "Stanford University CS336 Staff",
+          "original_url": "https://github.com/stanford-cs336/assignment1-basics/tree/spring2025",
+          "relevant_timestamp": "README setup; tests/adapters.py; tests/test_optimizer.py; tests/test_nn_utils.py; tests/test_serialization.py",
+          "version_or_verification_date": "spring2025 tag; README, tests and MIT LICENSE checked 2026-11-01",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "software_repository_license_only": true,
+          "permission_basis": "External hyperlink only to the spring2025 assignment repository; its LICENSE is MIT. No assignment text, code or lecture material is imported.",
+          "prerequisites": "Fluent Python, PyTorch, and linear algebra",
+          "selection_rationale": "Lead assignment-driven source for pretraining component practice and tests. nanoGPT remains a compact historical code-reading companion, not the current recommended training curriculum.",
+          "known_availability_limitations": "Public tagged handout and tests; full training needs suitable compute. The campus cluster is not required for reading or local component practice.",
+          "safe_fallback": "Local self-contained pretraining scripts run on standard local CPUs or budget GPUs without Stanford cluster dependency.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Karpathy nanoGPT",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Simpler code layout, useful complementary reference for minimal PyTorch Transformer."
+            },
+            {
+              "candidate_name": "Hugging Face Transformers Course",
+              "url": "https://huggingface.co/learn/nlp-course/chapter1/1",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-level API focus rather than building from raw tensor fundamentals."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-63-act-03",
+      "lesson_id": "les-63",
+      "title": "Review Practice: Cost Audit, Safe Export, ChatML, and Label Masking (Days 60-62)",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev2",
+      "prerequisites": [
+        "day-63-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "karpathy-nanogpt-train",
+          "title": "nanoGPT: train.py pretraining loop",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/nanoGPT/blob/master/train.py",
+          "version_or_verification_date": "Git master commit 71c3905 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license.",
+          "prerequisites": "Python, PyTorch, and Day 46-48 Transformer model architecture.",
+          "selection_rationale": "Compact historical code reference for the named implementation functions; CS336 spring2025 provides the lead component exercises. Do not infer top-p, atomic persistence or cloud budget enforcement from nanoGPT.",
+          "known_availability_limitations": "Historical implementation reference: nanoGPT README marks the repository deprecated (November 2025). Toy CPU reading/runs do not establish full GPU pretraining feasibility.",
+          "safe_fallback": "Runnable pretraining scripts and step-by-step tensor mechanics are fully self-contained in the curriculum lessons.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Hugging Face Accelerate / Trainer",
+              "url": "https://github.com/huggingface/accelerate",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Heavy abstraction layer wrapping distributed training; nanoGPT exposes raw PyTorch loops without framework overhead."
+            },
+            {
+              "candidate_name": "Megatron-LM (NVIDIA)",
+              "url": "https://github.com/NVIDIA/Megatron-LM",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-performance enterprise distributed framework; unsuitable for local educational first-principles comprehension."
+            }
+          ],
+          "locator_status": "whole_source_reference"
+        },
+        {
+          "id": "stanford-alpaca-2023",
+          "title": "Stanford Alpaca: An Instruction-following LLaMA Model",
+          "author": "Rohan Taori, Ishaan Gulrajani, Tianyi Zhang, Yann Dubois, Xuechen Li, Carlos Guestrin, Percy Liang, Tatsunori B. Hashimoto",
+          "original_url": "https://github.com/tatsu-lab/stanford_alpaca",
+          "version_or_verification_date": "Stanford CRFM Release (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "repository",
+          "license": "Apache 2.0",
+          "license_restrictions": [],
+          "permission_basis": "Open source reference under Apache 2.0 license.",
+          "prerequisites": "LLM fine-tuning concepts, Python dictionary data structures.",
+          "selection_rationale": "Pioneering instruction fine-tuning dataset schema establishing the instruction/input/output format widely used across open source LLMs.",
+          "known_availability_limitations": "Public GitHub repository by Stanford Center for Research on Foundation Models.",
+          "safe_fallback": "Standard Alpaca schemas and data transformation scripts are completely specified in lesson materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Wei et al. Finetuned Language Models are Zero-Shot Learners (FLAN)",
+              "url": "https://arxiv.org/abs/2109.01652",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Pioneered academic instruction tuning across NLP benchmarks; Alpaca format provides the standardized single-turn JSON schema for consumer fine-tuning."
+            },
+            {
+              "candidate_name": "Databricks Dolly 15k Dataset",
+              "url": "https://github.com/databrickslabs/dolly",
+              "license": "CC-BY-SA 3.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Commercially permissive instruction dataset; Alpaca establishes the architectural schema archetype."
+            }
+          ],
+          "locator_status": "whole_source_reference"
+        }
+      ]
+    },
+    {
+      "id": "day-63-act-04",
+      "lesson_id": "les-63",
+      "title": "Week 9 Assessment: SFT Dataset Audit Suite with a Budget Gate (Days 57-63)",
+      "active_minutes": 120,
+      "activity_type": "review",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.11.01-rev2",
+      "prerequisites": [
+        "day-63-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "cs336-basics",
+          "title": "CS336 Assignment 1: Basics (Spring 2025 tagged release)",
+          "author": "Stanford University CS336 Staff",
+          "original_url": "https://github.com/stanford-cs336/assignment1-basics/tree/spring2025",
+          "relevant_timestamp": "README setup; tests/adapters.py; tests/test_optimizer.py; tests/test_nn_utils.py; tests/test_serialization.py",
+          "version_or_verification_date": "spring2025 tag; README, tests and MIT LICENSE checked 2026-11-01",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "software_repository_license_only": true,
+          "permission_basis": "External hyperlink only to the spring2025 assignment repository; its LICENSE is MIT. No assignment text, code or lecture material is imported.",
+          "prerequisites": "Fluent Python, PyTorch, and linear algebra",
+          "selection_rationale": "Lead assignment-driven source for pretraining component practice and tests. nanoGPT remains a compact historical code-reading companion, not the current recommended training curriculum.",
+          "known_availability_limitations": "Public tagged handout and tests; full training needs suitable compute. The campus cluster is not required for reading or local component practice.",
+          "safe_fallback": "Local self-contained pretraining scripts run on standard local CPUs or budget GPUs without Stanford cluster dependency.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Karpathy nanoGPT",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Simpler code layout, useful complementary reference for minimal PyTorch Transformer."
+            },
+            {
+              "candidate_name": "Hugging Face Transformers Course",
+              "url": "https://huggingface.co/learn/nlp-course/chapter1/1",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-level API focus rather than building from raw tensor fundamentals."
+            }
+          ]
+        },
+        {
+          "id": "stanford-alpaca-2023",
+          "title": "Stanford Alpaca: An Instruction-following LLaMA Model",
+          "author": "Rohan Taori, Ishaan Gulrajani, Tianyi Zhang, Yann Dubois, Xuechen Li, Carlos Guestrin, Percy Liang, Tatsunori B. Hashimoto",
+          "original_url": "https://github.com/tatsu-lab/stanford_alpaca",
+          "version_or_verification_date": "Stanford CRFM Release (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "repository",
+          "license": "Apache 2.0",
+          "license_restrictions": [],
+          "permission_basis": "Open source reference under Apache 2.0 license.",
+          "prerequisites": "LLM fine-tuning concepts, Python dictionary data structures.",
+          "selection_rationale": "Pioneering instruction fine-tuning dataset schema establishing the instruction/input/output format widely used across open source LLMs.",
+          "known_availability_limitations": "Public GitHub repository by Stanford Center for Research on Foundation Models.",
+          "safe_fallback": "Standard Alpaca schemas and data transformation scripts are completely specified in lesson materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Wei et al. Finetuned Language Models are Zero-Shot Learners (FLAN)",
+              "url": "https://arxiv.org/abs/2109.01652",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Pioneered academic instruction tuning across NLP benchmarks; Alpaca format provides the standardized single-turn JSON schema for consumer fine-tuning."
+            },
+            {
+              "candidate_name": "Databricks Dolly 15k Dataset",
+              "url": "https://github.com/databrickslabs/dolly",
+              "license": "CC-BY-SA 3.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Commercially permissive instruction dataset; Alpaca establishes the architectural schema archetype."
+            }
+          ],
+          "locator_status": "whole_source_reference"
+        }
+      ]
+    }
+  ]
+}

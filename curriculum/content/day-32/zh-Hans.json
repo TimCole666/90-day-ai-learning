@@ -1,0 +1,170 @@
+{
+  "language": "zh-Hans",
+  "language_label": "简体中文",
+  "day_title": "第 32 天：拓扑排序、分叉节点梯度累加与数值梯度检验容差",
+  "day_subtitle": "掌握图遍历与数值验证：实现后序深度优先拓扑排序，使用梯度累加 (`+=`) 正确处理多元分叉链式法则，并基于有限差分构建严格容差的 gradcheck 检验体系。",
+  "time_budget_label": "480 分钟（8 小时专注学习）",
+  "category_label": "数学与算法基础",
+  "common": {
+    "nav_calendar": "📅 课程日历与台账",
+    "day_label": "第 32 天",
+    "prerequisites_title": "前置要求",
+    "objective_title": "学习目标",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主演练与记录",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看参考解答与分析",
+    "mastery_title": "独立掌握标准",
+    "draft_placeholder": "在此输入你的拓扑排序序列、分叉累加方程与数值差分误差计算...",
+    "dev_slice_notice": "90 天 AI 学习平台的已验证正式课程模块。",
+    "sources_heading": "权威源资源与权利证明",
+    "source_author_label": "作者 / 机构",
+    "source_url_label": "原始出处链接",
+    "source_range_label": "对应章节 / 时间戳",
+    "source_verification_label": "验证版本与日期",
+    "source_reuse_label": "复用类别",
+    "source_license_label": "许可证与权利说明",
+    "source_rationale_label": "入选理由",
+    "source_prereqs_label": "来源前置条件",
+    "source_fallback_label": "安全回退方案（离线弹性）",
+    "compared_candidates_heading": "对比候选资源与选型分析",
+    "compared_status_label": "评估结论",
+    "auth": {
+      "sign_in": "使用 Google 登录",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "退出登录",
+      "signed_in_as": "已登录为",
+      "guest": "访客模式",
+      "link_github": "绑定 GitHub",
+      "link_google": "绑定 Google",
+      "linked_identities": "已绑定账号",
+      "auth_errors": {
+        "access_denied": "授权已取消或访问被拒绝。",
+        "invalid_state": "无效或已过期的授权状态令牌，请重试。",
+        "identity_conflict": "该第三方身份已被绑定至其他账号。",
+        "provider_error": "认证服务提供商发生错误。",
+        "server_error": "认证服务提供商发生错误。",
+        "session_expired": "登录会话已过期，请重新登录。"
+      }
+    },
+    "progress": {
+      "save_btn": "保存进度",
+      "saved": "已保存",
+      "saving": "正在保存...",
+      "save_error": "保存失败",
+      "offline": "离线状态",
+      "mark_completed": "标记为已完成",
+      "completed_badge": "已完成"
+    },
+    "quiz": {
+      "quiz_title": "客观知识测验：拓扑排序、分叉累加与梯度检验",
+      "quiz_instructions": "请回答以下诊断题目检验掌握情况。提交前请诚实声明你的辅助条件。",
+      "assistance_mode_label": "声明辅助条件",
+      "mode_independent": "独立掌握检查 (无 AI 辅助)",
+      "mode_agent_assisted": "Agent 辅助工程检查 (借助 AI 完成)",
+      "mode_disclaimer": "说明：无 AI 辅助属于诚实声明条件，非平台监控或强制检测手段。",
+      "submit_btn": "提交答案",
+      "retry_btn": "重新测验",
+      "view_hint": "查看提示",
+      "mastery_criterion_label": "掌握标准",
+      "mastery_criterion_desc": "在独立掌握检查模式下获得 100% 得分（3/3 题完全正确）。",
+      "score_label": "测验得分",
+      "passed_badge": "通过",
+      "failed_badge": "未通过 (需复习)",
+      "independent_pass_badge": "独立掌握通过",
+      "agent_assisted_pass_badge": "Agent 辅助通过",
+      "self_reported_badge": "自主勾选完成",
+      "stale_badge": "历史记录 (内容已更新，需重新验证)",
+      "attempts_history_title": "作答应证与历史记录",
+      "no_attempts": "暂无测验记录。"
+    }
+  },
+  "activities": {
+    "day-32-act-01": {
+      "title": "计算图有向无环图 (DAG) 拓扑排序实现",
+      "prerequisites": "第 31 天计算图概念与深度优先搜索 (DFS) 算法基础。",
+      "objective": "理解反向传播为何必须依赖后序遍历拓扑排序，确保每一个节点的所有下游消费节点的梯度全部传回后，才执行该节点的反向传播。",
+      "assistance_policy_label": "Agent 辅助工程检查",
+      "instructions": "使用 CLI 查看多路径共享节点图的结构：\n\n```bash\npython3 projects/autograd/cli.py graph --preset shared-node --format ascii\n```\n\n观察节点 `a` 同时作为加法项 $(a+b)$ 和乘法项 $(a+b) \\cdot a$ 的输入。任意乱序或简单广度优先搜索都会导致 `a._backward()` 在未接收完全部下游梯度前提前触发。",
+      "exercise_prompt": "对于表达式 $f = (a + b) \\cdot a$，其中 $a = 3.0, b = 4.0$：\n1. 跟踪从根节点 $f$ 出发的深度优先搜索 (DFS) 遍历过程。\n2. 列出后序遍历访问节点的序列。\n3. 验证将其反转后的逆拓扑序：保证根节点 $f$ 在最前，加法节点在中间，输入叶节点 $a, b$ 在最后。",
+      "hint": "后序 DFS 的核心逻辑：递归访问当前节点 `_prev` 中的所有子节点；仅当所有子节点都完全处理完毕后，才将当前节点追加到列表中。将最终列表反转，即可保证每个节点排在依赖它的所有后代节点之后。",
+      "answer": "参考解答：\n1. 根节点 $f$ 的依赖集合为 $\\{sum, a\\}$。\n2. 中间节点 $sum$ 的依赖集合为 $\\{a, b\\}$。\n3. DFS 遍历访问 $a$、$b$，处理完毕后将 $sum$ 加入列表，最后加入 $f$。\n4. 反转后的反向执行序列：$[f, sum, b, a]$。\n当调用 `backward()` 时，依次执行 $f._backward()$、$sum._backward()$，最终节点 $a$ 完整累加了来自两个方向的全部梯度。",
+      "mastery_criterion": "学习者能够不依赖第三方图论库，独立手写 DFS 后序拓扑排序算法构建正确的计算节点执行链。"
+    },
+    "day-32-act-02": {
+      "title": "分叉节点梯度累加与多元微积分链式法则",
+      "prerequisites": "多元微积分全微分链式法则（路径求和法则）与活动 32-01。",
+      "objective": "从数学上证明为何多路径消费变量必须使用累加 (`+=`)，并演示直接赋值 (`=`) 如何造成严重的隐蔽梯度覆盖 Bug。",
+      "assistance_policy_label": "独立掌握检查",
+      "instructions": "执行分叉节点预设的前向与反向命令：\n\n```bash\npython3 projects/autograd/cli.py forward-backward --preset shared-node\n```\n\n观察表达式 $f = (a + b) \\cdot a$ 在 $a = 3.0, b = 4.0$ 时：\n$\\frac{\\partial f}{\\partial a} = 2a + b = 2(3) + 4 = 10.0$。\n验证反向传播正确累加了两条分支路径的梯度贡献。",
+      "exercise_prompt": "已知 $f(a, b) = (a + b) \\cdot a$，$a = 3.0, b = 4.0$：\n1. 令 $u = a + b$，则 $f = u \\cdot a$。根据乘法推导直接分支 $\\frac{\\partial f}{\\partial a}$ 与 $\\frac{\\partial f}{\\partial u}$。\n2. 根据加法 $u = a + b$ 推导间接分支 $\\frac{\\partial u}{\\partial a}$ 传回给 $a$ 的梯度贡献。\n3. 证明应用路径求和公式 $\\frac{\\partial f}{\\partial a} = \\frac{\\partial f}{\\partial u} \\frac{\\partial u}{\\partial a} + \\left(\\frac{\\partial f}{\\partial a}\\right)_{\\text{direct}}$ 最终等于 $10.0$。\n4. 解释若代码写成 `self.grad = ...`（覆盖赋值）会导致什么错误结果。",
+      "hint": "分支 1（直接乘法项）：$f = u \\cdot a \\implies \\frac{\\partial f}{\\partial a}\\big|_{\\text{direct}} = u = a + b = 7.0$。\n分支 2（通过加法项间接）：$\\frac{\\partial f}{\\partial u} = a = 3.0$。因 $\\frac{\\partial u}{\\partial a} = 1.0$，贡献为 $3.0 \\times 1.0 = 3.0$。\n总和 $= 7.0 + 3.0 = 10.0$。",
+      "answer": "参考解答：\n1. 直接乘法分支贡献：$\\frac{\\partial f}{\\partial a} = u = 3.0 + 4.0 = 7.0$。\n2. 间接加法分支贡献：$\\frac{\\partial f}{\\partial u} \\cdot \\frac{\\partial u}{\\partial a} = a \\cdot 1.0 = 3.0 \\times 1.0 = 3.0$。\n3. 解析梯度总和：$7.0 + 3.0 = 10.0$。\n4. 若使用赋值语句 (`=`)，后执行的反向分支将无情覆盖先执行分支的梯度值，最终 `a.grad` 仅为 $3.0$ 或 $7.0$，造成严重的数学错误！",
+      "mastery_criterion": "学习者能够证明多元链式法则为何要求 `+=` 累加，并在理论和数值上指出赋值缺陷的后果。"
+    },
+    "day-32-act-03": {
+      "title": "有限差分数值梯度检验 (Gradcheck) 与容差设计",
+      "prerequisites": "泰勒展开式与 IEEE 754 双精度浮点误差认知。",
+      "objective": "掌握中心有限差分法，建立合理的相对误差与绝对误差容差体系，并准确解释非可微折点（Kink Point）的数学现象。",
+      "assistance_policy_label": "Agent 辅助工程检查",
+      "instructions": "运行复合函数的数值梯度检验命令：\n\n```bash\npython3 projects/autograd/cli.py gradcheck --preset complex\n```\n\n接着运行针对 ReLU 折点处不可微性的检验：\n\n```bash\npython3 projects/autograd/cli.py gradcheck --preset relu-kink\n```\n\n观察控制台输出中的相对误差报告与折点原理解释。",
+      "exercise_prompt": "1. 解释为何中心差分 $\\frac{f(x+h) - f(x-h)}{2h}$ 的截断误差是 $\\mathcal{O}(h^2)$，而前向差分 $\\frac{f(x+h) - f(x)}{h}$ 是 $\\mathcal{O}(h)$。\n2. 为什么在浮点数计算中，不能将步长 $h$ 设为极小的数（例如 $10^{-20}$）？\n3. 计算解析梯度 $g_a = 10.0$ 与数值梯度 $g_n = 9.999999999$ 之间的相对误差，说明其是否满足 $\\text{rtol} = 10^{-3}$。",
+      "hint": "泰勒展开：$f(x+h) = f(x) + h f'(x) + \\frac{h^2}{2} f''(x) + \\mathcal{O}(h^3)$。当与 $f(x-h)$ 相减时，偶数阶项 $h^2 f''(x)$ 相互抵消，剩余误差由 $\\frac{h^3}{6} f'''(x) / (2h) = \\mathcal{O}(h^2)$ 主导。步长过小时会引发浮点灾难性抵消（Catastrophic Cancellation）。",
+      "answer": "参考解答：\n1. 对称差分抵消了二阶截断误差项，使主误差降至 $\\mathcal{O}(h^2)$。\n2. 当步长极小（如 $< 10^{-15}$）时，$f(x+h)$ 与 $f(x-h)$ 高位有效数字完全相同，浮点减法导致有效位丢失（灾难性抵消），数值误差急剧上升。\n3. 相对误差：$\\frac{|10.0 - 9.999999999|}{\\max(10.0, 9.999999999, 10^{-7})} = \\frac{10^{-9}}{10.0} = 10^{-10} < 10^{-3}$，验证通过。",
+      "mastery_criterion": "学习者能够合理解释步长 $h=10^{-5}$、容差 $\\text{rtol}=10^{-3}, \\text{atol}=10^{-5}$ 的设定依据，并解释 ReLU(0) 折点分歧的数学本质。"
+    },
+    "day-32-act-04": {
+      "title": "独立掌握检查：拓扑排序与数值梯度验证",
+      "prerequisites": "活动 32-01 至 32-03。",
+      "objective": "在声明无 AI 辅助的独立条件下，验证拓扑排序、分叉累加推导与数值梯度差分计算的完整掌握度。",
+      "assistance_policy_label": "独立掌握检查",
+      "instructions": "请在无大语言模型、无自动代码生成辅助的独立条件下完成下列推导。在演练草稿区写下详细计算过程。",
+      "exercise_prompt": "考虑计算图：输入 $x = 2.0$ 分叉进入 $y_1 = x^2$ 与 $y_2 = 3x$，最终损失为 $L = y_1 + y_2$。\n1. 求解解析导数 $\\frac{\\partial L}{\\partial x}$。\n2. 采用步长 $h = 0.001$ 计算在 $x = 2.0$ 处的中心有限差分数值梯度。\n3. 计算两者之间的相对误差。",
+      "hint": "$L = x^2 + 3x \\implies \\frac{\\partial L}{\\partial x} = 2x + 3$。在 $x=2.0$ 时，$\\frac{\\partial L}{\\partial x} = 2(2) + 3 = 7.0$。中心差分：$\\frac{((2.001)^2 + 3(2.001)) - ((1.999)^2 + 3(1.999))}{0.002}$。",
+      "answer": "参考解答：\n1. 解析导数：$\\frac{\\partial L}{\\partial x} = 2x + 3 = 7.0$。\n2. 数值差分：$f(2.001) = 4.004001 + 6.003 = 10.007001$；$f(1.999) = 3.996001 + 5.997 = 9.993001$。\n中心差分：$(10.007001 - 9.993001) / 0.002 = 0.014000 / 0.002 = 7.000000$。\n3. 相对误差为 $0.0 < 10^{-5}$，完全符合容差标准。",
+      "mastery_criterion": "独立推导得出多分叉梯度 $\\frac{\\partial L}{\\partial x} = 7.0$，并完成有限差分数值检验，误差在容差范围之内。",
+      "quiz": {
+        "title": "客观知识测验：拓扑排序、分叉累加与梯度检验",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "在计算图中，若节点 A 同时输入给节点 B 和节点 C，且 B 和 C 均流向损失节点 L，反向传播执行时必须满足什么先后次序？",
+            "options": {
+              "a": "节点 A 必须在 B 和 C 之前执行反向传播。",
+              "b": "任意顺序均可，DAG 执行先后对梯度累加无影响。",
+              "c": "节点 B 和节点 C 必须都执行完毕反向传播后，节点 A 才能执行其自身的反向传播。",
+              "d": "只需节点 B 先执行即可，节点 C 可以在 A 之后执行。"
+            },
+            "hint": "逆向思考：在反向模式中，节点 A 的梯度来源于哪些消费节点？",
+            "explanation": "因为反向模式自动微分从输出向输入回传梯度，节点 A 的全部消费节点（B 和 C）必须先完成 `_backward()` 并将各自的分支梯度累加到 `A.grad` 中，节点 A 才能向其前驱节点传递正确的总梯度。"
+          },
+          {
+            "id": "q2",
+            "prompt": "若节点 `a` 在计算图中被引用了两次，分支 1 贡献梯度 $+3.0$，分支 2 贡献梯度 $+7.0$。若代码错误写成 `self.grad = ...`，最终 `a.grad` 会发生什么？",
+            "options": {
+              "a": "依然能正确获得 $10.0$ 的梯度。",
+              "b": "后执行的分支将前一个分支的梯度覆盖，导致 `a.grad` 只有 $3.0$ 或 $7.0$。",
+              "c": "程序会抛出 ZeroDivisionError 异常。",
+              "d": "计算图会形成循环依赖死锁。"
+            },
+            "hint": "赋值运算（`=`）会替换原有数值，而加法赋值（`+=`）会累加数值。",
+            "explanation": "使用赋值操作符（`=`）会直接抹掉先前分支已经累加的梯度值，违反多元全微分链式法则 $\\sum \\frac{\\partial L}{\\partial y_j} \\frac{\\partial y_j}{\\partial x}$ 的求和要求。"
+          },
+          {
+            "id": "q3",
+            "prompt": "在对 $\\text{ReLU}(x)$ 在 $x = 0.0$ 处进行数值梯度检验时，设定步长 $h = 10^{-5}$，为什么中心有限差分返回 $0.5$，而解析自动微分返回 $0.0$？",
+            "options": {
+              "a": "$x=0.0$ 是非可微的折点（Kink Point），左导数为 0、右导数为 1，对称中心差分恰好平均了两个方向的斜率。",
+              "b": "浮点数指数运算发生了溢出错误。",
+              "c": "步长 $h=10^{-5}$ 对于双精度浮点数过小导致。",
+              "d": "自动微分引擎中 ReLU 的求导代码存在严重 Bug。"
+            },
+            "hint": "计算中心差分公式：$\\frac{\\max(0, h) - \\max(0, -h)}{2h}$ 的结果是多少？",
+            "explanation": "$\\text{ReLU}(x)$ 在 $x=0$ 处不可微。中心差分计算 $\\frac{h - 0}{2h} = 0.5$；而解析次梯度实现根据深度学习工程约定在折点取 $0.0$。这是数学奇异点的必然体现，而非代码缺陷。"
+          }
+        ]
+      }
+    }
+  }
+}

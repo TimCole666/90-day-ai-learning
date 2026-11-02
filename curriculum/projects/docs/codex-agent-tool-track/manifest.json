@@ -1,0 +1,15 @@
+{
+  "project_id": "codex-agent-tool-track",
+  "title": "Codex Agent Tool Track",
+  "category": "agent-engineering",
+  "supported_languages": ["zh-Hans", "zh-Hant", "en", "ja"],
+  "verification_date": "2026-10-30",
+  "verification_state": "docs_and_cli_verified_live_model_blocked",
+  "official_sources": [
+    "https://developers.openai.com/codex/cli",
+    "https://developers.openai.com/codex/cli/reference",
+    "https://developers.openai.com/codex/sandbox"
+  ],
+  "fixture": "fixture/",
+  "license": "Apache-2.0 AND CC-BY-SA-4.0"
+}

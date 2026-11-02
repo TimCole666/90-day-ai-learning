@@ -1,0 +1,63 @@
+{
+  "format": "learning-project-lora-smoke-v2",
+  "smoke": true,
+  "downloads_performed": false,
+  "base_model_kind": "random-weight-local-verification-transformer",
+  "data_hash": "bf49b1dedac11e201d6f3708ac5f311363c43e36ad4541bcaa4c0a1612aa1799",
+  "split_summary": {
+    "train": 10,
+    "val": 1,
+    "test": 1,
+    "total": 12
+  },
+  "seed": 42,
+  "r": 4,
+  "lora_alpha": 8.0,
+  "target_modules": [
+    "c_attn",
+    "c_proj"
+  ],
+  "parameter_ledger": {
+    "base_parameters": 34688,
+    "adapter_parameters": 2816,
+    "total_parameters": 37504,
+    "trainable_percentage": 7.5085,
+    "target_modules": [
+      "c_attn",
+      "c_proj"
+    ],
+    "adapted_module_count": 6,
+    "r": 4,
+    "lora_alpha": 8.0,
+    "scaling": 2.0
+  },
+  "completed_iters": 10,
+  "adapter_round_trip_verified": true,
+  "train_loss_before": 4.094871075292633,
+  "train_loss_after": 4.091061359418626,
+  "val_loss_before": 4.033802032470703,
+  "val_loss_after": 4.03399117787679,
+  "step_losses": [
+    4.076285362243652,
+    4.093021392822266,
+    4.0926690101623535,
+    4.108239650726318,
+    4.09140157699585,
+    4.089565753936768,
+    4.1015801429748535,
+    4.0917487144470215,
+    4.085014820098877,
+    4.088796615600586
+  ],
+  "base_config": {
+    "block_size": 256,
+    "vocab_size": 60,
+    "n_layer": 2,
+    "n_head": 2,
+    "n_embd": 32,
+    "dropout": 0.0,
+    "bias": false
+  },
+  "base_model_path": "projects/lora/artifacts/base_model.pt",
+  "truthful_scope_disclaimer": "Smoke mode uses random local weights and proves the adapter contract only. It is not evidence of quality or a pretrained open-model result."
+}

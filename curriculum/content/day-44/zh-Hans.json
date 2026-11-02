@@ -1,0 +1,170 @@
+{
+  "language": "zh-Hans",
+  "language_label": "简体中文",
+  "day_title": "第 44 天：自回归因果掩码与严格不变性",
+  "day_subtitle": "在生成式语言模型中严格实施自回归约束。构建下三角因果掩码，证明 Softmax 将 -inf 精确映射为零概率，并通过实验验证未来词元扰动对历史表征的影响精确为零。",
+  "time_budget_label": "480 分钟主动学习（8 小时专注研读）",
+  "category_label": "模型与训练",
+  "common": {
+    "nav_calendar": "📅 课程日历与台账",
+    "day_label": "第 44 天",
+    "prerequisites_title": "前置要求",
+    "objective_title": "学习目标",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主演练与记录",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看参考解答与分析",
+    "mastery_title": "独立掌握标准",
+    "draft_placeholder": "在此记录您的因果掩码构建、掩码后分数矩阵、扰动实验日志与不变性证明草稿...",
+    "dev_slice_notice": "90 天 AI 学习平台的已验证正式课程模块。",
+    "sources_heading": "权威源资源与权利证明",
+    "source_author_label": "作者 / 机构",
+    "source_url_label": "原始出处链接",
+    "source_range_label": "对应章节 / 时间戳",
+    "source_verification_label": "验证版本与日期",
+    "source_reuse_label": "复用类别",
+    "source_license_label": "许可证与权利说明",
+    "source_rationale_label": "入选理由",
+    "source_prereqs_label": "来源前置条件",
+    "source_fallback_label": "安全回退方案（离线弹性）",
+    "compared_candidates_heading": "对比候选资源与选型分析",
+    "compared_status_label": "评估结论",
+    "auth": {
+      "sign_in": "使用 Google 登录",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "退出登录",
+      "signed_in_as": "已登录为",
+      "guest": "访客模式",
+      "link_github": "绑定 GitHub",
+      "link_google": "绑定 Google",
+      "linked_identities": "已绑定账号",
+      "auth_errors": {
+        "access_denied": "授权已取消或访问被拒绝。",
+        "invalid_state": "无效或已过期的授权状态令牌，请重试。",
+        "identity_conflict": "该第三方身份已被绑定至其他账号。",
+        "provider_error": "认证服务提供商发生错误。",
+        "server_error": "认证服务提供商发生错误。",
+        "session_expired": "登录会话已过期，请重新登录。"
+      }
+    },
+    "progress": {
+      "save_btn": "保存进度",
+      "saved": "已保存",
+      "saving": "正在保存...",
+      "save_error": "保存失败",
+      "offline": "离线状态",
+      "mark_completed": "标记为已完成",
+      "completed_badge": "已完成"
+    },
+    "quiz": {
+      "quiz_title": "客观理解度测试：因果掩码与严格不变性",
+      "quiz_instructions": "请回答以下诊断题目检验掌握情况。提交前请诚实声明你的辅助条件。",
+      "assistance_mode_label": "声明辅助条件",
+      "mode_independent": "独立掌握检查 (无 AI 辅助)",
+      "mode_agent_assisted": "Agent 辅助工程检查 (借助 AI 完成)",
+      "mode_disclaimer": "说明：无 AI 辅助属于诚实声明条件，非平台监控或强制检测手段。",
+      "submit_btn": "提交答案",
+      "retry_btn": "重新测验",
+      "view_hint": "查看提示",
+      "mastery_criterion_label": "掌握标准",
+      "mastery_criterion_desc": "在独立掌握检查模式下获得 100% 得分（3/3 题完全正确）。",
+      "score_label": "测验得分",
+      "passed_badge": "通过",
+      "failed_badge": "未通过 (需复习)",
+      "independent_pass_badge": "独立掌握通过",
+      "agent_assisted_pass_badge": "Agent 辅助通过",
+      "self_reported_badge": "自主勾选完成",
+      "stale_badge": "历史记录 (内容已更新，需重新验证)",
+      "attempts_history_title": "作答应证与历史记录",
+      "no_attempts": "暂无测验记录。"
+    }
+  },
+  "activities": {
+    "day-44-act-01": {
+      "title": "自回归约束与下三角因果掩码构建",
+      "prerequisites": "第 43 天的注意力机制与缩放除法推导。",
+      "objective": "阐明解码器语言模型的自回归因式分解约束，构建下三角因果掩码矩阵 M，并推导掩码后的分数矩阵 S_masked = S + M。",
+      "assistance_policy_label": "助教辅助工程检查",
+      "instructions": "必做任务：解释为什么因果解码器必须满足 P(x_1, ..., x_T) = prod_{t=1}^T P(x_t | x_{<t})。证明若无掩码，位置 t 将直接访问未来位置 t' > t，导致模型在训练时发生“作弊泄露”。定义加性因果掩码 M in R^{T x T}，满足当 j <= i 时 M_{i,j} = 0，当 j > i 时 M_{i,j} = -inf。写出序列长度 T=3 时的具体矩阵 M。使用第 43 天缩放后的分数矩阵 S = [[2.0, 0.0, 2.0], [0.0, 3.0, 2.0], [1.0, 1.5, 2.0]]，计算掩码后的分数矩阵 S_masked = S + M。",
+      "exercise_prompt": "1. 写出 3x3 因果掩码矩阵 M 的完整元素。\n2. 写出加性掩码后的分数矩阵 S_masked = S + M。\n3. 如果代码中错误地将主对角线上方设为 0、下方设为 -inf，会产生什么后果？",
+      "hint": "M 的主对角线及其下方（下三角）全为 0，主对角线上方全为 -inf。对于第 0 行，位置 1 和 2 均为 -inf。",
+      "answer": "掩码矩阵 M：\n[[0.0, -inf, -inf],\n [0.0,  0.0, -inf],\n [0.0,  0.0,  0.0]]。\n掩码后分数矩阵 S_masked：\n[[2.0, -inf, -inf],\n [0.0,  3.0, -inf],\n [1.0,  1.5,  2.0]]。\n若上下颠倒，模型将仅能关注未来而无法看到历史上下文，导致反向因果泄露，在自回归生成时彻底崩溃。",
+      "mastery_criterion": "准确写出下三角因果掩码 M 并完成 3x3 掩码分数矩阵 S_masked 的推导。"
+    },
+    "day-44-act-02": {
+      "title": "因果掩码下的 Softmax：逐步矩阵精确推导",
+      "prerequisites": "完成第 44 天活动 1。",
+      "objective": "在掩码分数矩阵上利用最大值平移计算逐行 Softmax，求出因果注意力矩阵 A_causal，并计算因果加权输出。",
+      "assistance_policy_label": "独立掌握检查",
+      "instructions": "必做任务：对 S_masked = [[2.0, -inf, -inf], [0.0, 3.0, -inf], [1.0, 1.5, 2.0]] 执行逐行 Softmax 计算。第 0 行：有限项最大值为 2.0。exp([2.0-2.0, -inf, -inf]) = [1.0, 0.0, 0.0]，归一化得 A_causal[0, :] = [1.0, 0.0, 0.0]。第 1 行：最大值为 3.0。exp([-3.0, 0.0, -inf]) = [exp(-3), 1.0, 0.0] ~= [0.049787, 1.0, 0.0]，和为 1.049787。A_causal[1, :] = [0.047426, 0.952574, 0.0]。第 2 行无掩码，得 [0.186324, 0.307196, 0.506480]。使用第 43 天的 V = [[1,0], [0,2], [1,1]] 计算因果输出 Out_causal = A_causal V。",
+      "exercise_prompt": "1. 计算精确到小数点后 6 位的 A_causal 各行注意力权重。\n2. 计算全部 3 行的因果输出 Out_causal = A_causal V。\n3. 对比第 43 天未掩码的 Out[0] 与本节 Out_causal[0]，阐述其本质差异。",
+      "hint": "第 0 行因果输出仅为 1.0 * v_0 = [1.0, 0.0]。而在第 43 天未掩码时，第 0 行输出被 v_1 和 v_2 严重污染。",
+      "answer": "A_causal 矩阵：\n第 0 行：[1.000000, 0.000000, 0.000000]\n第 1 行：[0.047426, 0.952574, 0.000000]\n第 2 行：[0.186324, 0.307196, 0.506480]。\nOut_causal = A_causal V：\n第 0 行：[1.000000, 0.000000]\n第 1 行：0.047426*[1,0] + 0.952574*[0,2] = [0.047426, 1.905148]\n第 2 行：[0.692804, 1.120872]。\n在未掩码时 Out[0] 为 [0.936622, 0.595069]，包含了来自未来词元的信息；在因果掩码下，第 0 行仅与自身交互，保持独立。",
+      "mastery_criterion": "精确计算 A_causal 和 Out_causal 各元素，数值与参考值在 4 位小数内一致。"
+    },
+    "day-44-act-03": {
+      "title": "因果不变性扰动实验与代数证明",
+      "prerequisites": "完成第 44 天活动 2。",
+      "objective": "通过数值实验与代数推导，严格验证扰动未来词元时历史位置的注意力权重和输出表征精确保持不变。",
+      "assistance_policy_label": "助教辅助工程检查",
+      "instructions": "必做任务：对序列执行严格扰动实验。将未来词元（t=2）替换为任意极端数值：q_2' = [99.0, -42.0, 13.0, 7.0], k_2' = [-50.0, 12.0, 34.0, -8.0], v_2' = [100.0, -200.0]。重新计算 S_masked、A_causal 和 Out_causal。证明 diff(A_causal[0], A_causal_pert[0]) = 0.0，diff(A_causal[1], A_causal_pert[1]) = 0.0，diff(Out[0], Out_pert[0]) = 0.0，以及 diff(Out[1], Out_pert[1]) = 0.0。将此特性与无掩码层（所有历史行均被污染）进行深入对比。",
+      "exercise_prompt": "1. 从 Softmax 分子分母公式证明为什么 A_causal 的第 i 行绝不依赖任何 j > i 的 k_j 或 v_j。\n2. 给出对词元 2 扰动前后，第 0、1、2 行表征差异的最大绝对值。\n3. 说明因果不变性如何保障大模型自回归生成中 KV-Cache（键值缓存）机制的正确性？",
+      "hint": "对第 i 行而言，j > i 时项为 -inf。exp(-inf)=0，在分母求和中自动消失，因而与未来键向量完全无关。",
+      "answer": "代数证明：对于任意 j > i，S_masked[i,j] = -inf，其指数项 exp(S_masked[i,j] - max) = 0。分母配分函数 sum_{k=0}^{T-1} exp(S_masked[i,k] - max) = sum_{k=0}^i exp(S_masked[i,k] - max)，未来项对求和贡献为 0。因此对于 j <= i，A_causal[i,j] 仅取决于 q_i 与 k_{<=i}。输出 Out[i] = sum_{j=0}^i A_causal[i,j] v_j 仅由 v_{<=i} 决定。扰动实验差值：第 0 行最大差异 = 0.0，第 1 行最大差异 = 0.0，第 2 行最大差异 > 0.0。因果不变性保证了已生成历史词元的键和值在后续步永远无需重新计算，KV-Cache 完全等价于全量计算。",
+      "mastery_criterion": "给出严谨的未来独立性代数证明，并在数值上验证历史位置差异精确为 0.0。"
+    },
+    "day-44-act-04": {
+      "title": "独立掌握检查：因果泄露、掩码缺陷与不变性断言",
+      "prerequisites": "活动 44-01 至 44-03。",
+      "objective": "在声明无 AI 辅助条件下，独立识别掩码实现缺陷，推导 2 词元序列的因果注意力，并给出严谨的不变性断言。",
+      "assistance_policy_label": "独立掌握检查",
+      "instructions": "必做任务：闭卷独立作答。给定 T=2、缩放分数 S = [[3.0, 1.0], [2.0, 4.0]] 与 V = [[1.0, 2.0], [3.0, 0.0]]：1. 构建 2x2 因果掩码 M 并写出 S_masked。2. 计算精确的 2x2 因果注意力矩阵 A_causal。3. 计算 Out_causal。4. 若词元 1 被替换为任意新向量，证明 Out_causal[0] 的变化量。5. 完成客观选择题。",
+      "exercise_prompt": "1. 写出 2x2 设置下的 S_masked。\n2. 计算精确到 6 位小数的 A_causal。\n3. 计算 Out_causal = A_causal V。\n4. 指出若扰动词元 1，Out_causal[0] 的精确变化量。\n5. 完成 3 道单项选择题。",
+      "hint": "第 0 行为 [3.0, -inf]，Softmax 直接输出 [1.0, 0.0]。第 1 行为 [2.0, 4.0]，最大值为 4.0。",
+      "answer": "S_masked = [[3.0, -inf], [2.0, 4.0]]。Softmax A_causal：第 0 行 [1.000000, 0.000000]；第 1 行 [exp(-2)/(exp(-2)+1), 1/(exp(-2)+1)] = [0.119203, 0.880797]。Out_causal：第 0 行 = 1.0*[1.0, 2.0] = [1.000000, 2.000000]；第 1 行 = 0.119203*[1,2] + 0.880797*[3,0] = [2.761594, 0.238406]。若扰动词元 1，Out_causal[0] 的变化量严格为 0.0。",
+      "mastery_criterion": "独立推导 2x2 因果注意力和输出，正确断言历史不变性，且客观测试获 100% 满分。",
+      "quiz": {
+        "title": "客观理解度测试：因果掩码与严格不变性",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "在自回归生成中，下三角因果掩码（Causal Mask）的核心操作目标是什么？",
+            "options": {
+              "a": "阻止位置 t 注意任何未来词元 t' > t，确保生成分布 P(x_t | x_{<t}) 不泄露未来信息。",
+              "b": "通过将完整矩阵转化为对角矩阵来加速矩阵乘法。",
+              "c": "确保所有注意力权重之和等于 2.0。",
+              "d": "允许在整个提示词上进行双向上下文特征汇聚。"
+            },
+            "hint": "考虑自回归语言模型对下一个词元的条件概率链式因式分解。",
+            "explanation": "在自回归解码器中，生成词元 t 必须仅依赖历史与当前词元（索引 <= t）。未来词元的键与值（索引 > t）必须被完全屏蔽。"
+          },
+          {
+            "id": "q2",
+            "prompt": "在为注意力分数构建加性因果掩码时，必须为主对角线上方的上三角区域（j > i）赋予什么数值？",
+            "options": {
+              "a": "0.0",
+              "b": "-无穷大（-inf，或数值极大负数如 -1e9）",
+              "c": "+1.0",
+              "d": "+无穷大（+inf）"
+            },
+            "hint": "回顾 Softmax 中 exp(-inf) = 0 的数学性质。",
+            "explanation": "给未缩放或缩放分数加上 -inf 后，exp(S_{i,j} + (-inf)) = exp(-inf) = 0.0，使未来位置的注意力权重精确为 0。"
+          },
+          {
+            "id": "q3",
+            "prompt": "若对长度为 3 的序列（t in {0, 1, 2}）中的第 2 个词元进行任意数值扰动，在严格因果掩码下，位置 0 的注意力权重和输出表征会发生什么变化？",
+            "options": {
+              "a": "它们会随着扰动幅度成比例发生变化。",
+              "b": "它们保持严格不变，数值差异精确为 0.0。",
+              "c": "它们会产生浮点 NaN 溢出。",
+              "d": "它们的方差会扩大 sqrt(d_k) 倍。"
+            },
+            "hint": "在位置 0 处，只有位置 0 未被掩码，位置 1 和 2 均被加了 -inf。",
+            "explanation": "因果掩码完全切断了位置 0 对未来位置 1 和 2 的连接，位置 0 仅能自注意力（权重 1.0）。未来词元的任何改动对先前位置的影响精确为零。"
+          }
+        ]
+      }
+    }
+  }
+}

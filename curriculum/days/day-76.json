@@ -1,0 +1,354 @@
+{
+  "id": "day-76",
+  "day_number": 76,
+  "active_minutes": 480,
+  "topic_category": "agents",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-75"
+  ],
+  "recovery_links": [
+    "day-70"
+  ],
+  "activities": [
+    {
+      "id": "day-76-act-01",
+      "lesson_id": "les-76",
+      "title": "Agent Run State Machine and the Action/Observation Trace",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-75"
+      ],
+      "source_resources": [
+        {
+          "id": "langgraph-persistence-docs",
+          "title": "LangGraph Persistence: Checkpoints, Threads, and State Snapshots",
+          "author": "LangChain / LangGraph Documentation Team",
+          "original_url": "https://langchain-ai.github.io/langgraph/concepts/persistence/",
+          "version_or_verification_date": "LangGraph documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "MIT (LangGraph project) / documentation site terms",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external technical reference to open-source framework documentation.",
+          "prerequisites": "Agent loop fundamentals, tool calling, and JSON state serialization.",
+          "selection_rationale": "Primary reference for agent-run checkpointing: LangGraph checkpointers persist graph state at every super-step so interrupted runs resume from the last committed snapshot, the production analogue of this project's action/observation trace.",
+          "known_availability_limitations": "Hosted on GitHub Pages and versioned with the LangGraph release train; page layout may change between releases.",
+          "safe_fallback": "The checkpoint/replay exercise is implemented directly against the projects/agent_learning trace JSON; no framework installation is required.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Temporal Durable Execution documentation",
+              "url": "https://docs.temporal.io/",
+              "license": "MIT / documentation terms",
+              "status": "compared_alternative",
+              "comparison_rationale": "Temporal persists event histories for replay-based recovery of arbitrary workflows; LangGraph targets agent graphs specifically and stays closer to the learner's tool-loop mental model."
+            },
+            {
+              "candidate_name": "OpenAI Agents SDK session/state documentation",
+              "url": "https://openai.github.io/openai-agents-python/",
+              "license": "MIT / documentation terms",
+              "status": "compared_alternative",
+              "comparison_rationale": "Provider-scoped SDK sessions; LangGraph's explicit checkpoint model exposes the underlying state-transition semantics more transparently."
+            }
+          ],
+          "relevant_timestamp": "Persistence: Checkpointer vs. store (checkpoints keyed by thread_id); the page now redirects to docs.langchain.com"
+        },
+        {
+          "id": "temporal-durable-execution",
+          "title": "Temporal Documentation: Durable Execution and Event History Replay",
+          "author": "Temporal Technologies Documentation Team",
+          "original_url": "https://docs.temporal.io/temporal",
+          "version_or_verification_date": "Temporal documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Temporal Technologies copyright (documentation; Temporal server code is MIT) / documentation site terms",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external technical reference to open-source workflow documentation.",
+          "prerequisites": "State machines, event logs, and deterministic replay concepts.",
+          "selection_rationale": "Standard industrial reference for durable execution: workflow state is rebuilt by replaying a persisted event history through deterministic code, exactly the checkpoint/replay mechanism learners reproduce against the agent trace.",
+          "known_availability_limitations": "Public documentation site; navigational structure changes across releases.",
+          "safe_fallback": "Replay semantics are exercised offline against the deterministic adapter; Temporal itself is never installed.",
+          "compared_candidates": [
+            {
+              "candidate_name": "LangGraph Persistence documentation",
+              "url": "https://langchain-ai.github.io/langgraph/concepts/persistence/",
+              "license": "MIT / documentation terms",
+              "status": "compared_alternative",
+              "comparison_rationale": "Agent-specific checkpointing; Temporal supplies the general event-sourced replay model that motivates the exercise."
+            },
+            {
+              "candidate_name": "Cadence workflow documentation",
+              "url": "https://cadenceworkflow.io/docs/",
+              "license": "MIT / documentation terms",
+              "status": "compared_alternative",
+              "comparison_rationale": "Temporal's predecessor with equivalent replay semantics; Temporal's docs are more actively maintained."
+            }
+          ],
+          "relevant_timestamp": "What is Temporal?: Durable Execution"
+        }
+      ]
+    },
+    {
+      "id": "day-76-act-02",
+      "lesson_id": "les-76",
+      "title": "Checkpoint and Replay: Rebuild Run State from the Persisted Trace",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-76-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "temporal-durable-execution",
+          "title": "Temporal Documentation: Durable Execution and Event History Replay",
+          "author": "Temporal Technologies Documentation Team",
+          "original_url": "https://docs.temporal.io/temporal",
+          "version_or_verification_date": "Temporal documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Temporal Technologies copyright (documentation; Temporal server code is MIT) / documentation site terms",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external technical reference to open-source workflow documentation.",
+          "prerequisites": "State machines, event logs, and deterministic replay concepts.",
+          "selection_rationale": "Standard industrial reference for durable execution: workflow state is rebuilt by replaying a persisted event history through deterministic code, exactly the checkpoint/replay mechanism learners reproduce against the agent trace.",
+          "known_availability_limitations": "Public documentation site; navigational structure changes across releases.",
+          "safe_fallback": "Replay semantics are exercised offline against the deterministic adapter; Temporal itself is never installed.",
+          "compared_candidates": [
+            {
+              "candidate_name": "LangGraph Persistence documentation",
+              "url": "https://langchain-ai.github.io/langgraph/concepts/persistence/",
+              "license": "MIT / documentation terms",
+              "status": "compared_alternative",
+              "comparison_rationale": "Agent-specific checkpointing; Temporal supplies the general event-sourced replay model that motivates the exercise."
+            },
+            {
+              "candidate_name": "Cadence workflow documentation",
+              "url": "https://cadenceworkflow.io/docs/",
+              "license": "MIT / documentation terms",
+              "status": "compared_alternative",
+              "comparison_rationale": "Temporal's predecessor with equivalent replay semantics; Temporal's docs are more actively maintained."
+            }
+          ],
+          "relevant_timestamp": "What is Temporal?: Durable Execution"
+        },
+        {
+          "id": "langgraph-persistence-docs",
+          "title": "LangGraph Persistence: Checkpoints, Threads, and State Snapshots",
+          "author": "LangChain / LangGraph Documentation Team",
+          "original_url": "https://langchain-ai.github.io/langgraph/concepts/persistence/",
+          "version_or_verification_date": "LangGraph documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "MIT (LangGraph project) / documentation site terms",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external technical reference to open-source framework documentation.",
+          "prerequisites": "Agent loop fundamentals, tool calling, and JSON state serialization.",
+          "selection_rationale": "Primary reference for agent-run checkpointing: LangGraph checkpointers persist graph state at every super-step so interrupted runs resume from the last committed snapshot, the production analogue of this project's action/observation trace.",
+          "known_availability_limitations": "Hosted on GitHub Pages and versioned with the LangGraph release train; page layout may change between releases.",
+          "safe_fallback": "The checkpoint/replay exercise is implemented directly against the projects/agent_learning trace JSON; no framework installation is required.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Temporal Durable Execution documentation",
+              "url": "https://docs.temporal.io/",
+              "license": "MIT / documentation terms",
+              "status": "compared_alternative",
+              "comparison_rationale": "Temporal persists event histories for replay-based recovery of arbitrary workflows; LangGraph targets agent graphs specifically and stays closer to the learner's tool-loop mental model."
+            },
+            {
+              "candidate_name": "OpenAI Agents SDK session/state documentation",
+              "url": "https://openai.github.io/openai-agents-python/",
+              "license": "MIT / documentation terms",
+              "status": "compared_alternative",
+              "comparison_rationale": "Provider-scoped SDK sessions; LangGraph's explicit checkpoint model exposes the underlying state-transition semantics more transparently."
+            }
+          ],
+          "relevant_timestamp": "Persistence: Checkpointer vs. store (checkpoints keyed by thread_id); the page now redirects to docs.langchain.com"
+        }
+      ]
+    },
+    {
+      "id": "day-76-act-03",
+      "lesson_id": "les-76",
+      "title": "Idempotent Tool Effects and the Exactly-Once Illusion",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-76-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "stripe-idempotent-apis",
+          "title": "Stripe API Documentation: Idempotent Requests",
+          "author": "Stripe, Inc.",
+          "original_url": "https://docs.stripe.com/api/idempotent_requests",
+          "version_or_verification_date": "Stripe API documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Stripe site content / linked reference",
+          "license_restrictions": [
+            "noncommercial"
+          ],
+          "permission_basis": "Lawful external technical reference under public documentation terms.",
+          "prerequisites": "HTTP APIs, retries, and side-effect semantics.",
+          "selection_rationale": "Standard production definition of idempotency keys: Stripe guarantees safe client retries by deduplicating POST requests on a caller-supplied key, the exact mechanism that turns at-least-once retries into effectively-once effects.",
+          "known_availability_limitations": "Vendor documentation; request-parameter details may evolve with API versions.",
+          "safe_fallback": "Idempotency semantics are demonstrated locally with repeated write_report calls and a sha256 dedupe key, no Stripe account needed.",
+          "compared_candidates": [
+            {
+              "candidate_name": "IETF draft: The Idempotency-Key HTTP Header Field",
+              "url": "https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/",
+              "license": "IETF Trust / open access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Standardization-track header specification; Stripe's live documentation is the more concrete deployed example."
+            },
+            {
+              "candidate_name": "AWS Builder's Library: Making retries safe with idempotent APIs",
+              "url": "https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/",
+              "license": "Amazon site content",
+              "status": "compared_alternative",
+              "comparison_rationale": "Deep design treatment of idempotent server design; Stripe provides the tighter client-visible contract cited in the exercise."
+            }
+          ],
+          "relevant_timestamp": "Idempotent requests (Idempotency-Key header; keys can be removed after at least 24 hours)",
+          "locator_url": "https://docs.stripe.com/api/idempotent_requests#api-section-idempotent_requests"
+        },
+        {
+          "id": "google-sre-cascading-failures",
+          "title": "Site Reliability Engineering, Chapter 22: Addressing Cascading Failures",
+          "author": "Mike Ulrich, in Site Reliability Engineering (eds. Betsy Beyer, Chris Jones, Jennifer Petoff, Niall Richard Murphy; Google)",
+          "original_url": "https://sre.google/sre-book/addressing-cascading-failures/",
+          "version_or_verification_date": "O'Reilly 2016 free online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-ND 4.0",
+          "license_restrictions": [
+            "noncommercial",
+            "no-derivatives"
+          ],
+          "permission_basis": "Lawful external hyperlink to Google's free web edition, published under CC BY-NC-ND 4.0 (Copyright 2017 Google, Inc.; published by O'Reilly Media); no text is imported.",
+          "prerequisites": "Retries, queueing, and load-shedding basics.",
+          "selection_rationale": "Primary analysis of how unbounded retries amplify partial outages into cascading failures, motivating hard retry budgets and deadlines in agent runtimes.",
+          "known_availability_limitations": "Free online HTML edition hosted by Google; pagination differs from print.",
+          "safe_fallback": "The retry-amplification scenario and budget arithmetic are fully reproduced in the lesson's worked example.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Release It! (Michael Nygard) - Stability patterns",
+              "url": "https://pragprog.com/titles/mnee2/release-it-second-edition/",
+              "license": "Commercial book",
+              "status": "compared_alternative",
+              "comparison_rationale": "Broader stability-pattern catalog (circuit breakers, bulkheads); the SRE chapter is free and directly quantifies retry amplification."
+            },
+            {
+              "candidate_name": "AWS Builder's Library: Timeouts, retries, and backoff with jitter",
+              "url": "https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/",
+              "license": "Amazon site content",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong companion article; the SRE chapter frames the failure mode (cascading overload) that the retry budget defends against."
+            }
+          ],
+          "relevant_timestamp": "Preventing Server Overload: Retries",
+          "locator_url": "https://sre.google/sre-book/addressing-cascading-failures/#retires"
+        }
+      ]
+    },
+    {
+      "id": "day-76-act-04",
+      "lesson_id": "les-76",
+      "title": "Assessment: Run-State Transition Audit and Ledger Validation",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-76-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "langgraph-persistence-docs",
+          "title": "LangGraph Persistence: Checkpoints, Threads, and State Snapshots",
+          "author": "LangChain / LangGraph Documentation Team",
+          "original_url": "https://langchain-ai.github.io/langgraph/concepts/persistence/",
+          "version_or_verification_date": "LangGraph documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "MIT (LangGraph project) / documentation site terms",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external technical reference to open-source framework documentation.",
+          "prerequisites": "Agent loop fundamentals, tool calling, and JSON state serialization.",
+          "selection_rationale": "Primary reference for agent-run checkpointing: LangGraph checkpointers persist graph state at every super-step so interrupted runs resume from the last committed snapshot, the production analogue of this project's action/observation trace.",
+          "known_availability_limitations": "Hosted on GitHub Pages and versioned with the LangGraph release train; page layout may change between releases.",
+          "safe_fallback": "The checkpoint/replay exercise is implemented directly against the projects/agent_learning trace JSON; no framework installation is required.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Temporal Durable Execution documentation",
+              "url": "https://docs.temporal.io/",
+              "license": "MIT / documentation terms",
+              "status": "compared_alternative",
+              "comparison_rationale": "Temporal persists event histories for replay-based recovery of arbitrary workflows; LangGraph targets agent graphs specifically and stays closer to the learner's tool-loop mental model."
+            },
+            {
+              "candidate_name": "OpenAI Agents SDK session/state documentation",
+              "url": "https://openai.github.io/openai-agents-python/",
+              "license": "MIT / documentation terms",
+              "status": "compared_alternative",
+              "comparison_rationale": "Provider-scoped SDK sessions; LangGraph's explicit checkpoint model exposes the underlying state-transition semantics more transparently."
+            }
+          ],
+          "relevant_timestamp": "Persistence: Checkpointer vs. store (checkpoints keyed by thread_id); the page now redirects to docs.langchain.com"
+        },
+        {
+          "id": "stripe-idempotent-apis",
+          "title": "Stripe API Documentation: Idempotent Requests",
+          "author": "Stripe, Inc.",
+          "original_url": "https://docs.stripe.com/api/idempotent_requests",
+          "version_or_verification_date": "Stripe API documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Stripe site content / linked reference",
+          "license_restrictions": [
+            "noncommercial"
+          ],
+          "permission_basis": "Lawful external technical reference under public documentation terms.",
+          "prerequisites": "HTTP APIs, retries, and side-effect semantics.",
+          "selection_rationale": "Standard production definition of idempotency keys: Stripe guarantees safe client retries by deduplicating POST requests on a caller-supplied key, the exact mechanism that turns at-least-once retries into effectively-once effects.",
+          "known_availability_limitations": "Vendor documentation; request-parameter details may evolve with API versions.",
+          "safe_fallback": "Idempotency semantics are demonstrated locally with repeated write_report calls and a sha256 dedupe key, no Stripe account needed.",
+          "compared_candidates": [
+            {
+              "candidate_name": "IETF draft: The Idempotency-Key HTTP Header Field",
+              "url": "https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/",
+              "license": "IETF Trust / open access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Standardization-track header specification; Stripe's live documentation is the more concrete deployed example."
+            },
+            {
+              "candidate_name": "AWS Builder's Library: Making retries safe with idempotent APIs",
+              "url": "https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/",
+              "license": "Amazon site content",
+              "status": "compared_alternative",
+              "comparison_rationale": "Deep design treatment of idempotent server design; Stripe provides the tighter client-visible contract cited in the exercise."
+            }
+          ],
+          "relevant_timestamp": "Idempotent requests (Idempotency-Key header; keys can be removed after at least 24 hours)",
+          "locator_url": "https://docs.stripe.com/api/idempotent_requests#api-section-idempotent_requests"
+        }
+      ]
+    }
+  ]
+}

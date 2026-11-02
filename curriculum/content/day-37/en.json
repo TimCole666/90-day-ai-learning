@@ -1,0 +1,108 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 37: Text to Tokens — Unicode, Byte Encodings, and Vocabularies",
+  "day_subtitle": "Turn raw text into token ids: distinguish characters, Unicode code points, and UTF-8 bytes; build a deterministic vocabulary; and reproduce the text_tools train/val/test artifacts that every language-model baseline consumes. All work counts inside the 480-minute ledger.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Models & Training",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "nav_agent_track": "🤖 Agent Tool Track",
+    "day_label": "Day 37",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Record your prediction, observed byte counts and ids, review, and recovery evidence here...",
+    "dev_slice_notice": "Verified curriculum module for the 90-Day AI Learning Platform.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account.",
+        "provider_error": "Authentication provider encountered an error.",
+        "server_error": "Authentication provider encountered an error.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    }
+  },
+  "activities": {
+    "day-37-act-01": {
+      "title": "From characters to bytes: code points and UTF-8",
+      "prerequisites": "Complete Day 36. If blocked, use the Day 35 recovery link for probability and Python review.",
+      "objective": "Distinguish a visible character, its Unicode code point, and its UTF-8 byte sequence; predict byte counts before measuring; record a prediction-versus-observation comparison for empty, ASCII, accented, CJK, and emoji text.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "A character is what a reader sees; a code point is its Unicode number (written U+XXXX); an encoding turns code points into bytes. Required work: predict then run `python3 -c \"s='猫aé😀'; print(len(s), [hex(ord(c)) for c in s], list(s.encode('utf-8')))\"` and compare each prediction. Optional work: encode the same string as UTF-16 and compare byte counts.",
+      "exercise_prompt": "Predict len(s), the code points, and the UTF-8 byte list for s='猫aé😀' and for the empty string ''. Then verify in Python and explain why the byte count differs from the code-point count.",
+      "hint": "UTF-8 uses 1 byte for ASCII, 2 bytes for most accented Latin, 3 bytes for CJK, and 4 bytes for most emoji. `ord()` returns the code point; `.encode('utf-8')` returns the bytes.",
+      "answer": "s='猫aé😀' has 4 code points — U+732B (猫), U+0061 (a), U+00E9 (é), U+1F600 (😀) — but 10 UTF-8 bytes: 猫→[231,140,171], a→[97], é→[195,169], 😀→[240,159,152,128]. The empty string has 0 code points and 0 bytes. UTF-8 length depends on the code-point range, so character count and byte count generally differ.",
+      "mastery_criterion": "Your written predictions match the observed ord() and encode() outputs for all probe strings (including empty), and you can state the rule mapping code-point ranges to UTF-8 byte counts."
+    },
+    "day-37-act-02": {
+      "title": "Vocabularies and token-id mappings",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Build a deterministic vocabulary mapping every distinct symbol to a stable integer id, encode and decode text losslessly, and choose an explicit policy for symbols never seen in training.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance)",
+      "instructions": "A tokenizer needs two tables: stoi (symbol→id) and itos (id→symbol). Required work: assign ids 0..V-1 in sorted order over the distinct symbols of the training text, reserve len(vocab) as the <unk> id, then encode and decode a probe string. Optional work: contrast with a byte-level vocabulary of 256 entries that needs no <unk>.",
+      "exercise_prompt": "For training text 'banana': build the sorted character vocab, encode 'banana' and 'cab', decode the first result, and encode 'banana!' using <unk>. Then encode 'é猫' as UTF-8 bytes and state why byte-level input never hits <unk>.",
+      "hint": "sorted(set('banana')) = ['a','b','n'], so {a:0, b:1, n:2} and <unk>=3. '!' is absent from the table, so it maps to 3. 'é猫' is five UTF-8 bytes: [195,169,231,140,171].",
+      "answer": "Vocab {a:0, b:1, n:2} with <unk>=3. encode('banana')=[1,0,2,0,2,0] and decode returns 'banana' exactly. encode('cab')=[2,0,1]. encode('banana!')=[1,0,2,0,2,0,3] — the '!' information is lost, which is why a fixed char vocabulary needs an OOV policy, while byte-level input 'é猫'→[195,169,231,140,171] is always representable.",
+      "mastery_criterion": "Given any short training text, you can write the vocab table, encode/decode a probe string correctly by hand, and explain when <unk> is required versus when byte-level coverage removes it."
+    },
+    "day-37-act-03": {
+      "title": "Deterministic train/val/test splits and provenance",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Reproduce the text_tools deterministic split artifacts and read the manifest, so every downstream model fits counts on train only, selects on val, and leaves test untouched.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Required work: run `python3 projects/text_tools/cli.py --input data/names.txt --split --output-dir /tmp/lm-data` (defaults: seed 42, ratios 0.8/0.1/0.1), then open /tmp/lm-data/manifest.json and locate split_counts, split_sha256, and leakage_check. Re-run into a second directory and confirm identical hashes. Optional work: repeat with --seed 99 and observe the counts stay the same while membership changes.",
+      "exercise_prompt": "Predict train/val/test line counts for the 32,033-line corpus before running, then verify. For a 10-line file predict the same split. State which manifest fields prove determinism and that no index appears in two splits.",
+      "hint": "int(round(32033*0.8))=25626 and int(round(32033*0.1))=3203, leaving 3204 for test; a 10-line file splits 8/1/1. The manifest fields leakage_check.no_leakage_verified and split_sha256 certify disjointness and reproducibility.",
+      "answer": "Verified output: train=25626, val=3203, test=3204, no_leakage_verified=True, seed=42. A 10-line file splits 8/1/1 with train_indices [7,3,2,8,5,6,9,4], val [0], test [1] under seed 42, and a rerun reproduces identical split_sha256 values.",
+      "mastery_criterion": "You can regenerate the artifacts, cite the exact split counts and the manifest fields that prove determinism and disjointness, and state why counts, vocab, and merges may be fit only on train."
+    },
+    "day-37-act-04": {
+      "title": "Independent mastery check: bytes, ids, and split evidence",
+      "prerequisites": "Complete the previous activities; use the listed recovery link if blocked.",
+      "objective": "Unaided, reproduce the code-point/byte computation, a vocab encode/decode, the split counts, and the malformed-input policy — then record an honest recovery plan for anything missed.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance)",
+      "instructions": "Do not consult answers or AI during this check. Required work: predict all four answers in the draft log, then verify each with Python and the CLI. Optional work: describe one legitimate use of --errors ignore for noisy corpora.",
+      "exercise_prompt": "Closed-book: (a) How many code points and UTF-8 bytes does 'é猫' have? (b) With vocab {a:0,b:1,c:2}, what is encode('cab')? (c) How do 10 lines split at 0.8/0.1/0.1? (d) For a file containing invalid byte 0xFF: what exit code does --errors strict give, and which character appears under replace?",
+      "hint": "(a) é is U+00E9 (2 bytes), 猫 is U+732B (3 bytes). (b) Look up each character in the table. (c) round(10*0.8)=8, round(10*0.1)=1. (d) strict aborts; replace substitutes U+FFFD.",
+      "answer": "(a) 2 code points, 5 UTF-8 bytes [195,169,231,140,171]. (b) [2,0,1]. (c) 8 train, 1 val, 1 test. (d) strict exits 1 with a UnicodeDecodeError message; replace emits U+FFFD replacement characters (2 for the bytes 0xFF 0xFE) and exits 0.",
+      "mastery_criterion": "All four predictions match observed output without assistance, and any miss is logged together with the recovery link (Day 35 review or the matching Day 37 activity) that will repair it."
+    }
+  }
+}

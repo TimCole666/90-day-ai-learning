@@ -1,0 +1,35 @@
+{
+  "name": "90-day-ai-learning",
+  "version": "1.0.0",
+  "description": "A 90-Day Project-Based AI Curriculum and Four-Language Learning Platform",
+  "main": "server.cjs",
+  "scripts": {
+    "start": "node server.cjs",
+    "package": "node scripts/package_release.cjs",
+    "backup": "node scripts/backup.cjs",
+    "restore": "node scripts/restore.cjs",
+    "rollback": "node scripts/rollback.cjs",
+    "test:packaging": "node tests/packaging/test_package.cjs",
+    "test:browser": "python3 scripts/verify_local.py --suite browser",
+    "verify:local": "python3 scripts/verify_local.py",
+    "verify:local:list": "python3 scripts/verify_local.py --list",
+    "test:projects": "python3 -m unittest discover -s tests/projects",
+    "test:ci-practice": "python3 -m unittest discover -s tests/engineering",
+    "test:autograd": "python3 tests/projects/test_autograd_cli.py && python3 tests/unit/test_autograd_engine.py",
+    "test:pretrain": ".venv/bin/python -m unittest tests/unit/test_pretrain.py",
+    "test:lora": ".venv/bin/python -m unittest tests/unit/test_lora.py && .venv/bin/python tests/projects/test_lora_cli.py",
+    "audit": "python3 scripts/audit_curriculum.py"
+  },
+  "keywords": [
+    "curriculum",
+    "ai",
+    "learning",
+    "four-language",
+    "education"
+  ],
+  "author": "90-Day AI Learning Contributors",
+  "license": "Apache-2.0 AND CC-BY-SA-4.0",
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}

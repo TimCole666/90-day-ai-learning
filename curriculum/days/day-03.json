@@ -1,0 +1,345 @@
+{
+  "id": "day-03",
+  "day_number": 3,
+  "active_minutes": 480,
+  "topic_category": "self-directed-learning-and-python",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-02"
+  ],
+  "recovery_links": [
+    "day-01",
+    "day-02"
+  ],
+  "activities": [
+    {
+      "id": "day-03-act-01",
+      "lesson_id": "les-03",
+      "title": "Recovery drill: diagnose a failed environment",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev6",
+      "prerequisites": [
+        "day-01"
+      ],
+      "source_resources": [
+        {
+          "id": "py-tutorial-venv",
+          "title": "The Python Tutorial: Virtual Environments and Packages",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/venv.html",
+          "relevant_timestamp": "Section 12 (creating venvs, pip installs, requirements files)",
+          "version_or_verification_date": "Python 3.12 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under PSF open documentation terms; no source text imported into curriculum content.",
+          "prerequisites": "Basic Python syntax from Study Days 01-09",
+          "selection_rationale": "Primary reference for python -m venv, interpreter isolation, and requirements files used by the wrong-environment drills.",
+          "known_availability_limitations": "Hosted on python.org; pip installs additionally need a reachable package index.",
+          "safe_fallback": "The drill needs no network: venv creation, sys.executable inspection, and ModuleNotFoundError reproduction all run offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "pip documentation",
+              "url": "https://pip.pypa.io/en/stable/",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Primary reference for pip commands, but the tutorial presents the create-activate-install loop as one beginner-friendly narrative."
+            },
+            {
+              "candidate_name": "virtualenv documentation",
+              "url": "https://virtualenv.pypa.io/en/latest/",
+              "license": "MIT License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Mature third-party environment tool with overlapping behavior; the stdlib venv tutorial was selected to avoid an extra dependency for first-time setup."
+            }
+          ]
+        },
+        {
+          "id": "py-tutorial-errors",
+          "title": "The Python Tutorial: Errors and Exceptions",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/errors.html",
+          "relevant_timestamp": "Sections 8.3-8.6 (handling exceptions, else, finally, cleanup actions)",
+          "version_or_verification_date": "Python 3.12 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under PSF open documentation terms; no source text imported into curriculum content.",
+          "prerequisites": "Basic Python syntax from Study Days 01-09",
+          "selection_rationale": "Primary reference for try/except/else/finally semantics and the with statement as predefined cleanup for Day 11.",
+          "known_availability_limitations": "Hosted on python.org; requires internet access unless a local documentation bundle is installed.",
+          "safe_fallback": "Every clause behavior in the lesson is demonstrated by runnable local snippets.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OCW 6.0001 Lecture on Exceptions",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Solid lecture treatment but paced for a semester course and requires video viewing; the tutorial section matches the exercise scope directly."
+            },
+            {
+              "candidate_name": "Python Standard Library: Built-in Exceptions",
+              "url": "https://docs.python.org/3/library/exceptions.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Reference-style exception hierarchy listing rather than the tutorial narrative; retained as lookup material for the recovery drills."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-03-act-02",
+      "lesson_id": "les-03",
+      "title": "Agent-assisted engineering review and correction",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev3",
+      "prerequisites": [
+        "day-03-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "yang-swe-agent-2024",
+          "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+          "author": "John Yang, Carlos E. Jimenez, Alexander Wettig, Kilian Lieret, Shunyu Yao, Karthik Narasimhan, Ofir Press",
+          "original_url": "https://arxiv.org/abs/2405.15793",
+          "version_or_verification_date": "NeurIPS 2024 / arXiv:2405.15793v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Agent loops, tool protocols, and basic software engineering workflow vocabulary.",
+          "selection_rationale": "Primary literature on agent-computer interfaces showing that bounded tool commands, trajectory inspection, and environment constraints determine whether an agent can carry an engineering task to verifiable completion.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "The permission/budget control profile, tool contract schema, and trace audit procedure are fully implemented in the local bounded agent fixture (projects/agent_learning).",
+          "compared_candidates": [
+            {
+              "candidate_name": "OpenHands: An Open Platform for AI Software Developers as Generalist Agents",
+              "url": "https://arxiv.org/abs/2407.16741",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Broader generalist agent platform; SWE-agent isolates the agent-computer interface design principles most relevant to bounded task delivery."
+            },
+            {
+              "candidate_name": "AutoCodeRover: Autonomous Program Improvement",
+              "url": "https://arxiv.org/abs/2404.05427",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Focuses on autonomous program repair via code search; SWE-agent better matches the curriculum's bounded-tool and human-verification emphasis."
+            }
+          ],
+          "relevant_timestamp": "Section 2 The Agent-Computer Interface and Section 3 SWE-agent: Designing an ACI for Software Engineering"
+        },
+        {
+          "id": "shinn-reflexion-2023",
+          "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+          "author": "Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik Narasimhan, Shunyu Yao",
+          "original_url": "https://arxiv.org/abs/2303.11366",
+          "relevant_timestamp": "Section 2 & 3 (Reflexion Architecture and Memory Buffer)",
+          "version_or_verification_date": "NeurIPS 2023 / arXiv:2303.11366v4 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external academic reference under open access repository terms.",
+          "prerequisites": "Reinforcement learning concepts, agent evaluation loops, and error feedback handling.",
+          "selection_rationale": "Rigorous framework analyzing dynamic error feedback, memory buffering of execution failures, and controlled self-reflection loops without updating model weights.",
+          "known_availability_limitations": "Permanently accessible on arXiv.org.",
+          "safe_fallback": "Error recovery state diagrams and retry budget algorithms are detailed in curriculum materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Self-Refine: Iterative Refinement with Self-Feedback (Madaan et al. 2023)",
+              "url": "https://arxiv.org/abs/2303.17651",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Single-turn generative text refinement; Reflexion operates across multi-turn external environment action-observation failures."
+            },
+            {
+              "candidate_name": "Ghost in the Minecraft: Generally Capable Agents for Open-World Environments via Large Language Models with Text-based Knowledge and Memory (Zhu et al. 2023)",
+              "url": "https://arxiv.org/abs/2305.17144",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Domain-specific LLM-based agent for open-world Minecraft; Reflexion establishes domain-general verbal feedback control loops."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-03-act-03",
+      "lesson_id": "les-03",
+      "title": "Independent mastery: filesystem artifact check",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev6",
+      "prerequisites": [
+        "day-03-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "py-docs-pathlib",
+          "title": "Python Standard Library: pathlib",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/pathlib.html",
+          "relevant_timestamp": "Path.exists, Path.cwd, and anchoring paths to __file__",
+          "version_or_verification_date": "Python 3.12 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under PSF open documentation terms; no source text imported into curriculum content.",
+          "prerequisites": "Basic Python syntax from Study Days 01-09",
+          "selection_rationale": "Normative reference for the exists()/cwd() evidence that separates an absent file from a wrong working directory.",
+          "known_availability_limitations": "Hosted on python.org; requires internet access unless a local documentation bundle is installed.",
+          "safe_fallback": "Path.exists() and Path.cwd() are exercised directly in the local drill, so no online page is required.",
+          "compared_candidates": [
+            {
+              "candidate_name": "os.path documentation",
+              "url": "https://docs.python.org/3/library/os.path.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Functionally equivalent for exists() checks; pathlib keeps the beginner syntax object-oriented and consistent across the block."
+            },
+            {
+              "candidate_name": "shutil — High-level file operations",
+              "url": "https://docs.python.org/3/library/shutil.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Covers copying and moving whole trees rather than path modeling; pathlib remains the right reference for the filesystem checks these days rehearse."
+            }
+          ]
+        },
+        {
+          "id": "py-docs-tempfile",
+          "title": "Python Standard Library: tempfile",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/tempfile.html",
+          "relevant_timestamp": "TemporaryDirectory for disposable on-disk fixtures",
+          "version_or_verification_date": "Python 3.12 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under PSF open documentation terms; no source text imported into curriculum content.",
+          "prerequisites": "Basic Python syntax from Study Days 01-09",
+          "selection_rationale": "Normative reference for creating and auto-removing fixture files inside tests without touching real user files.",
+          "known_availability_limitations": "Hosted on python.org; requires internet access unless a local documentation bundle is installed.",
+          "safe_fallback": "TemporaryDirectory is part of the installed standard library and needs no page access.",
+          "compared_candidates": [
+            {
+              "candidate_name": "pytest tmp_path fixture",
+              "url": "https://docs.pytest.org/en/stable/how-to/tmp_path.html",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Equivalent capability scoped to the pytest runner; deferred until the curriculum adopts pytest."
+            },
+            {
+              "candidate_name": "io — Core tools for working with streams",
+              "url": "https://docs.python.org/3/library/io.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Lower-level file-object interface without automatic cleanup semantics; tempfile was selected for the safe scratch-file pattern the drills require."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-03-act-04",
+      "lesson_id": "les-03",
+      "title": "Spaced review and next-step plan",
+      "active_minutes": 120,
+      "activity_type": "review",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev3",
+      "prerequisites": [
+        "day-03-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "roediger-karpicke-2006",
+          "title": "Test-Enhanced Learning: Taking Memory Tests Improves Long-Term Retention",
+          "author": "Henry L. Roediger III, Jeffrey D. Karpicke",
+          "original_url": "https://doi.org/10.1111/j.1467-9280.2006.01693.x",
+          "relevant_timestamp": "Psychological Science 17(3): 249-255, Experiments 1-2",
+          "version_or_verification_date": "Psychological Science, 2006 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Journal publisher copyright (all rights reserved) - lawful external linking only",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external citation of the publisher record; no text imported into curriculum materials.",
+          "prerequisites": "Basic understanding of study sessions, retention intervals, and experimental design vocabulary.",
+          "selection_rationale": "Foundational experimental evidence that retrieval practice (testing) outperforms repeated study for long-term retention; grounds the Day 88 AI-free retrieval checks in peer-reviewed learning science rather than folk advice.",
+          "known_availability_limitations": "Publisher page may be paywalled; author preprints and university repositories host lawful copies.",
+          "safe_fallback": "The curriculum restates the experimental design and effect sizes in original prose; every sealed task runs without the paper.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Cepeda et al. Distributed Practice in Verbal Recall Tasks: A Review and Quantitative Synthesis",
+              "url": "https://doi.org/10.1037/0033-2909.132.3.354",
+              "license": "Publisher copyright (APA)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong meta-analytic coverage of spacing effects but addresses scheduling rather than the retrieval effect itself; retained as support for the Day 90 spaced-review schedule."
+            },
+            {
+              "candidate_name": "Karpicke & Roediger: The Critical Importance of Retrieval for Learning (Science 2008)",
+              "url": "https://doi.org/10.1126/science.1152408",
+              "license": "Publisher copyright (AAAS)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Equally foundational follow-up demonstrating repeated retrieval vs repeated study; the 2006 paper is cited as the standard first controlled demonstration."
+            }
+          ]
+        },
+        {
+          "id": "dunlosky-2013-effective-techniques",
+          "title": "Improving Students' Learning With Effective Learning Techniques: Promising Directions From Cognitive and Educational Psychology",
+          "author": "John Dunlosky, Katherine A. Rawson, Elizabeth J. Marsh, Mitchell J. Nathan, Daniel T. Willingham",
+          "original_url": "https://doi.org/10.1177/1529100612453266",
+          "relevant_timestamp": "Psychological Science in the Public Interest 14(1): 4-58; practice testing and distributed practice sections",
+          "version_or_verification_date": "Psychological Science in the Public Interest, 2013 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Journal publisher copyright (all rights reserved) - lawful external linking only",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external citation of the publisher record; no text imported into curriculum materials.",
+          "prerequisites": "None beyond general academic reading.",
+          "selection_rationale": "Detailed comparative review rating practice testing and distributed practice as high-utility techniques while rating highlighting and rereading low-utility; anchors the retrieval, correction, and spaced-review design of Days 88-90.",
+          "known_availability_limitations": "Paywalled at SAGE; author-hosted preprints exist on university sites.",
+          "safe_fallback": "Curriculum restates the utility ratings and application conditions in original prose; every task remains runnable offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Pashler et al. Learning Styles: Concepts and Evidence",
+              "url": "https://doi.org/10.1111/j.1539-6053.2009.01038.x",
+              "license": "Publisher copyright (originally Wiley; now SAGE Publications)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Important negative result on learning-styles matching but narrower scope; Dunlosky et al. rates a broader set of techniques directly usable for this curriculum."
+            },
+            {
+              "candidate_name": "Brown, Roediger & McDaniel: Make It Stick: The Science of Successful Learning",
+              "url": "https://www.hup.harvard.edu/books/9780674729018",
+              "license": "Publisher copyright (Harvard University Press)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong trade-book synthesis of the same evidence base; the peer-reviewed review is preferred for citation precision and technique-by-technique utility ratings."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

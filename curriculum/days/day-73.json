@@ -1,0 +1,381 @@
+{
+  "id": "day-73",
+  "day_number": 73,
+  "active_minutes": 480,
+  "topic_category": "agents",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-72"
+  ],
+  "recovery_links": [
+    "day-70"
+  ],
+  "activities": [
+    {
+      "id": "day-73-act-01",
+      "lesson_id": "les-73",
+      "title": "Model Requests and the Action-Observation Control Loop",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev5",
+      "prerequisites": [
+        "day-72"
+      ],
+      "source_resources": [
+        {
+          "id": "huggingface-agents-course",
+          "title": "Hugging Face Agents Course: Introduction to Agents",
+          "author": "Hugging Face agents-course contributors",
+          "original_url": "https://huggingface.co/learn/agents-course/en/unit1/introduction",
+          "relevant_timestamp": "Unit 1: What is an Agent?; What are Tools?; agent workflow; Summary; Quiz",
+          "version_or_verification_date": "Public edition checked 2026-11-01; moving pages may change",
+          "reuse_category": "linking",
+          "source_type": "course",
+          "license": "Apache-2.0",
+          "license_restrictions": [],
+          "permission_basis": "External hyperlink only; no third-party prose, exercises, code or translations are imported.",
+          "prerequisites": "Python, language-model messages and JSON; local agent exercises use only action/observation traces.",
+          "selection_rationale": "A sequenced introduction, examples and quizzes before formal ReAct/tool API references. Adopt the control-loop concepts, not framework-specific execution or private-reasoning logs.",
+          "known_availability_limitations": "Free reading; some hands-on units need accounts or hosted models. Frameworks change, and course examples do not establish local sandbox or reliability guarantees.",
+          "safe_fallback": "Use the original localized explanations, exercises and checks already present in this activity; no external account or purchase is required for that fallback.",
+          "compared_candidates": [
+            {
+              "candidate_name": "ReAct",
+              "url": "https://arxiv.org/abs/2210.03629",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Retained as the method-definition paper; not a self-contained beginner exercise course."
+            },
+            {
+              "candidate_name": "Anthropic tool use docs",
+              "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview",
+              "license": "Anthropic PBC copyright (no open license)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Retained for one protocol example; vendor message formats are not interchangeable."
+            }
+          ]
+        },
+        {
+          "id": "yao-react-2022",
+          "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+          "author": "Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, Yuan Cao",
+          "original_url": "https://arxiv.org/abs/2210.03629",
+          "relevant_timestamp": "Section 3 & 4 (ReAct Formulation and Synergy)",
+          "version_or_verification_date": "ICLR 2023 / arXiv:2210.03629v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external technical citation and reference under open access repository terms.",
+          "prerequisites": "Prompt engineering, token generation basics, and conversational interaction loops.",
+          "selection_rationale": "Foundational academic paper introducing the interleaved Thought-Action-Observation control loop in LLM agents, establishing formal interleaving of task reasoning and external tool execution.",
+          "known_availability_limitations": "Permanently accessible on arXiv.org open access repository.",
+          "safe_fallback": "Complete algorithmic step traces, state loop diagrams, and control loop pseudocode are self-contained in curriculum materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (Wei et al. 2022)",
+              "url": "https://arxiv.org/abs/2201.11903",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Pure reasoning without environmental actions or external tool grounding; ReAct extends reasoning into an interactive environment action-observation loop."
+            },
+            {
+              "candidate_name": "MRKL Systems: A modular, neuro-symbolic architecture that combines large language models, external knowledge sources and discrete reasoning (Karpas et al. 2022)",
+              "url": "https://arxiv.org/abs/2205.00445",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Early neuro-symbolic modular router concept; ReAct offers simpler, prompting-native action-observation loop dynamics suitable for standard API models."
+            }
+          ]
+        },
+        {
+          "id": "schick-toolformer-2023",
+          "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+          "author": "Timo Schick, Jane Dwivedi-Yu, Roberto Dessì, Roberta Raileanu, Maria Lomeli, Luke Zettlemoyer, Nicola Cancedda, Thomas Scialom",
+          "original_url": "https://arxiv.org/abs/2302.04761",
+          "relevant_timestamp": "Section 2 (Approach: Tool Use and Filtering)",
+          "version_or_verification_date": "NeurIPS 2023 / arXiv:2302.04761v1 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external technical citation and reference under open access repository terms.",
+          "prerequisites": "Transformer autoregressive generation, API calling syntax, and self-supervised filtering.",
+          "selection_rationale": "Original paper demonstrating self-supervised discovery and execution of tool API calls (calculator, QA, search, calendar) via inline tokenized tool invocations.",
+          "known_availability_limitations": "Permanently accessible on arXiv.org open access repository.",
+          "safe_fallback": "Inline tool invocation formats and self-contained mock execution traces are provided in curriculum notes.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Gorilla: Large Language Model Connected with Massive APIs (Patil et al. 2023)",
+              "url": "https://arxiv.org/abs/2305.15334",
+              "license": "Apache-2.0 / arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Focuses on massive API retrieval and documentation formatting; Toolformer focuses on the fundamental token-level seam between model generation and tool execution."
+            },
+            {
+              "candidate_name": "TALM: Tool Augmented Language Models (Parisi et al. 2022)",
+              "url": "https://arxiv.org/abs/2205.12255",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Iterative search-and-execute augmentation; Toolformer provides clearer self-supervised API call tokenization syntax."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-73-act-02",
+      "lesson_id": "les-73",
+      "title": "Trace Prediction for the summarize-notes Fixture",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-73-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "yao-react-2022",
+          "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+          "author": "Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, Yuan Cao",
+          "original_url": "https://arxiv.org/abs/2210.03629",
+          "relevant_timestamp": "Section 3 & 4 (ReAct Formulation and Synergy)",
+          "version_or_verification_date": "ICLR 2023 / arXiv:2210.03629v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external technical citation and reference under open access repository terms.",
+          "prerequisites": "Prompt engineering, token generation basics, and conversational interaction loops.",
+          "selection_rationale": "Foundational academic paper introducing the interleaved Thought-Action-Observation control loop in LLM agents, establishing formal interleaving of task reasoning and external tool execution.",
+          "known_availability_limitations": "Permanently accessible on arXiv.org open access repository.",
+          "safe_fallback": "Complete algorithmic step traces, state loop diagrams, and control loop pseudocode are self-contained in curriculum materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (Wei et al. 2022)",
+              "url": "https://arxiv.org/abs/2201.11903",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Pure reasoning without environmental actions or external tool grounding; ReAct extends reasoning into an interactive environment action-observation loop."
+            },
+            {
+              "candidate_name": "MRKL Systems: A modular, neuro-symbolic architecture that combines large language models, external knowledge sources and discrete reasoning (Karpas et al. 2022)",
+              "url": "https://arxiv.org/abs/2205.00445",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Early neuro-symbolic modular router concept; ReAct offers simpler, prompting-native action-observation loop dynamics suitable for standard API models."
+            }
+          ]
+        },
+        {
+          "id": "rfc-8259-json",
+          "title": "RFC 8259: The JavaScript Object Notation (JSON) Data Interchange Format",
+          "author": "Tim Bray (Ed.)",
+          "original_url": "https://www.rfc-editor.org/rfc/rfc8259",
+          "relevant_timestamp": "Section 1-4 (JSON Syntax and Grammar)",
+          "version_or_verification_date": "IETF Standards Track RFC 8259 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "standard",
+          "license": "IETF Trust License / Open Standard",
+          "license_restrictions": [],
+          "permission_basis": "Lawful open standard specification reference.",
+          "prerequisites": "Text encoding, UTF-8 parsing, and serialized data exchange.",
+          "selection_rationale": "Foundational Internet standard defining strict JSON grammar, token parsing, and whitespace rules underpinning model tool calling serialization.",
+          "known_availability_limitations": "Publicly accessible permanently via RFC Editor repository.",
+          "safe_fallback": "JSON grammar parsing rules and error recovery guidelines are documented in curriculum notes.",
+          "compared_candidates": [
+            {
+              "candidate_name": "RFC 7049: Concise Binary Object Representation (CBOR)",
+              "url": "https://www.rfc-editor.org/rfc/rfc7049",
+              "license": "IETF Open Standard",
+              "status": "compared_alternative",
+              "comparison_rationale": "Binary serialization standard; text-based LLMs operate primarily on human-readable UTF-8 JSON interchange formats."
+            },
+            {
+              "candidate_name": "YAML 1.2 Specification (OASIS / yaml.org)",
+              "url": "https://yaml.org/spec/1.2.2/",
+              "license": "Open Standard",
+              "status": "compared_alternative",
+              "comparison_rationale": "Indentation-sensitive text format; JSON has universally standardized parsing across language runtimes and tool schemas."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-73-act-03",
+      "lesson_id": "les-73",
+      "title": "Execute the Bounded Agent and Inspect Action/Observation Events",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-73-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "anthropic-tool-use-docs",
+          "title": "Anthropic Tool Use (Function Calling) Implementation Guide",
+          "author": "Anthropic PBC",
+          "original_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview",
+          "relevant_timestamp": "Tool Use Overview, Schema Definitions, and Stop Reasons",
+          "version_or_verification_date": "Claude API Specification (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Anthropic PBC copyright (no open license stated) / linked reference",
+          "license_restrictions": [
+            "Linking only; no documentation text is copied"
+          ],
+          "permission_basis": "Lawful external reference to standard public developer API specifications.",
+          "prerequisites": "REST API concepts, JSON schema specification, and basic Python client programming.",
+          "selection_rationale": "Detailed production reference for client-side tool definitions, tool_use content blocks, stop reason tool_use, and tool_result response formatting.",
+          "known_availability_limitations": "Publicly accessible on official Anthropic documentation portal.",
+          "safe_fallback": "Offline mock request/response cycles and tool payload schemas are provided in the repo.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Google Gemini Function Calling Documentation",
+              "url": "https://ai.google.dev/gemini-api/docs/function-calling",
+              "license": "Creative Commons Attribution 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Protobuf and REST function declaration schema; Anthropic documentation provides explicit structured message block mechanics (tool_use / tool_result)."
+            },
+            {
+              "candidate_name": "Cohere Tool Use and Multi-Step Agents Guide",
+              "url": "https://docs.cohere.com/docs/tool-use",
+              "license": "Open Documentation",
+              "status": "compared_alternative",
+              "comparison_rationale": "Multi-step tool calling parameter definitions; Anthropic specification demonstrates clear separated content blocks essential for inspectable event traces."
+            }
+          ]
+        },
+        {
+          "id": "openai-function-calling-guide",
+          "title": "OpenAI Function Calling and Structured Outputs Guide",
+          "author": "OpenAI",
+          "original_url": "https://developers.openai.com/api/docs/guides/function-calling",
+          "relevant_timestamp": "Function Calling Architecture and Strict Outputs",
+          "version_or_verification_date": "OpenAI API Reference (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "OpenAI copyright (no open license stated) / linked reference",
+          "license_restrictions": [
+            "Linking only; no documentation text is copied"
+          ],
+          "permission_basis": "Lawful external reference to standard public developer API specifications.",
+          "prerequisites": "JSON data structures, chat completion roles, and schema validation.",
+          "selection_rationale": "Widely adopted specification establishing tool choice parameters, JSON schema function descriptions, tool_calls arrays, and role: \"tool\" responses.",
+          "known_availability_limitations": "Publicly accessible on official OpenAI developer platform.",
+          "safe_fallback": "Standard schema dictionaries and simulated tool call responses are bundled in the repository.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Mistral AI Function Calling Guide",
+              "url": "https://docs.mistral.ai/capabilities/function_calling/",
+              "license": "Open Documentation",
+              "status": "compared_alternative",
+              "comparison_rationale": "Follows OpenAI-compatible schema convention; OpenAI documentation serves as the primary originating reference for tools and tool_calls schemas."
+            },
+            {
+              "candidate_name": "Ollama Tools and Function Calling Documentation",
+              "url": "https://ollama.com/blog/tool-support",
+              "license": "MIT / Open Documentation",
+              "status": "compared_alternative",
+              "comparison_rationale": "Local model runtime implementation of function calling; OpenAI docs document the standard schema contract and strict output validation."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-73-act-04",
+      "lesson_id": "les-73",
+      "title": "Assessment: Control-Loop State Machine and Termination Audit",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-73-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "yao-react-2022",
+          "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+          "author": "Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, Yuan Cao",
+          "original_url": "https://arxiv.org/abs/2210.03629",
+          "relevant_timestamp": "Section 3 & 4 (ReAct Formulation and Synergy)",
+          "version_or_verification_date": "ICLR 2023 / arXiv:2210.03629v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external technical citation and reference under open access repository terms.",
+          "prerequisites": "Prompt engineering, token generation basics, and conversational interaction loops.",
+          "selection_rationale": "Foundational academic paper introducing the interleaved Thought-Action-Observation control loop in LLM agents, establishing formal interleaving of task reasoning and external tool execution.",
+          "known_availability_limitations": "Permanently accessible on arXiv.org open access repository.",
+          "safe_fallback": "Complete algorithmic step traces, state loop diagrams, and control loop pseudocode are self-contained in curriculum materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (Wei et al. 2022)",
+              "url": "https://arxiv.org/abs/2201.11903",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Pure reasoning without environmental actions or external tool grounding; ReAct extends reasoning into an interactive environment action-observation loop."
+            },
+            {
+              "candidate_name": "MRKL Systems: A modular, neuro-symbolic architecture that combines large language models, external knowledge sources and discrete reasoning (Karpas et al. 2022)",
+              "url": "https://arxiv.org/abs/2205.00445",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Early neuro-symbolic modular router concept; ReAct offers simpler, prompting-native action-observation loop dynamics suitable for standard API models."
+            }
+          ]
+        },
+        {
+          "id": "shinn-reflexion-2023",
+          "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+          "author": "Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik Narasimhan, Shunyu Yao",
+          "original_url": "https://arxiv.org/abs/2303.11366",
+          "relevant_timestamp": "Section 2 & 3 (Reflexion Architecture and Memory Buffer)",
+          "version_or_verification_date": "NeurIPS 2023 / arXiv:2303.11366v4 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external academic reference under open access repository terms.",
+          "prerequisites": "Reinforcement learning concepts, agent evaluation loops, and error feedback handling.",
+          "selection_rationale": "Rigorous framework analyzing dynamic error feedback, memory buffering of execution failures, and controlled self-reflection loops without updating model weights.",
+          "known_availability_limitations": "Permanently accessible on arXiv.org.",
+          "safe_fallback": "Error recovery state diagrams and retry budget algorithms are detailed in curriculum materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Self-Refine: Iterative Refinement with Self-Feedback (Madaan et al. 2023)",
+              "url": "https://arxiv.org/abs/2303.17651",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Single-turn generative text refinement; Reflexion operates across multi-turn external environment action-observation failures."
+            },
+            {
+              "candidate_name": "Ghost in the Minecraft: Generally Capable Agents for Open-World Environments via Large Language Models with Text-based Knowledge and Memory (Zhu et al. 2023)",
+              "url": "https://arxiv.org/abs/2305.17144",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Domain-specific LLM-based agent for open-world Minecraft; Reflexion establishes domain-general verbal feedback control loops."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

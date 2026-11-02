@@ -1,0 +1,352 @@
+{
+  "id": "day-29",
+  "day_number": 29,
+  "active_minutes": 480,
+  "topic_category": "mathematics",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-28"
+  ],
+  "recovery_links": [
+    "day-28"
+  ],
+  "activities": [
+    {
+      "id": "day-29-act-01",
+      "lesson_id": "les-29",
+      "title": "Train, validation, and test: fixing the comparison",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-28"
+      ],
+      "source_resources": [
+        {
+          "id": "d2l-ai",
+          "title": "Dive into Deep Learning (d2l.ai)",
+          "author": "Aston Zhang, Zachary C. Lipton, Mu Li, Alexander J. Smola",
+          "original_url": "https://d2l.ai/",
+          "version_or_verification_date": "Current online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-SA 4.0 (book text) / modified MIT (sample code)",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Lawful external linking under CC BY-SA 4.0 (book text; sample code under a modified MIT license); share-alike conditions are retained separately and no source text is imported.",
+          "prerequisites": "Linear algebra, calculus, and probability at the Days 19-28 level.",
+          "selection_rationale": "Primary open reference tying evaluation discipline (model selection, underfitting, overfitting) and optimization algorithms (gradient descent, minibatch) to the rest of the curriculum.",
+          "known_availability_limitations": "Free web book at d2l.ai; Jupyter source notebooks are on GitHub.",
+          "safe_fallback": "All required formulas and worked numbers are reproduced as original explanations; the book is further reading.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Deep Learning (Goodfellow, Bengio, Courville)",
+              "url": "https://www.deeplearningbook.org/",
+              "license": "MIT Press; free HTML for reading, all rights reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Detailed treatment of optimization difficulties (chapter 8) including saddle points and plateaus; all-rights-reserved text kept as a linking-only alternative."
+            },
+            {
+              "candidate_name": "fast.ai: Practical Deep Learning for Coders",
+              "url": "https://course.fast.ai/",
+              "license": "Course site copyright / Apache-2.0 (fastai code)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong practitioner framing, but organized around the fastai library and video lessons rather than self-contained mathematics."
+            }
+          ],
+          "relevant_timestamp": "Section: Model Selection, Underfitting, and Overfitting"
+        },
+        {
+          "id": "google-ml-crash-course",
+          "title": "Google Machine Learning Crash Course",
+          "author": "Google for Developers",
+          "original_url": "https://developers.google.com/machine-learning/crash-course",
+          "version_or_verification_date": "Current online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "course",
+          "license": "CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external linking under CC BY 4.0; no source text is imported.",
+          "prerequisites": "Basic algebra; short self-contained modules.",
+          "selection_rationale": "Industrial, beginner-legible treatment of training/test splitting and overfitting; complements d2l.ai's mathematical framing.",
+          "known_availability_limitations": "Free web course on developers.google.com; requires a browser session.",
+          "safe_fallback": "Split discipline, leakage rules, and metric definitions are fully explained inside the lesson; the course is further reading.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Dive into Deep Learning (d2l.ai)",
+              "url": "https://d2l.ai/",
+              "license": "CC BY-SA 4.0 (book text) / modified MIT (sample code)",
+              "status": "compared_selected_for_day29",
+              "comparison_rationale": "Co-primary: deeper mathematical coverage of model selection, generalization, and optimization for the mathematics-track capstone."
+            },
+            {
+              "candidate_name": "scikit-learn: Model Evaluation documentation",
+              "url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "Normative reference once learners call sklearn; kept as an alternative because these days teach evaluation protocol before library usage."
+            }
+          ],
+          "relevant_timestamp": "Modules: Training and Test Sets; Validation"
+        }
+      ]
+    },
+    {
+      "id": "day-29-act-02",
+      "lesson_id": "les-29",
+      "title": "Baselines and data leakage",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-29-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "d2l-ai",
+          "title": "Dive into Deep Learning (d2l.ai)",
+          "author": "Aston Zhang, Zachary C. Lipton, Mu Li, Alexander J. Smola",
+          "original_url": "https://d2l.ai/",
+          "version_or_verification_date": "Current online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-SA 4.0 (book text) / modified MIT (sample code)",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Lawful external linking under CC BY-SA 4.0 (book text; sample code under a modified MIT license); share-alike conditions are retained separately and no source text is imported.",
+          "prerequisites": "Linear algebra, calculus, and probability at the Days 19-28 level.",
+          "selection_rationale": "Primary open reference tying evaluation discipline (model selection, underfitting, overfitting) and optimization algorithms (gradient descent, minibatch) to the rest of the curriculum.",
+          "known_availability_limitations": "Free web book at d2l.ai; Jupyter source notebooks are on GitHub.",
+          "safe_fallback": "All required formulas and worked numbers are reproduced as original explanations; the book is further reading.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Deep Learning (Goodfellow, Bengio, Courville)",
+              "url": "https://www.deeplearningbook.org/",
+              "license": "MIT Press; free HTML for reading, all rights reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Detailed treatment of optimization difficulties (chapter 8) including saddle points and plateaus; all-rights-reserved text kept as a linking-only alternative."
+            },
+            {
+              "candidate_name": "fast.ai: Practical Deep Learning for Coders",
+              "url": "https://course.fast.ai/",
+              "license": "Course site copyright / Apache-2.0 (fastai code)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong practitioner framing, but organized around the fastai library and video lessons rather than self-contained mathematics."
+            }
+          ],
+          "relevant_timestamp": "Section: Model Selection, Underfitting, and Overfitting; generalization discussion"
+        },
+        {
+          "id": "google-ml-crash-course",
+          "title": "Google Machine Learning Crash Course",
+          "author": "Google for Developers",
+          "original_url": "https://developers.google.com/machine-learning/crash-course",
+          "version_or_verification_date": "Current online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "course",
+          "license": "CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external linking under CC BY 4.0; no source text is imported.",
+          "prerequisites": "Basic algebra; short self-contained modules.",
+          "selection_rationale": "Industrial, beginner-legible treatment of training/test splitting and overfitting; complements d2l.ai's mathematical framing.",
+          "known_availability_limitations": "Free web course on developers.google.com; requires a browser session.",
+          "safe_fallback": "Split discipline, leakage rules, and metric definitions are fully explained inside the lesson; the course is further reading.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Dive into Deep Learning (d2l.ai)",
+              "url": "https://d2l.ai/",
+              "license": "CC BY-SA 4.0 (book text) / modified MIT (sample code)",
+              "status": "compared_selected_for_day29",
+              "comparison_rationale": "Co-primary: deeper mathematical coverage of model selection, generalization, and optimization for the mathematics-track capstone."
+            },
+            {
+              "candidate_name": "scikit-learn: Model Evaluation documentation",
+              "url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "Normative reference once learners call sklearn; kept as an alternative because these days teach evaluation protocol before library usage."
+            }
+          ],
+          "relevant_timestamp": "Modules: Overfitting; Generalization"
+        }
+      ]
+    },
+    {
+      "id": "day-29-act-03",
+      "lesson_id": "les-29",
+      "title": "Metrics and distribution shift",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-29-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "d2l-ai",
+          "title": "Dive into Deep Learning (d2l.ai)",
+          "author": "Aston Zhang, Zachary C. Lipton, Mu Li, Alexander J. Smola",
+          "original_url": "https://d2l.ai/",
+          "version_or_verification_date": "Current online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-SA 4.0 (book text) / modified MIT (sample code)",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Lawful external linking under CC BY-SA 4.0 (book text; sample code under a modified MIT license); share-alike conditions are retained separately and no source text is imported.",
+          "prerequisites": "Linear algebra, calculus, and probability at the Days 19-28 level.",
+          "selection_rationale": "Primary open reference tying evaluation discipline (model selection, underfitting, overfitting) and optimization algorithms (gradient descent, minibatch) to the rest of the curriculum.",
+          "known_availability_limitations": "Free web book at d2l.ai; Jupyter source notebooks are on GitHub.",
+          "safe_fallback": "All required formulas and worked numbers are reproduced as original explanations; the book is further reading.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Deep Learning (Goodfellow, Bengio, Courville)",
+              "url": "https://www.deeplearningbook.org/",
+              "license": "MIT Press; free HTML for reading, all rights reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Detailed treatment of optimization difficulties (chapter 8) including saddle points and plateaus; all-rights-reserved text kept as a linking-only alternative."
+            },
+            {
+              "candidate_name": "fast.ai: Practical Deep Learning for Coders",
+              "url": "https://course.fast.ai/",
+              "license": "Course site copyright / Apache-2.0 (fastai code)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong practitioner framing, but organized around the fastai library and video lessons rather than self-contained mathematics."
+            }
+          ],
+          "relevant_timestamp": "Sections: Loss functions and cross-entropy; dataset shift discussion"
+        },
+        {
+          "id": "google-ml-crash-course",
+          "title": "Google Machine Learning Crash Course",
+          "author": "Google for Developers",
+          "original_url": "https://developers.google.com/machine-learning/crash-course",
+          "version_or_verification_date": "Current online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "course",
+          "license": "CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external linking under CC BY 4.0; no source text is imported.",
+          "prerequisites": "Basic algebra; short self-contained modules.",
+          "selection_rationale": "Industrial, beginner-legible treatment of training/test splitting and overfitting; complements d2l.ai's mathematical framing.",
+          "known_availability_limitations": "Free web course on developers.google.com; requires a browser session.",
+          "safe_fallback": "Split discipline, leakage rules, and metric definitions are fully explained inside the lesson; the course is further reading.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Dive into Deep Learning (d2l.ai)",
+              "url": "https://d2l.ai/",
+              "license": "CC BY-SA 4.0 (book text) / modified MIT (sample code)",
+              "status": "compared_selected_for_day29",
+              "comparison_rationale": "Co-primary: deeper mathematical coverage of model selection, generalization, and optimization for the mathematics-track capstone."
+            },
+            {
+              "candidate_name": "scikit-learn: Model Evaluation documentation",
+              "url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "Normative reference once learners call sklearn; kept as an alternative because these days teach evaluation protocol before library usage."
+            }
+          ],
+          "relevant_timestamp": "Modules: Classification accuracy; static versus dynamic evaluation"
+        }
+      ]
+    },
+    {
+      "id": "day-29-act-04",
+      "lesson_id": "les-29",
+      "title": "Assessment: design a valid small experiment",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-29-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "d2l-ai",
+          "title": "Dive into Deep Learning (d2l.ai)",
+          "author": "Aston Zhang, Zachary C. Lipton, Mu Li, Alexander J. Smola",
+          "original_url": "https://d2l.ai/",
+          "version_or_verification_date": "Current online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-SA 4.0 (book text) / modified MIT (sample code)",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Lawful external linking under CC BY-SA 4.0 (book text; sample code under a modified MIT license); share-alike conditions are retained separately and no source text is imported.",
+          "prerequisites": "Linear algebra, calculus, and probability at the Days 19-28 level.",
+          "selection_rationale": "Primary open reference tying evaluation discipline (model selection, underfitting, overfitting) and optimization algorithms (gradient descent, minibatch) to the rest of the curriculum.",
+          "known_availability_limitations": "Free web book at d2l.ai; Jupyter source notebooks are on GitHub.",
+          "safe_fallback": "All required formulas and worked numbers are reproduced as original explanations; the book is further reading.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Deep Learning (Goodfellow, Bengio, Courville)",
+              "url": "https://www.deeplearningbook.org/",
+              "license": "MIT Press; free HTML for reading, all rights reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Detailed treatment of optimization difficulties (chapter 8) including saddle points and plateaus; all-rights-reserved text kept as a linking-only alternative."
+            },
+            {
+              "candidate_name": "fast.ai: Practical Deep Learning for Coders",
+              "url": "https://course.fast.ai/",
+              "license": "Course site copyright / Apache-2.0 (fastai code)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong practitioner framing, but organized around the fastai library and video lessons rather than self-contained mathematics."
+            }
+          ],
+          "relevant_timestamp": "Section: Model Selection, Underfitting, and Overfitting"
+        },
+        {
+          "id": "google-ml-crash-course",
+          "title": "Google Machine Learning Crash Course",
+          "author": "Google for Developers",
+          "original_url": "https://developers.google.com/machine-learning/crash-course",
+          "version_or_verification_date": "Current online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "course",
+          "license": "CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external linking under CC BY 4.0; no source text is imported.",
+          "prerequisites": "Basic algebra; short self-contained modules.",
+          "selection_rationale": "Industrial, beginner-legible treatment of training/test splitting and overfitting; complements d2l.ai's mathematical framing.",
+          "known_availability_limitations": "Free web course on developers.google.com; requires a browser session.",
+          "safe_fallback": "Split discipline, leakage rules, and metric definitions are fully explained inside the lesson; the course is further reading.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Dive into Deep Learning (d2l.ai)",
+              "url": "https://d2l.ai/",
+              "license": "CC BY-SA 4.0 (book text) / modified MIT (sample code)",
+              "status": "compared_selected_for_day29",
+              "comparison_rationale": "Co-primary: deeper mathematical coverage of model selection, generalization, and optimization for the mathematics-track capstone."
+            },
+            {
+              "candidate_name": "scikit-learn: Model Evaluation documentation",
+              "url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "Normative reference once learners call sklearn; kept as an alternative because these days teach evaluation protocol before library usage."
+            }
+          ],
+          "relevant_timestamp": "Modules: Training and Test Sets; Overfitting"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,313 @@
+{
+ "id": "day-01",
+ "day_number": 1,
+ "active_minutes": 480,
+ "topic_category": "self-directed-learning-and-python",
+ "is_review_day": false,
+ "prerequisites": [
+  "High-school reading comprehension",
+  "Basic command-line terminal awareness"
+ ],
+ "activities": [
+  {
+   "id": "day-01-act-01",
+   "active_minutes": 90,
+   "activity_type": "practice",
+   "assistance_policy": "independent",
+   "content_revision": "2026.10.30-rev5",
+   "prerequisites": [
+    "Basic file execution awareness"
+   ],
+   "project_submission": {
+    "enabled": true
+   },
+   "quiz": {
+    "mastery_score": 100,
+    "questions": [
+     {
+      "id": "q1",
+      "type": "choice",
+      "expected_answer": "b"
+     },
+     {
+      "id": "q2",
+      "type": "choice",
+      "expected_answer": "c"
+     },
+     {
+      "id": "q3",
+      "type": "choice",
+      "expected_answer": "b"
+     }
+    ]
+   },
+   "source_resources": [
+    {
+     "id": "py-docs-datamodel",
+     "title": "Python Data Model & Mutability Reference",
+     "author": "Python Software Foundation",
+     "original_url": "https://docs.python.org/3/reference/datamodel.html",
+     "relevant_timestamp": "Section 3.1 & 3.2 (Objects, values, types)",
+     "version_or_verification_date": "Python 3.12 (Verified: 2026-10-30)",
+     "reuse_category": "linking",
+     "source_type": "documentation",
+     "license": "PSF License Version 2",
+     "license_restrictions": [],
+     "permission_basis": "Lawful external reference under PSF open documentation terms; no proprietary content imported.",
+     "prerequisites": "Basic command line and high school reading comprehension",
+     "selection_rationale": "Normative reference on Python identity vs value semantics and mutable vs immutable types without tutorial inaccuracies.",
+     "known_availability_limitations": "Standard documentation hosted on python.org; accessible worldwide with offline standard library documentation bundle as local fallback.",
+     "safe_fallback": "Official documentation is mirrored locally via standard library pydoc and embedded offline lesson explanations if internet access is interrupted.",
+     "compared_candidates": [
+      {
+       "candidate_name": "MIT OCW 6.0001 (Prof. Eric Grimson)",
+       "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+       "license": "CC BY-NC-SA 4.0",
+       "status": "compared_rejected_for_day01",
+       "comparison_rationale": "High pedagogical clarity for Python fundamentals, but structures mutability around academic lecture pacing rather than immediate hands-on minimal reproductions (MRE)."
+      },
+      {
+       "candidate_name": "Stanford CS336: Language Modeling from Scratch (Spring 2024)",
+       "url": "https://github.com/stanford-cs336/spring2024-assignment1-basics",
+       "license": "No license declared (the repository has no LICENSE file, so all rights are reserved by default)",
+       "status": "compared_deferred",
+       "comparison_rationale": "Strong systems engineering and PyTorch tensor rigor, but assumes advanced Python mastery and PyTorch installed; deferred to Days 30-60 model pretraining."
+      },
+      {
+       "candidate_name": "3Blue1Brown: Essence of Linear Algebra",
+       "url": "https://www.3blue1brown.com/topics/linear-algebra",
+       "license": "3Blue1Brown copyright (all rights reserved); site FAQ permits only short clips under stated conditions",
+       "status": "compared_deferred",
+       "comparison_rationale": "Strong visual intuition for linear transformations and vector spaces; selected for Days 10-18 mathematics foundations, but not relevant for Day 01 Python object references."
+      },
+      {
+       "candidate_name": "Andrej Karpathy: Neural Networks: Zero to Hero (micrograd)",
+       "url": "https://github.com/karpathy/micrograd",
+       "license": "MIT (Repository) / Standard YouTube License (Video)",
+       "status": "compared_deferred",
+       "comparison_rationale": "Clear, executable autograd intuition; code is MIT license, but video subtitles have unknown/proprietary distribution rights (prohibiting full-text transcript import). Selected for Days 19-25 autograd implementation with linking-only reuse."
+      }
+     ]
+    }
+   ],
+   "category": "self-directed-learning-and-python",
+   "status": "available",
+   "lesson_id": "les-01"
+  },
+  {
+   "id": "day-01-act-02",
+   "active_minutes": 120,
+   "activity_type": "setup",
+   "assistance_policy": "independent",
+   "content_revision": "2026.10.30-rev4",
+   "prerequisites": [
+    "Terminal access"
+   ],
+   "source_resources": [
+    {
+     "id": "py-tutorial-venv",
+     "title": "The Python Tutorial: Virtual Environments and Packages",
+     "author": "Python Software Foundation",
+     "original_url": "https://docs.python.org/3/tutorial/venv.html",
+     "relevant_timestamp": "Section 12 (creating venvs, pip installs, requirements files)",
+     "version_or_verification_date": "Python 3.12 (Verified: 2026-10-30)",
+     "reuse_category": "linking",
+     "source_type": "documentation",
+     "license": "PSF License Version 2",
+     "license_restrictions": [],
+     "permission_basis": "Lawful external reference under PSF open documentation terms; no source text imported into curriculum content.",
+     "prerequisites": "Basic Python syntax from Study Days 01-09",
+     "selection_rationale": "Primary reference for python -m venv and interpreter isolation, which the Day 01 drill checks through activation, the sys.prefix/sys.base_prefix probes, and python -m pip --version; its requirements-file and wrong-environment material is practiced later, on Study Day 11.",
+     "known_availability_limitations": "Hosted on python.org; pip installs additionally need a reachable package index.",
+     "safe_fallback": "The Day 01 drill needs no network: venv creation and activation, the sys.executable/sys.prefix/sys.base_prefix probes, the venv interpreter's marker.txt read, python -m pip --version, and deactivate all run offline; without a supported Python, the exercise's recorded no-interpreter fallback applies.",
+     "compared_candidates": [
+      {
+       "candidate_name": "pip documentation",
+       "url": "https://pip.pypa.io/en/stable/",
+       "license": "MIT",
+       "status": "compared_alternative",
+       "comparison_rationale": "Primary reference for pip commands, but the tutorial presents the create-activate-install loop as one beginner-friendly narrative."
+      },
+      {
+       "candidate_name": "virtualenv documentation",
+       "url": "https://virtualenv.pypa.io/en/latest/",
+       "license": "MIT License",
+       "status": "compared_alternative",
+       "comparison_rationale": "Mature third-party environment tool with overlapping behavior; the stdlib venv tutorial was selected to avoid an extra dependency for first-time setup."
+      }
+     ]
+    },
+    {
+     "id": "py-docs-pathlib",
+     "title": "Python Standard Library: pathlib",
+     "author": "Python Software Foundation",
+     "original_url": "https://docs.python.org/3/library/pathlib.html",
+     "relevant_timestamp": "Path.exists, Path.cwd, and anchoring paths to __file__",
+     "version_or_verification_date": "Python 3.12 (Verified: 2026-10-30)",
+     "reuse_category": "linking",
+     "source_type": "documentation",
+     "license": "PSF License Version 2",
+     "license_restrictions": [],
+     "permission_basis": "Lawful external reference under PSF open documentation terms; no source text imported into curriculum content.",
+     "prerequisites": "Basic Python syntax from Study Days 01-09",
+     "selection_rationale": "Background reference for working-directory-relative file access: the Day 01 drill's venv interpreter reads marker.txt from the current directory using open(), not pathlib; Path.exists()/Path.cwd() evidence that separates an absent file from a wrong working directory is practiced on Study Day 10.",
+     "known_availability_limitations": "Hosted on python.org; requires internet access unless a local documentation bundle is installed.",
+     "safe_fallback": "Not needed to complete the Day 01 drill, which makes no pathlib call, so no online page is required; Path.exists() and Path.cwd() are exercised offline on Study Day 10.",
+     "compared_candidates": [
+      {
+       "candidate_name": "os.path documentation",
+       "url": "https://docs.python.org/3/library/os.path.html",
+       "license": "PSF License Version 2",
+       "status": "compared_alternative",
+       "comparison_rationale": "Functionally equivalent for exists() checks; pathlib keeps the beginner syntax object-oriented and consistent across the block."
+      },
+      {
+       "candidate_name": "shutil — High-level file operations",
+       "url": "https://docs.python.org/3/library/shutil.html",
+       "license": "PSF License Version 2",
+       "status": "compared_alternative",
+       "comparison_rationale": "Covers copying and moving whole trees rather than path modeling; pathlib remains the right reference for the filesystem checks these days rehearse."
+      }
+     ]
+    }
+   ],
+   "category": "self-directed-learning-and-python",
+   "status": "available",
+   "lesson_id": "les-01"
+  },
+  {
+   "id": "day-01-act-03",
+   "active_minutes": 150,
+   "activity_type": "practice",
+   "assistance_policy": "independent",
+   "content_revision": "2026.10.30-rev4",
+   "prerequisites": [
+    "Git installed"
+   ],
+   "source_resources": [
+    {
+     "id": "git-book",
+     "title": "Pro Git, Second Edition",
+     "author": "Scott Chacon and Ben Straub",
+     "original_url": "https://git-scm.com/book/en/v2",
+     "relevant_timestamp": "Chapter 3 (Git Branching), Section 7.7 (Reset Demystified), Sections 5.2/6.2 (Contributing to a Project)",
+     "version_or_verification_date": "Second edition (Apress, 2014) (Verified: 2026-10-30)",
+     "reuse_category": "linking",
+     "source_type": "book",
+     "license": "CC BY-NC-SA 3.0",
+     "license_restrictions": [
+      "noncommercial",
+      "share-alike"
+     ],
+     "permission_basis": "Linking only; no book text reproduced in curriculum content; reuse limited to noncommercial references consistent with CC BY-NC-SA 3.0.",
+     "prerequisites": "Basic git status/log/diff vocabulary from earlier study days",
+     "selection_rationale": "Freely licensed reference for branching, merging, conflict resolution, and safe recovery vocabulary used on Day 14.",
+     "known_availability_limitations": "Readable free at git-scm.com; availability depends on the site staying online.",
+     "safe_fallback": "git help <command> and the Git manual pages ship with Git and cover the same commands offline; every required workflow is stated locally in the lesson.",
+     "compared_candidates": [
+      {
+       "candidate_name": "GitHub Skills interactive courses",
+       "url": "https://skills.github.com/",
+       "license": "MIT (varies by course)",
+       "status": "compared_alternative",
+       "comparison_rationale": "Interactive but requires a GitHub account and an external service; disposable local repositories keep the exercise self-contained."
+      },
+      {
+       "candidate_name": "Atlassian Git Tutorials",
+       "url": "https://www.atlassian.com/git/tutorials",
+       "license": "All Rights Reserved",
+       "status": "compared_alternative",
+       "comparison_rationale": "Vendor-owned prose with no permissive license; Pro Git covers the same ground under CC BY-NC-SA."
+      }
+     ]
+    }
+   ],
+   "category": "self-directed-learning-and-python",
+   "status": "available",
+   "lesson_id": "les-01"
+  },
+  {
+   "id": "day-01-act-04",
+   "active_minutes": 120,
+   "activity_type": "review",
+   "assistance_policy": "independent",
+   "content_revision": "2026.10.30-rev4",
+   "prerequisites": [
+    "day-01-act-01"
+   ],
+   "source_resources": [
+    {
+     "id": "roediger-karpicke-2006",
+     "title": "Test-Enhanced Learning: Taking Memory Tests Improves Long-Term Retention",
+     "author": "Henry L. Roediger III, Jeffrey D. Karpicke",
+     "original_url": "https://doi.org/10.1111/j.1467-9280.2006.01693.x",
+     "relevant_timestamp": "Psychological Science 17(3): 249-255, Experiments 1-2",
+     "version_or_verification_date": "Psychological Science, 2006 (Verified: 2026-10-30)",
+     "reuse_category": "linking",
+     "source_type": "paper",
+     "license": "Journal publisher copyright (all rights reserved) - lawful external linking only",
+     "license_restrictions": [],
+     "permission_basis": "Lawful external citation of the publisher record; no text imported into curriculum materials.",
+     "prerequisites": "Basic understanding of study sessions, retention intervals, and experimental design vocabulary.",
+     "selection_rationale": "Foundational experimental evidence that retrieval practice (testing) outperforms repeated study for long-term retention; grounds the Day 88 AI-free retrieval checks in peer-reviewed learning science rather than folk advice.",
+     "known_availability_limitations": "Publisher page may be paywalled; author preprints and university repositories host lawful copies.",
+     "safe_fallback": "The curriculum restates the experimental design and effect sizes in original prose; every sealed task runs without the paper.",
+     "compared_candidates": [
+      {
+       "candidate_name": "Cepeda et al. Distributed Practice in Verbal Recall Tasks: A Review and Quantitative Synthesis",
+       "url": "https://doi.org/10.1037/0033-2909.132.3.354",
+       "license": "Publisher copyright (APA)",
+       "status": "compared_alternative",
+       "comparison_rationale": "Strong meta-analytic coverage of spacing effects but addresses scheduling rather than the retrieval effect itself; retained as support for the Day 90 spaced-review schedule."
+      },
+      {
+       "candidate_name": "Karpicke & Roediger: The Critical Importance of Retrieval for Learning (Science 2008)",
+       "url": "https://doi.org/10.1126/science.1152408",
+       "license": "Publisher copyright (AAAS)",
+       "status": "compared_alternative",
+       "comparison_rationale": "Equally foundational follow-up demonstrating repeated retrieval vs repeated study; the 2006 paper is cited as the standard first controlled demonstration."
+      }
+     ]
+    },
+    {
+     "id": "dunlosky-2013-effective-techniques",
+     "title": "Improving Students' Learning With Effective Learning Techniques: Promising Directions From Cognitive and Educational Psychology",
+     "author": "John Dunlosky, Katherine A. Rawson, Elizabeth J. Marsh, Mitchell J. Nathan, Daniel T. Willingham",
+     "original_url": "https://doi.org/10.1177/1529100612453266",
+     "relevant_timestamp": "Psychological Science in the Public Interest 14(1): 4-58; practice testing and distributed practice sections",
+     "version_or_verification_date": "Psychological Science in the Public Interest, 2013 (Verified: 2026-10-30)",
+     "reuse_category": "linking",
+     "source_type": "paper",
+     "license": "Journal publisher copyright (all rights reserved) - lawful external linking only",
+     "license_restrictions": [],
+     "permission_basis": "Lawful external citation of the publisher record; no text imported into curriculum materials.",
+     "prerequisites": "None beyond general academic reading.",
+     "selection_rationale": "Detailed comparative review rating practice testing and distributed practice as high-utility techniques while rating highlighting and rereading low-utility; anchors the retrieval, correction, and spaced-review design of Days 88-90.",
+     "known_availability_limitations": "Paywalled at SAGE; author-hosted preprints exist on university sites.",
+     "safe_fallback": "Curriculum restates the utility ratings and application conditions in original prose; every task remains runnable offline.",
+     "compared_candidates": [
+      {
+       "candidate_name": "Pashler et al. Learning Styles: Concepts and Evidence",
+       "url": "https://doi.org/10.1111/j.1539-6053.2009.01038.x",
+       "license": "Publisher copyright (originally Wiley; now SAGE Publications)",
+       "status": "compared_alternative",
+       "comparison_rationale": "Important negative result on learning-styles matching but narrower scope; Dunlosky et al. rates a broader set of techniques directly usable for this curriculum."
+      },
+      {
+       "candidate_name": "Brown, Roediger & McDaniel: Make It Stick: The Science of Successful Learning",
+       "url": "https://www.hup.harvard.edu/books/9780674729018",
+       "license": "Publisher copyright (Harvard University Press)",
+       "status": "compared_alternative",
+       "comparison_rationale": "Strong trade-book synthesis of the same evidence base; the peer-reviewed review is preferred for citation precision and technique-by-technique utility ratings."
+      }
+     ]
+    }
+   ],
+   "category": "self-directed-learning-and-python",
+   "status": "available",
+   "lesson_id": "les-01"
+  }
+ ],
+ "status": "available",
+ "recovery_links": []
+}

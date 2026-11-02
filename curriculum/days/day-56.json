@@ -1,0 +1,377 @@
+{
+  "id": "day-56",
+  "day_number": 56,
+  "active_minutes": 480,
+  "topic_category": "models-and-training",
+  "is_review_day": true,
+  "status": "available",
+  "prerequisites": [
+    "day-55"
+  ],
+  "recovery_links": [
+    "day-49"
+  ],
+  "activities": [
+    {
+      "id": "day-56-act-01",
+      "lesson_id": "les-56",
+      "title": "New Material: Parameter, Memory, and Compute Arithmetic",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev2",
+      "prerequisites": [
+        "day-55"
+      ],
+      "source_resources": [
+        {
+          "id": "kaplan-scaling-laws-2020",
+          "title": "Scaling Laws for Neural Language Models",
+          "author": "Jared Kaplan, Sam McCandlish, Tom Henighan, Tom B. Brown, Benjamin Chess, Rewon Child, Scott Gray, Alec Radford, Jeffrey Wu, Dario Amodei",
+          "original_url": "https://arxiv.org/abs/2001.08361",
+          "version_or_verification_date": "arXiv:2001.08361v1 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Basic calculus, logarithms, and parameter counting fundamentals.",
+          "selection_rationale": "Foundational empirical study formulating power laws governing cross-entropy loss with respect to model parameters N, dataset size D, and compute C.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Scaling formulas, power-law exponents, and parameter compute trade-offs are derived in the lesson text.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Rosenfeld et al. A Constructive Prediction of the Generalization Error of Neural Networks",
+              "url": "https://arxiv.org/abs/1909.12673",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Early formulation of power-law scaling; Kaplan focuses explicitly on autoregressive transformer language models."
+            },
+            {
+              "candidate_name": "Hestness et al. Deep Learning Scaling is Predictable, Empirically",
+              "url": "https://arxiv.org/abs/1712.00409",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "General vision/translation scaling; Kaplan specifically establishes modern decoder-only LLM compute budgeting."
+            }
+          ],
+          "relevant_timestamp": "Section 2.1 Parameter and Compute Scaling of Transformers (C ≈ 6N FLOPs per token)"
+        },
+        {
+          "id": "eleutherai-transformer-math",
+          "title": "Transformer Math 101",
+          "author": "Quentin Anthony, Stella Biderman, Hailey Schoelkopf",
+          "original_url": "https://blog.eleuther.ai/transformer-math/",
+          "version_or_verification_date": "EleutherAI Research Blog (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "article",
+          "license": "CC-BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under Creative Commons Attribution license.",
+          "prerequisites": "Transformer matrix dimensions and matrix multiplication FLOP counting.",
+          "selection_rationale": "Widely cited, practical industry guide deriving 6ND compute FLOPs, activation memory, KV cache size, and VRAM estimation.",
+          "known_availability_limitations": "Freely available on EleutherAI blog.",
+          "safe_fallback": "The 6ND derivation (2ND forward, 4ND backward) and peak VRAM estimation models are fully worked out in the curriculum.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Narayanan et al. Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM",
+              "url": "https://arxiv.org/abs/2104.04473",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Rigorous academic formulation; Transformer Math 101 provides accessible step-by-step arithmetic equations."
+            },
+            {
+              "candidate_name": "Kaplan et al. Section 2.1 Compute Budgeting",
+              "url": "https://arxiv.org/abs/2001.08361",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Original 6ND approximation; EleutherAI expands on activation memory and KV cache."
+            }
+          ],
+          "relevant_timestamp": "Compute Requirements (C = 6PD) and Memory Requirements: Training",
+          "locator_url": "https://blog.eleuther.ai/transformer-math/#compute-requirements"
+        },
+        {
+          "id": "rajbhandari-zero-2020",
+          "title": "ZeRO: Memory Optimizations Toward Training Trillion Parameter Models",
+          "author": "Samyam Rajbhandari, Jeff Rasley, Olatunji Ruwase, Yuxiong He",
+          "original_url": "https://arxiv.org/abs/1910.02054",
+          "version_or_verification_date": "SC20 / arXiv:1910.02054v3 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Adam optimizer mechanics from Day 34 and parameter memory arithmetic.",
+          "selection_rationale": "Source of the 16 bytes per parameter accounting for mixed-precision Adam that the lesson's memory arithmetic uses.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Complete analytical formulas for bytes-per-parameter across AdamW vs SGD and mixed precision are fully provided.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Shoeybi et al. Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism",
+              "url": "https://arxiv.org/abs/1909.08053",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Focuses on tensor slicing and inter-GPU communication; ZeRO provides the standard breakdown of optimizer and parameter memory footprints."
+            },
+            {
+              "candidate_name": "Micikevicius et al. Mixed Precision Training",
+              "url": "https://arxiv.org/abs/1710.03740",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Foundational mixed-precision paper; ZeRO formalizes the exact 16-byte Adam state footprint."
+            }
+          ],
+          "relevant_timestamp": "Section 3.1 Model States: Optimizer States, Gradients and Parameters (2Ψ + 2Ψ + KΨ = 16Ψ bytes, K = 12)"
+        }
+      ]
+    },
+    {
+      "id": "day-56-act-02",
+      "lesson_id": "les-56",
+      "title": "Review Drill: AdamW, Schedules, Clipping, and Sampling (Days 50-52)",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.11.01-rev2",
+      "prerequisites": [
+        "day-56-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "adamw-paper-2019",
+          "title": "Decoupled Weight Decay Regularization",
+          "author": "Ilya Loshchilov, Frank Hutter",
+          "original_url": "https://arxiv.org/abs/1711.05101",
+          "version_or_verification_date": "ICLR 2019 / arXiv:1711.05101v3 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation and reference under arXiv open access terms; no paper figures or prose reproduced.",
+          "prerequisites": "Stochastic gradient descent, L2 regularization, and momentum concepts from Days 31-33.",
+          "selection_rationale": "Foundational primary literature defining AdamW, demonstrating that L2 regularization does not equal decoupled weight decay in adaptive gradient algorithms.",
+          "safe_fallback": "All update equations and mathematical proofs are self-contained in the curriculum lessons.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Kingma & Ba: Adam: A Method for Stochastic Optimization (2014)",
+              "url": "https://arxiv.org/abs/1412.6980",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Original Adam algorithm implementing L2 regularization via gradient addition, leading to sub-optimal generalization compared to decoupled weight decay."
+            },
+            {
+              "candidate_name": "PyTorch torch.optim.AdamW documentation",
+              "url": "https://pytorch.org/docs/stable/generated/torch.optim.AdamW.html",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Standard library reference; Loshchilov & Hutter provides theoretical mathematical derivations and empirical justification."
+            }
+          ],
+          "relevant_timestamp": "Section 2 Decoupling the Weight Decay from the Gradient-Based Update (Algorithm 2, AdamW)"
+        },
+        {
+          "id": "karpathy-nanogpt-train",
+          "title": "nanoGPT: train.py pretraining loop",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/nanoGPT/blob/master/train.py",
+          "version_or_verification_date": "Git master commit 71c3905 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license.",
+          "prerequisites": "Python, PyTorch, and Day 46-48 Transformer model architecture.",
+          "selection_rationale": "Compact historical code reference for the named implementation functions; CS336 spring2025 provides the lead component exercises. Do not infer top-p, atomic persistence or cloud budget enforcement from nanoGPT.",
+          "safe_fallback": "Runnable pretraining scripts and step-by-step tensor mechanics are fully self-contained in the curriculum lessons.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Hugging Face Accelerate / Trainer",
+              "url": "https://github.com/huggingface/accelerate",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Heavy abstraction layer wrapping distributed training; nanoGPT exposes raw PyTorch loops without framework overhead."
+            },
+            {
+              "candidate_name": "Megatron-LM (NVIDIA)",
+              "url": "https://github.com/NVIDIA/Megatron-LM",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-performance enterprise distributed framework; unsuitable for local educational first-principles comprehension."
+            }
+          ],
+          "relevant_timestamp": "train.py: optimizer = model.configure_optimizers(weight_decay, learning_rate, (beta1, beta2), device_type); train.py: get_lr(it): linear warmup over warmup_iters, cosine decay to min_lr by lr_decay_iters; clip_grad_norm_(grad_clip) in the training loop",
+          "known_availability_limitations": "Historical implementation reference: nanoGPT README marks the repository deprecated (November 2025). Toy CPU reading/runs do not establish full GPU pretraining feasibility."
+        }
+      ]
+    },
+    {
+      "id": "day-56-act-03",
+      "lesson_id": "les-56",
+      "title": "Review Practice: Honest Evaluation and Resumable Checkpoints (Days 53-55)",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev2",
+      "prerequisites": [
+        "day-56-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "karpathy-nanogpt-model",
+          "title": "nanoGPT: model.py architecture implementation",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/nanoGPT/blob/master/model.py",
+          "version_or_verification_date": "Git master (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license.",
+          "prerequisites": "Python, PyTorch, and Day 43-45 attention fundamentals.",
+          "selection_rationale": "Compact historical code reference for the named implementation functions; CS336 spring2025 provides the lead component exercises. Do not infer top-p, atomic persistence or cloud budget enforcement from nanoGPT.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GPT-2 TensorFlow source (OpenAI)",
+              "url": "https://github.com/openai/gpt-2",
+              "license": "Modified MIT License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Original legacy TensorFlow 1.x code; nanoGPT provides clean modern PyTorch equivalent."
+            },
+            {
+              "candidate_name": "Llama 2 / 3 PyTorch source (Meta)",
+              "url": "https://github.com/meta-llama/llama",
+              "license": "Llama 2 Community License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Includes advanced production features (RoPE, GQA), but nanoGPT's simplicity is ideal for the core Days 46-48 assembly."
+            }
+          ],
+          "known_availability_limitations": "Historical implementation reference: nanoGPT README marks the repository deprecated (November 2025). Toy CPU reading/runs do not establish full GPU pretraining feasibility.",
+          "safe_fallback": "Local models and classes in the curriculum mirror nanoGPT semantics directly.",
+          "locator_status": "whole_source_reference"
+        },
+        {
+          "id": "holtzman-degeneration-2019",
+          "title": "The Curious Case of Neural Text Degeneration",
+          "author": "Ari Holtzman, Jan Buys, Li Du, Maxwell Forbes, Yejin Choi",
+          "original_url": "https://arxiv.org/abs/1904.09751",
+          "version_or_verification_date": "ICLR 2020 / arXiv:1904.09751v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Softmax probabilities, cumulative probability distributions from Days 25-27 and 41-42.",
+          "selection_rationale": "Primary source introducing Nucleus (Top-p) sampling and analyzing the failure of greedy decoding (loops, repetition).",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Top-p truncation algorithms and worked probability cutoffs are completely explained in the lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Fan et al. Hierarchical Neural Story Generation (Top-k)",
+              "url": "https://arxiv.org/abs/1805.04833",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Introduces top-k sampling; Holtzman et al. dynamic nucleus threshold is compared directly against top-k."
+            },
+            {
+              "candidate_name": "Hugging Face Generation Strategies Guide",
+              "url": "https://huggingface.co/docs/transformers/generation_strategies",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Practical library guide; Holtzman provides the foundational mathematical reasoning."
+            }
+          ],
+          "locator_status": "whole_source_reference"
+        }
+      ]
+    },
+    {
+      "id": "day-56-act-04",
+      "lesson_id": "les-56",
+      "title": "Week 8 Assessment: Pre-flight Plan for a 124M Pretraining Run (Days 50-56)",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.11.01-rev2",
+      "prerequisites": [
+        "day-56-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "adamw-paper-2019",
+          "title": "Decoupled Weight Decay Regularization",
+          "author": "Ilya Loshchilov, Frank Hutter",
+          "original_url": "https://arxiv.org/abs/1711.05101",
+          "version_or_verification_date": "ICLR 2019 / arXiv:1711.05101v3 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation and reference under arXiv open access terms; no paper figures or prose reproduced.",
+          "prerequisites": "Stochastic gradient descent, L2 regularization, and momentum concepts from Days 31-33.",
+          "selection_rationale": "Foundational primary literature defining AdamW, demonstrating that L2 regularization does not equal decoupled weight decay in adaptive gradient algorithms.",
+          "safe_fallback": "All update equations and mathematical proofs are self-contained in the curriculum lessons.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Kingma & Ba: Adam: A Method for Stochastic Optimization (2014)",
+              "url": "https://arxiv.org/abs/1412.6980",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Original Adam algorithm implementing L2 regularization via gradient addition, leading to sub-optimal generalization compared to decoupled weight decay."
+            },
+            {
+              "candidate_name": "PyTorch torch.optim.AdamW documentation",
+              "url": "https://pytorch.org/docs/stable/generated/torch.optim.AdamW.html",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Standard library reference; Loshchilov & Hutter provides theoretical mathematical derivations and empirical justification."
+            }
+          ],
+          "locator_status": "whole_source_reference"
+        },
+        {
+          "id": "pytorch-save-load",
+          "title": "PyTorch Tutorial: Saving and Loading Models",
+          "author": "PyTorch Documentation Team",
+          "original_url": "https://pytorch.org/tutorials/beginner/saving_loading_models.html",
+          "version_or_verification_date": "PyTorch 2.x Documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD-3-Clause",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under BSD open source documentation license.",
+          "prerequisites": "Python, PyTorch tensors and nn.Module basics.",
+          "selection_rationale": "Official documentation detailing state_dict serialization, optimizer state saving, and safe loading patterns.",
+          "known_availability_limitations": "Freely available on pytorch.org.",
+          "safe_fallback": "All checkpoint serialization semantics, dictionary schema keys, and safe recovery steps are self-contained in lesson code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "TensorFlow tf.train.Checkpoint Guide",
+              "url": "https://www.tensorflow.org/guide/checkpoint",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "TensorFlow trackable checkpoint architecture; PyTorch's explicit dictionary is our target implementation standard."
+            },
+            {
+              "candidate_name": "Hugging Face Safetensors Documentation",
+              "url": "https://huggingface.co/docs/safetensors",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Safetensors provides safe zero-copy tensor storage without pickle, compared directly when discussing pickle execution risks."
+            }
+          ],
+          "relevant_timestamp": "Saving & Loading a General Checkpoint for Inference and/or Resuming Training",
+          "locator_url": "https://pytorch.org/tutorials/beginner/saving_loading_models.html#saving-loading-a-general-checkpoint-for-inference-and-or-resuming-training"
+        }
+      ]
+    }
+  ]
+}

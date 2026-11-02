@@ -1,0 +1,269 @@
+{
+ "language": "en",
+ "language_label": "English",
+ "day_title": "Day 01: Diagnosis, Learning Methods, and Environment",
+ "day_subtitle": "Use a diagnostic self-check, prediction-experiment-review, retrieval, concept decomposition, and a verified terminal environment; the existing mutation example is the shared tracer bullet, not a duplicated lesson.",
+ "time_budget_label": "480 active minutes (8 hours focused study)",
+ "category_label": "Self-Directed Learning & Python Engineering Foundations",
+ "common": {
+  "nav_calendar": "📅 Curriculum Calendar",
+  "nav_agent_track": "🤖 Agent Tool Track",
+  "day_label": "Day 01",
+  "prerequisites_title": "Prerequisites",
+  "objective_title": "Learning Objective",
+  "instructions_title": "Instructions",
+  "exercise_title": "Practice & Prediction Log",
+  "hint_title": "View Hint",
+  "reveal_answer": "Inspect Reference Solution & Trace",
+  "mastery_title": "Independent Mastery Criterion",
+  "draft_placeholder": "Enter your predicted output, observed behavior, and root-cause derivation here...",
+  "dev_slice_notice": "Local curriculum content for Study Days 01–03 is available for review while acceptance is pending; external access, paid tools, and production evidence remain explicitly separate. Completeness is not claimed.",
+  "sources_heading": "Authoritative Source Resources & Provenance",
+  "source_author_label": "Author",
+  "source_url_label": "Original Source Link",
+  "source_range_label": "Relevant Section / Range",
+  "source_verification_label": "Verified Version & Date",
+  "source_reuse_label": "Reuse Category",
+  "source_license_label": "License & Rights",
+  "source_rationale_label": "Selection Rationale",
+  "source_prereqs_label": "Source Prerequisites",
+  "source_fallback_label": "Safe Fallback (Offline Resilience)",
+  "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+  "compared_status_label": "Decision",
+  "auth": {
+   "sign_in": "Sign in with Google",
+   "sign_in_google": "Google",
+   "sign_in_github": "GitHub",
+   "sign_out": "Sign out",
+   "signed_in_as": "Signed in as",
+   "guest": "Guest mode",
+   "link_github": "Link GitHub",
+   "link_google": "Link Google",
+   "linked_identities": "Linked accounts",
+   "auth_errors": {
+    "access_denied": "Authorization was cancelled or access was denied.",
+    "invalid_state": "Invalid or expired authorization state. Please try again.",
+    "identity_conflict": "This identity is already linked to another account. Conflict rejected to preserve existing records.",
+    "provider_error": "Authentication provider encountered an error. Please try again later.",
+    "server_error": "Authentication provider encountered an error. Please try again later.",
+    "session_expired": "Your session has expired. Please sign in again."
+   }
+  },
+  "progress": {
+   "save_btn": "Save Progress",
+   "saved": "Saved",
+   "saving": "Saving...",
+   "save_error": "Save failed",
+   "offline": "Offline mode",
+   "mark_completed": "Mark as Completed",
+   "completed_badge": "Completed"
+  },
+  "quiz": {
+   "quiz_title": "Objective Knowledge Check & Diagnostic Trace",
+   "quiz_instructions": "Answer the following questions to verify your understanding. Select your declared assistance condition before submitting.",
+   "assistance_mode_label": "Declared Assistance Condition",
+   "mode_independent": "Independent Mastery Check (No AI assistance)",
+   "mode_agent_assisted": "Agent-Assisted Engineering Check (Completed with AI assistance)",
+   "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+   "submit_btn": "Submit Answers",
+   "retry_btn": "Retry Quiz",
+   "view_hint": "Question Hint",
+   "mastery_criterion_label": "Mastery Criterion",
+   "mastery_criterion_desc": "Score 100% (3/3 correct) on an Independent Mastery Check.",
+   "score_label": "Score",
+   "passed_badge": "Passed",
+   "failed_badge": "Needs Review",
+   "independent_pass_badge": "Independent Mastery Verified",
+   "agent_assisted_pass_badge": "Agent-Assisted Verified",
+   "self_reported_badge": "Self-Reported Checkbox",
+   "stale_badge": "Historical (Revalidation Needed - Content Revision Changed)",
+   "attempts_history_title": "Attempt History & Evidence",
+   "no_attempts": "No attempts recorded yet."
+  },
+  "submissions": {
+   "title": "Learning Project Submission & Evidence",
+   "repo_label": "Repository Link (GitHub / GitLab)",
+   "repo_placeholder": "https://github.com/...",
+   "report_label": "Report Link (Optional)",
+   "report_placeholder": "https://...",
+   "notes_label": "Evidence Notes & Diagnostic Log (Max 4096 bytes)",
+   "notes_placeholder": "Record minimal reproducible examples (MRE), observed results, or diagnosis notes...",
+   "assistance_mode_label": "Declared Assistance Condition",
+   "mode_independent": "Independent Project (No AI assistance)",
+   "mode_agent_assisted": "Agent-Assisted Project (Directed AI assistance)",
+   "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+   "track_label": "Agent Tool Track (if applicable)",
+   "tracks": {
+    "none": "None / Not Applicable",
+    "claude_code": "Claude Code",
+    "codex": "Codex",
+    "pi_agent": "Pi Agent",
+    "deepseek_harness": "DeepSeek Harness"
+   },
+   "submit_btn": "Submit Project Evidence",
+   "status_saving": "Saving submission...",
+   "status_saved": "Submission saved successfully.",
+   "status_error": "Submission failed.",
+   "val_invalid_url": "Invalid URL: Repository and report links must use http or https.",
+   "val_notes_too_long": "Evidence notes exceed the maximum limit of 4096 bytes.",
+   "val_empty": "Please provide at least a repository link, report link, or evidence notes.",
+   "pasted_log_notice": "Notice: Pasted execution logs and notes are self-reported evidence and do not constitute independent or automated verification.",
+   "inspect_title": "Current Submitted Evidence Details",
+   "status_self_reported": "Self-Reported Evidence",
+   "status_verified_check": "Deterministic Verification Check",
+   "status_independently_reviewed": "Independently Reviewed Evidence",
+   "status_stale": "Historical Evidence (Revalidation Needed - Content Revision Changed)",
+   "no_submission": "No submission recorded yet."
+  }
+ },
+ "activities": {
+  "day-01-act-01": {
+   "title": "Learning Methods, Minimal Reproductions & Prediction-Experiment-Review Routine",
+   "prerequisites": "High-school reading comprehension and basic terminal awareness; no advanced Python syntax required.",
+   "objective": "Use a diagnostic self-check and the prediction-experiment-review loop on the existing mutation tracer bullet, then decompose the concept into names, objects, mutation, allocation, and evidence.",
+   "assistance_policy_label": "Independent Mastery Check; assistance after your prediction and observed output are recorded is remediation only — the assessed explanation must be produced unaided, and any assisted remediation requires a fresh independent attempt before mastery is claimed.",
+   "instructions": "In programming and model debugging, blind prompting and repeated guessing conceal real gaps in understanding. This activity requires you to analyze an object mutation and reference problem using the Prediction-Experiment-Review cycle.",
+   "exercise_prompt": "Examine the following Python code snippet. Write your predicted output in the draft area below before running it:\n\n```python\na = [1, 2, 3]\nb = a\nb.append(4)\nc = a + [5]\nprint('Case 1:', a)\nprint('Case 2:', c)\nprint('Case 3:', a is b, a is c)\n```\n\nExplain why `b.append(4)` affects `a`, whereas `a + [5]` does not. Formulate a minimal reproducible example (MRE): a short witness snippet demonstrating that `b` and `a` name the same object — required even if every prediction was correct, since it is the evidence for the identity claim, not only a remedy for unexpected behavior.",
+   "hint": "Hint: In Python, variable names are references to objects in memory. `b = a` does not create a new copy of the list. `.append()` mutates the list in place, whereas `+` allocates and returns a completely new list.",
+   "answer": "Reference Solution & Execution Trace:\n1. Predicted Output:\n   Case 1: [1, 2, 3, 4]\n   Case 2: [1, 2, 3, 4, 5]\n   Case 3: True False\n2. Root-Cause Analysis:\n   - `b = a` binds the name `b` to the identical object (`id(a) == id(b)` holds only when both names refer to the same object). Mutating `b` in-place alters `a`.\n   - `a + [5]` allocates a new list bound to `c`. Hence `a is c` is `False`, and `a` itself remains unchanged.\n3. Minimal Reproducible Example (MRE):\n   ```python\n   x = []\n   y = x\n   y.append(1)\n   assert x == [1] and x is y  # in-place modification mutates shared reference\n   ```",
+   "mastery_criterion": "Mastery Criterion: The learner independently predicts the distinction between in-place mutation and object allocation, writing a 3-step diagnostic trace (prediction, observed outcome, root-cause explanation) and a minimal identity/mutation witness snippet (MRE) — required regardless of prediction outcome — without AI assistance.",
+   "source_resources": [
+    {
+     "id": "py-docs-datamodel",
+     "title": "Python Data Model & Mutability Reference",
+     "author": "Python Software Foundation",
+     "original_url": "https://docs.python.org/3/reference/datamodel.html",
+     "relevant_timestamp": "Section 3.1 & 3.2 (Objects, values, types)",
+     "version_or_verification_date": "Python 3.12 (Verified: 2026-10-30)",
+     "reuse_category": "linking",
+     "reuse_category_label": "Linking (Lawful external reference)",
+     "license": "PSF License Version 2",
+     "license_restrictions": [],
+     "permission_basis": "Lawful external reference under PSF open documentation terms; no proprietary content imported.",
+     "selection_rationale": "Normative reference on Python identity vs value semantics and mutable vs immutable types without tutorial inaccuracies.",
+     "prerequisites": "Basic command line and high school reading comprehension",
+     "known_availability_limitations": "Standard documentation hosted on python.org; accessible worldwide with offline standard library documentation bundle as local fallback.",
+     "safe_fallback": "Official documentation is mirrored locally via standard library pydoc and embedded offline lesson explanations if internet access is interrupted.",
+     "compared_candidates": [
+      {
+       "candidate_name": "MIT OCW 6.0001 (Prof. Eric Grimson)",
+       "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+       "license": "CC BY-NC-SA 4.0",
+       "status": "Compared (Rejected for Day 01)",
+       "comparison_rationale": "High pedagogical clarity for Python fundamentals, but structures mutability around academic lecture pacing rather than immediate hands-on minimal reproductions (MRE)."
+      },
+      {
+       "candidate_name": "Stanford CS336: Language Modeling from Scratch (Spring 2024)",
+       "url": "https://github.com/stanford-cs336/spring2024-assignment1-basics",
+       "license": "No license declared (the repository has no LICENSE file, so all rights are reserved by default)",
+       "status": "Compared (Deferred)",
+       "comparison_rationale": "Strong systems engineering and PyTorch tensor rigor, but assumes advanced Python mastery and PyTorch installed; deferred to Days 30-60 model pretraining."
+      },
+      {
+       "candidate_name": "3Blue1Brown: Essence of Linear Algebra",
+       "url": "https://www.3blue1brown.com/topics/linear-algebra",
+       "license": "3Blue1Brown copyright (all rights reserved); site FAQ permits only short clips under stated conditions",
+       "status": "Compared (Deferred)",
+       "comparison_rationale": "Strong visual intuition for linear transformations and vector spaces; selected for Days 10-18 mathematics foundations, but not relevant for Day 01 Python object references."
+      },
+      {
+       "candidate_name": "Andrej Karpathy: Neural Networks: Zero to Hero (micrograd)",
+       "url": "https://github.com/karpathy/micrograd",
+       "license": "MIT (Repository) / Standard YouTube License (Video)",
+       "status": "Compared (Deferred)",
+       "comparison_rationale": "Clear, executable autograd intuition; code is MIT license, but video subtitles have unknown/proprietary distribution rights (prohibiting full-text transcript import). Selected for Days 19-25 autograd implementation with linking-only reuse."
+      }
+     ],
+     "source_type": "documentation"
+    }
+   ],
+   "optional_media": {
+    "title": "Optional Video Resource (Unavailable does not block study)",
+    "url": "https://example.com/videos/day-01-prediction.mp4",
+    "fallback_notice": "Note: Optional external media resource is unavailable. Text and self-contained exercises remain fully functional offline."
+   },
+   "quiz": {
+    "title": "Day 01 Objective Diagnostic Check: Reference vs. In-Place Mutation",
+    "mastery_criterion": "Independently score 100% (3/3) without AI assistance.",
+    "questions": [
+     {
+      "id": "q1",
+      "prompt": "After running `a = [1, 2, 3]; b = a; b.append(4)`, what is the value of `a`?",
+      "options": {
+       "a": "[1, 2, 3]",
+       "b": "[1, 2, 3, 4]",
+       "c": "[1, 2, 3, 5]",
+       "d": "[4, 1, 2, 3]"
+      },
+      "hint": "In Python, variable assignment binds an identifier to an existing object; it does not perform a copy.",
+      "explanation": "Because `b = a` assigns `b` to the same list object, calling `b.append(4)` mutates that shared object in-place. Thus `a` evaluates to `[1, 2, 3, 4]`."
+     },
+     {
+      "id": "q2",
+      "prompt": "Given `c = a + [5]`, what does `a is c` evaluate to?",
+      "options": {
+       "a": "True",
+       "b": "TypeError",
+       "c": "False",
+       "d": "None"
+      },
+      "hint": "The concatenation operator `+` for lists creates and allocates a brand new list object rather than modifying operands in place.",
+      "explanation": "`a + [5]` creates and returns a brand-new list object. The `is` operator tests whether the two names refer to the same object (whether `id(a) == id(c)` holds), so it evaluates to `False`."
+     },
+     {
+      "id": "q3",
+      "prompt": "Which statement accurately describes the underlying mechanism of `b = a` in Python?",
+      "options": {
+       "a": "Python creates a deep copy of the list elements.",
+       "b": "Both variables `b` and `a` reference the exact same object in memory.",
+       "c": "Python automatically synchronizes two separate objects whenever their lengths match.",
+       "d": "The assignment operator converts mutable lists into immutable tuples."
+      },
+      "hint": "Think about reference semantics versus value copying.",
+      "explanation": "Python variables are named references to objects. Assignment binds the name `b` to the existing object that `a` refers to."
+     }
+    ]
+   },
+   "tracer_bullet": "This existing mutation example is the shared tracer bullet for Days 01–03. Reuse its observation and evidence; do not copy it into another activity."
+  },
+  "day-01-act-02": {
+   "title": "Python Environment Setup, Terminal Operations & Virtual Environments",
+   "prerequisites": "Terminal access on a modern operating system.",
+   "objective": "Create a clean Python 3.12+ virtual environment in an empty sandbox directory and verify interpreter and package isolation with `sys.prefix`, `sys.executable`, and `python -m pip`.",
+   "assistance_policy_label": "Independent Mastery Check",
+   "instructions": "Assessed on a POSIX shell (bash or zsh on Linux/macOS). Start in a fresh terminal where no virtual environment is active — the before-state probe must print `True`; record the executable and prefix paths it reports. Windows equivalents are given at the end but were not executed in this material.\n\n```sh\npython3 --version\npython3 -c \"import sys; print(sys.executable); print(sys.prefix); print(sys.base_prefix); print(sys.prefix == sys.base_prefix)\"\nmkdir venv-sandbox && cd venv-sandbox\nprintf 'marker\\n' > marker.txt\npython3 -m venv .venv\n. .venv/bin/activate          # bash/zsh; cmd.exe and PowerShell differ (below)\necho \"$VIRTUAL_ENV\"\npython -c \"import sys; print(sys.executable); print(sys.prefix); print(sys.base_prefix); print(sys.prefix == sys.base_prefix)\"\npython -c \"print(open('marker.txt').read().strip())\"\npython -m pip --version\ndeactivate\npython3 -c \"import sys; print(sys.executable); print(sys.prefix); print(sys.base_prefix); print(sys.prefix == sys.base_prefix)\"\n```\n\nExpected invariants:\n- `python3 --version` reports Python 3.12 or later before you build on it.\n- In a fresh shell the before-state probe prints `sys.prefix == sys.base_prefix` as `True`; record those paths as your before-state.\n- After activation, `$VIRTUAL_ENV` names the `.venv` directory, `sys.executable` resolves inside `.venv`, and `sys.prefix` equals the `.venv` path while `sys.base_prefix` keeps pointing at the base installation — that inequality is the isolation check. `sys.executable` reports the invoked path, which may be a symlink, so rely on the prefix values rather than resolving a physical executable.\n- the venv interpreter itself reads `marker.txt` and prints `marker`: a Python process inside the venv still reads a file outside `.venv` in the working directory — interpreter/package isolation, not a filesystem sandbox.\n- `python -m pip --version` reports pip from `.venv`'s site-packages; `python -m pip` keeps pip paired with the active interpreter.\n- After `deactivate`, the closing probe prints the same values as your recorded before-state (`sys.prefix == sys.base_prefix` again).\n\nWindows equivalents (reference commands, not executed in this material): create with `py -m venv .venv`; activate with `.venv\\Scripts\\Activate.ps1` (PowerShell) or `.venv\\Scripts\\activate.bat` (cmd.exe); diagnostics are `$env:VIRTUAL_ENV` in PowerShell, `%VIRTUAL_ENV%` in cmd.exe, and `where.exe python` in place of `command -v`/`echo $PATH`. `deactivate`, `python -c`, and the `sys.prefix`/`sys.base_prefix` checks are the same.\n\nIf no supported Python is available, follow the recorded fallback in the exercise instead of claiming the environment portion.\n\nScope note: a virtual environment isolates the Python interpreter and its installed packages via `sys.prefix`/`sys.path`. It is not a filesystem or security sandbox — as the venv Python's marker read shows, programs run inside it can still read your files — and it does not pin Python itself.",
+   "exercise_prompt": "Start in a fresh terminal where no virtual environment is active and run the worked sequence: record the before-state probe, create `.venv` in a new empty directory, activate it, record `echo $VIRTUAL_ENV`, the inside-venv probe, the `marker.txt` read by the venv interpreter, and `python -m pip --version`; then `deactivate` and confirm the closing probe matches your recorded before-state. If `python3 --version` fails or reports a version below 3.12, do not claim the stated environment: with an older interpreter, record the observed version and repeat the checks scoped to it; if no interpreter exists, record `command -v python3` (Windows: `where.exe python`), `python3 --version`, `echo $PATH` (Windows: `%PATH%` / `$env:PATH`) and the observed error, and schedule installing Python as a recovery task. An unexecuted environment task is not evidence of mastery.",
+   "hint": "If `python3 -m venv` fails (e.g., an ensurepip error), record it and use the fallback instead of skipping ahead. POSIX activation is `source .venv/bin/activate`; Windows: `.venv\\Scripts\\Activate.ps1` (PowerShell) / `.venv\\Scripts\\activate.bat` (cmd.exe). Judge activation by the `sys.prefix`/`sys.base_prefix` probes and `echo $VIRTUAL_ENV` (PowerShell `$env:VIRTUAL_ENV`, cmd.exe `%VIRTUAL_ENV%`), not by prompt decoration.",
+   "answer": "Reference transcript (bash/zsh in a fresh shell; paths are examples):\n\n```text\n$ python3 --version\nPython 3.14.8\n$ python3 -c \"import sys; print(sys.executable); print(sys.prefix); ...\"\n/usr/bin/python3         # before-state: base interpreter, no venv active\n/usr\n/usr\nTrue                     # prefix == base_prefix in a fresh shell\n$ mkdir venv-sandbox && cd venv-sandbox && printf 'marker\\n' > marker.txt && python3 -m venv .venv\n$ . .venv/bin/activate\n$ echo \"$VIRTUAL_ENV\"\n.../venv-sandbox/.venv\n$ python -c \"import sys; print(sys.executable); print(sys.prefix); ...\"\n.../venv-sandbox/.venv/bin/python   # invoked path, may be a symlink — trust the prefixes\n.../venv-sandbox/.venv\n/usr\nFalse                    # prefix != base_prefix -> interpreter isolated\n$ python -c \"print(open('marker.txt').read().strip())\"\nmarker                   # venv Python still reads a file outside .venv -> not a filesystem sandbox\n$ python -m pip --version\npip 26.2.1 from .../venv-sandbox/.venv/lib/python3.14/site-packages/pip (python 3.14)\n$ deactivate\n$ python3 -c \"import sys; print(sys.executable); print(sys.prefix); ...\"\n/usr/bin/python3         # back to the recorded before-state\n/usr\n/usr\nTrue\n```\n\nWhy these invariants hold: `sys.prefix` names the environment the running interpreter belongs to, while `sys.base_prefix` always names the base installation — inside a venv they differ, the checkable signature of isolation. `sys.executable` reports the path used to invoke the interpreter and can be a symlink inside `.venv`, so the prefix values — not a resolved executable path — carry the check. `python -m pip` resolves pip through the active interpreter. `$VIRTUAL_ENV` and the PATH change are the activation mechanism; `deactivate` reverses them, and the closing probe must match the before-state you recorded.\n\nBoundary: this isolation covers interpreter and packages only — the venv interpreter itself read `marker.txt` outside `.venv` and printed `marker`, showing it is not a filesystem sandbox — and `.venv` stays bound to the interpreter that created it.",
+   "mastery_criterion": "In a fresh shell with no environment active, independently run the create–activate–verify–deactivate cycle in a new directory and produce recorded output in which the inside-venv probe shows `sys.prefix != sys.base_prefix` with `python -m pip` resolving inside `.venv`, the `marker.txt` read demonstrates the venv is not a filesystem sandbox, and the closing probe matches the recorded before-state — plus a correct one-line explanation of interpreter isolation versus filesystem/security sandboxing. If no supported Python exists, mastery of this portion is not claimed; the recorded fallback evidence and recovery task substitute for it.",
+   "optional_media": null,
+   "tracer_bullet": null
+  },
+  "day-01-act-03": {
+   "title": "Git Fundamentals: Repository Initialization, Commits & Status Inspection",
+   "prerequisites": "Basic file commands (mkdir, cd, ls) and a working `git --version`.",
+   "objective": "Independently initialize a disposable Git repository and complete a modify–stage–commit–log cycle, verifying each transition with `git status`, `git diff`, and `git log`.",
+   "assistance_policy_label": "Independent Mastery Check",
+   "instructions": "Assessed task — independent: perform the whole cycle yourself in a newly created, disposable directory; never inside this project or any existing work. Do not use destructive commands (`reset --hard`, `clean`, `push --force`). If a commit fails because no author identity exists, set it locally inside that repository only, as shown.\n\n```sh\nmkdir git-sandbox && cd git-sandbox\ngit init\ngit config user.name \"Learner\"\ngit config user.email \"learner@example.invalid\"\nprintf 'first line\\n' > notes.txt\ngit status\ngit add notes.txt\ngit diff --cached\ngit commit -m \"Add notes file\"\nprintf 'second line\\n' >> notes.txt\ngit status\ngit diff\ngit add notes.txt\ngit commit -m \"Append a second line to notes\"\ngit log --oneline\ngit status\n```\n\nExpected invariants:\n- `git status` lists `notes.txt` as untracked before `git add`; after staging, `git diff --cached` shows the new lines prefixed `+`.\n- After a modification, `git status`/`git status --porcelain` shows the file as modified-unstaged (` M`), and `git diff` shows the unstaged change.\n- `git log --oneline` lists both commits, newest first; the final `git status` reports a clean working tree.\n- `git config user.name`/`user.email` without `--global` writes only this repository's `.git/config`, so your machine-wide identity is untouched.\n\nRecord each command and observed output in your log.\n\nOptional, unassessed orientation — outside this check: you may open the Agent Tool Track page to preview which agent tool you will use later. Orientation is not part of this Independent Mastery Check and contributes no evidence to it.",
+   "exercise_prompt": "Carry out the full command sequence in a new empty directory. Your assessed artifact is a recorded log of commands and outputs showing the untracked → staged → committed transitions for `notes.txt`, a second modify–stage–commit cycle, and a final `git log --oneline` listing two commits. Also record one status observation: either something `git status` reported that you did not expect, or — if nothing surprised you — one expected status transition with its actual output and an explanation of why that output confirms your prediction. Keep your raw prediction and raw output exactly as they occurred.",
+   "hint": "If `git commit` reports a missing author identity, run the two `git config user.name`/`user.email` lines exactly as shown — without `--global` they apply only to that repository's `.git/config` and leave your machine-wide settings untouched. Read `git status` top to bottom: it separates untracked, modified, and staged states.",
+   "answer": "Reference transcript (abbreviated; hashes and the `main`/`master` name vary):\n\n```text\n$ git status\n... Untracked files: notes.txt            # new file, not yet staged\n$ git add notes.txt && git diff --cached\n+first line                              # staged addition visible\n$ git commit -m \"Add notes file\"\n[main (root-commit) 8bddb5d] Add notes file\n$ printf 'second line\\n' >> notes.txt && git status --porcelain\n M notes.txt                             # modified, not yet staged\n$ git diff\n+second line                             # unstaged change visible\n$ git add notes.txt && git commit -m \"Append a second line to notes\"\n[main a0d6969] Append a second line to notes\n$ git log --oneline\na0d6969 Append a second line to notes    # newest first\n8bddb5d Add notes file\n```\n\nA commit is a snapshot of the staged tree plus zero or more parent commit IDs and metadata — the initial root commit has no parent — and `git log` is the verification that the snapshot exists. `git status` distinguishes untracked (`??`), modified-unstaged (` M`), and staged states; `git diff` shows unstaged changes while `git diff --cached` shows what is staged. The identity was configured with `git config` (no `--global`), so it lives only in this disposable repository's `.git/config`. Nothing outside `git-sandbox/` was touched, and no destructive command was needed.",
+   "mastery_criterion": "Independently execute the complete cycle — initialize a new repository, edit a file, stage it, verify the staged diff, commit, and confirm both commits with `git log --oneline` ending in a clean `git status` — in a disposable directory, with no pre-existing repository state, no destructive commands, and no agent assistance.",
+   "optional_media": null,
+   "tracer_bullet": null
+  },
+  "day-01-act-04": {
+   "title": "Day 01 Review: Retrieval Practice & Learning Reflection Log",
+   "prerequisites": "Complete the first 3 activities of Day 01.",
+   "objective": "Produce a closed-book retrieval log that restates today's key concepts in your own words, records the evidence for one misconception — or, if none was found, an explicit none-found record plus a plausible misconception rejected with evidence — and schedules a concrete recovery step.",
+   "assistance_policy_label": "Independent Mastery Check",
+   "instructions": "Do this unaided, with the lesson and your notes closed.\nStep 1 — unaided recall (references closed): write what you recall about each of today's three threads — object references and mutation, virtual-environment isolation, and the Git modify–stage–commit cycle — without looking anything up.\nStep 2 — reference check and correction: only now open the reference answers, mark where your recall was wrong or incomplete, and handle one misconception as the rubric requires. Annotate rather than overwrite your Step 1 text so the unaided attempt stays distinguishable.\nStep 3 — fresh unaided check (references closed again): apply one corrected or recalled concept to a new small case — predict output on fresh code or re-derive a check — and record the result.\nStep 4 — schedule a short recovery step: a specific time and trigger for re-testing the weakest items before starting Day 02.\n\nRubric — your log must satisfy all four items:\n- at least two Day 01 concepts restated in your own words during the unaided recall step, not copied phrasing;\n- either one actual misconception recorded with the concrete evidence that corrected it, or — if none was found — an explicit statement that none was found plus one plausible common misconception you reject with the evidence that justifies the rejection;\n- the fresh unaided transfer/retrieval check from Step 3 with its result recorded — a bare 'everything correct' claim establishes nothing;\n- one scheduled recovery step with a specific time and trigger.\nRaw length is not evidence: a short log satisfying the rubric outranks a long summary.",
+   "exercise_prompt": "Write the retrieval log described in the instructions — unaided recall first, then reference-checked correction (or the explicit none-found alternative), then the fresh unaided check and the scheduled recovery step.",
+   "hint": "The rubric rewards evidenced correction and a fresh check, not polish — and it never requires inventing an error. In controlled experiments, retrieval practice improved delayed prose retention relative to repeated study (Roediger & Karpicke, 2006); it is one well-supported technique, not a universally best method.",
+   "answer": "Worked example log (illustrative, not a template to copy):\n\n```text\nStep 1 - unaided recall (references closed):\n- `b = a` makes b refer to the same list, so b.append changes a. `a + [5]` builds\n  a new list for c.\n- A venv gives isolation. I wrote 'it sandboxes the whole program' - wrong.\n- git add snapshots the file; commit saves it.\n\nStep 2 - reference check and correction (references now open):\nMisconception: a virtual environment prevents a program from reading my files.\nEvidence observed today: inside the activated .venv, the venv interpreter itself read\n`marker.txt` and printed 'marker' - a file outside .venv but inside my\ndisposable sandbox. The\nvenv probes changed sys.executable/sys.prefix and which site-packages pip used;\nnothing blocked file access. That is interpreter/package isolation, not a\nfilesystem sandbox.\nMissed item: I could not recall why `python -m pip` is preferred over bare `pip`\n(recorded honestly instead of guessed).\n\nStep 3 - fresh unaided check (references closed again):\nNew case, no notes: `d = [9]; e = d; e.append(0)` - my unaided prediction:\nd == [9, 0] because e references the same list object. Then I ran it and\nobserved [9, 0] - the checked result is actual output, not a recalled claim.\n\nStep 4 - recovery step:\nTomorrow 09:00, before Day 02: re-derive `b = a` vs `a + [5]` from memory and\nre-run the sys.prefix != sys.base_prefix probe if still unsure.\n```\n\nRubric self-check: Step 1 restates two concepts in original wording; Step 2 pairs one misconception with command output actually observed today — had none existed, the log would instead record 'no misconception found' plus a plausible misconception rejected with evidence; Step 3 records a fresh unaided check and its result; Step 4 sets a dated, triggered recovery step. A bare 'everything correct' claim would fail the rubric's evidence items.",
+   "mastery_criterion": "Produce a closed-book retrieval log satisfying all rubric items: at least two Day 01 concepts restated in your own words; one actual misconception corrected with concrete evidence — or, if none was found, an explicit none-found record plus a plausible misconception rejected with evidence; a fresh unaided transfer check with its result recorded; and one scheduled recovery step. Word or character counts and bare correctness claims are not evidence of conceptual mastery.",
+   "optional_media": null,
+   "tracer_bullet": null
+  }
+ }
+}

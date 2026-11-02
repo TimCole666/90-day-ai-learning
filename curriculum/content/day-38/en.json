@@ -1,0 +1,108 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 38: N-gram Language Models — Counts, Conditional Probability, and Smoothing",
+  "day_subtitle": "Fit a count-based bigram baseline on the deterministic training split: build the count table, normalize it into conditional probabilities, smooth unseen events, and score held-out text with likelihood and perplexity — every number hand-checkable.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Models & Training",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "nav_agent_track": "🤖 Agent Tool Track",
+    "day_label": "Day 38",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Record your count table, predicted probabilities, computed likelihood, and recovery evidence here...",
+    "dev_slice_notice": "Verified curriculum module for the 90-Day AI Learning Platform.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account.",
+        "provider_error": "Authentication provider encountered an error.",
+        "server_error": "Authentication provider encountered an error.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    }
+  },
+  "activities": {
+    "day-38-act-01": {
+      "title": "Counting bigrams: from token stream to count table",
+      "prerequisites": "Complete Day 37. If blocked, use the Day 35 recovery link for probability review.",
+      "objective": "Turn a token stream into a bigram count table C(w_{i-1}, w_i), separate context totals from pair counts, and verify every count against a manual trace.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "A bigram is two consecutive tokens. Required work: slide a length-2 window over the stream 'the cat sat the cat ran the dog sat' (the three train lines joined into one 9-token stream, as the text_tools train file behaves) and tally each adjacent pair with Counter(zip(words, words[1:])). An empty string '' yields an empty bigram dictionary; Unicode strings like 'é猫' follow the identical pairing logic. Optional work: repeat on the val split and compare sparsity.",
+      "exercise_prompt": "Write the 8 adjacent pairs and the full count table before running any code. Then compute character-level bigrams of 'banana' the same way and record both tables.",
+      "hint": "Stream pairs: (the,cat), (cat,sat), (sat,the), (the,cat), (cat,ran), (ran,the), (the,dog), (dog,sat). For 'banana': (b,a), (a,n), (n,a), (a,n), (n,a).",
+      "answer": "Stream counts — 8 instances, 7 types: (the,cat)=2, (cat,sat)=1, (sat,the)=1, (cat,ran)=1, (ran,the)=1, (the,dog)=1, (dog,sat)=1. Context totals (bigrams starting with each token): the=3, cat=2, sat=1, ran=1, dog=1. 'banana' chars: (a,n)=2, (n,a)=2, (b,a)=1. Empty string '' evaluates to empty count {}.",
+      "mastery_criterion": "Your hand-written table matches Counter(zip(words, words[1:])) output exactly, and you can explain why context totals — not unigram counts — are the correct denominators for the next step."
+    },
+    "day-38-act-02": {
+      "title": "Maximum-likelihood conditional probabilities",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Normalize each context row into a probability distribution P(next|context) = C(context,next) / C(context) and verify every row sums to 1.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance)",
+      "instructions": "Required work: for each context token, divide each outgoing pair count by that context's total. Compute the rows P(·|the), P(·|cat), and P(·|dog) by hand, then confirm each row sums to 1. Optional work: express the same normalization over a 'banana' character table.",
+      "exercise_prompt": "Compute P(cat|the), P(dog|the), P(sat|cat), P(ran|cat), P(sat|dog). Then score the continuation 'cat ran' after 'the' as a product, and predict whether any context row fails to sum to 1.",
+      "hint": "Context 'the' totals 3, so P(cat|the)=2/3 and P(dog|the)=1/3. Context 'cat' totals 2, so P(sat|cat)=P(ran|cat)=1/2. Context 'dog' totals 1, so P(sat|dog)=1.",
+      "answer": "P(cat|the)=2/3≈0.6667, P(dog|the)=1/3≈0.3333, P(sat|cat)=1/2, P(ran|cat)=1/2, P(sat|dog)=1. Each context row sums to 1. Score('cat ran' | 'the') = P(cat|the) × P(ran|cat) = 2/3 × 1/2 = 1/3 ≈ 0.3333.",
+      "mastery_criterion": "Unaided, you produce all five conditionals as exact fractions, verify each context row sums to 1, and compute the two-factor likelihood product correctly."
+    },
+    "day-38-act-03": {
+      "title": "Add-k smoothing, likelihood, and perplexity",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Explain why zero counts destroy likelihood, apply add-one smoothing P(next|context) = (C+1)/(context_total + V) with vocabulary size V, and convert a smoothed sentence score into per-token NLL and perplexity.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "The stream's vocabulary is V=5 ({the, cat, sat, ran, dog}). Required work: recompute the 'the' and 'cat' rows with add-one smoothing, then score the held-out continuation 'cat ran' after 'the': likelihood L is the product of the smoothed conditionals, per-token NLL = -ln(L)/N over N=2 predicted tokens, perplexity = exp(per-token NLL). Optional work: repeat with add-0.5 smoothing and compare.",
+      "exercise_prompt": "Compute the smoothed rows for contexts 'the' and 'cat', the smoothed likelihood of the continuation, its per-token NLL, and perplexity. Predict first: will the smoothed likelihood be higher or lower than the unsmoothed 1/3, and why?",
+      "hint": "With V=5: P(cat|the)=(2+1)/(3+5)=3/8, P(dog|the)=2/8, unseen continuations after 'the' get 1/8 each; P(ran|cat)=(1+1)/(2+5)=2/7. Smoothing always moves mass away from seen events.",
+      "answer": "Smoothed 'the' row: cat 3/8=0.375, dog 2/8=0.25, sat/ran/the 1/8=0.125 each (sums to 1). P(ran|cat)=2/7≈0.2857. Likelihood = 3/8 × 2/7 = 3/28 ≈ 0.1071 — lower than 1/3 because mass moved to unseen events, which is exactly why unseen 'cat dog' now scores 1/7 instead of 0. Per-token NLL = -ln(3/28)/2 ≈ 1.1168 nats ≈ 1.6112 bits; perplexity = (3/28)^(-1/2) = √(28/3) ≈ 3.055.",
+      "mastery_criterion": "You can produce the complete smoothed row, the 3/28 likelihood, the ≈1.117-nat per-token NLL, the ≈3.055 perplexity, and explain why evaluation uses only held-out text."
+    },
+    "day-38-act-04": {
+      "title": "Independent mastery check: implement and verify a bigram baseline",
+      "prerequisites": "Complete the previous activities; use the listed recovery link if blocked.",
+      "objective": "Unaided, implement bigram counting, hand-compute conditionals and a smoothed probability, diagnose a zero-likelihood failure, and state the held-out evaluation rule.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance)",
+      "instructions": "Do not consult answers or AI during this check. Required work: (1) implement the bigram count for 'banana' characters in Python; (2) hand-compute P(n|a) and P(a|n); (3) compute an add-one smoothed probability for an unseen pair; (4) explain why the test split stays untouched. Optional work: extend the count to trigrams.",
+      "exercise_prompt": "(a) List the 'banana' character bigrams and their counts. (b) P(n|a)=? and P(a|n)=? (c) With V={a,b,n} (V=3), what is add-one smoothed P(b|a)? (d) If the unsmoothed model scores 'cat dog' at 0, what single count causes it and what does add-one assign instead?",
+      "hint": "(a) (a,n)×2, (n,a)×2, (b,a)×1. (b) Contexts 'a' and 'n' each occur twice as the left member. (c) (0+1)/(2+3). (d) C(cat,dog)=0 zeroes the product; smoothing assigns (0+1)/(2+5).",
+      "answer": "(a) (b,a)=1, (a,n)=2, (n,a)=2. An empty string '' yields an empty count. (b) P(n|a)=2/2=1.0 and P(a|n)=2/2=1.0 — 'banana' is a deterministic alternation. (c) (0+1)/(2+3)=1/5=0.2. (d) C(cat,dog)=0 makes the likelihood product 0; add-one assigns P(dog|cat)=(0+1)/(2+5)=1/7≈0.1429 instead. The formula holds for Unicode text (e.g. '😀') identically.",
+      "mastery_criterion": "The implementation prints the same counts as Counter, every probability is an exact fraction, and the write-up names smoothing plus the train-only fitting rule as the two fixes for zero likelihood."
+    }
+  }
+}

@@ -1,0 +1,221 @@
+{
+  "id": "day-15",
+  "day_number": 15,
+  "active_minutes": 480,
+  "topic_category": "self-directed-learning-and-python",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-14"
+  ],
+  "recovery_links": [
+    "day-13",
+    "day-14"
+  ],
+  "activities": [
+    {
+      "id": "day-15-act-01",
+      "lesson_id": "les-15",
+      "title": "Reproduce the complete text project",
+      "active_minutes": 120,
+      "activity_type": "project",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev3",
+      "prerequisites": [
+        "day-14"
+      ],
+      "source_resources": [
+        {
+          "id": "text-tools-project",
+          "title": "Text and Data Tools Learning Project",
+          "author": "Curriculum team (delivered in Ticket 16)",
+          "original_url": "curriculum/projects/text_tools/project.json",
+          "relevant_timestamp": "cli.py --stats/--split output artifacts: train.txt, val.txt, test.txt, stats.json, vocab.json, manifest.json",
+          "version_or_verification_date": "Verified against the checked-in implementation on 2026-10-30",
+          "reuse_category": "original_explanation",
+          "source_type": "internal-project",
+          "license": "Apache-2.0 AND CC-BY-SA-4.0",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Internal curriculum artifact authored inside this repository; no external rights needed beyond the stated project license.",
+          "prerequisites": "Days 13–14 evidence: CLI usage and disposable Git workflows",
+          "selection_rationale": "Reproduction must target the actual project and its real artifact names so later tokenizer and model experiments can consume the same outputs.",
+          "known_availability_limitations": "Fully local to the repository; no network dependency.",
+          "safe_fallback": "A clean temporary corpus and output directory reproduce all artifacts offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Names corpus (Karpathy makemore names.txt)",
+              "url": "https://github.com/karpathy/makemore",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "A natural example corpus for the reproduction run; any documented local corpus also works, so it is not a required download."
+            },
+            {
+              "candidate_name": "tinyshakespeare corpus (karpathy/char-rnn)",
+              "url": "https://github.com/karpathy/char-rnn",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Another natural local corpus for reproduction; any documented corpus satisfies the exercise."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-15-act-02",
+      "lesson_id": "les-15",
+      "title": "Independent held-out evaluation",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev3",
+      "prerequisites": [
+        "day-15-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "text-tools-project",
+          "title": "Text and Data Tools Learning Project",
+          "author": "Curriculum team (delivered in Ticket 16)",
+          "original_url": "curriculum/projects/text_tools/project.json",
+          "relevant_timestamp": "CLI edge behavior: empty input, strict/replace decoding, ratio validation, seed determinism",
+          "version_or_verification_date": "Verified against the checked-in implementation on 2026-10-30",
+          "reuse_category": "original_explanation",
+          "source_type": "internal-project",
+          "license": "Apache-2.0 AND CC-BY-SA-4.0",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Internal curriculum artifact authored inside this repository; no external rights needed beyond the stated project license.",
+          "prerequisites": "Completion of day-15-act-01",
+          "selection_rationale": "Held-out cases are chosen against the real CLI seams (encoding, ratios, seeds) rather than imagined behavior.",
+          "known_availability_limitations": "Fully local to the repository; no network dependency.",
+          "safe_fallback": "All held-out inputs are small local files created by the learner in a temporary directory.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Python unittest/pytest documentation",
+              "url": "https://docs.python.org/3/library/unittest.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Useful for formalizing cases later, but the evaluation is intentionally run at the CLI boundary first."
+            },
+            {
+              "candidate_name": "Hypothesis property-based testing",
+              "url": "https://hypothesis.readthedocs.io/",
+              "license": "MPL-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Property-based generation could extend held-out coverage later; manual edge cases keep the evaluation transparent first."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-15-act-03",
+      "lesson_id": "les-15",
+      "title": "Review data provenance and future model reuse",
+      "active_minutes": 120,
+      "activity_type": "project",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev2",
+      "prerequisites": [
+        "day-15-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "text-tools-project",
+          "title": "Text and Data Tools Learning Project",
+          "author": "Curriculum team (delivered in Ticket 16)",
+          "original_url": "curriculum/projects/text_tools/project.json",
+          "relevant_timestamp": "Generated manifest.json provenance fields: source_sha256 → decoded_text_sha256 → total_lines → seed → split_counts → split_sha256 (plus leakage_check); consumer/reuse metadata is not in manifest.json but in project.json reusable_by_projects (makemore, minbpe, nanogpt)",
+          "version_or_verification_date": "Verified against the checked-in implementation on 2026-10-30",
+          "reuse_category": "original_explanation",
+          "source_type": "internal-project",
+          "license": "Apache-2.0 AND CC-BY-SA-4.0",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Internal curriculum artifact authored inside this repository; no external rights needed beyond the stated project license.",
+          "prerequisites": "Completion of day-15-act-02",
+          "selection_rationale": "The reuse contract is declared by the project's own manifest and project.json, preserving attribution and provenance for later study days.",
+          "known_availability_limitations": "Fully local to the repository; no network dependency.",
+          "safe_fallback": "The manifest generated in earlier activities carries all required provenance fields.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Datasheets for Datasets (Gebru et al.)",
+              "url": "https://arxiv.org/abs/1803.09010",
+              "license": "arXiv non-exclusive distribution",
+              "status": "compared_alternative",
+              "comparison_rationale": "The academic framing of dataset documentation; the project manifest already implements the subset needed for deterministic reuse."
+            },
+            {
+              "candidate_name": "Croissant dataset metadata format (MLCommons)",
+              "url": "https://github.com/mlcommons/croissant",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Richer dataset-metadata schema; the project manifest already records the needed provenance subset."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-15-act-04",
+      "lesson_id": "les-15",
+      "title": "Independent portfolio handoff",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev3",
+      "prerequisites": [
+        "day-15-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "text-tools-project",
+          "title": "Text and Data Tools Learning Project",
+          "author": "Curriculum team (delivered in Ticket 16)",
+          "original_url": "curriculum/projects/text_tools/project.json",
+          "relevant_timestamp": "project.json license and supported_languages attribution carried into the handoff",
+          "version_or_verification_date": "Verified against the checked-in implementation on 2026-10-30",
+          "reuse_category": "original_explanation",
+          "source_type": "internal-project",
+          "license": "Apache-2.0 AND CC-BY-SA-4.0",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Internal curriculum artifact authored inside this repository; no external rights needed beyond the stated project license.",
+          "prerequisites": "Completion of day-15-act-03",
+          "selection_rationale": "The handoff must cite the real project, its license, and its reproducible commands so a reviewer can rerun without trusting the narrative.",
+          "known_availability_limitations": "Fully local to the repository; no network dependency.",
+          "safe_fallback": "All linked evidence is local or disposable by design; external publication is not required or authorized.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Choose a License guidance",
+              "url": "https://choosealicense.com/",
+              "license": "CC BY 3.0 (site content) / MIT (site code)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Helpful for understanding the Apache-2.0 AND CC-BY-SA-4.0 attribution carried in project.json; not required to complete the handoff."
+            },
+            {
+              "candidate_name": "SPDX License List",
+              "url": "https://spdx.org/licenses/",
+              "license": "spdx.org site copyright (All Rights Reserved footer; list license not verified) / linked reference",
+              "status": "compared_alternative",
+              "comparison_rationale": "Standard license identifiers behind the project's Apache-2.0 AND CC-BY-SA-4.0 declaration."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

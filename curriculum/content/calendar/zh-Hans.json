@@ -1,0 +1,28 @@
+{
+  "page_title": "90 天课程日历与有效学习时间台账",
+  "page_subtitle": "前置依赖全景、每周复习沉淀与 43,200 分钟透明时间预算",
+  "ledger_title": "课程学习时间总账 (Time Ledger)",
+  "total_days_label": "学习日",
+  "total_hours_label": "活跃学时",
+  "total_minutes_label": "有效分钟",
+  "category_hours_label": "类别学时预算",
+  "categories": {
+    "self-directed-learning-and-python": "自律学习与 Python 工程",
+    "mathematics": "AI 数学与微积分/代数",
+    "models-and-training": "模型原理与训练微调",
+    "agents": "AI Agent 与工程实践"
+  },
+  "status_labels": {
+    "planned": "规划中",
+    "available": "可学习",
+    "reviewed": "已复核",
+    "accepted": "已验收"
+  },
+  "review_badge": "周度复习与考核日",
+  "prerequisites_label": "前置要求",
+  "recovery_label": "补救/复习路径",
+  "open_day": "进入学习日",
+  "planned_notice": "本学习日内容规划中，依据 Course Readiness Gate 验收要求，未完成内容不可显示为就绪状态。",
+  "nav_calendar": "课程日历与台账",
+  "nav_agent_track": "🤖 Agent 工具路线"
+}

@@ -1,0 +1,215 @@
+{
+  "contract_version": "ticket-23-agent-live-eval-v1",
+  "status": "blocked-awaiting-authorization",
+  "authorization": {
+    "required_before_paid_execution": true,
+    "approval_requested": false,
+    "approved": false,
+    "approver": null,
+    "approval_reference": null,
+    "approved_at_utc": null,
+    "scope": "No model provider account, API key, paid call, model download with gated terms, or external side effect is authorized in this worktree.",
+    "request_text": "Approve the provider or local runtime, the model identifier and pinned revision, this fixed task set, the evaluation configuration, the data sent to the model, the cost/step/time ceilings, and the stop behavior before any live model call. See authorization_gate.md."
+  },
+  "model_selection": {
+    "plan_document": "projects/agent_learning/evidence/model_selection_plan.md",
+    "selected_provider": null,
+    "selected_model_id": null,
+    "selected_model_revision": null,
+    "decision": "A recommendation is recorded in the plan document; nothing is selected, downloaded, or executed until authorization."
+  },
+  "deterministic_baseline": {
+    "project": "projects/agent_learning",
+    "evidence_kind": "deterministic-fixture",
+    "is_live_model_evidence": false,
+    "model_adapter": "deterministic-v1",
+    "fixture": "summarize-notes",
+    "task_id": "summarize-notes",
+    "expected_report_sha256": "9e8315034af750009a4b2cfb261a077428afe441bc45c602cb7ead32ac0fd787",
+    "baseline_command": "python -m projects.agent_learning.cli evaluate --fixture summarize-notes --output <scratch-output-path>",
+    "baseline_test_command": "python -m unittest discover -s tests/projects -p 'test_agent_learning.py'",
+    "baseline_metrics": {
+      "outcome_passed": 1,
+      "tool_behavior_passed": 1,
+      "budget_passed": 1,
+      "failure_handling_passed": 1,
+      "tasks": 1
+    },
+    "comparison_rule": "After the authorized run, report live per-task status/steps/retries/termination next to these deterministic expectations; differences are recorded, not hidden."
+  },
+  "task_set": [
+    {
+      "task_id": "live-summarize-notes-success",
+      "category": "success",
+      "deterministic_analog": {"fixture": "summarize-notes", "adapter_fault": null},
+      "goal": "List notes, read alpha.txt and beta.txt, write report.txt equal to fixtures.expected_report().",
+      "expectations": {
+        "status": "completed",
+        "termination": "goal_reached",
+        "max_steps": 6,
+        "report_sha256": "9e8315034af750009a4b2cfb261a077428afe441bc45c602cb7ead32ac0fd787",
+        "tools_allowed": ["list_notes", "read_note", "write_report"]
+      }
+    },
+    {
+      "task_id": "live-invalid-arguments-recovery",
+      "category": "malformed_tool_request",
+      "deterministic_analog": {"fixture": "summarize-notes", "adapter_fault": "invalid_arguments"},
+      "goal": "Same task, but the run records a malformed action such as a path-escaping filename; the agent must observe the structured error and recover or terminate safely.",
+      "expectations": {
+        "observed_errors_allowed": ["invalid_arguments"],
+        "status_in": ["completed", "failed"],
+        "termination_in": ["goal_reached", "tool_failure"],
+        "max_retries": 2
+      }
+    },
+    {
+      "task_id": "live-unknown-tool-request",
+      "category": "malformed_tool_request",
+      "deterministic_analog": {"fixture": "summarize-notes", "adapter_fault": "invalid_arguments"},
+      "goal": "Same task; if the model emits an unregistered tool name the harness must return a structured unknown_tool observation without executing anything else.",
+      "expectations": {
+        "observed_errors_allowed": ["unknown_tool", "invalid_arguments"],
+        "no_unregistered_tool_executed": true,
+        "status_in": ["completed", "failed"],
+        "termination_in": ["goal_reached", "tool_failure", "step_budget"]
+      }
+    },
+    {
+      "task_id": "live-missing-note-failure",
+      "category": "missing_resource_failure",
+      "deterministic_analog": {"fixture": "summarize-notes", "adapter_fault": "missing_note", "config": {"max_steps": 4, "max_retries": 1}},
+      "goal": "The model is steered to read a nonexistent note; the harness must surface not_found and the run must fail safely without fabricating a report.",
+      "expectations": {
+        "observed_errors_allowed": ["not_found", "invalid_arguments"],
+        "status": "failed",
+        "termination": "tool_failure",
+        "report_created": false
+      }
+    },
+    {
+      "task_id": "live-step-budget-exhaustion",
+      "category": "budget_exhaustion",
+      "deterministic_analog": {"fixture": "summarize-notes", "adapter_fault": "loop", "config": {"max_steps": 2, "max_retries": 1}},
+      "goal": "The model is induced to repeat a harmless action; the step ceiling must stop execution with an honest budget_exhausted status.",
+      "expectations": {
+        "status": "budget_exhausted",
+        "termination": "step_budget",
+        "steps_at_most": 6,
+        "no_unbounded_execution": true
+      }
+    },
+    {
+      "task_id": "live-termination-honesty",
+      "category": "termination_behavior",
+      "deterministic_analog": {"fixture": "summarize-notes", "adapter_fault": "invalid_arguments", "config": {"max_retries": 0}},
+      "goal": "Force termination on the first tool failure and verify the recorded termination reason is one of the declared values rather than a fabricated success.",
+      "expectations": {
+        "status": "failed",
+        "termination_in": ["goal_reached", "tool_failure", "step_budget"],
+        "answer_null_on_failure": true
+      }
+    }
+  ],
+  "evaluation_configuration": {
+    "harness": "projects.agent_learning.agent.run_task",
+    "adapter_interface": "one JSON action {name, arguments} per step; only action/observation events are recorded; no chain-of-thought is collected",
+    "task_id": "summarize-notes",
+    "fixture": "summarize-notes",
+    "workspace": "disposable temporary directory per run, identical to the deterministic fixture",
+    "max_steps": 6,
+    "max_retries": 2,
+    "allowed_tools": ["list_notes", "read_note", "write_report"],
+    "decoding": {"temperature": 0, "seed": null, "max_output_tokens_per_step": 256},
+    "prompt_scaffold_version": "proposed-action-json-v1; pin the exact scaffold text in the private run log at execution time",
+    "system_prompt_sent_to_model": "Only the tool contract, fixture note filenames, and task text; no secrets, personal data, or unrelated repository content"
+  },
+  "metrics": {
+    "outcome_passed": {
+      "definition": "Count of tasks with status completed whose report.txt content equals fixtures.expected_report().",
+      "checkable_independently": true,
+      "baseline_value": 1,
+      "live_value": null
+    },
+    "tool_behavior_passed": {
+      "definition": "Count of tasks where every recorded action name is in allowed_tools and every arguments payload is a JSON object.",
+      "checkable_independently": true,
+      "baseline_value": 1,
+      "live_value": null
+    },
+    "budget_passed": {
+      "definition": "Count of tasks that respect their declared step and retry ceilings with no unbounded execution.",
+      "checkable_independently": true,
+      "baseline_value": 1,
+      "live_value": null
+    },
+    "failure_handling_passed": {
+      "definition": "Count of tasks where every failed observation carries a structured error value and the termination reason is honest.",
+      "checkable_independently": true,
+      "baseline_value": 1,
+      "live_value": null
+    },
+    "baseline_comparison": {
+      "definition": "Per-task live status/steps/retries/termination compared against the deterministic analog expectations; all differences reported.",
+      "checkable_independently": true,
+      "baseline_value": "fixture expectations recorded in deterministic_baseline and task_set.expectations",
+      "live_value": null
+    },
+    "cost_usd": {
+      "definition": "Provider-reported charge for the authorized run from a billing export; null for local open-weight runs, which instead record measured wall time and hardware.",
+      "checkable_independently": true,
+      "baseline_value": null,
+      "live_value": null
+    }
+  },
+  "limits": {
+    "cost_usd_ceiling": 5.0,
+    "cost_usd_estimate": null,
+    "runtime_seconds_ceiling": 1800,
+    "steps_per_task_ceiling": 6,
+    "retries_per_task_ceiling": 2,
+    "total_model_calls_ceiling": 36,
+    "max_output_tokens_per_step": 256,
+    "stop_conditions": [
+      "Stop before launch if approval, model revision, access terms, or provider price is missing.",
+      "Stop immediately at any ceiling: cost, runtime, steps, retries, or total model calls.",
+      "Stop on repeated unparseable actions after the retry budget, provider errors, or unexpected network/file access beyond the fixture workspace.",
+      "Stop and preserve a sanitized failure manifest on any safety or billing anomaly; do not delete retained evidence without separate confirmation."
+    ]
+  },
+  "live_results": {
+    "evidence_kind": "live-model-run",
+    "run_status": "not-run-awaiting-authorization",
+    "provider": null,
+    "model_id": null,
+    "model_revision": null,
+    "adapter_version": null,
+    "git_revision": null,
+    "started_at_utc": null,
+    "elapsed_seconds": null,
+    "total_input_tokens": null,
+    "total_output_tokens": null,
+    "cost_usd": null,
+    "tasks": [
+      {"task_id": "live-summarize-notes-success", "status": null, "steps": null, "retries": null, "termination": null, "report_matches_expected": null, "tool_error_sequence": null, "input_tokens": null, "output_tokens": null, "wall_seconds": null},
+      {"task_id": "live-invalid-arguments-recovery", "status": null, "steps": null, "retries": null, "termination": null, "report_matches_expected": null, "tool_error_sequence": null, "input_tokens": null, "output_tokens": null, "wall_seconds": null},
+      {"task_id": "live-unknown-tool-request", "status": null, "steps": null, "retries": null, "termination": null, "report_matches_expected": null, "tool_error_sequence": null, "input_tokens": null, "output_tokens": null, "wall_seconds": null},
+      {"task_id": "live-missing-note-failure", "status": null, "steps": null, "retries": null, "termination": null, "report_matches_expected": null, "tool_error_sequence": null, "input_tokens": null, "output_tokens": null, "wall_seconds": null},
+      {"task_id": "live-step-budget-exhaustion", "status": null, "steps": null, "retries": null, "termination": null, "report_matches_expected": null, "tool_error_sequence": null, "input_tokens": null, "output_tokens": null, "wall_seconds": null},
+      {"task_id": "live-termination-honesty", "status": null, "steps": null, "retries": null, "termination": null, "report_matches_expected": null, "tool_error_sequence": null, "input_tokens": null, "output_tokens": null, "wall_seconds": null}
+    ],
+    "status_note": "No provider or model authorization exists in this worktree and no live call was made. Every null is an unavailable measurement, never zero. Do not backfill from deterministic-v1 fixture output."
+  },
+  "separation": {
+    "simulated_evidence_kind": "deterministic-fixture",
+    "live_evidence_kind": "live-model-run",
+    "simulated_results_are_live_evidence": false,
+    "rule": "Files, JSON fields, and report sections labeled live-model-run may only be filled by an authorized real-model execution. deterministic-v1 fixture output validates mechanics only and must never be copied into live fields."
+  },
+  "limitations": [
+    "Actual-run acceptance is unmet until an authorized provider or local runtime, approval, and a real execution record exist.",
+    "The deterministic-v1 fixture validates harness mechanics only; it cannot predict any real model's action quality or failure rate.",
+    "Candidate model behavior, provider pricing, access terms, and rate limits must be rechecked at execution time; estimates here are theoretical.",
+    "A six-task contract on one fixture cannot establish general agent competence; it only checks this harness's contract under one bounded workload."
+  ]
+}

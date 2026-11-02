@@ -1,0 +1,105 @@
+{
+  "contract_version": "ticket-21-lora-comparison-v1",
+  "status": "blocked-awaiting-authorization",
+  "authorization": {
+    "required_before_paid_execution": true,
+    "approved": false,
+    "approver": null,
+    "approval_reference": null,
+    "approved_at_utc": null,
+    "scope": "No cloud account, paid GPU, purchase, or external mutation is authorized in this worktree."
+  },
+  "rights": {
+    "base_model": {
+      "id": "openai-community/gpt2",
+      "revision": null,
+      "license_review": "Required: inspect the model card and revision-specific terms before execution.",
+      "redistribution_allowed": null
+    },
+    "dataset": {
+      "path": "data/instruction_sample.jsonl",
+      "origin": "repository synthetic examples",
+      "data_hash": "bf49b1dedac11e201d6f3708ac5f311363c43e36ad4541bcaa4c0a1612aa1799",
+      "rights_review": "Repository-authored practice data; retain repository license and do not present as a benchmark.",
+      "external_personal_data": false
+    }
+  },
+  "planned_run": {
+    "provider": null,
+    "gpu_type": null,
+    "gpu_count": 1,
+    "runtime_minutes_ceiling": 30,
+    "runtime_minutes_estimate": 15,
+    "storage_gib_ceiling": 8,
+    "storage_gib_estimate": 3,
+    "cost_usd_ceiling": 5.0,
+    "cost_usd_estimate": null,
+    "currency": "USD",
+    "checkpoint_policy": "Save adapter and run manifest only after a successful bounded step; delete ephemeral compute after evidence capture.",
+    "stop_conditions": [
+      "Stop before launch if approval, rights, model revision, or provider price is missing.",
+      "Stop immediately at the runtime, storage, or cost ceiling.",
+      "Stop on non-finite loss, frozen-base mutation, missing adapter gradients, or data leakage.",
+      "Stop and preserve a sanitized failure manifest on provider/network/checkpoint failure."
+    ]
+  },
+  "reproducibility": {
+    "model_id": "openai-community/gpt2",
+    "model_revision": null,
+    "transformers": "4.46.3",
+    "peft": "0.13.2",
+    "torch": null,
+    "python": null,
+    "data_path": "data/instruction_sample.jsonl",
+    "data_hash": "bf49b1dedac11e201d6f3708ac5f311363c43e36ad4541bcaa4c0a1612aa1799",
+    "split": {"method": "compute_splits", "seed": 42, "train_ratio": 0.8, "val_ratio": 0.1, "test_ratio": 0.1, "test_must_be_disjoint": true},
+    "seed": 42,
+    "lora": {"r": 8, "alpha": 16.0, "dropout": 0.05, "target_modules": ["q_proj", "v_proj"]},
+    "training": {"max_iters": 10, "batch_size": 1, "learning_rate": 0.0002, "max_length": 128, "device": "cuda", "precision": null}
+  },
+  "evaluation": {
+    "baseline": "same frozen base revision, tokenizer, prompt format, and held-out test partition before adapter loading",
+    "after": "same held-out test partition with the saved adapter reloaded",
+    "metrics": ["loss", "perplexity", "exact_test_record_count", "sample_generations"],
+    "success_criteria": "Predeclare direction only: lower held-out loss/perplexity without a material regression on the fixed sanity prompts. No improvement is claimed until measured.",
+    "test_records": null,
+    "before": {"loss": null, "perplexity": null},
+    "after": {"loss": null, "perplexity": null},
+    "regressions": null
+  },
+  "invariants": {
+    "base_parameters_frozen": null,
+    "frozen_base_hash_before": null,
+    "frozen_base_hash_after": null,
+    "trainable_adapter_parameters": null,
+    "adapter_gradients_observed": null,
+    "adapter_parameters_changed": null,
+    "adapter_reload_verified": null,
+    "independent_evaluation_verified": null
+  },
+  "recovery": {
+    "checkpoint_path": null,
+    "checkpoint_manifest_hash": null,
+    "last_completed_step": null,
+    "restart_command": "Start a new work directory with the same contract after reviewing the sanitized failure manifest; real-mode resume is intentionally unsupported.",
+    "failure_class": null,
+    "failure_message_sanitized": null,
+    "provider_job_id_sanitized": null
+  },
+  "measured": {
+    "provider": null,
+    "gpu_name": null,
+    "gpu_memory_gib": null,
+    "runtime_seconds": null,
+    "peak_gpu_memory_gib": null,
+    "persistent_storage_gib": null,
+    "cost_usd": null,
+    "cloud_execution": null
+  },
+  "limitations": [
+    "No cloud execution was attempted; null measured fields are unavailable, not zero.",
+    "The checked-in artifacts are local random-weight smoke evidence and cannot establish open-model quality.",
+    "One short run and synthetic data cannot establish generalization or a useful adapter.",
+    "Provider pricing, quota, model revision, and rights must be rechecked at execution time."
+  ]
+}

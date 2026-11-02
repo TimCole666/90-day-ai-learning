@@ -1,0 +1,75 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 15: Reproduce, evaluate, and hand off the text project",
+  "day_subtitle": "Run the complete actual project, use held-out behavior checks, and document reusable deterministic data preparation.",
+  "time_budget_label": "480 active minutes (breaks and unattended runtime excluded)",
+  "category_label": "Self-Directed Learning & Python",
+  "common": {
+    "nav_calendar": "Curriculum Calendar",
+    "day_label": "Day 15",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice and prediction",
+    "hint_title": "Hint",
+    "reveal_answer": "Reference answer",
+    "mastery_title": "Independent mastery criterion",
+    "draft_placeholder": "Record prediction, evidence, and recovery...",
+    "sources_heading": "Source resources and provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis"
+  },
+  "activities": {
+    "day-15-act-01": {
+      "title": "Reproduce the complete project",
+      "prerequisites": "Days 13–14 and a clean temporary environment.",
+      "objective": "Execute the actual text_tools CLI from an unrelated working directory and regenerate stats, vocabulary, splits, and manifest artifacts.",
+      "instructions": "Required work: run stats and split commands against names.txt or a documented local corpus, capture versions/seeds, and compare outputs. Optional work: run a second corpus.",
+      "exercise_prompt": "Predict the artifact names, split counts, and manifest fields before execution. Explain which timestamp field prevents manifests from being byte-identical while split files remain reproducible.",
+      "hint": "Compare train/val/test bytes and semantic manifest fields; do not mistake created_at for a model-data change.",
+      "answer": "A clean run creates train.txt, val.txt, test.txt, stats.json, vocab.json, and manifest.json. Same seed reproduces split-file bytes only under identical original input bytes, ratios, decoding/newline policy and implementation/runtime/platform; manifest created_at differs so semantic provenance is compared, not manifest bytes; source hash, counts, ratios, environment, and leakage evidence remain auditable.",
+      "mastery_criterion": "Learner reproduces the public command and explains observed artifacts from a process-isolated run.",
+      "assistance_policy_label": "Agent-assisted execution is allowed only with command, permission, and output review."
+    },
+    "day-15-act-02": {
+      "title": "Independent held-out evaluation",
+      "prerequisites": "Fresh held-out corpus and no reference answer visible.",
+      "objective": "Use independent examples to test Unicode, empty input, malformed encoding, repeated records, ratio validation, and reproducibility.",
+      "instructions": "Required work: predict outcomes, run the CLI, record exit codes/stderr/artifacts, and classify pass, failure, or inconclusive honestly. Optional work: add a test only after the behavior is understood.",
+      "exercise_prompt": "Explain why an empty file can succeed with zero statistics, why strict decoding should fail, and why equal lines make content-only leakage checks insufficient.",
+      "hint": "Use index disjointness plus a stated duplicate policy. Validate both positive behavior and descriptive failure behavior.",
+      "answer": "Empty input is valid with zero averages; strict malformed bytes return non-zero; replace continues with U+FFFD; invalid ratios fail; repeated seed runs match split-file bytes only under identical original input bytes, ratios, decoding/newline policy and implementation/runtime/platform (manifest timestamps differ); held-out cases do not prove all future inputs safe.",
+      "mastery_criterion": "Unaided evaluation includes expected versus observed results and separates deterministic checks from substantive review.",
+      "assistance_policy_label": "Independent Mastery Check: no AI or reference implementation during the first run."
+    },
+    "day-15-act-03": {
+      "title": "Data provenance and future model reuse",
+      "prerequisites": "Completed held-out evaluation and manifest artifacts.",
+      "objective": "Explain how deterministic data preparation becomes a contract for later tokenizer, language-model, and evaluation experiments.",
+      "instructions": "Required work: trace source hash → ordered records → seed → split hashes → later consumer, and state where leakage or distribution shift can still occur. Optional work: sketch a tokenizer input contract.",
+      "exercise_prompt": "Why should a later model experiment consume the recorded train split and untouched validation/test splits rather than reshuffle after seeing metrics?",
+      "hint": "Separate data identity, partition policy, tokenizer vocabulary, model selection, and final evaluation.",
+      "answer": "Stable source/split manifests make experiments comparable and protect held-out evidence from accidental reuse. They do not guarantee representative data, fair tokenization, or model generalization.",
+      "mastery_criterion": "Learner gives a traceable reuse explanation with at least three assumptions and three limitations.",
+      "assistance_policy_label": "Agent-assisted engineering check: agent may challenge the report, but evidence and claims are learner-verified."
+    },
+    "day-15-act-04": {
+      "title": "Independent portfolio handoff",
+      "prerequisites": "All project, Git, and evaluation evidence is retained.",
+      "objective": "Produce a PR-style handoff containing requirements, commands, results, review findings, assumptions, limits, and unresolved blockers.",
+      "instructions": "Required work: record your predicted/expected evidence first, run your own checks to collect the real observed evidence (your own checks are part of the unaided attempt), then write, lock (submit, date) and PRESERVE the completed first unaided report with its real evidence BEFORE any editorial, reference, or AI review; link only local/disposable evidence and state that external publication and paid compute are not authorized. Optional work: a separately labeled UNASSESSED polish may follow but cannot overwrite the sealed original; a substantive gap revealed later requires a fresh unaided remediation check.",
+      "exercise_prompt": "A complete handoff must let a later learner rerun the project without trusting your narrative. List the exact command, seed, corpus identity, expected outputs, and known limits.",
+      "hint": "Use observed results, not invented success. Mark missing live GPU, OAuth, or production evidence as out of scope rather than pass.",
+      "answer": "The handoff includes requirements, reproducible commands, artifact names/hashes, test evidence, review scope, source attribution, independent versus assisted rubric results, assumptions, limits, and blockers.",
+      "mastery_criterion": "Portfolio is complete and honest: the sealed unaided original plus its real evidence is preserved before any editorial/AI comparison, and a reviewer can rerun the project and distinguish tested behavior, human review, and unavailable evidence.",
+      "assistance_policy_label": "Independent final handoff: the sealed unaided original and its evidence are preserved first; later editorial assistance is disclosed, unassessed, and cannot create or overwrite mastery evidence."
+    }
+  }
+}

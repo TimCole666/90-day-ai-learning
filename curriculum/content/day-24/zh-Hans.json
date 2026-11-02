@@ -1,0 +1,78 @@
+{
+  "language": "zh-Hans",
+  "language_label": "简体中文",
+  "day_title": "第 24 天：张量、广播、reshape 与内存台账",
+  "day_subtitle": "把向量与矩阵推广为带命名轴（batch、time、channel）的 n 维张量；验证广播规则与失败案例、reshape 与视图 vs 拷贝行为，以及真实模型张量的内存台账。每项活动都在 480 分钟台账中记录预测、观察、复习与恢复。",
+  "time_budget_label": "480 活跃分钟（8 小时专注学习）",
+  "category_label": "数学与算法基础",
+  "common": {
+    "nav_calendar": "📅 课程日历与台账",
+    "day_label": "第 24 天",
+    "prerequisites_title": "前置要求",
+    "objective_title": "学习目标",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主演练与记录",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看参考解答与分析",
+    "mastery_title": "独立掌握标准",
+    "draft_placeholder": "在此记录你的预测 shape、观察输出、shape/内存台账、复习与恢复证据...",
+    "sources_heading": "权威源资源与权利证明",
+    "source_author_label": "作者 / 机构",
+    "source_url_label": "原始出处链接",
+    "source_range_label": "对应章节 / 时间戳",
+    "source_verification_label": "验证版本与日期",
+    "source_reuse_label": "复用类别",
+    "source_license_label": "许可证与权利说明",
+    "source_rationale_label": "入选理由",
+    "source_prereqs_label": "来源前置条件",
+    "source_fallback_label": "安全回退方案（离线弹性）",
+    "compared_candidates_heading": "对比候选资源与选型分析",
+    "compared_status_label": "评估结论"
+  },
+  "activities": {
+    "day-24-act-01": {
+      "title": "张量：轴、秩与模型权重块",
+      "prerequisites": "完成第 23 天；若矩阵 shape 不熟练，使用列出的恢复链接。",
+      "objective": "把张量描述为秩等于轴数的 n 维数组；说出模型张量的 batch、time、channel 轴；并追踪从 shape 为 (V x d) 的表 E 做嵌入查找得到 shape (B, T, d) 输出的全过程。",
+      "assistance_policy_label": "仅在记录预测与观察证据后才可使用协助。",
+      "instructions": "标量是 0 秩，向量是 1 秩，矩阵是 2 秩，一批嵌入序列是 shape (B, T, d) 的 3 秩张量：batch 轴、time 轴、channel 轴。嵌入查找就是按行 gather：shape (B, T) 的 ids 查表 E (V, d)，产出 (B, T, d)。权重矩阵是 2 秩张量；带 batch 与 time 的隐藏状态是 3 秩。",
+      "exercise_prompt": "某小模型词表 V = 50000，嵌入宽度 d = 512。预测：(a) 表 E 中的标量权重数；(b) shape (B=2, T=3) 的 ids 查表后的输出 shape；(c) 该输出装了多少个 float32 值以及占多少字节。",
+      "hint": "权重数是 V * d。查找结果为每个 (batch, time) 位置放一个 d 维向量。float32 每值 4 字节。",
+      "answer": "(a) E 含 50000 * 512 = 25,600,000 个标量权重。(b) 输出 shape 为 (2, 3, 512)：2*3 = 6 个词元位置各自换成一个 512 维向量。(c) 输出含 2*3*512 = 3072 个 float32 值，即 3072 * 4 = 12,288 字节。batch 与 time 轴是查找在行向量前面新增的两个轴。",
+      "mastery_criterion": "不借助提示从 (V, d) 与 (B, T) 推出 (B, T, d)，精确算出两个元素计数，并能说出每个轴的物理含义（哪个样本、哪个位置、哪个特征）。"
+    },
+    "day-24-act-02": {
+      "title": "广播规则与失败诊断",
+      "prerequisites": "完成上一活动；如受阻，使用列出的恢复链接。",
+      "objective": "运用广播规则——从尾部对齐各轴，每对维度必须相等或有一方为 1——在运行代码前预测输出并诊断失败。",
+      "assistance_policy_label": "独立练习：先记录预测再核对结果；记录证据后才可使用协助。",
+      "instructions": "广播适用于任意秩的张量：从右向左比较两个 shape。缺失的轴按大小 1 计，大小为 1 的轴被拉伸而不复制内存。MLP 的偏置加法 (B, T, d_ff) + (d_ff,) 把偏置沿 batch 和 time 广播。(2, 3) 与 (4,) 这一对会失败，因为末轴 3 != 4。",
+      "exercise_prompt": "预测每个结果或失败：(a) [[1,2,3],[4,5,6]] + [10,20,30]；(b) [[1],[2]] + [[10,20,30]]；(c) shape (2,3) + shape (4,)；(d) 隐藏状态 (32,128,768) + 偏置 (768,)。",
+      "hint": "写下两个 shape，右对齐，用『相等或一方为 1』的规则逐轴检查，然后再算数值。",
+      "answer": "(a) 末轴 3 与 3 匹配，行 [10,20,30] 被加到每一行：[[11,22,33],[14,25,36]]。(b) (2,1) + (1,3) 两边都拉伸：[[11,21,31],[12,22,32]]，得到 shape (2,3) 的外和。(c) 失败：末轴 3 与 4 不兼容，库抛出广播错误。(d) (768,) 与 channel 轴对齐，偏置跨 batch 和 time 相加，输出仍为 (32,128,768)。广播在逻辑上完成拉伸，并不实际复制数据。",
+      "mastery_criterion": "无协助预测全部四项（三个 shape 和一个失败），精确复现两组数值，并解释 (2,3) + (4,) 为何按尾轴规则必然失败。"
+    },
+    "day-24-act-03": {
+      "title": "reshape、视图 vs 拷贝与内存台账",
+      "prerequisites": "完成上一活动；如受阻，使用列出的恢复链接。",
+      "objective": "在知道元素数不变、顺序为行主序的前提下预测 reshape 结果；区分视图与拷贝（转置是非连续视图，转置后的 reshape 可能拷贝）；为真实模型张量记『元素数 × 元素大小』的内存台账。",
+      "assistance_policy_label": "仅在记录预测与观察证据后才可使用协助。",
+      "instructions": "reshape 以 C（行主序）顺序重读同一块平坦缓冲区，所以元素数必须守恒。许多 reshape 和所有普通转置返回视图——同一内存上的新轴元数据。非连续张量（例如 .T 之后）可能迫使 reshape 拷贝。字节数 = 元素数 * 元素大小；float32 元素大小为 4。",
+      "exercise_prompt": "设 shape (2,3) 的 a = [[1,2,3],[4,5,6]]。预测：(a) a reshape 成 (3,2)；(b) a 展平成 (6,)；(c) a.T.reshape(6) 能否共享 a 的内存；(d) shape (32, 128, 768) 的 float32 隐藏状态的字节数。",
+      "hint": "先按行主序写出元素：1,2,3,4,5,6。(c) 问的是转置后的布局是否仍连续。(d) 把三个轴长相乘再乘 4。",
+      "answer": "(a) [[1,2],[3,4],[5,6]]——行主序保持不变，只是轴边界移动。(b) [1,2,3,4,5,6]。(c) a.T 的 shape 是 (3,2) 但步长（strides）非连续。无拷贝的 .view() 受步长约束，此处会失败；.reshape(6) 则可能分配副本——NumPy 会静默分配新内存，PyTorch 中 .view() 失败而 .reshape() 通过拷贝成功（文档行为，未执行）。(d) 32*128*768 = 3,145,728 个元素；x 4 字节 = 12,582,912 字节 = 12 MiB。",
+      "mastery_criterion": "预测全部四项结果，说出 reshape 的元素数守恒，并能用转置例子加 12 MiB 台账项解释视图 vs 拷贝的注意事项。"
+    },
+    "day-24-act-04": {
+      "title": "独立掌握：张量 shape 与广播审计",
+      "prerequisites": "完成上一活动；如受阻，使用列出的恢复链接。",
+      "objective": "在无助协助下端到端审计一个层归一化式计算：预测带 keepdims 的归约 shape、广播减法、广播失败和内存台账项；任何错误都要写出恢复笔记。",
+      "assistance_policy_label": "独立掌握检查（无 AI 协助）。",
+      "instructions": "闭卷进行：先预测，再计算，后比较。每个张量的 shape 写在其值旁边。若结果出乎意料，记录误用了哪条规则并记下恢复链接。",
+      "exercise_prompt": "任务：(a) 对 shape (2,3) 的 x = [[1,2,3],[4,5,6]]，计算最后一轴上带 keepdims 的均值及其 shape；(b) x - mean 的广播结果；(c) (2,3)+(3,)、(2,3)+(4,)、(2,1)+(1,3) 中哪个失败、为什么；(d) shape (2, 3, 50000) 的 float32 logits 张量字节数。",
+      "hint": "keepdims 下被归约的轴缩为大小 1，减法时又被广播拉伸回来。(d) 用元素数乘 4。",
+      "answer": "(a) 行均值为 (2.0, 5.0)，keepdims 下 shape 为 (2,1)。(b) 广播减法：[[-1,0,1],[-1,0,1]]，shape (2,3)——每行被自己的均值中心化。(c) (2,3)+(4,) 失败：末轴 3 与 4 不匹配；另两个把大小 1 的轴拉伸后分别以 (2,3) 和 (2,3) 成功。(d) 2*3*50000 = 300,000 个元素 x 4 字节 = 1,200,000 字节（约 1.14 MiB）。比较范围（仅限本课出现的张量的 float32 存储量）：这些 logits 约为第一个活动中 (2, 3, 512) 查表输出（12,288 字节）的 98 倍，但小于 (32, 128, 768) 的隐藏状态（12,582,912 字节），更远小于嵌入表 E 本身（25,600,000 个权重 = 102,400,000 字节）。此处未测量总内存、峰值内存或训练内存的比较。",
+      "mastery_criterion": "四个答案全部经无协助验证且值旁标注了 shape；说出广播失败规则，并用一句话说明归约中 keepdims 存在的意义。"
+    }
+  }
+}

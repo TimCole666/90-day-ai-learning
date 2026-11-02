@@ -1,0 +1,380 @@
+{
+  "id": "day-72",
+  "day_number": 72,
+  "active_minutes": 480,
+  "topic_category": "self-directed-learning-and-python",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-71"
+  ],
+  "recovery_links": [
+    "day-70"
+  ],
+  "activities": [
+    {
+      "id": "day-72-act-01",
+      "lesson_id": "les-72",
+      "title": "Qualitative Error Taxonomies: Hallucinations, Format Violations & Refusals",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-71"
+      ],
+      "source_resources": [
+        {
+          "id": "ji-hallucination-survey-2023",
+          "title": "Survey of Hallucination in Natural Language Generation",
+          "author": "Ziwei Ji, Nayeon Lee, Rita Frieske, Tiezheng Yu, Dan Su, Yan Xu, Etsuko Ishii, Ye Jin Bang, Andrea Madotto, Pascale Fung",
+          "original_url": "https://arxiv.org/abs/2202.03629",
+          "version_or_verification_date": "ACM Computing Surveys 2023 / arXiv:2202.03629v4 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation of the NLG failure survey.",
+          "prerequisites": "Natural language generation, factuality evaluation, intrinsic vs extrinsic hallucination.",
+          "selection_rationale": "Primary taxonomy of hallucinations in NLG, formalizing the critical distinction between intrinsic hallucinations (contradicting source input context) and extrinsic hallucinations (asserting unverifiable external facts).",
+          "known_availability_limitations": "Freely available on arXiv and ACM Digital Library.",
+          "safe_fallback": "The intrinsic/extrinsic taxonomy, fact-verification prompt protocols, and error attribution workflows are completely developed in lesson modules.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Maynez et al. On Faithfulness and Factuality in Abstractive Summarization",
+              "url": "https://arxiv.org/abs/2005.00661",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Focuses on abstractive summarization faithfulness; Ji et al. provides the overarching taxonomy across dialogue, QA, and generation."
+            },
+            {
+              "candidate_name": "Huang et al. A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions",
+              "url": "https://arxiv.org/abs/2311.05232",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Follow-up survey on LLMs; Ji et al. sets out the taxonomy distinctions utilized across evaluation literature."
+            }
+          ],
+          "relevant_timestamp": "Section 2.1 Categorization (intrinsic and extrinsic hallucination)"
+        },
+        {
+          "id": "roettger-xstest-2023",
+          "title": "XSTest: A Test Suite for Identifying Exaggerated Safety Behaviors in Large Language Models",
+          "author": "Paul Röttger, Hannah Rose Kirk, Bertie Vidgen, Giuseppe Attanasio, Federico Bianchi, Dirk Hovy",
+          "original_url": "https://arxiv.org/abs/2308.01263",
+          "version_or_verification_date": "NAACL 2024 / arXiv:2308.01263v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation of safety evaluation benchmark.",
+          "prerequisites": "Safety alignment, refusal classifiers, false-positive safety evaluation.",
+          "selection_rationale": "Groundbreaking benchmark identifying exaggerated safety behaviors and false-positive refusals, formalizing test suites that contrast real unsafe prompts against benign prompts with sensitive lexical overlap.",
+          "known_availability_limitations": "Freely available on arXiv and GitHub.",
+          "safe_fallback": "The 10 refusal prompt categories, refusal detection regex/heuristics, and over-refusal error quantification are implemented in lesson exercises.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Shaikh et al. On Second Thought, Let's Not Think Step by Step! Bias and Toxicity in Zero-Shot Reasoning",
+              "url": "https://arxiv.org/abs/2212.08061",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Shows that zero-shot chain-of-thought increases biased and toxic outputs on harmful prompts; XSTest provides an explicit, quantitative evaluation dataset for measuring unnecessary refusal rates."
+            },
+            {
+              "candidate_name": "Bianchi et al. Safety-Tuned LLaMAs: Lessons from Improving the Safety of a Very Large Language Model",
+              "url": "https://arxiv.org/abs/2309.07875",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Safety fine-tuning methodology; XSTest isolates the diagnostic metric for detecting exaggerated refusal side effects."
+            }
+          ],
+          "relevant_timestamp": "Section 4.4 Results on Unsafe Prompts and Appendix D Details on Automated Evaluation"
+        }
+      ]
+    },
+    {
+      "id": "day-72-act-02",
+      "lesson_id": "les-72",
+      "title": "Catastrophic Forgetting & General Capability Regressions",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-72-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "kirkpatrick-overcoming-catastrophic-forgetting-2017",
+          "title": "Overcoming Catastrophic Forgetting in Neural Networks",
+          "author": "James Kirkpatrick, Razvan Pascanu, Neil Rabinowitz, Joel Veness, Guillaume Desjardins, Andrei A. Rusu, et al.",
+          "original_url": "https://arxiv.org/abs/1612.00796",
+          "version_or_verification_date": "PNAS 2017 / arXiv:1612.00796v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / PNAS Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation of foundational continual learning literature.",
+          "prerequisites": "Neural network weight drift, Fisher information matrix, continual learning.",
+          "selection_rationale": "Foundational paper formalizing catastrophic forgetting during continual fine-tuning, explaining why updating parameters on domain distributions causes dramatic capability loss on pretraining tasks.",
+          "known_availability_limitations": "Freely available on arXiv and PNAS.",
+          "safe_fallback": "Mathematical explanation of weight trajectory divergence, Fisher regularized objectives, and forgetting audit protocols are integrated into the lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "French. Catastrophic Forgetting in Connectionist Networks (Trends in Cognitive Sciences 1999)",
+              "url": "https://doi.org/10.1016/S1364-6613(99)01294-2",
+              "license": "Subscription / Academic",
+              "status": "compared_alternative",
+              "comparison_rationale": "Cognitive science perspective; Kirkpatrick et al. provides the modern deep neural network gradient formulation (EWC)."
+            },
+            {
+              "candidate_name": "Zenke et al. Continual Learning Through Synaptic Intelligence",
+              "url": "https://arxiv.org/abs/1703.04200",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Online path integral regularization; Kirkpatrick introduces the benchmark standard for evaluating catastrophic forgetting."
+            }
+          ],
+          "relevant_timestamp": "Section 2 Elastic weight consolidation"
+        },
+        {
+          "id": "luo-empirical-study-catastrophic-forgetting-2023",
+          "title": "An Empirical Study of Catastrophic Forgetting in Large Language Models During Continual Fine-tuning",
+          "author": "Yun Luo, Zhen Yang, Fandong Meng, Yingxue Liu, Jie Zhou, Yue Zhang",
+          "original_url": "https://arxiv.org/abs/2308.08747",
+          "version_or_verification_date": "arXiv:2308.08747v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation of LLM continual fine-tuning research.",
+          "prerequisites": "Instruction fine-tuning, general capability retention, LoRA vs full fine-tuning degradation.",
+          "selection_rationale": "Rigorous empirical investigation demonstrating how domain fine-tuning degrades foundation LLMs across reasoning, coding, and general instruction following, comparing full fine-tuning against parameter-efficient adapters.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "General benchmark regression tests, forgetting audit templates, and pre/post radar chart analysis are completely provided.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Scialom et al. Fine-tuned Language Models are Continual Learners",
+              "url": "https://arxiv.org/abs/2205.12393",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Focuses on QA domain transfers; Luo et al. comprehensively assesses broad LLM capability collapse across multiple benchmark domains."
+            },
+            {
+              "candidate_name": "Zhai et al. Investigating the Catastrophic Forgetting in Multimodal Large Language Models",
+              "url": "https://arxiv.org/abs/2309.10313",
+              "license": "CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Studies forgetting after fine-tuning multimodal LLMs; Luo et al. targets text-only LLM continual fine-tuning and compares adapter-based with full-parameter tuning."
+            }
+          ],
+          "relevant_timestamp": "Section 3 Method (3.1 Continual Tasks, 3.3 Evaluation Metric) and Section 5.1 Main Results"
+        }
+      ]
+    },
+    {
+      "id": "day-72-act-03",
+      "lesson_id": "les-72",
+      "title": "Pre/Post Fine-Tuning Artifact Analysis & Multi-Dimensional Trade-Off Matrix",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-72-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "touvron-llama2-2023",
+          "title": "Llama 2: Open Foundation and Fine-Tuned Chat Models",
+          "author": "Hugo Touvron, Louis Martin, Kevin Stone, Peter Albert, Amjad Almahairi, et al.",
+          "original_url": "https://arxiv.org/abs/2307.09288",
+          "version_or_verification_date": "arXiv:2307.09288v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Open access scientific paper citation.",
+          "prerequisites": "Transformer architecture, RLHF/SFT pipelines.",
+          "selection_rationale": "Defines the standard LLaMA-2 instruction format ([INST] <<SYS>> ... <</SYS>> [/INST]) and analyzes token boundary alignment impact on generation stability.",
+          "known_availability_limitations": "Freely accessible on arXiv.",
+          "safe_fallback": "The LLaMA-2 prompt structure, token boundary rules, and comparative analysis are fully worked out in curriculum lessons.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Touvron et al. LLaMA: Open and Efficient Foundation Language Models",
+              "url": "https://arxiv.org/abs/2302.13971",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Original foundation model paper without conversational chat tuning details; LLaMA-2 formalizes dialogue formatting."
+            },
+            {
+              "candidate_name": "Jiang et al. Mistral 7B",
+              "url": "https://arxiv.org/abs/2310.06825",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Adopts similar [INST] formatting; LLaMA-2 provides the foundational ablation on system prompt integration."
+            }
+          ],
+          "relevant_timestamp": "Section 3.4 RLHF Results and Section 4.4 Safety Evaluation of Llama 2-Chat"
+        },
+        {
+          "id": "ouyang-instructgpt-2022",
+          "title": "Training language models to follow instructions with human feedback",
+          "author": "Long Ouyang, Jeffrey Wu, Xu Jiang, Diogo Almeida, Carroll Wainwright, Pamela Mishkin, et al.",
+          "original_url": "https://arxiv.org/abs/2203.02155",
+          "version_or_verification_date": "arXiv:2203.02155v1 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Open access scientific paper citation.",
+          "prerequisites": "Supervised fine-tuning, conditional autoregressive generation.",
+          "selection_rationale": "Foundational InstructGPT paper defining the SFT objective: maximizing log-likelihood of demonstrator completions conditioned on prompts.",
+          "known_availability_limitations": "Freely accessible on arXiv.",
+          "safe_fallback": "The conditional likelihood objective and prompt-conditioning derivations are completely formulated in the review.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Ziegler et al. Fine-Tuning Language Models from Human Preferences",
+              "url": "https://arxiv.org/abs/1909.08593",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Earlier RLHF formulation on summarization; InstructGPT standardizes the prompt-response SFT training phase."
+            },
+            {
+              "candidate_name": "Chung et al. Scaling Instruction-Finetuned Language Models (Flan-PaLM)",
+              "url": "https://arxiv.org/abs/2210.11416",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Focuses on massive multi-task scaling; InstructGPT details the exact prompt-conditioned loss setup."
+            }
+          ],
+          "relevant_timestamp": "Section 4.2 Results on public NLP datasets ('alignment tax') and Appendix E.1"
+        }
+      ]
+    },
+    {
+      "id": "day-72-act-04",
+      "lesson_id": "les-72",
+      "title": "Assessment: Authoring an Honest, Reproducible Model-Comparison Report",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.11.01-rev5",
+      "prerequisites": [
+        "day-72-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "huggingface-evaluation-guidebook",
+          "title": "Hugging Face LLM Evaluation Guidebook (legacy edition)",
+          "author": "Hugging Face evaluation-guidebook contributors",
+          "original_url": "https://github.com/huggingface/evaluation-guidebook",
+          "relevant_timestamp": "contents/model-as-a-judge/evaluating-your-evaluator.md; contents/troubleshooting/troubleshooting-reproducibility.md",
+          "version_or_verification_date": "Public edition checked 2026-11-01; moving pages may change",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "External hyperlink only; no third-party prose, exercises, code or translations are imported.",
+          "prerequisites": "Held-out data, basic language-model metrics and experimental comparisons.",
+          "selection_rationale": "Teaching-oriented evaluation design and reproducibility guidance complements the benchmark papers. Stable methodological chapters only; not a current tooling/version reference.",
+          "known_availability_limitations": "README says no longer maintained. The replacement OpenEvals Space was not verified as containing the guidebook; its license and content are not substituted. No bootstrap derivation is claimed.",
+          "safe_fallback": "Use the original localized explanations, exercises and checks already present in this activity; no external account or purchase is required for that fallback.",
+          "compared_candidates": [
+            {
+              "candidate_name": "HELM",
+              "url": "https://arxiv.org/abs/2211.09110",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Retained for the multi-metric framework; the guidebook makes practical choices easier to teach."
+            },
+            {
+              "candidate_name": "LM Evaluation Harness",
+              "url": "https://github.com/EleutherAI/lm-evaluation-harness",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Useful implementation cross-check; tool configuration alone does not teach metric choice or evaluator limitations."
+            }
+          ]
+        },
+        {
+          "id": "mitchell-model-cards-2019",
+          "title": "Model Cards for Model Reporting",
+          "author": "Margaret Mitchell, Simone Wu, Andrew Zaldivar, Parker Barnes, Lucy Vasserman, Ben Hutchinson, Elena Spitzer, Inioluwa Deborah Raji, Timnit Gebru",
+          "original_url": "https://arxiv.org/abs/1810.03993",
+          "version_or_verification_date": "FAT* 2019 / arXiv:1810.03993v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation of AI transparency standard.",
+          "prerequisites": "Evaluation reporting, demographic and performance slicing, model limitations and caveats.",
+          "selection_rationale": "Primary standard for structured, transparent model reporting, mandating explicit disclosure of intended uses, evaluation slices, out-of-scope tasks, ethical considerations, and negative results.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Complete Model Card Markdown templates, section schemas, and evaluation disclosure checklists are provided in the curriculum.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Bommasani et al. The Foundation Model Transparency Index",
+              "url": "https://arxiv.org/abs/2310.12941",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Corporate transparency audit index; Mitchell et al. provides the concrete technical artifact specification for individual model releases."
+            },
+            {
+              "candidate_name": "Pushkarna et al. Data Cards: Purposeful and Transparent Dataset Documentation for Responsible AI",
+              "url": "https://arxiv.org/abs/2204.01075",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Dataset documentation focus; Mitchell et al. provides the required specification for trained model artifact reporting."
+            }
+          ],
+          "relevant_timestamp": "Section 4 Model Card Sections (4.1-4.9)"
+        },
+        {
+          "id": "gebru-datasheets-2021",
+          "title": "Datasheets for Datasets",
+          "author": "Timnit Gebru, Jamie Morgenstern, Briana Vecchione, Jennifer Wortman Vaughan, Hanna Wallach, Hal Daumé III, Kate Crawford",
+          "original_url": "https://arxiv.org/abs/1803.09010",
+          "version_or_verification_date": "Communications of the ACM 2021 / arXiv:1803.09010v8 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation of dataset governance literature.",
+          "prerequisites": "Dataset provenance, curation motivation, preprocessing transparency, maintenance lifecycle.",
+          "selection_rationale": "Foundational literature introducing standardized documentation for machine learning datasets, specifying questions on dataset composition, collection mechanisms, preprocessing, and distribution rights.",
+          "known_availability_limitations": "Freely available on arXiv and ACM.",
+          "safe_fallback": "Datasheet questionnaires, provenance schemas, and dataset auditing checklists are completely integrated into lesson materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Bender & Friedman. Data Statements for Natural Language Processing: Toward Mitigating System Bias and Enabling Better Science",
+              "url": "https://aclanthology.org/Q18-1041/",
+              "license": "CC BY 4.0 (ACL Anthology, 2016 or later)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Linguistic demographic documentation focus; Gebru et al. provides the universal engineering datasheet framework adopted across AI."
+            },
+            {
+              "candidate_name": "Holland et al. The Dataset Nutrition Label: A Framework to Drive Higher Data Quality Standards",
+              "url": "https://arxiv.org/abs/1805.03677",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Nutrition label metaphor; Gebru et al. is a widely cited framework for dataset documentation in both academic and industrial practice."
+            }
+          ],
+          "relevant_timestamp": "Section 3 Questions and Workflow (3.1 Motivation through 3.7 Maintenance)"
+        }
+      ]
+    }
+  ]
+}

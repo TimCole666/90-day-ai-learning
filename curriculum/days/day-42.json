@@ -1,0 +1,436 @@
+{
+  "id": "day-42",
+  "day_number": 42,
+  "active_minutes": 480,
+  "topic_category": "models-and-training",
+  "is_review_day": true,
+  "status": "available",
+  "prerequisites": [
+    "day-41"
+  ],
+  "recovery_links": [
+    "day-35"
+  ],
+  "activities": [
+    {
+      "id": "day-42-act-01",
+      "lesson_id": "les-42",
+      "title": "Cross-Entropy Loss: From Probabilities to a Scalar Surprisal",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-41"
+      ],
+      "source_resources": [
+        {
+          "id": "karpathy-makemore",
+          "title": "makemore: Character-level language models on names.txt",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/makemore",
+          "relevant_timestamp": "Loss computation segment: negative log-likelihood over the minibatch",
+          "version_or_verification_date": "Repository state verified 2026-10-30; lecture published 2022",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT License (repository) / Standard YouTube License (video, subtitle rights unknown)",
+          "license_restrictions": [
+            "Video subtitles have unknown distribution rights and are not imported"
+          ],
+          "has_unknown_subtitle_rights": true,
+          "software_repository_license_only": true,
+          "permission_basis": "Lawful external hyperlink to the public GitHub repository and official YouTube lecture; repository code is MIT-licensed; video subtitles have unknown distribution rights and are not imported or translated.",
+          "prerequisites": "Python basics, matrix multiplication, and the Day 37-39 tokenization and n-gram context",
+          "selection_rationale": "Standard beginner walkthrough of the Bengio-style MLP language model; the MIT-licensed reference implementation pairs with a stepwise derivation that matches the Days 40-42 worked numbers exactly.",
+          "known_availability_limitations": "GitHub and YouTube hosted; streaming may be blocked by regional networks or institutional firewalls.",
+          "safe_fallback": "All forward-pass arithmetic, shapes, parameter counts, and loss values are reproduced as original hand-worked examples in the lesson text; no video, subtitle, or transcript is required.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Yoshua Bengio et al.: A Neural Probabilistic Language Model (JMLR 2003)",
+              "url": "https://www.jmlr.org/papers/v3/bengio03a.html",
+              "license": "JMLR open access (author-retained copyright)",
+              "status": "compared_selected_co_primary",
+              "comparison_rationale": "The original architecture paper; selected jointly as the theoretical citation while Makemore supplies the stepwise implementation walkthrough."
+            },
+            {
+              "candidate_name": "Stanford CS336: Language Modeling from Scratch",
+              "url": "https://github.com/stanford-cs336/spring2024-assignment1-basics",
+              "license": "No license declared (the repository has no LICENSE file, so all rights are reserved by default)",
+              "status": "compared_deferred",
+              "comparison_rationale": "Strong PyTorch rigor but assumes fluent tensor programming; deferred to the Days 43-60 pretraining blocks rather than the first embedding contact."
+            },
+            {
+              "candidate_name": "3Blue1Brown: Neural Networks series",
+              "url": "https://www.3blue1brown.com/topics/neural-networks",
+              "license": "3Blue1Brown copyright (all rights reserved); site FAQ permits only short clips under stated conditions",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong visual intuition for network mechanics but covers image classification rather than embedding tables and next-token language modeling; retained as optional supplementary viewing."
+            }
+          ]
+        },
+        {
+          "id": "bengio-2003-nplm",
+          "title": "A Neural Probabilistic Language Model",
+          "author": "Yoshua Bengio, Rejean Ducharme, Pascal Vincent, Christian Jauvin",
+          "original_url": "https://www.jmlr.org/papers/v3/bengio03a.html",
+          "relevant_timestamp": "Section 2 (training criterion: maximizing the log-likelihood, equivalently minimizing NLL)",
+          "version_or_verification_date": "JMLR Volume 3 (2003); verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "JMLR open access (author-retained copyright)",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference to the open-access publication; all lesson explanations are original formulations and no text is imported or translated.",
+          "prerequisites": "Probability basics and linear algebra",
+          "selection_rationale": "The original paper introducing jointly learned word feature vectors and the neural probabilistic language model; grounds the curriculum's embedding and MLP derivations in the primary literature.",
+          "known_availability_limitations": "Freely hosted on jmlr.org; no paywall.",
+          "safe_fallback": "Every worked derivation in the lessons is self-contained and offline-complete; the paper is further reading only.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Andrej Karpathy: Let's build makemore (MLP)",
+              "url": "https://github.com/karpathy/makemore",
+              "license": "MIT (repository code) / Standard YouTube License (video)",
+              "status": "compared_selected_co_primary",
+              "comparison_rationale": "Selected jointly: Makemore reproduces this architecture at character scale with MIT-licensed code; the paper supplies the original formalism and the n-gram comparison framing."
+            },
+            {
+              "candidate_name": "Jurafsky & Martin: Speech and Language Processing (3rd ed. draft), neural language models chapter",
+              "url": "https://web.stanford.edu/~jurafsky/slp3/",
+              "license": "Free online draft (author copyright)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong textbook coverage of n-grams through neural LMs; kept as secondary reading because the primary derivation follows the original paper's notation."
+            },
+            {
+              "candidate_name": "Mikolov et al.: Efficient Estimation of Word Representations in Vector Space (word2vec)",
+              "url": "https://arxiv.org/abs/1301.3781",
+              "license": "arXiv non-exclusive distribution",
+              "status": "compared_deferred",
+              "comparison_rationale": "Foundational for embedding geometry but trains on context-prediction objectives rather than the full next-token probabilistic model studied this week; revisited in later representation blocks."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-42-act-02",
+      "lesson_id": "les-42",
+      "title": "Training Loop Observation: Loss, Gradient, Update with Fixed Splits",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-42-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "karpathy-makemore",
+          "title": "makemore: Character-level language models on names.txt",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/makemore",
+          "relevant_timestamp": "Training loop segment: minibatch SGD, learning-rate schedule, train/dev split discipline",
+          "version_or_verification_date": "Repository state verified 2026-10-30; lecture published 2022",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT License (repository) / Standard YouTube License (video, subtitle rights unknown)",
+          "license_restrictions": [
+            "Video subtitles have unknown distribution rights and are not imported"
+          ],
+          "has_unknown_subtitle_rights": true,
+          "software_repository_license_only": true,
+          "permission_basis": "Lawful external hyperlink to the public GitHub repository and official YouTube lecture; repository code is MIT-licensed; video subtitles have unknown distribution rights and are not imported or translated.",
+          "prerequisites": "Python basics, matrix multiplication, and the Day 37-39 tokenization and n-gram context",
+          "selection_rationale": "Standard beginner walkthrough of the Bengio-style MLP language model; the MIT-licensed reference implementation pairs with a stepwise derivation that matches the Days 40-42 worked numbers exactly.",
+          "known_availability_limitations": "GitHub and YouTube hosted; streaming may be blocked by regional networks or institutional firewalls.",
+          "safe_fallback": "All forward-pass arithmetic, shapes, parameter counts, and loss values are reproduced as original hand-worked examples in the lesson text; no video, subtitle, or transcript is required.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Yoshua Bengio et al.: A Neural Probabilistic Language Model (JMLR 2003)",
+              "url": "https://www.jmlr.org/papers/v3/bengio03a.html",
+              "license": "JMLR open access (author-retained copyright)",
+              "status": "compared_selected_co_primary",
+              "comparison_rationale": "The original architecture paper; selected jointly as the theoretical citation while Makemore supplies the stepwise implementation walkthrough."
+            },
+            {
+              "candidate_name": "Stanford CS336: Language Modeling from Scratch",
+              "url": "https://github.com/stanford-cs336/spring2024-assignment1-basics",
+              "license": "No license declared (the repository has no LICENSE file, so all rights are reserved by default)",
+              "status": "compared_deferred",
+              "comparison_rationale": "Strong PyTorch rigor but assumes fluent tensor programming; deferred to the Days 43-60 pretraining blocks rather than the first embedding contact."
+            },
+            {
+              "candidate_name": "3Blue1Brown: Neural Networks series",
+              "url": "https://www.3blue1brown.com/topics/neural-networks",
+              "license": "3Blue1Brown copyright (all rights reserved); site FAQ permits only short clips under stated conditions",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong visual intuition for network mechanics but covers image classification rather than embedding tables and next-token language modeling; retained as optional supplementary viewing."
+            }
+          ]
+        },
+        {
+          "id": "bengio-2003-nplm",
+          "title": "A Neural Probabilistic Language Model",
+          "author": "Yoshua Bengio, Rejean Ducharme, Pascal Vincent, Christian Jauvin",
+          "original_url": "https://www.jmlr.org/papers/v3/bengio03a.html",
+          "relevant_timestamp": "Sections 3-4 (parameter optimization and experimental methodology)",
+          "version_or_verification_date": "JMLR Volume 3 (2003); verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "JMLR open access (author-retained copyright)",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference to the open-access publication; all lesson explanations are original formulations and no text is imported or translated.",
+          "prerequisites": "Probability basics and linear algebra",
+          "selection_rationale": "The original paper introducing jointly learned word feature vectors and the neural probabilistic language model; grounds the curriculum's embedding and MLP derivations in the primary literature.",
+          "known_availability_limitations": "Freely hosted on jmlr.org; no paywall.",
+          "safe_fallback": "Every worked derivation in the lessons is self-contained and offline-complete; the paper is further reading only.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Andrej Karpathy: Let's build makemore (MLP)",
+              "url": "https://github.com/karpathy/makemore",
+              "license": "MIT (repository code) / Standard YouTube License (video)",
+              "status": "compared_selected_co_primary",
+              "comparison_rationale": "Selected jointly: Makemore reproduces this architecture at character scale with MIT-licensed code; the paper supplies the original formalism and the n-gram comparison framing."
+            },
+            {
+              "candidate_name": "Jurafsky & Martin: Speech and Language Processing (3rd ed. draft), neural language models chapter",
+              "url": "https://web.stanford.edu/~jurafsky/slp3/",
+              "license": "Free online draft (author copyright)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong textbook coverage of n-grams through neural LMs; kept as secondary reading because the primary derivation follows the original paper's notation."
+            },
+            {
+              "candidate_name": "Mikolov et al.: Efficient Estimation of Word Representations in Vector Space (word2vec)",
+              "url": "https://arxiv.org/abs/1301.3781",
+              "license": "arXiv non-exclusive distribution",
+              "status": "compared_deferred",
+              "comparison_rationale": "Foundational for embedding geometry but trains on context-prediction objectives rather than the full next-token probabilistic model studied this week; revisited in later representation blocks."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-42-act-03",
+      "lesson_id": "les-42",
+      "title": "Counterexamples: Overfitting, Numerical Instability, and the Bigram Baseline",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-42-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "karpathy-makemore",
+          "title": "makemore: Character-level language models on names.txt",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/makemore",
+          "relevant_timestamp": "Overfitting and split evaluation segments; comparison with the bigram counting baseline",
+          "version_or_verification_date": "Repository state verified 2026-10-30; lecture published 2022",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT License (repository) / Standard YouTube License (video, subtitle rights unknown)",
+          "license_restrictions": [
+            "Video subtitles have unknown distribution rights and are not imported"
+          ],
+          "has_unknown_subtitle_rights": true,
+          "software_repository_license_only": true,
+          "permission_basis": "Lawful external hyperlink to the public GitHub repository and official YouTube lecture; repository code is MIT-licensed; video subtitles have unknown distribution rights and are not imported or translated.",
+          "prerequisites": "Python basics, matrix multiplication, and the Day 37-39 tokenization and n-gram context",
+          "selection_rationale": "Standard beginner walkthrough of the Bengio-style MLP language model; the MIT-licensed reference implementation pairs with a stepwise derivation that matches the Days 40-42 worked numbers exactly.",
+          "known_availability_limitations": "GitHub and YouTube hosted; streaming may be blocked by regional networks or institutional firewalls.",
+          "safe_fallback": "All forward-pass arithmetic, shapes, parameter counts, and loss values are reproduced as original hand-worked examples in the lesson text; no video, subtitle, or transcript is required.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Yoshua Bengio et al.: A Neural Probabilistic Language Model (JMLR 2003)",
+              "url": "https://www.jmlr.org/papers/v3/bengio03a.html",
+              "license": "JMLR open access (author-retained copyright)",
+              "status": "compared_selected_co_primary",
+              "comparison_rationale": "The original architecture paper; selected jointly as the theoretical citation while Makemore supplies the stepwise implementation walkthrough."
+            },
+            {
+              "candidate_name": "Stanford CS336: Language Modeling from Scratch",
+              "url": "https://github.com/stanford-cs336/spring2024-assignment1-basics",
+              "license": "No license declared (the repository has no LICENSE file, so all rights are reserved by default)",
+              "status": "compared_deferred",
+              "comparison_rationale": "Strong PyTorch rigor but assumes fluent tensor programming; deferred to the Days 43-60 pretraining blocks rather than the first embedding contact."
+            },
+            {
+              "candidate_name": "3Blue1Brown: Neural Networks series",
+              "url": "https://www.3blue1brown.com/topics/neural-networks",
+              "license": "3Blue1Brown copyright (all rights reserved); site FAQ permits only short clips under stated conditions",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong visual intuition for network mechanics but covers image classification rather than embedding tables and next-token language modeling; retained as optional supplementary viewing."
+            }
+          ]
+        },
+        {
+          "id": "bengio-2003-nplm",
+          "title": "A Neural Probabilistic Language Model",
+          "author": "Yoshua Bengio, Rejean Ducharme, Pascal Vincent, Christian Jauvin",
+          "original_url": "https://www.jmlr.org/papers/v3/bengio03a.html",
+          "relevant_timestamp": "Section 4 (comparison with n-gram baselines and generalization discussion)",
+          "version_or_verification_date": "JMLR Volume 3 (2003); verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "JMLR open access (author-retained copyright)",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference to the open-access publication; all lesson explanations are original formulations and no text is imported or translated.",
+          "prerequisites": "Probability basics and linear algebra",
+          "selection_rationale": "The original paper introducing jointly learned word feature vectors and the neural probabilistic language model; grounds the curriculum's embedding and MLP derivations in the primary literature.",
+          "known_availability_limitations": "Freely hosted on jmlr.org; no paywall.",
+          "safe_fallback": "Every worked derivation in the lessons is self-contained and offline-complete; the paper is further reading only.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Andrej Karpathy: Let's build makemore (MLP)",
+              "url": "https://github.com/karpathy/makemore",
+              "license": "MIT (repository code) / Standard YouTube License (video)",
+              "status": "compared_selected_co_primary",
+              "comparison_rationale": "Selected jointly: Makemore reproduces this architecture at character scale with MIT-licensed code; the paper supplies the original formalism and the n-gram comparison framing."
+            },
+            {
+              "candidate_name": "Jurafsky & Martin: Speech and Language Processing (3rd ed. draft), neural language models chapter",
+              "url": "https://web.stanford.edu/~jurafsky/slp3/",
+              "license": "Free online draft (author copyright)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong textbook coverage of n-grams through neural LMs; kept as secondary reading because the primary derivation follows the original paper's notation."
+            },
+            {
+              "candidate_name": "Mikolov et al.: Efficient Estimation of Word Representations in Vector Space (word2vec)",
+              "url": "https://arxiv.org/abs/1301.3781",
+              "license": "arXiv non-exclusive distribution",
+              "status": "compared_deferred",
+              "comparison_rationale": "Foundational for embedding geometry but trains on context-prediction objectives rather than the full next-token probabilistic model studied this week; revisited in later representation blocks."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-42-act-04",
+      "lesson_id": "les-42",
+      "title": "Weekly Consolidation: Independent Retrieval and End-to-End Assessment",
+      "active_minutes": 120,
+      "activity_type": "review",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-42-act-03"
+      ],
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "q1",
+            "type": "choice",
+            "expected_answer": "c"
+          },
+          {
+            "id": "q2",
+            "type": "choice",
+            "expected_answer": "a"
+          },
+          {
+            "id": "q3",
+            "type": "choice",
+            "expected_answer": "d"
+          }
+        ]
+      },
+      "source_resources": [
+        {
+          "id": "karpathy-makemore",
+          "title": "makemore: Character-level language models on names.txt",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/makemore",
+          "relevant_timestamp": "Complete makemore MLP lecture: embedding lookup through loss evaluation",
+          "version_or_verification_date": "Repository state verified 2026-10-30; lecture published 2022",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT License (repository) / Standard YouTube License (video, subtitle rights unknown)",
+          "license_restrictions": [
+            "Video subtitles have unknown distribution rights and are not imported"
+          ],
+          "has_unknown_subtitle_rights": true,
+          "software_repository_license_only": true,
+          "permission_basis": "Lawful external hyperlink to the public GitHub repository and official YouTube lecture; repository code is MIT-licensed; video subtitles have unknown distribution rights and are not imported or translated.",
+          "prerequisites": "Python basics, matrix multiplication, and the Day 37-39 tokenization and n-gram context",
+          "selection_rationale": "Standard beginner walkthrough of the Bengio-style MLP language model; the MIT-licensed reference implementation pairs with a stepwise derivation that matches the Days 40-42 worked numbers exactly.",
+          "known_availability_limitations": "GitHub and YouTube hosted; streaming may be blocked by regional networks or institutional firewalls.",
+          "safe_fallback": "All forward-pass arithmetic, shapes, parameter counts, and loss values are reproduced as original hand-worked examples in the lesson text; no video, subtitle, or transcript is required.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Yoshua Bengio et al.: A Neural Probabilistic Language Model (JMLR 2003)",
+              "url": "https://www.jmlr.org/papers/v3/bengio03a.html",
+              "license": "JMLR open access (author-retained copyright)",
+              "status": "compared_selected_co_primary",
+              "comparison_rationale": "The original architecture paper; selected jointly as the theoretical citation while Makemore supplies the stepwise implementation walkthrough."
+            },
+            {
+              "candidate_name": "Stanford CS336: Language Modeling from Scratch",
+              "url": "https://github.com/stanford-cs336/spring2024-assignment1-basics",
+              "license": "No license declared (the repository has no LICENSE file, so all rights are reserved by default)",
+              "status": "compared_deferred",
+              "comparison_rationale": "Strong PyTorch rigor but assumes fluent tensor programming; deferred to the Days 43-60 pretraining blocks rather than the first embedding contact."
+            },
+            {
+              "candidate_name": "3Blue1Brown: Neural Networks series",
+              "url": "https://www.3blue1brown.com/topics/neural-networks",
+              "license": "3Blue1Brown copyright (all rights reserved); site FAQ permits only short clips under stated conditions",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong visual intuition for network mechanics but covers image classification rather than embedding tables and next-token language modeling; retained as optional supplementary viewing."
+            }
+          ]
+        },
+        {
+          "id": "bengio-2003-nplm",
+          "title": "A Neural Probabilistic Language Model",
+          "author": "Yoshua Bengio, Rejean Ducharme, Pascal Vincent, Christian Jauvin",
+          "original_url": "https://www.jmlr.org/papers/v3/bengio03a.html",
+          "relevant_timestamp": "Sections 1-4 (complete model and evaluation overview)",
+          "version_or_verification_date": "JMLR Volume 3 (2003); verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "JMLR open access (author-retained copyright)",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference to the open-access publication; all lesson explanations are original formulations and no text is imported or translated.",
+          "prerequisites": "Probability basics and linear algebra",
+          "selection_rationale": "The original paper introducing jointly learned word feature vectors and the neural probabilistic language model; grounds the curriculum's embedding and MLP derivations in the primary literature.",
+          "known_availability_limitations": "Freely hosted on jmlr.org; no paywall.",
+          "safe_fallback": "Every worked derivation in the lessons is self-contained and offline-complete; the paper is further reading only.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Andrej Karpathy: Let's build makemore (MLP)",
+              "url": "https://github.com/karpathy/makemore",
+              "license": "MIT (repository code) / Standard YouTube License (video)",
+              "status": "compared_selected_co_primary",
+              "comparison_rationale": "Selected jointly: Makemore reproduces this architecture at character scale with MIT-licensed code; the paper supplies the original formalism and the n-gram comparison framing."
+            },
+            {
+              "candidate_name": "Jurafsky & Martin: Speech and Language Processing (3rd ed. draft), neural language models chapter",
+              "url": "https://web.stanford.edu/~jurafsky/slp3/",
+              "license": "Free online draft (author copyright)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong textbook coverage of n-grams through neural LMs; kept as secondary reading because the primary derivation follows the original paper's notation."
+            },
+            {
+              "candidate_name": "Mikolov et al.: Efficient Estimation of Word Representations in Vector Space (word2vec)",
+              "url": "https://arxiv.org/abs/1301.3781",
+              "license": "arXiv non-exclusive distribution",
+              "status": "compared_deferred",
+              "comparison_rationale": "Foundational for embedding geometry but trains on context-prediction objectives rather than the full next-token probabilistic model studied this week; revisited in later representation blocks."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

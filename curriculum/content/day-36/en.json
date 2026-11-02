@@ -1,0 +1,170 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 36: Training Loops and Gradient Failure Diagnosis",
+  "day_subtitle": "Close the MLP block: assemble the full gradient-descent loop on the scalar engine, record real loss curves at different learning rates, and diagnose the three classic gradient failures — saturation, missing zero_grad, and silent shape truncation.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Models, Pretraining & LoRA",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "day_label": "Day 36",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Enter your loop predictions, recorded loss values, and failure diagnoses here...",
+    "dev_slice_notice": "Verified curriculum module for the 90-Day AI Learning Platform.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account.",
+        "provider_error": "Authentication provider encountered an error.",
+        "server_error": "Authentication provider encountered an error.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    },
+    "quiz": {
+      "quiz_title": "Objective Knowledge Check: Training Loop & Failure Diagnosis",
+      "quiz_instructions": "Answer the following questions to verify your understanding. Select your declared assistance condition before submitting.",
+      "assistance_mode_label": "Declared Assistance Condition",
+      "mode_independent": "Independent Mastery Check (No AI assistance)",
+      "mode_agent_assisted": "Agent-Assisted Engineering Check (Completed with AI assistance)",
+      "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+      "submit_btn": "Submit Answers",
+      "retry_btn": "Retry Quiz",
+      "view_hint": "Question Hint",
+      "mastery_criterion_label": "Mastery Criterion",
+      "mastery_criterion_desc": "Score 100% (3/3 correct) on an Independent Mastery Check.",
+      "score_label": "Score",
+      "passed_badge": "Passed",
+      "failed_badge": "Needs Review",
+      "independent_pass_badge": "Independent Mastery Verified",
+      "agent_assisted_pass_badge": "Agent-Assisted Verified",
+      "self_reported_badge": "Self-Reported Checkbox",
+      "stale_badge": "Historical (Revalidation Needed - Content Revision Changed)",
+      "attempts_history_title": "Attempt History & Evidence",
+      "no_attempts": "No attempts recorded yet."
+    }
+  },
+  "activities": {
+    "day-36-act-01": {
+      "title": "The Training Loop: Forward, Loss, Zero-Grad, Backward, Step",
+      "prerequisites": "Day 35 hand derivation of all nine N1 gradients.",
+      "objective": "State the five-step gradient-descent loop contract — forward, loss, zero_grad, backward, parameter step $\\theta \\leftarrow \\theta - \\eta \\nabla L$ — explain the role of the learning rate $\\eta$, and distinguish full-batch descent from per-sample stochastic updates.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Read the loop contract, then predict before running.\n\n```python\nfor epoch in range(EPOCHS):\n    for p in model.parameters():\n        p.grad = 0.0                 # 1. zero stale gradients\n    total = 0.0\n    for (x, y) in dataset:\n        out = model(x)               # 2. forward\n        loss = (out - y) ** 2        # 3. loss\n        loss.backward()              # 4. backward (accumulates batch grads)\n        total += loss.data\n    for p in model.parameters():\n        p.data -= lr * p.grad        # 5. step along -gradient\n    log(epoch, total / len(dataset))\n```\n\nTwo properties matter: `zero` must run before `backward` in every epoch (gradients accumulate by design), and the step size $\\eta$ scales the update. Today's toy dataset: four points $(x, y)$: $((2,-1), 1)$, $((0.5,0.5), -1)$, $((-1,1), -1)$, $((1,1), 1)$; N1's initial mean squared loss is $2.106$.",
+      "exercise_prompt": "1. For the first sample $((2,-1), 1)$, $b_o$'s gradient is $4.2511$: predict the sign and size of a single-sample (stochastic) update at $\\eta = 0.05$.\n2. In the full-batch loop, the four per-sample gradients accumulate; measured, $b_o$'s epoch-0 batch gradient is $3.2111$. Predict that step.\n3. Predict what happens to the mean loss after 40 epochs at $\\eta = 0.05$ — decrease, plateau, or divergence?\n4. State precisely where `zero_grad` must sit in the loop and what single-line bug removes its effect.",
+      "hint": "A positive gradient means the parameter must decrease to reduce loss: the stochastic step is $b_o \\leftarrow 0.3 - 0.05 \\times 4.2511$, while the batch step uses the accumulated $3.2111$. For this full-batch update, zero the parameter gradients once before the sample loop. Zeroing before each sample would discard earlier samples' contributions; it is appropriate only when each sample has its own stochastic update.",
+      "answer": "Reference Solution:\n1. Stochastic step: $\\Delta b_o = -0.05 \\times 4.2511 = -0.2126$, so $b_o$ would fall from $0.3$ to $\\approx 0.0874$.\n2. Full-batch step: $\\Delta b_o = -0.05 \\times 3.2111 = -0.1606$, giving $b_o \\approx 0.1394$ after epoch 0 — same direction, different magnitude, because the batch gradient sums all four samples.\n3. Measured: the mean loss falls monotonically from $2.106$ to $\\approx 0.13$ over 40 epochs at $\\eta = 0.05$ (single toy run — evidence the loop works, not a general guarantee).\n4. `zero_grad` must run once per epoch before any `backward()` call; omitting it keeps every previous gradient in `.grad`, so the step uses a corrupted sum.",
+      "mastery_criterion": "The learner writes the five-step contract in order, predicts the direction and size of a parameter update, and explains the accumulation policy that makes zero_grad mandatory."
+    },
+    "day-36-act-02": {
+      "title": "Observed Training Runs: Learning-Rate Effects on a Tiny Dataset",
+      "prerequisites": "Loop contract from Activity 36-01 and the MLP classes from Day 34.",
+      "objective": "Execute two real training runs of N1 on the four-point dataset — one at $\\eta = 0.05$ and one at $\\eta = 5.0$ — record the mean loss at epochs 0, 10, 20, 30, and 39, and explain the divergence mechanism in the second run without overgeneralizing from one toy experiment.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Run this public project command from the repository root. It resets N1 to the same initial weights for each learning rate, rebuilds the graph per sample, accumulates the four sample gradients, and logs mean loss before each update. The update uses the sum of gradients, not the mean; changing that convention changes the effective learning rate.\n\n```bash\npython3 - <<'EOF'\nfrom projects.autograd.engine import Value\ninitial = [0.5, -0.25, 0.1, -0.5, 1.0, -0.2, 1.0, -2.0, 0.3]\ndata = [((2.0,-1.0),1.0), ((0.5,0.5),-1.0), ((-1.0,1.0),-1.0), ((1.0,1.0),1.0)]\nfor lr in (0.05, 5.0):\n    params = initial[:]\n    for epoch in range(40):\n        W = [Value(v) for v in params]  # Fresh leaves start with zero gradients.\n        total = 0.0\n        for (x1, x2), y in data:\n            a1 = (W[0]*x1 + W[1]*x2 + W[2]).tanh()\n            a2 = (W[3]*x1 + W[4]*x2 + W[5]).tanh()\n            loss = (a1*W[6] + a2*W[7] + W[8] - y)**2\n            loss.backward()  # Fresh interior graph, shared batch parameter leaves.\n            total += loss.data\n        if epoch in (0, 10, 20, 30, 39):\n            print(lr, epoch, total / len(data))\n        params = [p.data - lr*p.grad for p in W]  # Sum-gradient update, not mean.\nEOF\n```",
+      "exercise_prompt": "1. Report the mean loss at epochs 0, 10, 20, 30, 39 for $\\eta = 0.05$.\n2. Repeat at $\\eta = 5.0$ and describe the observed sequence.\n3. Explain mechanically why a too-large step overshoots: relate $\\eta \\cdot \\nabla L$ to the local curvature the linear step ignores.\n4. State one claim you may NOT make from this single toy run.",
+      "hint": "Gradient descent is a local linear approximation: a step that is too large lands past the minimum on a steeper slope, and each epoch compounds the overshoot. Watch whether the $\\eta = 5.0$ loss ever returns toward its starting value.",
+      "answer": "Reference observations (verified run):\n1. $\\eta = 0.05$: $2.106 \\rightarrow 0.369 \\rightarrow 0.268 \\rightarrow 0.189 \\rightarrow 0.129$ at epochs 0/10/20/30/39 — a steady decrease.\n2. $\\eta = 5.0$: $2.106 \\rightarrow 6.0 \\times 10^{36} \\rightarrow 1.6 \\times 10^{76} \\rightarrow 4.4 \\times 10^{115} \\rightarrow 1.3 \\times 10^{151}$ — unbounded divergence.\n3. Each step assumes the gradient stays constant along the step direction; a large $\\eta$ jumps past the basin, where the (larger) new gradient pushes the parameters even further out next epoch — exponential blow-up.\n4. Illegitimate claims include: 'this learning rate is optimal', 'MLPs always converge at 0.05', or 'the loss would keep falling forever' — one toy run proves loop mechanics, not convergence guarantees.",
+      "mastery_criterion": "Both runs are reproduced with matching loss tables, the divergence is explained as compounding overshoot rather than 'random failure', and the learner explicitly scopes the conclusion to this experiment."
+    },
+    "day-36-act-03": {
+      "title": "Failure Gallery: Saturation, Missing Zero-Grad, and Silent Shape Truncation",
+      "prerequisites": "Observed training runs from Activity 36-02.",
+      "objective": "Reproduce and diagnose three distinct gradient failures on the local engine: a saturated tanh neuron that stops learning, a missing `zero_grad` that silently doubles every parameter and interior gradient on a reused graph, and a `zip`-truncated weighted sum that silently drops an input.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Reproduce all three failures, measure each one, and write the fix.\n\nFailure A — missing zero_grad on a multi-layer graph:\n```bash\npython3 - <<'EOF'\nimport sys; sys.path.insert(0, '.')\nfrom projects.autograd.engine import Value\nx1, x2 = Value(2.0), Value(-1.0)\nW = [Value(v) for v in (0.5,-0.25,0.1, -0.5,1.0,-0.2, 1.0,-2.0,0.3)]\na1 = (x1*W[0]+x2*W[1]+W[2]).tanh(); a2 = (x1*W[3]+x2*W[4]+W[5]).tanh()\nloss = (a1*W[6]+a2*W[7]+W[8]-1.0)**2\nloss.backward(); print('after 1st:', W[0].grad)\nloss.backward(); print('after 2nd:', W[0].grad)\nEOF\n```\n\nFailure B — saturated initialization: set $b_1 = 8.0$ so $z_1 = 9.25$; record $\\tanh'(z_1)$ and the resulting hidden-weight gradients.\n\nFailure C — silent shape bug: evaluate `sum(w*x for w,x in zip([0.5,-0.25], [2.0,-1.0,999.0]))` and identify what happened to the extra input.",
+      "exercise_prompt": "For each failure: (a) state the observed number, (b) name the mechanism, (c) write the minimal fix.\n1. $w_{11}.grad$ after the first vs second `backward()` without zeroing.\n2. $\\tanh'(z_1)$ and the hidden-weight gradient magnitudes at $b_1 = 8.0$ saturation.\n3. The computed `z` value and the identity of the silently dropped term.",
+      "hint": "`Value.grad` fields accumulate — the second `backward()` adds the same vector–Jacobian product to every non-root node again (the root `loss.grad` is re-seeded to 1 on each call). $\\tanh'(9.25) \\approx 3.7 \\times 10^{-8}$. `zip` stops at the shortest sequence — no exception is raised.",
+      "answer": "Reference diagnoses:\n1. $w_{11}.grad$: $2.0068 \\rightarrow 4.0135$ (exactly $2\\times$): gradients accumulate in `.grad` across calls on a reused graph — the second `backward()` adds the same vector–Jacobian product again, so every non-root gradient doubles (the root `loss.grad` is re-seeded to 1 on each call). Fix for a repeated backward on the same graph: call `loss.zero_grad()` to clear every reachable node before the next `backward()`. Zeroing only the parameter leaves restores correct leaf values but leaves stale `.grad` records on interior nodes, so whole-graph zeroing is still required for a clean reused graph. For training, rebuild the forward graph for each sample and zero the parameter leaves once before the batch.\n2. With $b_1 = 8.0$: $z_1 = 9.25$, $\\tanh'(z_1) \\approx 3.7 \\times 10^{-8}$; hidden-weight gradients collapse to the $10^{-7}$ range ($w_{11} \\approx 3.3 \\times 10^{-7}$) — the neuron is saturated and its weights effectively freeze. Fix: smaller initialization scale or an activation/initializer that keeps $|z|$ out of saturation.\n3. `z = 1.25`: the extra input $999.0$ was silently discarded because `zip` truncates to the shortest input. Fix: `assert len(x) == len(self.w)` before the weighted sum (as in the Day 34 skeleton).",
+      "mastery_criterion": "The learner reproduces all three measured failures, explains why each produces its specific symptom, and writes the one-line fix for each without prompting."
+    },
+    "day-36-act-04": {
+      "title": "Independent Mastery Check: Diagnose, Fix, and Explain",
+      "prerequisites": "Activities 36-01 through 36-03.",
+      "objective": "Demonstrate unassisted mastery of the whole MLP block: write a correct training loop from memory, diagnose one seeded failure end-to-end (symptom, mechanism, fix), and pass the objective quiz in Independent mode.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "AI-free protocol: (a) from memory, write the five-step loop contract including where `zero_grad` belongs; (b) a colleague's run shows `w.grad` doubling-then-tripling every epoch and the loss diverging — write your diagnosis and fix; (c) take the objective quiz; (d) record which recovery link you would revisit for any missed item.",
+      "exercise_prompt": "1. Write the loop contract from memory and mark the single line whose removal caused the escalating-gradient symptom.\n2. A run reports loss $2.1 \\rightarrow 10^{30}$ within a few epochs: name the two most likely causes among $\\{\\eta$ too large, missing zero_grad, saturated activation$\\}$ and the measurement that separates them.\n3. Complete the 3-question objective quiz at 100% in Independent mode.",
+      "hint": "At identical inputs and parameter values, compare the suspect gradients with one backward pass on a fresh, zeroed graph. If they disagree, inspect stale accumulation; if they agree but the update is too large relative to the parameter scale, inspect $\\eta \\cdot |\\nabla L|$. A growing gradient alone does not distinguish the two causes.",
+      "answer": "Reference Solution:\n1. Contract: zero grads → forward → loss → backward → step, with the update `p -= lr * grad`. Removing parameter zeroing before a fresh batch leaves stale leaf gradients, so each epoch uses a corrupted sum. Reusing the same graph also retains interior gradients: use `loss.zero_grad()` to clear every reachable node before another backward; clearing leaves alone restores leaf values but leaves stale `.grad` records on interior nodes.\n2. Most likely: learning rate too large or missing `zero_grad`. At fixed inputs and identical parameter values, compare the suspect gradients with one backward on a freshly rebuilt, fully zeroed graph. A mismatch identifies stale accumulation; if gradients match but the update overshoots, reduce the learning rate. Day 35's original magnitudes are not a universal threshold after parameters change. Saturation gives near-zero hidden gradients instead.\n3. Quiz keys derive from measured failures: un-reset gradient accumulation, compounding overshoot, and explicit length checks. No unconditional monotonic-loss guarantee follows from a gradient step.",
+      "mastery_criterion": "The loop contract is written correctly from memory, the seeded failure is diagnosed with the right mechanism and fix, and the quiz scores 100% in Independent mode.",
+      "quiz": {
+        "title": "Objective Knowledge Check: Training Loop & Failure Diagnosis",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "On N1's multi-layer graph, calling `loss.backward()` a second time without zeroing produced $w_{11}.grad = 4.0135$ after $2.0068$ — exactly $2\\times$. Why?",
+            "options": {
+              "a": "Floating-point error randomly amplified the result.",
+              "b": "Gradient fields accumulate across calls — the second `backward()` adds the same vector–Jacobian product to every non-root node again, doubling every parameter and interior gradient.",
+              "c": "The engine recomputes the forward pass with different inputs.",
+              "d": "`backward()` divides accumulated gradients by zero."
+            },
+            "hint": "Check which `.grad` fields `backward()` resets — and which it does not.",
+            "explanation": "Each `backward()` adds this call's contributions onto existing `.grad` fields, so a second identical pass doubles every non-root gradient (the root is re-seeded to 1 on each call) — accumulation, not amplification. `loss.zero_grad()` before a repeated call clears all reachable nodes and restores a clean pass; zeroing only the parameter leaves restores leaf values but leaves stale `.grad` records on interior nodes."
+          },
+          {
+            "id": "q2",
+            "prompt": "In the observed $\\eta = 5.0$ run, the mean loss exploded past $10^{151}$ within 40 epochs. The mechanism is:",
+            "options": {
+              "a": "Steps overshot the basin and each epoch compounded the overshoot through a larger new gradient.",
+              "b": "The MLP had too few parameters to store the loss.",
+              "c": "tanh produced NaN and propagated it silently.",
+              "d": "MSE loss cannot be differentiated, so gradients were random."
+            },
+            "hint": "Gradient descent is a local linear approximation of a curved surface.",
+            "explanation": "A step $\\eta \\cdot \\nabla L$ assumes the gradient is locally constant; with a huge $\\eta$ the step lands on a steeper slope, producing an even larger gradient next epoch — exponential divergence, observed here as $2.1 \\rightarrow 10^{151}$."
+          },
+          {
+            "id": "q3",
+            "prompt": "Which guard prevents the silent `zip` shape bug in the scalar Neuron implementation?",
+            "options": {
+              "a": "Appending extra weights so `zip` always has enough pairs.",
+              "b": "Wrapping the weighted sum in `try/except` and ignoring errors.",
+              "c": "Asserting `len(x) == len(self.w)` before computing the weighted sum.",
+              "d": "Raising the learning rate so the missing input matters less."
+            },
+            "hint": "`zip` truncates to the shortest sequence without raising any error.",
+            "explanation": "An explicit length assertion turns a silent truncation (extra input $999.0$ dropped, $z = 1.25$) into an immediate, diagnosable failure at the exact site of the shape mismatch."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "project_id": "text_tools",
+  "title": "テキスト・データツール開発学習プロジェクト",
+  "category": "self-directed-learning-and-python",
+  "prerequisites": "学習日 01-12 の修了：Python の文字列、辞書、リスト、ファイル入出力、ターミナル CLI の基礎操作、およびテスト駆動開発 (TDD) の基本原則。",
+  "requirements": [
+    "1. コマンドラインインターフェース：`python3 projects/text_tools/cli.py` として実行可能な CLI を実装し、`--input`、`--stats`、`--split`、`--output-dir`、`--seed`、`--encoding`、`--errors` オプションをサポートすること。",
+    "2. コーパス統計分析：テキストコーパスを入力として受け取り、総文字数、総トークン数、語彙サイズ（ユニークトークン数）、文字・トークン頻度分布表、および最小・最大・平均トークン長を算出すること。",
+    "3. 決定論的データセット分割：設定可能な比率（既定：0.8、0.1、0.1）に基づき、固定乱数シードを用いて再現性のある訓練・検証・テスト分割を行い、同一シードではバイト単位で一致する成果物を生成すること。 バイト単位の再現性は、同一の入力バイト列・同一の比率・同一シード・同一のデコード設定・この実装/環境に限定され、異なる実装やプラットフォーム間の一致を保証しません。",
+    "4. データ来歴と分割マニフェスト：入力ファイルのパス、元の入力バイト列の SHA256、ファイルサイズ、入力デコード方針（エンコーディング／エラー処理／改行正規化）、シード、分割比率、サンプル数、各分割ハッシュ値、実行環境、および割り当てられたレコードインデックスが互いに素であることの検証を `manifest.json` に記録すること。マニフェストはインデックスの同一性を記録・検査するものであり、それ自体では分割データの利用方法を強制したり、重複コンテンツが存在しないことを証明したりしない。",
+    "5. 堅牢なエッジケース処理：空入力、重複トークン、多言語 Unicode（日本語、漢字、絵文字、アクセント記号）、`--errors replace` による復旧は正常終了（終了コード 0）とすること。ファイル不在、strict モードで復号不能なバイト列、非有限または範囲外の分割比率、入出力パスの衝突は、明確なエラーメッセージと非ゼロ終了コードで失敗させること。"
+  ],
+  "predictions": [
+    {
+      "id": "pred-01",
+      "question": "`data/names.txt`（32,033 件の名前）を処理した場合、トークン頻度分布と文字頻度分布はそれぞれどのような特性を示すと予測しますか？",
+      "guidance": "どの文字（母音 vs 子音）の出現頻度が高くなるか、名前全体はユニーク度が高いか重複が多いかを予測してください。"
+    },
+    {
+      "id": "pred-02",
+      "question": "同一シード（例：`--seed 42`）で分割を 2 回実行した場合と、異なるシード（`--seed 42` vs `--seed 99`）で実行した場合、分割成果物にどのような違いが生じるでしょうか？",
+      "guidance": "`train.txt`、`val.txt`、`test.txt` の SHA256 ハッシュが完全に一致するかどうか、機械学習実験においてなぜ乱数シードの固定が必須かを考察してください。"
+    },
+    {
+      "id": "pred-03",
+      "question": "英語テキストと日本語テキストにおいて、文字列長（`len(s)`）と UTF-8 エンコード後のバイト長（`len(s.encode('utf-8'))`）にはどのような差異が生じますか？",
+      "guidance": "シングルバイト ASCII から可変長 UTF-8 への移行が、メモリ使用量とトークナイザのバッファ設計に及ぼす影響を予測してください。"
+    }
+  ],
+  "worked_examples": [
+    {
+      "title": "例 1：names.txt のコーパス統計の算出",
+      "command": "python3 projects/text_tools/cli.py --input data/names.txt --stats --json",
+      "expected_output_summary": "total_chars=228145、total_tokens=32033、vocab_size=29494（出現総数ではなく一意トークン数）を含む JSON を出力し、char_frequencies では 'a' と 'e' が最も頻出する文字（英字）で、改行文字も上位（'a' に次ぐ2位）に入ります。"
+    },
+    {
+      "title": "例 2：決定論的 80/10/10 分割の実行",
+      "command": "( LEARN=\"$PWD\" && [ -f \"$LEARN/projects/text_tools/cli.py\" ] && [ -f \"$LEARN/data/names.txt\" ] && WORKDIR=$(mktemp -d) && cd \"$(mktemp -d)\" && python3 \"$LEARN/projects/text_tools/cli.py\" --input \"$LEARN/data/names.txt\" --split --output-dir \"$WORKDIR/artifacts\" --train-ratio 0.8 --val-ratio 0.1 --test-ratio 0.1 --seed 42 && ls \"$WORKDIR/artifacts\" )",
+      "expected_output_summary": "例示的な出力：最初の部分はディレクトリを移動する前にリポジトリ・CLI・コーパスの絶対パスを取得して検証し、その後 2 つの呼び出し専用private ディレクトリを作成します。無関係な private 作業ディレクトリから、絶対パスのみと private な --output-dir で実際の CLI を起動し、ls が train.txt（25,626 行）、val.txt（3,203 行）、test.txt（3,204 行）、stats.json、vocab.json、manifest.json を列挙します。bash で検証済み。これは通常のプロセス分離であり OS のセキュリティサンドボックスではなく、他のシェルやプラットフォームでの動作は主張しません。 レシピ全体はサブシェル内で実行されるため、呼び出し側の作業ディレクトリは次の例のために保持されます。"
+    },
+    {
+      "title": "例 3：不正エンコーディングのフォールバックリカバリ",
+      "command": "WORKDIR=$(mktemp -d) && printf 'ok line \\377 bad\\n' > \"$WORKDIR/corrupt.txt\" && python3 -c \"import sys; assert b'\\xff' in open(sys.argv[1],'rb').read()\" \"$WORKDIR/corrupt.txt\" && python3 projects/text_tools/cli.py --input \"$WORKDIR/corrupt.txt\" --stats --errors replace",
+      "expected_output_summary": "例示：printf の 8 進表記 \\377 が呼び出し専用ディレクトリ内のファイルにリテラルの 0xFF バイトを書き込み、埋め込みの python assert がそのバイトの存在を検証します。--errors replace では CLI が U+FFFD に復号して終了コード 0 になり、別ラベルの strict バリアント（同じ入力に --errors strict）は説明的な UnicodeDecodeError で非ゼロ終了します。bash と bash への sh で検証済み。dash はこの環境に未導入のため dash 固有の結果は主張せず、実行したシェルに対する証拠です。"
+    }
+  ],
+  "exercises": [
+    {
+      "step": 1,
+      "title": "コーパス統計と頻度カウンタの実装",
+      "prompt": "`projects/text_tools/core.py` に `analyze_text(text: str)` を実装してください。総文字数、総トークン数、語彙サイズ、文字分布、頻度辞書を返します。",
+      "check": "既知のサンプル文（例：'the cat sat on the mat'）で、手計算の値と厳密に一致するか検証します。"
+    },
+    {
+      "step": 2,
+      "title": "シード固定による決定論的データセット分割",
+      "prompt": "`compute_splits(lines, train_ratio, val_ratio, test_ratio, seed)` を実装してください。シード付き疑似乱数生成器でインデックスをシャッフルし、互いに素な集合に分割します。",
+      "check": "`len(set(train_indices) & set(val_indices)) == 0`（インデックス単位の互いに素）を検証し、`--seed 42` の 2 回実行が同一出力になることを確認する。あわせて重複・サンプル方針を明記すること — 同一内容のレコードを複数の分割に含めてよいか、そのデータで許容されるか。"
+    },
+    {
+      "step": 3,
+      "title": "データ来歴マニフェストの生成",
+      "prompt": "入力コーパスおよび各分割成果物の SHA256 ハッシュ値、シード、比率、サンプル数、実行環境情報を記録する `manifest.json` を構築してください。",
+      "check": "出力された JSON がスキーマに準拠し、実行環境情報を正確に保持していることを確認します。"
+    },
+    {
+      "step": 4,
+      "title": "エッジケース耐性とエラーハンドリング",
+      "prompt": "空ファイル、存在しないファイル、比率の合計不正、および各種エンコーディング例外（`--errors strict|replace|ignore`）に対する堅牢な保護を追加してください。",
+      "check": "クリーンな一時作業ディレクトリからプロセス分離テストを実行します。"
+    }
+  ],
+  "reference_feedback": {
+    "architecture_notes": "コア計算ロジック（`core.py`）と CLI インターフェース（`cli.py`）を分離することで、今後の Makemore や NanoGPT で直接再利用可能なモジュール設計を実現します。大容量ファイル処理時にメモリ内で二重コピーを保持しないよう配慮してください。",
+    "benchmark_metrics": {
+      "names_txt_tokens": 32033,
+      "tinyshakespeare_chars": 1115394,
+      "tinyshakespeare_unique_chars": 65
+    },
+    "common_pitfalls": [
+      "シード指定の省略により実行ごとに分割が変わり、実験の公平な比較が不可能になる点。",
+      "インデックス互いに素な分割を「リークなし」の証明と誤認すること：宣言されたサンプル／重複ポリシーが許さない限り、同一内容のレコードは分割をまたぎ得る。",
+      "1文字＝1バイトという前提を置き、多言語（日本語・絵文字）テキストのカウントやスライスを誤る点。",
+      "空ファイルの処理時に平均トークン長計算で ZeroDivisionError が発生する点。"
+    ]
+  },
+  "debugging_cases": [
+    {
+      "case_id": "debug-01",
+      "title": "潜在的データリーク（Data Leakage）",
+      "symptom": "訓練時の検証精度が 99.8% を記録したものの、本番環境の評価では全く機能しない。",
+      "root_cause": "インデックスでレコードを割り当てたが重複ポリシーが未宣言だったため、インデックスの重なりは 0 でも同一内容のレコードが複数の分割に残った（例：10 行の同一 'echo' では train/val/test が同じ値を共有。names.txt・seed42 では train と val に 424 個の一意値が重複）。",
+      "remediation": "インデックスの互いに素（`len(set(train_indices) & set(val_indices)) == 0`）で配分の健全性を確認し、別途、分割間で共有される一意値の個数を報告する。シャッフルだけでは重複コンテンツは除去されない。独立した値の重複が正当かどうかは、宣言されたサンプル／重複ポリシー次第である。"
+    },
+    {
+      "case_id": "debug-02",
+      "title": "多言語テキストにおける UnicodeDecodeError",
+      "symptom": "CLI が `UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 12` でクラッシュする。",
+      "root_cause": "ファイルに非 UTF-8 バイトが含まれているか、Shift-JIS や EUC-JP などの別エンコーディングで保存されていた。",
+      "remediation": "`--encoding` および `--errors` フラグを提供し、明確な診断メッセージを stderr に出力するとともに、`--errors replace` によるフォールバックを可能にする。"
+    },
+    {
+      "case_id": "debug-03",
+      "title": "空ファイルによる ZeroDivisionError",
+      "symptom": "0 バイトのファイルを渡した際、CLI が `ZeroDivisionError: division by zero` で異常終了する。",
+      "root_cause": "平均トークン長の計算時に、`total_tokens == 0` の事前チェックを行わずに除算を実行した。",
+      "remediation": "ガード条件を追加し、`total_tokens == 0` の場合は `avg_token_length = 0.0` を明示的に返す。"
+    },
+    {
+      "case_id": "debug-04",
+      "title": "環境差異による非決定論的分割",
+      "symptom": "別マシンで同一シードを指定して実行した際、生成される分割順序が異なってしまう。",
+      "root_cause": "シャッフル前に順序不定の `set` を反復処理した（あるいは set から dict を構築した）ため、`PYTHONHASHSEED` によって実行ごとに順序が変わった。dict は同一実行内では挿入順を決定的に保持し、ハッシュランダム化が同一構築の dict 自体を並べ替えることはない。ただし順序不定のソースから作られた dict はその不安定な順序を引き継ぐ。",
+      "remediation": "順序付きリストと明示的なインデックス置換（`indices = list(range(n)); rng.shuffle(indices)`）のみを使う。順序不定のコンテナを経由する必要がある場合は、先にソート等で順序を固定する。"
+    }
+  ],
+  "independent_mastery_checks": [
+    {
+      "check_id": "ind-01",
+      "prompt": "AI アシスタントを使用せずに、訓練データと検証データ間のデータリークがモデル評価に与える弊害を説明し、集合論を用いた数学的検証手法を提示してください。",
+      "criteria": "楽観的評価バイアスを明確に説明し、公開インターフェースが返すリスト値の結果に対して `len(set(train_indices) & set(val_indices)) == 0` によるインデックス単位の交差検証を実演し、インデックスの互いに素と重複コンテンツの重なりを区別できること。"
+    },
+    {
+      "check_id": "ind-02",
+      "prompt": "scikit-learn などの外部ライブラリを一切使用せず、Python 標準機能のみで決定論的データセット分割関数を実装してください。",
+      "criteria": "コードが `random.Random(seed)` とリストのインデックス指定を使い、境界スライスを正しく計算し、インデックス割り当ての重複がないことを保証し、同一内容レコードに対する重複・サンプル方針を明記していること。"
+    },
+    {
+      "check_id": "ind-03",
+      "prompt": "英文字、日本語の漢字・仮名、絵文字における文字数、Unicode コードポイント、UTF-8 バイト長の違いと仕組みを説明してください。",
+      "criteria": "コードポイント・UTF-8 バイト長・表示上の書記素列を正確に区別できること：'A' は 1 コードポイント／1 バイト、'中' は 1/3、'😀' は 1/4、'❤️' は 2/6（ハート＋異体字セレクタ）、'👍🏽' は 2/8（絵文字＋肌色修飾子）、家族 ZWJ 列は 7/25 になり得る — 表示 1 グリフあたりのバイト長は一定ではない。"
+    }
+  ],
+  "agent_assisted_checks": [
+    {
+      "check_id": "agent-01",
+      "prompt": "AI エージェントに CLI 引数パーサーとテストケースの実装を指示し、提出されたコードの Diff を厳格にコードレビューしてください。",
+      "criteria": "エージェントの差分を、実際の境界条件チェック（ゼロ除算保護や失敗時の終了コード仕様など）と記録された証拠で批判的にレビューする。実際の見落としや欠陥が見つかれば修正を指示する。実装が既に正しい場合は、実行したチェック、欠陥が見つからなかった証拠、およびそのテストの限界を記録する — 不具合を捏造しない。"
+    },
+    {
+      "check_id": "agent-02",
+      "prompt": "AI エージェントを活用して文字列境界のエッジケースに対する自動ファズテストケースを生成させ、サンドボックスの安全性を確認してください。",
+      "criteria": "テストが一時ディレクトリ内で隔離されて実行され、ホスト環境を汚染しないことを確認できること。"
+    }
+  ],
+  "acceptance_checklist": [
+    {
+      "id": "chk-01",
+      "label": "CLI コマンドインターフェースが `python3 projects/text_tools/cli.py` で標準引数とともに正常実行できる。"
+    },
+    {
+      "id": "chk-02",
+      "label": "コーパス統計により文字総数、トークン総数、語彙サイズ、および降順頻度表が正確に算出される。"
+    },
+    {
+      "id": "chk-03",
+      "label": "決定論的分割は、同一の元入力バイト列（同一の順序付き復号レコードを生成）、同一の比率・シード・デコード/改行方針・実装/ランタイム/プラットフォームの下で、テスト済み環境内に限り分割ファイルのバイト列を再現します。マニフェストのタイムスタンプは変わり、バージョン/OS をまたぐバイト一致は保証されません。"
+    },
+    {
+      "id": "chk-04",
+      "label": "train/val/test に割り当てられたレコードインデックスの重なりがゼロであることが検証され `manifest.json` に記録されている。宣言された重複・サンプルポリシーが、同一内容レコードの許容可否を示している。"
+    },
+    {
+      "id": "chk-05",
+      "label": "空ファイル、重複データ、多言語 Unicode（日本語・漢字・絵文字）、存在しないファイル、不正エンコーディングに対して堅牢に対処できる。"
+    },
+    {
+      "id": "chk-06",
+      "label": "すべての検証テストがクリーンな一時作業ディレクトリ上でプロセス分離されて完了する。"
+    }
+  ]
+}

@@ -1,0 +1,346 @@
+{
+  "id": "day-47",
+  "day_number": 47,
+  "active_minutes": 480,
+  "topic_category": "models-and-training",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-46"
+  ],
+  "recovery_links": [
+    "day-44"
+  ],
+  "activities": [
+    {
+      "id": "day-47-act-01",
+      "lesson_id": "les-47",
+      "title": "Position-wise Feedforward Network (FFN) Architecture",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev3",
+      "prerequisites": [
+        "day-46"
+      ],
+      "source_resources": [
+        {
+          "id": "vaswani-attention-2017",
+          "title": "Attention Is All You Need",
+          "author": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin",
+          "original_url": "https://arxiv.org/abs/1706.03762",
+          "version_or_verification_date": "arXiv:1706.03762v7 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation and reference under arXiv open access terms; no paper figures or prose reproduced.",
+          "prerequisites": "Matrix multiplication and basic neural network concepts from Days 22-24 and 34-36.",
+          "selection_rationale": "Foundational primary literature defining the Transformer architecture, multi-head attention, and scaled dot-product attention.",
+          "known_availability_limitations": "Freely hosted on arXiv.org; PDF and HTML available.",
+          "safe_fallback": "All mathematical formulas and structural definitions are self-contained in the lesson text.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Illustrated Transformer (Jay Alammar)",
+              "url": "https://jalammar.github.io/illustrated-transformer/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-level visual intuition, but Vaswani et al. provides the primary mathematical specifications needed for implementation."
+            },
+            {
+              "candidate_name": "Annotated Transformer (Harvard NLP)",
+              "url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+              "license": "MIT",
+              "status": "compared_selected_for_day46_48",
+              "comparison_rationale": "Co-primary: PyTorch line-by-line implementation alongside the paper equations."
+            }
+          ],
+          "relevant_timestamp": "Section 3.3 Position-wise Feed-Forward Networks"
+        },
+        {
+          "id": "karpathy-nanogpt-model",
+          "title": "nanoGPT: model.py architecture implementation",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/nanoGPT/blob/master/model.py",
+          "version_or_verification_date": "Git master (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license.",
+          "prerequisites": "Python, PyTorch, and Day 43-45 attention fundamentals.",
+          "selection_rationale": "Compact historical code reference for the named implementation functions; CS336 spring2025 provides the lead component exercises. Do not infer top-p, atomic persistence or cloud budget enforcement from nanoGPT.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GPT-2 TensorFlow source (OpenAI)",
+              "url": "https://github.com/openai/gpt-2",
+              "license": "Modified MIT License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Original legacy TensorFlow 1.x code; nanoGPT provides clean modern PyTorch equivalent."
+            },
+            {
+              "candidate_name": "Llama 2 / 3 PyTorch source (Meta)",
+              "url": "https://github.com/meta-llama/llama",
+              "license": "Llama 2 Community License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Includes advanced production features (RoPE, GQA), but nanoGPT's simplicity is ideal for the core Days 46-48 assembly."
+            }
+          ],
+          "known_availability_limitations": "Historical implementation reference: nanoGPT README marks the repository deprecated (November 2025). Toy CPU reading/runs do not establish full GPU pretraining feasibility.",
+          "safe_fallback": "Local models and classes in the curriculum mirror nanoGPT semantics directly.",
+          "relevant_timestamp": "model.py: class MLP (c_fc expands to 4 * n_embd, GELU, c_proj back to n_embd)"
+        }
+      ]
+    },
+    {
+      "id": "day-47-act-02",
+      "lesson_id": "les-47",
+      "title": "Hand Computation of an FFN Forward Pass and Hidden Expansion",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev3",
+      "prerequisites": [
+        "day-47-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "annotated-transformer",
+          "title": "The Annotated Transformer",
+          "author": "v2022: Austin Huang, Suraj Subramanian, Jonathan Sum, Khalid Almubarak, Stella Biderman; original: Sasha Rush (Harvard NLP)",
+          "original_url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+          "version_or_verification_date": "Updated PyTorch 2.0 edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license.",
+          "prerequisites": "PyTorch tensor operations and attention theory.",
+          "selection_rationale": "Clear reference implementation of Transformer modules, residual connections, and layer normalization.",
+          "compared_candidates": [
+            {
+              "candidate_name": "HuggingFace Transformers library source",
+              "url": "https://github.com/huggingface/transformers",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Industrial scale with hundreds of model variations; Annotated Transformer is pedagogically focused on the core architecture."
+            },
+            {
+              "candidate_name": "PyTorch nn.Transformer documentation",
+              "url": "https://pytorch.org/docs/stable/generated/torch.nn.Transformer.html",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Standard library implementation, but internal C++ bindings obscure the first-principles data flow."
+            }
+          ],
+          "known_availability_limitations": "Web article on nlp.seas.harvard.edu.",
+          "safe_fallback": "All block assembly and normalization logic are provided in runnable local Python snippets.",
+          "relevant_timestamp": "Position-wise Feed-Forward Networks (class PositionwiseFeedForward)",
+          "locator_url": "https://nlp.seas.harvard.edu/annotated-transformer/#position-wise-feed-forward-networks"
+        },
+        {
+          "id": "karpathy-nanogpt-model",
+          "title": "nanoGPT: model.py architecture implementation",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/nanoGPT/blob/master/model.py",
+          "version_or_verification_date": "Git master (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license.",
+          "prerequisites": "Python, PyTorch, and Day 43-45 attention fundamentals.",
+          "selection_rationale": "Compact historical code reference for the named implementation functions; CS336 spring2025 provides the lead component exercises. Do not infer top-p, atomic persistence or cloud budget enforcement from nanoGPT.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GPT-2 TensorFlow source (OpenAI)",
+              "url": "https://github.com/openai/gpt-2",
+              "license": "Modified MIT License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Original legacy TensorFlow 1.x code; nanoGPT provides clean modern PyTorch equivalent."
+            },
+            {
+              "candidate_name": "Llama 2 / 3 PyTorch source (Meta)",
+              "url": "https://github.com/meta-llama/llama",
+              "license": "Llama 2 Community License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Includes advanced production features (RoPE, GQA), but nanoGPT's simplicity is ideal for the core Days 46-48 assembly."
+            }
+          ],
+          "known_availability_limitations": "Historical implementation reference: nanoGPT README marks the repository deprecated (November 2025). Toy CPU reading/runs do not establish full GPU pretraining feasibility.",
+          "safe_fallback": "Local models and classes in the curriculum mirror nanoGPT semantics directly.",
+          "relevant_timestamp": "model.py: class MLP (c_fc expands to 4 * n_embd, GELU, c_proj back to n_embd)"
+        }
+      ]
+    },
+    {
+      "id": "day-47-act-03",
+      "lesson_id": "les-47",
+      "title": "Stacking Transformer Blocks and Tensor Invariants",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev3",
+      "prerequisites": [
+        "day-47-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "vaswani-attention-2017",
+          "title": "Attention Is All You Need",
+          "author": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin",
+          "original_url": "https://arxiv.org/abs/1706.03762",
+          "version_or_verification_date": "arXiv:1706.03762v7 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation and reference under arXiv open access terms; no paper figures or prose reproduced.",
+          "prerequisites": "Matrix multiplication and basic neural network concepts from Days 22-24 and 34-36.",
+          "selection_rationale": "Foundational primary literature defining the Transformer architecture, multi-head attention, and scaled dot-product attention.",
+          "known_availability_limitations": "Freely hosted on arXiv.org; PDF and HTML available.",
+          "safe_fallback": "All mathematical formulas and structural definitions are self-contained in the lesson text.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Illustrated Transformer (Jay Alammar)",
+              "url": "https://jalammar.github.io/illustrated-transformer/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-level visual intuition, but Vaswani et al. provides the primary mathematical specifications needed for implementation."
+            },
+            {
+              "candidate_name": "Annotated Transformer (Harvard NLP)",
+              "url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+              "license": "MIT",
+              "status": "compared_selected_for_day46_48",
+              "comparison_rationale": "Co-primary: PyTorch line-by-line implementation alongside the paper equations."
+            }
+          ],
+          "relevant_timestamp": "Section 3.1 Encoder and Decoder Stacks (N = 6 identical layers, d_model = 512)"
+        },
+        {
+          "id": "annotated-transformer",
+          "title": "The Annotated Transformer",
+          "author": "v2022: Austin Huang, Suraj Subramanian, Jonathan Sum, Khalid Almubarak, Stella Biderman; original: Sasha Rush (Harvard NLP)",
+          "original_url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+          "version_or_verification_date": "Updated PyTorch 2.0 edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license.",
+          "prerequisites": "PyTorch tensor operations and attention theory.",
+          "selection_rationale": "Clear reference implementation of Transformer modules, residual connections, and layer normalization.",
+          "compared_candidates": [
+            {
+              "candidate_name": "HuggingFace Transformers library source",
+              "url": "https://github.com/huggingface/transformers",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Industrial scale with hundreds of model variations; Annotated Transformer is pedagogically focused on the core architecture."
+            },
+            {
+              "candidate_name": "PyTorch nn.Transformer documentation",
+              "url": "https://pytorch.org/docs/stable/generated/torch.nn.Transformer.html",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Standard library implementation, but internal C++ bindings obscure the first-principles data flow."
+            }
+          ],
+          "known_availability_limitations": "Web article on nlp.seas.harvard.edu.",
+          "safe_fallback": "All block assembly and normalization logic are provided in runnable local Python snippets.",
+          "relevant_timestamp": "Encoder and Decoder Stacks",
+          "locator_url": "https://nlp.seas.harvard.edu/annotated-transformer/#encoder-and-decoder-stacks"
+        }
+      ]
+    },
+    {
+      "id": "day-47-act-04",
+      "lesson_id": "les-47",
+      "title": "Transformer Block Parameter and FLOPs Accounting",
+      "active_minutes": 120,
+      "activity_type": "review",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent_mastery",
+      "content_revision": "2026.11.01-rev3",
+      "prerequisites": [
+        "day-47-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "karpathy-nanogpt-model",
+          "title": "nanoGPT: model.py architecture implementation",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/nanoGPT/blob/master/model.py",
+          "version_or_verification_date": "Git master (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license.",
+          "prerequisites": "Python, PyTorch, and Day 43-45 attention fundamentals.",
+          "selection_rationale": "Compact historical code reference for the named implementation functions; CS336 spring2025 provides the lead component exercises. Do not infer top-p, atomic persistence or cloud budget enforcement from nanoGPT.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GPT-2 TensorFlow source (OpenAI)",
+              "url": "https://github.com/openai/gpt-2",
+              "license": "Modified MIT License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Original legacy TensorFlow 1.x code; nanoGPT provides clean modern PyTorch equivalent."
+            },
+            {
+              "candidate_name": "Llama 2 / 3 PyTorch source (Meta)",
+              "url": "https://github.com/meta-llama/llama",
+              "license": "Llama 2 Community License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Includes advanced production features (RoPE, GQA), but nanoGPT's simplicity is ideal for the core Days 46-48 assembly."
+            }
+          ],
+          "known_availability_limitations": "Historical implementation reference: nanoGPT README marks the repository deprecated (November 2025). Toy CPU reading/runs do not establish full GPU pretraining feasibility.",
+          "safe_fallback": "Local models and classes in the curriculum mirror nanoGPT semantics directly.",
+          "relevant_timestamp": "model.py: GPT.get_num_params and GPT.estimate_mfu"
+        },
+        {
+          "id": "vaswani-attention-2017",
+          "title": "Attention Is All You Need",
+          "author": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin",
+          "original_url": "https://arxiv.org/abs/1706.03762",
+          "version_or_verification_date": "arXiv:1706.03762v7 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation and reference under arXiv open access terms; no paper figures or prose reproduced.",
+          "prerequisites": "Matrix multiplication and basic neural network concepts from Days 22-24 and 34-36.",
+          "selection_rationale": "Foundational primary literature defining the Transformer architecture, multi-head attention, and scaled dot-product attention.",
+          "known_availability_limitations": "Freely hosted on arXiv.org; PDF and HTML available.",
+          "safe_fallback": "All mathematical formulas and structural definitions are self-contained in the lesson text.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Illustrated Transformer (Jay Alammar)",
+              "url": "https://jalammar.github.io/illustrated-transformer/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-level visual intuition, but Vaswani et al. provides the primary mathematical specifications needed for implementation."
+            },
+            {
+              "candidate_name": "Annotated Transformer (Harvard NLP)",
+              "url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+              "license": "MIT",
+              "status": "compared_selected_for_day46_48",
+              "comparison_rationale": "Co-primary: PyTorch line-by-line implementation alongside the paper equations."
+            }
+          ],
+          "relevant_timestamp": "Section 3.3 Position-wise Feed-Forward Networks and Section 4 Why Self-Attention (Table 1)"
+        }
+      ]
+    }
+  ]
+}

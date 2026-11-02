@@ -1,0 +1,170 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 44: Autoregressive Causal Masking and Strict Invariance",
+  "day_subtitle": "Enforce the autoregressive constraint in generative language models. Construct lower-triangular causal masks, prove that softmax maps -inf to exact zero probability, and empirically verify that future token perturbations have zero impact on past representations.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Models & Training",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "day_label": "Day 44",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Enter your causal masks, masked score matrices, perturbation logs, and invariance proofs here...",
+    "dev_slice_notice": "Verified curriculum module for the 90-Day AI Learning Platform.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account.",
+        "provider_error": "Authentication provider encountered an error.",
+        "server_error": "Authentication provider encountered an error.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    },
+    "quiz": {
+      "quiz_title": "Objective Knowledge Check: Causal Masking and Invariance",
+      "quiz_instructions": "Answer the following diagnostic questions to verify your understanding. Select your declared assistance condition before submitting.",
+      "assistance_mode_label": "Declared Assistance Condition",
+      "mode_independent": "Independent Mastery Check (No AI assistance)",
+      "mode_agent_assisted": "Agent-Assisted Engineering Check (Completed with AI assistance)",
+      "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+      "submit_btn": "Submit Answers",
+      "retry_btn": "Retry Quiz",
+      "view_hint": "Question Hint",
+      "mastery_criterion_label": "Mastery Criterion",
+      "mastery_criterion_desc": "Score 100% (3/3 correct) on an Independent Mastery Check.",
+      "score_label": "Score",
+      "passed_badge": "Passed",
+      "failed_badge": "Needs Review",
+      "independent_pass_badge": "Independent Mastery Verified",
+      "agent_assisted_pass_badge": "Agent-Assisted Verified",
+      "self_reported_badge": "Self-Reported Checkbox",
+      "stale_badge": "Historical (Revalidation Needed - Content Revision Changed)",
+      "attempts_history_title": "Attempt History & Evidence",
+      "no_attempts": "No attempts recorded yet."
+    }
+  },
+  "activities": {
+    "day-44-act-01": {
+      "title": "Autoregressive Constraint and Lower-Triangular Causal Masking",
+      "prerequisites": "Day 43 attention mechanisms and scaling derivations.",
+      "objective": "Define the autoregressive constraint for decoder language models, construct the lower-triangular causal mask matrix M, and derive masked scores S_masked = S + M.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Required work: explain why a causal decoder must satisfy P(x_1, ..., x_T) = prod_{t=1}^T P(x_t | x_{<t}). Show that without a mask, position t attends to future positions t' > t, allowing the model to cheat during training by trivial copying. Define the additive causal mask M in R^{T x T} such that M_{i,j} = 0 for j <= i and M_{i,j} = -inf for j > i. For sequence length T=3, explicitly write out M. Using the Day 43 scaled scores S = [[2.0, 0.0, 2.0], [0.0, 3.0, 2.0], [1.0, 1.5, 2.0]], compute the masked score matrix S_masked = S + M.",
+      "exercise_prompt": "1. Write out the 3x3 causal mask matrix M.\n2. Write out the masked score matrix S_masked = S + M.\n3. What happens if an implementation accidentally puts 0 above the diagonal and -inf below?",
+      "hint": "M has zeros on and below the main diagonal (lower triangle) and -inf above the main diagonal. For row 0, entries 1 and 2 are -inf.",
+      "answer": "M matrix:\n[[0.0, -inf, -inf],\n [0.0,  0.0, -inf],\n [0.0,  0.0,  0.0]].\nMasked scores S_masked:\n[[2.0, -inf, -inf],\n [0.0,  3.0, -inf],\n [1.0,  1.5,  2.0]].\nIf inverted (0 above and -inf below), the model attends exclusively to future tokens and is blind to past context, creating an anti-causal leak that fails autoregressive generation.",
+      "mastery_criterion": "Exact formulation of lower-triangular mask M and derivation of the 3x3 S_masked matrix."
+    },
+    "day-44-act-02": {
+      "title": "Softmax with Causal Masking: Exact Step-by-Step Matrix Derivation",
+      "prerequisites": "Complete Day 44 Activity 1.",
+      "objective": "Compute row-wise softmax over masked scores with max-shift stability, derive causal attention weights A_causal, and calculate the masked output representations.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Required work: calculate row-wise softmax on S_masked = [[2.0, -inf, -inf], [0.0, 3.0, -inf], [1.0, 1.5, 2.0]]. For row 0: max over finite entries is 2.0. exp([2.0-2.0, -inf, -inf]) = [1.0, 0.0, 0.0]. Normalization yields A_causal[0, :] = [1.0, 0.0, 0.0]. For row 1: max is 3.0. exp([-3.0, 0.0, -inf]) = [exp(-3), 1.0, 0.0] ~= [0.049787, 1.0, 0.0]. Sum = 1.049787. A_causal[1, :] = [0.047426, 0.952574, 0.0]. For row 2: all entries unmasked, yielding [0.186324, 0.307196, 0.506480]. Compute causal output Out_causal = A_causal V using Day 43 V = [[1,0], [0,2], [1,1]].",
+      "exercise_prompt": "1. Compute A_causal row 0, row 1, and row 2 to 6 decimal places.\n2. Compute Out_causal = A_causal V for all three rows.\n3. Compare Out_causal[0] with the unmasked Out[0] from Day 43 and explain why they differ.",
+      "hint": "At row 0, Out_causal is 1.0 * v_0 = [1.0, 0.0]. In Day 43 unmasked, row 0 output was contaminated by v_1 and v_2.",
+      "answer": "A_causal matrix:\nRow 0: [1.000000, 0.000000, 0.000000]\nRow 1: [0.047426, 0.952574, 0.000000]\nRow 2: [0.186324, 0.307196, 0.506480].\nOut_causal = A_causal V:\nRow 0: [1.000000, 0.000000]\nRow 1: 0.047426*[1,0] + 0.952574*[0,2] = [0.047426, 1.905148]\nRow 2: [0.692804, 1.120872].\nIn Day 43 unmasked, Out[0] was [0.936622, 0.595069] because token 0 attended to future tokens 1 and 2. With causal masking, token 0 is purely self-attending.",
+      "mastery_criterion": "Exact calculation of A_causal rows and Out_causal vectors matching reference values to 4+ decimal places."
+    },
+    "day-44-act-03": {
+      "title": "Causal Invariance Perturbation Experiment and Proof",
+      "prerequisites": "Complete Day 44 Activity 2.",
+      "objective": "Empirically verify and algebraically prove that perturbing future tokens leaves earlier attention distributions and representations strictly unchanged.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Required work: perform a strict perturbation test on the sequence. Replace token 2 (the future token) with extreme random values: q_2' = [99.0, -42.0, 13.0, 7.0], k_2' = [-50.0, 12.0, 34.0, -8.0], v_2' = [100.0, -200.0]. Recompute S_masked, A_causal, and Out_causal. Prove that diff(A_causal[0], A_causal_pert[0]) = 0.0, diff(A_causal[1], A_causal_pert[1]) = 0.0, diff(Out[0], Out_pert[0]) = 0.0, and diff(Out[1], Out_pert[1]) = 0.0. Contrast this invariance with an unmasked attention layer where all preceding rows are corrupted.",
+      "exercise_prompt": "1. Prove algebraically why row i of A_causal cannot depend on any k_j or v_j for j > i.\n2. Report the numerical differences for rows 0, 1, and 2 under the perturbation of token 2.\n3. How does this causal invariance guarantee the correctness of autoregressive KV-cache inference?",
+      "hint": "For row i, S_masked[i, j] = -inf for all j > i. exp(-inf) = 0, so the numerator is 0 and these terms vanish from the partition function sum.",
+      "answer": "Algebraic proof: for any j > i, S_masked[i,j] = -inf. In softmax, exp(S_masked[i,j] - max) = exp(-inf) = 0. The denominator sum_{k=0}^{T-1} exp(S_masked[i,k] - max) = sum_{k=0}^i exp(S_masked[i,k] - max), which contains no terms from k > i. Thus A_causal[i, j] = 0 for all j > i, and for j <= i depends only on q_i and k_{<=i}. Out[i] = sum_{j=0}^i A_causal[i,j] v_j depends only on v_{<=i}. Perturbation numerical diffs: Row 0 max diff = 0.0, Row 1 max diff = 0.0, Row 2 max diff > 0.0. This invariance ensures past token KV-cache entries remain valid as new tokens are generated.",
+      "mastery_criterion": "Rigorous algebraic proof of future-independence and empirical demonstration of 0.0 diff on historical positions."
+    },
+    "day-44-act-04": {
+      "title": "Independent Mastery Check: Causal Leaks, Mask Bugs, and Invariance Assertions",
+      "prerequisites": "Activities 44-01 through 44-03.",
+      "objective": "Demonstrate unassisted mastery in identifying causal leak bugs, tracing masked attention for a 2-token sequence, and asserting invariant representations under declared AI-free conditions.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Required work: work independently without AI assistance or external calculators. For T=2 with scaled scores S = [[3.0, 1.0], [2.0, 4.0]] and V = [[1.0, 2.0], [3.0, 0.0]]: 1. Construct the 2x2 causal mask M and write S_masked. 2. Calculate the exact 2x2 causal attention matrix A_causal. 3. Calculate Out_causal. 4. If token 1 is replaced with arbitrary new vectors, prove what happens to Out_causal[0]. 5. Complete the objective knowledge check quiz.",
+      "exercise_prompt": "1. Write S_masked for the 2x2 setup.\n2. Compute A_causal to 6 decimal places.\n3. Compute Out_causal = A_causal V.\n4. State the exact difference in Out_causal[0] if token 1 is perturbed.\n5. Complete the 3-question quiz.",
+      "hint": "Row 0 is [3.0, -inf]. Softmax gives [1.0, 0.0]. Row 1 is [2.0, 4.0]. Max is 4.0: exp([-2, 0]) = [exp(-2), 1].",
+      "answer": "S_masked = [[3.0, -inf], [2.0, 4.0]]. Softmax A_causal: Row 0 is [1.000000, 0.000000]; Row 1 is [exp(-2)/(exp(-2)+1), 1/(exp(-2)+1)] = [0.119203, 0.880797]. Out_causal: Row 0 = 1.0*[1.0, 2.0] = [1.000000, 2.000000]; Row 1 = 0.119203*[1,2] + 0.880797*[3,0] = [2.761594, 0.238406]. Difference in Out_causal[0] under any perturbation of token 1 is exactly 0.0.",
+      "mastery_criterion": "Accurate derivation of 2x2 causal attention and output, rigorous invariance assertion, and 100% quiz score.",
+      "quiz": {
+        "title": "Objective Knowledge Check: Causal Masking and Invariance",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "What is the primary operational role of the lower-triangular causal mask in autoregressive generation?",
+            "options": {
+              "a": "To prevent position t from attending to any future tokens t' > t, ensuring generation distribution P(x_t | x_{<t}) does not leak future tokens.",
+              "b": "To speed up matrix multiplication by converting full matrices into diagonal form.",
+              "c": "To guarantee that all attention scores sum to 2.0.",
+              "d": "To allow bidirectional context pooling across the entire prompt."
+            },
+            "hint": "Consider the conditional probability factorization of an autoregressive next-token predictor.",
+            "explanation": "In an autoregressive decoder, token t must depend solely on past and present tokens (indices <= t). Future keys and values (indices > t) must have zero attention weight."
+          },
+          {
+            "id": "q2",
+            "prompt": "When constructing an additive causal mask for scaled scores, what value must be assigned to upper-triangular entries (j > i)?",
+            "options": {
+              "a": "0.0",
+              "b": "-infinity (or a numerically large negative number like -1e9)",
+              "c": "+1.0",
+              "d": "+infinity"
+            },
+            "hint": "Recall that exp(-infinity) = 0 in softmax.",
+            "explanation": "Adding -inf to score S_{i,j} causes exp(S_{i,j} + (-inf)) = exp(-inf) = 0.0, which completely nullifies the attention weight for future positions."
+          },
+          {
+            "id": "q3",
+            "prompt": "If token 2 in a 3-token sequence (t in {0, 1, 2}) is perturbed with arbitrary values, how do the attention weights and output representation at position 0 change under strict causal masking?",
+            "options": {
+              "a": "They change in proportion to the magnitude of the perturbation.",
+              "b": "They remain strictly invariant with exactly 0.0 difference.",
+              "c": "They produce floating-point NaNs.",
+              "d": "Their variance scales by sqrt(d_k)."
+            },
+            "hint": "At position 0, only position 0 is unmasked; positions 1 and 2 are masked with -inf.",
+            "explanation": "Because causal masking zeroes out all connections from position 0 to positions 1 and 2, position 0 only attends to itself (weight 1.0). Any change to future tokens has zero effect on earlier positions."
+          }
+        ]
+      }
+    }
+  }
+}

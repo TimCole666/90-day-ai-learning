@@ -1,0 +1,75 @@
+{
+  "language": "zh-Hans",
+  "language_label": "简体中文",
+  "day_title": "Day 11: 异常与隔离环境",
+  "day_subtitle": "只捕获你预期的异常，用 with 和 finally 保证清理，并在全新的虚拟环境中复现“在我机器上能跑”的故障——先诊断，再动手。 Retrieval and lower-new-content review are part of the 480-minute ledger.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Self-Directed Learning & Python",
+  "common": {
+    "nav_calendar": "Curriculum Calendar",
+    "day_label": "Day 11",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Record your prediction, observed output, review, and recovery evidence here...",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "作者 / 机构",
+    "source_url_label": "原始出处链接",
+    "source_range_label": "对应章节 / 时间戳",
+    "source_verification_label": "验证版本与日期",
+    "source_rationale_label": "入选理由",
+    "source_prereqs_label": "来源前置条件",
+    "source_fallback_label": "安全回退方案（离线弹性）",
+    "compared_candidates_heading": "对比候选资源与选型分析"
+  },
+  "activities": {
+    "day-11-act-01": {
+      "title": "精确的异常处理与有保证的清理",
+      "prerequisites": "完成上一项活动；如遇阻塞，使用所列恢复链接。",
+      "objective": "预测文件打开成功与抛出 FileNotFoundError 时 try、except、else、finally 各执行哪些子句，然后验证。把手动 close() 换成 with 块，并解释为什么禁止裸 except。",
+      "assistance_policy_label": "仅在记录预测和观察到的证据之后，才允许使用辅助。",
+      "instructions": "try 放有风险的调用。except FileNotFoundError as e 只处理这一种预期失败，e.filename 给出缺失路径。else 只在无异常时运行；finally 总是运行。裸 except: 被禁止，因为它连 KeyboardInterrupt 和真正的程序错误也会吞掉，让诊断变成瞎猜。对文件对象来说，with 是预定义的清理动作，有了它 finally 就不再必要。",
+      "exercise_prompt": "在一个空的临时文件夹中操作。把这个脚本运行两次：第一次 notes.txt 不存在，第二次先用 `printf 'hi\\n' > notes.txt` 创建它再运行。\n\n```python\ntry:\n    f = open(\"notes.txt\", encoding=\"utf-8\")\nexcept FileNotFoundError as e:\n    print(\"cannot open\", e.filename)\nelse:\n    print(\"opened\", f.name)\n    f.close()\nfinally:\n    print(\"cleanup\")\n```\n\n每次运行前，写下 try / except / else / finally 中哪些会执行以及确切输出。然后 (1) 改写成用 with 块关闭文件，取代 else + f.close()，并展示块结束后 f.closed 为 True；(2) 举出裸 except: 会隐藏的两样东西。",
+      "hint": "执行前逐行预测两次运行。然后把 else/close() 部分改写成 with 块，确认没有 finally 子句文件也会被关闭。",
+      "answer": "子句追踪。notes.txt 不存在：open() 抛出 FileNotFoundError，所以 except 执行，else 被跳过，finally 执行：\n\n```text\ncannot open notes.txt\ncleanup\n```\n\nnotes.txt 存在：try 成功，except 被跳过，else 执行（并关闭 f），finally 执行：\n\n```text\nopened notes.txt\ncleanup\n```\n\n基于 with 的改写（保存为 with_version.py，并在同样两种状态下运行）：\n\n```python\ndef show(path):\n    try:\n        with open(path, encoding=\"utf-8\") as f:\n            print(\"opened\", f.name)\n    except FileNotFoundError as e:\n        print(\"cannot open\", e.filename)\n        return\n    print(\"closed after with:\", f.closed)\nshow(\"notes.txt\")\n```\n\nnotes.txt 存在：\n\n```text\nopened notes.txt\nclosed after with: True\n```\n\nnotes.txt 不存在：\n\n```text\ncannot open notes.txt\n```\n\nwith 语句在块退出时（无论正常结束还是因异常）都会关闭文件，所以对这个文件来说，手动 close() 和 finally 子句都不再需要。except 留在 with 外面，因为抛出异常的正是 open() 本身。\n裸 except: 会隐藏的两样东西：(1) KeyboardInterrupt（Ctrl+C）和 SystemExit，因为裸 except 会捕获所有 BaseException；(2) 程序错误，比如拼写错误导致的 NameError。演示：\n\n```python\ntry:\n    prnt(\"hi\")\nexcept:\n    print(\"something went wrong\")\n```\n\n```text\nsomething went wrong\n```\n\n拼错的 print 抛出了 NameError，裸 except 却把它报告成一个含糊的失败。若用 except FileNotFoundError，同样的拼写错误会以指向出错行的 NameError traceback 暴露出来。",
+      "mastery_criterion": "能准确说出成功与失败各执行哪些子句，正确把 else/close() 改成 with 块，并举出裸 except 会隐藏的两样东西。"
+    },
+    "day-11-act-02": {
+      "title": "故障诊所：从 traceback 到定点修复",
+      "prerequisites": "完成上一项活动；如遇阻塞，使用所列恢复链接。",
+      "objective": "拿到一个在畸形分数行上崩溃的脚本，自下而上读 traceback，指出故障行与异常类型，并应用最小修复：在 int() 周围做定点 except ValueError，而不是包整个程序的捕获。",
+      "assistance_policy_label": "仅在记录预测和观察到的证据之后，才允许使用辅助。",
+      "instructions": "traceback 按调用从最旧到最新排列；最后一行给出异常类型和消息：ValueError: invalid literal for int() with base 10: 'x9'，其上方的帧指向 total += int(raw) 这一行。先用那一条坏行复现崩溃。最窄的修复只把 int(raw) 包进 try/except ValueError，记录行号后继续。把整个程序包进 except Exception 会藏住无关缺陷，还会把它们误报成数据错误。",
+      "exercise_prompt": "在一个空的临时文件夹中创建诊所数据：\n\n```bash\nprintf 'ana,7\\nbo,x9\\ncy,5\\n' > scores.csv\n```\n\n把下面的代码保存为 clinic.py：\n\n```python\ntotal = 0\nwith open(\"scores.csv\", encoding=\"utf-8\") as fh:\n    for lineno, line in enumerate(fh, start=1):\n        name, raw = line.strip().split(\",\")\n        total += int(raw)\nprint(\"total\", total)\n```\n\n运行 python3 clinic.py，自下而上阅读 traceback。记录诊断：故障行、异常类型和最窄的修复。然后修改 clinic.py 让它运行到结束，打印有效行的总和以及被跳过的行号。",
+      "hint": "把复现缩小到那一条坏行。修复应放在抛出异常的调用周围，不是 open() 周围，更不是整个程序周围。",
+      "answer": "观察结果：python3 clinic.py 以退出状态 1 结束。traceback 的最后一行是：\n\n```text\nValueError: invalid literal for int() with base 10: 'x9'\n```\n\n其上方的帧指向 clinic.py 第 5 行 total += int(raw)。诊断：故障行 = 读取数据第 2 行（bo,x9）时的 int(raw) 调用；异常类型 = ValueError；最窄修复 = 只把 int(raw) 包进 try/except ValueError，把 lineno 记入 skipped 后继续。修复后的 clinic.py：\n\n```python\ntotal = 0\nskipped = []\nwith open(\"scores.csv\", encoding=\"utf-8\") as fh:\n    for lineno, line in enumerate(fh, start=1):\n        name, raw = line.strip().split(\",\")\n        try:\n            value = int(raw)\n        except ValueError:\n            skipped.append(lineno)\n            continue\n        total += value\nprint(\"total\", total, \"skipped\", skipped)\n```\n\n```text\ntotal 12 skipped [2]\n```\n\n为什么 ValueError 是最窄的正确选择：查看异常层次。\n\n```python\nprint([c.__name__ for c in ValueError.__mro__])\n```\n\n```text\n['ValueError', 'Exception', 'BaseException', 'object']\n```\n\nint() 用 ValueError 本身报告非法字面量，所以对这种失败不存在更窄的类型。它的父类 Exception 还会吞掉无关的缺陷（拼写错误导致的 NameError、TypeError），并把它们误报成坏数据。try 只覆盖 int(raw)：open() 失败或字段数不对的行仍会明确抛出异常，而不会被算作跳过。",
+      "mastery_criterion": "诊断写明故障位置与异常类型，依据异常层次解释所选 except 类型为何是最窄的正确类型，并展示程序带着跳过报告运行到结束。"
+    },
+    "day-11-act-03": {
+      "title": "用 venv 搭建隔离环境",
+      "prerequisites": "完成上一项活动；如遇阻塞，使用所列恢复链接。",
+      "objective": "在一个一次性的临时文件夹中，用 python3 -m venv --without-pip .venv 创建虚拟环境，用 sys.executable 证明其解释器与 python3 不同，展示只装进 venv 的模块对 python3 不可见，并把依赖记录到 requirements.txt。",
+      "assistance_policy_label": "仅在记录预测和观察到的证据之后，才允许使用辅助。",
+      "instructions": "只在一次性文件夹中操作，这样观察到的每个差异都是你亲手制造的，而不是对自己机器的假设。命令适用于 Linux/macOS shell（Windows 上解释器是 .venv\\Scripts\\python.exe；此处未执行）。不要激活 venv：按路径调用每个解释器。\n\n使用专用的一次性 shell／会话。搭建和之后的所有步骤都在同一个 shell 中运行。搭建中任何一步失败都会退出该 shell；不要继续。每次打开新 shell 都必须重新运行搭建代码块。搭建后，继续之前确认 `pwd` 显示的是 `$work`。\n\n```bash\nwork=$(mktemp -d) &&\ncd \"$work\" &&\npython3 -m venv --without-pip .venv || exit 1\n```\n\n之后的所有步骤都在同一个 shell 中运行；如果 echo \"$work\" 没有输出，先重新运行搭建代码块。--without-pip 让创建过程无需联网；新 venv 只带标准库。sys.executable 给出实际正在运行的解释器。sysconfig.get_path('purelib') 给出该解释器的 site-packages 文件夹（已安装模块所在处），所以把一个单文件模块复制进去，就是一次无需网络、无需第三方包的手工安装。这只是教学用的捷径，并非 pip 的做法：pip 还会写入安装元数据（.dist-info 文件夹），因此 pip 不会记录这份手工复制，也无法卸载它。venv 的 pyvenv.cfg 写着 include-system-site-packages = false：它不读取基础解释器的 site-packages，其他解释器也不读取 venv 的。依赖以固定版本行写进 requirements.txt（绝不放凭据），绝不提交 .venv。完成后：cd / && rm -rf \"$work\"。",
+      "exercise_prompt": "在 $work 中，运行前先预测每个结果。第 1 步：运行的是哪个解释器？\n\n```bash\npython3 -c \"import sys; print(sys.executable)\"\n.venv/bin/python -c \"import sys; print(sys.executable)\"\n```\n\n第 2 步：新建的 venv 能导入 day11_helper 吗？\n\n```bash\n.venv/bin/python -c \"import day11_helper\"\n```\n\n第 3 步：把一个单文件模块只装进 venv，然后在其中导入：\n\n```bash\nsite=$(.venv/bin/python -c \"import sysconfig; print(sysconfig.get_path('purelib'))\")\nprintf 'def label():\\n    return \"helper from the venv\"\\n' > \"$site/day11_helper.py\"\n.venv/bin/python -c \"import day11_helper; print(day11_helper.label())\"\n```\n\n第 4 步：python3 能导入它吗？\n\n```bash\npython3 -c \"import day11_helper\"\n```\n\n第 5 步：隔离证据，以及这个 venv 里有没有 pip：\n\n```bash\ngrep include-system-site-packages .venv/pyvenv.cfg\n.venv/bin/python -c \"import sys; print(sys.prefix != sys.base_prefix)\"\n```\n\n```bash\n.venv/bin/python -m pip --version\n```\n\n第 6 步：记录一个练习用的钉版（不要安装；那需要 pip 和包索引）：\n\n```bash\nprintf 'packaging==24.1\\n' > requirements.txt\ncat requirements.txt\n```\n\n针对第 2 步和第 4 步记录诊断：应该改 import 行，还是改变环境？",
+      "hint": "错误环境排查要向你实际要运行的解释器问三个问题：(1) 它是哪个解释器：sys.executable；(2) 它找得到模块吗：`.venv/bin/python -c \"import importlib.util; print(importlib.util.find_spec('day11_helper'))\"` 找不到时打印 None；(3) 依赖是否记录在 requirements.txt 中。",
+      "answer": "第 1 步：两条不同的路径。第一条是你机器上 python3 指向的解释器（例如 /usr/bin/python3，或另一个环境的 python），绝不在 $work 内；第二条是 $work/.venv/bin/python。路径不同证明这是两个不同的解释器。\n第 2 步：退出状态 1；最后一行是：\n\n```text\nModuleNotFoundError: No module named 'day11_helper'\n```\n\n第 3 步：\n\n```text\nhelper from the venv\n```\n\n第 4 步：再次以退出状态 1 结束，最后一行相同：\n\n```text\nModuleNotFoundError: No module named 'day11_helper'\n```\n\n同一条 import 仅因运行它的解释器不同而失败、成功、再失败，所以这是环境故障：把模块装进你要运行的解释器（第 3 步），或换用已有该模块的解释器。改 import 行是错误修法。\n第 5 步：\n\n```text\ninclude-system-site-packages = false\nTrue\n```\n\npip 检查以退出状态 1 结束，报错以 No module named pip 结尾，因为 venv 是用 --without-pip 创建的。\nvenv 为何看不到系统的 site-packages：pyvenv.cfg 设置了 include-system-site-packages = false，sys.prefix != sys.base_prefix 表明 venv 使用自己的前缀，因此它的 sys.path 只包含它自己的 site-packages 文件夹。反过来也成立：python3 从不搜索 $work/.venv，所以第 4 步失败。\n第 6 步：\n\n```text\npackaging==24.1\n```\n\n钉版行记录确切版本；以后要安装时，应在带 pip 创建的 venv 中、能访问包索引的情况下使用 .venv/bin/python -m pip install -r requirements.txt。",
+      "mastery_criterion": "能证明两个解释器路径不同，在新建 venv 中复现 ModuleNotFoundError，并在模块只装进 venv 后于 python3 下再次复现，且能根据 pyvenv.cfg 和 sys.prefix 解释 venv 与其他解释器为何互相看不到对方的 site-packages。"
+    },
+    "day-11-act-04": {
+      "title": "错误环境诊断演练",
+      "prerequisites": "完成上一项活动；如遇阻塞，使用所列恢复链接。",
+      "objective": "独立诊断一个只在两个受控解释器之一下以 ModuleNotFoundError 失败的脚本，给出 sys.executable 与 find_spec 证据及最小环境修复，然后把一次文件读取包进精确的 except 子句。",
+      "assistance_policy_label": "独立掌握检查（无 AI 辅助）。",
+      "instructions": "闭卷。严格按下面搭建夹具；它保证只有 good 这个 venv 拥有该依赖（Linux/macOS shell，无需网络，无需第三方包）：\n\n使用专用的一次性 shell／会话。搭建和之后的所有步骤都在同一个 shell 中运行。搭建中任何一步失败都会退出该 shell；不要继续。每次打开新 shell 都必须重新运行搭建代码块。搭建后，继续之前确认 `pwd` 显示的是 `$work`。\n\n```bash\nwork=$(mktemp -d) &&\ncd \"$work\" &&\npython3 -m venv --without-pip good &&\npython3 -m venv --without-pip .venv &&\ngood_site=$(good/bin/python -c \"import sysconfig; print(sysconfig.get_path('purelib'))\") &&\nprintf 'def label():\\n    return \"report ok\"\\n' > \"$good_site/day11_helper.py\" &&\nprintf 'import day11_helper\\nprint(day11_helper.label())\\n' > report.py || exit 1\n```\n\n之后的所有步骤都在同一个 shell 中运行；如果 echo \"$work\" 没有输出，先重新运行搭建代码块。症状：.venv/bin/python report.py 抛出 ModuleNotFoundError: No module named 'day11_helper'，而 good/bin/python report.py 正常。任务 1：从两个解释器收集证据（运行的是哪个解释器、能否找到 day11_helper），记录诊断，应用最小修复，并展示之后 .venv/bin/python report.py 打印 report ok。任务 2：编写 read_text(path)，在 try/except FileNotFoundError 内以 encoding=\"utf-8\" 打开 path，文件缺失时打印 missing 和 e.filename 而不是崩溃。完成后：cd / && rm -rf \"$work\"。",
+      "exercise_prompt": "记录：(a) 两个 sys.executable 值；(b) 每个解释器能否找到 day11_helper；(c) 在 .venv/bin/python 下复现的 ModuleNotFoundError；(d) 诊断类别：代码故障还是环境故障；(e) 修复以及证明修复生效的输出；(f) 你的 read_text 函数及其对 no_such_file.txt 的输出。",
+      "hint": "卡住时回到 day-11-act-03 看环境排查，回到 day-11-act-01 看 except 子句形状。如实记录任何协助。",
+      "answer": "复现两次运行：\n\n```bash\ngood/bin/python report.py\n```\n\n```text\nreport ok\n```\n\n```bash\n.venv/bin/python report.py\n```\n\n以退出状态 1 结束，最后一行是：\n\n```text\nModuleNotFoundError: No module named 'day11_helper'\n```\n\n来自两个解释器的证据：\n\n```bash\nfor py in good/bin/python .venv/bin/python; do\n    \"$py\" -c \"import sys, importlib.util; print(sys.executable); print(importlib.util.find_spec('day11_helper') is not None)\"\ndone\n```\n\n打印四行：$work/good/bin/python、True、$work/.venv/bin/python、False。诊断：环境故障。report.py 及其 import 都没问题；.venv 中的解释器缺少该依赖。最小修复：把依赖装进 .venv（这里把单文件模块复制进 venv 的 purelib 就是安装）。改用 good/bin/python report.py 运行虽然也能成功，但 .venv 仍然是坏的，因此不满足任务 1：\n\n```bash\ngood_site=$(good/bin/python -c \"import sysconfig; print(sysconfig.get_path('purelib'))\")\nvenv_site=$(.venv/bin/python -c \"import sysconfig; print(sysconfig.get_path('purelib'))\")\ncp \"$good_site/day11_helper.py\" \"$venv_site/\"\n.venv/bin/python report.py\n```\n\n```text\nreport ok\n```\n\n修改 import（删掉它，或用 try/except ImportError 包住）是错误修法：它掩盖了缺失的依赖，而不是提供它。\n文件任务：\n\n```python\ndef read_text(path):\n    try:\n        with open(path, encoding=\"utf-8\") as fh:\n            return fh.read()\n    except FileNotFoundError as e:\n        print(\"missing\", e.filename)\n        return None\nprint(read_text(\"no_such_file.txt\"))\n```\n\n```text\nmissing no_such_file.txt\nNone\n```",
+      "mastery_criterion": "独立完成：诊断基于证据（来自两个解释器的 sys.executable，以及 find_spec 或 ModuleNotFoundError），修复针对这些证据所确定的原因并以 report ok 证明，文件读取恰好使用 except FileNotFoundError。"
+    }
+  }
+}

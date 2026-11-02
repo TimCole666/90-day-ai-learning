@@ -1,0 +1,170 @@
+{
+  "language": "zh-Hans",
+  "language_label": "简体中文",
+  "day_title": "第 34 天：MLP 结构与前向传播",
+  "day_subtitle": "从历史上的感知机走向可微神经元，在 projects/autograd 标量引擎上组装一个 2-2-1 多层感知机，手工计算每一个前向数值，并收集将在第 35 天手工推导的全部参数梯度。",
+  "time_budget_label": "480 分钟（8 小时专注学习）",
+  "category_label": "模型原理与训练微调",
+  "common": {
+    "nav_calendar": "📅 课程日历与台账",
+    "day_label": "第 34 天",
+    "prerequisites_title": "前置要求",
+    "objective_title": "学习目标",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主演练与记录",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看参考解答与分析",
+    "mastery_title": "独立掌握标准",
+    "draft_placeholder": "在此输入你的前向传播预测、引擎实测数值与参数计数……",
+    "dev_slice_notice": "90 天 AI 学习平台的已验证正式课程模块。",
+    "sources_heading": "权威源资源与权利证明",
+    "source_author_label": "作者 / 机构",
+    "source_url_label": "原始出处链接",
+    "source_range_label": "对应章节 / 时间戳",
+    "source_verification_label": "验证版本与日期",
+    "source_reuse_label": "复用类别",
+    "source_license_label": "许可证与权利说明",
+    "source_rationale_label": "入选理由",
+    "source_prereqs_label": "来源前置条件",
+    "source_fallback_label": "安全回退方案（离线弹性）",
+    "compared_candidates_heading": "对比候选资源与选型分析",
+    "compared_status_label": "评估结论",
+    "auth": {
+      "sign_in": "使用 Google 登录",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "退出登录",
+      "signed_in_as": "已登录为",
+      "guest": "访客模式",
+      "link_github": "绑定 GitHub",
+      "link_google": "绑定 Google",
+      "linked_identities": "已绑定账号",
+      "auth_errors": {
+        "access_denied": "授权已取消或访问被拒绝。",
+        "invalid_state": "无效或已过期的授权状态令牌，请重试。",
+        "identity_conflict": "该第三方身份已被绑定至其他账号。",
+        "provider_error": "认证服务提供商发生错误。",
+        "server_error": "认证服务提供商发生错误。",
+        "session_expired": "登录会话已过期，请重新登录。"
+      }
+    },
+    "progress": {
+      "save_btn": "保存进度",
+      "saved": "已保存",
+      "saving": "正在保存...",
+      "save_error": "保存失败",
+      "offline": "离线状态",
+      "mark_completed": "标记为已完成",
+      "completed_badge": "已完成"
+    },
+    "quiz": {
+      "quiz_title": "客观知识测验：MLP 结构与前向传播",
+      "quiz_instructions": "请回答以下题目检验掌握情况。提交前请诚实声明你的辅助条件。",
+      "assistance_mode_label": "声明辅助条件",
+      "mode_independent": "独立掌握检查 (无 AI 辅助)",
+      "mode_agent_assisted": "Agent 辅助工程检查 (借助 AI 完成)",
+      "mode_disclaimer": "说明：无 AI 辅助属于诚实声明条件，非平台监控或强制检测手段。",
+      "submit_btn": "提交答案",
+      "retry_btn": "重新测验",
+      "view_hint": "查看提示",
+      "mastery_criterion_label": "掌握标准",
+      "mastery_criterion_desc": "在独立掌握检查模式下获得 100% 得分（3/3 题完全正确）。",
+      "score_label": "测验得分",
+      "passed_badge": "通过",
+      "failed_badge": "未通过 (需复习)",
+      "independent_pass_badge": "独立掌握通过",
+      "agent_assisted_pass_badge": "Agent 辅助通过",
+      "self_reported_badge": "自主勾选完成",
+      "stale_badge": "历史记录 (内容已更新，需重新验证)",
+      "attempts_history_title": "作答应证与历史记录",
+      "no_attempts": "暂无测验记录。"
+    }
+  },
+  "activities": {
+    "day-34-act-01": {
+      "title": "从感知机到可微 MLP：层、权重与激活函数",
+      "prerequisites": "第 33 天自动微分掌握检查，以及已验证的 Value `backward()` 语义。",
+      "objective": "区分历史感知机（阶跃激活）与可微神经元 $z = \\sum_i w_i x_i + b$、$a = \\sigma(z)$；解释为何必须堆叠带非线性激活的层才能表达 XOR 等函数；并陈述本日使用的参考 2-2-1 网络的精确结构。",
+      "assistance_policy_label": "Agent 辅助工程检查",
+      "instructions": "先阅读下面的概念分解，再先预测后计算。\n\n感知机计算 $z = \\sum_i w_i x_i + b$，当 $z > 0$ 时输出 $1$，否则输出 $0$。其阶跃激活使输入-输出映射分段恒定：梯度几乎处处为 $0$，在拐点处无定义，因此基于梯度的训练无法改进它。可微神经元把阶跃换成 $\\tanh$ 等光滑激活。\n\n多层感知机 (MLP) 将全连接层堆叠起来：第 $l$ 层的每个神经元都接收第 $l-1$ 层的全部激活。单个线性单元只能画出一条直线决策边界，无法表示 XOR；两层以上加非线性激活则可以。\n\n本日参考网络 N1：输入 $x=(2.0, -1.0)$；隐藏神经元 $h_1$：权重 $(0.5, -0.25)$，偏置 $0.1$，激活 $\\tanh$；隐藏神经元 $h_2$：权重 $(-0.5, 1.0)$，偏置 $-0.2$，激活 $\\tanh$；输出神经元 $o$：权重 $(1.0, -2.0)$，偏置 $0.3$，线性（无激活）；损失 $L = (o - y)^2$，目标 $y = 1.0$。",
+      "exercise_prompt": "1. 在任何计算之前，先预测 $z_1$ 与 $z_2$ 的符号，并判断是否有隐藏神经元接近饱和。\n2. 数出 N1 的可训练参数总数，并拆分为权重与偏置。\n3. 用一句话说明为何阶跃激活的感知机无法用梯度下降训练。\n4. 预测 $o$ 会高于还是低于目标 $y = 1.0$。",
+      "hint": "先算加权和：$z_1 = 0.5(2.0) + (-0.25)(-1.0) + 0.1$，$z_2 = -0.5(2.0) + 1.0(-1.0) + (-0.2)$。参数计数要把每个权重和每个偏置分别列出。判断饱和时记住：$|z| \\gtrsim 4$ 时 $\\tanh$ 已饱和。",
+      "answer": "参考解答：\n1. $z_1 = 1.0 + 0.25 + 0.1 = 1.35$（为正，中段区间，未饱和）；$z_2 = -1.0 - 1.0 - 0.2 = -2.2$（为负，也未深度饱和）。\n2. 共九个可训练参数：六个权重 ($(w_{11}, w_{12}), (w_{21}, w_{22}), (w_{o1}, w_{o2})$) 与三个偏置 ($b_1, b_2, b_o$)。\n3. 阶跃函数几乎处处平坦，导数在有定义处为 $0$、在 $z = 0$ 处无定义；权重收不到任何有效梯度。\n4. $o = 1.0 \\cdot \\tanh(1.35) + (-2.0) \\cdot \\tanh(-2.2) + 0.3 \\approx 0.874 + 1.951 + 0.3 = 3.126$，明显高于 $y = 1.0$。",
+      "mastery_criterion": "学习者能写出 $z = \\sum w_i x_i + b$ 与 $a = \\sigma(z)$ 的公式，正确数出 N1 的九个参数，并用自己的话说明基于梯度的学习为何要求可微性。"
+    },
+    "day-34-act-02": {
+      "title": "手工计算 2-2-1 网络的完整前向传播",
+      "prerequisites": "活动 34-01 的网络定义与 tanh 求值。",
+      "objective": "手工计算网络 N1 的每一个中间值——$z_1, a_1, z_2, a_2, o, L$——把结果记录到前向传播台账中，然后用标量自动微分引擎逐项核对。",
+      "assistance_policy_label": "独立掌握检查",
+      "instructions": "先在纸上或用普通计算器完成前向传播，再碰引擎。逐节点填写台账：节点名、局部输入、计算值。\n\n然后用引擎核对：\n\n```bash\npython3 - <<'EOF'\nimport sys; sys.path.insert(0, '.')\nfrom projects.autograd.engine import Value\nx1, x2 = Value(2.0), Value(-1.0)\na1 = (x1*Value(0.5) + x2*Value(-0.25) + Value(0.1)).tanh()\na2 = (x1*Value(-0.5) + x2*Value(1.0) + Value(-0.2)).tanh()\no = a1*Value(1.0) + a2*Value(-2.0) + Value(0.3)\nloss = (o - 1.0)**2\nprint(a1.data, a2.data, o.data, loss.data)\nEOF\n```\n\n把打印值与台账逐行比对。任何不一致都意味着对应行算错了——找出第一处分歧。",
+      "exercise_prompt": "为 N1 生成一张完整的前向台账：$z_1$、$a_1 = \\tanh(z_1)$、$z_2$、$a_2 = \\tanh(z_2)$、$o$ 与 $L = (o - 1.0)^2$。手算结果至少保留 4 位小数，并标出每个引擎输出是确认还是推翻了你的值。",
+      "hint": "$\\tanh(1.35) \\approx 0.8741$，$\\tanh(-2.2) \\approx -0.9757$。输出神经元是线性的，$o$ 只是加权和——不要再对它套 $\\tanh$。",
+      "answer": "参考台账：\n| 节点 | 数值 |\n| --- | --- |\n| $z_1$ | $1.35$ |\n| $a_1$ | $0.8741$ |\n| $z_2$ | $-2.2$ |\n| $a_2$ | $-0.9757$ |\n| $o$ | $3.1255$ |\n| $L$ | $4.5179$ |\n\n核算：$o = 0.8741 - 2(-0.9757) + 0.3 = 0.8741 + 1.9515 + 0.3 = 3.1255$，$L = (3.1255 - 1.0)^2 = 2.1255^2 = 4.5179$。引擎输出在打印精度内一致。",
+      "mastery_criterion": "台账每一项与引擎值误差均在 $10^{-3}$ 以内；输出神经元未误套 tanh；若曾出现分歧，学习者能指出第一处出错的行。"
+    },
+    "day-34-act-03": {
+      "title": "在标量自动微分引擎上组装 Neuron、Layer 与 MLP 类",
+      "prerequisites": "活动 34-02 已核对的前向台账。",
+      "objective": "仿照 micrograd `nn.py` 的模式，在 projects/autograd 的 `Value` 之上实现 Module/Neuron/Layer/MLP 类：神经元持有权重与偏置，层持有若干神经元，MLP 持有若干层，且 `parameters()` 能返回每一个可训练 `Value`。",
+      "assistance_policy_label": "Agent 辅助工程检查",
+      "instructions": "在草稿目录（不要放进 `lessons/` 或 `projects/autograd/`）写一个模块，例如 `mlp_scratch.py`，骨架如下：\n\n```python\nfrom projects.autograd.engine import Value\n\nclass Module:\n    def parameters(self):\n        return []\n\nclass Neuron(Module):\n    def __init__(self, weights, bias):\n        assert len(weights) > 0\n        self.w = [Value(w) for w in weights]\n        self.b = Value(bias)\n    def __call__(self, x):\n        assert len(x) == len(self.w), 'input/weight length mismatch'\n        z = sum((wi * xi for wi, xi in zip(self.w, x)), self.b)\n        return z.tanh()\n    def parameters(self):\n        return self.w + [self.b]\n```\n\n再扩展出 `Layer`（对同一输入并行求值的一组神经元）与 `MLP`（按顺序串联的一组层）。构造 N1 时给输出神经元一个跳过 `tanh` 的标志，实现线性输出。对第 34 天样本求损失，调用 `loss.backward()`，打印全部九个参数梯度。\n\n单神经元参考轨迹可用以下命令对照：\n\n```bash\npython3 projects/autograd/cli.py forward-backward --preset neuron --json\n```",
+      "exercise_prompt": "1. 实现这三个类，并让 N1 的 `parameters()` 恰好收集九个参数。\n2. 求出 `loss.data`，确认等于你手算的 $4.5179$。\n3. 调用 `loss.backward()` 后记录全部九个 `.grad` 值——第 35 天你将手工重新推导它们。\n4. 说明让所有参数都能经 `parameters()` 访问的一个好处。",
+      "hint": "用 `sum(iterable, start)` 且令 `start = self.b`，可把偏置留在计算图内。当 `len(x) != len(self.w)` 时，`zip` 会静默截断——骨架里的 `assert` 正是为了在形状错误污染结果之前捕获它。",
+      "answer": "参考结果：\n1. `len(mlp.parameters()) == 9`。\n2. `loss.data == 4.5179...`，与手工台账一致。\n3. 已记录的梯度（经引擎核对）：$w_{11}\\!:\\ 2.0068$、$w_{12}\\!:\\ -1.0034$、$b_1\\!:\\ 1.0034$、$w_{21}\\!:\\ -0.8149$、$w_{22}\\!:\\ 0.4075$、$b_2\\!:\\ -0.4075$、$w_{o1}\\!:\\ 3.7157$、$w_{o2}\\!:\\ -4.1480$、$b_o\\!:\\ 4.2511$。\n4. 扁平的 `parameters()` 列表让单个训练循环无需知道网络形状，就能统一更新全部参数并清零全部梯度。",
+      "mastery_criterion": "学习者的类能复现前向数值、产生九个与引擎误差在 $10^{-3}$ 以内的参数梯度，并在加权和之前有显式的长度检查。"
+    },
+    "day-34-act-04": {
+      "title": "独立掌握检查：MLP 结构与前向计算能力",
+      "prerequisites": "活动 34-01 至 34-03。",
+      "objective": "在无辅助条件下展示对感知机与 MLP 结构差异、参数统计与完整数值前向传播的掌握，并通过下方客观测验验证。",
+      "assistance_policy_label": "独立掌握检查",
+      "instructions": "不查阅前面的活动、不使用 AI 工具：写出通用神经元的前向公式；在权重与偏置不变的情况下，手工计算 N1 对新输入 $x = (1.0, 1.0)$ 的输出；然后完成客观测验。提交前请把草稿过程记入下方草稿区。",
+      "exercise_prompt": "独立任务：\n1. 对 $x = (1.0, 1.0)$：手工计算 $z_1, a_1, z_2, a_2, o$ 与 $L$。\n2. 解释为什么换成新输入不需要改动任何参数。\n3. 以独立模式完成 3 题客观测验并取得 100%。",
+      "hint": "$z_1 = 0.5(1.0) + (-0.25)(1.0) + 0.1 = 0.35$，$z_2 = -0.5(1.0) + 1.0(1.0) - 0.2 = 0.3$。$\\tanh(0.35) \\approx 0.3364$，$\\tanh(0.3) \\approx 0.2913$。",
+      "answer": "参考解答：\n1. $z_1 = 0.35$，$a_1 = 0.3364$；$z_2 = 0.3$，$a_2 = 0.2913$；$o = 0.3364 - 2(0.2913) + 0.3 = 0.0538$；$L = (0.0538 - 1.0)^2 = 0.8954$。\n2. 输入只送入第一层加权和；权重与偏置是数值固定的对象、不随输入改变，因此同一张图结构可以求任意输入的值。\n3. 测验答案均可由活动直接推出：阶跃激活阻断梯度流；原输入下 $o \\approx 3.13$；N1 共九个参数。",
+      "mastery_criterion": "对新输入的无辅助前向计算与 $o \\approx 0.0538$、$L \\approx 0.8954$ 的误差在 $10^{-3}$ 以内，且独立测验获得 100%。",
+      "quiz": {
+        "title": "客观知识测验：MLP 结构与前向传播",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "为什么带阶跃激活的经典感知机无法用梯度下降训练？",
+            "options": {
+              "a": "它的参数太多，内存装不下。",
+              "b": "它的加权和总是发生浮点溢出。",
+              "c": "阶跃函数的梯度几乎处处为 0、在拐点处无定义，权重得不到任何有效梯度。",
+              "d": "感知机必须先有监督标签才能存在。"
+            },
+            "hint": "想一想 `backward()` 在平坦函数上会乘出什么。",
+            "explanation": "梯度训练需要非零的局部导数。阶跃激活分段恒定、在阈值处有拐点，链式法则只能传回零（或无定义）的信号，权重永远得不到改进。"
+          },
+          {
+            "id": "q2",
+            "prompt": "网络 N1 在输入 $x = (2.0, -1.0)$ 时的输出 $o$ 是多少？",
+            "options": {
+              "a": "$o \\approx 3.13$",
+              "b": "$o \\approx 0.87$",
+              "c": "$o \\approx -2.20$",
+              "d": "$o \\approx 4.52$"
+            },
+            "hint": "$o$ 是隐藏激活的线性组合，损失才对误差平方。",
+            "explanation": "$o = \\tanh(1.35) - 2\\tanh(-2.2) + 0.3 = 0.8741 + 1.9515 + 0.3 = 3.1255 \\approx 3.13$。$4.52$ 是损失 $L$，不是输出。"
+          },
+          {
+            "id": "q3",
+            "prompt": "2-2-1 网络 N1 一共有多少个可训练参数？",
+            "options": {
+              "a": "6",
+              "b": "9",
+              "c": "12",
+              "d": "4"
+            },
+            "hint": "分别数三个神经元的权重与偏置。",
+            "explanation": "两个隐藏神经元各有 $2$ 个权重与 $1$ 个偏置（合计 $4 + 2$），输出神经元有 $2$ 个权重与 $1$ 个偏置：$4 + 2 + 2 + 1 = 9$ 个参数。"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 21: Computational graphs and the backpropagation connection (review)",
+  "day_subtitle": "This is a consolidation and review day: walk a computational graph forward and backward by hand, prove that shared nodes accumulate gradient, and re-verify the block's results with one finite-difference harness. Retrieval and review are part of the 480-minute ledger.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "AI Mathematics & Calculus",
+  "common": {
+    "nav_calendar": "Curriculum Calendar",
+    "day_label": "Day 21",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Record your prediction, hand derivation, finite-difference check, and recovery evidence here...",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "progress": {
+      "save_btn": "Save Progress",
+      "mark_completed": "Mark as Completed"
+    }
+  },
+  "activities": {
+    "day-21-act-01": {
+      "title": "Computational graphs: local derivatives and backward accumulation",
+      "prerequisites": "Days 19-20 chain rule and gradient drills; if any step is shaky, open the day-level recovery link first.",
+      "objective": "Decompose a scalar expression into a computational graph, compute each node's forward value, then propagate derivatives backward by multiplying local chain-rule factors.",
+      "assistance_policy_label": "Assistance allowed only after prediction and observed evidence are recorded.",
+      "instructions": "Take L = (a*b + c)^2 with a = 2, b = 3, c = 1. Forward: n1 = a*b = 6, n2 = n1 + c = 7, L = n2^2 = 49. Backward: dL/dn2 = 2*n2 = 14; dL/dn1 = 14 * ∂n2/∂n1 = 14 * 1 = 14; dL/dc = 14 * ∂n2/∂c = 14; dL/da = 14 * ∂n1/∂a = 14 * b = 42; dL/db = 14 * ∂n1/∂b = 14 * a = 28. Every step is the Day 19-20 chain rule applied to one local edge. Predict dL/da before perturbing a in code.",
+      "exercise_prompt": "Draw the graph for L = (a*b + c)^2 at (2, 3, 1), fill in forward values 6, 7, 49, then compute all input gradients by hand. Verify dL/da, dL/db, dL/dc against central finite differences and record agreement.",
+      "hint": "Reverse mode: the adjoint at n2 travels BACKWARDS over the forward edges into it - n1->n2 and c->n2 - to n1 and c. So dL/dn2 = dL/dn1 = dL/dc = 14; applying local factors gives input gradients dL/da = 42, dL/db = 28, dL/dc = 14.",
+      "answer": "Forward: n1 = 6, n2 = 7, L = 49. Backward: dL/dn2 = 14; dL/dn1 = 14, dL/dc = 14; dL/da = 14*3 = 42; dL/db = 14*2 = 28. Finite differences ((L(2+h,3,1) - L(2-h,3,1)) / 2h with h = 1e-5, and likewise for b, c) return about 42.0000, 28.0000, 14.0000 — the same numbers a micrograd-style engine would report for .grad on each input.",
+      "mastery_criterion": "You reproduce forward values 6, 7, 49 and backward values 42, 28, 14 unaided, name the local derivative on every edge, and your finite-difference run agrees with each hand gradient.",
+      "source_recovery": "If blocked, review the Day 19 chain rule and the Day 20 path-sum rule; the micrograd lecture demonstrates this exact walkthrough, and the OpenStax chain rule section states the rule applied edge by edge."
+    },
+    "day-21-act-02": {
+      "title": "Shared nodes: why gradient contributions accumulate",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Prove that when one node feeds two consumers its total gradient is the sum of both contributions, and verify the reusable-variable counterexample by direct substitution.",
+      "assistance_policy_label": "Independent practice: predict first and preserve the recorded unaided attempt; any later help is a separate assisted-recovery phase, and a fresh equivalent unaided check is required before the idea counts as independent evidence.",
+      "instructions": "Case 1: L = (a + 1)^2 with a = 2. Write it as L = u * v where u = a + 1 and v = a + 1 — the variable a is shared by both factors, so it reaches L along two paths. Path view: the u-path contributes v * du/da = u * 1 = u, the v-path contributes u * dv/da = u, total dL/da = 2u = 6 at a = 2. The single-path answer 3 is the counterexample error. Case 2: w = (u + v)^2 with u = x^2, v = 2x at x = 1: dw/dx = 2(u + v) * (2x + 2) = 2 * 3 * 4 = 24. If you use help after the preserved attempt, treat it as assisted recovery: keep the original attempt unchanged, and pass a fresh equivalent unaided check before calling the idea remediated.",
+      "exercise_prompt": "Compute and verify: (a) dL/da at a = 2 for L = (a + 1)^2 — show both path contributions and the wrong single-path value; (b) dw/dx at x = 1 for w = (u + v)^2, u = x^2, v = 2x — by the tree rule and by expanding (x^2 + 2x)^2.",
+      "hint": "For (b), u + v = 3 at x = 1 and du/dx + dv/dx = 2x + 2 = 4, so dw/dx = 2 * 3 * 4 = 24; expanding w = (x^2 + 2x)^2 = x^4 + 4x^3 + 4x^2 and differentiating termwise gives 4x^3 + 12x^2 + 8x = 24 at x = 1 - the same.",
+      "answer": "(a) Two paths through the shared u: each contributes u = 3, total dL/da = 2 * 3 = 6, matching the direct derivative of (a + 1)^2 = 2(a + 1). A single-path count yields 3 — off by exactly one path, the reusable-variable counterexample. (b) dw/dx = 2(u + v)(du/dx + dv/dx) = 2 * 3 * (2 + 2) = 24 at x = 1; expanding (x^2 + 2x)^2 = x^4 + 4x^3 + 4x^2 and differentiating termwise gives 4x^3 + 12x^2 + 8x = 24 at x = 1 - the same, and w = 9 at x = 1. Finite differences confirm about 6.0000 and 24.0000.",
+      "mastery_criterion": "Unaided, you identify every path into the shared node, produce 6 and 24 with an independent check for each, and explain why dropping a path undercounts by exactly that path's contribution.",
+      "source_recovery": "If blocked, redo Day 20 activity 3's two-path sum first; the micrograd lecture shows the same accumulation rule an autograd engine must implement."
+    },
+    "day-21-act-03": {
+      "title": "Finite-difference verification harness and retrieval review",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Consolidate Days 16-20 by writing one reusable central-difference helper that re-verifies this block's key numbers, then run a closed-book retrieval pass over the block's definitions.",
+      "assistance_policy_label": "Assistance allowed only after prediction and observed evidence are recorded.",
+      "instructions": "Write the helper def central_fd(f, x, h=1e-5): return (f(x + h) - f(x - h)) / (2 * h) and predict each row before running: d/dx (3x + 1)^2 at x = 1 -> 24; d/dx (5x - 2)^3 at x = 1 -> 135; d/dx (x^2 + 1)^2 at x = 2 -> 40; ∂/∂x and ∂/∂y of x^2 y + 3y - x at (2, 1) -> 3 and 7; gradient norm of x^2 + y^2 at (3, 4) -> 10; and dL/da, dL/db, dL/dc for L = (a*b + c)^2 at (2, 3, 1) -> 42, 28, 14.",
+      "exercise_prompt": "Run the harness for all six rows, then close the notes and retrieve from memory: the limit definition of the derivative, the chain rule statement, the partial derivative definition, the gradient norm property, and the path-sum rule for shared variables. Mark anything missed.",
+      "hint": "Partial derivatives use a one-argument wrapper: central_fd(lambda x: f(x, 1), 2). For the retrieval list, write each statement before opening the reference answers.",
+      "answer": "The harness prints approximately 24.0000, 135.0000, 40.0000, 3.0000 and 7.0000, a gradient (6.0000, 8.0000) with norm 10.0000, and 42.0000, 28.0000, 14.0000 — every hand result from the block confirmed numerically. Retrieval answers: derivative = limit of (f(x+h) - f(x))/h as h -> 0; chain rule dy/dx = (dy/du)(du/dx); partial = ordinary derivative with other variables frozen; the gradient is the steepest-ascent direction whose norm equals that maximum slope; a shared variable's total derivative sums one product per dependency path.",
+      "mastery_criterion": "All harness rows agree with the predicted values to four decimals, and your retrieval list reproduces all five statements with no more than one marked miss plus a recovery plan for it.",
+      "source_recovery": "If a row disagrees, recheck the hand derivation for that day before trusting the harness; the OpenStax review sections provide extra drill problems for anything the retrieval pass flagged."
+    },
+    "day-21-act-04": {
+      "title": "Block review assessment: graph gradient, edge cases, and recovery plan",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Independently compute all input gradients of a small computational graph, handle a nondifferentiable edge, and produce a recovery plan mapping each weak point to its review day.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "Closed book, no AI. Part 1: L = (a*b)^2 + c at a = 1, b = 2, c = 3. Forward: n1 = a*b = 2, n2 = n1^2 = 4, L = n2 + c = 7. Compute dL/da, dL/db, dL/dc backward by hand. Part 2: the ReLU node f(x) = max(0, x) at x = 0 has left slope 0 and right slope 1. State whether its derivative exists, what convention engines commonly choose, and why downstream gradients still need care. Part 3: write a recovery plan that maps any missed result to the day that taught it (Days 16-18 limits/derivatives, 19 chain rule, 20 gradients).",
+      "exercise_prompt": "Submit: the three gradients with forward node values, the ReLU edge-case verdict, and your recovery plan. Verify Part 1 numerically before submitting.",
+      "hint": "Part 1: dL/dn2 = 1 (L = n2 + c), dL/dn1 = 1 * 2*n1 = 4, then dL/da = 4 * b = 8, dL/db = 4 * a = 4, dL/dc = 1. Part 2: engines conventionally use subgradient 0 (or any value in [0, 1]) at the kink — but the true derivative is undefined there.",
+      "answer": "Part 1: n1 = 2, n2 = 4, L = 7; backward dL/dn2 = 1, dL/dn1 = 4, so dL/da = 8, dL/db = 4, dL/dc = 1; finite differences return about 8.0000, 4.0000, 1.0000. Part 2: the derivative does not exist at 0 (left 0 vs right 1); engines pick a convention, often 0, which is an engineering choice rather than a mathematical derivative — treated inputs at exactly 0 deserve attention. Part 3: a passing plan names each missed item and the day to revisit, e.g., kink cases -> Day 19-20 edge activities, path sums -> Day 20 act-03, graph passes -> Day 21 act-01.",
+      "mastery_criterion": "Unaided: forward values 2, 4, 7 and gradients 8, 4, 1 verified numerically; the ReLU verdict distinguishes 'undefined' from 'conventional 0'; and the recovery plan maps every miss to a concrete day.",
+      "source_recovery": "If you miss a part, schedule a recovery block using the day-level recovery link and re-attempt after rest; the micrograd walkthrough covers multiply/add nodes exactly like Part 1."
+    }
+  }
+}

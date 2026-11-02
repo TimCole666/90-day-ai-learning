@@ -1,0 +1,170 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 40: Learned Embedding Tables and Distributed Representations",
+  "day_subtitle": "Replace sparse one-hot indicators with a learned embedding matrix C. Prove the lookup-row identity, read rows as points in feature space, and predict tensor shapes and parameter counts before any forward pass. Every activity records prediction, observation, review, and recovery.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Models & Training",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "day_label": "Day 40",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Enter your lookup predictions, similarity calculations, concatenated vectors, and parameter ledgers here...",
+    "dev_slice_notice": "Verified curriculum module for the 90-Day AI Learning Platform.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account.",
+        "provider_error": "Authentication provider encountered an error.",
+        "server_error": "Authentication provider encountered an error.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    },
+    "quiz": {
+      "quiz_title": "Objective Knowledge Check: Embeddings & Lookup Tables",
+      "quiz_instructions": "Answer the following diagnostic questions to verify your understanding. Select your declared assistance condition before submitting.",
+      "assistance_mode_label": "Declared Assistance Condition",
+      "mode_independent": "Independent Mastery Check (No AI assistance)",
+      "mode_agent_assisted": "Agent-Assisted Engineering Check (Completed with AI assistance)",
+      "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+      "submit_btn": "Submit Answers",
+      "retry_btn": "Retry Quiz",
+      "view_hint": "Question Hint",
+      "mastery_criterion_label": "Mastery Criterion",
+      "mastery_criterion_desc": "Score 100% (3/3 correct) on an Independent Mastery Check.",
+      "score_label": "Score",
+      "passed_badge": "Passed",
+      "failed_badge": "Needs Review",
+      "independent_pass_badge": "Independent Mastery Verified",
+      "agent_assisted_pass_badge": "Agent-Assisted Verified",
+      "self_reported_badge": "Self-Reported Checkbox",
+      "stale_badge": "Historical (Revalidation Needed - Content Revision Changed)",
+      "attempts_history_title": "Attempt History & Evidence",
+      "no_attempts": "No attempts recorded yet."
+    }
+  },
+  "activities": {
+    "day-40-act-01": {
+      "title": "From One-Hot Vectors to Embedding Lookup",
+      "prerequisites": "Day 39 tokenization and n-gram statistics; basic matrix multiplication from the mathematics block.",
+      "objective": "Derive why an embedding lookup equals a one-hot vector times the embedding matrix, and predict table shapes and parameter counts for real configurations.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Required work: use the tiny vocabulary V = {'.', 'a', 'b', 'c'} (indices 0-3) and embedding table C with rows '.'=[0.1,0.3], 'a'=[0.2,-0.1], 'b'=[-0.4,0.5], 'c'=[0.0,0.2], shape (V,d) = (4,2). Show that multiplying one-hot e_2 = [0,0,1,0] by C selects row 2, giving [-0.4, 0.5]. Explain why code uses integer lookup C[i] instead of materializing a V-dimensional one-hot vector. Optional work: state what changes if the same character is embedded by two different tables.",
+      "exercise_prompt": "1. Compute e_3 * C for the table above and state which row is selected.\n2. For the names vocabulary V=27 with d=10, state the shape and parameter count of C.\n3. In one sentence, why is C[i] cheaper than building e_i and multiplying?",
+      "hint": "A one-hot vector is all zeros except one 1; every zero entry erases one row of C in the product, so only the 1-indexed row survives. Parameters = rows * columns.",
+      "answer": "e_3 = [0,0,0,1] selects row 3, giving [0.0, 0.2]. For V=27, d=10 the table C has shape (27,10) and 270 parameters. Lookup C[i] costs O(d) work and memory; the one-hot route spends O(V) effort only to discard V-1 rows, and wastes memory storing mostly zeros.",
+      "mastery_criterion": "The learner writes the identity e_i * C = C[i,:], computes both worked lookups correctly, and derives the 270-parameter count for the (27,10) table without prompting."
+    },
+    "day-40-act-02": {
+      "title": "Distributed Representations: Rows as Learned Points",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Interpret embedding rows as coordinates in a learned feature space, compute dot products and cosine similarity, and explain why untrained rows carry no semantics.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Required work: treat each row of C as a point in R^2. Compute dot(u,v) = sum_i u_i v_i and cos(u,v) = dot(u,v)/(||u||*||v||) for two row pairs. Then explain, in your own words, what training must change for 'similar' characters to end up near each other: the table starts random, so initial distances are meaningless. Optional work: sketch the four points on paper and mark the closest pair.",
+      "exercise_prompt": "Using rows '.'=[0.1,0.3], 'a'=[0.2,-0.1], 'b'=[-0.4,0.5], 'c'=[0.0,0.2]:\n1. Compute dot('.', 'c') and cos('.', 'c').\n2. Compute cos('a', 'b').\n3. Which pair is closest in this table, and would you trust these similarities before training? Why?",
+      "hint": "Norms: ||'.'|| = sqrt(0.10) ~= 0.3162, ||'a'|| = sqrt(0.05) ~= 0.2236, ||'b'|| = sqrt(0.41) ~= 0.6403, ||'c'|| = 0.2. dot('.', 'c') = 0.1*0.0 + 0.3*0.2.",
+      "answer": "dot('.', 'c') = 0.06 and cos('.', 'c') = 0.06 / (0.3162 * 0.2) ~= 0.9487 (nearly aligned). dot('a','b') = -0.13, so cos('a','b') = -0.13 / (0.2236 * 0.6403) ~= -0.908 (nearly opposite). Pair ('.','c') is the closest. No - these numbers are accidents of random initialization; only gradient updates on real contexts can give row distances meaning.",
+      "mastery_criterion": "Both cosines computed independently within +-0.01, plus a correct statement that random embeddings encode no semantics until trained."
+    },
+    "day-40-act-03": {
+      "title": "Context Concatenation and the Parameter Ledger",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Assemble a model input by concatenating per-position embedding rows in context order, predict its dimension, and maintain a complete parameter ledger for the tiny model and a names-scale configuration.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Required work: for block_size = 2 and context ('a','b') = indices [1,2], the network input is x = concat(C[1], C[2]) = [0.2, -0.1, -0.4, 0.5], dimension block_size * d = 4. Build the same vector for context ('b','.'). Then write the parameter ledger for the tiny model (hidden size 3) and for a names-scale configuration V=27, d=10, block=3, hidden=100. Optional work: explain why position order in the concatenation cannot be shuffled.",
+      "exercise_prompt": "1. Write x for context ('b','.').\n2. Tiny ledger: C (4x2), W1 (4x3), b1 (3), W2 (3x4), b2 (4) - total parameters?\n3. Names ledger: C (27x10), W1 (30x100), b1 (100), W2 (100x27), b2 (27) - total parameters?",
+      "hint": "Concatenation appends rows in position order: first C[2] then C[0]. A matrix contributes rows*columns; a bias contributes its length.",
+      "answer": "x = concat(C[2], C[0]) = [-0.4, 0.5, 0.1, 0.3]. Tiny total: 8 + 12 + 3 + 12 + 4 = 39 parameters. Names total: 270 + 3000 + 100 + 2700 + 27 = 6097 parameters. Position order matters: concat(C[1], C[2]) differs from concat(C[2], C[1]), and the downstream weight rows are trained to expect that order.",
+      "mastery_criterion": "Correct concatenated vector with positions in order, plus both ledgers (39 and 6097) derived rather than recalled."
+    },
+    "day-40-act-04": {
+      "title": "Independent Mastery Check: Lookup, Shapes, and Parameter Counts",
+      "prerequisites": "Activities 40-01 through 40-03.",
+      "objective": "Verify unaided mastery of embedding lookup, distributed geometry, context concatenation, and parameter accounting under declared AI-free conditions.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Required work: work closed-book and record derivations in the draft workspace before opening the reference solution or the knowledge check. Do not consult AI assistants or calculators for the derivations themselves (you may verify arithmetic afterwards). Optional work: redo the ledger with hidden size 200 and compare.",
+      "exercise_prompt": "A new task uses V=8 symbols, d=4, block_size=3, hidden=64.\n1. Shape and parameter count of C.\n2. Dimension of the concatenated input x.\n3. Total parameters for C, W1, b1, W2, b2.\n4. One sentence: why does training move embedding rows at all?",
+      "hint": "x has block_size * d components. The ledger is C + (block*d)*hidden + hidden + hidden*V + V.",
+      "answer": "C: shape (8,4) = 32 parameters. x has 3*4 = 12 components. W1 (12,64) = 768, b1 = 64, W2 (64,8) = 512, b2 = 8. Total = 32 + 768 + 64 + 512 + 8 = 1384. Training nudges each row by the gradient of the next-symbol loss, so rows used in similar contexts receive similar updates and drift together.",
+      "mastery_criterion": "Independent derivation of all four answers: 32 parameters, dimension 12, total 1384, and a correct one-line explanation of gradient-driven row movement.",
+      "quiz": {
+        "title": "Objective Knowledge Check: Embeddings & Lookup Tables",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "For a vocabulary of V=27 symbols embedded into d=10 dimensions, how many trainable parameters does the embedding table C contain?",
+            "options": {
+              "a": "270",
+              "b": "2700",
+              "c": "27",
+              "d": "27000"
+            },
+            "hint": "C has one row per symbol and one column per feature: parameters = V * d.",
+            "explanation": "C is a (27,10) matrix, so it holds 27 * 10 = 270 parameters."
+          },
+          {
+            "id": "q2",
+            "prompt": "Multiplying the one-hot vector e_i by the embedding matrix C produces:",
+            "options": {
+              "a": "column i of C",
+              "b": "row i of C",
+              "c": "the softmax of row i",
+              "d": "the i-th output logit"
+            },
+            "hint": "Every zero in e_i erases one row of C in the product.",
+            "explanation": "e_i * C selects row i of C because only the i-th coefficient is 1; lookup C[i] is the same operation implemented directly."
+          },
+          {
+            "id": "q3",
+            "prompt": "With block_size = 3 and embedding dimension d = 10, what is the dimension of the concatenated context vector x?",
+            "options": {
+              "a": "13",
+              "b": "300",
+              "c": "30",
+              "d": "27"
+            },
+            "hint": "Each of the 3 context positions contributes d features.",
+            "explanation": "x concatenates 3 rows of 10 features each, so its dimension is 3 * 10 = 30."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "language": "zh-Hant",
+  "language_label": "繁體中文",
+  "day_title": "第 37 天：從文字到詞元 — Unicode、位元組編碼與詞彙表",
+  "day_subtitle": "把原始文字變成詞元 ID：區分字元、Unicode 碼位與 UTF-8 位元組序列；構建確定性詞彙表；並重現任何語言模型基線都要使用的 text_tools train/val/test 資料產物。所有工作都計入 480 分鐘台帳。",
+  "time_budget_label": "480 分鐘有效學習（8 小時專注學習）",
+  "category_label": "模型與訓練",
+  "common": {
+    "nav_calendar": "📅 課程行事曆與台帳",
+    "nav_agent_track": "🤖 Agent 工具路線",
+    "day_label": "第 37 天",
+    "prerequisites_title": "前置要求",
+    "objective_title": "學習目標",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主實作與記錄",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看參考解答與分析",
+    "mastery_title": "獨立掌握標準",
+    "draft_placeholder": "在此記錄你的預測、觀測到的位元組數與 ID、複盤以及回退證據...",
+    "dev_slice_notice": "90 天 AI 學習平台的已驗證正式課程模組。",
+    "sources_heading": "權威來源資源與權利證明",
+    "source_author_label": "作者 / 機構",
+    "source_url_label": "原始出處連結",
+    "source_range_label": "對應章節 / 時間戳",
+    "source_verification_label": "驗證版本與日期",
+    "source_reuse_label": "複用類別",
+    "source_license_label": "許可證與權利說明",
+    "source_rationale_label": "入選理由",
+    "source_prereqs_label": "來源前置條件",
+    "source_fallback_label": "安全回退方案（離線彈性）",
+    "compared_candidates_heading": "對比候選資源與選型分析",
+    "compared_status_label": "評估結論",
+    "auth": {
+      "sign_in": "使用 Google 登入",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "登出",
+      "signed_in_as": "已登入為",
+      "guest": "訪客模式",
+      "link_github": "綁定 GitHub",
+      "link_google": "綁定 Google",
+      "linked_identities": "已綁定帳號",
+      "auth_errors": {
+        "access_denied": "授權已取消或存取被拒絕。",
+        "invalid_state": "無效或已過期的授權狀態權杖，請重試。",
+        "identity_conflict": "該第三方身分已被綁定至其他帳號。",
+        "provider_error": "認證服務提供者發生錯誤。",
+        "server_error": "認證服務提供者發生錯誤。",
+        "session_expired": "登入工作階段已過期，請重新登入。"
+      }
+    },
+    "progress": {
+      "save_btn": "儲存進度",
+      "saved": "已儲存",
+      "saving": "正在儲存...",
+      "save_error": "儲存失敗",
+      "offline": "離線狀態",
+      "mark_completed": "標記為已完成",
+      "completed_badge": "已完成"
+    }
+  },
+  "activities": {
+    "day-37-act-01": {
+      "title": "從字元到位元組：碼位與 UTF-8",
+      "prerequisites": "完成第 36 天。如受阻，使用第 35 天的回退連結複習機率與 Python。",
+      "objective": "區分可見字元、其 Unicode 碼位與其 UTF-8 位元組序列；先預測位元組數再測量；針對空字串、ASCII、帶重音字元、中日韓字元與 emoji 記錄預測與觀測的對照。",
+      "assistance_policy_label": "Agent 輔助工程檢查",
+      "instructions": "字元是讀者看到的形體；碼位是其 Unicode 編號（記作 U+XXXX）；編碼把碼位轉換成位元組序列。必做工作：先預測，再執行 `python3 -c \"s='貓aé😀'; print(len(s), [hex(ord(c)) for c in s], list(s.encode('utf-8')))\"`，逐項對照預測。選做工作：把同一字串用 UTF-16 編碼並比較位元組數。",
+      "exercise_prompt": "預測 s='貓aé😀' 與空字串 '' 的 len(s)、碼位序列與 UTF-8 位元組列表；隨後在 Python 中驗證，並解釋為什麼位元組數與碼位數不同。",
+      "hint": "UTF-8 中 ASCII 佔 1 位元組、多數帶重音拉丁字元佔 2 位元組、中日韓字元佔 3 位元組、多數 emoji 佔 4 位元組。`ord()` 回傳碼位，`.encode('utf-8')` 回傳位元組。",
+      "answer": "s='貓aé😀' 有 4 個碼位——U+732B（貓）、U+0061（a）、U+00E9（é）、U+1F600（😀）——但 UTF-8 位元組有 10 個：貓→[231,140,171]，a→[97]，é→[195,169]，😀→[240,159,152,128]。空字串有 0 個碼位、0 個位元組。UTF-8 長度取決於碼位所在範圍，因此字元數與位元組數一般不相等。",
+      "mastery_criterion": "對包括空字串在內的全體探測字串，你的書面預測與 ord()、encode() 的觀測輸出一致，並能說明碼位範圍到位元組數的對應規則。"
+    },
+    "day-37-act-02": {
+      "title": "詞彙表與詞元 ID 映射",
+      "prerequisites": "完成上一活動；如受阻，使用列出的回退連結。",
+      "objective": "從字元清單構建排序後的詞彙表；為未知輸入制定明確的策略（<unk> vs 位元組級別全覆蓋）；手算編碼與解碼以驗證可逆無損。",
+      "assistance_policy_label": "獨立掌握檢查（無 AI 輔助）",
+      "instructions": "詞元化器需要兩張表：stoi（符號→ID）與 itos（ID→符號）。必做工作：按排序順序為訓練文本中不同的符號分配 ID 0..V-1，把 len(vocab) 保留為 <unk> 的 ID，然後對探測字串編碼並解碼。選做工作：與不需要 <unk> 的 256 項位元組級詞彙表做對比。",
+      "exercise_prompt": "對訓練文本 'banana'：建立排序後的字元詞彙表，編碼 'banana' 和 'cab'，解碼第一個結果，並用 <unk> 編碼 'banana!'。然後把 'é貓' 按 UTF-8 位元組編碼，說明為什麼位元組級輸入永遠不會落入 <unk>。",
+      "hint": "sorted(set('banana')) = ['a','b','n']，即 {a:0, b:1, n:2}，<unk>=3。'!' 不在表中，所以映射為 3。'é貓' 是 5 個 UTF-8 位元組：[195,169,231,140,171]。",
+      "answer": "詞彙表 {a:0, b:1, n:2}，<unk>=3。encode('banana')=[1,0,2,0,2,0]，解碼後恰好還原 'banana'。encode('cab')=[2,0,1]。encode('banana!')=[1,0,2,0,2,0,3]——'!' 的資訊遺失，這正是固定字元詞彙表需要 OOV 策略的原因；而位元組級輸入 'é貓'→[195,169,231,140,171] 總能完整表示。",
+      "mastery_criterion": "給定任意短訓練文本，你能寫出詞彙表、手工正確地編碼/解碼探測字串，並說明何時需要 <unk>、何時位元組級覆蓋使其不再必要。"
+    },
+    "day-37-act-03": {
+      "title": "確定性的 train/val/test 劃分與出處記錄",
+      "prerequisites": "完成上一活動；如受阻，使用列出的回退連結。",
+      "objective": "重現 text_tools 的確定性劃分產物並閱讀清單（manifest），使下游所有模型只在 train 上擬合計數、在 val 上做選擇、完全不接觸 test。",
+      "assistance_policy_label": "Agent 輔助工程檢查",
+      "instructions": "必做工作：執行 `python3 projects/text_tools/cli.py --input data/names.txt --split --output-dir /tmp/lm-data`（預設值：seed 42，比例 0.8/0.1/0.1），然後打開 /tmp/lm-data/manifest.json，找到 split_counts、split_sha256 與 leakage_check。換第二個輸出目錄重跑一次並確認雜湊一致。選做工作：用 --seed 99 重複，觀察計數不變而成員改變。",
+      "exercise_prompt": "先預測 32,033 行語料的 train/val/test 行數再執行驗證。對一個 10 行檔案預測同樣的劃分。指出清單中哪些欄位證明確定性、以及沒有任何索引同時出現在兩個劃分裡。",
+      "hint": "int(round(32033*0.8))=25626，int(round(32033*0.1))=3203，剩餘 3204 歸 test；10 行檔案劃分為 8/1/1。清單中的 leakage_check.no_leakage_verified 與 split_sha256 證明互不相交且可重現。",
+      "answer": "已驗證輸出：train=25626，val=3203，test=3204，no_leakage_verified=True，seed=42。10 行檔案在 seed 42 下劃分為 8/1/1，train_indices 為 [7,3,2,8,5,6,9,4]，val 為 [0]，test 為 [1]；重跑會得到完全相同的 split_sha256 值。",
+      "mastery_criterion": "你能重新產生產物，引用精確的劃分計數與證明確定性、互不相交的清單欄位，並說明為什麼計數、詞彙表與合併表只能在 train 上擬合。"
+    },
+    "day-37-act-04": {
+      "title": "獨立掌握檢查：位元組、ID 與劃分證據",
+      "prerequisites": "完成前面所有活動；如受阻，使用列出的回退連結。",
+      "objective": "在無輔助的情況下重現碼位/位元組計算、詞彙表編碼/解碼、劃分計數與畸形輸入策略，然後為每個失誤記錄誠實的回退計劃。",
+      "assistance_policy_label": "獨立掌握檢查（無 AI 輔助）",
+      "instructions": "本檢查期間不要查看答案或使用 AI。必做工作：先在草稿日誌中寫下全部四個預測答案，再用 Python 與 CLI 逐一驗證。選做工作：舉一個對嘈雜語料合理使用 --errors ignore 的例子。",
+      "exercise_prompt": "閉卷作答：(a) 'é貓' 有多少個碼位、多少個 UTF-8 位元組？(b) 詞彙表 {a:0,b:1,c:2} 下 encode('cab') 是多少？(c) 10 行按 0.8/0.1/0.1 如何劃分？(d) 含非法位元組 0xFF 的檔案在 --errors strict 下的結束代碼是多少？replace 下會出現哪個字元？",
+      "hint": "(a) é 是 U+00E9（2 位元組），貓 是 U+732B（3 位元組）。(b) 在表中逐個查字元。(c) round(10*0.8)=8，round(10*0.1)=1。(d) strict 會中止；replace 會替換為 U+FFFD。",
+      "answer": "(a) 2 個碼位、5 個 UTF-8 位元組 [195,169,231,140,171]。(b) [2,0,1]。(c) train 8、val 1、test 1。(d) strict 印出 UnicodeDecodeError 資訊並以結束代碼 1 結束；replace 輸出 U+FFFD 替換字元（位元組 0xFF 0xFE 對應 2 個）並以結束代碼 0 結束。",
+      "mastery_criterion": "四個預測全部在無輔助情況下與觀測輸出一致；每個失誤都連同用於修復的回退連結（第 35 天複習或對應的第 37 天活動）一併記錄。"
+    }
+  }
+}

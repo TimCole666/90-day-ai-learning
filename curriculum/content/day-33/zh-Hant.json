@@ -1,0 +1,170 @@
+{
+  "language": "zh-Hant",
+  "language_label": "繁體中文",
+  "day_title": "第 33 天：梯度缺陷診斷分析與無 AI 獨立掌握標準評估",
+  "day_subtitle": "診斷真實自動微分實現缺陷、評估多次反向傳播與向量輸出等邊界情況、理解引擎擴展性邊界，並完成無 AI 獨立掌握標準評估。",
+  "time_budget_label": "480 分鐘（8 小時專注學習）",
+  "category_label": "數學與演算法基礎",
+  "common": {
+    "nav_calendar": "📅 課程行事曆與台帳",
+    "day_label": "第 33 天",
+    "prerequisites_title": "前置要求",
+    "objective_title": "學習目標",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主實作與記錄",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看參考解答與分析",
+    "mastery_title": "獨立掌握標準",
+    "draft_placeholder": "在此輸入你的缺陷診斷記錄、梯度誤差排查過程與掌握標準自評...",
+    "dev_slice_notice": "90 天 AI 學習平台的已驗證正式課程模組。",
+    "sources_heading": "權威來源資源與權利證明",
+    "source_author_label": "作者 / 機構",
+    "source_url_label": "原始出處連結",
+    "source_range_label": "對應章節 / 時間戳",
+    "source_verification_label": "驗證版本與日期",
+    "source_reuse_label": "複用類別",
+    "source_license_label": "許可證與權利說明",
+    "source_rationale_label": "入選理由",
+    "source_prereqs_label": "來源前置條件",
+    "source_fallback_label": "安全回退方案（離線彈性）",
+    "compared_candidates_heading": "對比候選資源與選型分析",
+    "compared_status_label": "評估結論",
+    "auth": {
+      "sign_in": "使用 Google 登入",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "登出",
+      "signed_in_as": "已登入為",
+      "guest": "訪客模式",
+      "link_github": "綁定 GitHub",
+      "link_google": "綁定 Google",
+      "linked_identities": "已綁定帳號",
+      "auth_errors": {
+        "access_denied": "授權已取消或存取被拒絕。",
+        "invalid_state": "無效或已過期的授權狀態權杖，請重試。",
+        "identity_conflict": "該第三方身分已被綁定至其他帳號。",
+        "provider_error": "認證服務提供者發生錯誤。",
+        "server_error": "認證服務提供者發生錯誤。",
+        "session_expired": "登入工作階段已過期，請重新登入。"
+      }
+    },
+    "progress": {
+      "save_btn": "儲存進度",
+      "saved": "已儲存",
+      "saving": "正在儲存...",
+      "save_error": "儲存失敗",
+      "offline": "離線狀態",
+      "mark_completed": "標記為已完成",
+      "completed_badge": "已完成"
+    },
+    "quiz": {
+      "quiz_title": "客觀知識測驗：缺陷診斷、多次反向傳播與掌握標準",
+      "quiz_instructions": "請回答以下診斷題目檢驗掌握情況。提交前請誠實聲明你的輔助條件。",
+      "assistance_mode_label": "聲明輔助條件",
+      "mode_independent": "獨立掌握檢查 (無 AI 輔助)",
+      "mode_agent_assisted": "Agent 輔助工程檢查 (借助 AI 完成)",
+      "mode_disclaimer": "說明：無 AI 輔助屬於誠實聲明條件，非平台監控或強制檢測手段。",
+      "submit_btn": "提交答案",
+      "retry_btn": "重新測驗",
+      "view_hint": "查看提示",
+      "mastery_criterion_label": "掌握標準",
+      "mastery_criterion_desc": "在獨立掌握檢查模式下獲得 100% 得分（3/3 題完全正確）。",
+      "score_label": "測驗得分",
+      "passed_badge": "通過",
+      "failed_badge": "未通過 (需複習)",
+      "independent_pass_badge": "獨立掌握通過",
+      "agent_assisted_pass_badge": "Agent 輔助通過",
+      "self_reported_badge": "自主勾選完成",
+      "stale_badge": "歷史記錄 (內容已更新，需重新驗證)",
+      "attempts_history_title": "作答應證與歷史記錄",
+      "no_attempts": "暫無測驗記錄。"
+    }
+  },
+  "activities": {
+    "day-33-act-01": {
+      "title": "缺陷案例實戰：精準定位梯度覆蓋 Bug",
+      "prerequisites": "第 32 天梯度累加機制與數值梯度檢驗。",
+      "objective": "透過構造極簡復現用例 (MRE)，在數值差分比對下精準定位出因覆蓋賦值導致隱蔽梯度錯誤的具體節點與程式碼缺陷。",
+      "assistance_policy_label": "Agent 輔助工程檢查",
+      "instructions": "使用 CLI 執行梯度缺陷診斷排查指令：\n\n```bash\npython3 projects/autograd/cli.py diagnose --bug-type overwrite-accumulation\n```\n\n觀察診斷程式如何在表達式 $f = (a + b) \\cdot a$ 中隔離出節點 `a`，展示其解析梯度 $7.0$ 與數值差分梯度 $10.0$ 之間高達 $30\\%$ 的相對誤差。",
+      "exercise_prompt": "1. 寫出能夠可靠觸發梯度覆蓋缺陷的極簡復現程式碼 (MRE)。\n2. 解釋為何類似 $z = x \\cdot y$ 這樣的單分支測試用例即使在存在該缺陷時依然能夠通過 gradcheck。\n3. 在 `_backward()` 中指出修復該缺陷的關鍵程式碼修改。",
+      "hint": "在無分叉（每個變數只被使用一次）的線性圖結構中，每個節點只有一個消費端，此時累加 (`+=`) 和直接賦值 (`=`) 恰好產生相同數值。缺陷只會在變數被多次複用分支時顯現。",
+      "answer": "參考解答：\n1. 極簡復現用例：$a = \\text{Value}(3.0); b = \\text{Value}(4.0); f = (a + b) * a; f.\\text{backward}()$。\n2. 因為在非分叉圖中，每個節點只接收一次反向梯度回傳，賦值 (`=`) 碰巧等於累加結果，掩蓋了真實缺陷。\n3. 將所有算子的 `_backward()` 閉包中的 `self.grad = ...` 統一修改為 `self.grad += ...`。",
+      "mastery_criterion": "學習者能夠構造出區分累加與覆蓋實現的極簡測試用例，並準確解釋其數學原理。"
+    },
+    "day-33-act-02": {
+      "title": "自動微分邊界情況：多次反向傳播與向量輸出",
+      "prerequisites": "活動 33-01 與拓撲逆序執行機制。",
+      "objective": "理解連續呼叫 `backward()` 時的梯度累加語義，解釋為何優化器每輪迭代必須顯式清零梯度 (`zero_grad()`)，並掌握多輸出圖的向量雅可比積 (VJP)。",
+      "assistance_policy_label": "獨立掌握檢查",
+      "instructions": "執行多輸出預設的前向與反向指令：\n\n```bash\npython3 projects/autograd/cli.py forward-backward --preset multi-output\n```\n\n觀察 `backward_multiple([y1, y2], grad_outputs=[1.0, 1.0])` 如何同時為多個終端輸出節點提供初始種子梯度並完成反向傳播。",
+      "exercise_prompt": "1. 如果在未呼叫 `grad = 0.0` 清零的情況下，對同一個計算圖連續呼叫兩次 `out.backward()`，輸入葉節點的梯度數值會變成多少？\n2. 為什麼主流深度學習框架（如 PyTorch）預設採取梯度累加策略，而不是每次自動清零？\n3. 寫出多輸出向量向輸入反向求導時的向量-雅可比積 (VJP) 表達式。",
+      "hint": "因為 `backward()` 內部使用 `+=`，連續執行兩次會導致梯度翻倍。PyTorch 預設累加是為了支援顯存不足時跨多個 Micro-batch 進行梯度累加（Gradient Accumulation）。",
+      "answer": "參考解答：\n1. 葉節點的梯度會準確翻倍（變為原數值的 2 倍）。\n2. 預設累加允許在顯存受限情況下，透過多個小批次前向反向累積梯度後再一次性執行 `optimizer.step()`，實現等效的大 Batch 訓練。\n3. 對於輸出向量 $\\mathbf{y} \\in \\mathbb{R}^m$，反向傳播計算 $\\mathbf{v}^T J$，其中 $\\mathbf{v} = \\text{grad\\_outputs}$，雅可比矩陣元素 $J_{ij} = \\frac{\\partial y_i}{\\partial x_j}$。",
+      "mastery_criterion": "學習者能夠清晰解釋訓練循環中清零梯度的必要性，以及梯度累加在大模型分佈式訓練中的工程價值。"
+    },
+    "day-33-act-03": {
+      "title": "來源歸屬、開源合規與引擎擴展性邊界",
+      "prerequisites": "活動 33-01 與 33-02。",
+      "objective": "嚴格遵守開源許可規範，清晰區分教學型純量自動微分引擎與工業級張量編譯計算系統（PyTorch、JAX）的系統邊界。",
+      "assistance_policy_label": "Agent 輔助工程檢查",
+      "instructions": "閱讀 `projects/autograd/docs/guide.zh-Hant.md` 與 Stanford CS336 作業規範。注意 micrograd 採用 MIT 許可證，要求保留版權與許可聲明；講義課程資源具有獨立的版權保護。",
+      "exercise_prompt": "1. 為什麼純 Python 純量自動微分引擎不能用於預訓練一個 70 億參數 (7B) 的語言模型？\n2. 對比 Python 堆物件開銷與編譯型 C++/CUDA 連續張量記憶體緩衝區的差異。\n3. 說明在引用與複用 Andrej Karpathy 的 micrograd 程式碼時應遵守的開源合規要求。",
+      "hint": "Python 中每一個純量物件都包含數十位元組的元數據開銷（引用計數、類型指標、屬性字典）。7B 參數若每個數都是 Python 物件，僅物件指標就會耗盡數百 GB 記憶體，且無法利用 GPU 張量核心並行加速。",
+      "answer": "參考解答：\n1. 純 Python 純量引擎缺乏 SIMD 向量化指令支援與 GPU 算子加速，並且物件建立開銷極大，無法支援大規模矩陣乘法。\n2. 連續張量將浮點數緊湊儲存在線性記憶體緩衝區中，由編譯好的 C++/CUDA 核心直接批量操作，無任何單元素 Python 執行階段開銷。\n3. micrograd 基於 MIT 許可發布，分發或衍生實現必須在原始碼中保留原作者版權聲明和許可文本。",
+      "mastery_criterion": "學習者能夠清晰闡明純量教學引擎與張量編譯框架在底層資料結構、記憶體佈局與計算效率上的本質區別。"
+    },
+    "day-33-act-04": {
+      "title": "獨立掌握專案標準評估與無 AI 驗證",
+      "prerequisites": "活動 33-01 至 33-03。",
+      "objective": "對照三項核心獨立掌握標準，完成自動微分學習專案的綜合自評與無 AI 客觀驗證。",
+      "assistance_policy_label": "獨立掌握檢查",
+      "instructions": "請在無大型語言模型、無自動補全的條件下完成下方的診斷測驗，並對照三大掌握標準評估自己的專案實現。",
+      "exercise_prompt": "回顧獨立掌握三大評估維度：\n1. 白板推導：手寫多元微積分鏈式法則，證明分支 DAG 節點為何必須使用 `+=`。\n2. 白板實現：在空白文字檔案中獨立實現 `Value`、算子多載、拓撲排序與 `backward()`。\n3. 差分排查：編寫有限差分 gradcheck 函數，並成功定位並修復故意植入的梯度覆蓋 Bug。\n在實作區確認並記錄你的獨立達標情況。",
+      "hint": "參考 `projects/autograd/docs/guide.zh-Hant.md` 中的參考範例。確保你的解釋涵蓋了分析導數與數值近似之間的本質區別。",
+      "answer": "參考掌握標準說明：\n- 維度 1：完整推導出分叉節點的 $\\sum \\frac{\\partial L}{\\partial y_j} \\frac{\\partial y_j}{\\partial x}$。\n- 維度 2：獨立編寫的純量引擎通過全部單元測試，未依賴任何第三方 autodiff 庫。\n- 維度 3：編寫的有限差分檢查在 $\\text{rtol} \\le 10^{-3}$ 條件下成功捕獲人為注入的覆蓋缺陷。",
+      "mastery_criterion": "在無外部 AI 輔助的情況下，客觀測試獲得 100% 得分，並滿足全部三項獨立掌握評估標準。",
+      "quiz": {
+        "title": "客觀知識測驗：缺陷診斷、多次反向傳播與掌握標準",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "在模型訓練循環中，如果呼叫 `loss.backward()` 前未執行 `optimizer.zero_grad()` 清零梯度，會引發什麼後果？",
+            "options": {
+              "a": "梯度將始終保持為 0.0，模型參數無法更新。",
+              "b": "後續批次的梯度會不斷疊加在先前批次的梯度之上，導致梯度數值持續膨脹，徹底破壞優化方向。",
+              "c": "系統會立即拋出顯存分配不足的致命錯誤。",
+              "d": "模型會自動切換為二階優化器演算法。"
+            },
+            "hint": "回想 `backward()` 內部使用的是 `+=` 累加。",
+            "explanation": "由於 `backward()` 採用 `+=` 累加梯度，如果不顯式清零，梯度會跨批次持續累積，算出的將是歷史所有批次梯度的簡單總和，嚴重偏離當前批次的真實梯度方向。"
+          },
+          {
+            "id": "q2",
+            "prompt": "為什麼像 micrograd 這樣的純 Python 純量自動微分引擎根本無法用於預訓練大型語言模型？",
+            "options": {
+              "a": "純量自動微分在數學上無法求出正確的導數值。",
+              "b": "Python 無法精確表示 32 位元浮點數。",
+              "c": "純 Python 純量程式碼無法被編譯為位元組碼。",
+              "d": "每一個純量數值都需要一個獨立的 Python 堆物件與元數據包裝，導致極高的記憶體佔用，且無法進行 GPU 向量化與張量核心並行加速。"
+            },
+            "hint": "對比數十億個 Python 獨立物件與單塊連續記憶體張量的開銷差異。",
+            "explanation": "純 Python 純量引擎為每個數值分配一個堆物件，記憶體開銷比裸浮點數大數十倍，且無法呼叫 GPU Tensor Core 矩陣乘法硬體指令。現代大模型必須依賴連續記憶體張量與編譯好的 CUDA 算子。"
+          },
+          {
+            "id": "q3",
+            "prompt": "在本專案的無 AI 獨立掌握標準 (Independent Mastery Check) 中，哪種情況代表真正的獨立掌握？",
+            "options": {
+              "a": "使用大型語言模型生成完整程式碼並直接執行。",
+              "b": "從開原始碼庫複製貼上已有實現並微調變數名。",
+              "c": "在無 AI 輔助的情況下獨立推導鏈式法則、手寫拓撲排序與核心算子，並能用數值有限差分定位梯度缺陷。",
+              "d": "透過多次嘗試隨機猜測選擇題直到全部選對。"
+            },
+            "hint": "查閱 GLOSSARY.md 中關於 Independent Mastery Check 的定義。",
+            "explanation": "獨立掌握標準要求學習者在無 AI 輔助的情況下展示真實的數學推導、程式碼實現與缺陷排查能力，確保真正建立底層心智模型，而非淺層的程式碼生成與搬運。"
+          }
+        ]
+      }
+    }
+  }
+}

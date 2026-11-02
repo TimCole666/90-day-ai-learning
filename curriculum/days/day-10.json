@@ -1,0 +1,284 @@
+{
+  "id": "day-10",
+  "day_number": 10,
+  "active_minutes": 480,
+  "topic_category": "self-directed-learning-and-python",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-09"
+  ],
+  "recovery_links": [
+    "day-07"
+  ],
+  "activities": [
+    {
+      "id": "day-10-act-01",
+      "lesson_id": "les-10",
+      "title": "Paths, encodings, and safe file reads",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev5",
+      "prerequisites": [
+        "day-09"
+      ],
+      "source_resources": [
+        {
+          "id": "automate-boring-stuff-3e",
+          "title": "Automate the Boring Stuff with Python, 3rd edition",
+          "author": "Al Sweigart",
+          "original_url": "https://automatetheboringstuff.com/3e/",
+          "relevant_timestamp": "Chapter 10; Practice Questions; Appendix B answers",
+          "version_or_verification_date": "Public edition checked 2026-11-01; moving pages may change",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Copyright Al Sweigart; edition-specific reuse terms unverified",
+          "license_restrictions": [
+            "linking only; no reproduction"
+          ],
+          "permission_basis": "External hyperlink only; no third-party prose, exercises, code or translations are imported.",
+          "prerequisites": "No prior programming required for Chapter 1; later chapters assume its basic Python concepts.",
+          "selection_rationale": "Beginner teaching and answer-keyed practice before checking exact semantics in the Python reference; selected chapters only, not the book's entire automation stack.",
+          "known_availability_limitations": "Free HTML; external website may be unavailable. Exact third-edition redistribution terms have not been verified, so no reuse permission is claimed.",
+          "safe_fallback": "Use the original localized explanations, exercises and checks already present in this activity; no external account or purchase is required for that fallback.",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Tutorial",
+              "url": "https://docs.python.org/3/tutorial/",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Guided Python syntax but assumes programming familiarity; paired with the beginner text rather than used as its replacement."
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Lectures and problem sets teach a broader CS1 course; the book offers shorter text-first entry and an answer appendix."
+            }
+          ],
+          "locator_url": "https://automatetheboringstuff.com/3e/chapter10.html"
+        },
+        {
+          "id": "py-tutorial-input-output",
+          "title": "The Python Tutorial: Input and Output",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/inputoutput.html",
+          "relevant_timestamp": "Section 7.2 (Reading and Writing Files)",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Primary reference for open(), explicit encodings, and the with statement as guaranteed cleanup.",
+          "known_availability_limitations": "Online Python documentation may be unavailable without internet access.",
+          "safe_fallback": "The lesson explains all required behavior locally and can be completed offline; help(open) also works in the interpreter.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Real Python: Reading and Writing Files",
+              "url": "https://realpython.com/read-write-files-python/",
+              "license": "Proprietary (free and paid tiers)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Friendly walkthrough, but it is a secondary tutorial with mixed access tiers rather than the normative language reference."
+            },
+            {
+              "candidate_name": "io — Core tools for working with streams",
+              "url": "https://docs.python.org/3/library/io.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Stream-layer reference for advanced cases; the tutorial chapter covers the open()/with patterns the drills require."
+            }
+          ],
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ]
+    },
+    {
+      "id": "day-10-act-02",
+      "lesson_id": "les-10",
+      "title": "Diagnose a missing file before editing code",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-10-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "py-docs-exceptions",
+          "title": "Python Standard Library: Built-in Exceptions",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/exceptions.html",
+          "relevant_timestamp": "Concrete exceptions and Exception hierarchy",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Normative reference for FileNotFoundError attributes such as filename and errno used in the diagnosis drill.",
+          "known_availability_limitations": "Online Python documentation may be unavailable without internet access.",
+          "safe_fallback": "The exercise reproduces FileNotFoundError locally, so the evidence exists even without the reference page.",
+          "compared_candidates": [
+            {
+              "candidate_name": "W3Schools Python Exceptions",
+              "url": "https://www.w3schools.com/python/python_try_except.asp",
+              "license": "Proprietary",
+              "status": "compared_rejected_for_day10",
+              "comparison_rationale": "Beginner-friendly but not normative; its simplified hierarchy omits the OSError attributes the drill inspects."
+            },
+            {
+              "candidate_name": "The Python Tutorial: Errors and Exceptions",
+              "url": "https://docs.python.org/3/tutorial/errors.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Friendlier first-pass narrative; the library reference was selected for the normative hierarchy the exercises name directly."
+            }
+          ],
+          "license_restrictions": [],
+          "source_type": "documentation",
+          "locator_url": "https://docs.python.org/3/library/exceptions.html#concrete-exceptions"
+        },
+        {
+          "id": "py-docs-pathlib",
+          "title": "Python Standard Library: pathlib",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/pathlib.html",
+          "relevant_timestamp": "Path.exists, Path.cwd, and anchoring paths to __file__",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Normative reference for exists()/cwd() evidence that separates an absent file from a wrong working directory.",
+          "known_availability_limitations": "Online Python documentation may be unavailable without internet access.",
+          "safe_fallback": "Path.exists() and Path.cwd() are exercised directly in the local drill, so no online page is required.",
+          "compared_candidates": [
+            {
+              "candidate_name": "os.path documentation",
+              "url": "https://docs.python.org/3/library/os.path.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Functionally equivalent for exists() checks, but pathlib keeps the beginner syntax object-oriented and consistent across activities."
+            },
+            {
+              "candidate_name": "shutil — High-level file operations",
+              "url": "https://docs.python.org/3/library/shutil.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Covers copying and moving whole trees rather than path modeling; pathlib remains the right reference for the filesystem checks these days rehearse."
+            }
+          ],
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ]
+    },
+    {
+      "id": "day-10-act-03",
+      "lesson_id": "les-10",
+      "title": "Invalid content: tolerant parsing with a skip report",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-10-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "py-unicode-howto",
+          "title": "Python Unicode HOWTO",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/howto/unicode.html",
+          "relevant_timestamp": "Encodings, decoding, and the causes of UnicodeDecodeError",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Primary explanation of byte-to-text decoding so learners fix the encoding instead of hiding errors.",
+          "known_availability_limitations": "Online Python documentation may be unavailable without internet access.",
+          "safe_fallback": "The fixture bytes that trigger UnicodeDecodeError ship with the exercise, so the behavior is observable offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Absolute Minimum Every Software Developer Must Know About Unicode (Joel Spolsky)",
+              "url": "https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/",
+              "license": "All Rights Reserved",
+              "status": "compared_rejected_for_day10",
+              "comparison_rationale": "Established motivation for encodings, but redistribution rights are unclear and it does not document Python's decode behavior."
+            },
+            {
+              "candidate_name": "Unicode Standard (unicode.org) official documentation",
+              "url": "https://www.unicode.org/versions/latest/",
+              "license": "Unicode License Agreement / Terms of Use",
+              "status": "compared_alternative",
+              "comparison_rationale": "Exhaustive normative standard but far too deep for a first contact; the Python HOWTO teaches the same code point/encoding distinction in executable form."
+            },
+            {
+              "candidate_name": "Joel Spolsky: The Absolute Minimum Every Software Developer Must Know About Unicode",
+              "url": "https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/",
+              "license": "All Rights Reserved (blog)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong motivation and history but pre-Python-3 and not runnable; retained as optional background reading only."
+            }
+          ],
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ]
+    },
+    {
+      "id": "day-10-act-04",
+      "lesson_id": "les-10",
+      "title": "Independent file summary and recovery plan",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-10-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "py-tutorial-input-output",
+          "title": "The Python Tutorial: Input and Output",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/inputoutput.html",
+          "relevant_timestamp": "Section 7.2 (Reading and Writing Files)",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Primary reference retained for the independent file-processing check.",
+          "known_availability_limitations": "Online Python documentation may be unavailable without internet access.",
+          "safe_fallback": "The assessment runs entirely on local fixtures and the installed interpreter.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Real Python: Reading and Writing Files",
+              "url": "https://realpython.com/read-write-files-python/",
+              "license": "Proprietary (free and paid tiers)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Supplementary only; the assessment targets behavior, not tutorial recall."
+            },
+            {
+              "candidate_name": "io — Core tools for working with streams",
+              "url": "https://docs.python.org/3/library/io.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Stream-layer reference for advanced cases; the tutorial chapter covers the open()/with patterns the drills require."
+            }
+          ],
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ]
+    }
+  ]
+}

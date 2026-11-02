@@ -1,0 +1,346 @@
+{
+  "id": "day-75",
+  "day_number": 75,
+  "active_minutes": 480,
+  "topic_category": "agents",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-74"
+  ],
+  "recovery_links": [
+    "day-70"
+  ],
+  "activities": [
+    {
+      "id": "day-75-act-01",
+      "lesson_id": "les-75",
+      "title": "Controlled Repair Path: invalid_arguments Feedback then Recovery",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-74"
+      ],
+      "source_resources": [
+        {
+          "id": "shinn-reflexion-2023",
+          "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+          "author": "Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik Narasimhan, Shunyu Yao",
+          "original_url": "https://arxiv.org/abs/2303.11366",
+          "relevant_timestamp": "Section 2 & 3 (Reflexion Architecture and Memory Buffer)",
+          "version_or_verification_date": "NeurIPS 2023 / arXiv:2303.11366v4 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external academic reference under open access repository terms.",
+          "prerequisites": "Reinforcement learning concepts, agent evaluation loops, and error feedback handling.",
+          "selection_rationale": "Rigorous framework analyzing dynamic error feedback, memory buffering of execution failures, and controlled self-reflection loops without updating model weights.",
+          "known_availability_limitations": "Permanently accessible on arXiv.org.",
+          "safe_fallback": "Error recovery state diagrams and retry budget algorithms are detailed in curriculum materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Self-Refine: Iterative Refinement with Self-Feedback (Madaan et al. 2023)",
+              "url": "https://arxiv.org/abs/2303.17651",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Single-turn generative text refinement; Reflexion operates across multi-turn external environment action-observation failures."
+            },
+            {
+              "candidate_name": "Ghost in the Minecraft: Generally Capable Agents for Open-World Environments via Large Language Models with Text-based Knowledge and Memory (Zhu et al. 2023)",
+              "url": "https://arxiv.org/abs/2305.17144",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Domain-specific LLM-based agent for open-world Minecraft; Reflexion establishes domain-general verbal feedback control loops."
+            }
+          ]
+        },
+        {
+          "id": "yao-react-2022",
+          "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+          "author": "Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, Yuan Cao",
+          "original_url": "https://arxiv.org/abs/2210.03629",
+          "relevant_timestamp": "Section 3 & 4 (ReAct Formulation and Synergy)",
+          "version_or_verification_date": "ICLR 2023 / arXiv:2210.03629v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external technical citation and reference under open access repository terms.",
+          "prerequisites": "Prompt engineering, token generation basics, and conversational interaction loops.",
+          "selection_rationale": "Foundational academic paper introducing the interleaved Thought-Action-Observation control loop in LLM agents, establishing formal interleaving of task reasoning and external tool execution.",
+          "known_availability_limitations": "Permanently accessible on arXiv.org open access repository.",
+          "safe_fallback": "Complete algorithmic step traces, state loop diagrams, and control loop pseudocode are self-contained in curriculum materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (Wei et al. 2022)",
+              "url": "https://arxiv.org/abs/2201.11903",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Pure reasoning without environmental actions or external tool grounding; ReAct extends reasoning into an interactive environment action-observation loop."
+            },
+            {
+              "candidate_name": "MRKL Systems: A modular, neuro-symbolic architecture that combines large language models, external knowledge sources and discrete reasoning (Karpas et al. 2022)",
+              "url": "https://arxiv.org/abs/2205.00445",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Early neuro-symbolic modular router concept; ReAct offers simpler, prompting-native action-observation loop dynamics suitable for standard API models."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-75-act-02",
+      "lesson_id": "les-75",
+      "title": "Safe Termination: missing_note and loop Fault Budgets",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-75-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "anthropic-tool-use-docs",
+          "title": "Anthropic Tool Use (Function Calling) Implementation Guide",
+          "author": "Anthropic PBC",
+          "original_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview",
+          "relevant_timestamp": "Tool Use Overview, Schema Definitions, and Stop Reasons",
+          "version_or_verification_date": "Claude API Specification (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Anthropic PBC copyright (no open license stated) / linked reference",
+          "license_restrictions": [
+            "Linking only; no documentation text is copied"
+          ],
+          "permission_basis": "Lawful external reference to standard public developer API specifications.",
+          "prerequisites": "REST API concepts, JSON schema specification, and basic Python client programming.",
+          "selection_rationale": "Detailed production reference for client-side tool definitions, tool_use content blocks, stop reason tool_use, and tool_result response formatting.",
+          "known_availability_limitations": "Publicly accessible on official Anthropic documentation portal.",
+          "safe_fallback": "Offline mock request/response cycles and tool payload schemas are provided in the repo.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Google Gemini Function Calling Documentation",
+              "url": "https://ai.google.dev/gemini-api/docs/function-calling",
+              "license": "Creative Commons Attribution 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Protobuf and REST function declaration schema; Anthropic documentation provides explicit structured message block mechanics (tool_use / tool_result)."
+            },
+            {
+              "candidate_name": "Cohere Tool Use and Multi-Step Agents Guide",
+              "url": "https://docs.cohere.com/docs/tool-use",
+              "license": "Open Documentation",
+              "status": "compared_alternative",
+              "comparison_rationale": "Multi-step tool calling parameter definitions; Anthropic specification demonstrates clear separated content blocks essential for inspectable event traces."
+            }
+          ]
+        },
+        {
+          "id": "shinn-reflexion-2023",
+          "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+          "author": "Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik Narasimhan, Shunyu Yao",
+          "original_url": "https://arxiv.org/abs/2303.11366",
+          "relevant_timestamp": "Section 2 & 3 (Reflexion Architecture and Memory Buffer)",
+          "version_or_verification_date": "NeurIPS 2023 / arXiv:2303.11366v4 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external academic reference under open access repository terms.",
+          "prerequisites": "Reinforcement learning concepts, agent evaluation loops, and error feedback handling.",
+          "selection_rationale": "Rigorous framework analyzing dynamic error feedback, memory buffering of execution failures, and controlled self-reflection loops without updating model weights.",
+          "known_availability_limitations": "Permanently accessible on arXiv.org.",
+          "safe_fallback": "Error recovery state diagrams and retry budget algorithms are detailed in curriculum materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Self-Refine: Iterative Refinement with Self-Feedback (Madaan et al. 2023)",
+              "url": "https://arxiv.org/abs/2303.17651",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Single-turn generative text refinement; Reflexion operates across multi-turn external environment action-observation failures."
+            },
+            {
+              "candidate_name": "Ghost in the Minecraft: Generally Capable Agents for Open-World Environments via Large Language Models with Text-based Knowledge and Memory (Zhu et al. 2023)",
+              "url": "https://arxiv.org/abs/2305.17144",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Domain-specific LLM-based agent for open-world Minecraft; Reflexion establishes domain-general verbal feedback control loops."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-75-act-03",
+      "lesson_id": "les-75",
+      "title": "Independent Scoring Harness and Reproducible Evaluation Artifact",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-75-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "rfc-8259-json",
+          "title": "RFC 8259: The JavaScript Object Notation (JSON) Data Interchange Format",
+          "author": "Tim Bray (Ed.)",
+          "original_url": "https://www.rfc-editor.org/rfc/rfc8259",
+          "relevant_timestamp": "Section 1-4 (JSON Syntax and Grammar)",
+          "version_or_verification_date": "IETF Standards Track RFC 8259 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "standard",
+          "license": "IETF Trust License / Open Standard",
+          "license_restrictions": [],
+          "permission_basis": "Lawful open standard specification reference.",
+          "prerequisites": "Text encoding, UTF-8 parsing, and serialized data exchange.",
+          "selection_rationale": "Foundational Internet standard defining strict JSON grammar, token parsing, and whitespace rules underpinning model tool calling serialization.",
+          "known_availability_limitations": "Publicly accessible permanently via RFC Editor repository.",
+          "safe_fallback": "JSON grammar parsing rules and error recovery guidelines are documented in curriculum notes.",
+          "compared_candidates": [
+            {
+              "candidate_name": "RFC 7049: Concise Binary Object Representation (CBOR)",
+              "url": "https://www.rfc-editor.org/rfc/rfc7049",
+              "license": "IETF Open Standard",
+              "status": "compared_alternative",
+              "comparison_rationale": "Binary serialization standard; text-based LLMs operate primarily on human-readable UTF-8 JSON interchange formats."
+            },
+            {
+              "candidate_name": "YAML 1.2 Specification (OASIS / yaml.org)",
+              "url": "https://yaml.org/spec/1.2.2/",
+              "license": "Open Standard",
+              "status": "compared_alternative",
+              "comparison_rationale": "Indentation-sensitive text format; JSON has universally standardized parsing across language runtimes and tool schemas."
+            }
+          ]
+        },
+        {
+          "id": "anthropic-mcp-spec",
+          "title": "Model Context Protocol (MCP) Specification",
+          "author": "Anthropic PBC & Open Source Contributors",
+          "original_url": "https://modelcontextprotocol.io/specification",
+          "relevant_timestamp": "Architecture Overview, Transports, Tools, and Resources",
+          "version_or_verification_date": "MCP Specification 2024-11-05 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Apache-2.0 (specification; unrelicensed legacy contributions remain MIT) / Open Specification",
+          "license_restrictions": [],
+          "permission_basis": "Lawful open protocol documentation and architecture specification under Apache-2.0 (legacy contributions under MIT).",
+          "prerequisites": "Client-server architecture, JSON-RPC 2.0 protocol, and standard IO communication.",
+          "selection_rationale": "Normative open architecture specification defining Host, Client, and Server separation, resource subscriptions, tool listing/invoking primitives, and JSON-RPC 2.0 message framing.",
+          "known_availability_limitations": "Publicly hosted on modelcontextprotocol.io and GitHub repository.",
+          "safe_fallback": "Architectural comparison tables, loop invariants, and message frame examples are self-contained in curriculum materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Language Server Protocol (LSP) Specification (Microsoft)",
+              "url": "https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/",
+              "license": "MIT License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Precursor JSON-RPC architecture for code intelligence in IDEs; MCP adapts similar client-server decoupling specifically for LLM context, tools, and prompts."
+            },
+            {
+              "candidate_name": "OpenAI Responses API Built-in Tools",
+              "url": "https://developers.openai.com/api/docs/guides/tools",
+              "license": "Proprietary Documentation",
+              "status": "compared_alternative",
+              "comparison_rationale": "Hosted, vendor-managed built-in tool execution (successor to the Assistants API tools); MCP provides an open, decoupled local/remote client-server standard."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-75-act-04",
+      "lesson_id": "les-75",
+      "title": "Evidence Ledger, Limitations Disclosure, and Scheduled Review",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-75-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "schick-toolformer-2023",
+          "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+          "author": "Timo Schick, Jane Dwivedi-Yu, Roberto Dessì, Roberta Raileanu, Maria Lomeli, Luke Zettlemoyer, Nicola Cancedda, Thomas Scialom",
+          "original_url": "https://arxiv.org/abs/2302.04761",
+          "relevant_timestamp": "Section 2 (Approach: Tool Use and Filtering)",
+          "version_or_verification_date": "NeurIPS 2023 / arXiv:2302.04761v1 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external technical citation and reference under open access repository terms.",
+          "prerequisites": "Transformer autoregressive generation, API calling syntax, and self-supervised filtering.",
+          "selection_rationale": "Original paper demonstrating self-supervised discovery and execution of tool API calls (calculator, QA, search, calendar) via inline tokenized tool invocations.",
+          "known_availability_limitations": "Permanently accessible on arXiv.org open access repository.",
+          "safe_fallback": "Inline tool invocation formats and self-contained mock execution traces are provided in curriculum notes.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Gorilla: Large Language Model Connected with Massive APIs (Patil et al. 2023)",
+              "url": "https://arxiv.org/abs/2305.15334",
+              "license": "Apache-2.0 / arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Focuses on massive API retrieval and documentation formatting; Toolformer focuses on the fundamental token-level seam between model generation and tool execution."
+            },
+            {
+              "candidate_name": "TALM: Tool Augmented Language Models (Parisi et al. 2022)",
+              "url": "https://arxiv.org/abs/2205.12255",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Iterative search-and-execute augmentation; Toolformer provides clearer self-supervised API call tokenization syntax."
+            }
+          ]
+        },
+        {
+          "id": "shinn-reflexion-2023",
+          "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+          "author": "Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik Narasimhan, Shunyu Yao",
+          "original_url": "https://arxiv.org/abs/2303.11366",
+          "relevant_timestamp": "Section 2 & 3 (Reflexion Architecture and Memory Buffer)",
+          "version_or_verification_date": "NeurIPS 2023 / arXiv:2303.11366v4 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external academic reference under open access repository terms.",
+          "prerequisites": "Reinforcement learning concepts, agent evaluation loops, and error feedback handling.",
+          "selection_rationale": "Rigorous framework analyzing dynamic error feedback, memory buffering of execution failures, and controlled self-reflection loops without updating model weights.",
+          "known_availability_limitations": "Permanently accessible on arXiv.org.",
+          "safe_fallback": "Error recovery state diagrams and retry budget algorithms are detailed in curriculum materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Self-Refine: Iterative Refinement with Self-Feedback (Madaan et al. 2023)",
+              "url": "https://arxiv.org/abs/2303.17651",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Single-turn generative text refinement; Reflexion operates across multi-turn external environment action-observation failures."
+            },
+            {
+              "candidate_name": "Ghost in the Minecraft: Generally Capable Agents for Open-World Environments via Large Language Models with Text-based Knowledge and Memory (Zhu et al. 2023)",
+              "url": "https://arxiv.org/abs/2305.17144",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Domain-specific LLM-based agent for open-world Minecraft; Reflexion establishes domain-general verbal feedback control loops."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

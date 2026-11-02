@@ -1,0 +1,75 @@
+{
+  "language": "ja",
+  "language_label": "日本語",
+  "day_title": "Day 11: 例外と隔離環境",
+  "day_subtitle": "予期する例外だけを捕捉し、with と finally でクリーンアップを保証し、新しい仮想環境で「自分のマシンでは動く」故障を再現する。再生成より先に診断。 Retrieval and lower-new-content review are part of the 480-minute ledger.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Self-Directed Learning & Python",
+  "common": {
+    "nav_calendar": "Curriculum Calendar",
+    "day_label": "Day 11",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Record your prediction, observed output, review, and recovery evidence here...",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "著者・提供機関",
+    "source_url_label": "オリジナル出所URL",
+    "source_range_label": "該当セクション・タイムスタンプ",
+    "source_verification_label": "検証バージョンと日付",
+    "source_rationale_label": "選定理由",
+    "source_prereqs_label": "ソース前提知識",
+    "source_fallback_label": "安全フォールバック（オフライン回復性）",
+    "compared_candidates_heading": "比較対象候補リソースと選定評価"
+  },
+  "activities": {
+    "day-11-act-01": {
+      "title": "正確な例外処理と保証されたクリーンアップ",
+      "prerequisites": "前のアクティビティを完了していること。詰まった場合は記載の回復リンクを使う。",
+      "objective": "ファイルのオープンが成功したときと FileNotFoundError を投げたとき、try・except・else・finally のどの節が実行されるかを予測して検証する。手動の close() を with ブロックに置き換え、裸の except が禁止される理由を説明する。",
+      "assistance_policy_label": "予測と観察した証拠を記録した後に限り、支援を利用してよい。",
+      "instructions": "try には危険な呼び出しを置く。except FileNotFoundError as e は予期する1種類の失敗だけを処理し、e.filename が見つからないパスを示す。else は例外が起きなかったときだけ実行され、finally は常に実行される。裸の except: は禁止。KeyboardInterrupt や本物のプログラムミスまで飲み込み、診断を当て推量に変えてしまうから。ファイルオブジェクトにとって with は定義済みのクリーンアップ動作であり、finally を不要にする。",
+      "exercise_prompt": "空の一時フォルダで作業する。このスクリプトを2回実行する：1回目は notes.txt が無い状態で、2回目は `printf 'hi\\n' > notes.txt` で作成した後に。\n\n```python\ntry:\n    f = open(\"notes.txt\", encoding=\"utf-8\")\nexcept FileNotFoundError as e:\n    print(\"cannot open\", e.filename)\nelse:\n    print(\"opened\", f.name)\n    f.close()\nfinally:\n    print(\"cleanup\")\n```\n\n各実行の前に、try / except / else / finally のどれが実行されるかと正確な出力を書き出す。その後 (1) else + f.close() の代わりに with ブロックでファイルを閉じるよう書き換え、ブロックの後で f.closed が True であることを示す。(2) 裸の except: が隠してしまうものを2つ挙げる。",
+      "hint": "実行前に2回分を1行ずつ予測する。次に else/close() 部分を with ブロックに書き換え、finally 節なしでもファイルが閉じることを確認する。",
+      "answer": "節のトレース。notes.txt が無い場合：open() が FileNotFoundError を投げるので except が実行され、else は飛ばされ、finally が実行される：\n\n```text\ncannot open notes.txt\ncleanup\n```\n\nnotes.txt がある場合：try が成功し、except は飛ばされ、else が実行され（f を閉じ）、finally が実行される：\n\n```text\nopened notes.txt\ncleanup\n```\n\nwith を使った書き換え（with_version.py として保存し、同じ2つの状態で実行する）：\n\n```python\ndef show(path):\n    try:\n        with open(path, encoding=\"utf-8\") as f:\n            print(\"opened\", f.name)\n    except FileNotFoundError as e:\n        print(\"cannot open\", e.filename)\n        return\n    print(\"closed after with:\", f.closed)\nshow(\"notes.txt\")\n```\n\nnotes.txt がある場合：\n\n```text\nopened notes.txt\nclosed after with: True\n```\n\nnotes.txt が無い場合：\n\n```text\ncannot open notes.txt\n```\n\nwith 文はブロックを抜けるとき（正常終了でも例外でも）必ずファイルを閉じるので、ファイルについては手動の close() も finally 節も不要になる。例外を投げるのは open() 自体なので、except は with の外側に置く。\n裸の except: が隠すもの2つ：(1) KeyboardInterrupt（Ctrl+C）と SystemExit。裸の except はすべての BaseException を捕捉するから。(2) タイプミスによる NameError のようなプログラムの誤り。実演：\n\n```python\ntry:\n    prnt(\"hi\")\nexcept:\n    print(\"something went wrong\")\n```\n\n```text\nsomething went wrong\n```\n\n綴りを間違えた print が NameError を投げ、裸の except がそれを曖昧な失敗として報告した。except FileNotFoundError なら、同じタイプミスは問題の行を指す NameError のトレースバックとして表に出る。",
+      "mastery_criterion": "成功時と失敗時にどの節が実行されるかを正確に述べ、else/close() パターンを with ブロックに正しく変換し、裸の except が隠すものを2つ挙げられる。"
+    },
+    "day-11-act-02": {
+      "title": "故障クリニック：トレースバックから的を絞った修正へ",
+      "prerequisites": "前のアクティビティを完了していること。詰まった場合は記載の回復リンクを使う。",
+      "objective": "不正なスコア行でクラッシュするスクリプトについて、トレースバックを下から読み、故障行と例外型を特定し、最小の修正を適用する：プログラム全体を包む捕捉ではなく、int() の周りだけの的を絞った except ValueError。",
+      "assistance_policy_label": "予測と観察した証拠を記録した後に限り、支援を利用してよい。",
+      "instructions": "トレースバックは呼び出しを古い順に並べ、最終行に例外型とメッセージを示す：ValueError: invalid literal for int() with base 10: 'x9'。その上のフレームは total += int(raw) の行を指す。まずその1つの悪い行だけでクラッシュを再現する。最も狭い修正は int(raw) だけを try/except ValueError で囲み、行番号を記録して続行すること。プログラム全体を except Exception で包むと無関係なバグを隠し、データエラーと誤報してしまう。",
+      "exercise_prompt": "空の一時フォルダでクリニック用のデータを作る：\n\n```bash\nprintf 'ana,7\\nbo,x9\\ncy,5\\n' > scores.csv\n```\n\n次を clinic.py として保存する：\n\n```python\ntotal = 0\nwith open(\"scores.csv\", encoding=\"utf-8\") as fh:\n    for lineno, line in enumerate(fh, start=1):\n        name, raw = line.strip().split(\",\")\n        total += int(raw)\nprint(\"total\", total)\n```\n\npython3 clinic.py を実行し、トレースバックを下から読む。診断として、故障行・例外型・最も狭い修正を記録する。その後 clinic.py を直して最後まで実行させ、有効な行の合計とスキップした行番号を表示させる。",
+      "hint": "再現をその悪い行だけに絞る。修正は例外を投げた呼び出しの周りに置く。open() の周りでもプログラム全体でもない。",
+      "answer": "観察結果：python3 clinic.py は終了ステータス 1 で終わる。トレースバックの最終行は：\n\n```text\nValueError: invalid literal for int() with base 10: 'x9'\n```\n\nその上のフレームは clinic.py の5行目 total += int(raw) を指す。診断：故障行 = データの2行目（bo,x9）を読んでいるときの int(raw) 呼び出し。例外型 = ValueError。最も狭い修正 = int(raw) だけを try/except ValueError で囲み、lineno を skipped に記録して続行する。修正後の clinic.py：\n\n```python\ntotal = 0\nskipped = []\nwith open(\"scores.csv\", encoding=\"utf-8\") as fh:\n    for lineno, line in enumerate(fh, start=1):\n        name, raw = line.strip().split(\",\")\n        try:\n            value = int(raw)\n        except ValueError:\n            skipped.append(lineno)\n            continue\n        total += value\nprint(\"total\", total, \"skipped\", skipped)\n```\n\n```text\ntotal 12 skipped [2]\n```\n\nValueError が最も狭い正しい選択である理由：階層を調べる。\n\n```python\nprint([c.__name__ for c in ValueError.__mro__])\n```\n\n```text\n['ValueError', 'Exception', 'BaseException', 'object']\n```\n\nint() は不正なリテラルを ValueError そのもので報告するので、この失敗にはこれより狭い型は無い。親の Exception で捕捉すると、無関係なバグ（タイプミスによる NameError や TypeError）まで飲み込み、不正データとして誤報してしまう。try が囲むのは int(raw) だけなので、open() の失敗やフィールド数が違う行は、スキップとして数えられずにはっきりと例外になる。",
+      "mastery_criterion": "診断が故障位置と例外型を名指しし、例外階層に基づいて選んだ except 型が最も狭い正しい型である理由を説明し、スキップ報告を出してプログラムが完走することを示せる。"
+    },
+    "day-11-act-03": {
+      "title": "venv による隔離環境",
+      "prerequisites": "前のアクティビティを完了していること。詰まった場合は記載の回復リンクを使う。",
+      "objective": "使い捨ての一時フォルダで python3 -m venv --without-pip .venv により仮想環境を作り、sys.executable でそのインタプリタが python3 と違うことを証明し、venv にだけインストールしたモジュールが python3 からは見えないことを示し、依存関係を requirements.txt に記録する。",
+      "assistance_policy_label": "予測と観察した証拠を記録した後に限り、支援を利用してよい。",
+      "instructions": "観察する違いがすべて自分で作ったものになるよう（自分のマシンについての思い込みにならないよう）、使い捨てフォルダの中だけで作業する。コマンドは Linux/macOS のシェル用（Windows ではインタプリタは .venv\\Scripts\\python.exe。ここでは未実行）。venv は activate しない：各インタプリタをパスで呼ぶ。\n\nこの作業専用の使い捨てシェル／セッションを使う。セットアップと以降のすべての手順は同じシェルで実行する。セットアップが1つでも失敗するとそのシェルは終了する。続行しない。新しいシェルではセットアップのブロックを再実行する。セットアップ後は、続行する前に `pwd` が `$work` を示すことを確認する。\n\n```bash\nwork=$(mktemp -d) &&\ncd \"$work\" &&\npython3 -m venv --without-pip .venv || exit 1\n```\n\n以降の手順はすべて同じシェルで実行する。echo \"$work\" が何も表示しなければ、先にセットアップのブロックを再実行する。--without-pip により作成はオフラインで済み、新しい venv には標準ライブラリしか無い。sys.executable は実際に動いているインタプリタを示す。sysconfig.get_path('purelib') はそのインタプリタの site-packages フォルダ（インストール済みモジュールの置き場所）を示すので、そこに1ファイルのモジュールをコピーすることは、ネットワークもサードパーティパッケージも要らない手作りのインストールになる。これは学習用の近道で、pip の動作そのものではない。pip はインストールのメタデータ（.dist-info フォルダ）も書き込むので、この手作業のコピーは pip に記録されず、pip でアンインストールもできない。venv の pyvenv.cfg には include-system-site-packages = false とあり、venv はベースのインタプリタの site-packages を読まず、他のインタプリタも venv のものを読まない。依存はピン留めした行として requirements.txt に書き（認証情報は絶対に入れない）、.venv は決してコミットしない。終わったら：cd / && rm -rf \"$work\"。",
+      "exercise_prompt": "$work で、実行する前に各結果を予測する。ステップ1：どのインタプリタが動くか？\n\n```bash\npython3 -c \"import sys; print(sys.executable)\"\n.venv/bin/python -c \"import sys; print(sys.executable)\"\n```\n\nステップ2：作りたての venv は day11_helper をインポートできるか？\n\n```bash\n.venv/bin/python -c \"import day11_helper\"\n```\n\nステップ3：1ファイルのモジュールを venv にだけインストールし、そこでインポートする：\n\n```bash\nsite=$(.venv/bin/python -c \"import sysconfig; print(sysconfig.get_path('purelib'))\")\nprintf 'def label():\\n    return \"helper from the venv\"\\n' > \"$site/day11_helper.py\"\n.venv/bin/python -c \"import day11_helper; print(day11_helper.label())\"\n```\n\nステップ4：python3 はそれをインポートできるか？\n\n```bash\npython3 -c \"import day11_helper\"\n```\n\nステップ5：隔離の証拠と、この venv に pip があるかどうか：\n\n```bash\ngrep include-system-site-packages .venv/pyvenv.cfg\n.venv/bin/python -c \"import sys; print(sys.prefix != sys.base_prefix)\"\n```\n\n```bash\n.venv/bin/python -m pip --version\n```\n\nステップ6：練習用のピン留めを記録する（インストールはしない。pip とパッケージインデックスが必要になるため）：\n\n```bash\nprintf 'packaging==24.1\\n' > requirements.txt\ncat requirements.txt\n```\n\nステップ2と4について診断を記録する：import 行を編集すべきか、環境を変えるべきか？",
+      "hint": "環境違いのトリアージでは、実際に実行するインタプリタに3つの質問をする：(1) どのインタプリタか：sys.executable。(2) モジュールを見つけられるか：`.venv/bin/python -c \"import importlib.util; print(importlib.util.find_spec('day11_helper'))\"` は見つからないとき None を表示する。(3) 依存が requirements.txt に記録されているか。",
+      "answer": "ステップ1：2つの異なるパス。1つ目はあなたのマシンで python3 が指すもの（例：/usr/bin/python3、または別の環境の python）で、$work の中には決してない。2つ目は $work/.venv/bin/python。パスが違うことが、2つの別々のインタプリタである証拠になる。\nステップ2：終了ステータス 1。最終行は：\n\n```text\nModuleNotFoundError: No module named 'day11_helper'\n```\n\nステップ3：\n\n```text\nhelper from the venv\n```\n\nステップ4：再び終了ステータス 1、最終行も同じ：\n\n```text\nModuleNotFoundError: No module named 'day11_helper'\n```\n\n同じ import が、どのインタプリタで動かすかだけによって失敗・成功・失敗と変わる。したがってこれは環境の故障：実行するインタプリタにモジュールをインストールする（ステップ3）か、それを持つインタプリタで実行する。import 行を編集するのは間違った直し方。\nステップ5：\n\n```text\ninclude-system-site-packages = false\nTrue\n```\n\npip の確認は終了ステータス 1 で、No module named pip で終わるエラーになる。venv を --without-pip で作ったから。\nvenv がシステムの site-packages を見られない理由：pyvenv.cfg が include-system-site-packages = false を設定し、sys.prefix != sys.base_prefix が venv が独自の prefix を使うことを示す。そのため sys.path には venv 自身の site-packages フォルダしか含まれない。逆も成り立つ：python3 は $work/.venv を決して探さないので、ステップ4は失敗した。\nステップ6：\n\n```text\npackaging==24.1\n```\n\nピン留めした行は正確なバージョンを記録する。後でインストールするなら、pip 付きで作った venv で、パッケージインデックスにアクセスできる状態で .venv/bin/python -m pip install -r requirements.txt を使う。",
+      "mastery_criterion": "2つのインタプリタパスが違うことを証明し、作りたての venv で ModuleNotFoundError を再現し、モジュールを venv にだけインストールした後に python3 で再び再現し、pyvenv.cfg と sys.prefix から、venv と他のインタプリタが互いの site-packages を見られない理由を説明できる。"
+    },
+    "day-11-act-04": {
+      "title": "環境違いの診断ドリル",
+      "prerequisites": "前のアクティビティを完了していること。詰まった場合は記載の回復リンクを使う。",
+      "objective": "制御された2つのインタプリタの一方でだけ ModuleNotFoundError で失敗するスクリプトを独力で診断し、sys.executable と find_spec の証拠および最小の環境修正を示す。さらにファイル読み取りを正確な except 節で包む。",
+      "assistance_policy_label": "独立習得チェック（AI 支援なし）。",
+      "instructions": "資料を見ずに（クローズドブックで）行う。このフィクスチャを正確に作る。依存を持つのが good の venv だけであることが保証される（Linux/macOS のシェル、ネットワーク不要、サードパーティパッケージ不要）：\n\nこの作業専用の使い捨てシェル／セッションを使う。セットアップと以降のすべての手順は同じシェルで実行する。セットアップが1つでも失敗するとそのシェルは終了する。続行しない。新しいシェルではセットアップのブロックを再実行する。セットアップ後は、続行する前に `pwd` が `$work` を示すことを確認する。\n\n```bash\nwork=$(mktemp -d) &&\ncd \"$work\" &&\npython3 -m venv --without-pip good &&\npython3 -m venv --without-pip .venv &&\ngood_site=$(good/bin/python -c \"import sysconfig; print(sysconfig.get_path('purelib'))\") &&\nprintf 'def label():\\n    return \"report ok\"\\n' > \"$good_site/day11_helper.py\" &&\nprintf 'import day11_helper\\nprint(day11_helper.label())\\n' > report.py || exit 1\n```\n\n以降の手順はすべて同じシェルで実行する。echo \"$work\" が何も表示しなければ、先にセットアップのブロックを再実行する。症状：.venv/bin/python report.py は ModuleNotFoundError: No module named 'day11_helper' を投げるが、good/bin/python report.py は動く。課題1：両方のインタプリタから証拠を集め（どのインタプリタが動くか、day11_helper を見つけられるか）、診断を記録し、最小の修正を適用して、その後 .venv/bin/python report.py が report ok を表示することを示す。課題2：path を encoding=\"utf-8\" で開く処理を try/except FileNotFoundError の中に置き、クラッシュする代わりに missing と e.filename を表示する read_text(path) を書く。終わったら：cd / && rm -rf \"$work\"。",
+      "exercise_prompt": "記録するもの：(a) 2つの sys.executable の値。(b) 各インタプリタが day11_helper を見つけられるか。(c) .venv/bin/python で再現した ModuleNotFoundError。(d) 診断の分類：コードの故障か環境の故障か。(e) 修正と、それが効いたことを示す出力。(f) 自分の read_text 関数と、no_such_file.txt に対するその出力。",
+      "hint": "行き詰まったら環境トリアージは day-11-act-03、except 節の形は day-11-act-01 を見直す。受けた支援は正直に記録する。",
+      "answer": "両方の実行を再現する：\n\n```bash\ngood/bin/python report.py\n```\n\n```text\nreport ok\n```\n\n```bash\n.venv/bin/python report.py\n```\n\nは終了ステータス 1 で終わり、最終行は：\n\n```text\nModuleNotFoundError: No module named 'day11_helper'\n```\n\n両方のインタプリタからの証拠：\n\n```bash\nfor py in good/bin/python .venv/bin/python; do\n    \"$py\" -c \"import sys, importlib.util; print(sys.executable); print(importlib.util.find_spec('day11_helper') is not None)\"\ndone\n```\n\nは4行を表示する：$work/good/bin/python、True、$work/.venv/bin/python、False。診断：環境の故障。report.py とその import は正しく、.venv のインタプリタに依存が無い。最小の修正：依存を .venv にインストールする（ここでは1ファイルのモジュールを venv の purelib にコピーすることがインストールにあたる）。good/bin/python report.py で実行しても動くが、.venv は壊れたままなので課題1を満たさない：\n\n```bash\ngood_site=$(good/bin/python -c \"import sysconfig; print(sysconfig.get_path('purelib'))\")\nvenv_site=$(.venv/bin/python -c \"import sysconfig; print(sysconfig.get_path('purelib'))\")\ncp \"$good_site/day11_helper.py\" \"$venv_site/\"\n.venv/bin/python report.py\n```\n\n```text\nreport ok\n```\n\nimport を編集する（削除する、または try/except ImportError で包む）のは間違った直し方：欠けている依存を用意するのではなく、隠してしまう。\nファイル課題：\n\n```python\ndef read_text(path):\n    try:\n        with open(path, encoding=\"utf-8\") as fh:\n            return fh.read()\n    except FileNotFoundError as e:\n        print(\"missing\", e.filename)\n        return None\nprint(read_text(\"no_such_file.txt\"))\n```\n\n```text\nmissing no_such_file.txt\nNone\n```",
+      "mastery_criterion": "独力で、診断が証拠に基づき（両方のインタプリタからの sys.executable と、find_spec または ModuleNotFoundError）、修正がその証拠で特定した原因に対処し report ok で証明され、ファイル読み取りがちょうど except FileNotFoundError を使う。"
+    }
+  }
+}

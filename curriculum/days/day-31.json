@@ -1,0 +1,270 @@
+{
+  "id": "day-31",
+  "day_number": 31,
+  "active_minutes": 480,
+  "topic_category": "mathematics",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-30"
+  ],
+  "recovery_links": [
+    "day-28"
+  ],
+  "activities": [
+    {
+      "id": "day-31-act-01",
+      "lesson_id": "les-31",
+      "title": "Computational Graphs and Forward Scalar Evaluation",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-30"
+      ],
+      "source_resources": [
+        {
+          "id": "karpathy-micrograd",
+          "title": "micrograd: A tiny scalar-valued autograd engine",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/micrograd",
+          "relevant_timestamp": "micrograd/engine.py: class Value (_backward closures and backward() topological sort); README 'Example usage'",
+          "version_or_verification_date": "commit a9a9f94 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license; no proprietary code or video imported.",
+          "prerequisites": "Basic Python and calculus fundamentals",
+          "selection_rationale": "Clear, minimal scalar DAG implementation demonstrating fundamental autograd data structures.",
+          "known_availability_limitations": "Hosted on GitHub and needs network access; no copy is included in this course. projects/autograd/ is an independent original engine.",
+          "safe_fallback": "Local engine implementation in projects/autograd/engine.py and offline documentation.",
+          "compared_candidates": [
+            {
+              "candidate_name": "PyTorch autograd C++ engine",
+              "url": "https://github.com/pytorch/pytorch",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Production scale, but too large and complex for tracing by hand in introductory lessons."
+            },
+            {
+              "candidate_name": "Autograd (HIPS)",
+              "url": "https://github.com/HIPS/autograd",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Vectorized autograd; micrograd's pure scalar model is pedagogical for hand backprop."
+            }
+          ],
+          "has_unknown_subtitle_rights": true
+        }
+      ]
+    },
+    {
+      "id": "day-31-act-02",
+      "lesson_id": "les-31",
+      "title": "Local Derivatives and Elementary Operator Chain Rules",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-31-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "griewank-walther-autodiff",
+          "title": "Evaluating Derivatives: Principles and Techniques of Algorithmic Differentiation",
+          "author": "Andreas Griewank, Andrea Walther",
+          "original_url": "https://epubs.siam.org/doi/book/10.1137/1.9780898717761",
+          "relevant_timestamp": "Chapter 3: Reverse Mode and Computational Graphs",
+          "version_or_verification_date": "2nd Edition, SIAM 2008 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "SIAM Copyright / Academic Linking Only",
+          "license_restrictions": [
+            "No text extraction or distribution permitted"
+          ],
+          "permission_basis": "Academic citation and linking; explanations are original formulations.",
+          "prerequisites": "Multivariate calculus and linear algebra",
+          "selection_rationale": "Detailed mathematical reference for algorithmic differentiation theory and complexity.",
+          "known_availability_limitations": "Published textbook behind library access; key proofs summarized in original text.",
+          "safe_fallback": "Self-contained mathematical derivations in activity instructions and offline guide.",
+          "compared_candidates": [
+            {
+              "candidate_name": "micrograd: A tiny scalar-valued autograd engine",
+              "url": "https://github.com/karpathy/micrograd",
+              "license": "MIT License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Executable scalar reference implementation the learner later rebuilds; the textbook supplies the formal reverse-mode theory."
+            },
+            {
+              "candidate_name": "Baydin, Pearlmutter, Radul, Siskind: Automatic Differentiation in Machine Learning: a Survey (JMLR 2018)",
+              "url": "https://jmlr.org/papers/v18/17-468.html",
+              "license": "JMLR open access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Broad survey taxonomy of the field; the textbook was selected for its rigorous treatment of reverse-mode complexity."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-31-act-03",
+      "lesson_id": "les-31",
+      "title": "Reverse-Mode Chain Rule Intuition and Backward Pass Trace",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-31-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "cs336-basics",
+          "title": "CS336 Assignment 1: Basics (Spring 2025 tagged release)",
+          "author": "Stanford University CS336 Staff",
+          "original_url": "https://github.com/stanford-cs336/assignment1-basics/tree/spring2025",
+          "relevant_timestamp": "README setup; tests/adapters.py; tests/test_optimizer.py; tests/test_nn_utils.py; tests/test_serialization.py",
+          "version_or_verification_date": "spring2025 tag; README, tests and MIT LICENSE checked 2026-11-01",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "External hyperlink only to the spring2025 assignment repository; its LICENSE is MIT. No assignment text, code or lecture material is imported.",
+          "prerequisites": "Python systems programming and multivariable calculus",
+          "selection_rationale": "Lead assignment-driven source for pretraining component practice and tests. nanoGPT remains a compact historical code-reading companion, not the current recommended training curriculum.",
+          "known_availability_limitations": "Public tagged handout and tests; full training needs suitable compute. The campus cluster is not required for reading or local component practice.",
+          "safe_fallback": "Stand-alone projects/autograd engine.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Karpathy nanoGPT",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Simpler code layout, useful complementary reference for minimal PyTorch Transformer."
+            },
+            {
+              "candidate_name": "Hugging Face Transformers Course",
+              "url": "https://huggingface.co/learn/nlp-course/chapter1/1",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-level API focus rather than building from raw tensor fundamentals."
+            }
+          ],
+          "software_repository_license_only": true
+        }
+      ]
+    },
+    {
+      "id": "day-31-act-04",
+      "lesson_id": "les-31",
+      "title": "Independent Mastery Check: Hand-Deriving Scalar Graphs",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-31-act-03"
+      ],
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "q1",
+            "type": "choice",
+            "expected_answer": "b"
+          },
+          {
+            "id": "q2",
+            "type": "choice",
+            "expected_answer": "c"
+          },
+          {
+            "id": "q3",
+            "type": "choice",
+            "expected_answer": "a"
+          }
+        ]
+      },
+      "source_resources": [
+        {
+          "id": "karpathy-micrograd",
+          "title": "micrograd: A tiny scalar-valued autograd engine",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/micrograd",
+          "version_or_verification_date": "Git commit master (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external linking to MIT-licensed open source repository.",
+          "prerequisites": "Python object-oriented programming and operator overloading from Day 31.",
+          "selection_rationale": "Minimal, readable implementation of scalar autograd and MLP layers directly matched to our project.",
+          "compared_candidates": [
+            {
+              "candidate_name": "PyTorch autograd C++ engine",
+              "url": "https://github.com/pytorch/pytorch",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Production scale, but too large and complex for tracing by hand in introductory lessons."
+            },
+            {
+              "candidate_name": "Autograd (HIPS)",
+              "url": "https://github.com/HIPS/autograd",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Vectorized autograd; micrograd's pure scalar model is pedagogical for hand backprop."
+            }
+          ],
+          "safe_fallback": "The local projects/autograd engine is runnable offline and matches micrograd semantics.",
+          "has_unknown_subtitle_rights": true,
+          "relevant_timestamp": "micrograd/engine.py: class Value (_backward closures and backward() topological sort); README 'Example usage'"
+        },
+        {
+          "id": "pytorch-autograd-mechanics",
+          "title": "PyTorch Documentation: Autograd Mechanics",
+          "author": "PyTorch Contributors",
+          "original_url": "https://pytorch.org/docs/stable/notes/autograd.html",
+          "version_or_verification_date": "PyTorch 2.5 Documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Modified BSD",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under Modified BSD license terms.",
+          "prerequisites": "Basic understanding of computational graphs and tensors.",
+          "selection_rationale": "Official reference for computational graph construction, backward pass execution, and in-place mutation pitfalls.",
+          "compared_candidates": [
+            {
+              "candidate_name": "TensorFlow tf.GradientTape Documentation",
+              "url": "https://www.tensorflow.org/api_docs/python/tf/GradientTape",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Alternative tape-based execution; PyTorch dynamic graph semantics are standard in modern LLM research."
+            },
+            {
+              "candidate_name": "JAX autodiff cookbook",
+              "url": "https://jax.readthedocs.io/en/latest/notebooks/autodiff_cookbook.html",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Functional transformations (grad, vjp); PyTorch object-based graph is closer to the beginner micrograd model."
+            }
+          ],
+          "known_availability_limitations": "Web documentation on pytorch.org.",
+          "safe_fallback": "The training loop mechanics and zero_grad requirements are illustrated with runnable Python code.",
+          "relevant_timestamp": "How autograd encodes the history",
+          "locator_url": "https://pytorch.org/docs/stable/notes/autograd.html#how-autograd-encodes-the-history"
+        }
+      ]
+    }
+  ]
+}

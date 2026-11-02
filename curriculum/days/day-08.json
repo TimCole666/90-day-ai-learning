@@ -1,0 +1,280 @@
+{
+  "id": "day-08",
+  "day_number": 8,
+  "active_minutes": 480,
+  "topic_category": "self-directed-learning-and-python",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-07"
+  ],
+  "recovery_links": [
+    "day-07"
+  ],
+  "activities": [
+    {
+      "id": "day-08-act-01",
+      "lesson_id": "les-08",
+      "title": "for loops and a beginner loop invariant",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev5",
+      "prerequisites": [
+        "day-07"
+      ],
+      "source_resources": [
+        {
+          "id": "automate-boring-stuff-3e",
+          "title": "Automate the Boring Stuff with Python, 3rd edition",
+          "author": "Al Sweigart",
+          "original_url": "https://automatetheboringstuff.com/3e/",
+          "relevant_timestamp": "Chapter 3; Practice Questions; Appendix B answers",
+          "version_or_verification_date": "Public edition checked 2026-11-01; moving pages may change",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Copyright Al Sweigart; edition-specific reuse terms unverified",
+          "license_restrictions": [
+            "linking only; no reproduction"
+          ],
+          "permission_basis": "External hyperlink only; no third-party prose, exercises, code or translations are imported.",
+          "prerequisites": "No prior programming required for Chapter 1; later chapters assume its basic Python concepts.",
+          "selection_rationale": "Beginner teaching and answer-keyed practice before checking exact semantics in the Python reference; selected chapters only, not the book's entire automation stack.",
+          "known_availability_limitations": "Free HTML; external website may be unavailable. Exact third-edition redistribution terms have not been verified, so no reuse permission is claimed.",
+          "safe_fallback": "Use the original localized explanations, exercises and checks already present in this activity; no external account or purchase is required for that fallback.",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Tutorial",
+              "url": "https://docs.python.org/3/tutorial/",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Guided Python syntax but assumes programming familiarity; paired with the beginner text rather than used as its replacement."
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Lectures and problem sets teach a broader CS1 course; the book offers shorter text-first entry and an answer appendix."
+            }
+          ],
+          "locator_url": "https://automatetheboringstuff.com/3e/chapter3.html"
+        },
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "Sections 4.2–4.10 (for, range, defining functions)",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Primary reference for Python iteration, functions, and containers.",
+          "safe_fallback": "The lesson explains all required behavior locally and can be completed offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Grammar-level definition of the same constructs; the tutorial chapter was selected for its guided pacing."
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Lecture-paced coverage of the same control flow; deferred because the curriculum already drives the concepts through terminal drills."
+            }
+          ],
+          "prerequisites": "Study Days 01-06 Python expression and filesystem fundamentals",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ]
+    },
+    {
+      "id": "day-08-act-02",
+      "lesson_id": "les-08",
+      "title": "Functions: explicit inputs, return values, and contracts",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev5",
+      "prerequisites": [
+        "day-08-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "automate-boring-stuff-3e",
+          "title": "Automate the Boring Stuff with Python, 3rd edition",
+          "author": "Al Sweigart",
+          "original_url": "https://automatetheboringstuff.com/3e/",
+          "relevant_timestamp": "Chapter 4; Practice Questions; Appendix B answers",
+          "version_or_verification_date": "Public edition checked 2026-11-01; moving pages may change",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Copyright Al Sweigart; edition-specific reuse terms unverified",
+          "license_restrictions": [
+            "linking only; no reproduction"
+          ],
+          "permission_basis": "External hyperlink only; no third-party prose, exercises, code or translations are imported.",
+          "prerequisites": "No prior programming required for Chapter 1; later chapters assume its basic Python concepts.",
+          "selection_rationale": "Beginner teaching and answer-keyed practice before checking exact semantics in the Python reference; selected chapters only, not the book's entire automation stack.",
+          "known_availability_limitations": "Free HTML; external website may be unavailable. Exact third-edition redistribution terms have not been verified, so no reuse permission is claimed.",
+          "safe_fallback": "Use the original localized explanations, exercises and checks already present in this activity; no external account or purchase is required for that fallback.",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Tutorial",
+              "url": "https://docs.python.org/3/tutorial/",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Guided Python syntax but assumes programming familiarity; paired with the beginner text rather than used as its replacement."
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Lectures and problem sets teach a broader CS1 course; the book offers shorter text-first entry and an answer appendix."
+            }
+          ],
+          "locator_url": "https://automatetheboringstuff.com/3e/chapter4.html"
+        },
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "Sections 4.2–4.10 (for, range, defining functions); data structures are in Chapter 5 of the same tutorial",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Primary reference for Python iteration, functions, and containers.",
+          "safe_fallback": "The lesson explains all required behavior locally and can be completed offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Grammar-level definition of the same constructs; the tutorial chapter was selected for its guided pacing."
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Lecture-paced coverage of the same control flow; deferred because the curriculum already drives the concepts through terminal drills."
+            }
+          ],
+          "prerequisites": "Study Days 01-06 Python expression and filesystem fundamentals",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ]
+    },
+    {
+      "id": "day-08-act-03",
+      "lesson_id": "les-08",
+      "title": "A two-variable invariant, plus small commits and a safe restore",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-08-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "Sections 4.2–4.10 (for, range, defining functions); data structures are in Chapter 5 of the same tutorial",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Primary reference for Python iteration, functions, and containers.",
+          "safe_fallback": "The lesson explains all required behavior locally and can be completed offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Grammar-level definition of the same constructs; the tutorial chapter was selected for its guided pacing."
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Lecture-paced coverage of the same control flow; deferred because the curriculum already drives the concepts through terminal drills."
+            }
+          ],
+          "prerequisites": "Study Days 01-06 Python expression and filesystem fundamentals",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ]
+    },
+    {
+      "id": "day-08-act-04",
+      "lesson_id": "les-08",
+      "title": "Independent check: predict a loop and write a function",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-08-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "Sections 4.2–4.10 (for, range, defining functions)",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Primary reference for Python iteration, functions, and containers.",
+          "safe_fallback": "The lesson explains all required behavior locally and can be completed offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Grammar-level definition of the same constructs; the tutorial chapter was selected for its guided pacing."
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Lecture-paced coverage of the same control flow; deferred because the curriculum already drives the concepts through terminal drills."
+            }
+          ],
+          "prerequisites": "Study Days 01-06 Python expression and filesystem fundamentals",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 30: Optimization — gradient descent and its failure modes",
+  "day_subtitle": "Derive gradient descent steps by hand on a convex bowl, produce divergence and slow-crawl counterexamples, explain a saddle point, and practice failure analysis without fabricated success. This day closes the mathematics track.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Mathematics & Algorithmic Foundations",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "nav_agent_track": "🤖 Agent Tool Track",
+    "nav_export": "Export records",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "dev_slice_notice": "Verified curriculum module for the 90-Day AI Learning Platform.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "day_label": "Day 30",
+    "draft_placeholder": "Record your prediction, computed values, observation, and review evidence here...",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account.",
+        "provider_error": "Authentication provider encountered an error.",
+        "server_error": "Authentication provider encountered an error.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    }
+  },
+  "activities": {
+    "day-30-act-01": {
+      "title": "Gradient descent mechanics on a convex bowl",
+      "prerequisites": "Day 29 evaluation; single-variable derivative (power rule) from the mathematics block.",
+      "objective": "Derive the gradient-descent update x ← x − η·2x = x(1 − 2η) and predict the whole optimization trajectory from the factor (1 − 2η).",
+      "assistance_policy_label": "Assistance allowed only after prediction and observed evidence are recorded.",
+      "instructions": "Optimization here means iteratively lowering a loss. On f(x) = x² the gradient is 2x, so each step multiplies x by (1 − 2η). Starting at x₀ = 4 with η = 0.1 the factor is 0.8: x₁ = 3.2, x₂ = 2.56, x₃ = 2.048, and in general x_k = 4·0.8^k. Trace by hand first, then confirm with a short Python loop. Note η = 0.5 gives factor 0 — one-step convergence on this pure quadratic.",
+      "exercise_prompt": "For f(x) = x² with x₀ = 4: (a) write x_k in closed form; (b) compute x₁, x₂, x₃ and x₁₀ for η = 0.1; (c) for f(x) = (a/2)x² the factor is (1 − ηa) — derive the stability condition |1 − ηa| < 1 and the learning-rate bound it implies.",
+      "hint": "x_k = 4·(1−2η)^k; 0.8^10 ≈ 0.1074 so x₁₀ ≈ 0.4295. The bound: −1 < 1 − ηa < 1 → 0 < η < 2/a; for x², a = 2 so η < 1.",
+      "answer": "(a) x_k = 4·(1−2η)^k. (b) η = 0.1: x₁ = 3.2, x₂ = 2.56, x₃ = 2.048, x₁₀ ≈ 0.4295. (c) |1 − ηa| < 1 ⇔ 0 < η < 2/a; for f = x² (a = 2) the bound is η < 1 — and η = 0.5 lands exactly on the minimum in one step.",
+      "mastery_criterion": "Closed form derived, all four iterates correct, and the η < 2/a condition stated with its a = 2 specialization."
+    },
+    "day-30-act-02": {
+      "title": "Unstable step sizes: divergence and the slow crawl",
+      "prerequisites": "Activity 30-01; no AI assistance.",
+      "objective": "Produce three optimization failure regimes on the same function — divergent oscillation, frozen oscillation, and the slow crawl — and classify any η by its factor (1 − 2η).",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "In optimization the factor (1 − 2η) decides everything: |factor| < 1 converges; factor = −1 oscillates forever; |factor| > 1 diverges with alternating signs; a small positive factor converges too slowly to matter. Compute each regime on f(x) = x², x₀ = 4, and record the trace honestly — these are real failure modes, not anomalies.",
+      "exercise_prompt": "Classify and trace on f(x) = x², x₀ = 4: (a) η = 1.2 → x₁, x₂, x₃ and |x₁₀|; (b) η = 1.0 → the trajectory after step 1; (c) η = 0.01 → x₁₀, and why this 'working' learning rate is still a practical failure; (d) name the regime label for each.",
+      "hint": "Factors: −1.4, −1.0, +0.98. |x₁₀| for η = 1.2 is 4·1.4¹⁰ ≈ 115.70. A positive factor near 1 decays ×0.98 per step — after 10 steps you are still at ≈3.27.",
+      "answer": "(a) factor −1.4: x₁ = −5.6, x₂ = 7.84, x₃ = −10.976, |x₁₀| ≈ 115.70 — divergent oscillation, the loss explodes. (b) factor −1: x flips 4 → −4 → 4 forever — frozen oscillation, never converges. (c) factor 0.98: x₁₀ ≈ 3.268 — converging but so slowly it is a practical failure (the slow crawl). Regimes: |1−2η| > 1 diverges, = −1 oscillates, small positive crawls.",
+      "mastery_criterion": "All three traces correct, each regime named with its factor, and the learner explains why 'the loss decreases' is necessary but not sufficient."
+    },
+    "day-30-act-03": {
+      "title": "Saddle points and honest failure analysis",
+      "prerequisites": "Activity 30-02; prediction before assistance.",
+      "objective": "Explain why a zero gradient is not a minimum using f(x,y) = x² − y², and practice reporting an optimization failure without fabricating success.",
+      "assistance_policy_label": "Assistance allowed only after prediction and observed evidence are recorded.",
+      "instructions": "At a saddle the gradient is 0 yet the point is not a minimum: for f(x,y) = x² − y² the origin is minimal in x and maximal in y. Gradient descent updates x ← x(1−2η) but y ← y(1+2η): an exact y = 0 stays 0 in perfect arithmetic, so a run started at (0.5, 0) converges to (0,0) — a saddle — while a tiny y₀ = 0.001 slowly escapes (y₁₀ ≈ 0.006, and by k = 20 the value f is already negative). Failure-analysis rule: report the observed trace, the diagnosed cause, and the fix — never round a failure into a success.",
+      "exercise_prompt": "(a) Verify ∇f = (2x, −2y) vanishes at (0,0) and that f(0, ε) = −ε² < 0 for any ε ≠ 0. (b) Starting at (0.5, 0) with η = 0.1, where does gradient descent arrive after 10 steps, and is that point a minimum? (c) A training log shows loss 2.0 → 2.6 → 3.5 → 4.9 → 6.8: write the honest failure-analysis entry — cause hypothesis, fix, and re-check.",
+      "hint": "x₁₀ = 0.5·0.8¹⁰ ≈ 0.0537 while y stays exactly 0 — gradient descent reaches a saddle, not a minimum. A monotonically rising loss of this shape means η too large (or a bug): halve η, rerun the identical setup, report both traces.",
+      "answer": "(a) ∇f(0,0) = (0,0), yet f(0,ε) = −ε² < 0 = f(0,0) — a direction of decrease exists, so (0,0) is a saddle, not a minimum. (b) After 10 steps: (≈0.0537, 0) — the run converges to the saddle; only a nonzero y escapes (y₁₀ ≈ 0.0062, f < 0 by k ≈ 20). (c) Honest entry: 'loss rose monotonically 2.0 → 6.8; hypothesis: η too large (or a sign error); fix: halve η and rerun the same configuration; report the new trace — no success is claimed until the rerun actually decreases.'",
+      "mastery_criterion": "Saddle verified by the −ε² argument, the stuck run computed correctly, and the failure entry records cause, fix, and re-check with no fabricated improvement."
+    },
+    "day-30-act-04": {
+      "title": "Assessment: predict, classify, and diagnose optimization behavior",
+      "prerequisites": "Activities 30-01 through 30-03; independent, closed-book.",
+      "objective": "Unaided, transfer the optimization machinery to a new quadratic, classify a learning rate, and diagnose a described failure.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "On g(x) = 2x² the gradient is 4x, so x ← x(1 − 4η). Predict, then classify: for x₀ = 2 and η = 0.3 the factor is −0.2 — convergent, oscillating, or divergent? Compute x₁, x₂, x₃. Give the stability bound for g. Finally diagnose a loss trace 2.0 → 2.6 → 3.5 → 4.9 and write the corrective entry.",
+      "exercise_prompt": "g(x) = 2x², x₀ = 2, η = 0.3: (a) closed form x_k; (b) x₁, x₂, x₃ and the regime; (c) the stability bound on η; (d) diagnose the loss trace 2.0 → 2.6 → 3.5 → 4.9 and write the one-line corrective action.",
+      "hint": "Factor = 1 − 4·0.3 = −0.2 → alternating but shrinking → convergent oscillation. Bound: η < 2/4 = 0.5. A rising trace is the classic sign of η too large.",
+      "answer": "(a) x_k = 2·(1−4η)^k. (b) factor −0.2: x₁ = −0.4, x₂ = 0.08, x₃ = −0.016 — convergent oscillation (|−0.2| < 1). (c) η < 0.5. (d) 'Loss increased every step: hypothesis η too large; halve η and rerun the identical configuration; report both traces and claim nothing until the loss actually decreases.'",
+      "mastery_criterion": "Closed form, three iterates, regime, and bound all correct without aid, and the diagnosis names cause plus corrective action — closing the mathematics track with honest failure analysis."
+    }
+  }
+}

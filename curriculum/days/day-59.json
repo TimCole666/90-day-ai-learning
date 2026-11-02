@@ -1,0 +1,349 @@
+{
+  "id": "day-59",
+  "day_number": 59,
+  "active_minutes": 480,
+  "topic_category": "models-and-training",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-58"
+  ],
+  "recovery_links": [
+    "day-55"
+  ],
+  "activities": [
+    {
+      "id": "day-59-act-01",
+      "lesson_id": "les-59",
+      "title": "Detached Unattended Execution via Tmux and Stream Telemetry",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev3",
+      "prerequisites": [
+        "day-58"
+      ],
+      "source_resources": [
+        {
+          "id": "wandb-experiment-tracking",
+          "title": "Experiment Tracking and Real-Time ML Telemetry Guide",
+          "author": "Lukas Biewald et al. / Weights & Biases",
+          "original_url": "https://docs.wandb.ai/guides/track",
+          "version_or_verification_date": "W&B Documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Open Access / Terms of Service",
+          "license_restrictions": [],
+          "permission_basis": "Lawful technical reference to public documentation.",
+          "prerequisites": "Loss functions, learning rate schedules, and step loops.",
+          "selection_rationale": "Widely adopted concepts for decoupling active human study time from passive unattended GPU training runs.",
+          "known_availability_limitations": "Freely accessible documentation.",
+          "safe_fallback": "Offline local CSV/JSONL telemetry logging is fully provided in lesson code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "TensorBoard Documentation (PyTorch torch.utils.tensorboard)",
+              "url": "https://pytorch.org/docs/stable/tensorboard.html",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "Local self-hosted visualizer; compared alongside cloud telemetry dashboards."
+            },
+            {
+              "candidate_name": "MLflow Tracking Documentation",
+              "url": "https://mlflow.org/docs/latest/tracking.html",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Enterprise lifecycle manager; W&B is preferred for quick LLM run telemetry."
+            }
+          ],
+          "relevant_timestamp": "Experiments overview: How it works (wandb.init, run.log)",
+          "locator_url": "https://docs.wandb.ai/guides/track#how-it-works"
+        },
+        {
+          "id": "karpathy-nanogpt-train",
+          "title": "nanoGPT: train.py pretraining loop",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/nanoGPT/blob/master/train.py",
+          "version_or_verification_date": "Git master commit 71c3905 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license.",
+          "prerequisites": "Python, PyTorch, and Day 46-48 Transformer model architecture.",
+          "selection_rationale": "Compact historical code reference for the named implementation functions; CS336 spring2025 provides the lead component exercises. Do not infer top-p, atomic persistence or cloud budget enforcement from nanoGPT.",
+          "known_availability_limitations": "Historical implementation reference: nanoGPT README marks the repository deprecated (November 2025). Toy CPU reading/runs do not establish full GPU pretraining feasibility.",
+          "safe_fallback": "Runnable pretraining scripts and step-by-step tensor mechanics are fully self-contained in the curriculum lessons.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Hugging Face Accelerate / Trainer",
+              "url": "https://github.com/huggingface/accelerate",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Heavy abstraction layer wrapping distributed training; nanoGPT exposes raw PyTorch loops without framework overhead."
+            },
+            {
+              "candidate_name": "Megatron-LM (NVIDIA)",
+              "url": "https://github.com/NVIDIA/Megatron-LM",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-performance enterprise distributed framework; unsuitable for local educational first-principles comprehension."
+            }
+          ],
+          "relevant_timestamp": "train.py: logging (wandb_log, wandb.init) and the per-iteration print of loss, time and mfu"
+        }
+      ]
+    },
+    {
+      "id": "day-59-act-02",
+      "lesson_id": "les-59",
+      "title": "Active Telemetry Dynamics: Loss Trajectories, Gradient Norms & MFU",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.11.01-rev3",
+      "prerequisites": [
+        "day-59-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "wandb-experiment-tracking",
+          "title": "Experiment Tracking and Real-Time ML Telemetry Guide",
+          "author": "Lukas Biewald et al. / Weights & Biases",
+          "original_url": "https://docs.wandb.ai/guides/track",
+          "version_or_verification_date": "W&B Documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Open Access / Terms of Service",
+          "license_restrictions": [],
+          "permission_basis": "Lawful technical reference to public documentation.",
+          "prerequisites": "Loss functions, learning rate schedules, and step loops.",
+          "selection_rationale": "Widely adopted concepts for decoupling active human study time from passive unattended GPU training runs.",
+          "known_availability_limitations": "Freely accessible documentation.",
+          "safe_fallback": "Offline local CSV/JSONL telemetry logging is fully provided in lesson code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "TensorBoard Documentation (PyTorch torch.utils.tensorboard)",
+              "url": "https://pytorch.org/docs/stable/tensorboard.html",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "Local self-hosted visualizer; compared alongside cloud telemetry dashboards."
+            },
+            {
+              "candidate_name": "MLflow Tracking Documentation",
+              "url": "https://mlflow.org/docs/latest/tracking.html",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Enterprise lifecycle manager; W&B is preferred for quick LLM run telemetry."
+            }
+          ],
+          "relevant_timestamp": "Experiments overview: How it works (wandb.init, run.log)",
+          "locator_url": "https://docs.wandb.ai/guides/track#how-it-works"
+        },
+        {
+          "id": "eleutherai-transformer-math",
+          "title": "Transformer Math 101",
+          "author": "Quentin Anthony, Stella Biderman, Hailey Schoelkopf",
+          "original_url": "https://blog.eleuther.ai/transformer-math/",
+          "version_or_verification_date": "EleutherAI Research Blog (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "article",
+          "license": "CC-BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under Creative Commons Attribution license.",
+          "prerequisites": "Transformer matrix dimensions and matrix multiplication FLOP counting.",
+          "selection_rationale": "Widely cited, practical industry guide deriving 6ND compute FLOPs, activation memory, KV cache size, and VRAM estimation.",
+          "known_availability_limitations": "Freely available on EleutherAI blog.",
+          "safe_fallback": "The 6ND derivation (2ND forward, 4ND backward) and peak VRAM estimation models are fully worked out in the curriculum.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Narayanan et al. Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM",
+              "url": "https://arxiv.org/abs/2104.04473",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Rigorous academic formulation; Transformer Math 101 provides accessible step-by-step arithmetic equations."
+            },
+            {
+              "candidate_name": "Kaplan et al. Section 2.1 Compute Budgeting",
+              "url": "https://arxiv.org/abs/2001.08361",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Original 6ND approximation; EleutherAI expands on activation memory and KV cache."
+            }
+          ],
+          "relevant_timestamp": "Compute Requirements (C = 6PD)",
+          "locator_url": "https://blog.eleuther.ai/transformer-math/#compute-requirements"
+        }
+      ]
+    },
+    {
+      "id": "day-59-act-03",
+      "lesson_id": "les-59",
+      "title": "Remote Periodic Checkpointing and Simulated Preemption Recovery",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev3",
+      "prerequisites": [
+        "day-59-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "karpathy-nanogpt-train",
+          "title": "nanoGPT: train.py pretraining loop",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/nanoGPT/blob/master/train.py",
+          "version_or_verification_date": "Git master commit 71c3905 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license.",
+          "prerequisites": "Python, PyTorch, and Day 46-48 Transformer model architecture.",
+          "selection_rationale": "Compact historical code reference for the named implementation functions; CS336 spring2025 provides the lead component exercises. Do not infer top-p, atomic persistence or cloud budget enforcement from nanoGPT.",
+          "known_availability_limitations": "Historical implementation reference: nanoGPT README marks the repository deprecated (November 2025). Toy CPU reading/runs do not establish full GPU pretraining feasibility.",
+          "safe_fallback": "Runnable pretraining scripts and step-by-step tensor mechanics are fully self-contained in the curriculum lessons.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Hugging Face Accelerate / Trainer",
+              "url": "https://github.com/huggingface/accelerate",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Heavy abstraction layer wrapping distributed training; nanoGPT exposes raw PyTorch loops without framework overhead."
+            },
+            {
+              "candidate_name": "Megatron-LM (NVIDIA)",
+              "url": "https://github.com/NVIDIA/Megatron-LM",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-performance enterprise distributed framework; unsuitable for local educational first-principles comprehension."
+            }
+          ],
+          "relevant_timestamp": "train.py: checkpoint dict {'model', 'optimizer', 'model_args', 'iter_num', 'best_val_loss', 'config'} written with torch.save to out_dir/ckpt.pt; the init_from == 'resume' branch reloads it"
+        },
+        {
+          "id": "pytorch-cuda-amp",
+          "title": "PyTorch Documentation: Automatic Mixed Precision (torch.amp)",
+          "author": "PyTorch Team",
+          "original_url": "https://pytorch.org/docs/stable/amp.html",
+          "version_or_verification_date": "PyTorch 2.x Documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD-3-Clause",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under BSD documentation license.",
+          "prerequisites": "PyTorch tensors, autograd, and GPU compute basics.",
+          "selection_rationale": "Official reference on autocast and GradScaler for numerical stability in FP16/BF16 training.",
+          "known_availability_limitations": "Freely available on pytorch.org.",
+          "safe_fallback": "All scaling and precision casting mechanics are demonstrated in self-contained Python examples.",
+          "compared_candidates": [
+            {
+              "candidate_name": "NVIDIA Apex Documentation",
+              "url": "https://github.com/NVIDIA/apex",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "Legacy external AMP implementation; native torch.cuda.amp is the modern standard."
+            },
+            {
+              "candidate_name": "Hugging Face Accelerate Low Precision Training Guide",
+              "url": "https://huggingface.co/docs/accelerate/usage_guides/low_precision_training",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Framework wrapper around PyTorch AMP; we study the underlying PyTorch primitive."
+            }
+          ],
+          "relevant_timestamp": "Gradient Scaling",
+          "locator_url": "https://pytorch.org/docs/stable/amp.html#gradient-scaling"
+        }
+      ]
+    },
+    {
+      "id": "day-59-act-04",
+      "lesson_id": "les-59",
+      "title": "Assessment: Lightweight Training Telemetry Monitor and Alert Watchdog",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.11.01-rev3",
+      "prerequisites": [
+        "day-59-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "wandb-experiment-tracking",
+          "title": "Experiment Tracking and Real-Time ML Telemetry Guide",
+          "author": "Lukas Biewald et al. / Weights & Biases",
+          "original_url": "https://docs.wandb.ai/guides/track",
+          "version_or_verification_date": "W&B Documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Open Access / Terms of Service",
+          "license_restrictions": [],
+          "permission_basis": "Lawful technical reference to public documentation.",
+          "prerequisites": "Loss functions, learning rate schedules, and step loops.",
+          "selection_rationale": "Widely adopted concepts for decoupling active human study time from passive unattended GPU training runs.",
+          "known_availability_limitations": "Freely accessible documentation.",
+          "safe_fallback": "Offline local CSV/JSONL telemetry logging is fully provided in lesson code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "TensorBoard Documentation (PyTorch torch.utils.tensorboard)",
+              "url": "https://pytorch.org/docs/stable/tensorboard.html",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "Local self-hosted visualizer; compared alongside cloud telemetry dashboards."
+            },
+            {
+              "candidate_name": "MLflow Tracking Documentation",
+              "url": "https://mlflow.org/docs/latest/tracking.html",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Enterprise lifecycle manager; W&B is preferred for quick LLM run telemetry."
+            }
+          ],
+          "relevant_timestamp": "Experiments overview: How it works (wandb.init, run.log)",
+          "locator_url": "https://docs.wandb.ai/guides/track#how-it-works"
+        },
+        {
+          "id": "eleutherai-transformer-math",
+          "title": "Transformer Math 101",
+          "author": "Quentin Anthony, Stella Biderman, Hailey Schoelkopf",
+          "original_url": "https://blog.eleuther.ai/transformer-math/",
+          "version_or_verification_date": "EleutherAI Research Blog (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "article",
+          "license": "CC-BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under Creative Commons Attribution license.",
+          "prerequisites": "Transformer matrix dimensions and matrix multiplication FLOP counting.",
+          "selection_rationale": "Widely cited, practical industry guide deriving 6ND compute FLOPs, activation memory, KV cache size, and VRAM estimation.",
+          "known_availability_limitations": "Freely available on EleutherAI blog.",
+          "safe_fallback": "The 6ND derivation (2ND forward, 4ND backward) and peak VRAM estimation models are fully worked out in the curriculum.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Narayanan et al. Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM",
+              "url": "https://arxiv.org/abs/2104.04473",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Rigorous academic formulation; Transformer Math 101 provides accessible step-by-step arithmetic equations."
+            },
+            {
+              "candidate_name": "Kaplan et al. Section 2.1 Compute Budgeting",
+              "url": "https://arxiv.org/abs/2001.08361",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Original 6ND approximation; EleutherAI expands on activation memory and KV cache."
+            }
+          ],
+          "locator_status": "whole_source_reference"
+        }
+      ]
+    }
+  ]
+}

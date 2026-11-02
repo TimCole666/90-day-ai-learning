@@ -1,0 +1,12 @@
+{"instruction": "State the formula for kinetic energy.", "response": " The formula is E_k = 0.5 * m * v^2, where m is mass and v is velocity."}
+{"instruction": "Convert the greeting 'Hello world' into uppercase.", "response": " HELLO WORLD"}
+{"instruction": "What is the capital city of Japan?", "response": " The capital city of Japan is Tokyo."}
+{"instruction": "Compute the sum of 15 and 27.", "response": " 15 + 27 = 42."}
+{"instruction": "Explain what a prime number is in one sentence.", "response": " A prime number is a natural number strictly greater than 1 that has no positive divisors other than 1 and itself."}
+{"instruction": "What is the boiling point of water at standard atmospheric pressure?", "response": " The boiling point of water is 100 degrees Celsius (212 degrees Fahrenheit)."}
+{"instruction": "What is the time complexity of binary search on a sorted array?", "response": " Binary search has a logarithmic time complexity of O(log n)."}
+{"instruction": "Summarize the law of conservation of energy.", "response": " Energy cannot be created or destroyed, only transformed from one form to another."}
+{"instruction": "What is the chemical formula for water?", "response": " The chemical formula for water is H2O."}
+{"instruction": "Name the three primary colors of light in the additive model.", "response": " The three primary colors of additive light are red, green, and blue (RGB)."}
+{"instruction": "What does CPU stand for in computer systems?", "response": " CPU stands for Central Processing Unit."}
+{"instruction": "Reverse the string 'transformer'.", "response": " 'remrofsnart'"}

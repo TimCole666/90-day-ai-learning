@@ -1,0 +1,344 @@
+{
+  "id": "day-64",
+  "day_number": 64,
+  "active_minutes": 480,
+  "topic_category": "models-and-training",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-63"
+  ],
+  "recovery_links": [
+    "day-58"
+  ],
+  "activities": [
+    {
+      "id": "day-64-act-01",
+      "lesson_id": "les-64",
+      "title": "Intrinsic Dimensionality and Low-Rank Matrix Factorization",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-63"
+      ],
+      "source_resources": [
+        {
+          "id": "hu-lora-2021",
+          "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+          "author": "Edward J. Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, Weizhu Chen",
+          "original_url": "https://arxiv.org/abs/2106.09685",
+          "version_or_verification_date": "ICLR 2022 / arXiv:2106.09685v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Matrix factorization, rank, linear layers, and transformer attention.",
+          "selection_rationale": "Primary literature introducing Low-Rank Adaptation, establishing parameter decomposition W = W0 + (alpha/r)*BA, initialization strategies, and zero inference latency merging.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Complete matrix derivations, tensor dimensions, and pure PyTorch LoRALinear modules are implemented directly in lesson code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Houlsby et al. Parameter-Efficient Transfer Learning for NLP (Series Adapters)",
+              "url": "https://arxiv.org/abs/1902.00751",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Introduces bottleneck adapter layers in series, which introduces unavoidable inference latency overhead; LoRA's parallel formulation merges with zero latency."
+            },
+            {
+              "candidate_name": "Li & Liang: Prefix-Tuning: Optimizing Continuous Prompts for Generation",
+              "url": "https://arxiv.org/abs/2101.00190",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Prepends virtual prompt tokens; reduces available context length, unlike LoRA which preserves full sequence capacity."
+            }
+          ],
+          "relevant_timestamp": "Section 4.1 Low-Rank-Parametrized Update Matrices; Section 7.2 What Is the Optimal Rank r for LoRA?"
+        },
+        {
+          "id": "aghajanyan-intrinsic-dim-2020",
+          "title": "Intrinsic Dimensionality Explains the Effectiveness of Language Model Fine-Tuning",
+          "author": "Armen Aghajanyan, Luke Zettlemoyer, Sonal Gupta",
+          "original_url": "https://arxiv.org/abs/2012.13255",
+          "version_or_verification_date": "ACL 2021 / arXiv:2012.13255v1 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Linear algebra, matrix subspace projection, and pretraining representations.",
+          "selection_rationale": "Key theoretical foundation demonstrating that overparameterized pre-trained language models reside on a low-dimensional manifold, proving why low rank r (e.g. 4 to 16) is sufficient for task adaptation.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "The intrinsic dimensionality concept, subspace projections, and parameter reduction trade-offs are fully explained in lesson text.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Li et al. Measuring the Intrinsic Dimension of Objective Landscapes (ICLR 2018)",
+              "url": "https://arxiv.org/abs/1804.08838",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "General neural network optimization landscapes; Aghajanyan focuses explicitly on foundation language models."
+            },
+            {
+              "candidate_name": "Biderman et al. LoRA Learns Less and Forgets Less",
+              "url": "https://arxiv.org/abs/2405.09673",
+              "license": "CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Measures how low-rank LoRA trades target-domain learning for less forgetting; Aghajanyan provides the direct theoretical motivation for LoRA's low-rank assumption."
+            }
+          ],
+          "relevant_timestamp": "Section 3 Intrinsic Dimensionality of Finetuning"
+        }
+      ]
+    },
+    {
+      "id": "day-64-act-02",
+      "lesson_id": "les-64",
+      "title": "Adapter Initialization Dynamics and the Alpha/Rank Scaling Factor",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.11.01-rev4",
+      "prerequisites": [
+        "day-64-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "hu-lora-2021",
+          "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+          "author": "Edward J. Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, Weizhu Chen",
+          "original_url": "https://arxiv.org/abs/2106.09685",
+          "version_or_verification_date": "ICLR 2022 / arXiv:2106.09685v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Matrix factorization, rank, linear layers, and transformer attention.",
+          "selection_rationale": "Primary literature introducing Low-Rank Adaptation, establishing parameter decomposition W = W0 + (alpha/r)*BA, initialization strategies, and zero inference latency merging.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Complete matrix derivations, tensor dimensions, and pure PyTorch LoRALinear modules are implemented directly in lesson code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Houlsby et al. Parameter-Efficient Transfer Learning for NLP (Series Adapters)",
+              "url": "https://arxiv.org/abs/1902.00751",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Introduces bottleneck adapter layers in series, which introduces unavoidable inference latency overhead; LoRA's parallel formulation merges with zero latency."
+            },
+            {
+              "candidate_name": "Li & Liang: Prefix-Tuning: Optimizing Continuous Prompts for Generation",
+              "url": "https://arxiv.org/abs/2101.00190",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Prepends virtual prompt tokens; reduces available context length, unlike LoRA which preserves full sequence capacity."
+            }
+          ],
+          "relevant_timestamp": "Section 4.1 Low-Rank-Parametrized Update Matrices (W0 + BA, B initialized to zero, scaling by alpha/r)"
+        },
+        {
+          "id": "huggingface-peft",
+          "title": "PEFT: State-of-the-art Parameter-Efficient Fine-Tuning Methods",
+          "author": "Sourab Mangrulkar, Sylvain Gugger, Lysandre Debut, Younes Belkada, Sayak Paul, Benjamin Bossan",
+          "original_url": "https://github.com/huggingface/peft",
+          "version_or_verification_date": "PEFT 0.10.x / GitHub (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "Apache-2.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under Apache-2.0 open-source terms.",
+          "prerequisites": "PyTorch nn.Module, Hugging Face transformers, and LoRA equations.",
+          "selection_rationale": "Widely adopted open-source library implementing LoRA configuration classes (LoraConfig), get_peft_model, and adapter serialization.",
+          "known_availability_limitations": "Freely hosted on GitHub.",
+          "safe_fallback": "Standalone, zero-dependency PyTorch implementations of LoRALinear layers and save/reload logic are provided in curriculum scripts.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Microsoft LoRA Original PyTorch Package (loralib)",
+              "url": "https://github.com/microsoft/LoRA",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Original reference code by Hu et al.; PEFT expands this to broader multi-model ecosystem integration."
+            },
+            {
+              "candidate_name": "Lit-GPT LoRA implementation (Lightning AI)",
+              "url": "https://github.com/Lightning-AI/litgpt",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-performance clean implementation; compared alongside PEFT for modular code architecture."
+            }
+          ],
+          "relevant_timestamp": "README 'Quickstart' (LoraConfig, get_peft_model, print_trainable_parameters)"
+        }
+      ]
+    },
+    {
+      "id": "day-64-act-03",
+      "lesson_id": "les-64",
+      "title": "Trainable Parameter Ledgers and Theoretical Memory Reductions",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-64-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "hu-lora-2021",
+          "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+          "author": "Edward J. Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, Weizhu Chen",
+          "original_url": "https://arxiv.org/abs/2106.09685",
+          "version_or_verification_date": "ICLR 2022 / arXiv:2106.09685v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Matrix factorization, rank, linear layers, and transformer attention.",
+          "selection_rationale": "Primary literature introducing Low-Rank Adaptation, establishing parameter decomposition W = W0 + (alpha/r)*BA, initialization strategies, and zero inference latency merging.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Complete matrix derivations, tensor dimensions, and pure PyTorch LoRALinear modules are implemented directly in lesson code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Houlsby et al. Parameter-Efficient Transfer Learning for NLP (Series Adapters)",
+              "url": "https://arxiv.org/abs/1902.00751",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Introduces bottleneck adapter layers in series, which introduces unavoidable inference latency overhead; LoRA's parallel formulation merges with zero latency."
+            },
+            {
+              "candidate_name": "Li & Liang: Prefix-Tuning: Optimizing Continuous Prompts for Generation",
+              "url": "https://arxiv.org/abs/2101.00190",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Prepends virtual prompt tokens; reduces available context length, unlike LoRA which preserves full sequence capacity."
+            }
+          ],
+          "relevant_timestamp": "Section 4.2 Applying LoRA to Transformer (frozen W0, VRAM and checkpoint-size reduction)"
+        },
+        {
+          "id": "dettmers-qlora-2023",
+          "title": "QLoRA: Efficient Finetuning of Quantized LLMs",
+          "author": "Tim Dettmers, Artidoro Pagnoni, Ari Holtzman, Luke Zettlemoyer",
+          "original_url": "https://arxiv.org/abs/2305.14314",
+          "version_or_verification_date": "NeurIPS 2023 / arXiv:2305.14314v1 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Quantization (NF4/FP4), double quantization, and standard LoRA.",
+          "selection_rationale": "Primary paper cited to clearly distinguish pure unquantized FP16/BF16 LoRA from 4-bit quantized QLoRA with paged optimizers, preventing misleading terminology conflation.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "The mathematical distinction between LoRA adapter updates and 4-bit base weight dequantization is explicitly detailed in curriculum comparisons.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Frantar et al. GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers",
+              "url": "https://arxiv.org/abs/2210.17323",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Post-training quantization only; QLoRA combines backpropagation through quantized weights with LoRA adapters."
+            },
+            {
+              "candidate_name": "Lin et al. AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration",
+              "url": "https://arxiv.org/abs/2306.00978",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Inference quantization; Dettmers QLoRA focuses specifically on parameter-efficient fine-tuning memory reduction."
+            }
+          ],
+          "relevant_timestamp": "Section 3 QLoRA Finetuning and Appendix G Memory Footprint"
+        }
+      ]
+    },
+    {
+      "id": "day-64-act-04",
+      "lesson_id": "les-64",
+      "title": "Assessment: Pure PyTorch LoRALinear Layer and Forward Identity Verification",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-64-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "hu-lora-2021",
+          "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+          "author": "Edward J. Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, Weizhu Chen",
+          "original_url": "https://arxiv.org/abs/2106.09685",
+          "version_or_verification_date": "ICLR 2022 / arXiv:2106.09685v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Matrix factorization, rank, linear layers, and transformer attention.",
+          "selection_rationale": "Primary literature introducing Low-Rank Adaptation, establishing parameter decomposition W = W0 + (alpha/r)*BA, initialization strategies, and zero inference latency merging.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Complete matrix derivations, tensor dimensions, and pure PyTorch LoRALinear modules are implemented directly in lesson code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Houlsby et al. Parameter-Efficient Transfer Learning for NLP (Series Adapters)",
+              "url": "https://arxiv.org/abs/1902.00751",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Introduces bottleneck adapter layers in series, which introduces unavoidable inference latency overhead; LoRA's parallel formulation merges with zero latency."
+            },
+            {
+              "candidate_name": "Li & Liang: Prefix-Tuning: Optimizing Continuous Prompts for Generation",
+              "url": "https://arxiv.org/abs/2101.00190",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Prepends virtual prompt tokens; reduces available context length, unlike LoRA which preserves full sequence capacity."
+            }
+          ],
+          "relevant_timestamp": "Section 4.1 Low-Rank-Parametrized Update Matrices (W0 + BA, B initialized to zero, scaling by alpha/r)"
+        },
+        {
+          "id": "huggingface-peft",
+          "title": "PEFT: State-of-the-art Parameter-Efficient Fine-Tuning Methods",
+          "author": "Sourab Mangrulkar, Sylvain Gugger, Lysandre Debut, Younes Belkada, Sayak Paul, Benjamin Bossan",
+          "original_url": "https://github.com/huggingface/peft",
+          "version_or_verification_date": "PEFT 0.10.x / GitHub (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "Apache-2.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under Apache-2.0 open-source terms.",
+          "prerequisites": "PyTorch nn.Module, Hugging Face transformers, and LoRA equations.",
+          "selection_rationale": "Widely adopted open-source library implementing LoRA configuration classes (LoraConfig), get_peft_model, and adapter serialization.",
+          "known_availability_limitations": "Freely hosted on GitHub.",
+          "safe_fallback": "Standalone, zero-dependency PyTorch implementations of LoRALinear layers and save/reload logic are provided in curriculum scripts.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Microsoft LoRA Original PyTorch Package (loralib)",
+              "url": "https://github.com/microsoft/LoRA",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Original reference code by Hu et al.; PEFT expands this to broader multi-model ecosystem integration."
+            },
+            {
+              "candidate_name": "Lit-GPT LoRA implementation (Lightning AI)",
+              "url": "https://github.com/Lightning-AI/litgpt",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-performance clean implementation; compared alongside PEFT for modular code architecture."
+            }
+          ],
+          "relevant_timestamp": "README 'Quickstart' (LoraConfig, get_peft_model, print_trainable_parameters)"
+        }
+      ]
+    }
+  ]
+}

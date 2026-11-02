@@ -1,0 +1,12 @@
+{
+  "project_id": "deepseek_harness",
+  "title": "DeepSeek Harness Agent Tool Track",
+  "category": "agent-assisted-engineering",
+  "entry_point": "curriculum/projects/docs/deepseek_harness/en.json",
+  "supported_languages": ["zh-Hans", "zh-Hant", "en", "ja"],
+  "source_policy": "Official DeepSeek API documentation and the official deepseek-ai/deepseek-harness repository are the source of truth. Verify URLs, package metadata, model names, and prices on the run date.",
+  "verification_date": "2026-10-30",
+  "tested_release": "@deepseek-ai/dsh 0.1.1-preview (release pin must be rechecked before a live run)",
+  "live_verification_state": "blocked-pending-authorized-access",
+  "license": "CC-BY-SA-4.0"
+}

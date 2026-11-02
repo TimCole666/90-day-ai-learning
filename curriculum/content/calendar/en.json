@@ -1,0 +1,28 @@
+{
+  "page_title": "90-Day Curriculum Calendar & Active-Time Ledger",
+  "page_subtitle": "Complete prerequisite DAG, weekly consolidation review, and 43,200-minute effort ledger",
+  "ledger_title": "Active-Time Effort Ledger",
+  "total_days_label": "Study Days",
+  "total_hours_label": "Active Hours",
+  "total_minutes_label": "Active Minutes",
+  "category_hours_label": "Category Hour Budgets",
+  "categories": {
+    "self-directed-learning-and-python": "Self-Directed Learning & Python",
+    "mathematics": "AI Mathematics & Calculus",
+    "models-and-training": "Models, Pretraining & LoRA",
+    "agents": "AI Agents & Systems"
+  },
+  "status_labels": {
+    "planned": "Planned",
+    "available": "Available",
+    "reviewed": "Reviewed",
+    "accepted": "Accepted"
+  },
+  "review_badge": "Weekly Review & Assessment",
+  "prerequisites_label": "Prerequisites",
+  "recovery_label": "Recovery Links",
+  "open_day": "Open Study Day",
+  "planned_notice": "This study day is currently planned. Per the Course Readiness Gate, unfinished material cannot appear ready.",
+  "nav_calendar": "Curriculum Calendar",
+  "nav_agent_track": "🤖 Agent Tool Track"
+}

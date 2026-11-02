@@ -1,0 +1,109 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 29: Evaluation — splits, leakage, and metrics",
+  "day_subtitle": "Separate training from evaluation: hold out validation and test data, exclude leakage, compare against honest baselines, and read loss, accuracy, and perplexity with distribution shift in mind.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Mathematics & Algorithmic Foundations",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "nav_agent_track": "🤖 Agent Tool Track",
+    "nav_export": "Export records",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "dev_slice_notice": "Verified curriculum module for the 90-Day AI Learning Platform.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "day_label": "Day 29",
+    "draft_placeholder": "Record your prediction, computed values, observation, and review evidence here...",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account.",
+        "provider_error": "Authentication provider encountered an error.",
+        "server_error": "Authentication provider encountered an error.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    }
+  },
+  "activities": {
+    "day-29-act-01": {
+      "title": "Train, validation, and test: fixing the comparison",
+      "prerequisites": "Day 28 statistics; the prediction-review routine.",
+      "objective": "Explain the role of train/validation/test splits in evaluation and why the test set is read once; fix the evaluation protocol before any tuning begins.",
+      "assistance_policy_label": "Assistance allowed only after prediction and observed evidence are recorded.",
+      "instructions": "Evaluation answers 'does it generalize?' using data the model never trained on. The training split fits parameters; the validation split guides choices (which model, which settings); the test split is the final, untouched read. With 1,000 examples a 60/20/20 split gives 600 train, 200 validation, 200 test. Comparisons are only valid when every candidate is scored on the same split with the same metric — fix that protocol before tuning, not after seeing results.",
+      "exercise_prompt": "A learner has 1,000 labeled examples. (a) Allocate train/validation/test at 60/20/20. (b) Model M1 was selected after 40 trials scored on the test set — name the protocol violation and its consequence. (c) State what must be identical before M1 and M2 scores can be compared.",
+      "hint": "Repeated test reads turn 'test' into validation — the reported number becomes optimistically biased. Before comparing: same held-out data, same metric, same preprocessing.",
+      "answer": "(a) 600 train, 200 validation, 200 test. (b) The test set was reused for model selection, so the reported score is biased upward — the violation is selection on the test set; fix by selecting on validation and reading test once. (c) Same test split, same metric, same preprocessing and evaluation code; otherwise the difference is uninterpretable.",
+      "mastery_criterion": "Learner states each split's role in evaluation, names the test-reuse violation, and writes the fixed-protocol checklist before any tuning."
+    },
+    "day-29-act-02": {
+      "title": "Baselines and data leakage",
+      "prerequisites": "Activity 29-01; no AI assistance in this block.",
+      "objective": "Compute a trivial baseline and detect at least two leakage mechanisms that make an evaluation report a fabricated success.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "A baseline is the cheapest honest predictor: for classification, the majority class. If 900 of 1,000 examples are class 0, always predicting class 0 scores 0.90 — any model is judged against 0.90, not 0.0. Leakage is information flowing from evaluation data into training: normalization statistics computed on all rows before splitting, duplicated rows crossing the split, or a feature derived from the label. Each inflates the evaluation without real skill.",
+      "exercise_prompt": "(a) Dataset: 1,000 examples, 900 in class 0 — what is the majority baseline? A model reports 0.92: what is the real improvement? (b) A pipeline standardizes features using the mean of all 1,000 rows, then splits 60/20/20 — is the 0.92 score trustworthy, and why? (c) 50 test rows also appear (duplicated) inside the 600-row training set — what happens to the evaluation?",
+      "hint": "Baseline = 0.90, so the true lift is 0.02. Statistics fitted on all data leak distributional information; duplicated rows let the model memorize evaluation inputs.",
+      "answer": "(a) Baseline 0.90; real improvement 0.92 − 0.90 = 0.02. (b) Not fully trustworthy: fitting the scaler on all data leaks validation/test statistics into preprocessing — fit preprocessing parameters on the training split only. (c) Duplicates let the model memorize test answers, inflating the score — deduplicate before splitting; the honest report is the lower, leakage-free number, not the fabricated 0.92.",
+      "mastery_criterion": "Baseline computed, at least two leakage mechanisms named with the correct fixes (fit-on-train-only, deduplicate, drop label-derived features), and the learner reports the honest lower number rather than the inflated one."
+    },
+    "day-29-act-03": {
+      "title": "Metrics and distribution shift",
+      "prerequisites": "Activity 29-02; record predictions first.",
+      "objective": "Read accuracy, cross-entropy loss, and perplexity as the same evaluation evidence at different resolutions, and diagnose a score drop caused by distribution shift rather than model failure.",
+      "assistance_policy_label": "Assistance allowed only after prediction and observed evidence are recorded.",
+      "instructions": "Accuracy counts right answers; cross-entropy (the mean −ln p assigned to the correct label) also prices confidence — p = 0.9 costs 0.105, p = 0.5 costs 0.693, p = 0.1 costs 2.303. Perplexity is exp(mean cross-entropy): the effective number of equally likely choices — a model always assigning p = 0.5 to the right token has perplexity 2, and a uniform guesser over 4 options has perplexity 4. Distribution shift breaks the train≈test assumption: a detector trained on daytime photos evaluated at night faces a new evaluation of a new distribution, not automatically a model defect.",
+      "exercise_prompt": "(a) For correct-label probabilities [0.9, 0.8, 0.7, 0.6], compute the mean cross-entropy and the perplexity. (b) A model scores 18/20 = 0.90 accuracy on its test split but 11/20 on night-time photos — give two distinct explanations and the follow-up check for each. (c) Which perplexity is better, 2.0 or 10.0, and what does each mean?",
+      "hint": "Mean NLL = (0.105+0.223+0.357+0.511)/4 ≈ 0.299; perplexity = e^0.299 ≈ 1.35. Shift explanations: the night set is genuinely harder (new distribution) vs. a preprocessing mismatch. Perplexity is a branching factor — lower is better, floor is 1.",
+      "answer": "(a) Mean NLL ≈ 0.2990, perplexity = e^0.2990 ≈ 1.35. (b) Shift explanation: inputs moved off the training distribution — collect night examples and re-split honestly. Preprocessing explanation: normalization or label mapping differs at eval time — diff the pipelines. The follow-up check is the same: evaluate on a matched-distribution held-out set. (c) Perplexity 2.0 is better — the model behaves like choosing among ~2 options vs ~10; the floor is 1.0, and a uniform guesser over the vocabulary has perplexity = vocabulary size.",
+      "mastery_criterion": "Correct NLL/perplexity arithmetic, the accuracy-vs-loss distinction stated, and shift versus defect separated with a concrete check for each."
+    },
+    "day-29-act-04": {
+      "title": "Assessment: design a valid small experiment",
+      "prerequisites": "Activities 29-01 through 29-03; independent, closed-book.",
+      "objective": "Design a complete, honest evaluation for a tiny classification task and defend every choice.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "Scenario: 800 labeled examples, two candidate models, classes split 80/20. Design the evaluation end to end and write it as a protocol: splits with sizes, baseline, primary metric plus one supporting metric, leakage checks, when the test set is read, and how you would report a negative result. Work without AI assistance; the point is a defensible protocol, not a lucky number.",
+      "exercise_prompt": "Write the protocol for the 800-example task (suggested 480/160/160), including the majority baseline value, the metric you would report besides accuracy, the three leakage checks, and the sentence you would write if the fancy model only matches the baseline.",
+      "hint": "Baseline = 0.80. Leakage checks: preprocessing fit on train only, no duplicates across splits, no label-derived features. Report mean NLL or a per-class score besides accuracy. A tie with the baseline is a negative result — report it.",
+      "answer": "Reference protocol: 480 train / 160 validation / 160 test; majority baseline 0.80; report accuracy plus mean cross-entropy (or per-class recall); checks — scaler and vocabulary fitted on train only, deduplicated across splits, no feature derived from the label; test read once after validation selects the model; honest sentence: 'model B matched the 0.80 baseline within noise, so it provides no demonstrated improvement' — a negative result reported, not hidden.",
+      "mastery_criterion": "Protocol is complete and internally consistent, states baseline 0.80 and at least one non-accuracy metric, includes the three leakage checks and the single test read, and the negative-result sentence is written without euphemism."
+    }
+  }
+}

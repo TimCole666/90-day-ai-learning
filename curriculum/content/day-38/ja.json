@@ -1,0 +1,108 @@
+{
+  "language": "ja",
+  "language_label": "日本語",
+  "day_title": "Day 38: N-gram 言語モデル ― カウント、条件付き確率、スムージング",
+  "day_subtitle": "決定論的な学習分割（train split）上でカウントベースのバイグラム（2-gram）ベースラインを適合：カウント表を構築し、条件付き確率に正規化し、未見の事象を平滑化し、ホールドアウトされたテキストを尤度とパープレキシティでスコアリングします（全数値を手計算で検証可能）。すべての作業は 480 分の台帳に計上されます。",
+  "time_budget_label": "480 分の有効学習（8 時間集中学習）",
+  "category_label": "モデルと訓練",
+  "common": {
+    "nav_calendar": "📅 カリキュラムカレンダー",
+    "nav_agent_track": "🤖 Agent ツールトラック",
+    "day_label": "第 38 日",
+    "prerequisites_title": "前提条件",
+    "objective_title": "学習目標",
+    "instructions_title": "手順",
+    "exercise_title": "演習と予測記録",
+    "hint_title": "ヒントを確認",
+    "reveal_answer": "参考解答と分析を表示",
+    "mastery_title": "独立習得基準",
+    "draft_placeholder": "カウント表、予測確率、計算された尤度、回復の根拠をここに記録してください...",
+    "dev_slice_notice": "90 日 AI 学習プラットフォームの検証済み正式モジュールです。",
+    "sources_heading": "公式ソースリソースと権利証跡",
+    "source_author_label": "著者・提供機関",
+    "source_url_label": "オリジナル出所URL",
+    "source_range_label": "該当セクション・範囲",
+    "source_verification_label": "検証バージョンと日付",
+    "source_reuse_label": "再利用区分",
+    "source_license_label": "ライセンスと権利情報",
+    "source_rationale_label": "選定理由",
+    "source_prereqs_label": "ソース前提知識",
+    "source_fallback_label": "安全フォールバック（オフライン回復性）",
+    "compared_candidates_heading": "比較対象候補リソースと選定評価",
+    "compared_status_label": "評価結果",
+    "auth": {
+      "sign_in": "Googleでログイン",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "ログアウト",
+      "signed_in_as": "ログイン中:",
+      "guest": "ゲストモード",
+      "link_github": "GitHubを連携",
+      "link_google": "Googleを連携",
+      "linked_identities": "連携済みアカウント",
+      "auth_errors": {
+        "access_denied": "認証がキャンセルされたか、アクセスが拒否されました。",
+        "invalid_state": "無効または期限切れの認証状態です。再試行してください。",
+        "identity_conflict": "このIDは既に別のアカウントに連携されています。",
+        "provider_error": "認証プロバイダーでエラーが発生しました。",
+        "server_error": "認証プロバイダーでエラーが発生しました。",
+        "session_expired": "セッションの有効期限が切れました。再度ログインしてください。"
+      }
+    },
+    "progress": {
+      "save_btn": "進捗を保存",
+      "saved": "保存済み",
+      "saving": "保存中...",
+      "save_error": "保存に失敗しました",
+      "offline": "オフライン",
+      "mark_completed": "完了としてマーク",
+      "completed_badge": "完了"
+    }
+  },
+  "activities": {
+    "day-38-act-01": {
+      "title": "バイグラムのカウント：トークンストリームから集計表へ",
+      "prerequisites": "第 37 日を完了していること。行き詰まった場合は第 35 日の回復リンクで確率と Python を復習してください。",
+      "objective": "トークンストリームをバイグラムカウント表 C(w_{i-1}, w_i) に変換し、文脈合計とペアカウントを分離し、すべての数値を手計算トレースと照合検証する（Unicode 文字や空入力の境界処理を含む）。",
+      "assistance_policy_label": "Agent 支援エンジニアリング確認",
+      "instructions": "バイグラムとは連続する 2 つのトークンのペアです。必須の作業：トークンストリーム 'the cat sat the cat ran the dog sat'（text_tools の動作と同様に、3 行の学習データを結合した 9 トークンのストリーム）上で長さ 2 のウィンドウをスライドさせ、Counter(zip(words, words[1:])) で隣接ペアを集計します。任意の作業：val 分割で繰り返し、データのスパース性を比較します。空文字列 '' が入力された場合は空のカウントとなり、Unicode 文字列 'é猫é' でも同様の規則でカウントされます。",
+      "exercise_prompt": "コードを実行する前に、8 つの隣接ペアと完全なカウント表を手書きしてください。次に 'banana' の文字レベルバイグラムも同様に計算し、両方の表を記録してください。",
+      "hint": "ストリームのペア：(the,cat), (cat,sat), (sat,the), (the,cat), (cat,ran), (ran,the), (the,dog), (dog,sat)。'banana' の文字：(b,a), (a,n), (n,a), (a,n), (n,a)。",
+      "answer": "ストリームのカウント（8 インスタンス、7 種類）：(the,cat)=2, (cat,sat)=1, (sat,the)=1, (cat,ran)=1, (ran,the)=1, (the,dog)=1, (dog,sat)=1。文脈合計（各トークンから始まるペアの総数）：the=3, cat=2, sat=1, ran=1, dog=1。'banana' の文字：(a,n)=2, (n,a)=2, (b,a)=1。空文字列 '' の場合は {} となります。",
+      "mastery_criterion": "手書きの集計表が Counter(zip(words, words[1:])) の出力と完全に一致し、次のステップの正規化において文脈合計（全体の unigram 頻度ではなく）が正しい分母である理由を説明できること。"
+    },
+    "day-38-act-02": {
+      "title": "最尤条件付き確率の推定",
+      "prerequisites": "前の活動を完了していること。行き詰まった場合は一覧の回復リンクを使用してください。",
+      "objective": "カウント表の各行を最尤遷移確率 P(w_i|w_{i-1}) = C(w_{i-1}, w_i) / C(w_{i-1}) に正規化し、各文脈行の和が 1 になることを検証し、条件付き確率の積によって短いフレーズを評価する。",
+      "assistance_policy_label": "独立習得確認（AI 支援なし）",
+      "instructions": "必須の作業：各文脈トークンについて、外向きのペアカウントをその文脈の合計頻度で割ります。行 P(·|the)、P(·|cat)、P(·|dog) を手計算し、各行の合計が厳密に 1 になることを確認します。任意の作業：'banana' の文字テーブルでも同じ正規化を行います。",
+      "exercise_prompt": "P(cat|the)、P(dog|the)、P(sat|cat)、P(ran|cat)、P(sat|dog) を計算してください。次に 'the' に続く 'cat ran' の結合尤度を積として計算し、合計が 1 にならない文脈行があるか予測してください。",
+      "hint": "文脈 'the' の合計は 3 なので P(cat|the)=2/3、P(dog|the)=1/3。文脈 'cat' の合計は 2 なので P(sat|cat)=P(ran|cat)=1/2。文脈 'dog' の合計は 1 なので P(sat|dog)=1。",
+      "answer": "P(cat|the)=2/3≈0.6667, P(dog|the)=1/3≈0.3333, P(sat|cat)=1/2, P(ran|cat)=1/2, P(sat|dog)=1。各文脈行の和は 1 です。Score('cat ran' | 'the') = P(cat|the) × P(ran|cat) = 2/3 × 1/2 = 1/3 ≈ 0.3333。未見の事象については確率が 0 になります。",
+      "mastery_criterion": "支援なしで 5 つの条件付き確率すべてを正確な分数として算出し、各文脈行の和が 1 であることを検証し、2 因子の尤度積を正確に計算できること。"
+    },
+    "day-38-act-03": {
+      "title": "Add-k スムージング、尤度、パープレキシティ",
+      "prerequisites": "前の活動を完了していること。行き詰まった場合は一覧の回復リンクを使用してください。",
+      "objective": "カウント 0 が尤度をゼロ破壊する理由を説明し、語彙サイズ V の加算スムージング P(next|context) = (C+1)/(context_total + V) を適用し、平滑化されたスコアをトークンごとの NLL とパープレキシティに変換する。",
+      "assistance_policy_label": "Agent 支援エンジニアリング確認",
+      "instructions": "ストリームの語彙サイズは V=5（{the, cat, sat, ran, dog}）です。必須の作業：Add-one スムージングで 'the' と 'cat' の行を再計算し、'the' に続くホールドアウトされた続き 'cat ran' を評価します。尤度 L は平滑化確率の積、トークンごとの NLL = -ln(L)/N（N=2）、パープレキシティ = exp(NLL)。任意の作業：Add-0.5 スムージングでも同様に計算して比較します。",
+      "exercise_prompt": "文脈 'the' と 'cat' の平滑化行、続きの平滑化尤度、トークンごとの NLL、パープレキシティを計算してください。平滑化後の尤度は未平滑の 1/3 より高いか低いか、理由と共に予測してください。",
+      "hint": "V=5 の場合：P(cat|the)=(2+1)/(3+5)=3/8、P(dog|the)=2/8、'the' の後ろの未見トークンにはそれぞれ 1/8 が割り振られます。P(ran|cat)=(1+1)/(2+5)=2/7。スムージングは既見の事象から確率質量を未見の事象へと再配分します。",
+      "answer": "平滑化された 'the' 行：cat 3/8=0.375, dog 2/8=0.25, sat/ran/the 各 1/8=0.125（合計 1）。P(ran|cat)=2/7≈0.2857。尤度 L = 3/8 × 2/7 = 3/28 ≈ 0.1071 ― 未見事象に確率が移ったため 1/3 より低くなります。これにより未見の 'cat dog' も 0 ではなく 1/7 のスコアを得ます。トークンごと NLL = -ln(3/28)/2 ≈ 1.1168 nats ≈ 1.6112 bits。パープレキシティ = (3/28)^(-1/2) = √(28/3) ≈ 3.055。",
+      "mastery_criterion": "完全な平滑化行、3/28 の尤度、≈1.117 nats のトークンごと NLL、≈3.055 のパープレキシティを算出し、評価にホールドアウトデータ（held-out text）のみを使用する理由を説明できること。"
+    },
+    "day-38-act-04": {
+      "title": "独立習得確認：バイグラムベースラインの実装と検証",
+      "prerequisites": "前のすべての活動を完了していること。行き詰まった場合は一覧の回復リンクを使用してください。",
+      "objective": "支援なしでバイグラムカウントを実装し、条件付き確率と平滑化確率を手計算し、ゼロ尤度エラーを診断し、ホールドアウト評価の規則を明述する（空文字や Unicode 境界を含む）。",
+      "assistance_policy_label": "独立習得確認（AI 支援なし）",
+      "instructions": "この確認中は解答や AI を参照しないでください。必須の作業：(1) 'banana' 文字のバイグラム集計を Python で実装する；(2) P(n|a) と P(a|n) を手計算する；(3) 未見ペアに対する加算平滑化確率を計算する；(4) テスト分割を非接触で保持する理由を説明する。任意の作業：トリグラム（3-gram）に拡張する。",
+      "exercise_prompt": "何も見ずに解答してください：(a) 'banana' の文字バイグラムとカウント一覧。(b) P(n|a) と P(a|n) はいくつか？(c) V={a,b,n}（V=3）のとき、加算平滑化された P(b|a) は？(d) 未平滑モデルが 'cat dog' にスコア 0 を付けた原因となるカウントは何か、加算平滑化は代わりに何を割り当てるか？",
+      "hint": "(a) (a,n)×2, (n,a)×2, (b,a)×1。(b) 文脈 'a' と 'n' は左側の先行詞として各 2 回出現します。(c) (0+1)/(2+3)。(d) C(cat,dog)=0 が積を 0 にします。平滑化は (0+1)/(2+5) を与えます。",
+      "answer": "(a) (b,a)=1, (a,n)=2, (n,a)=2。空文字列 '' の場合は空の集計。(b) P(n|a)=2/2=1.0、P(a|n)=2/2=1.0（'banana' は決定的な文字の交互遷移）。(c) (0+1)/(2+3)=1/5=0.2。(d) C(cat,dog)=0 が尤度積をゼロにします。Add-one 平滑化は代わりに P(dog|cat)=(0+1)/(2+5)=1/7≈0.1429 を割り当てます。Unicode 文字（例：'😀'）を含む場合も同様に平滑化計算されます。",
+      "mastery_criterion": "実装が Counter と完全に同一のカウントを出力し、すべての確率が正確な分数として導出され、ゼロ尤度と過学習（リーク）を防ぐための平滑化および train のみ適合規則が明確に記述されていること。"
+    }
+  }
+}

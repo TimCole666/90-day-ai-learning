@@ -1,0 +1,349 @@
+{
+  "id": "day-88",
+  "day_number": 88,
+  "active_minutes": 480,
+  "topic_category": "agents",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-87"
+  ],
+  "recovery_links": [
+    "day-84"
+  ],
+  "activities": [
+    {
+      "id": "day-88-act-01",
+      "lesson_id": "les-88",
+      "title": "Retrieval Gauntlet Design: Sealed Task Inventory and Declared Assistance Conditions",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-87"
+      ],
+      "source_resources": [
+        {
+          "id": "roediger-karpicke-2006",
+          "title": "Test-Enhanced Learning: Taking Memory Tests Improves Long-Term Retention",
+          "author": "Henry L. Roediger III, Jeffrey D. Karpicke",
+          "original_url": "https://doi.org/10.1111/j.1467-9280.2006.01693.x",
+          "version_or_verification_date": "Psychological Science, 2006 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Journal publisher copyright (all rights reserved) - lawful external linking only",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external citation of the publisher record; no text imported into curriculum materials.",
+          "prerequisites": "Basic understanding of study sessions, retention intervals, and experimental design vocabulary.",
+          "selection_rationale": "Foundational experimental evidence that retrieval practice (testing) outperforms repeated study for long-term retention; grounds the Day 88 AI-free retrieval checks in peer-reviewed learning science rather than folk advice.",
+          "known_availability_limitations": "Publisher page may be paywalled; author preprints and university repositories host lawful copies.",
+          "safe_fallback": "The curriculum restates the experimental design and effect sizes in original prose; every sealed task runs without the paper.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Cepeda et al. Distributed Practice in Verbal Recall Tasks: A Review and Quantitative Synthesis",
+              "url": "https://doi.org/10.1037/0033-2909.132.3.354",
+              "license": "Publisher copyright (APA)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong meta-analytic coverage of spacing effects but addresses scheduling rather than the retrieval effect itself; retained as support for the Day 90 spaced-review schedule."
+            },
+            {
+              "candidate_name": "Karpicke & Roediger: The Critical Importance of Retrieval for Learning (Science 2008)",
+              "url": "https://doi.org/10.1126/science.1152408",
+              "license": "Publisher copyright (AAAS)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Equally foundational follow-up demonstrating repeated retrieval vs repeated study; the 2006 paper is cited as the standard first controlled demonstration."
+            }
+          ],
+          "relevant_timestamp": "Psychological Science 17(3): 249-255, Experiments 1-2"
+        },
+        {
+          "id": "dunlosky-2013-effective-techniques",
+          "title": "Improving Students' Learning With Effective Learning Techniques: Promising Directions From Cognitive and Educational Psychology",
+          "author": "John Dunlosky, Katherine A. Rawson, Elizabeth J. Marsh, Mitchell J. Nathan, Daniel T. Willingham",
+          "original_url": "https://doi.org/10.1177/1529100612453266",
+          "version_or_verification_date": "Psychological Science in the Public Interest, 2013 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Journal publisher copyright (all rights reserved) - lawful external linking only",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external citation of the publisher record; no text imported into curriculum materials.",
+          "prerequisites": "None beyond general academic reading.",
+          "selection_rationale": "Detailed comparative review rating practice testing and distributed practice as high-utility techniques while rating highlighting and rereading low-utility; anchors the retrieval, correction, and spaced-review design of Days 88-90.",
+          "known_availability_limitations": "Paywalled at SAGE; author-hosted preprints exist on university sites.",
+          "safe_fallback": "Curriculum restates the utility ratings and application conditions in original prose; every task remains runnable offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Pashler et al. Learning Styles: Concepts and Evidence",
+              "url": "https://doi.org/10.1111/j.1539-6053.2009.01038.x",
+              "license": "Publisher copyright (originally Wiley; now SAGE Publications)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Important negative result on learning-styles matching but narrower scope; Dunlosky et al. rates a broader set of techniques directly usable for this curriculum."
+            },
+            {
+              "candidate_name": "Brown, Roediger & McDaniel: Make It Stick: The Science of Successful Learning",
+              "url": "https://www.hup.harvard.edu/books/9780674729018",
+              "license": "Publisher copyright (Harvard University Press)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong trade-book synthesis of the same evidence base; the peer-reviewed review is preferred for citation precision and technique-by-technique utility ratings."
+            }
+          ],
+          "relevant_timestamp": "Psychological Science in the Public Interest 14(1): 4-58; practice testing and distributed practice sections"
+        }
+      ]
+    },
+    {
+      "id": "day-88-act-02",
+      "lesson_id": "les-88",
+      "title": "Independent Check A: Core Python and Git Debugging (AI-Free)",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-88-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "py-docs-unittest",
+          "title": "Python Standard Library: unittest",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/unittest.html",
+          "version_or_verification_date": "Python 3.12 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under PSF open documentation terms; no source text imported into curriculum content.",
+          "prerequisites": "Basic Python syntax from Study Days 01-09",
+          "selection_rationale": "Normative reference for unittest.TestCase, assertEqual, assertRaises, the failure report format, and test_*.py discovery conventions.",
+          "known_availability_limitations": "Hosted on python.org; requires internet access unless a local documentation bundle is installed.",
+          "safe_fallback": "unittest ships with the interpreter, so every example runs offline; help(unittest.TestCase) documents the assert methods.",
+          "compared_candidates": [
+            {
+              "candidate_name": "pytest documentation",
+              "url": "https://docs.pytest.org/en/stable/",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong third-party runner deferred for now; unittest needs no environment change and is the curriculum baseline."
+            },
+            {
+              "candidate_name": "pytest: Python testing framework (official documentation)",
+              "url": "https://docs.pytest.org/en/stable/",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Powerful third-party runner used industry-wide; unittest is selected for these AI-free checks because it ships in the standard library and needs no external dependency."
+            }
+          ],
+          "relevant_timestamp": "Classes and functions: Test cases (TestCase assert methods)",
+          "locator_url": "https://docs.python.org/3/library/unittest.html#test-cases"
+        },
+        {
+          "id": "git-book",
+          "title": "Pro Git, Second Edition",
+          "author": "Scott Chacon and Ben Straub",
+          "original_url": "https://git-scm.com/book/en/v2",
+          "version_or_verification_date": "Second edition (Apress, 2014) (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-SA 3.0",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no book text reproduced in curriculum content; reuse limited to noncommercial references consistent with CC BY-NC-SA 3.0.",
+          "prerequisites": "Basic git status/log/diff vocabulary from earlier study days",
+          "selection_rationale": "Freely licensed reference for branching, merging, conflict resolution, and safe recovery vocabulary used on Day 14.",
+          "known_availability_limitations": "Readable free at git-scm.com; availability depends on the site staying online.",
+          "safe_fallback": "git help <command> and the Git manual pages ship with Git and cover the same commands offline; every required workflow is stated locally in the lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GitHub Skills interactive courses",
+              "url": "https://skills.github.com/",
+              "license": "MIT (varies by course)",
+              "status": "compared_rejected_for_day14",
+              "comparison_rationale": "Interactive but requires a GitHub account and an external service; disposable local repositories keep the exercise self-contained."
+            },
+            {
+              "candidate_name": "Atlassian Git Tutorials",
+              "url": "https://www.atlassian.com/git/tutorials",
+              "license": "All Rights Reserved",
+              "status": "compared_rejected_for_day14",
+              "comparison_rationale": "Vendor-owned prose with no permissive license; Pro Git covers the same ground under CC BY-NC-SA."
+            }
+          ],
+          "relevant_timestamp": "Chapter 3 Git Branching and Section 7.7 Reset Demystified"
+        }
+      ]
+    },
+    {
+      "id": "day-88-act-03",
+      "lesson_id": "les-88",
+      "title": "Independent Check B: Mathematics, Gradients, and Model Reasoning (AI-Free)",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-88-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "cs231n-backprop",
+          "title": "CS231n: Backpropagation and Intuitions",
+          "author": "Andrej Karpathy / Stanford University",
+          "original_url": "https://cs231n.github.io/optimization-2/",
+          "version_or_verification_date": "Course notes (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "course",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under open course license.",
+          "prerequisites": "Multivariable calculus and basic Python.",
+          "selection_rationale": "Modular local-gradient interpretation (gate operations: add, multiply, max) and gradient flow intuition.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Karpathy Hacker's Guide to Neural Networks",
+              "url": "https://karpathy.github.io/neuralnets/",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Raw circuit view; CS231n notes are more structured with explicit gate derivations."
+            },
+            {
+              "candidate_name": "Fast.ai Practical Deep Learning for Coders",
+              "url": "https://course.fast.ai/",
+              "license": "GPL-3.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Top-down approach; CS231n bottom-up modular view matches our first-principles curriculum."
+            }
+          ],
+          "known_availability_limitations": "Static GitHub pages.",
+          "safe_fallback": "Local gate definitions and circuit flow diagrams in the lesson provide full coverage.",
+          "relevant_timestamp": "Patterns in backward flow",
+          "locator_url": "https://cs231n.github.io/optimization-2/#patterns-in-backward-flow"
+        },
+        {
+          "id": "karpathy-micrograd",
+          "title": "micrograd: A tiny scalar-valued autograd engine",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/micrograd",
+          "version_or_verification_date": "Git commit master (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external linking to MIT-licensed open source repository.",
+          "prerequisites": "Python object-oriented programming and operator overloading from Day 31.",
+          "selection_rationale": "Minimal, readable implementation of scalar autograd and MLP layers directly matched to our project.",
+          "compared_candidates": [
+            {
+              "candidate_name": "PyTorch autograd C++ engine",
+              "url": "https://github.com/pytorch/pytorch",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Production scale, but too large and complex for tracing by hand in introductory lessons."
+            },
+            {
+              "candidate_name": "Autograd (HIPS)",
+              "url": "https://github.com/HIPS/autograd",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Vectorized autograd; micrograd's pure scalar model is pedagogical for hand backprop."
+            }
+          ],
+          "safe_fallback": "The local projects/autograd engine is runnable offline and matches micrograd semantics.",
+          "has_unknown_subtitle_rights": true,
+          "relevant_timestamp": "micrograd/engine.py: class Value (_backward closures and backward() topological sort); README 'Example usage'"
+        }
+      ]
+    },
+    {
+      "id": "day-88-act-04",
+      "lesson_id": "les-88",
+      "title": "Assessment: Transparent Rubric Scoring and the Unmet-Criteria Ledger",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-88-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "nist-sematech-ehandbook",
+          "title": "NIST/SEMATECH e-Handbook of Statistical Methods",
+          "author": "NIST (U.S. National Institute of Standards and Technology) and SEMATECH",
+          "original_url": "https://www.itl.nist.gov/div898/handbook/",
+          "version_or_verification_date": "Current online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "NIST public information (U.S. government site; NIST/SEMATECH co-production)",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external linking to NIST public information, which NIST policy allows to be distributed or copied unless marked copyrighted; no source text is imported.",
+          "prerequisites": "High-school arithmetic; no calculus required for the descriptive sections.",
+          "selection_rationale": "Primary engineering reference for descriptive statistics, exploratory data analysis, and uncertainty quantification with worked formulas.",
+          "known_availability_limitations": "Hosted on itl.nist.gov; a U.S. government site generally accessible worldwide.",
+          "safe_fallback": "Every formula used in the lesson (mean, variance, standard error) is reproduced as original explanation; all exercises run fully offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "OpenIntro Statistics (4th edition)",
+              "url": "https://www.openintro.org/book/os/",
+              "license": "CC BY-SA 3.0",
+              "status": "compared_selected_for_day28",
+              "comparison_rationale": "Undergraduate statistics text with a stronger narrative bridge from probability to inference; retained as the second linked source for inferential framing."
+            },
+            {
+              "candidate_name": "Seeing Theory (Brown University)",
+              "url": "https://seeing-theory.brown.edu/",
+              "license": "Free web resource (site copyright)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong interactive visualizations of probability and sampling, but a browser-only interactive format is a weaker fit for an offline-capable 480-minute ledger."
+            }
+          ],
+          "relevant_timestamp": "Sections 1.3.5-1.3.6: quantitative techniques, variability, and probability distributions"
+        },
+        {
+          "id": "roediger-karpicke-2006",
+          "title": "Test-Enhanced Learning: Taking Memory Tests Improves Long-Term Retention",
+          "author": "Henry L. Roediger III, Jeffrey D. Karpicke",
+          "original_url": "https://doi.org/10.1111/j.1467-9280.2006.01693.x",
+          "version_or_verification_date": "Psychological Science, 2006 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Journal publisher copyright (all rights reserved) - lawful external linking only",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external citation of the publisher record; no text imported into curriculum materials.",
+          "prerequisites": "Basic understanding of study sessions, retention intervals, and experimental design vocabulary.",
+          "selection_rationale": "Foundational experimental evidence that retrieval practice (testing) outperforms repeated study for long-term retention; grounds the Day 88 AI-free retrieval checks in peer-reviewed learning science rather than folk advice.",
+          "known_availability_limitations": "Publisher page may be paywalled; author preprints and university repositories host lawful copies.",
+          "safe_fallback": "The curriculum restates the experimental design and effect sizes in original prose; every sealed task runs without the paper.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Cepeda et al. Distributed Practice in Verbal Recall Tasks: A Review and Quantitative Synthesis",
+              "url": "https://doi.org/10.1037/0033-2909.132.3.354",
+              "license": "Publisher copyright (APA)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong meta-analytic coverage of spacing effects but addresses scheduling rather than the retrieval effect itself; retained as support for the Day 90 spaced-review schedule."
+            },
+            {
+              "candidate_name": "Karpicke & Roediger: The Critical Importance of Retrieval for Learning (Science 2008)",
+              "url": "https://doi.org/10.1126/science.1152408",
+              "license": "Publisher copyright (AAAS)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Equally foundational follow-up demonstrating repeated retrieval vs repeated study; the 2006 paper is cited as the standard first controlled demonstration."
+            }
+          ],
+          "relevant_timestamp": "Psychological Science 17(3): 249-255, Experiments 1-2"
+        }
+      ]
+    }
+  ]
+}

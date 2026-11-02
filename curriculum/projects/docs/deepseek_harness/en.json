@@ -1,0 +1,71 @@
+{
+  "project_id": "deepseek_harness",
+  "language": "en",
+  "title": "DeepSeek Harness Agent Tool Track",
+  "overview": "A four-stage agent-assisted engineering exercise using DeepSeek Harness (dsh). This is a documentation-and-simulation track until an authorized live API run is available.",
+  "official_sources": [
+    {"name":"DeepSeek Harness README and safety notice","url":"https://github.com/deepseek-ai/deepseek-harness","use":"Official npm/source launch, plugin architecture, developer-preview warning, and safety boundary."},
+    {"name":"DeepSeek API setup","url":"https://api-docs.deepseek.com/quick_start/setting_up_the_api","use":"Official endpoints, DEEPSEEK_API_KEY, model names, and API-compatible configuration."},
+    {"name":"DeepSeek API pricing","url":"https://api-docs.deepseek.com/quick_start/pricing","use":"Provider billing, peak/off-peak token prices, and price-change warning."},
+    {"name":"DeepSeek Harness documentation","url":"https://deepseek-harness.github.io/deepseek-harness/en/guide/quickstart","use":"Harness quickstart and current configuration/plugin behavior; recheck because preview docs change."}
+  ],
+  "setup_and_access": "Check Node.js and npm, then use the official pinned package only after reviewing the current safety notice: `npx --yes @deepseek-ai/dsh@0.1.1-preview web --no-open` (or install the exact release in a disposable environment). The README currently describes `npx @deepseek-ai/dsh web` and source setup with `pnpm install`, `pnpm run build`, and `pnpm dsh web`; those commands are not evidence that this worktree ran them. Obtain a DeepSeek API key from the authorized provider account and expose it only as `DEEPSEEK_API_KEY` (never in a prompt, file, shell transcript, or commit). Access is missing here: no authorized key or paid-use approval was supplied, so no live model request, purchase, cloud rental, or external publication was attempted.",
+  "configuration": "Provider: DeepSeek API. Base URL for the official OpenAI-compatible API is `https://api.deepseek.com`; the official docs also list `https://api.deepseek.com/anthropic`. Model names and routing change: at verification time the API docs list `deepseek-flash` (served by DeepSeek-V4.1-Flash-1017) and `deepseek-v4-pro` (DeepSeek-V4-Pro-0813). Record the exact model returned by the live configuration, not a marketing alias. Harness settings are provider/model configuration, not a permission boundary. Keep the project root as the session directory, allow only the disposable fixture, and use a short timeout, low iteration limit, and explicit cost ceiling. Plugins are opt-in extensions in an everything-is-a-plugin architecture; package presence does not prove a plugin is enabled, trusted, sandboxed, or available in the selected profile. Enable no unreviewed plugin and do not infer OS isolation from the Web UI or a plugin manifest.",
+  "release_and_risk_record": "Pinned release: `@deepseek-ai/dsh@0.1.1-preview` as the course fixture pin, verified against the repository/package metadata on 2026-10-30. This is a reproducibility anchor, not a claim that the preview remains installable. The official README labels Harness a developer preview and warns of compatibility-breaking changes. Before a live attempt, record `npx @deepseek-ai/dsh --version`, resolved package version, commit or lockfile hash, provider, model, base URL, and UTC date; if any differs, stop and update the evidence. Re-check safety, plugin APIs, approval behavior, and model routing. Preview software may change commands, settings, plugin contracts, model aliases, and costs.",
+  "provider_model_plugins_and_cost": "The provider is DeepSeek API and the model must be recorded from the authorized configuration. Harness itself does not grant API quota. DeepSeek bills input and output tokens; the official pricing page at verification time lists peak/off-peak rates and says prices can change. Search/Fetch tools, if enabled by the provider and Harness version, are separately billed or may have temporary rules; confirm current pricing before enabling. Set a learner-approved hard spend limit, token/turn limit, and timeout. A plugin can add commands, tools, files, network calls, or event handlers according to its code; it is not automatically read-only or isolated. Treat plugins as code with the same review and least-privilege requirement. No claim is made here about OS containers, seccomp, network denial, credential redaction, or approval prompts because none was exercised.",
+  "requirements": [
+    "Read the official README safety notice and record the exact release, provider, model, verification date, and access state.",
+    "Use a disposable copied fixture or Git worktree containing only a small Python greeter and its test.",
+    "Give the harness only the bug report and relevant files; ask for one bounded change and no dependency, deployment, network, or credential work.",
+    "Inspect status and every diff before accepting output; run tests independently rather than trusting agent prose.",
+    "Create a deliberate failing test result, diagnose the exact failure, apply one correction, and record exit=1 then exit=0.",
+    "Label fixture/simulation evidence separately from real DeepSeek Harness evidence and disclose unavailable authorization."
+  ],
+  "workflow": [
+    "1. Prepare context: copy `projects/deepseek-harness-disposable` to a new temporary directory, read its README, source, and test only.",
+    "2. Bound the task: request that `greet()` return `Hello, <name>!` while preserving the existing test and changing only `src/greeter.py`.",
+    "3. Bound permissions: deny secrets, parent paths, deployment, package installation, network requests, and external messages. These are learner instructions, not proof that dsh enforces OS isolation.",
+    "4. Set provider/model, timeout, maximum turns, and a hard token/cost budget; stop if the UI or plugin cannot show or enforce those limits.",
+    "5. Inspect `git status --short`, `git diff -- src/greeter.py`, and `git diff --check`; reject unrelated or secret-bearing changes.",
+    "6. Run `python3 -m unittest discover -s tests -v` in the shell and keep the exit code and output. The learner, not the model, owns verification.",
+    "7. Review failure and recovery: intentionally use the wrong expected greeting, capture exit=1, explain the assertion, correct the implementation/test fixture, rerun for exit=0, and record what changed."
+  ],
+  "exercises": [
+    {"id":"setup-audit","task":"Make a setup card with official URLs, exact release/version output, provider/model, date, price page, access prerequisite, and a statement that no authorized key is available in this environment."},
+    {"id":"disposable-task","task":"In the disposable fixture, ask dsh (or use the clearly labelled deterministic substitute) to fix the greeting without changing tests or dependencies. Review the proposed diff before running it."},
+    {"id":"plugin-boundary","task":"Inspect the selected profile's plugin list. For every enabled plugin, state its code/package, files it can touch, network behavior, credentials, approval behavior, and what was actually observed. If evidence is absent, mark it unknown and disable it."},
+    {"id":"failure-correction","task":"Make the test fail deliberately, preserve exit=1 evidence, hypothesize the root cause, apply one minimal correction, rerun to exit=0, and compare the final diff with the request."}
+  ],
+  "worked_examples": [
+    "Safe evidence: `python3 -m unittest discover -s tests -v` -> exit=1 after the intentional wrong expectation; `git diff --check` is clean; then one source-line correction -> exit=0. This is a deterministic fixture run, not a dsh transcript.",
+    "Unsafe conclusion: the Web UI opened, therefore shell commands are sandboxed. Correct conclusion: only a real observed tool trace or official capability contract can support a claim; this track makes no OS-isolation claim."
+  ],
+  "reference_feedback": "A complete answer names the official source and date, distinguishes CLI/package version from model version, keeps DEEPSEEK_API_KEY out of artifacts, identifies preview compatibility risk, treats plugins as potentially powerful code, gives exact diff/test commands, and states that missing authorization blocks live acceptance. A model saying 'done' is not evidence.",
+  "debugging_cases": [
+    {"symptom":"401/invalid API key","action":"Stop; check the authorized provider account and key whitespace/expiry without printing the key. Do not substitute a random key or claim success."},
+    {"symptom":"Unknown command, package, or plugin after pinning","action":"Compare resolved version and official README; do not silently float to latest. Mark the preview incompatibility and update the pin/evidence."},
+    {"symptom":"Unexpected files, network calls, or plugin tools","action":"Stop the run, inspect `git diff` and process/network evidence, disable the plugin, restore the disposable worktree, and report the capability as unverified."},
+    {"symptom":"High or unexplained cost","action":"Cancel, record model/turns/tokens if available, check current official pricing, and require explicit authorization before another request."}
+  ],
+  "independent_mastery_checks": [
+    "Without an agent, explain why an API provider credential, Harness release, model name, plugin, and OS permission are five different claims.",
+    "Without AI assistance, interpret the recorded exit=1 assertion and write the smallest correction plus commands that prove exit=0.",
+    "Given a final diff containing a changed test, secret, and deployment script, identify each violation and write rollback commands."
+  ],
+  "agent_assisted_checks": [
+    "Direct the harness through the seven-step workflow, reject an unauthorized plugin/file/network action, review the diff, run independent tests, and submit sanitized evidence with the live-access state."
+  ],
+  "answers": [
+    "The correct live status is blocked when no authorized DEEPSEEK_API_KEY and paid-use approval exist. Documentation and a fixture cannot be upgraded into real-tool evidence.",
+    "A passing test is meaningful only with the command, exit code, unchanged assertions, and reviewed diff. `git diff --check` detects whitespace errors, not malicious or semantically wrong changes.",
+    "Harness/plugin behavior must be described from the observed version and official contract. Never claim containers, network isolation, automatic approval, or credential safety without exercising and recording that behavior."
+  ],
+  "acceptance_checklist": [
+    "Four Language Editions contain equivalent setup, configuration, task, context, permission, plugin, cost, troubleshooting, answer, and acceptance material.",
+    "The release/range, provider/model, official source URLs, verification date, preview risk, and changing-price warning are explicit.",
+    "A disposable fixture demonstrates context, diff review, tests, deliberate exit=1 failure, correction, and exit=0 success.",
+    "Evidence labels documentation/simulation versus real execution; no secret is stored; missing authorization remains an explicit live blocker.",
+    "No OS isolation or unexercised capability is claimed; plugin behavior is conditional and reviewable.",
+    "Focused structural and fixture tests pass, and the issue is resolved only for deterministic requirements."
+  ]
+}

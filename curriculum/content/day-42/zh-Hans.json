@@ -1,0 +1,170 @@
+{
+  "language": "zh-Hans",
+  "language_label": "简体中文",
+  "day_title": "第 42 天：损失、训练纪律与每周综合复习",
+  "day_subtitle": "把 softmax 概率变成交叉熵损失，观察使用固定划分与固定种子的规范训练循环，诚实面对过拟合与数值不稳定反例，再以独立的回忆评估结束本周。复习时间计入 480 分钟台账。",
+  "time_budget_label": "480 分钟主动学习时间（8 小时专注学习）",
+  "category_label": "模型与训练",
+  "common": {
+    "nav_calendar": "📅 课程日历与台账",
+    "day_label": "第 42 天",
+    "prerequisites_title": "前置要求",
+    "objective_title": "学习目标",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主演练与记录",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看参考解答与分析",
+    "mastery_title": "独立掌握标准",
+    "draft_placeholder": "在此记录你的损失计算、训练循环预测、反例推导与回忆笔记……",
+    "dev_slice_notice": "90 天 AI 学习平台的已验证正式课程模块。",
+    "sources_heading": "权威源资源与权利证明",
+    "source_author_label": "作者 / 机构",
+    "source_url_label": "原始出处链接",
+    "source_range_label": "对应章节 / 时间戳",
+    "source_verification_label": "验证版本与日期",
+    "source_reuse_label": "复用类别",
+    "source_license_label": "许可证与权利说明",
+    "source_rationale_label": "入选理由",
+    "source_prereqs_label": "来源前置条件",
+    "source_fallback_label": "安全回退方案（离线弹性）",
+    "compared_candidates_heading": "对比候选资源与选型分析",
+    "compared_status_label": "评估结论",
+    "auth": {
+      "sign_in": "使用 Google 登录",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "退出登录",
+      "signed_in_as": "已登录为",
+      "guest": "访客模式",
+      "link_github": "绑定 GitHub",
+      "link_google": "绑定 Google",
+      "linked_identities": "已绑定账号",
+      "auth_errors": {
+        "access_denied": "授权已取消或访问被拒绝。",
+        "invalid_state": "无效或已过期的授权状态令牌，请重试。",
+        "identity_conflict": "该第三方身份已被绑定至其他账号。",
+        "provider_error": "认证服务提供商发生错误。",
+        "server_error": "认证服务提供商发生错误。",
+        "session_expired": "登录会话已过期，请重新登录。"
+      }
+    },
+    "progress": {
+      "save_btn": "保存进度",
+      "saved": "已保存",
+      "saving": "正在保存...",
+      "save_error": "保存失败",
+      "offline": "离线状态",
+      "mark_completed": "标记为已完成",
+      "completed_badge": "已完成"
+    },
+    "quiz": {
+      "quiz_title": "客观知识测验：损失、训练与诚实比较",
+      "quiz_instructions": "请回答以下诊断题目检验掌握情况。提交前请诚实声明你的辅助条件。",
+      "assistance_mode_label": "声明辅助条件",
+      "mode_independent": "独立掌握检查 (无 AI 辅助)",
+      "mode_agent_assisted": "Agent 辅助工程检查 (借助 AI 完成)",
+      "mode_disclaimer": "说明：无 AI 辅助属于诚实声明条件，非平台监控或强制检测手段。",
+      "submit_btn": "提交答案",
+      "retry_btn": "重新测验",
+      "view_hint": "查看提示",
+      "mastery_criterion_label": "掌握标准",
+      "mastery_criterion_desc": "在独立掌握检查模式下获得 100% 得分（3/3 题完全正确）。",
+      "score_label": "测验得分",
+      "passed_badge": "通过",
+      "failed_badge": "未通过 (需复习)",
+      "independent_pass_badge": "独立掌握通过",
+      "agent_assisted_pass_badge": "Agent 辅助通过",
+      "self_reported_badge": "自主勾选完成",
+      "stale_badge": "历史记录 (内容已更新，需重新验证)",
+      "attempts_history_title": "作答应证与历史记录",
+      "no_attempts": "暂无测验记录。"
+    }
+  },
+  "activities": {
+    "day-42-act-01": {
+      "title": "交叉熵损失：从概率到标量惊异度",
+      "prerequisites": "第 41 天的前向传播与 softmax；自然对数。",
+      "objective": "定义负对数似然损失，对示例分布完成计算，并相对均匀基线做出解释。",
+      "assistance_policy_label": "Agent 辅助工程检查",
+      "instructions": "必做任务：目标索引 t 的损失为 L = -ln p_t。昨天的前向传播对上下文 ('a','b')（真实下一符号为 'c'，索引 3）输出 p = [0.229291, 0.209107, 0.306433, 0.255169]。计算 L，并与均匀基线 ln(4) = 1.386294 比较，判断该模型是否优于随机猜测。选做任务：换用 log2 把 L 表示成比特。",
+      "exercise_prompt": "1. L = -ln(0.255169) = ？\n2. 对 3 类别的 logit z = [1.0, 0.5, -0.5]、目标索引 0，计算 softmax 概率与 NLL。\n3. 本例中困惑度 exp(L) 意味着什么？",
+      "hint": "e^1 = 2.7183，e^0.5 = 1.6487，e^-0.5 = 0.6065，三者之和为 4.9735。困惑度是目标概率的倒数。",
+      "answer": "L = -ln(0.255169) = 1.365831 nats——仅略低于均匀基线 1.386294，未训练模型大约就是随机水平。第二个例子：p = [0.5465, 0.3315, 0.1220]，NLL = -ln(0.5465) = 0.6041。困惑度 = 1/0.255169 ~= 3.92：模型的表现等效于在约 3.9 个等可能选项中挑选，而不是 4 个。",
+      "mastery_criterion": "两个损失都算到小数点后 4 位以上，给出与均匀基线的比较，并把困惑度正确解释为有效词汇量。"
+    },
+    "day-42-act-02": {
+      "title": "训练循环观察：固定划分下的损失、梯度与更新",
+      "prerequisites": "完成上一活动；如受阻请使用列出的恢复链接。",
+      "objective": "描述一步训练（前向 → 损失 → 反向 → 更新）以及固定 train/dev/test 划分与固定种子的作用；预测损失移动方向，但不承诺任何阈值。",
+      "assistance_policy_label": "独立掌握检查",
+      "instructions": "必做任务：回忆第 34-36 天的梯度步。一次迭代取一个 (上下文, 目标) 小批量，执行前向传播，对 NLL 取平均，反向传播，然后按 p <- p - lr * dL/dp 更新全部参数。记录你预测的损失曲线形状，再说明固定的 80/10/10 train/dev/test 划分与固定种子为比较保证了什么。选做任务：预测学习率过大时曲线会怎样。",
+      "exercise_prompt": "1. 按顺序列出一步训练的四个阶段。\n2. 若 train 损失持续下降而 dev 损失上升，说明什么？\n3. 为什么固定种子与划分能让两个模型变体的比较诚实可信？",
+      "hint": "顺序：前向、标量化为一个损失、反向、更新。train/dev 背离是记忆化的经典特征。",
+      "answer": "阶段：前向传播 → 平均 NLL → 反向传播 → 参数更新 p <- p - lr * dL/dp。train 下降而 dev 上升说明模型在记忆噪声：过拟合。固定种子与划分消除了初始化与数据顺序的运气成分，因此观察到的差异反映模型本身而非洗牌。不承诺任何具体损失阈值；只主张方向与诚实的测量。",
+      "mastery_criterion": "学习者按顺序列出四个阶段，把 dev 上升解释为过拟合，并说明固定种子/划分提供可比性——不虚构损失保证。"
+    },
+    "day-42-act-03": {
+      "title": "反例：过拟合、数值不稳定与 bigram 基线",
+      "prerequisites": "完成上一活动；如受阻请使用列出的恢复链接。",
+      "objective": "构造诚实的反例：小数据上的记忆化、softmax 的 exp 溢出，以及能胜过未训练网络的简单计数基线。",
+      "assistance_policy_label": "Agent 辅助工程检查",
+      "instructions": "必做任务：三个反例。(1) 记忆化：在 4 符号玩具语料上，模型可以把 train NLL 压向 0，而 dev NLL 停在 ln(4) = 1.386294 附近。(2) 不稳定：logit [1000,999,998]——未平移的 exp 在 float64 溢出，平移后的 softmax 为 [0.665241, 0.244728, 0.090031]。(3) 基线：若语料中 'b' 之后 4 次有 3 次接 'c'，bigram 给出 p(c|b) = 0.75。选做任务：描述一种连训练好的 MLP 也会输给 bigram 的情形。",
+      "exercise_prompt": "1. 复现 logit [1000,999,998] 的平移 softmax 分布。\n2. 计算 p(c|b) = 0.75 与未见对 p = 0.25 的 bigram NLL。\n3. 写一句诚实的话，比较未训练 MLP 与 bigram 基线。",
+      "hint": "-ln(0.75) = 0.287682，-ln(0.25) = 1.386294。网络未训练时基线获胜；缩小差距靠的是学习，而这必须被证明而非假设。",
+      "answer": "平移后：exp([0,-1,-2]) = [1, 0.367879, 0.135335]，和 1.503215，p = [0.665241, 0.244728, 0.090031]。bigram NLL：见过的对 -ln(0.75) = 0.287682；未见的均匀猜测 -ln(0.25) = 1.386294。诚实比较：在它数过的上下文上，bigram 胜过未训练 MLP（0.29 < 1.37）；MLP 的优势在于对计数表从未见过的上下文的泛化，而这必须在 dev 数据上被证明，不能空口宣称。",
+      "mastery_criterion": "以正确数值复现全部三个反例，并写出同时涵盖记忆化局限与真实优势成立条件的诚实比较句。"
+    },
+    "day-42-act-04": {
+      "title": "每周综合复习：独立回忆与端到端评估",
+      "prerequisites": "完成活动 42-01 至 42-03；按需复习第 40-41 天。",
+      "objective": "无辅助回忆第 40-42 天整条流水线，重算留出上下文的损失，并为每个遗漏的知识点记录恢复链接。",
+      "assistance_policy_label": "独立掌握检查",
+      "instructions": "必做任务：合上书本。画出带全部形状的流水线：索引 → C 的行 → 拼接 → W1/b1 → tanh → W2/b2 → softmax → NLL。然后用第 41 天的概率，计算上下文 ('b','a')、真实下一符号 'a'（索引 1）的损失。完成知识测验。若有遗漏，记录你将回到第 40 天、第 41 天还是恢复链接第 35 天。选做任务：重新推导 V=27 的均匀基线。",
+      "exercise_prompt": "1. 目标索引 1 时 p = [0.290410, 0.237875, 0.220627, 0.251087] 的损失。\n2. 凭记忆重建微型模型的参数台账（合计 39）。\n3. 陈述神经语言模型诚实优于 bigram 的两个条件。",
+      "hint": "L = -ln(p[1])。台账：C + W1 + b1 + W2 + b2 = 8 + 12 + 3 + 12 + 4。想想 dev 损失与留出评估。",
+      "answer": "L = -ln(0.237875) = 1.436009 nats——高于均匀基线 1.386294，所以在该对上未训练模型比随机还差。台账：8 + 12 + 3 + 12 + 4 = 39 个参数。神经模型要胜过 bigram，仅当 (a) 训练确实把 dev 损失压到基线之下，且 (b) 评估使用固定划分与固定种子的留出数据——否则就是未被证明的宣称。",
+      "mastery_criterion": "无辅助算出损失 1.436009 并重建台账，画出形状正确的流水线，陈述诚实的优于基线的条件，并为任何缺口指定恢复链接。",
+      "quiz": {
+        "title": "客观知识测验：损失、训练与诚实比较",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "在 4 符号任务上 NLL 低于 ln(4) = 1.386294 的模型，平均而言：",
+            "options": {
+              "a": "比均匀猜测差",
+              "b": "一定在记忆",
+              "c": "给正确目标分配了高于均匀猜测的概率",
+              "d": "保证能泛化"
+            },
+            "hint": "均匀猜测给每个目标分配 p = 1/4；只比较损失方向。",
+            "explanation": "NLL 低于 ln(4) 意味着目标平均得到高于 1/4 均匀水平的概率；但这对留出数据的泛化还什么也没说。"
+          },
+          {
+            "id": "q2",
+            "prompt": "在 V=4 任务上 train NLL 接近 0 而 dev NLL 接近 1.39，最可能说明：",
+            "options": {
+              "a": "过拟合／记忆化",
+              "b": "数值下溢",
+              "c": "正确的泛化",
+              "d": "softmax 坏了"
+            },
+            "hint": "模型可以对见过的数据完美，对没见过的数据无用。",
+            "explanation": "如此大的 train/dev 差距是过拟合的经典特征：模型记住了训练对，而没有学到可迁移的结构。"
+          },
+          {
+            "id": "q3",
+            "prompt": "比较两个模型之前为什么要固定随机种子和 train/dev/test 划分？",
+            "options": {
+              "a": "让训练更快",
+              "b": "降低最终损失",
+              "c": "扩大词汇表",
+              "d": "让运行可复现、比较更诚实"
+            },
+            "hint": "如果每个模型看到不同的划分或更走运的初始化会怎样？",
+            "explanation": "固定种子与划分消除了初始化与数据顺序的运气，余下的差异才反映模型本身；这是可比性与可复现性措施，不是性能技巧。"
+          }
+        ]
+      }
+    }
+  }
+}

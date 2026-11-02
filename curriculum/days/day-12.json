@@ -1,0 +1,276 @@
+{
+  "id": "day-12",
+  "day_number": 12,
+  "active_minutes": 480,
+  "topic_category": "self-directed-learning-and-python",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-11"
+  ],
+  "recovery_links": [
+    "day-07"
+  ],
+  "activities": [
+    {
+      "id": "day-12-act-01",
+      "lesson_id": "les-12",
+      "title": "Test assertions that document behavior",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-11"
+      ],
+      "source_resources": [
+        {
+          "id": "py-docs-unittest",
+          "title": "Python Standard Library: unittest",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/unittest.html",
+          "relevant_timestamp": "Classes and functions: Test cases (TestCase assert methods)",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Normative reference for unittest.TestCase, assertEqual, assertRaises, and python -m unittest output.",
+          "known_availability_limitations": "Online Python documentation may be unavailable without internet access.",
+          "safe_fallback": "unittest ships with the interpreter, so every example runs offline; help(unittest.TestCase) documents the assert methods.",
+          "compared_candidates": [
+            {
+              "candidate_name": "pytest documentation",
+              "url": "https://docs.pytest.org/en/stable/",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong third-party runner, but it adds an installation step and its own conventions; unittest needs no environment change and is the baseline the rest of the curriculum assumes."
+            },
+            {
+              "candidate_name": "doctest — Test interactive Python examples",
+              "url": "https://docs.python.org/3/library/doctest.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Docstring-embedded examples suit tiny pure functions; unittest was selected for the structured TestCase isolation the check suites need."
+            }
+          ],
+          "license_restrictions": [],
+          "source_type": "documentation",
+          "locator_url": "https://docs.python.org/3/library/unittest.html#test-cases"
+        }
+      ]
+    },
+    {
+      "id": "day-12-act-02",
+      "lesson_id": "les-12",
+      "title": "Testing file processing with temporary fixtures",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-12-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "py-docs-unittest",
+          "title": "Python Standard Library: unittest",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/unittest.html",
+          "relevant_timestamp": "Classes and functions: Test cases (TestCase assert methods)",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Normative reference for the three-behavior fixture test suite.",
+          "known_availability_limitations": "Online Python documentation may be unavailable without internet access.",
+          "safe_fallback": "The fixture suite runs entirely on the local interpreter and temporary directories.",
+          "compared_candidates": [
+            {
+              "candidate_name": "pytest documentation",
+              "url": "https://docs.pytest.org/en/stable/",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "pytest tmp_path fixtures are elegant, but tempfile plus unittest keeps the zero-dependency guarantee for this block."
+            },
+            {
+              "candidate_name": "doctest — Test interactive Python examples",
+              "url": "https://docs.python.org/3/library/doctest.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Docstring-embedded examples suit tiny pure functions; unittest was selected for the structured TestCase isolation the check suites need."
+            }
+          ],
+          "license_restrictions": [],
+          "source_type": "documentation",
+          "locator_url": "https://docs.python.org/3/library/unittest.html#test-cases"
+        },
+        {
+          "id": "py-docs-tempfile",
+          "title": "Python Standard Library: tempfile",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/tempfile.html",
+          "relevant_timestamp": "TemporaryDirectory for disposable on-disk fixtures",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Normative reference for creating and auto-removing fixture files inside tests.",
+          "known_availability_limitations": "Online Python documentation may be unavailable without internet access.",
+          "safe_fallback": "TemporaryDirectory is part of the installed standard library and needs no page access.",
+          "compared_candidates": [
+            {
+              "candidate_name": "pytest tmp_path fixture",
+              "url": "https://docs.pytest.org/en/stable/how-to/tmp_path.html",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Equivalent capability scoped to the pytest runner; deferred until the curriculum adopts pytest."
+            },
+            {
+              "candidate_name": "io — Core tools for working with streams",
+              "url": "https://docs.python.org/3/library/io.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Lower-level file-object interface without automatic cleanup semantics; tempfile was selected for the safe scratch-file pattern the drills require."
+            }
+          ],
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ]
+    },
+    {
+      "id": "day-12-act-03",
+      "lesson_id": "les-12",
+      "title": "Diagnose a failing test before editing",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-12-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "py-docs-unittest",
+          "title": "Python Standard Library: unittest",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/unittest.html",
+          "relevant_timestamp": "Classes and functions: Test cases (TestCase assert methods)",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Normative reference for reading unittest failure reports during the code-vs-test-vs-environment triage.",
+          "known_availability_limitations": "Online Python documentation may be unavailable without internet access.",
+          "safe_fallback": "The seeded bug and its failure output reproduce locally with the installed interpreter.",
+          "compared_candidates": [
+            {
+              "candidate_name": "pytest documentation",
+              "url": "https://docs.pytest.org/en/stable/",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "pytest produces richer diffs, but the triage skill is taught on the standard runner every learner already has."
+            },
+            {
+              "candidate_name": "doctest — Test interactive Python examples",
+              "url": "https://docs.python.org/3/library/doctest.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Docstring-embedded examples suit tiny pure functions; unittest was selected for the structured TestCase isolation the check suites need."
+            }
+          ],
+          "license_restrictions": [],
+          "source_type": "documentation",
+          "locator_url": "https://docs.python.org/3/library/unittest.html#test-cases"
+        }
+      ]
+    },
+    {
+      "id": "day-12-act-04",
+      "lesson_id": "les-12",
+      "title": "Repeatable program capstone",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-12-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "py-docs-unittest",
+          "title": "Python Standard Library: unittest",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/unittest.html",
+          "relevant_timestamp": "Classes and functions: Test cases (TestCase assert methods)",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Normative reference for the discovery convention the capstone depends on.",
+          "known_availability_limitations": "Online Python documentation may be unavailable without internet access.",
+          "safe_fallback": "The capstone is a clean-directory local run with no online dependency.",
+          "compared_candidates": [
+            {
+              "candidate_name": "pytest documentation",
+              "url": "https://docs.pytest.org/en/stable/",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Kept as a future alternative runner; the capstone must pass with zero third-party installs."
+            },
+            {
+              "candidate_name": "doctest — Test interactive Python examples",
+              "url": "https://docs.python.org/3/library/doctest.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Docstring-embedded examples suit tiny pure functions; unittest was selected for the structured TestCase isolation the check suites need."
+            }
+          ],
+          "license_restrictions": [],
+          "source_type": "documentation",
+          "locator_url": "https://docs.python.org/3/library/unittest.html#test-cases"
+        },
+        {
+          "id": "py-tutorial-venv",
+          "title": "The Python Tutorial: Virtual Environments and Packages",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/venv.html",
+          "relevant_timestamp": "Section 12 (requirements files and reproducible environments)",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Reference for the requirements.txt the capstone assembles to make the program repeatable.",
+          "known_availability_limitations": "Online Python documentation may be unavailable without internet access.",
+          "safe_fallback": "The capstone requirements file only needs the standard library, so no install is required.",
+          "compared_candidates": [
+            {
+              "candidate_name": "pip documentation",
+              "url": "https://pip.pypa.io/en/stable/",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Reference for requirements syntax when the learner later adds real third-party dependencies."
+            },
+            {
+              "candidate_name": "virtualenv documentation",
+              "url": "https://virtualenv.pypa.io/en/latest/",
+              "license": "MIT License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Mature third-party environment tool with overlapping behavior; the stdlib venv tutorial was selected to avoid an extra dependency for first-time setup."
+            }
+          ],
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ]
+    }
+  ]
+}

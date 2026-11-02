@@ -1,0 +1,357 @@
+{
+  "id": "day-80",
+  "day_number": 80,
+  "active_minutes": 480,
+  "topic_category": "self-directed-learning-and-python",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-79"
+  ],
+  "recovery_links": [
+    "day-78",
+    "day-76"
+  ],
+  "activities": [
+    {
+      "id": "day-80-act-01",
+      "lesson_id": "les-80",
+      "title": "Agent Diff Inspection and the PR-Style Review Checklist",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-79"
+      ],
+      "source_resources": [
+        {
+          "id": "git-book",
+          "title": "Pro Git, Second Edition",
+          "author": "Scott Chacon and Ben Straub",
+          "original_url": "https://git-scm.com/book/en/v2",
+          "relevant_timestamp": "Chapter 3 (Git Branching), Section 7.7 (Reset Demystified), Sections 5.2/6.2 (Contributing to a Project)",
+          "version_or_verification_date": "Second edition (Apress, 2014) (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-SA 3.0",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no book text reproduced in curriculum content; reuse limited to noncommercial references consistent with CC BY-NC-SA 3.0.",
+          "prerequisites": "Basic git status/log/diff vocabulary from earlier study days",
+          "selection_rationale": "Freely licensed reference for branching, merging, conflict resolution, and safe recovery vocabulary used through the delivery workflow.",
+          "known_availability_limitations": "Readable free at git-scm.com; availability depends on the site staying online.",
+          "safe_fallback": "git help <command> and the Git manual pages ship with Git and cover the same commands offline; every required workflow is stated locally in the lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GitHub Skills interactive courses",
+              "url": "https://skills.github.com/",
+              "license": "MIT (varies by course)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Interactive but requires a GitHub account and an external service; disposable local repositories keep the exercise self-contained."
+            },
+            {
+              "candidate_name": "Atlassian Git Tutorials",
+              "url": "https://www.atlassian.com/git/tutorials",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Vendor-owned prose with no permissive license; Pro Git covers the same ground under CC BY-NC-SA."
+            }
+          ]
+        },
+        {
+          "id": "fowler-continuous-integration",
+          "title": "Continuous Integration",
+          "author": "Martin Fowler",
+          "original_url": "https://martinfowler.com/articles/continuousIntegration.html",
+          "version_or_verification_date": "Second edition web article (May 2006) (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "article",
+          "license": "All Rights Reserved (martinfowler.com)",
+          "license_restrictions": [
+            "Article is linked, not copied; pipeline practice uses the repository's own runner"
+          ],
+          "permission_basis": "Lawful external linking to a freely accessible web article; no text is imported into curriculum materials.",
+          "prerequisites": "Version control basics, automated test suites, and build vocabulary.",
+          "selection_rationale": "Standard practitioner reference defining the CI contract this block rehearses: every change merges to a mainline verified by an automated build and test run, and failures are fixed before further work proceeds.",
+          "known_availability_limitations": "Publicly hosted on martinfowler.com; long-term availability not guaranteed.",
+          "safe_fallback": "The CI gate contract (lint, test, package, verdict) is executed locally by scripts/ci_practice_runner.py with no external dependency.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GitHub Actions Documentation",
+              "url": "https://docs.github.com/en/actions",
+              "license": "CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Provider-specific workflow syntax; Fowler's article states the vendor-neutral CI discipline the learner must internalize first, while the docs are kept as the pipeline-mechanics source."
+            },
+            {
+              "candidate_name": "Atlassian Continuous Integration Guide",
+              "url": "https://www.atlassian.com/continuous-delivery/continuous-integration",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Vendor-oriented tutorial; Fowler's original definition keeps the explanation tool-agnostic and historically important."
+            }
+          ],
+          "relevant_timestamp": "Practices of Continuous Integration: Everyone can see what's happening"
+        }
+      ]
+    },
+    {
+      "id": "day-80-act-02",
+      "lesson_id": "les-80",
+      "title": "Independent Verification Tests at the Public Seam",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-80-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "fowler-continuous-integration",
+          "title": "Continuous Integration",
+          "author": "Martin Fowler",
+          "original_url": "https://martinfowler.com/articles/continuousIntegration.html",
+          "version_or_verification_date": "Second edition web article (May 2006) (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "article",
+          "license": "All Rights Reserved (martinfowler.com)",
+          "license_restrictions": [
+            "Article is linked, not copied; pipeline practice uses the repository's own runner"
+          ],
+          "permission_basis": "Lawful external linking to a freely accessible web article; no text is imported into curriculum materials.",
+          "prerequisites": "Version control basics, automated test suites, and build vocabulary.",
+          "selection_rationale": "Standard practitioner reference defining the CI contract this block rehearses: every change merges to a mainline verified by an automated build and test run, and failures are fixed before further work proceeds.",
+          "known_availability_limitations": "Publicly hosted on martinfowler.com; long-term availability not guaranteed.",
+          "safe_fallback": "The CI gate contract (lint, test, package, verdict) is executed locally by scripts/ci_practice_runner.py with no external dependency.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GitHub Actions Documentation",
+              "url": "https://docs.github.com/en/actions",
+              "license": "CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Provider-specific workflow syntax; Fowler's article states the vendor-neutral CI discipline the learner must internalize first, while the docs are kept as the pipeline-mechanics source."
+            },
+            {
+              "candidate_name": "Atlassian Continuous Integration Guide",
+              "url": "https://www.atlassian.com/continuous-delivery/continuous-integration",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Vendor-oriented tutorial; Fowler's original definition keeps the explanation tool-agnostic and historically important."
+            }
+          ],
+          "relevant_timestamp": "Practices of Continuous Integration: Make the Build Self-Testing; Fix Broken Builds Immediately"
+        },
+        {
+          "id": "jimenez-swe-bench-2024",
+          "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+          "author": "Carlos E. Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir Press, Karthik R. Narasimhan",
+          "original_url": "https://arxiv.org/abs/2310.06770",
+          "version_or_verification_date": "ICLR 2024 / arXiv:2310.06770v3 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Unit testing, issue descriptions, and repository evaluation vocabulary.",
+          "selection_rationale": "Defines the standard pattern this block teaches: a bounded issue statement paired with executable fail-to-pass tests as verifiable acceptance criteria for agent-produced changes.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "The acceptance-criteria pattern is exercised locally through the Ticket 22 fixture scorer and the Ticket 24 regression exercise without external datasets.",
+          "compared_candidates": [
+            {
+              "candidate_name": "HumanEval: Evaluating Large Language Models Trained on Code",
+              "url": "https://arxiv.org/abs/2107.03374",
+              "license": "arXiv non-exclusive license / Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Function-level synthesis benchmark; SWE-bench models the repository-scoped issue-to-diff workflow that this delivery block rehearses."
+            },
+            {
+              "candidate_name": "Multi-SWE-bench: A Multilingual Benchmark for Issue Resolving",
+              "url": "https://arxiv.org/abs/2504.02605",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Extends issue resolution to multiple programming languages; the original Python-centric SWE-bench provides a cleaner pedagogical anchor."
+            }
+          ],
+          "relevant_timestamp": "Appendix A.3 Execution-Based Validation"
+        }
+      ]
+    },
+    {
+      "id": "day-80-act-03",
+      "lesson_id": "les-80",
+      "title": "The Failing Agent Change: CI Diagnosis and Corrected Resubmission",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-80-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "github-actions-docs",
+          "title": "GitHub Actions Documentation",
+          "author": "GitHub, Inc.",
+          "original_url": "https://docs.github.com/en/actions",
+          "version_or_verification_date": "GitHub Docs continuous publication (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "GitHub product documentation published under Creative Commons Attribution 4.0; the curriculum links to it and paraphrases concepts without importing text.",
+          "prerequisites": "YAML familiarity, shell commands, and Git hosting vocabulary.",
+          "selection_rationale": "Primary reference for pipeline stages, required status checks, and branch protection mechanics that the local CI practice runner mirrors in a disposable environment.",
+          "known_availability_limitations": "Public documentation site; exact workflow syntax evolves with the product.",
+          "safe_fallback": "Pipeline stage semantics (lint, test, package, deploy gate) are exercised offline by scripts/ci_practice_runner.py; no GitHub account or push authorization is required for the practice.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GitLab CI/CD Documentation",
+              "url": "https://docs.gitlab.com/ee/ci/",
+              "license": "CC BY-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Equivalent pipeline concepts under a different provider; GitHub Actions matches the hosted-workflow conventions used in this project's delivery story."
+            },
+            {
+              "candidate_name": "Jenkins User Documentation",
+              "url": "https://www.jenkins.io/doc/",
+              "license": "CC BY-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Self-hosted CI server documentation; GitHub Actions better matches the hosted pipeline model the learner will meet first."
+            }
+          ],
+          "locator_status": "whole_source_reference"
+        },
+        {
+          "id": "fowler-continuous-integration",
+          "title": "Continuous Integration",
+          "author": "Martin Fowler",
+          "original_url": "https://martinfowler.com/articles/continuousIntegration.html",
+          "version_or_verification_date": "Second edition web article (May 2006) (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "article",
+          "license": "All Rights Reserved (martinfowler.com)",
+          "license_restrictions": [
+            "Article is linked, not copied; pipeline practice uses the repository's own runner"
+          ],
+          "permission_basis": "Lawful external linking to a freely accessible web article; no text is imported into curriculum materials.",
+          "prerequisites": "Version control basics, automated test suites, and build vocabulary.",
+          "selection_rationale": "Standard practitioner reference defining the CI contract this block rehearses: every change merges to a mainline verified by an automated build and test run, and failures are fixed before further work proceeds.",
+          "known_availability_limitations": "Publicly hosted on martinfowler.com; long-term availability not guaranteed.",
+          "safe_fallback": "The CI gate contract (lint, test, package, verdict) is executed locally by scripts/ci_practice_runner.py with no external dependency.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GitHub Actions Documentation",
+              "url": "https://docs.github.com/en/actions",
+              "license": "CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Provider-specific workflow syntax; Fowler's article states the vendor-neutral CI discipline the learner must internalize first, while the docs are kept as the pipeline-mechanics source."
+            },
+            {
+              "candidate_name": "Atlassian Continuous Integration Guide",
+              "url": "https://www.atlassian.com/continuous-delivery/continuous-integration",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Vendor-oriented tutorial; Fowler's original definition keeps the explanation tool-agnostic and historically important."
+            }
+          ],
+          "relevant_timestamp": "Practices of Continuous Integration: Make the Build Self-Testing; Fix Broken Builds Immediately"
+        }
+      ]
+    },
+    {
+      "id": "day-80-act-04",
+      "lesson_id": "les-80",
+      "title": "Assessment: Review Verdict and Merge Decision with Evidence",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-80-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "git-book",
+          "title": "Pro Git, Second Edition",
+          "author": "Scott Chacon and Ben Straub",
+          "original_url": "https://git-scm.com/book/en/v2",
+          "relevant_timestamp": "Chapter 3 (Git Branching), Section 7.7 (Reset Demystified), Sections 5.2/6.2 (Contributing to a Project)",
+          "version_or_verification_date": "Second edition (Apress, 2014) (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-SA 3.0",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no book text reproduced in curriculum content; reuse limited to noncommercial references consistent with CC BY-NC-SA 3.0.",
+          "prerequisites": "Basic git status/log/diff vocabulary from earlier study days",
+          "selection_rationale": "Freely licensed reference for branching, merging, conflict resolution, and safe recovery vocabulary used through the delivery workflow.",
+          "known_availability_limitations": "Readable free at git-scm.com; availability depends on the site staying online.",
+          "safe_fallback": "git help <command> and the Git manual pages ship with Git and cover the same commands offline; every required workflow is stated locally in the lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GitHub Skills interactive courses",
+              "url": "https://skills.github.com/",
+              "license": "MIT (varies by course)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Interactive but requires a GitHub account and an external service; disposable local repositories keep the exercise self-contained."
+            },
+            {
+              "candidate_name": "Atlassian Git Tutorials",
+              "url": "https://www.atlassian.com/git/tutorials",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Vendor-owned prose with no permissive license; Pro Git covers the same ground under CC BY-NC-SA."
+            }
+          ]
+        },
+        {
+          "id": "yang-swe-agent-2024",
+          "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+          "author": "John Yang, Carlos E. Jimenez, Alexander Wettig, Kilian Lieret, Shunyu Yao, Karthik Narasimhan, Ofir Press",
+          "original_url": "https://arxiv.org/abs/2405.15793",
+          "version_or_verification_date": "NeurIPS 2024 / arXiv:2405.15793v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Agent loops, tool protocols, and basic software engineering workflow vocabulary.",
+          "selection_rationale": "Primary literature on agent-computer interfaces showing that bounded tool commands, trajectory inspection, and environment constraints determine whether an agent can carry an engineering task to verifiable completion.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "The permission/budget control profile, tool contract schema, and trace audit procedure are fully implemented in the local bounded agent fixture (projects/agent_learning).",
+          "compared_candidates": [
+            {
+              "candidate_name": "OpenHands: An Open Platform for AI Software Developers as Generalist Agents",
+              "url": "https://arxiv.org/abs/2407.16741",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Broader generalist agent platform; SWE-agent isolates the agent-computer interface design principles most relevant to bounded task delivery."
+            },
+            {
+              "candidate_name": "AutoCodeRover: Autonomous Program Improvement",
+              "url": "https://arxiv.org/abs/2404.05427",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Focuses on autonomous program repair via code search; SWE-agent better matches the curriculum's bounded-tool and human-verification emphasis."
+            }
+          ],
+          "relevant_timestamp": "Appendix B.4 Failure Modes"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 35: Backpropagation by Hand and Gradient Flow",
+  "day_subtitle": "Derive every parameter gradient of the 2-2-1 network N1 with the chain rule, match each value against the scalar autograd engine, measure saturation and depth effects on gradient magnitude, and consolidate Days 31-34 with spaced retrieval.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Models, Pretraining & LoRA",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "day_label": "Day 35",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Enter your chain-rule derivation, intermediate delta values, and gradient measurements here...",
+    "dev_slice_notice": "Verified curriculum module for the 90-Day AI Learning Platform.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account.",
+        "provider_error": "Authentication provider encountered an error.",
+        "server_error": "Authentication provider encountered an error.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    },
+    "quiz": {
+      "quiz_title": "Objective Knowledge Check: Backprop Derivation & Gradient Flow",
+      "quiz_instructions": "Answer the following questions to verify your understanding. Select your declared assistance condition before submitting.",
+      "assistance_mode_label": "Declared Assistance Condition",
+      "mode_independent": "Independent Mastery Check (No AI assistance)",
+      "mode_agent_assisted": "Agent-Assisted Engineering Check (Completed with AI assistance)",
+      "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+      "submit_btn": "Submit Answers",
+      "retry_btn": "Retry Quiz",
+      "view_hint": "Question Hint",
+      "mastery_criterion_label": "Mastery Criterion",
+      "mastery_criterion_desc": "Score 100% (3/3 correct) on an Independent Mastery Check.",
+      "score_label": "Score",
+      "passed_badge": "Passed",
+      "failed_badge": "Needs Review",
+      "independent_pass_badge": "Independent Mastery Verified",
+      "agent_assisted_pass_badge": "Agent-Assisted Verified",
+      "self_reported_badge": "Self-Reported Checkbox",
+      "stale_badge": "Historical (Revalidation Needed - Content Revision Changed)",
+      "attempts_history_title": "Attempt History & Evidence",
+      "no_attempts": "No attempts recorded yet."
+    }
+  },
+  "activities": {
+    "day-35-act-01": {
+      "title": "Backpropagation by Hand: Output-Layer Error Term and Parameter Gradients",
+      "prerequisites": "Day 34 forward ledger for network N1 ($o = 3.1255$, $L = 4.5179$).",
+      "objective": "Apply the chain rule in staged form to the output layer of N1: define the error term $\\delta = \\partial L / \\partial o$, then compute $\\partial L / \\partial w_{o1}$, $\\partial L / \\partial w_{o2}$, and $\\partial L / \\partial b_o$ as upstream-times-local products.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Work the derivation symbolically first, then substitute numbers.\n\nFor the linear output neuron $o = w_{o1} a_1 + w_{o2} a_2 + b_o$ and loss $L = (o - y)^2$:\n\n1. Output error term: $\\delta_o = \\frac{\\partial L}{\\partial o} = 2(o - y)$.\n2. Local input gradients: $\\frac{\\partial o}{\\partial a_1} = w_{o1}$, $\\frac{\\partial o}{\\partial a_2} = w_{o2}$.\n3. Local parameter gradients: $\\frac{\\partial o}{\\partial w_{o1}} = a_1$, $\\frac{\\partial o}{\\partial w_{o2}} = a_2$, $\\frac{\\partial o}{\\partial b_o} = 1$.\n4. Chain rule: every parameter gradient equals upstream $\\delta_o$ times the local derivative: $\\frac{\\partial L}{\\partial w_{o1}} = \\delta_o \\cdot a_1$.\n\nSubstitute the Day 34 ledger values $o = 3.1255$, $a_1 = 0.8741$, $a_2 = -0.9757$ and predict the three output-layer gradients before checking the answer.",
+      "exercise_prompt": "1. Derive $\\delta_o$ symbolically for $L = (o - y)^2$.\n2. Compute the numeric values of $\\partial L / \\partial w_{o1}$, $\\partial L / \\partial w_{o2}$, $\\partial L / \\partial b_o$.\n3. Explain why the bias gradient always equals $\\delta_o$ for a linear unit.\n4. State which activation the gradient into hidden neuron $h_1$ must still pass through.",
+      "hint": "$\\delta_o = 2(3.1255 - 1.0) = 4.2511$. The product rule for $o = w_{o1} a_1 + \\cdots$ makes each weight gradient proportional to the activation it multiplies. Bias multiplies nothing, so its local derivative is exactly $1$.",
+      "answer": "Reference Solution:\n1. $\\delta_o = 2(o - y) = 4.2511$.\n2. $\\partial L / \\partial w_{o1} = 4.2511 \\times 0.8741 = 3.7157$; $\\partial L / \\partial w_{o2} = 4.2511 \\times (-0.9757) = -4.1480$; $\\partial L / \\partial b_o = 4.2511 \\times 1 = 4.2511$.\n3. Because $o = \\cdots + 1 \\cdot b_o$, the local derivative $\\partial o / \\partial b_o = 1$, so the bias gradient inherits the full upstream delta.\n4. The gradient reaching $a_1$ is $\\delta_o \\cdot w_{o1} = 4.2511$; it must still multiply through $\\tanh'(z_1) = 1 - a_1^2$ to reach $z_1$.",
+      "mastery_criterion": "The learner reproduces all three output-layer gradients within $10^{-3}$ of the engine values ($3.7157$, $-4.1480$, $4.2511$) and explains the upstream-times-local structure without looking at the answer."
+    },
+    "day-35-act-02": {
+      "title": "Hidden-Layer Backprop: Completing All Nine Parameter Gradients by Hand",
+      "prerequisites": "Output-layer deltas from Activity 35-01.",
+      "objective": "Propagate the error term through the hidden layer: compute $\\delta_{z_1} = (\\delta_o \\cdot w_{o1}) \\cdot (1 - a_1^2)$ and $\\delta_{z_2} = (\\delta_o \\cdot w_{o2}) \\cdot (1 - a_2^2)$, then finish all six remaining parameter gradients and verify the complete set against `loss.backward()`.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Continue the staged derivation into the hidden layer without assistance.\n\nThe chain rule for hidden neuron $h_1$:\n\n1. Gradient into the activation: $\\frac{\\partial L}{\\partial a_1} = \\delta_o \\cdot w_{o1} = 4.2511 \\times 1.0 = 4.2511$.\n2. Through the activation: $\\delta_{z_1} = \\frac{\\partial L}{\\partial a_1} \\cdot \\frac{\\partial a_1}{\\partial z_1} = 4.2511 \\times (1 - 0.8741^2) = 4.2511 \\times 0.2360$.\n3. Hidden weight gradients: $\\frac{\\partial L}{\\partial w_{11}} = \\delta_{z_1} \\cdot x_1$, $\\frac{\\partial L}{\\partial w_{12}} = \\delta_{z_1} \\cdot x_2$, $\\frac{\\partial L}{\\partial b_1} = \\delta_{z_1}$.\n\nRepeat for $h_2$ with $w_{o2} = -2.0$ and $1 - a_2^2 = 0.0479$.\n\nThen verify all nine values:\n\n```bash\npython3 - <<'EOF'\nimport sys; sys.path.insert(0, '.')\nfrom projects.autograd.engine import Value\nx1, x2 = Value(2.0), Value(-1.0)\nW = [Value(v) for v in (0.5,-0.25,0.1, -0.5,1.0,-0.2, 1.0,-2.0,0.3)]\na1 = (x1*W[0] + x2*W[1] + W[2]).tanh()\na2 = (x1*W[3] + x2*W[4] + W[5]).tanh()\nloss = (a1*W[6] + a2*W[7] + W[8] - 1.0)**2\nloss.backward()\nprint([round(w.grad, 4) for w in W])\nEOF\n```",
+      "exercise_prompt": "Produce the complete nine-gradient table for N1 ($w_{11}, w_{12}, b_1, w_{21}, w_{22}, b_2, w_{o1}, w_{o2}, b_o$), showing for each hidden weight the three factors upstream $\\times$ activation-derivative $\\times$ local-input, and mark every value the engine confirmed.",
+      "hint": "$\\delta_{z_1} = 4.2511 \\times 0.2360 \\approx 1.0034$ and $\\delta_{z_2} = -8.5022 \\times 0.0479 \\approx -0.4075$. Hidden weight gradients then multiply by the inputs $x_1 = 2.0$ and $x_2 = -1.0$ — watch the signs.",
+      "answer": "Reference gradient table:\n| param | factors | value |\n| --- | --- | --- |\n| $w_{o1}$ | $4.2511 \\times 0.8741$ | $3.7157$ |\n| $w_{o2}$ | $4.2511 \\times (-0.9757)$ | $-4.1480$ |\n| $b_o$ | $4.2511 \\times 1$ | $4.2511$ |\n| $w_{11}$ | $4.2511 \\times 0.2360 \\times 2.0$ | $2.0068$ |\n| $w_{12}$ | $4.2511 \\times 0.2360 \\times (-1.0)$ | $-1.0034$ |\n| $b_1$ | $4.2511 \\times 0.2360 \\times 1$ | $1.0034$ |\n| $w_{21}$ | $-8.5022 \\times 0.0479 \\times 2.0$ | $-0.8149$ |\n| $w_{22}$ | $-8.5022 \\times 0.0479 \\times (-1.0)$ | $0.4075$ |\n| $b_2$ | $-8.5022 \\times 0.0479 \\times 1$ | $-0.4075$ |\n\nEvery value matches `loss.backward()` to 4 decimals. Note how $\\tanh'(z_2) = 0.0479$ shrinks the second neuron's gradients — an early preview of saturation.",
+      "mastery_criterion": "All nine hand-derived gradients match the engine within $10^{-3}$, the three-factor structure is shown for hidden weights, and the sign of $w_{12}$ and $w_{22}$ is correct."
+    },
+    "day-35-act-03": {
+      "title": "Gradient Flow, Saturation, Vanishing Intuition, and Spaced Retrieval",
+      "prerequisites": "Completed nine-gradient derivation from Activity 35-02.",
+      "objective": "Measure how activation saturation and network depth shrink gradients: quantify $\\tanh'(z)$ at large $|z|$, bound the gradient factor of a 10-layer $\\tanh$ chain with weights $0.5$, and connect both observations to the vanishing-gradient phenomenon.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Run two measurements, then do closed-book retrieval of Days 31-34.\n\nMeasurement A — saturation:\n```bash\npython3 - <<'EOF'\nimport sys; sys.path.insert(0, '.')\nfrom projects.autograd.engine import Value\nfor z0 in (4.0, 8.0):\n    z = Value(z0); a = z.tanh(); a.backward()\n    print(z0, round(a.data, 6), z.grad)\nEOF\n```\nEach extra saturated layer multiplies the flowing gradient by $\\tanh'(z) = 1 - \\tanh^2(z)$.\n\nMeasurement B — depth: a chain of ten $\\tanh$ neurons with weight $w = 0.5$ contributes a per-layer factor $w \\cdot \\tanh'(z_i) \\le 0.5$, so the gradient reaching the first layer is bounded by $0.5^{10}$.\n\nRetrieval (closed book, then check the earlier days): state why `+=` is required in `_backward`, what a topological sort guarantees, the shared-node gradient $\\partial f/\\partial a$ for $f = (a+b)a$ at $(3,4)$, and N1's forward values.",
+      "exercise_prompt": "1. Record $\\tanh'(4)$ and $\\tanh'(8)$ from Measurement A and explain the implication for a neuron whose pre-activation drifts to $|z| = 8$.\n2. Compute the numeric bound $0.5^{10}$ and interpret it as the gradient reaching the earliest layer of a ten-layer chain.\n3. Retrieval: without notes, write the four facts listed in the instructions; mark any you had to look up for spaced-review planning.",
+      "hint": "At $z = 8$, $\\tanh(z) \\approx 1.0000$, so $1 - \\tanh^2(z)$ collapses toward zero. For the bound, $0.5^{10} = 1/1024$.",
+      "answer": "Reference results:\n1. $\\tanh'(4) \\approx 1.34 \\times 10^{-3}$ and $\\tanh'(8) \\approx 4.5 \\times 10^{-7}$: a neuron driven to $|z| = 8$ passes less than one millionth of its incoming gradient — it is saturated and effectively stops learning until the input range shrinks.\n2. $0.5^{10} = 9.77 \\times 10^{-4}$: even with unsaturated activations, multiplying ten factors of magnitude $\\le 0.5$ leaves under $0.1\\%$ of the original gradient at the earliest layer — the vanishing-gradient mechanism in one line.\n3. Retrieval key: `+=` accumulates contributions from every consumer path (shared nodes); the topological order guarantees a node's `_backward` runs only after all downstream contributions arrive; $\\partial f/\\partial a = 10$ ($7$ direct $+ 3$ shared); N1 forward: $a_1 = 0.8741$, $a_2 = -0.9757$, $o = 3.1255$, $L = 4.5179$.",
+      "mastery_criterion": "The learner reports both measured factors with correct orders of magnitude, states the $0.5^{10}$ bound, and completes retrieval of the four earlier-day facts with any gaps honestly marked for review."
+    },
+    "day-35-act-04": {
+      "title": "Consolidation Review: Independent Backprop Derivation and Block Retrieval",
+      "prerequisites": "Activities 35-01 through 35-03.",
+      "objective": "Consolidate Days 31-35: re-derive the complete N1 gradient set on a fresh example input without notes, connect the scalar derivation to the vector-Jacobian product view used by production frameworks, and pass the objective quiz unassisted.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Independent review protocol: (a) closed-book, redo the full nine-gradient derivation for N1 on input $x = (1.0, 1.0)$ (forward values from Day 34 act-04: $a_1 = 0.3364$, $a_2 = 0.2913$, $o = 0.0538$); (b) write the VJP formulation $\\mathbf{v}^T J$ and name its scalar counterpart; (c) take the objective quiz in Independent mode; (d) plan one recovery link per missed idea.",
+      "exercise_prompt": "1. Recompute all nine N1 gradients for input $(1.0, 1.0)$: start from $\\delta_o = 2(o - 1.0) = 2(0.0538 - 1.0) = -1.8925$.\n2. State the four fundamental backpropagation equations in delta form ($\\delta^L$, $\\delta^l$, $\\partial L/\\partial b$, $\\partial L/\\partial w$) in your own notation.\n3. Complete the 3-question objective quiz at 100% in Independent mode.",
+      "hint": "The structure is unchanged: $\\delta_o = -1.8925$; activation derivatives $1 - 0.3364^2 = 0.8869$ and $1 - 0.2913^2 = 0.9151$; hidden gradients multiply by the new inputs $x_1 = x_2 = 1.0$.",
+      "answer": "Reference Solution:\n1. $\\delta_o = -1.8925$; output layer: $w_{o1}\\!:\\ -1.8925 \\times 0.3364 = -0.6366$, $w_{o2}\\!:\\ -1.8925 \\times 0.2913 = -0.5513$, $b_o\\!:\\ -1.8925$. Hidden deltas: $\\delta_{z_1} = -1.8925 \\times 0.8869 = -1.6784$, $\\delta_{z_2} = (-1.8925 \\times -2.0) \\times 0.9151 = 3.4638$. Hidden weights: $w_{11} = w_{12} = -1.6784$, $b_1 = -1.6784$; $w_{21} = w_{22} = 3.4638$, $b_2 = 3.4638$ (inputs are both $1.0$).\n2. $\\delta^L = \\nabla_a L \\odot \\sigma'(z^L)$; $\\delta^l = (W^{l+1})^T \\delta^{l+1} \\odot \\sigma'(z^l)$; $\\partial L/\\partial b^l = \\delta^l$; $\\partial L/\\partial w^l = \\delta^l (a^{l-1})^T$.\n3. The engine confirms every value; the quiz covers delta structure, saturation, and accumulation.",
+      "mastery_criterion": "Independent re-derivation on the new input matches engine gradients within $10^{-3}$ (spot values: $b_o = -1.8925$, $b_1 = -1.6784$, $b_2 = 3.4638$), the four delta equations are stated correctly, and the quiz is passed at 100% independently.",
+      "quiz": {
+        "title": "Objective Knowledge Check: Backprop Derivation & Gradient Flow",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "In the hidden-layer recurrence $\\delta^l = (W^{l+1})^T \\delta^{l+1} \\odot \\sigma'(z^l)$, what does the operator $\\odot$ denote?",
+            "options": {
+              "a": "Matrix multiplication",
+              "b": "Elementwise (Hadamard) multiplication",
+              "c": "Convolution",
+              "d": "Outer product"
+            },
+            "hint": "Each neuron's delta is scaled by its own activation derivative.",
+            "explanation": "$\\odot$ is the elementwise product: every component of the backpropagated delta vector is multiplied by the matching neuron's local derivative $\\sigma'(z_j^l)$."
+          },
+          {
+            "id": "q2",
+            "prompt": "Measured on the engine, $\\tanh'(8) = 1 - \\tanh^2(8)$ is approximately:",
+            "options": {
+              "a": "$1.0$",
+              "b": "$0.5$",
+              "c": "$0.05$",
+              "d": "$4.5 \\times 10^{-7}$"
+            },
+            "hint": "$\\tanh(8)$ is already $1.0000$ to four decimals.",
+            "explanation": "$\\tanh(8) \\approx 0.9999998$, so $1 - \\tanh^2(8) \\approx 4.5 \\times 10^{-7}$: a saturated neuron passes almost none of its incoming gradient."
+          },
+          {
+            "id": "q3",
+            "prompt": "Why must a gradient reaching a shared node accumulate contributions from every downstream path?",
+            "options": {
+              "a": "The multivariable chain rule defines the total derivative as the sum over all paths through the node.",
+              "b": "Accumulation compensates for floating-point rounding error.",
+              "c": "GPU kernels cannot write the same memory twice.",
+              "d": "It does not — the last contribution is the correct one."
+            },
+            "hint": "Recall $f = (a + b) \\cdot a$ and the two routes from $f$ back to $a$.",
+            "explanation": "When a value feeds several consumers, its total derivative is the sum of the partial contributions along each path — exactly what `grad +=` implements in the engine's backward closures."
+          }
+        ]
+      }
+    }
+  }
+}

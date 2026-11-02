@@ -1,0 +1,285 @@
+{
+  "language": "ja",
+  "language_label": "日本語",
+  "day_title": "Day 09: リスト、辞書、頻度の集計、安全な Git の回復",
+  "day_subtitle": "新しい内容：リストと辞書、文字の頻度の集計（空・繰り返し・Unicode コードポイントの場合）、未コミットの編集の破棄とコミット済みの変更の取り消し（revert）の違い、そしてテキスト統計の独立実装。間隔をあけた復習として Day 08 の不変条件と Day 05 のエイリアスを再利用する。",
+  "time_budget_label": "480 分（8 時間の集中学習）",
+  "category_label": "自律学習と Python",
+  "common": {
+    "nav_calendar": "カリキュラムカレンダー",
+    "day_label": "学習日 09",
+    "prerequisites_title": "前提条件",
+    "objective_title": "学習目標",
+    "instructions_title": "手順",
+    "exercise_title": "演習と予測記録",
+    "hint_title": "ヒントを見る",
+    "reveal_answer": "参考解答とトレースを見る",
+    "mastery_title": "独立習得基準",
+    "draft_placeholder": "予測、実際の出力、振り返り、回復の証拠をここに記録...",
+    "sources_heading": "出典リソースと来歴",
+    "source_author_label": "著者・提供機関",
+    "source_url_label": "オリジナル出所URL",
+    "source_range_label": "該当セクション・タイムスタンプ",
+    "source_verification_label": "検証バージョンと日付",
+    "source_rationale_label": "選定理由",
+    "source_prereqs_label": "ソース前提知識",
+    "source_fallback_label": "安全フォールバック（オフライン回復性）",
+    "compared_candidates_heading": "比較対象候補リソースと選定評価"
+  },
+  "activities": {
+    "day-09-act-01": {
+      "source_resources": [
+        {
+          "id": "automate-boring-stuff-3e",
+          "title": "Automate the Boring Stuff with Python, 3rd edition",
+          "author": "Al Sweigart",
+          "original_url": "https://automatetheboringstuff.com/3e/",
+          "relevant_timestamp": "Chapter 6; Practice Questions; Appendix B answers",
+          "version_or_verification_date": "Public edition checked 2026-11-01; moving pages may change",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Copyright Al Sweigart; edition-specific reuse terms unverified",
+          "license_restrictions": [
+            "linking only; no reproduction"
+          ],
+          "permission_basis": "External hyperlink only; no third-party prose, exercises, code or translations are imported.",
+          "prerequisites": "No prior programming required for Chapter 1; later chapters assume its basic Python concepts.",
+          "selection_rationale": "Beginner teaching and answer-keyed practice before checking exact semantics in the Python reference; selected chapters only, not the book's entire automation stack.",
+          "known_availability_limitations": "Free HTML; external website may be unavailable. Exact third-edition redistribution terms have not been verified, so no reuse permission is claimed.",
+          "safe_fallback": "Use the original localized explanations, exercises and checks already present in this activity; no external account or purchase is required for that fallback.",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Tutorial",
+              "url": "https://docs.python.org/3/tutorial/",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Guided Python syntax but assumes programming familiarity; paired with the beginner text rather than used as its replacement."
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Lectures and problem sets teach a broader CS1 course; the book offers shorter text-first entry and an answer appendix."
+            }
+          ],
+          "locator_url": "https://automatetheboringstuff.com/3e/chapter6.html"
+        },
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2〜4.10 節（for、range、関数の定義）。データ構造は同じチュートリアルの第 5 章",
+          "version_or_verification_date": "Python 3.12 ドキュメント（確認日: 2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Python の反復処理、関数、コンテナを確認するための一次資料。",
+          "safe_fallback": "必要な動作はすべて教材内で説明しているため、オフラインでも完了できます。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ構文を文法レベルで定義するリファレンスです。段階を追って学べる構成のため、チュートリアルの章を選びました。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ制御フローを講義のペースで扱う教材です。本カリキュラムではターミナルでの演習を通じて概念を扱っているため、採用を見送りました。"
+            }
+          ],
+          "prerequisites": "Day 01〜06 の Python の式とファイルシステムの基礎",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "リストと辞書：順序付きの要素とキーと値による集計",
+      "prerequisites": "Day 08（独立チェックを含む）を修了していること。回復先：Day 08（ループと不変条件）、Day 07 活動 1（変更と再束縛）。このブロックの復習日は Day 07。",
+      "objective": "リストと辞書を作って更新し、所属を調べ、存在しないキーを get で安全に読み、2 つの名前が同じリストを指すときのエイリアスを、空や Unicode の場合も含めて予測する。",
+      "assistance_policy_label": "エージェント支援の演習：まず自分の予測と実際の出力を記録すること。その後に限り AI エージェントに説明やレビューを頼んでよく、受けた支援は証拠に必ず記録する。",
+      "instructions": "参照資料: この活動に割り当てられた既存の読解・練習時間内で、Automate the Boring Stuff with Python, 3rd edition の Chapter 6; Practice Questions; Appendix B answers を参照し、ローカル課題とのつながりを一つ自分の言葉で説明する。既存の演習と合格基準は維持し、外部資料が開けない場合は本コース独自の説明を使う。**間隔をあけた復習のウォームアップ：** Day 08 の数える処理の不変条件を記憶から述べ、a = [1]; b = a; a.append(2) で b が変わる理由を説明する。今日はリストで同じエイリアスを見る。\n\n**新しい考え方：** list(text) はコードポイントのリストを返す。リストは要素の順序を保ち、append は末尾に追加する。辞書はキーを値に対応づける。d[key] = value は追加または置き換え、key in d はキーの有無を調べ、d.get(key, 0) はキーがないときに失敗せず 0 を返す。辞書は挿入した順序を覚えている。\n\n出力される各行を予測してから実行する：\n\n```python\nchars = list(\"ñu猫\")\nprint(chars, len(chars))\nprint(len(\"n\\u0303u\"), \"n\\u0303u\" == \"ñu\")\nseen = []\nfor ch in \"abca\":\n    if ch not in seen:\n        seen.append(ch)\nprint(seen)\nages = {}\nages[\"猫\"] = 3\nages[\"犬\"] = 5\nages[\"猫\"] = ages[\"猫\"] + 1\nprint(ages, len(ages), \"猫\" in ages, ages.get(\"鳥\", 0))\nalias = seen\nalias.append(\"z\")\nprint(seen)\nprint(list(\"\"), {})\n```",
+      "exercise_prompt": "出力される 6 行すべての予測を書き、実際の出力を記録する。len(\"n\\u0303u\") が 3 になる理由、seen に各文字の最初の出現だけが残る理由、alias を通した append が seen も変える理由を説明する。",
+      "hint": "ここでの \"ñ\" は 1 コードポイント。\"n\" に結合用チルダ（U+0303）を続けると 2 コードポイントになる。\"鳥\" はキーではないので ages.get(\"鳥\", 0) は 0 を返す。alias = seen はリストをコピーしない。2 つの名前が 1 つのリストオブジェクトを指す（Day 05）。",
+      "answer": "正確な出力：\n\n```text\n['ñ', 'u', '猫'] 3\n3 False\n['a', 'b', 'c']\n{'猫': 4, '犬': 5} 2 True 0\n['a', 'b', 'c', 'z']\n[] {}\n```\n\nlist(\"ñu猫\") は 3 コードポイント。分解形の \"n\\u0303u\" は 3 コードポイントで、2 コードポイントの \"ñu\" とは等しくない。ループはまだ seen にない文字だけを追加するので、結果は [\"a\", \"b\", \"c\"]。既存のキーへの代入は値を置き換えるので \"猫\" は 4 になり、辞書のキーは 2 つのまま。alias と seen は同じリストなので \"z\" が seen に現れる。空文字列からは空のリストができ、{} は空の辞書。",
+      "mastery_criterion": "6 行すべてを実行前に予測し、食い違いをそれぞれ説明している。デフォルト付きの get、挿入順序、分解形の文字の長さ、リストのエイリアスを説明できる。",
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-09-act-02": {
+      "source_resources": [
+        {
+          "id": "automate-boring-stuff-3e",
+          "title": "Automate the Boring Stuff with Python, 3rd edition",
+          "author": "Al Sweigart",
+          "original_url": "https://automatetheboringstuff.com/3e/",
+          "relevant_timestamp": "Chapter 7; Practice Questions; Appendix B answers",
+          "version_or_verification_date": "Public edition checked 2026-11-01; moving pages may change",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Copyright Al Sweigart; edition-specific reuse terms unverified",
+          "license_restrictions": [
+            "linking only; no reproduction"
+          ],
+          "permission_basis": "External hyperlink only; no third-party prose, exercises, code or translations are imported.",
+          "prerequisites": "No prior programming required for Chapter 1; later chapters assume its basic Python concepts.",
+          "selection_rationale": "Beginner teaching and answer-keyed practice before checking exact semantics in the Python reference; selected chapters only, not the book's entire automation stack.",
+          "known_availability_limitations": "Free HTML; external website may be unavailable. Exact third-edition redistribution terms have not been verified, so no reuse permission is claimed.",
+          "safe_fallback": "Use the original localized explanations, exercises and checks already present in this activity; no external account or purchase is required for that fallback.",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Tutorial",
+              "url": "https://docs.python.org/3/tutorial/",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Guided Python syntax but assumes programming familiarity; paired with the beginner text rather than used as its replacement."
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Lectures and problem sets teach a broader CS1 course; the book offers shorter text-first entry and an answer appendix."
+            }
+          ],
+          "locator_url": "https://automatetheboringstuff.com/3e/chapter7.html"
+        },
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2〜4.10 節（for、range、関数の定義）。データ構造は同じチュートリアルの第 5 章",
+          "version_or_verification_date": "Python 3.12 ドキュメント（確認日: 2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Python の反復処理、関数、コンテナを確認するための一次資料。",
+          "safe_fallback": "必要な動作はすべて教材内で説明しているため、オフラインでも完了できます。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ構文を文法レベルで定義するリファレンスです。段階を追って学べる構成のため、チュートリアルの章を選びました。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ制御フローを講義のペースで扱う教材です。本カリキュラムではターミナルでの演習を通じて概念を扱っているため、採用を見送りました。"
+            }
+          ],
+          "prerequisites": "Day 01〜06 の Python の式とファイルシステムの基礎",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "辞書による頻度の集計とその不変条件",
+      "prerequisites": "今日の活動 1。回復先：Day 08 活動 1（数える処理の不変条件）、今日の活動 1（辞書の get）。",
+      "objective": "char_frequencies(text) と most_common(counts) を実装し、辞書の不変条件を述べ、空・繰り返し・大文字小文字の区別・絵文字・分解形 Unicode の入力をコードポイント単位でテストする。",
+      "assistance_policy_label": "エージェント支援の演習：まず自分の予測と実際の出力を記録すること。その後に限り AI エージェントに説明やレビューを頼んでよく、受けた支援は証拠に必ず記録する。",
+      "instructions": "参照資料: この活動に割り当てられた既存の読解・練習時間内で、Automate the Boring Stuff with Python, 3rd edition の Chapter 7; Practice Questions; Appendix B answers を参照し、ローカル課題とのつながりを一つ自分の言葉で説明する。既存の演習と合格基準は維持し、外部資料が開けない場合は本コース独自の説明を使う。**間隔をあけた復習：** Day 08 の 1 つのカウンターを、異なる文字ごとに 1 つのカウンターへと一般化する。\n\n**不変条件：** 各反復の開始時、counts はこれまでに訪れた各コードポイントをその出現回数に対応づけ、値の合計は訪れたコードポイントの数に等しい。most_common はこれまでで最も多い文字を保持する。厳密に大きい数のときだけ置き換えるので、同数なら先に現れた文字が残る。\n\n実行前に各行を予測し、\"banana\" のトレース表（ch / counts）を書く：\n\n```python\ndef char_frequencies(text):\n    counts = {}\n    for ch in text:\n        counts[ch] = counts.get(ch, 0) + 1\n    return counts\ndef most_common(counts):\n    best_char = None\n    best_count = 0\n    for ch in counts:\n        if counts[ch] > best_count:\n            best_char = ch\n            best_count = counts[ch]\n    return best_char\nprint(char_frequencies(\"\"))\nprint(char_frequencies(\"banana\"))\nprint(char_frequencies(\"猫猫犬\"))\nprint(char_frequencies(\"aA\"))\nprint(char_frequencies(\"😀😀\"))\nprint(char_frequencies(\"e\\u0301\") == {\"e\": 1, \"\\u0301\": 1})\nprint(most_common(char_frequencies(\"banana\")))\nprint(most_common(char_frequencies(\"abab\")))\nprint(most_common(char_frequencies(\"\")))\n```",
+      "exercise_prompt": "char_frequencies(\"banana\") のトレース表、出力される 9 行すべての予測と観察、そして \"aA\" でキーが 2 つになる理由、\"😀😀\" で数が 2 になる理由、空文字列で {} と None になる理由をそれぞれ 1 文で提出する。",
+      "hint": "counts.get(ch, 0) + 1 は、新しい文字なら 1 から始め、既存の文字なら 1 増やす。Python はコードポイントを厳密に比べるので \"a\" と \"A\" は別で、\"😀\" のような絵文字は 1 コードポイント。\"abab\" では \"a\" と \"b\" がともに 2 になるが、2 は 2 より大きくないので \"b\" は \"a\" を置き換えない。",
+      "answer": "正確な出力：\n\n```text\n{}\n{'b': 1, 'a': 3, 'n': 2}\n{'猫': 2, '犬': 1}\n{'a': 1, 'A': 1}\n{'😀': 2}\nTrue\na\na\nNone\n```\n\n\"banana\" のトレース：b の後 {b: 1}、a の後 {b: 1, a: 1}、n の後 {b: 1, a: 1, n: 1}、a の後 {b: 1, a: 2, n: 1}、n の後 {b: 1, a: 2, n: 2}、a の後 {b: 1, a: 3, n: 2}。不変条件どおり値の合計は 6 = len(\"banana\")。空のテキストはループに入らないので counts は {} のままで、most_common は None を返す。正規化せずにコードポイント単位で数えるので、\"e\\u0301\" は \"e\" と結合用アクセントの 2 つのキーになる。",
+      "mastery_criterion": "トレース表が参考と一致し、9 行すべてを予測するか食い違いを説明し、辞書の不変条件と同数のときの規則を述べ、空・繰り返し・大文字小文字・Unicode のケースを正しく扱っている。",
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-09-act-03": {
+      "source_resources": [
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2〜4.10 節（for、range、関数の定義）。データ構造は同じチュートリアルの第 5 章",
+          "version_or_verification_date": "Python 3.12 ドキュメント（確認日: 2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Python の反復処理、関数、コンテナを確認するための一次資料。",
+          "safe_fallback": "必要な動作はすべて教材内で説明しているため、オフラインでも完了できます。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ構文を文法レベルで定義するリファレンスです。段階を追って学べる構成のため、チュートリアルの章を選びました。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ制御フローを講義のペースで扱う教材です。本カリキュラムではターミナルでの演習を通じて概念を扱っているため、採用を見送りました。"
+            }
+          ],
+          "prerequisites": "Day 01〜06 の Python の式とファイルシステムの基礎",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "安全な Git の回復：未コミットの編集を復元し、コミット済みの変更を revert する",
+      "prerequisites": "今日の活動 1〜2、Git がインストール済みであること。回復先：Day 07 活動 3 と Day 08 活動 3（git restore）。",
+      "objective": "使い捨てリポジトリで、状況ごとに正しい安全な道具を選ぶ：未コミットの編集には git restore（または保存したコピー）、コミット済みの変更には git revert --no-edit HEAD。それぞれの結果を確かめる。",
+      "assistance_policy_label": "エージェント支援の演習：まず自分の予測と実際の出力を記録すること。その後に限り AI エージェントに説明やレビューを頼んでよく、受けた支援は証拠に必ず記録する。",
+      "instructions": "**間隔をあけた復習：** パート A は Day 07〜08 の git restore の手順を今日の頻度ファイルで繰り返す。\n\n**新しい考え方：** git revert は以前のコミットを打ち消す新しいコミットを作るので、履歴は書き換えられずに残る。対象はコミット済みの変更だけで、作業ツリーの該当ファイルに未コミットの変更があると実行を拒否する。だからこそ、ベースラインをコミットし、未コミットの編集をしてから git revert を試す、という手順を取ってはいけない。\n\nパートごとに新しい一時ディレクトリを使い、出力はすべて先に予測する。\n\n**パート A：未コミットの編集を Git で復元する**\n\n```bash\ncd \"$(mktemp -d)\"\ngit init -q\ngit config user.name \"Learner\"\ngit config user.email \"learner@example.invalid\"\ncat > freq.py <<'EOF'\ndef char_frequencies(text):\n    counts = {}\n    for ch in text:\n        counts[ch] = counts.get(ch, 0) + 1\n    return counts\nprint(char_frequencies(\"猫猫犬\"))\nEOF\ngit add freq.py\ngit commit -q -m \"Add char_frequencies\"\npython3 freq.py\nprintf 'print(char_frequencies(\"\"))\\n' >> freq.py\ngit status --short\npython3 freq.py\ngit restore freq.py\ngit status --short\npython3 freq.py\n```\n\n**パート A の別法：保存したコピー（回復に Git コマンドは不要）**\n\n```bash\ncd \"$(mktemp -d)\"\ngit init -q\ngit config user.name \"Learner\"\ngit config user.email \"learner@example.invalid\"\ncat > freq.py <<'EOF'\ndef char_frequencies(text):\n    counts = {}\n    for ch in text:\n        counts[ch] = counts.get(ch, 0) + 1\n    return counts\nprint(char_frequencies(\"猫猫犬\"))\nEOF\ngit add freq.py\ngit commit -q -m \"Add char_frequencies\"\npython3 freq.py\ncp freq.py freq.py.saved\nprintf 'oops\\n' >> freq.py\ncp freq.py.saved freq.py\nrm freq.py.saved\ngit status --short\npython3 freq.py\n```\n\n**パート B：コミット済みの変更を新しいコミットで revert する**\n\n```bash\ncd \"$(mktemp -d)\"\ngit init -q\ngit config user.name \"Learner\"\ngit config user.email \"learner@example.invalid\"\ncat > freq.py <<'EOF'\ndef char_frequencies(text):\n    counts = {}\n    for ch in text:\n        counts[ch] = counts.get(ch, 0) + 1\n    return counts\nprint(char_frequencies(\"猫猫犬\"))\nEOF\ngit add freq.py\ngit commit -q -m \"Add char_frequencies\"\npython3 freq.py\nprintf 'print(\"debug\")\\n' >> freq.py\ngit commit -q -am \"Add debug print\"\npython3 freq.py\ngit revert --no-edit HEAD > /dev/null\ngit log --format=%s\ngit diff HEAD~2 HEAD\ngit status --short\npython3 freq.py\n```\n\n**パート C：順序が重要な理由**：未コミットの編集があると git revert が拒否されることを示す。\n\n```bash\ncd \"$(mktemp -d)\"\ngit init -q\ngit config user.name \"Learner\"\ngit config user.email \"learner@example.invalid\"\ncat > freq.py <<'EOF'\ndef char_frequencies(text):\n    counts = {}\n    for ch in text:\n        counts[ch] = counts.get(ch, 0) + 1\n    return counts\nprint(char_frequencies(\"猫猫犬\"))\nEOF\ngit add freq.py\ngit commit -q -m \"Add char_frequencies\"\npython3 freq.py\nprintf 'print(\"debug\")\\n' >> freq.py\ngit commit -q -am \"Add debug print\"\nprintf 'oops\\n' >> freq.py\ngit revert --no-edit HEAD 2> /dev/null || echo \"revert refused: uncommitted change present\"\ngit status --short\n```",
+      "exercise_prompt": "各パートについて予測と実際の出力を記録する。そのうえで答える：未コミットの編集を取り消すコマンドはどれか、コミット済みの変更を取り消すコマンドはどれか、それぞれの回復が成功したことを何が証明するか、パート C で git revert が拒否した理由は何か。Unicode を含む出力 {'猫': 2, '犬': 1} は、変更前と回復後で同一でなければならない。",
+      "hint": "restore の証拠は、git status --short が何も出力せず、スクリプトの出力がコミット済みの版と一致すること。revert の証拠は、log の先頭に新しい \"Revert ...\" コミットがあり、git diff HEAD~2 HEAD の出力が空であること（内容が問題のコミット前の版と等しい）。パート C では、まず git restore freq.py で、例にあるステージしていない編集を破棄する。残したい場合は、復元前にリポジトリの外へコピーを保存する。git status --short が何も出力せず、git log -1 --format=%s が引き続き \"Add debug print\" を示すことを確認する。その後で初めて git revert --no-edit HEAD を実行し、そのコミット済みのデバッグ変更を取り消す。revert の前に未コミットの編集をコミットしてはいけない。Git の拒否メッセージが変更のコミットや stash を勧めてきても、ここではその一般的な助言には従わず、上記の restore を先に行う順序に従う。reset --hard、clean、force-push は使わない。",
+      "answer": "パート A の出力：\n\n```text\n{'猫': 2, '犬': 1}\n M freq.py\n{'猫': 2, '犬': 1}\n{}\n{'猫': 2, '犬': 1}\n```\n\n追記した行は空の辞書 {} を出力する print を加える。git restore がそれを取り除き、status は空になり、出力はコミット済みの版に戻る。\n\nパート A の別法の出力：\n\n```text\n{'猫': 2, '犬': 1}\n{'猫': 2, '犬': 1}\n```\n\n保存したファイルをコピーし戻すと元のバイト列が正確に戻るので、git status --short は何も出力しない。\n\nパート B の出力：\n\n```text\n{'猫': 2, '犬': 1}\n{'猫': 2, '犬': 1}\ndebug\nRevert \"Add debug print\"\nAdd debug print\nAdd char_frequencies\n{'猫': 2, '犬': 1}\n```\n\n問題のコミットは debug を出力する。git revert --no-edit HEAD が 3 つ目のコミット Revert \"Add debug print\" を追加する。git diff HEAD~2 HEAD が何も出力しないことが、ファイルが最初のコミットと一致する証拠であり、status はクリーンで、出力は {'猫': 2, '犬': 1} に戻る。\n\nパート C の出力：\n\n```text\n{'猫': 2, '犬': 1}\nrevert refused: uncommitted change present\n M freq.py\n```\n\n打ち消しの変更を適用すると freq.py への未コミットの編集を上書きしてしまうため、git revert は拒否する（終了コード 128）。編集はその後も残っている。",
+      "mastery_criterion": "3 つのパートすべてで使い捨てリポジトリ上で参考出力を再現し、未コミットの編集には git restore または保存したコピー、コミット済みの変更には git revert --no-edit HEAD を正しく対応させ、それぞれの確認方法を示し、パート C の拒否を説明している。"
+    },
+    "day-09-act-04": {
+      "source_resources": [
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2〜4.10 節（for、range、関数の定義）。データ構造は同じチュートリアルの第 5 章",
+          "version_or_verification_date": "Python 3.12 ドキュメント（確認日: 2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Python の反復処理、関数、コンテナを確認するための一次資料。",
+          "safe_fallback": "必要な動作はすべて教材内で説明しているため、オフラインでも完了できます。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ構文を文法レベルで定義するリファレンスです。段階を追って学べる構成のため、チュートリアルの章を選びました。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ制御フローを講義のペースで扱う教材です。本カリキュラムではターミナルでの演習を通じて概念を扱っているため、採用を見送りました。"
+            }
+          ],
+          "prerequisites": "Day 01〜06 の Python の式とファイルシステムの基礎",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "テキスト統計の独立実装",
+      "prerequisites": "今日の活動 1〜3 を証拠付きで終えていること。回復先：活動 2（頻度）、Day 08 活動 2（関数の契約）、Day 07（条件の復習）。",
+      "objective": "支援なしで、コードポイント単位の長さ、異なるコードポイントの数、頻度の辞書、最も多いコードポイントを報告する text_stats(text) を実装する。空・繰り返し・Unicode のテキストで正しく動き、繰り返し呼び出しても安全であること。",
+      "assistance_policy_label": "独立習得チェック：証拠を提出するまで AI の支援も参考解答も使わない。受けた支援は正直に申告する。",
+      "instructions": "**間隔をあけた復習：** Day 08 のループ不変条件と関数に、今日の辞書を組み合わせる。証拠を提出するまで参考解答を開かず、AI も使わない。\n\ntext_stats(text) の仕様（ちょうど次のキーを持つ辞書を返す）：\n- \"code_points\"：text に含まれる Unicode コードポイントの数（len(text)）。\n- \"distinct\"：異なるコードポイントの数。\n- \"frequencies\"：各コードポイントからその出現回数への辞書（最初に現れた順）。\n- \"most_common\"：出現回数が最も多いコードポイント。同数なら先に現れたもの。空のテキストでは None。\nUnicode のコードポイントを厳密に数える：大文字小文字の同一視も正規化もしないので、\"e\\u0301\" は 2 コードポイントである。呼び出しごとに新しい状態から始めること。\n\nコードを書く前に、\"\"、\"abca\"、\"😀😀a\"、\"naïve naïve\" の結果全体と、\"e\\u0301\" の code_points、distinct、most_common の値を予測する。それから実装してテストし、最後に頻度を数えるループと最多を選ぶループそれぞれの不変条件を書く。",
+      "exercise_prompt": "提出物：5 つの入力すべての予測、text_stats のコード、実際の出力、text_stats(\"abca\") を 2 回呼んで等しい結果になることの確認、2 つの不変条件。食い違いごとに見直す回復先の活動を書く。",
+      "hint": "まず誠実に取り組んでから使うこと。先に frequencies を作り、2 つ目のループで、厳密に大きい数のときだけ答えを置き換えて most_common を選ぶ。呼び出し同士が状態を共有しないよう、辞書は関数の中で作る。",
+      "answer": "参考実装とその出力：\n\n```python\ndef text_stats(text):\n    frequencies = {}\n    for ch in text:\n        frequencies[ch] = frequencies.get(ch, 0) + 1\n    most_common = None\n    best = 0\n    for ch in frequencies:\n        if frequencies[ch] > best:\n            most_common = ch\n            best = frequencies[ch]\n    return {\n        \"code_points\": len(text),\n        \"distinct\": len(frequencies),\n        \"frequencies\": frequencies,\n        \"most_common\": most_common,\n    }\nprint(text_stats(\"\"))\nprint(text_stats(\"abca\"))\nprint(text_stats(\"😀😀a\"))\nprint(text_stats(\"naïve naïve\"))\ndecomposed = text_stats(\"e\\u0301\")\nprint(decomposed[\"code_points\"], decomposed[\"distinct\"], decomposed[\"most_common\"])\nprint(text_stats(\"abca\") == text_stats(\"abca\"))\n```\n\n```text\n{'code_points': 0, 'distinct': 0, 'frequencies': {}, 'most_common': None}\n{'code_points': 4, 'distinct': 3, 'frequencies': {'a': 2, 'b': 1, 'c': 1}, 'most_common': 'a'}\n{'code_points': 3, 'distinct': 2, 'frequencies': {'😀': 2, 'a': 1}, 'most_common': '😀'}\n{'code_points': 11, 'distinct': 6, 'frequencies': {'n': 2, 'a': 2, 'ï': 2, 'v': 2, 'e': 2, ' ': 1}, 'most_common': 'n'}\n2 2 e\nTrue\n```\n\n不変条件：1 つ目のループでは、frequencies はこれまでに訪れた各コードポイントをその時点までの数に対応づける（値の合計は訪れた数に等しい）。2 つ目のループでは、most_common はこれまでに訪れたキーの中で最大の数を持つ最も早いコードポイントで、best はその数である。\"naïve naïve\" は 11 コードポイントで、5 つの文字が 2 回ずつ、空白が 1 回現れるので、同数のうち最初に現れた \"n\" が選ばれる。ここで使う特定の \"😀\" は 1 コードポイントなので、\"😀😀a\" は 3 コードポイント。表示上は 1 つの絵文字でも、複数のコードポイントから成る場合がある。\"e\\u0301\" は 2 コードポイントで異なるものも 2 つ。どちらも 1 回なので、先に現れた \"e\" が選ばれる。空文字列ではゼロ、{}、None になり、呼び出しごとに新しい辞書を作るので繰り返し呼んでも結果は等しい。\n\n**text_stats(\"abca\") の具体的なトレース：** 最初の行は初期状態、それ以降はコードポイントをもう 1 つ訪れた後の状態。visited と sum はトレース表の列であり、関数に追加する必要のある変数ではない。\n\n```text\nvisited | frequencies             | sum\n''      | {}                      | 0\n'a'     | {'a': 1}                | 1\n'ab'    | {'a': 1, 'b': 1}        | 2\n'abc'   | {'a': 1, 'b': 1, 'c': 1} | 3\n'abca'  | {'a': 2, 'b': 1, 'c': 1} | 4\n```\n\n初期状態では辞書は空で合計は 0。各反復は次のコードポイントをちょうど 1 回数えるため、頻度の不変条件が保たれ、終了時には 4 コードポイントすべてを数え終えている。2 つ目のループでまだキーを訪れていない時点では、most_common は None、best は 0。各キーを訪れた後の状態：\n\n```text\nch  | frequencies[ch] | most_common | best\n'a' | 2               | 'a'         | 2\n'b' | 1               | 'a'         | 2\n'c' | 1               | 'a'         | 2\n```\n\n1 > 2 は False なので、後の 2 つのキーは最多のキーを置き換えない。すべてのキーを訪れた終了時、不変条件から most_common = \"a\"、best = 2 であり、最終結果の code_points は 4、distinct は 3。空入力ではどちらのループも実行されず、frequencies は {}、most_common は None、best は 0 のままなので、初期状態が空の場合の正しさも示している。",
+      "mastery_criterion": "支援なしで：text_stats が空・繰り返し・絵文字・アクセント付き・分解形のテキストを含む 5 つの入力すべてでコードポイント単位の参考出力と一致し、繰り返し呼び出しの結果が等しく、2 つの不変条件を正しく述べ、食い違いごとに回復先の活動を書いている。"
+    }
+  }
+}

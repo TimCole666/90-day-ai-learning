@@ -1,0 +1,347 @@
+{
+  "id": "day-90",
+  "day_number": 90,
+  "active_minutes": 480,
+  "topic_category": "self-directed-learning-and-python",
+  "is_review_day": true,
+  "status": "available",
+  "prerequisites": [
+    "day-89"
+  ],
+  "recovery_links": [
+    "day-89"
+  ],
+  "activities": [
+    {
+      "id": "day-90-act-01",
+      "lesson_id": "les-90",
+      "title": "The Portfolio Checklist: Provenance, Reproducibility, Claims, and Limitations",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-89"
+      ],
+      "source_resources": [
+        {
+          "id": "turing-way-2024",
+          "title": "The Turing Way: A Handbook for Reproducible, Ethical and Collaborative Data Science",
+          "author": "The Turing Way Community",
+          "original_url": "https://book.the-turing-way.org/",
+          "version_or_verification_date": "Zenodo DOI 10.5281/zenodo.3233853, continuously updated (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under Creative Commons Attribution 4.0; only links and original explanations are used.",
+          "prerequisites": "Basic version control and command-line familiarity.",
+          "selection_rationale": "Community-maintained CC-BY handbook codifying reproducibility checklists (versioned code, environment capture, rerunnable commands); directly defines the Day 90 reproduction-verification and provenance-audit workflow.",
+          "known_availability_limitations": "Freely hosted online; Netlify mirror availability is not guaranteed offline.",
+          "safe_fallback": "The portfolio checklist and verification log schema are authored locally; reproduction commands run without the handbook.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Wilson et al. Good enough practices in scientific computing (PLOS CB 2017)",
+              "url": "https://doi.org/10.1371/journal.pcbi.1005510",
+              "license": "CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Concise practices paper; The Turing Way's maintained, checklist-driven coverage of environments and reproducibility is broader and kept current."
+            },
+            {
+              "candidate_name": "Sandve et al. Ten Simple Rules for Reproducible Computational Research (PLOS CB 2013)",
+              "url": "https://doi.org/10.1371/journal.pcbi.1003285",
+              "license": "CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Foundational rules list; The Turing Way expands the same rules into actionable checklists used verbatim for the Day 90 verification run."
+            }
+          ],
+          "relevant_timestamp": "Reproducible Research chapter: version control, testing, environment capture"
+        },
+        {
+          "id": "mitchell-model-cards-2019",
+          "title": "Model Cards for Model Reporting",
+          "author": "Margaret Mitchell, Simone Wu, Andrew Zaldivar, Parker Barnes, Lucy Vasserman, Ben Hutchinson, Elena Spitzer, Inioluwa Deborah Raji, Timnit Gebru",
+          "original_url": "https://arxiv.org/abs/1810.03993",
+          "version_or_verification_date": "FAT* 2019 / arXiv:1810.03993v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation of AI transparency standard.",
+          "prerequisites": "Evaluation reporting, demographic and performance slicing, model limitations and caveats.",
+          "selection_rationale": "Primary standard for structured, transparent model reporting, mandating explicit disclosure of intended uses, evaluation slices, out-of-scope tasks, ethical considerations, and negative results.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Complete Model Card Markdown templates, section schemas, and evaluation disclosure checklists are provided in the curriculum.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Bommasani et al. The Foundation Model Transparency Index",
+              "url": "https://arxiv.org/abs/2310.12941",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Corporate transparency audit index; Mitchell et al. provides the concrete technical artifact specification for individual model releases."
+            },
+            {
+              "candidate_name": "Pushkarna et al. Data Cards: Purposeful and Transparent Dataset Documentation for Responsible AI",
+              "url": "https://arxiv.org/abs/2204.01075",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Dataset documentation focus; Mitchell et al. provides the required specification for trained model artifact reporting."
+            }
+          ],
+          "relevant_timestamp": "Section 4 Model Card Sections (4.1-4.9)"
+        }
+      ]
+    },
+    {
+      "id": "day-90-act-02",
+      "lesson_id": "les-90",
+      "title": "Assemble the Portfolio Manifest",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-90-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "gebru-datasheets-2021",
+          "title": "Datasheets for Datasets",
+          "author": "Timnit Gebru, Jamie Morgenstern, Briana Vecchione, Jennifer Wortman Vaughan, Hanna Wallach, Hal Daumé III, Kate Crawford",
+          "original_url": "https://arxiv.org/abs/1803.09010",
+          "version_or_verification_date": "Communications of the ACM 2021 / arXiv:1803.09010v8 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation of dataset governance literature.",
+          "prerequisites": "Dataset provenance, curation motivation, preprocessing transparency, maintenance lifecycle.",
+          "selection_rationale": "Foundational literature introducing standardized documentation for machine learning datasets, specifying questions on dataset composition, collection mechanisms, preprocessing, and distribution rights.",
+          "known_availability_limitations": "Freely available on arXiv and ACM.",
+          "safe_fallback": "Datasheet questionnaires, provenance schemas, and dataset auditing checklists are completely integrated into lesson materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Bender & Friedman. Data Statements for Natural Language Processing: Toward Mitigating System Bias and Enabling Better Science",
+              "url": "https://aclanthology.org/Q18-1041/",
+              "license": "CC BY 4.0 (ACL Anthology, 2016 or later)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Linguistic demographic documentation focus; Gebru et al. provides the universal engineering datasheet framework adopted across AI."
+            },
+            {
+              "candidate_name": "Holland et al. The Dataset Nutrition Label: A Framework to Drive Higher Data Quality Standards",
+              "url": "https://arxiv.org/abs/1805.03677",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Nutrition label metaphor; Gebru et al. is a widely cited framework for dataset documentation in both academic and industrial practice."
+            }
+          ],
+          "relevant_timestamp": "Section 3 Questions and Workflow (3.1 Motivation through 3.7 Maintenance)"
+        },
+        {
+          "id": "mitchell-model-cards-2019",
+          "title": "Model Cards for Model Reporting",
+          "author": "Margaret Mitchell, Simone Wu, Andrew Zaldivar, Parker Barnes, Lucy Vasserman, Ben Hutchinson, Elena Spitzer, Inioluwa Deborah Raji, Timnit Gebru",
+          "original_url": "https://arxiv.org/abs/1810.03993",
+          "version_or_verification_date": "FAT* 2019 / arXiv:1810.03993v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation of AI transparency standard.",
+          "prerequisites": "Evaluation reporting, demographic and performance slicing, model limitations and caveats.",
+          "selection_rationale": "Primary standard for structured, transparent model reporting, mandating explicit disclosure of intended uses, evaluation slices, out-of-scope tasks, ethical considerations, and negative results.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Complete Model Card Markdown templates, section schemas, and evaluation disclosure checklists are provided in the curriculum.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Bommasani et al. The Foundation Model Transparency Index",
+              "url": "https://arxiv.org/abs/2310.12941",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Corporate transparency audit index; Mitchell et al. provides the concrete technical artifact specification for individual model releases."
+            },
+            {
+              "candidate_name": "Pushkarna et al. Data Cards: Purposeful and Transparent Dataset Documentation for Responsible AI",
+              "url": "https://arxiv.org/abs/2204.01075",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Dataset documentation focus; Mitchell et al. provides the required specification for trained model artifact reporting."
+            }
+          ],
+          "relevant_timestamp": "Section 4 Model Card Sections (4.1-4.9)"
+        }
+      ]
+    },
+    {
+      "id": "day-90-act-03",
+      "lesson_id": "les-90",
+      "title": "Reproducibility Verification: Re-Run the Public Project Commands",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-90-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "turing-way-2024",
+          "title": "The Turing Way: A Handbook for Reproducible, Ethical and Collaborative Data Science",
+          "author": "The Turing Way Community",
+          "original_url": "https://book.the-turing-way.org/",
+          "version_or_verification_date": "Zenodo DOI 10.5281/zenodo.3233853, continuously updated (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under Creative Commons Attribution 4.0; only links and original explanations are used.",
+          "prerequisites": "Basic version control and command-line familiarity.",
+          "selection_rationale": "Community-maintained CC-BY handbook codifying reproducibility checklists (versioned code, environment capture, rerunnable commands); directly defines the Day 90 reproduction-verification and provenance-audit workflow.",
+          "known_availability_limitations": "Freely hosted online; Netlify mirror availability is not guaranteed offline.",
+          "safe_fallback": "The portfolio checklist and verification log schema are authored locally; reproduction commands run without the handbook.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Wilson et al. Good enough practices in scientific computing (PLOS CB 2017)",
+              "url": "https://doi.org/10.1371/journal.pcbi.1005510",
+              "license": "CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Concise practices paper; The Turing Way's maintained, checklist-driven coverage of environments and reproducibility is broader and kept current."
+            },
+            {
+              "candidate_name": "Sandve et al. Ten Simple Rules for Reproducible Computational Research (PLOS CB 2013)",
+              "url": "https://doi.org/10.1371/journal.pcbi.1003285",
+              "license": "CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Foundational rules list; The Turing Way expands the same rules into actionable checklists used verbatim for the Day 90 verification run."
+            }
+          ],
+          "relevant_timestamp": "Reproducible Research chapter: version control, testing, environment capture"
+        },
+        {
+          "id": "pytorch-save-load",
+          "title": "PyTorch Tutorial: Saving and Loading Models",
+          "author": "PyTorch Documentation Team",
+          "original_url": "https://pytorch.org/tutorials/beginner/saving_loading_models.html",
+          "version_or_verification_date": "PyTorch 2.x Documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD-3-Clause",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under BSD open source documentation license.",
+          "prerequisites": "Python, PyTorch tensors and nn.Module basics.",
+          "selection_rationale": "Official documentation detailing state_dict serialization, optimizer state saving, and safe loading patterns.",
+          "known_availability_limitations": "Freely available on pytorch.org.",
+          "safe_fallback": "All checkpoint serialization semantics, dictionary schema keys, and safe recovery steps are self-contained in lesson code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "TensorFlow tf.train.Checkpoint Guide",
+              "url": "https://www.tensorflow.org/guide/checkpoint",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "TensorFlow trackable checkpoint architecture; PyTorch's explicit dictionary is our target implementation standard."
+            },
+            {
+              "candidate_name": "Hugging Face Safetensors Documentation",
+              "url": "https://huggingface.co/docs/safetensors",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Safetensors provides safe zero-copy tensor storage without pickle, compared directly when discussing pickle execution risks."
+            }
+          ],
+          "relevant_timestamp": "Saving & Loading a General Checkpoint for Inference and/or Resuming Training",
+          "locator_url": "https://pytorch.org/tutorials/beginner/saving_loading_models.html#saving-loading-a-general-checkpoint-for-inference-and-or-resuming-training"
+        }
+      ]
+    },
+    {
+      "id": "day-90-act-04",
+      "lesson_id": "les-90",
+      "title": "Final Review and the Evidence-Based Next-Learning Plan",
+      "active_minutes": 120,
+      "activity_type": "review",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-90-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "dunlosky-2013-effective-techniques",
+          "title": "Improving Students' Learning With Effective Learning Techniques: Promising Directions From Cognitive and Educational Psychology",
+          "author": "John Dunlosky, Katherine A. Rawson, Elizabeth J. Marsh, Mitchell J. Nathan, Daniel T. Willingham",
+          "original_url": "https://doi.org/10.1177/1529100612453266",
+          "version_or_verification_date": "Psychological Science in the Public Interest, 2013 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Journal publisher copyright (all rights reserved) - lawful external linking only",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external citation of the publisher record; no text imported into curriculum materials.",
+          "prerequisites": "None beyond general academic reading.",
+          "selection_rationale": "Detailed comparative review rating practice testing and distributed practice as high-utility techniques while rating highlighting and rereading low-utility; anchors the retrieval, correction, and spaced-review design of Days 88-90.",
+          "known_availability_limitations": "Paywalled at SAGE; author-hosted preprints exist on university sites.",
+          "safe_fallback": "Curriculum restates the utility ratings and application conditions in original prose; every task remains runnable offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Pashler et al. Learning Styles: Concepts and Evidence",
+              "url": "https://doi.org/10.1111/j.1539-6053.2009.01038.x",
+              "license": "Publisher copyright (originally Wiley; now SAGE Publications)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Important negative result on learning-styles matching but narrower scope; Dunlosky et al. rates a broader set of techniques directly usable for this curriculum."
+            },
+            {
+              "candidate_name": "Brown, Roediger & McDaniel: Make It Stick: The Science of Successful Learning",
+              "url": "https://www.hup.harvard.edu/books/9780674729018",
+              "license": "Publisher copyright (Harvard University Press)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong trade-book synthesis of the same evidence base; the peer-reviewed review is preferred for citation precision and technique-by-technique utility ratings."
+            }
+          ],
+          "relevant_timestamp": "Psychological Science in the Public Interest 14(1): 4-58; practice testing and distributed practice sections"
+        },
+        {
+          "id": "d2l-ai",
+          "title": "Dive into Deep Learning (d2l.ai)",
+          "author": "Aston Zhang, Zachary C. Lipton, Mu Li, Alexander J. Smola",
+          "original_url": "https://d2l.ai/",
+          "version_or_verification_date": "Current online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-SA 4.0 (book text) / modified MIT (sample code)",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Lawful external linking under CC BY-SA 4.0 (book text; sample code under a modified MIT license); share-alike conditions are retained separately and no source text is imported.",
+          "prerequisites": "Linear algebra, calculus, and probability at the Days 19-28 level.",
+          "selection_rationale": "Primary open reference tying evaluation discipline (model selection, underfitting, overfitting) and optimization algorithms (gradient descent, minibatch) to the rest of the curriculum.",
+          "known_availability_limitations": "Free web book at d2l.ai; Jupyter source notebooks are on GitHub.",
+          "safe_fallback": "All required formulas and worked numbers are reproduced as original explanations; the book is further reading.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Deep Learning (Goodfellow, Bengio, Courville)",
+              "url": "https://www.deeplearningbook.org/",
+              "license": "MIT Press; free HTML for reading, all rights reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Detailed treatment of optimization difficulties (chapter 8) including saddle points and plateaus; all-rights-reserved text kept as a linking-only alternative."
+            },
+            {
+              "candidate_name": "fast.ai: Practical Deep Learning for Coders",
+              "url": "https://course.fast.ai/",
+              "license": "Course site copyright / Apache-2.0 (fastai code)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong practitioner framing, but organized around the fastai library and video lessons rather than self-contained mathematics."
+            }
+          ],
+          "relevant_timestamp": "Section: Model Selection, Underfitting, and Overfitting; Chapter: Optimization Algorithms"
+        }
+      ]
+    }
+  ]
+}

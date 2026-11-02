@@ -1,0 +1,170 @@
+{
+  "language": "zh-Hans",
+  "language_label": "简体中文",
+  "day_title": "第 41 天：神经语言模型的前向传播",
+  "day_subtitle": "用手算把 Makemore 式 MLP 从头走到尾：嵌入查表、上下文拼接、tanh 隐藏层、输出 logit、数值稳定的 softmax。每个活动都记录预测、观察、复习与恢复。",
+  "time_budget_label": "480 分钟主动学习时间（8 小时专注学习）",
+  "category_label": "模型与训练",
+  "common": {
+    "nav_calendar": "📅 课程日历与台账",
+    "day_label": "第 41 天",
+    "prerequisites_title": "前置要求",
+    "objective_title": "学习目标",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主演练与记录",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看参考解答与分析",
+    "mastery_title": "独立掌握标准",
+    "draft_placeholder": "在此记录你预测的预激活值、隐向量、logit、softmax 概率与推演过程……",
+    "dev_slice_notice": "90 天 AI 学习平台的已验证正式课程模块。",
+    "sources_heading": "权威源资源与权利证明",
+    "source_author_label": "作者 / 机构",
+    "source_url_label": "原始出处链接",
+    "source_range_label": "对应章节 / 时间戳",
+    "source_verification_label": "验证版本与日期",
+    "source_reuse_label": "复用类别",
+    "source_license_label": "许可证与权利说明",
+    "source_rationale_label": "入选理由",
+    "source_prereqs_label": "来源前置条件",
+    "source_fallback_label": "安全回退方案（离线弹性）",
+    "compared_candidates_heading": "对比候选资源与选型分析",
+    "compared_status_label": "评估结论",
+    "auth": {
+      "sign_in": "使用 Google 登录",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "退出登录",
+      "signed_in_as": "已登录为",
+      "guest": "访客模式",
+      "link_github": "绑定 GitHub",
+      "link_google": "绑定 Google",
+      "linked_identities": "已绑定账号",
+      "auth_errors": {
+        "access_denied": "授权已取消或访问被拒绝。",
+        "invalid_state": "无效或已过期的授权状态令牌，请重试。",
+        "identity_conflict": "该第三方身份已被绑定至其他账号。",
+        "provider_error": "认证服务提供商发生错误。",
+        "server_error": "认证服务提供商发生错误。",
+        "session_expired": "登录会话已过期，请重新登录。"
+      }
+    },
+    "progress": {
+      "save_btn": "保存进度",
+      "saved": "已保存",
+      "saving": "正在保存...",
+      "save_error": "保存失败",
+      "offline": "离线状态",
+      "mark_completed": "标记为已完成",
+      "completed_badge": "已完成"
+    },
+    "quiz": {
+      "quiz_title": "客观知识测验：前向传播与 softmax",
+      "quiz_instructions": "请回答以下诊断题目检验掌握情况。提交前请诚实声明你的辅助条件。",
+      "assistance_mode_label": "声明辅助条件",
+      "mode_independent": "独立掌握检查 (无 AI 辅助)",
+      "mode_agent_assisted": "Agent 辅助工程检查 (借助 AI 完成)",
+      "mode_disclaimer": "说明：无 AI 辅助属于诚实声明条件，非平台监控或强制检测手段。",
+      "submit_btn": "提交答案",
+      "retry_btn": "重新测验",
+      "view_hint": "查看提示",
+      "mastery_criterion_label": "掌握标准",
+      "mastery_criterion_desc": "在独立掌握检查模式下获得 100% 得分（3/3 题完全正确）。",
+      "score_label": "测验得分",
+      "passed_badge": "通过",
+      "failed_badge": "未通过 (需复习)",
+      "independent_pass_badge": "独立掌握通过",
+      "agent_assisted_pass_badge": "Agent 辅助通过",
+      "self_reported_badge": "自主勾选完成",
+      "stale_badge": "历史记录 (内容已更新，需重新验证)",
+      "attempts_history_title": "作答应证与历史记录",
+      "no_attempts": "暂无测验记录。"
+    }
+  },
+  "activities": {
+    "day-41-act-01": {
+      "title": "神经语言模型流水线：从索引到预激活",
+      "prerequisites": "第 40 天的嵌入查表与上下文拼接；第 34-36 天的 MLP 机制。",
+      "objective": "走完 索引 → C 的行 → 拼接 x → 隐藏层预激活 的完整流水线，并手算输入向量与预激活向量。",
+      "assistance_policy_label": "Agent 辅助工程检查",
+      "instructions": "必做任务：沿用第 40 天的表 C 与上下文 ('a','b')，故 x = [0.2, -0.1, -0.4, 0.5]。今天权重固定：W1 = [[0.5,-0.2,0.1],[0.3,0.4,-0.3],[-0.1,0.2,0.6],[0.2,-0.5,0.4]]，b1 = [0.1,-0.1,0.0]。计算各隐藏层预激活 pre_j = sum_i x_i * W1[i][j] + b1[j]。先记录你的预测值再查看推演。选做任务：预测哪个输入坐标对 pre_1 影响最大。",
+      "exercise_prompt": "1. 用上面的 x 与 W1 计算 pre_0、pre_1、pre_2，写出每一个乘积。\n2. 预测是否有某个预激活恰好为 0。\n3. 按顺序说出从原始符号到 pre 的流水线各阶段。",
+      "hint": "pre_0 = 0.2*0.5 + (-0.1)*0.3 + (-0.4)*(-0.1) + 0.5*0.2 + 0.1。求和前保持每个乘积的符号。",
+      "answer": "pre_0 = 0.10 - 0.03 + 0.04 + 0.10 + 0.10 = 0.31；pre_1 = -0.04 - 0.04 - 0.08 - 0.25 - 0.10 = -0.51；pre_2 = 0.02 + 0.03 - 0.24 + 0.20 + 0.00 = 0.01。没有一个恰好为 0，但 pre_2 足够小，tanh 在那里近似线性。各阶段：符号 → 索引 → C 的行 → 拼接 → x*W1 + b1 → tanh → *W2 + b2 → softmax。",
+      "mastery_criterion": "手算预激活写出每个乘积并与 [0.31, -0.51, 0.01] 一致，学习者能不看笔记按顺序叙述流水线各阶段。"
+    },
+    "day-41-act-02": {
+      "title": "手算隐藏层：tanh 与为何需要非线性",
+      "prerequisites": "完成上一活动；如受阻请使用列出的恢复链接。",
+      "objective": "逐元素施加 tanh，精确算出隐向量，并论证两层线性映射之间为何必须有非线性。",
+      "assistance_policy_label": "独立掌握检查",
+      "instructions": "必做任务：h = tanh(pre) 逐元素计算。使用 tanh(0.31) = 0.300437、tanh(-0.51) = -0.469945、tanh(0.01) = 0.010000，并用计算器或 Python 的 math.tanh 验算至少一个。然后回答坍缩问题：若激活函数换成恒等映射而非 tanh，两个线性映射会退化成什么？选做任务：计算 tanh(5.0) 与 tanh(-5.0) 以观察饱和。",
+      "exercise_prompt": "1. 写出隐向量 h。\n2. tanh 会饱和：tanh(5.0) 取四位小数是多少？饱和对非常大的预激活意味着什么？\n3. 证明坍缩：恒等激活时 h = x*W1、z = h*W2，请把 z 只用 x 表示。",
+      "hint": "tanh 把 R 映入 (-1,1)；|pre| 很大时输出贴近 ±1。坍缩证明：把 h 代入 z，再对矩阵乘积重新加括号。",
+      "answer": "h = [0.300437, -0.469945, 0.010000]。tanh(5.0) ~= 0.9999：输出被压进 (-1,1)，巨大预激活不再增长且梯度变小。没有非线性时 z = x*W1*W2 = x*(W1*W2)：所谓“深”网络只是一个线性映射，隐藏层不增加任何表达能力。",
+      "mastery_criterion": "h 精确到小数点后 6 位，给出饱和观察，并能用一行证明堆叠的线性映射坍缩成单个线性映射。"
+    },
+    "day-41-act-03": {
+      "title": "logit、数值稳定的 softmax 与输出分布",
+      "prerequisites": "完成上一活动；如受阻请使用列出的恢复链接。",
+      "objective": "计算 logit z = h*W2 + b2，执行减最大值 softmax，得到下一符号分布，并用反例解释稳定性技巧。",
+      "assistance_policy_label": "Agent 辅助工程检查",
+      "instructions": "必做任务：W2 = [[0.2,-0.1,0.3,0.1],[0.4,0.2,-0.2,0.0],[-0.3,0.1,0.5,-0.4]]，b2 = [0.05,-0.05,0.02,0.0]。用昨天的 h 计算 z = h*W2 + b2。然后做 softmax：减去 m = max(z)，取指数，归一化。反例：logit [1000,999,998] 时，朴素 exp(1000) 在 float64 中溢出；平移版本给出 [0.665241, 0.244728, 0.090031]。选做任务：证明对任意常数 c 都有 softmax(z - c) = softmax(z)。",
+      "exercise_prompt": "1. 计算四个 logit z。\n2. 取 m = max(z)，计算 exp(z_j - m)、归一化之和与 p。\n3. 验证 p 之和为 1。\n4. 用一句话说明为什么减去最大值在数学上不改变结果。",
+      "hint": "z_2 是最大的 logit，约 0.209。平移后：exp(-0.290011) ~= 0.748256，exp(-0.382153) ~= 0.682391，exp(0) = 1，exp(-0.183076) ~= 0.832705。",
+      "answer": "z = [-0.080891, -0.173033, 0.209120, 0.026044]。取 m = 0.209120：exp(z - m) = [0.748256, 0.682391, 1.000000, 0.832705]，和 = 3.263351，故 p = [0.229291, 0.209107, 0.306433, 0.255169]，其和为 1.0。平移相当于给每个未归一化项乘以同一因子 e^{-m}，在分子分母之间约掉——概率完全相同，且不会溢出。",
+      "mastery_criterion": "z 与 p 精确到小数点后 6 位，完成和为 1 的验证，并对减最大值的不变性给出正确论证。"
+    },
+    "day-41-act-04": {
+      "title": "独立掌握检查：在留出上下文上的完整前向传播",
+      "prerequisites": "完成活动 41-01 至 41-03。",
+      "objective": "对新上下文 ('b','a') 独立复现整条前向传播，并诚实指出预测符号。",
+      "assistance_policy_label": "独立掌握检查",
+      "instructions": "必做任务：合上书本。对上下文 ('b','a') = 索引 [2,1]，用同一套 C、W1、b1、W2、b2 计算完整前向传播，并在打开参考解答前预测下一符号。选做任务：若真实下一符号为 'a'（索引 1），写出其交叉熵损失——第 42 天会用到。",
+      "exercise_prompt": "对上下文 ('b','a')：\n1. 拼接输入 x。\n2. 预激活与隐向量 h。\n3. logit z。\n4. 概率 p 与 argmax 符号。",
+      "hint": "x = concat(C[2], C[1]) = [-0.4, 0.5, 0.2, -0.1]。W1、b1、W2、b2 与活动 41-01 至 41-03 完全相同。",
+      "answer": "x = [-0.4, 0.5, 0.2, -0.1]；pre = [0.01, 0.27, -0.11]；h = [0.010000, 0.263625, -0.109558]；z = [0.190317, -0.009231, -0.084504, 0.044823]；p = [0.290410, 0.237875, 0.220627, 0.251087]。argmax 是索引 0，即符号 '.'——模型预测 '.'，而目标 'a' 错了。未训练的权重会产出看似自信的错误；预测质量来自训练，而非架构本身。",
+      "mastery_criterion": "独立复现 x、h、z、p 并与参考值精确到小数点后 6 位一致，指出 argmax '.' 是索引 0，并对未训练预测给出诚实评论。",
+      "quiz": {
+        "title": "客观知识测验：前向传播与 softmax",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "数值稳定的 softmax 为什么在取指数前从每个 logit 中减去 max(z)？",
+            "options": {
+              "a": "让前向传播更快",
+              "b": "在保持概率不变的同时防止 exp() 溢出",
+              "c": "tanh 激活要求这样做",
+              "d": "缩小词汇表"
+            },
+            "hint": "想想 float64 中 exp(1000) 会怎样，以及公共因子如何在比值中约掉。",
+            "explanation": "exp(1000) 在 float64 中溢出，但 softmax(z - m) = softmax(z)，因为因子 e^{-m} 在分子分母之间约掉。"
+          },
+          {
+            "id": "q2",
+            "prompt": "两个堆叠的线性层之间没有非线性激活时，它等价于：",
+            "options": {
+              "a": "单个线性映射 x * (W1 * W2)",
+              "b": "一个无法用矩阵写出的函数",
+              "c": "一个饱和非线性",
+              "d": "softmax 函数"
+            },
+            "hint": "把 h = x*W1 代入 z = h*W2。",
+            "explanation": "z = x*W1*W2 = x*(W1W2)：矩阵乘法满足结合律，两个线性映射的复合仍是一个线性映射。"
+          },
+          {
+            "id": "q3",
+            "prompt": "给定符号 ['.','a','b','c'] 上的 p = [0.290410, 0.237875, 0.220627, 0.251087]，argmax 预测是：",
+            "options": {
+              "a": "'a'",
+              "b": "'.'",
+              "c": "'b'",
+              "d": "'c'"
+            },
+            "hint": "找出最大的概率，把它的下标映射回词汇表顺序。",
+            "explanation": "最大值是索引 0 处的 0.290410，对应符号 '.'。argmax 是预测，不一定是正确目标。"
+          }
+        ]
+      }
+    }
+  }
+}

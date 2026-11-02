@@ -1,0 +1,1539 @@
+{
+  "version": "1.0.0",
+  "curriculum_id": "90-day-ai-learning",
+  "total_days": 90,
+  "total_active_minutes": 43200,
+  "total_hours": 720,
+  "hours_per_day": 8,
+  "minutes_per_day": 480,
+  "category_hours": {
+    "self-directed-learning-and-python": 180,
+    "mathematics": 144,
+    "models-and-training": 288,
+    "agents": 108
+  },
+  "category_minutes": {
+    "self-directed-learning-and-python": 10800,
+    "mathematics": 8640,
+    "models-and-training": 17280,
+    "agents": 6480
+  },
+  "weekly_review_days": [
+    7,
+    14,
+    21,
+    28,
+    35,
+    42,
+    49,
+    56,
+    63,
+    70,
+    77,
+    84,
+    89,
+    90
+  ],
+  "blocks": [
+    {
+      "block_number": 1,
+      "ticket_number": 25,
+      "start_day": 1,
+      "end_day": 3,
+      "topic_category": "self-directed-learning-and-python",
+      "title": "Diagnosis, Learning Methods, and Environment",
+      "title_zh_Hans": "诊断、学习方法与环境配置",
+      "title_zh_Hant": "診斷、學習方法與環境配置",
+      "title_ja": "診断、学習法、開発環境"
+    },
+    {
+      "block_number": 2,
+      "ticket_number": 26,
+      "start_day": 4,
+      "end_day": 6,
+      "topic_category": "self-directed-learning-and-python",
+      "title": "Python Values, Types, and Conditions",
+      "title_zh_Hans": "Python 数值、类型与条件分支",
+      "title_zh_Hant": "Python 數值、類型與條件分支",
+      "title_ja": "Pythonの数値、型と条件分岐"
+    },
+    {
+      "block_number": 3,
+      "ticket_number": 27,
+      "start_day": 7,
+      "end_day": 9,
+      "topic_category": "self-directed-learning-and-python",
+      "title": "Loops, Functions, and Containers",
+      "title_zh_Hans": "循环、函数与数据容器",
+      "title_zh_Hant": "循環、函數與資料容器",
+      "title_ja": "ループ、関数とコンテナ"
+    },
+    {
+      "block_number": 4,
+      "ticket_number": 28,
+      "start_day": 10,
+      "end_day": 12,
+      "topic_category": "self-directed-learning-and-python",
+      "title": "Files, Exceptions, Environments, and Tests",
+      "title_zh_Hans": "文件、异常、环境与测试",
+      "title_zh_Hant": "檔案、異常、環境與測試",
+      "title_ja": "ファイル、例外、仮想環境とテスト"
+    },
+    {
+      "block_number": 5,
+      "ticket_number": 29,
+      "start_day": 13,
+      "end_day": 15,
+      "topic_category": "self-directed-learning-and-python",
+      "title": "Text Project and Git Collaboration",
+      "title_zh_Hans": "文本工具项目与 Git 协作",
+      "title_zh_Hant": "文本工具專案與 Git 協作",
+      "title_ja": "テキストツール開発とGit協調作業"
+    },
+    {
+      "block_number": 6,
+      "ticket_number": 30,
+      "start_day": 16,
+      "end_day": 18,
+      "topic_category": "mathematics",
+      "title": "Functions, Limits, and Derivatives",
+      "title_zh_Hans": "函数、极限与导数几何直觉",
+      "title_zh_Hant": "函數、極限與導數幾何直覺",
+      "title_ja": "関数、極限と微分の直感"
+    },
+    {
+      "block_number": 7,
+      "ticket_number": 31,
+      "start_day": 19,
+      "end_day": 21,
+      "topic_category": "mathematics",
+      "title": "Chain Rule and Multivariable Gradients",
+      "title_zh_Hans": "链式法则与多元梯度计算",
+      "title_zh_Hant": "鏈式法則與多元梯度計算",
+      "title_ja": "合成関数の微分と多変数勾配"
+    },
+    {
+      "block_number": 8,
+      "ticket_number": 32,
+      "start_day": 22,
+      "end_day": 24,
+      "topic_category": "mathematics",
+      "title": "Linear Algebra and Tensor Reasoning",
+      "title_zh_Hans": "线性代数与张量维度演算",
+      "title_zh_Hant": "線性代數與張量維度演算",
+      "title_ja": "線形代数とテンソル計算"
+    },
+    {
+      "block_number": 9,
+      "ticket_number": 33,
+      "start_day": 25,
+      "end_day": 27,
+      "topic_category": "mathematics",
+      "title": "Probability, Sampling, and Information",
+      "title_zh_Hans": "概率、采样与信息熵直觉",
+      "title_zh_Hant": "機率、採樣與資訊熵直覺",
+      "title_ja": "確率、サンプリングと情報エントロピー"
+    },
+    {
+      "block_number": 10,
+      "ticket_number": 34,
+      "start_day": 28,
+      "end_day": 30,
+      "topic_category": "mathematics",
+      "title": "Statistics, Evaluation, and Optimization",
+      "title_zh_Hans": "统计推断、评估指标与优化器",
+      "title_zh_Hant": "統計推論、評估指標與優化器",
+      "title_ja": "統計的評価と最適化手法"
+    },
+    {
+      "block_number": 11,
+      "ticket_number": 35,
+      "start_day": 31,
+      "end_day": 33,
+      "topic_category": "mathematics",
+      "title": "Independently Implement Automatic Differentiation",
+      "title_zh_Hans": "独立实现自动微分引擎 (Autograd)",
+      "title_zh_Hant": "獨立實現自動微分引擎 (Autograd)",
+      "title_ja": "自動微分の独自実装"
+    },
+    {
+      "block_number": 12,
+      "ticket_number": 36,
+      "start_day": 34,
+      "end_day": 36,
+      "topic_category": "models-and-training",
+      "title": "MLPs and Backpropagation",
+      "title_zh_Hans": "多层感知机与反向传播推导",
+      "title_zh_Hant": "多層感知機與反向傳播推導",
+      "title_ja": "多層パーセプトロンと誤差逆伝播法"
+    },
+    {
+      "block_number": 13,
+      "ticket_number": 37,
+      "start_day": 37,
+      "end_day": 39,
+      "topic_category": "models-and-training",
+      "title": "Text Modeling and Tokenization",
+      "title_zh_Hans": "文本统计建模与 Tokenizer 原理",
+      "title_zh_Hant": "文本統計建模與 Tokenizer 原理",
+      "title_ja": "言語統計モデルとトークナイザー"
+    },
+    {
+      "block_number": 14,
+      "ticket_number": 38,
+      "start_day": 40,
+      "end_day": 42,
+      "topic_category": "models-and-training",
+      "title": "Embeddings and Neural Language Models",
+      "title_zh_Hans": "词嵌入向量与神经语言模型",
+      "title_zh_Hant": "詞嵌入向量與神經語言模型",
+      "title_ja": "単語埋め込みとニューラル言語モデル"
+    },
+    {
+      "block_number": 15,
+      "ticket_number": 39,
+      "start_day": 43,
+      "end_day": 45,
+      "topic_category": "models-and-training",
+      "title": "Attention and Causal Constraints",
+      "title_zh_Hans": "自注意力机制与因果因数掩码",
+      "title_zh_Hant": "自注意力機制與因果因數掩碼",
+      "title_ja": "自己注意機構と因果マスク"
+    },
+    {
+      "block_number": 16,
+      "ticket_number": 40,
+      "start_day": 46,
+      "end_day": 48,
+      "topic_category": "models-and-training",
+      "title": "Assemble and Explain a Transformer",
+      "title_zh_Hans": "Transformer 架构组装与拆解",
+      "title_zh_Hant": "Transformer 架構組裝與拆解",
+      "title_ja": "Transformerの構造と実装"
+    },
+    {
+      "block_number": 17,
+      "ticket_number": 41,
+      "start_day": 49,
+      "end_day": 51,
+      "topic_category": "models-and-training",
+      "title": "Run the Pretraining Loop",
+      "title_zh_Hans": "运行从零预训练闭环 (Pretraining)",
+      "title_zh_Hant": "運行從零預訓練閉環 (Pretraining)",
+      "title_ja": "言語モデルの事前学習ループ"
+    },
+    {
+      "block_number": 18,
+      "ticket_number": 42,
+      "start_day": 52,
+      "end_day": 54,
+      "topic_category": "models-and-training",
+      "title": "Generation, Overfitting, and Evaluation",
+      "title_zh_Hans": "自回归生成、过拟合诊断与科学评估",
+      "title_zh_Hant": "自回歸生成、過擬合診斷與科學評估",
+      "title_ja": "自己回帰生成、過学習診断と評価"
+    },
+    {
+      "block_number": 19,
+      "ticket_number": 43,
+      "start_day": 55,
+      "end_day": 57,
+      "topic_category": "models-and-training",
+      "title": "Checkpoints and Resource Planning",
+      "title_zh_Hans": "权重保存、断点恢复与算力预估",
+      "title_zh_Hant": "權重保存、斷點恢復與算力預估",
+      "title_ja": "チェックポイント保存とリソース計画"
+    },
+    {
+      "block_number": 20,
+      "ticket_number": 44,
+      "start_day": 58,
+      "end_day": 60,
+      "topic_category": "models-and-training",
+      "title": "Reproduce Cloud-GPU Pretraining",
+      "title_zh_Hans": "云端 GPU 预训练复现与实验追踪",
+      "title_zh_Hant": "雲端 GPU 預訓練複現與實驗追蹤",
+      "title_ja": "クラウドGPUを用いた事前学習実験"
+    },
+    {
+      "block_number": 21,
+      "ticket_number": 45,
+      "start_day": 61,
+      "end_day": 63,
+      "topic_category": "models-and-training",
+      "title": "Instruction Data and Training Objectives",
+      "title_zh_Hans": "指令微调数据构造与目标损失",
+      "title_zh_Hant": "指令微調資料構造與目標損失",
+      "title_ja": "指示データセットと学習目標"
+    },
+    {
+      "block_number": 22,
+      "ticket_number": 46,
+      "start_day": 64,
+      "end_day": 66,
+      "topic_category": "models-and-training",
+      "title": "LoRA Mathematics and Engineering",
+      "title_zh_Hans": "LoRA 低秩自适应数学原理与实现",
+      "title_zh_Hant": "LoRA 低秩自適應數學原理與實現",
+      "title_ja": "LoRAの数理と実装"
+    },
+    {
+      "block_number": 23,
+      "ticket_number": 47,
+      "start_day": 67,
+      "end_day": 69,
+      "topic_category": "models-and-training",
+      "title": "Run the Real Fine-Tuning Experiment",
+      "title_zh_Hans": "运行真实开源大模型微调实验",
+      "title_zh_Hant": "運行真實開源大模型微調實驗",
+      "title_ja": "オープンモデルのファインチューニング実験"
+    },
+    {
+      "block_number": 24,
+      "ticket_number": 48,
+      "start_day": 70,
+      "end_day": 72,
+      "topic_category": "self-directed-learning-and-python",
+      "title": "Evaluate Models and Attribute Failures",
+      "title_zh_Hans": "模型对比评估、归因分析与报告",
+      "title_zh_Hant": "模型對比評估、歸因分析與報告",
+      "title_ja": "モデル評価と比較・失敗原因分析"
+    },
+    {
+      "block_number": 25,
+      "ticket_number": 49,
+      "start_day": 73,
+      "end_day": 75,
+      "topic_category": "agents",
+      "title": "Agent Loops and Tool Protocols",
+      "title_zh_Hans": "Agent 核心循环与工具调用协议",
+      "title_zh_Hant": "Agent 核心循環與工具調用協議",
+      "title_ja": "エージェントループとツールプロトコル"
+    },
+    {
+      "block_number": 26,
+      "ticket_number": 50,
+      "start_day": 76,
+      "end_day": 78,
+      "topic_category": "agents",
+      "title": "Agent State, Retries, and Execution Limits",
+      "title_zh_Hans": "状态管理、重试策略与安全执行边界",
+      "title_zh_Hant": "狀態管理、重試策略與安全執行邊界",
+      "title_ja": "状態遷移、再試行制御と安全性"
+    },
+    {
+      "block_number": 27,
+      "ticket_number": 51,
+      "start_day": 79,
+      "end_day": 81,
+      "topic_category": "self-directed-learning-and-python",
+      "title": "Deliver Engineering Work with an Agent",
+      "title_zh_Hans": "协同 Agent 交付工程代码与 CI/CD",
+      "title_zh_Hant": "協同 Agent 交付工程代碼與 CI/CD",
+      "title_ja": "エージェント協調開発とCI/CD"
+    },
+    {
+      "block_number": 28,
+      "ticket_number": 52,
+      "start_day": 82,
+      "end_day": 84,
+      "topic_category": "agents",
+      "title": "Evaluate Agents Scientifically",
+      "title_zh_Hans": "科学化 Agent 评测基准设计",
+      "title_zh_Hant": "科學化 Agent 評測基準設計",
+      "title_ja": "エージェント評価とベンチマーク設計"
+    },
+    {
+      "block_number": 29,
+      "ticket_number": 53,
+      "start_day": 85,
+      "end_day": 87,
+      "topic_category": "agents",
+      "title": "Integrate the Capstone Learning Project",
+      "title_zh_Hans": "综合项目开发与系统集成",
+      "title_zh_Hant": "綜合專案開發與系統整合",
+      "title_ja": "統合キャップストーンプロジェクト"
+    },
+    {
+      "block_number": 30,
+      "ticket_number": 54,
+      "start_day": 88,
+      "end_day": 90,
+      "topic_category": "agents",
+      "title": "Demonstrate Mastery and Assemble a Portfolio",
+      "title_zh_Hans": "独立掌握度终审、作品集与展望",
+      "title_zh_Hant": "獨立掌握度終審、作品集與展望",
+      "title_ja": "習得度評価、ポートフォリオ構築と修了"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "les-01",
+      "title": "Lesson 01: Diagnosis, Learning Methods, and Environment (Part 1)",
+      "study_days": [
+        "day-01"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Mastery of core concepts in Diagnosis, Learning Methods, and Environment under verified criteria.",
+      "prerequisites": []
+    },
+    {
+      "id": "les-02",
+      "title": "Lesson 02: Diagnosis, Learning Methods, and Environment (Part 2)",
+      "study_days": [
+        "day-02"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Mastery of core concepts in Diagnosis, Learning Methods, and Environment under verified criteria.",
+      "prerequisites": [
+        "les-01"
+      ]
+    },
+    {
+      "id": "les-03",
+      "title": "Lesson 03: Diagnosis, Learning Methods, and Environment (Part 3)",
+      "study_days": [
+        "day-03"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Mastery of core concepts in Diagnosis, Learning Methods, and Environment under verified criteria.",
+      "prerequisites": [
+        "les-02"
+      ]
+    },
+    {
+      "id": "les-04",
+      "title": "Lesson 04: Python Values, Types, and Conditions (Part 1)",
+      "study_days": [
+        "day-04"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Mastery of core concepts in Python Values, Types, and Conditions under verified criteria.",
+      "prerequisites": [
+        "les-03"
+      ]
+    },
+    {
+      "id": "les-05",
+      "title": "Lesson 05: Python Values, Types, and Conditions (Part 2)",
+      "study_days": [
+        "day-05"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Mastery of core concepts in Python Values, Types, and Conditions under verified criteria.",
+      "prerequisites": [
+        "les-04"
+      ]
+    },
+    {
+      "id": "les-06",
+      "title": "Lesson 06: Python Values, Types, and Conditions (Part 3)",
+      "study_days": [
+        "day-06"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Mastery of core concepts in Python Values, Types, and Conditions under verified criteria.",
+      "prerequisites": [
+        "les-05"
+      ]
+    },
+    {
+      "id": "les-07",
+      "title": "Lesson 07: Consolidation & Assessment Review",
+      "study_days": [
+        "day-07"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Mastery of core concepts in Loops, Functions, and Containers under verified criteria.",
+      "prerequisites": [
+        "les-06"
+      ]
+    },
+    {
+      "id": "les-08",
+      "title": "Lesson 08: Loops, Functions, and Containers (Part 2)",
+      "study_days": [
+        "day-08"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Mastery of core concepts in Loops, Functions, and Containers under verified criteria.",
+      "prerequisites": [
+        "les-07"
+      ]
+    },
+    {
+      "id": "les-09",
+      "title": "Lesson 09: Loops, Functions, and Containers (Part 3)",
+      "study_days": [
+        "day-09"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Mastery of core concepts in Loops, Functions, and Containers under verified criteria.",
+      "prerequisites": [
+        "les-08"
+      ]
+    },
+    {
+      "id": "les-10",
+      "title": "Lesson 10: Files, Exceptions, Environments, and Tests (Part 1)",
+      "study_days": [
+        "day-10"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Read and write files with explicit encodings, anchored paths, and guaranteed resource cleanup; diagnose missing files and invalid content from evidence.",
+      "prerequisites": [
+        "les-09"
+      ]
+    },
+    {
+      "id": "les-11",
+      "title": "Lesson 11: Files, Exceptions, Environments, and Tests (Part 2)",
+      "study_days": [
+        "day-11"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Handle expected failures with precise exception types and isolated virtual environments; diagnose tracebacks and wrong-environment faults with evidence.",
+      "prerequisites": [
+        "les-10"
+      ]
+    },
+    {
+      "id": "les-12",
+      "title": "Lesson 12: Files, Exceptions, Environments, and Tests (Part 3)",
+      "study_days": [
+        "day-12"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Write unittest assertions over disposable file fixtures and triage a failing test as a code bug, a test bug, or an environment fault to make programs repeatable.",
+      "prerequisites": [
+        "les-11"
+      ]
+    },
+    {
+      "id": "les-13",
+      "title": "Lesson 13: Text Project and Git Collaboration (Part 1)",
+      "study_days": [
+        "day-13"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Run, implement, and debug the actual text_tools project: exercise every CLI flag, independently re-implement a statistics or split function, pass held-out behavior checks (missing input, malformed UTF-8, empty input, invalid ratios, seed determinism), and write a project report stating assumptions and limits.",
+      "prerequisites": [
+        "les-12"
+      ]
+    },
+    {
+      "id": "les-14",
+      "title": "Lesson 14: Consolidation & Assessment Review",
+      "study_days": [
+        "day-14"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Practice Git collaboration safely in disposable repositories: focused branches and diffs, independent merge-conflict resolution, safe recovery with restore/revert (never reset --hard, clean, or force-push on the learning tree), and PR-style review separating correctness, scope, tests, risks, and evidence.",
+      "prerequisites": [
+        "les-13"
+      ]
+    },
+    {
+      "id": "les-15",
+      "title": "Lesson 15: Text Project and Git Collaboration (Part 3)",
+      "study_days": [
+        "day-15"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Reproduce the complete text_tools pipeline from a clean environment, independently evaluate held-out cases (Unicode, empty input, malformed encoding, duplicate records, ratio validation, reproducibility), trace the provenance chain from source hash through seed to split hashes for later model reuse, and deliver an honest PR-style portfolio handoff.",
+      "prerequisites": [
+        "les-14"
+      ]
+    },
+    {
+      "id": "les-16",
+      "title": "Lesson 16: Functions, Limits, and Derivatives (Part 1)",
+      "study_days": [
+        "day-16"
+      ],
+      "topic_category": "mathematics",
+      "status": "available",
+      "objective": "Represent functions, calculate average slopes, and reason about limits from nearby values with explicit domains and assumptions.",
+      "prerequisites": [
+        "les-15"
+      ]
+    },
+    {
+      "id": "les-17",
+      "title": "Lesson 17: Functions, Limits, and Derivatives (Part 2)",
+      "study_days": [
+        "day-17"
+      ],
+      "topic_category": "mathematics",
+      "status": "available",
+      "objective": "Derive derivatives from the limit definition, apply rules with stated assumptions, and explain the absolute-value nondifferentiable counterexample.",
+      "prerequisites": [
+        "les-16"
+      ]
+    },
+    {
+      "id": "les-18",
+      "title": "Lesson 18: Functions, Limits, and Derivatives (Part 3)",
+      "study_days": [
+        "day-18"
+      ],
+      "topic_category": "mathematics",
+      "status": "available",
+      "objective": "Use finite differences to verify derivatives and explain truncation error, cancellation, floating-point effects, and why the smallest step is not always best.",
+      "prerequisites": [
+        "les-17"
+      ]
+    },
+    {
+      "id": "les-19",
+      "title": "Lesson 19: Chain Rule and Multivariable Gradients (Part 1)",
+      "study_days": [
+        "day-19"
+      ],
+      "topic_category": "mathematics",
+      "status": "available",
+      "objective": "Derive and apply the scalar chain rule on composed functions, verify each result by expansion or finite difference, and explain where differentiability fails.",
+      "prerequisites": [
+        "les-18"
+      ]
+    },
+    {
+      "id": "les-20",
+      "title": "Lesson 20: Chain Rule and Multivariable Gradients (Part 2)",
+      "study_days": [
+        "day-20"
+      ],
+      "topic_category": "mathematics",
+      "status": "available",
+      "objective": "Compute partial derivatives, assemble and interpret the gradient vector, and prove that shared dependency paths add contributions in the multivariable chain rule.",
+      "prerequisites": [
+        "les-19"
+      ]
+    },
+    {
+      "id": "les-21",
+      "title": "Lesson 21: Consolidation & Assessment Review",
+      "study_days": [
+        "day-21"
+      ],
+      "topic_category": "mathematics",
+      "status": "available",
+      "objective": "Walk a scalar computational graph forward and backward by hand, show that shared nodes accumulate gradient contributions like an autograd engine, and re-verify the block with a finite-difference harness.",
+      "prerequisites": [
+        "les-20"
+      ]
+    },
+    {
+      "id": "les-22",
+      "title": "Lesson 22: Linear Algebra and Tensor Reasoning (Part 1)",
+      "study_days": [
+        "day-22"
+      ],
+      "topic_category": "mathematics",
+      "status": "available",
+      "objective": "Mastery of vectors, linear combinations, dot products, and matrices as linear maps, including matrix-vector products with explicit shape accounting, under verified criteria.",
+      "prerequisites": [
+        "les-21"
+      ]
+    },
+    {
+      "id": "les-23",
+      "title": "Lesson 23: Linear Algebra and Tensor Reasoning (Part 2)",
+      "study_days": [
+        "day-23"
+      ],
+      "topic_category": "mathematics",
+      "status": "available",
+      "objective": "Mastery of matrix multiplication as composed linear maps with explicit (m x k)(k x n) -> m x n shape ledgers, plus transpose, identity, and inverse intuition, under verified criteria.",
+      "prerequisites": [
+        "les-22"
+      ]
+    },
+    {
+      "id": "les-24",
+      "title": "Lesson 24: Linear Algebra and Tensor Reasoning (Part 3)",
+      "study_days": [
+        "day-24"
+      ],
+      "topic_category": "mathematics",
+      "status": "available",
+      "objective": "Mastery of tensors with named batch/time/channel axes, broadcasting rules and failure diagnosis, reshape and view-versus-copy behavior, and memory ledgers for model operations, under verified criteria.",
+      "prerequisites": [
+        "les-23"
+      ]
+    },
+    {
+      "id": "les-25",
+      "title": "Lesson 25: Probability, Sampling, and Information (Part 1)",
+      "study_days": [
+        "day-25"
+      ],
+      "topic_category": "mathematics",
+      "status": "available",
+      "objective": "Compute event, conditional, and posterior probabilities by counting and Bayes' rule; state the assumed probability model; distinguish empirical frequencies from guaranteed probabilities.",
+      "prerequisites": [
+        "les-24"
+      ]
+    },
+    {
+      "id": "les-26",
+      "title": "Lesson 26: Probability, Sampling, and Information (Part 2)",
+      "study_days": [
+        "day-26"
+      ],
+      "topic_category": "mathematics",
+      "status": "available",
+      "objective": "Define discrete random variables and distributions; compute expectation and variance; draw and interpret seeded samples; derive maximum-likelihood estimates including the zero-count failure.",
+      "prerequisites": [
+        "les-25"
+      ]
+    },
+    {
+      "id": "les-27",
+      "title": "Lesson 27: Probability, Sampling, and Information (Part 3)",
+      "study_days": [
+        "day-27"
+      ],
+      "topic_category": "mathematics",
+      "status": "available",
+      "objective": "Measure surprisal in bits and nats; compute entropy, cross-entropy, and KL divergence; connect cross-entropy to language-model negative log-likelihood and perplexity with numerical-stability safeguards.",
+      "prerequisites": [
+        "les-26"
+      ]
+    },
+    {
+      "id": "les-28",
+      "title": "Lesson 28: Consolidation & Assessment Review",
+      "study_days": [
+        "day-28"
+      ],
+      "topic_category": "mathematics",
+      "status": "available",
+      "objective": "Compute honest descriptive statistics and sampling standard errors, and distinguish a statistical claim from a toy observation under verified mastery criteria.",
+      "prerequisites": [
+        "les-27"
+      ]
+    },
+    {
+      "id": "les-29",
+      "title": "Lesson 29: Statistics, Evaluation, and Optimization (Part 2)",
+      "study_days": [
+        "day-29"
+      ],
+      "topic_category": "mathematics",
+      "status": "available",
+      "objective": "Design train/validation/test evaluation protocols that exclude data leakage, compare against honest baselines, and interpret accuracy, loss, and perplexity under distribution shift.",
+      "prerequisites": [
+        "les-28"
+      ]
+    },
+    {
+      "id": "les-30",
+      "title": "Lesson 30: Statistics, Evaluation, and Optimization (Part 3)",
+      "study_days": [
+        "day-30"
+      ],
+      "topic_category": "mathematics",
+      "status": "available",
+      "objective": "Derive gradient-descent updates, classify learning-rate regimes including divergence and saddle points, and produce honest failure analyses under verified mastery criteria.",
+      "prerequisites": [
+        "les-29"
+      ]
+    },
+    {
+      "id": "les-31",
+      "title": "Lesson 31: Independently Implement Automatic Differentiation (Part 1)",
+      "study_days": [
+        "day-31"
+      ],
+      "topic_category": "mathematics",
+      "status": "available",
+      "objective": "Mastery of core concepts in Independently Implement Automatic Differentiation under verified criteria.",
+      "prerequisites": [
+        "les-30"
+      ]
+    },
+    {
+      "id": "les-32",
+      "title": "Lesson 32: Independently Implement Automatic Differentiation (Part 2)",
+      "study_days": [
+        "day-32"
+      ],
+      "topic_category": "mathematics",
+      "status": "available",
+      "objective": "Mastery of core concepts in Independently Implement Automatic Differentiation under verified criteria.",
+      "prerequisites": [
+        "les-31"
+      ]
+    },
+    {
+      "id": "les-33",
+      "title": "Lesson 33: Independently Implement Automatic Differentiation (Part 3)",
+      "study_days": [
+        "day-33"
+      ],
+      "topic_category": "mathematics",
+      "status": "available",
+      "objective": "Mastery of core concepts in Independently Implement Automatic Differentiation under verified criteria.",
+      "prerequisites": [
+        "les-32"
+      ]
+    },
+    {
+      "id": "les-34",
+      "title": "Lesson 34: MLPs and Backpropagation (Part 1)",
+      "study_days": [
+        "day-34"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Construct feedforward MLPs, layer composition, and hand-computed forward passes.",
+      "prerequisites": [
+        "les-33"
+      ]
+    },
+    {
+      "id": "les-35",
+      "title": "Lesson 35: Consolidation & Assessment Review",
+      "study_days": [
+        "day-35"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Derive backpropagation by hand, error terms, and analyze gradient flow.",
+      "prerequisites": [
+        "les-34"
+      ]
+    },
+    {
+      "id": "les-36",
+      "title": "Lesson 36: MLPs and Backpropagation (Part 3)",
+      "study_days": [
+        "day-36"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Implement the full training loop, explore learning rates, and diagnose failure modes.",
+      "prerequisites": [
+        "les-35"
+      ]
+    },
+    {
+      "id": "les-37",
+      "title": "Lesson 37: Text Modeling and Tokenization (Part 1)",
+      "study_days": [
+        "day-37"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Map characters to UTF-8 bytes and integer token IDs, establish vocabularies and round-trip encode/decode invariants, and separate train splits from evaluation splits without leakage.",
+      "prerequisites": [
+        "les-36"
+      ]
+    },
+    {
+      "id": "les-38",
+      "title": "Lesson 38: Text Modeling and Tokenization (Part 2)",
+      "study_days": [
+        "day-38"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Estimate character bigram count matrices and maximum-likelihood transition probabilities, apply Laplace and add-k smoothing, evaluate held-out log-likelihood and perplexity, and contrast with naive sampling.",
+      "prerequisites": [
+        "les-37"
+      ]
+    },
+    {
+      "id": "les-39",
+      "title": "Lesson 39: Text Modeling and Tokenization (Part 3)",
+      "study_days": [
+        "day-39"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Implement byte-pair encoding (BPE) pair frequency counting and iterative merges, handle unicode code points and special tokens, compare teaching tokenizers with production BPE tokenizers, and verify lossless round-trip decoding.",
+      "prerequisites": [
+        "les-38"
+      ]
+    },
+    {
+      "id": "les-40",
+      "title": "Lesson 40: Embeddings and Neural Language Models (Part 1)",
+      "study_days": [
+        "day-40"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Mastery of embedding lookup tables as learned features, one-hot equivalence, distributed representations, context concatenation, and parameter ledgers under verified criteria.",
+      "prerequisites": [
+        "les-39"
+      ]
+    },
+    {
+      "id": "les-41",
+      "title": "Lesson 41: Embeddings and Neural Language Models (Part 2)",
+      "study_days": [
+        "day-41"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Mastery of the Makemore-style neural language model forward pass: hidden tanh layer, logits, and numerically stable softmax under verified criteria.",
+      "prerequisites": [
+        "les-40"
+      ]
+    },
+    {
+      "id": "les-42",
+      "title": "Lesson 42: Consolidation & Assessment Review",
+      "study_days": [
+        "day-42"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Mastery of cross-entropy/NLL loss, disciplined training-loop observation with fixed splits and seeds, overfitting and instability counterexamples, and honest baseline comparison under verified criteria.",
+      "prerequisites": [
+        "les-41"
+      ]
+    },
+    {
+      "id": "les-43",
+      "title": "Lesson 43: Attention and Causal Constraints (Part 1)",
+      "study_days": [
+        "day-43"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Mastery of scaled dot-product attention, query/key/value matrix formulation, variance derivation of inner products in R^{d_k}, and scaling factor 1/sqrt(d_k) to prevent softmax saturation under verified criteria.",
+      "prerequisites": [
+        "les-42"
+      ]
+    },
+    {
+      "id": "les-44",
+      "title": "Lesson 44: Attention and Causal Constraints (Part 2)",
+      "study_days": [
+        "day-44"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Mastery of autoregressive causal masking, lower-triangular mask construction, max-shifted softmax with -inf entries, and strict empirical and analytical verification of past-token invariance under future perturbations under verified criteria.",
+      "prerequisites": [
+        "les-43"
+      ]
+    },
+    {
+      "id": "les-45",
+      "title": "Lesson 45: Attention and Causal Constraints (Part 3)",
+      "study_days": [
+        "day-45"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Mastery of multi-head attention mechanics, linear projections W^Q, W^K, W^V, W^O, batched tensor reshaping (B, h, T, d_k), exact parameter ledgers, and edge-case numerical stability under verified criteria.",
+      "prerequisites": [
+        "les-44"
+      ]
+    },
+    {
+      "id": "les-46",
+      "title": "Lesson 46: Assemble and Explain a Transformer (Part 1)",
+      "study_days": [
+        "day-46"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Assemble Transformer blocks with LayerNorm, RMSNorm, and residual connections.",
+      "prerequisites": [
+        "les-45"
+      ]
+    },
+    {
+      "id": "les-47",
+      "title": "Lesson 47: Assemble and Explain a Transformer (Part 2)",
+      "study_days": [
+        "day-47"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Construct position-wise FFN layers, analyze expansion ratios, and stack modular blocks.",
+      "prerequisites": [
+        "les-46"
+      ]
+    },
+    {
+      "id": "les-48",
+      "title": "Lesson 48: Assemble and Explain a Transformer (Part 3)",
+      "study_days": [
+        "day-48"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Trace end-to-end token-to-logit forward pass, explain weight tying, and pass comprehensive mastery check.",
+      "prerequisites": [
+        "les-47"
+      ]
+    },
+    {
+      "id": "les-49",
+      "title": "Lesson 49: Week 7 Consolidation and the Pretraining Data Pipeline",
+      "study_days": [
+        "day-49"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Consolidate Days 43-48 (attention through logits) and build autoregressive (x, y) batches for the pretraining loop.",
+      "prerequisites": [
+        "les-48"
+      ]
+    },
+    {
+      "id": "les-50",
+      "title": "Lesson 50: Run the Pretraining Loop (Part 2)",
+      "study_days": [
+        "day-50"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Implement AdamW decoupled weight decay, separate 2D/1D parameter groups, and build warmup-cosine schedules.",
+      "prerequisites": [
+        "les-49"
+      ]
+    },
+    {
+      "id": "les-51",
+      "title": "Lesson 51: Run the Pretraining Loop (Part 3)",
+      "study_days": [
+        "day-51"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Execute the complete pretraining loop, track train/eval loss, save checkpoints, and diagnose failure modes.",
+      "prerequisites": [
+        "les-50"
+      ]
+    },
+    {
+      "id": "les-52",
+      "title": "Lesson 52: Generation, Overfitting, and Evaluation (Part 1)",
+      "study_days": [
+        "day-52"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Implement autoregressive text generation, temperature scaling, Top-k, and Nucleus (Top-p) sampling.",
+      "prerequisites": [
+        "les-51"
+      ]
+    },
+    {
+      "id": "les-53",
+      "title": "Lesson 53: Generation, Overfitting, and Evaluation (Part 2)",
+      "study_days": [
+        "day-53"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Track validation loss gap, compute held-out perplexity, and diagnose data leakage.",
+      "prerequisites": [
+        "les-52"
+      ]
+    },
+    {
+      "id": "les-54",
+      "title": "Lesson 54: Generation, Overfitting, and Evaluation (Part 3)",
+      "study_days": [
+        "day-54"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Analyze qualitative degeneration failure modes, small model boundaries, and pass comprehensive mastery exam.",
+      "prerequisites": [
+        "les-53"
+      ]
+    },
+    {
+      "id": "les-55",
+      "title": "Lesson 55: Checkpoint Serialization & Safe Resumption",
+      "study_days": [
+        "day-55"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Serialize model weights, optimizer states, learning rate schedules, and RNG seeds atomically with verified resume loss equivalence.",
+      "prerequisites": [
+        "les-54"
+      ]
+    },
+    {
+      "id": "les-56",
+      "title": "Lesson 56: Week 8 Consolidation and Resource Planning",
+      "study_days": [
+        "day-56"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Consolidate Days 50-55 (optimizer, training loop, sampling, evaluation, checkpoints) and plan parameters, memory, and compute for a pretraining run.",
+      "prerequisites": [
+        "les-55"
+      ]
+    },
+    {
+      "id": "les-57",
+      "title": "Lesson 57: Fault Tolerance, Corruption Recovery & Billing Safeguards",
+      "study_days": [
+        "day-57"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Diagnose truncated checkpoints, perform partial weight transfers, handle SIGTERM Spot preemption signals, and defend research budgets.",
+      "prerequisites": [
+        "les-56"
+      ]
+    },
+    {
+      "id": "les-58",
+      "title": "Lesson 58: Preflight Planning & Cost Ceilings",
+      "study_days": [
+        "day-58"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Audit cloud GPU capabilities, enforce strict spending ceilings ($10-$20 max), and execute zero-cost local dry runs.",
+      "prerequisites": [
+        "les-57"
+      ]
+    },
+    {
+      "id": "les-59",
+      "title": "Lesson 59: Unattended Cloud Execution & Telemetry Dynamics",
+      "study_days": [
+        "day-59"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Launch persistent detached training via Tmux, stream loss and gradient norms, and calculate real-time MFU without idle study billing.",
+      "prerequisites": [
+        "les-58"
+      ]
+    },
+    {
+      "id": "les-60",
+      "title": "Lesson 60: Post-Mortem Audit, Safetensors & Teardown",
+      "study_days": [
+        "day-60"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Audit validation perplexity, reconcile full cloud spending down to the penny, export Safetensors, and execute physical cloud teardown.",
+      "prerequisites": [
+        "les-59"
+      ]
+    },
+    {
+      "id": "les-61",
+      "title": "Lesson 61: Instruction Data Formats, Schemas & Token Boundary Alignment",
+      "study_days": [
+        "day-61"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Master Alpaca, ChatML, and ShareGPT schemas, multi-turn conversation formatting, and token boundary alignment to eliminate prompt injection and delimiter truncation bugs.",
+      "prerequisites": [
+        "les-60"
+      ]
+    },
+    {
+      "id": "les-62",
+      "title": "Lesson 62: Loss Masking & Target Label Construction",
+      "study_days": [
+        "day-62"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Implement causal autoregressive next-token shifting, apply ignore_index = -100 to prompt and padding tokens, and verify that cross-entropy loss gradients compute exclusively on assistant response tokens.",
+      "prerequisites": [
+        "les-61"
+      ]
+    },
+    {
+      "id": "les-63",
+      "title": "Lesson 63: Week 9 Consolidation and Benchmark Decontamination",
+      "study_days": [
+        "day-63"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Consolidate Days 57-62 (fault tolerance, budgets, telemetry, teardown, instruction formats, label masking) and audit SFT data against benchmark contamination.",
+      "prerequisites": [
+        "les-62"
+      ]
+    },
+    {
+      "id": "les-64",
+      "title": "Lesson 64: LoRA Mathematics & Parameter Factorization",
+      "study_days": [
+        "day-64"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Derive low-rank updates W = W0 + (alpha/r)*BA, analyze initialization dynamics, and compute exact trainable parameter ledgers.",
+      "prerequisites": [
+        "les-63"
+      ]
+    },
+    {
+      "id": "les-65",
+      "title": "Lesson 65: Base Freezing & Gradient Routing",
+      "study_days": [
+        "day-65"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Enforce base parameter freezing, trace adapter gradient paths, and demonstrate optimizer VRAM collapse.",
+      "prerequisites": [
+        "les-64"
+      ]
+    },
+    {
+      "id": "les-66",
+      "title": "Lesson 66: Adapter Merging & Zero-Latency Serving",
+      "study_days": [
+        "day-66"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Fold adapter weights into base weights for zero-latency inference, implement reversible unmerging, and package lightweight artifacts.",
+      "prerequisites": [
+        "les-65"
+      ]
+    },
+    {
+      "id": "les-67",
+      "title": "Lesson 67: Run the Real Fine-Tuning Experiment (Part 1)",
+      "study_days": [
+        "day-67"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Mastery of core concepts in Run the Real Fine-Tuning Experiment under verified criteria.",
+      "prerequisites": [
+        "les-66"
+      ]
+    },
+    {
+      "id": "les-68",
+      "title": "Lesson 68: Run the Real Fine-Tuning Experiment (Part 2)",
+      "study_days": [
+        "day-68"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Mastery of core concepts in Run the Real Fine-Tuning Experiment under verified criteria.",
+      "prerequisites": [
+        "les-67"
+      ]
+    },
+    {
+      "id": "les-69",
+      "title": "Lesson 69: Run the Real Fine-Tuning Experiment (Part 3)",
+      "study_days": [
+        "day-69"
+      ],
+      "topic_category": "models-and-training",
+      "status": "available",
+      "objective": "Mastery of core concepts in Run the Real Fine-Tuning Experiment under verified criteria.",
+      "prerequisites": [
+        "les-68"
+      ]
+    },
+    {
+      "id": "les-70",
+      "title": "Lesson 70: Week 10 Consolidation and Honest Benchmarking",
+      "study_days": [
+        "day-70"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Consolidate Days 64-69 (LoRA math, freezing, merging, the fine-tuning recipe, delta evaluation) and score benchmarks honestly with fair baselines, MMLU and GSM8K formats, and contamination checks.",
+      "prerequisites": [
+        "les-69"
+      ]
+    },
+    {
+      "id": "les-71",
+      "title": "Lesson 71: Quantitative Evaluation Metrics & Statistical Confidence",
+      "study_days": [
+        "day-71"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Compute Exact Match (EM), Token F1, ROUGE-L, and log-likelihood probabilities across held-out splits, estimating statistical confidence via non-parametric bootstrap resampling on small slices.",
+      "prerequisites": [
+        "les-70"
+      ]
+    },
+    {
+      "id": "les-72",
+      "title": "Lesson 72: Failure Attribution, Qualitative Error Taxonomies & Comparison Reports",
+      "study_days": [
+        "day-72"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Taxonomize LLM failure modes into hallucinations, format violations, unnecessary refusals, and catastrophic forgetting, synthesizing findings into honest, reproducible model-comparison reports.",
+      "prerequisites": [
+        "les-71"
+      ]
+    },
+    {
+      "id": "les-73",
+      "title": "Lesson 73: Agent Loops and Tool Protocols (Part 1)",
+      "study_days": [
+        "day-73"
+      ],
+      "topic_category": "agents",
+      "status": "available",
+      "objective": "Mastery of core concepts in Agent Loops and Tool Protocols under verified criteria.",
+      "prerequisites": [
+        "les-72"
+      ]
+    },
+    {
+      "id": "les-74",
+      "title": "Lesson 74: Agent Loops and Tool Protocols (Part 2)",
+      "study_days": [
+        "day-74"
+      ],
+      "topic_category": "agents",
+      "status": "available",
+      "objective": "Mastery of core concepts in Agent Loops and Tool Protocols under verified criteria.",
+      "prerequisites": [
+        "les-73"
+      ]
+    },
+    {
+      "id": "les-75",
+      "title": "Lesson 75: Agent Loops and Tool Protocols (Part 3)",
+      "study_days": [
+        "day-75"
+      ],
+      "topic_category": "agents",
+      "status": "available",
+      "objective": "Mastery of core concepts in Agent Loops and Tool Protocols under verified criteria.",
+      "prerequisites": [
+        "les-74"
+      ]
+    },
+    {
+      "id": "les-76",
+      "title": "Lesson 76: Agent State, Retries, and Execution Limits (Part 1)",
+      "study_days": [
+        "day-76"
+      ],
+      "topic_category": "agents",
+      "status": "available",
+      "objective": "Mastery of core concepts in Agent State, Retries, and Execution Limits under verified criteria.",
+      "prerequisites": [
+        "les-75"
+      ]
+    },
+    {
+      "id": "les-77",
+      "title": "Lesson 77: Consolidation & Assessment Review",
+      "study_days": [
+        "day-77"
+      ],
+      "topic_category": "agents",
+      "status": "available",
+      "objective": "Mastery of core concepts in Agent State, Retries, and Execution Limits under verified criteria.",
+      "prerequisites": [
+        "les-76"
+      ]
+    },
+    {
+      "id": "les-78",
+      "title": "Lesson 78: Agent State, Retries, and Execution Limits (Part 3)",
+      "study_days": [
+        "day-78"
+      ],
+      "topic_category": "agents",
+      "status": "available",
+      "objective": "Mastery of core concepts in Agent State, Retries, and Execution Limits under verified criteria.",
+      "prerequisites": [
+        "les-77"
+      ]
+    },
+    {
+      "id": "les-79",
+      "title": "Lesson 79: Deliver Engineering Work with an Agent (Part 1)",
+      "study_days": [
+        "day-79"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Mastery of core concepts in Deliver Engineering Work with an Agent under verified criteria.",
+      "prerequisites": [
+        "les-78"
+      ]
+    },
+    {
+      "id": "les-80",
+      "title": "Lesson 80: Deliver Engineering Work with an Agent (Part 2)",
+      "study_days": [
+        "day-80"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Mastery of core concepts in Deliver Engineering Work with an Agent under verified criteria.",
+      "prerequisites": [
+        "les-79"
+      ]
+    },
+    {
+      "id": "les-81",
+      "title": "Lesson 81: Deliver Engineering Work with an Agent (Part 3)",
+      "study_days": [
+        "day-81"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Mastery of core concepts in Deliver Engineering Work with an Agent under verified criteria.",
+      "prerequisites": [
+        "les-80"
+      ]
+    },
+    {
+      "id": "les-82",
+      "title": "Lesson 82: Evaluate Agents Scientifically (Part 1)",
+      "study_days": [
+        "day-82"
+      ],
+      "topic_category": "agents",
+      "status": "available",
+      "objective": "Mastery of core concepts in Evaluate Agents Scientifically under verified criteria.",
+      "prerequisites": [
+        "les-81"
+      ]
+    },
+    {
+      "id": "les-83",
+      "title": "Lesson 83: Evaluate Agents Scientifically (Part 2)",
+      "study_days": [
+        "day-83"
+      ],
+      "topic_category": "agents",
+      "status": "available",
+      "objective": "Mastery of core concepts in Evaluate Agents Scientifically under verified criteria.",
+      "prerequisites": [
+        "les-82"
+      ]
+    },
+    {
+      "id": "les-84",
+      "title": "Lesson 84: Consolidation & Assessment Review",
+      "study_days": [
+        "day-84"
+      ],
+      "topic_category": "agents",
+      "status": "available",
+      "objective": "Mastery of core concepts in Evaluate Agents Scientifically under verified criteria.",
+      "prerequisites": [
+        "les-83"
+      ]
+    },
+    {
+      "id": "les-85",
+      "title": "Lesson 85: Integrate the Capstone Learning Project (Part 1)",
+      "study_days": [
+        "day-85"
+      ],
+      "topic_category": "agents",
+      "status": "available",
+      "objective": "Mastery of core concepts in Integrate the Capstone Learning Project under verified criteria.",
+      "prerequisites": [
+        "les-84"
+      ]
+    },
+    {
+      "id": "les-86",
+      "title": "Lesson 86: Integrate the Capstone Learning Project (Part 2)",
+      "study_days": [
+        "day-86"
+      ],
+      "topic_category": "agents",
+      "status": "available",
+      "objective": "Mastery of core concepts in Integrate the Capstone Learning Project under verified criteria.",
+      "prerequisites": [
+        "les-85"
+      ]
+    },
+    {
+      "id": "les-87",
+      "title": "Lesson 87: Integrate the Capstone Learning Project (Part 3)",
+      "study_days": [
+        "day-87"
+      ],
+      "topic_category": "agents",
+      "status": "available",
+      "objective": "Mastery of core concepts in Integrate the Capstone Learning Project under verified criteria.",
+      "prerequisites": [
+        "les-86"
+      ]
+    },
+    {
+      "id": "les-88",
+      "title": "Lesson 88: Independent Mastery Retrieval - AI-Free Checks Across Python, Git, Mathematics, Gradients, and Model Reasoning",
+      "study_days": [
+        "day-88"
+      ],
+      "topic_category": "agents",
+      "status": "available",
+      "objective": "Demonstrate unaided mastery through sealed retrieval checks scored against transparent rubrics, with every miss routed to a named recovery activity.",
+      "prerequisites": [
+        "les-87"
+      ]
+    },
+    {
+      "id": "les-89",
+      "title": "Lesson 89: Corrections, Partial-Failure Feedback, and the Agent-Assisted Engineering Check",
+      "study_days": [
+        "day-89"
+      ],
+      "topic_category": "agents",
+      "status": "available",
+      "objective": "Convert rubric misses into verified corrections and complete one bounded delegated task on the capstone agent, keeping assisted evidence strictly separate.",
+      "prerequisites": [
+        "les-88"
+      ]
+    },
+    {
+      "id": "les-90",
+      "title": "Lesson 90: Portfolio Assembly, Provenance Audit, and the Evidence-Based Next-Learning Plan",
+      "study_days": [
+        "day-90"
+      ],
+      "topic_category": "self-directed-learning-and-python",
+      "status": "available",
+      "objective": "Assemble a reproducible portfolio over the accepted Learning Projects, re-run public verification commands, and close the course with an honest review and spaced-learning plan.",
+      "prerequisites": [
+        "les-89"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,350 @@
+{
+  "id": "day-87",
+  "day_number": 87,
+  "active_minutes": 480,
+  "topic_category": "agents",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-86"
+  ],
+  "recovery_links": [
+    "day-84"
+  ],
+  "activities": [
+    {
+      "id": "day-87-act-01",
+      "lesson_id": "les-87",
+      "title": "Fixed Evaluation Protocol and Honest Metrics",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-86"
+      ],
+      "source_resources": [
+        {
+          "id": "jimenez-swe-bench-2024",
+          "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+          "author": "Carlos E. Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir Press, Karthik R. Narasimhan",
+          "original_url": "https://arxiv.org/abs/2310.06770",
+          "relevant_timestamp": "Sections 3-5: task construction from merged PRs, FAIL_TO_PASS/PASS_TO_PASS metrics",
+          "version_or_verification_date": "ICLR 2024 / arXiv:2310.06770v3 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Software testing, issue resolution tasks, and benchmark design.",
+          "selection_rationale": "Defines execution-verified agent evaluation with held-out real tasks; motivates the capstone rule that outcomes are measured by test state transitions, not plausible output.",
+          "known_availability_limitations": "Freely available on arXiv; dataset and harness on GitHub under their own terms.",
+          "safe_fallback": "The capstone's per-task status/steps/termination metrics are defined locally in the evaluation protocol.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Chen et al.: Evaluating Large Language Models Trained on Code (HumanEval)",
+              "url": "https://arxiv.org/abs/2107.03374",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Function-level synthesis tasks; SWE-bench's repository-level issue tasks better match agent evaluation with tool use."
+            },
+            {
+              "candidate_name": "OpenAI: SWE-bench Verified",
+              "url": "https://openai.com/index/introducing-swe-bench-verified/",
+              "license": "All Rights Reserved (blog); dataset terms separate",
+              "status": "compared_alternative",
+              "comparison_rationale": "Human-validated subset of SWE-bench; cited as refinement, while the original paper defines the protocol."
+            }
+          ]
+        },
+        {
+          "id": "liu-agentbench-2023",
+          "title": "AgentBench: Evaluating LLMs as Agents",
+          "author": "Xiao Liu, Hao Yu, Hanchen Zhang, Yifan Xu, Xuanyu Lei, Hanyu Lai, Yu Gu, Hangliang Ding, Kaiwen Men, Kejuan Yang, et al.",
+          "original_url": "https://arxiv.org/abs/2308.03688",
+          "relevant_timestamp": "Section 4.1 Evaluation Setup and Section 4.3 Analysis",
+          "version_or_verification_date": "ICLR 2024 / arXiv:2308.03688v4 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Agent loops, tool use, and benchmark design fundamentals.",
+          "selection_rationale": "Systematic multi-environment agent benchmark; supplies the capstone's fixed-task-set discipline and per-task scoring decomposition used by the acceptance contract.",
+          "known_availability_limitations": "Freely available on arXiv; benchmark code and data on GitHub under their own license.",
+          "safe_fallback": "The capstone task set is fixed locally in the acceptance contract and does not require downloading the benchmark.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Zhou et al.: WebArena: A Realistic Web Environment for Building Autonomous Agents",
+              "url": "https://arxiv.org/abs/2307.13854",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Deep single-domain web tasks with hosted infrastructure; AgentBench's multi-environment view better fits a general agent evaluation."
+            },
+            {
+              "candidate_name": "Mialon et al.: GAIA: a benchmark for General AI Assistants",
+              "url": "https://arxiv.org/abs/2311.12983",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Assistant-level real-world questions; also cited by the capstone for outcome-level task design."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-87-act-02",
+      "lesson_id": "les-87",
+      "title": "Capstone Evidence Package Assembly",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-87-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "gebru-datasheets-2021",
+          "title": "Datasheets for Datasets",
+          "author": "Timnit Gebru, Jamie Morgenstern, Briana Vecchione, Jennifer Wortman Vaughan, Hanna Wallach, Hal Daumé III, Kate Crawford",
+          "original_url": "https://arxiv.org/abs/1803.09010",
+          "relevant_timestamp": "Section 3 Questions and Workflow (3.1 Motivation through 3.7 Maintenance)",
+          "version_or_verification_date": "Communications of the ACM 64(12) / arXiv:1803.09010v8 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Dataset provenance, splits, and licensing vocabulary.",
+          "selection_rationale": "Standard questionnaire for documenting dataset origin, composition, rights, and maintenance; structures the capstone evidence package's data-provenance table.",
+          "known_availability_limitations": "Freely available on arXiv and in the ACM digital library.",
+          "safe_fallback": "The provenance table template in the capstone instructions restates the required disclosure fields locally.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Mitchell et al.: Model Cards for Model Reporting",
+              "url": "https://arxiv.org/abs/1810.03993",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Model-side reporting rather than dataset-side; the capstone provenance table cites both."
+            },
+            {
+              "candidate_name": "Bender & Friedman: Data Statements for Natural Language Processing",
+              "url": "https://aclanthology.org/Q18-1041/",
+              "license": "CC BY 4.0 (ACL Anthology, 2016 or later)",
+              "status": "compared_alternative",
+              "comparison_rationale": "NLP-specific demographic disclosure; Datasheets cover the general lifecycle needed for arbitrary capstone data."
+            }
+          ]
+        },
+        {
+          "id": "mitchell-model-cards-2019",
+          "title": "Model Cards for Model Reporting",
+          "author": "Margaret Mitchell, Simone Wu, Andrew Zaldivar, Parker Barnes, Lucy Vasserman, Ben Hutchinson, Elena Spitzer, Inioluwa Deborah Raji, Timnit Gebru",
+          "original_url": "https://arxiv.org/abs/1810.03993",
+          "relevant_timestamp": "Section 4 Model Card Sections (4.1-4.9)",
+          "version_or_verification_date": "FAT* 2019 / arXiv:1810.03993v3 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Basic model evaluation vocabulary: dataset, metric, intended use.",
+          "selection_rationale": "Standard framework for disclosing a model's intended use, evaluation conditions, and limitations; supplies the capstone's model-choice and provenance documentation pattern.",
+          "known_availability_limitations": "Freely available on arXiv and in the ACM digital library.",
+          "safe_fallback": "The curriculum provides a local model-decision table template covering intended use, evaluation data, and caveats.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Gebru et al.: Datasheets for Datasets",
+              "url": "https://arxiv.org/abs/1803.09010",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Dataset-side documentation rather than model-side; used alongside Model Cards in the provenance table rather than as a replacement."
+            },
+            {
+              "candidate_name": "OpenAI GPT-4 System Card",
+              "url": "https://openai.com/research/gpt-4-system-card",
+              "license": "All Rights Reserved (web publication)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Vendor-specific safety disclosure; Model Cards provide the general reusable schema."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-87-act-03",
+      "lesson_id": "les-87",
+      "title": "Post-Mortem, Failure Taxonomy, and Controlled Recovery",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-87-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "zheng-mtbench-2023",
+          "title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena",
+          "author": "Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Zhuang, Zhanghao Wu, Yonghao Zhuang, Zi Lin, Zhuohan Li, Dacheng Li, Eric P. Xing, et al.",
+          "original_url": "https://arxiv.org/abs/2306.05685",
+          "relevant_timestamp": "Sections 3-4: judge biases (position, verbosity, self-enhancement), rubric design",
+          "version_or_verification_date": "NeurIPS 2023 / arXiv:2306.05685v3 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Evaluation metrics, pairwise comparison, and grading rubrics.",
+          "selection_rationale": "Documents judge bias and rubric pitfalls; informs the capstone's separate independent/assisted rubrics and its rule that verdicts must cite stored evidence rather than impressions.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "The capstone rubric is a fixed checklist scored against artifacts; it does not depend on the paper's arena data.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Liang et al.: Holistic Evaluation of Language Models (HELM)",
+              "url": "https://arxiv.org/abs/2211.09110",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Broad scenario taxonomy; MT-Bench's judge-bias analysis is more relevant to rubric-based acceptance review."
+            },
+            {
+              "candidate_name": "Dubois et al.: AlpacaEval / AlpacaFarm",
+              "url": "https://arxiv.org/abs/2404.04475",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Automatic instruction-following win-rate; MT-Bench better exposes judging bias relevant to human rubric design."
+            }
+          ]
+        },
+        {
+          "id": "google-sre-postmortem-culture",
+          "title": "Site Reliability Engineering, Chapter 15: Postmortem Culture: Learning from Failure",
+          "author": "John Lunney and Sue Lueder (ed. Gary O'Connor), in Site Reliability Engineering (eds. Betsy Beyer, Chris Jones, Jennifer Petoff, Niall Richard Murphy; Google)",
+          "original_url": "https://sre.google/sre-book/postmortem-culture/",
+          "relevant_timestamp": "Chapter 15: blameless postmortems, trigger conditions, action items",
+          "version_or_verification_date": "O'Reilly 2016 / sre.google online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book_chapter",
+          "license": "CC BY-NC-ND 4.0",
+          "license_restrictions": [
+            "noncommercial",
+            "no-derivatives"
+          ],
+          "permission_basis": "Lawful external hyperlink under the book's published Creative Commons terms; no text imported into proprietary material.",
+          "prerequisites": "Incident vocabulary, monitoring, and delivery pipelines.",
+          "selection_rationale": "Establishes the blameless, evidence-first post-mortem format; structures the capstone's failure taxonomy, unmet-criteria disclosure, and recovery proof.",
+          "known_availability_limitations": "Freely readable on sre.google; print edition is commercial.",
+          "safe_fallback": "The post-mortem template (taxonomy, unmet criteria, recovery evidence, residual risk) is fully specified in the lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "John Allspaw / Etsy: Blameless PostMortems and a Just Culture (Code as Craft)",
+              "url": "https://www.etsy.com/codeascraft/blameless-postmortems/",
+              "license": "All Rights Reserved (blog)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Foundational just-culture essay; the SRE chapter adds the trigger conditions and action-item tracking used by the capstone."
+            },
+            {
+              "candidate_name": "Google SRE Workbook: Postmortem practices",
+              "url": "https://sre.google/workbook/implementing-slos/",
+              "license": "CC BY-NC-ND 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Practitioner workbook follow-up; the original chapter is the stable reference for the taxonomy exercise."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-87-act-04",
+      "lesson_id": "les-87",
+      "title": "Assessment: Dual-Rubric Acceptance and Submission",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-87-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "mialon-gaia-2023",
+          "title": "GAIA: a benchmark for General AI Assistants",
+          "author": "Gregoire Mialon, Clementine Fourrier, Craig Swift, Thomas Wolf, Yann LeCun, Thomas Scialom",
+          "original_url": "https://arxiv.org/abs/2311.12983",
+          "relevant_timestamp": "Sections 3-4: level design, tooling requirements, human vs agent gap",
+          "version_or_verification_date": "arXiv:2311.12983v3 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Agent capabilities, tool use, and evaluation metrics.",
+          "selection_rationale": "Defines graded assistant tasks with unambiguous factual scoring; motivates the capstone's distinction between success tasks, malformed-request handling, and failure cases.",
+          "known_availability_limitations": "Freely available on arXiv; question set hosted on Hugging Face with its own terms.",
+          "safe_fallback": "The capstone evaluation tasks are defined in the local acceptance contract and need no external download.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Liu et al.: AgentBench: Evaluating LLMs as Agents",
+              "url": "https://arxiv.org/abs/2308.03688",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Multi-environment execution benchmark; GAIA adds graded real-world assistance tasks, and both inform the fixed task taxonomy."
+            },
+            {
+              "candidate_name": "Zhou et al.: WebArena",
+              "url": "https://arxiv.org/abs/2307.13854",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Web-only task environment; GAIA covers general assistant capability beyond browsing."
+            }
+          ]
+        },
+        {
+          "id": "zheng-mtbench-2023",
+          "title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena",
+          "author": "Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Zhuang, Zhanghao Wu, Yonghao Zhuang, Zi Lin, Zhuohan Li, Dacheng Li, Eric P. Xing, et al.",
+          "original_url": "https://arxiv.org/abs/2306.05685",
+          "relevant_timestamp": "Sections 3-4: judge biases (position, verbosity, self-enhancement), rubric design",
+          "version_or_verification_date": "NeurIPS 2023 / arXiv:2306.05685v3 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Evaluation metrics, pairwise comparison, and grading rubrics.",
+          "selection_rationale": "Documents judge bias and rubric pitfalls; informs the capstone's separate independent/assisted rubrics and its rule that verdicts must cite stored evidence rather than impressions.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "The capstone rubric is a fixed checklist scored against artifacts; it does not depend on the paper's arena data.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Liang et al.: Holistic Evaluation of Language Models (HELM)",
+              "url": "https://arxiv.org/abs/2211.09110",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Broad scenario taxonomy; MT-Bench's judge-bias analysis is more relevant to rubric-based acceptance review."
+            },
+            {
+              "candidate_name": "Dubois et al.: AlpacaEval / AlpacaFarm",
+              "url": "https://arxiv.org/abs/2404.04475",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Automatic instruction-following win-rate; MT-Bench better exposes judging bias relevant to human rubric design."
+            }
+          ]
+        }
+      ],
+      "project_submission": {
+        "enabled": true
+      }
+    }
+  ]
+}

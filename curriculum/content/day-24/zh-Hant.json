@@ -1,0 +1,78 @@
+{
+  "language": "zh-Hant",
+  "language_label": "繁體中文",
+  "day_title": "第 24 天：張量、廣播、reshape 與記憶體台帳",
+  "day_subtitle": "把向量與矩陣推廣為帶命名軸（batch、time、channel）的 n 維張量；驗證廣播規則與失敗案例、reshape 與檢視 vs 複製行為，以及真實模型張量的記憶體台帳。每項活動都在 480 分鐘台帳中記錄預測、觀察、複習與復原。",
+  "time_budget_label": "480 活躍分鐘（8 小時專注學習）",
+  "category_label": "數學與演算法基礎",
+  "common": {
+    "nav_calendar": "📅 課程行事曆與台帳",
+    "day_label": "第 24 天",
+    "prerequisites_title": "前置要求",
+    "objective_title": "學習目標",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主實作與記錄",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看參考解答與分析",
+    "mastery_title": "獨立掌握標準",
+    "draft_placeholder": "在此記錄你的預測 shape、觀察輸出、shape/記憶體台帳、複習與復原證據...",
+    "sources_heading": "權威來源資源與權利證明",
+    "source_author_label": "作者 / 機構",
+    "source_url_label": "原始出處連結",
+    "source_range_label": "對應章節 / 時間戳",
+    "source_verification_label": "驗證版本與日期",
+    "source_reuse_label": "複用類別",
+    "source_license_label": "許可證與權利說明",
+    "source_rationale_label": "入選理由",
+    "source_prereqs_label": "來源前置條件",
+    "source_fallback_label": "安全回退方案（離線彈性）",
+    "compared_candidates_heading": "對比候選資源與選型分析",
+    "compared_status_label": "評估結論"
+  },
+  "activities": {
+    "day-24-act-01": {
+      "title": "張量：軸、秩與模型權重區塊",
+      "prerequisites": "完成第 23 天；若矩陣 shape 不熟練，使用列出的復原連結。",
+      "objective": "把張量描述為秩等於軸數的 n 維陣列；說出模型張量的 batch、time、channel 軸；並追蹤從 shape 為 (V x d) 的表 E 做嵌入查找得到 shape (B, T, d) 輸出的全過程。",
+      "assistance_policy_label": "僅在記錄預測與觀察證據後才可使用協助。",
+      "instructions": "純量是 0 秩，向量是 1 秩，矩陣是 2 秩，一批嵌入序列是 shape (B, T, d) 的 3 秩張量：batch 軸、time 軸、channel 軸。嵌入查找就是按行 gather：shape (B, T) 的 ids 查表 E (V, d)，產出 (B, T, d)。權重矩陣是 2 秩張量；帶 batch 與 time 的隱藏狀態是 3 秩。",
+      "exercise_prompt": "某小模型詞表 V = 50000，嵌入寬度 d = 512。預測：(a) 表 E 中的純量權重數；(b) shape (B=2, T=3) 的 ids 查表後的輸出 shape；(c) 該輸出裝了多少個 float32 值以及佔多少位元組。",
+      "hint": "權重數是 V * d。查找結果為每個 (batch, time) 位置放一個 d 維向量。float32 每值 4 位元組。",
+      "answer": "(a) E 含 50000 * 512 = 25,600,000 個純量權重。(b) 輸出 shape 為 (2, 3, 512)：2*3 = 6 個詞元位置各自換成一個 512 維向量。(c) 輸出含 2*3*512 = 3072 個 float32 值，即 3072 * 4 = 12,288 位元組。batch 與 time 軸是查找在行向量前面新增的兩個軸。",
+      "mastery_criterion": "不借助提示從 (V, d) 與 (B, T) 推出 (B, T, d)，精確算出兩個元素計數，並能說出每個軸的物理意義（哪個樣本、哪個位置、哪個特徵）。"
+    },
+    "day-24-act-02": {
+      "title": "廣播規則與失敗診斷",
+      "prerequisites": "完成上一活動；如受阻，使用列出的復原連結。",
+      "objective": "運用廣播規則——從尾部對齊各軸，每對維度必須相等或有一方為 1——在執行程式前預測輸出並診斷失敗。",
+      "assistance_policy_label": "獨立練習：先記錄預測再核對結果；記錄證據後才可使用協助。",
+      "instructions": "廣播適用於任意秩的張量：從右向左比較兩個 shape。缺失的軸按大小 1 計，大小為 1 的軸被拉伸而不複製記憶體。MLP 的偏置加法 (B, T, d_ff) + (d_ff,) 把偏置沿 batch 和 time 廣播。(2, 3) 與 (4,) 這一對會失敗，因為末軸 3 != 4。",
+      "exercise_prompt": "預測每個結果或失敗：(a) [[1,2,3],[4,5,6]] + [10,20,30]；(b) [[1],[2]] + [[10,20,30]]；(c) shape (2,3) + shape (4,)；(d) 隱藏狀態 (32,128,768) + 偏置 (768,)。",
+      "hint": "寫下兩個 shape，右對齊，用『相等或一方為 1』的規則逐軸檢查，然後再算數值。",
+      "answer": "(a) 末軸 3 與 3 匹配，行 [10,20,30] 被加到每一行：[[11,22,33],[14,25,36]]。(b) (2,1) + (1,3) 兩邊都拉伸：[[11,21,31],[12,22,32]]，得到 shape (2,3) 的外和。(c) 失敗：末軸 3 與 4 不相容，函式庫拋出廣播錯誤。(d) (768,) 與 channel 軸對齊，偏置跨 batch 和 time 相加，輸出仍為 (32,128,768)。廣播在邏輯上完成拉伸，並不實際複製資料。",
+      "mastery_criterion": "無協助預測全部四項（三個 shape 和一個失敗），精確重現兩組數值，並解釋 (2,3) + (4,) 為何按尾軸規則必然失敗。"
+    },
+    "day-24-act-03": {
+      "title": "reshape、檢視 vs 複製與記憶體台帳",
+      "prerequisites": "完成上一活動；如受阻，使用列出的復原連結。",
+      "objective": "在知道元素數不變、順序為行主序（row-major）的前提下預測 reshape 結果；區分檢視與複製（轉置是非連續檢視，轉置後的 reshape 可能複製）；為真實模型張量記『元素數 × 元素大小』的記憶體台帳。",
+      "assistance_policy_label": "僅在記錄預測與觀察證據後才可使用協助。",
+      "instructions": "reshape 以 C（行主序）順序重讀同一塊平坦緩衝區，所以元素數必須守恆。許多 reshape 和所有普通轉置回傳檢視——同一記憶體上的新軸元資料。非連續張量（例如 .T 之後）可能迫使 reshape 複製。位元組數 = 元素數 * 元素大小；float32 元素大小為 4。",
+      "exercise_prompt": "設 shape (2,3) 的 a = [[1,2,3],[4,5,6]]。預測：(a) a reshape 成 (3,2)；(b) a 展平成 (6,)；(c) a.T.reshape(6) 能否共享 a 的記憶體；(d) shape (32, 128, 768) 的 float32 隱藏狀態的位元組數。",
+      "hint": "先按行主序寫出元素：1,2,3,4,5,6。(c) 問的是轉置後的佈局是否仍連續。(d) 把三個軸長相乘再乘 4。",
+      "answer": "(a) [[1,2],[3,4],[5,6]]——行主序保持不變，只是軸邊界移動。(b) [1,2,3,4,5,6]。(c) a.T 的 shape 是 (3,2) 但步長（strides）非連續。無複製的 .view() 受步長約束，此處會失敗；.reshape(6) 則可能配置副本——NumPy 會靜默配置新記憶體，PyTorch 中 .view() 失敗而 .reshape() 透過複製成功（文件行為，未執行）。(d) 32*128*768 = 3,145,728 個元素；x 4 位元組 = 12,582,912 位元組 = 12 MiB。",
+      "mastery_criterion": "預測全部四項結果，說出 reshape 的元素數守恆，並能用轉置例子加 12 MiB 台帳項解釋檢視 vs 複製的注意事項。"
+    },
+    "day-24-act-04": {
+      "title": "獨立掌握：張量 shape 與廣播稽核",
+      "prerequisites": "完成上一活動；如受阻，使用列出的復原連結。",
+      "objective": "在無協助下端對端稽核一個層正規化式計算：預測帶 keepdims 的歸約 shape、廣播減法、廣播失敗和記憶體台帳項；任何錯誤都要寫出復原筆記。",
+      "assistance_policy_label": "獨立掌握檢查（無 AI 協助）。",
+      "instructions": "閉卷進行：先預測，再計算，後比較。每個張量的 shape 寫在其值旁邊。若結果出乎意料，記錄誤用了哪條規則並記下復原連結。",
+      "exercise_prompt": "任務：(a) 對 shape (2,3) 的 x = [[1,2,3],[4,5,6]]，計算最後一軸上帶 keepdims 的均值及其 shape；(b) x - mean 的廣播結果；(c) (2,3)+(3,)、(2,3)+(4,)、(2,1)+(1,3) 中哪個失敗、為什麼；(d) shape (2, 3, 50000) 的 float32 logits 張量位元組數。",
+      "hint": "keepdims 下被歸約的軸縮為大小 1，減法時又被廣播拉伸回來。(d) 用元素數乘 4。",
+      "answer": "(a) 行均值為 (2.0, 5.0)，keepdims 下 shape 為 (2,1)。(b) 廣播減法：[[-1,0,1],[-1,0,1]]，shape (2,3)——每行被自己的均值中心化。(c) (2,3)+(4,) 失敗：末軸 3 與 4 不匹配；另兩個把大小 1 的軸拉伸後分別以 (2,3) 和 (2,3) 成功。(d) 2*3*50000 = 300,000 個元素 x 4 位元組 = 1,200,000 位元組（約 1.14 MiB）。比較範圍（僅限本課出現的張量的 float32 儲存量）：這些 logits 約為第一個活動中 (2, 3, 512) 查表輸出（12,288 位元組）的 98 倍，但小於 (32, 128, 768) 的隱藏狀態（12,582,912 位元組），更遠小於嵌入表 E 本身（25,600,000 個權重 = 102,400,000 位元組）。此處未測量總記憶體、峰值記憶體或訓練記憶體的比較。",
+      "mastery_criterion": "四個答案全部經無協助驗證且值旁標註了 shape；說出廣播失敗規則，並用一句話說明歸約中 keepdims 存在的意義。"
+    }
+  }
+}

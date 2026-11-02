@@ -1,0 +1,79 @@
+{
+  "track_id": "codex",
+  "language": "en",
+  "title": "Codex Agent Tool Track",
+  "status": "Documentation and local CLI behavior verified on 2026-10-30; authenticated model execution remains blocked until the learner supplies authorized access.",
+  "tested_release": "codex-cli 0.148.0 (observed with `codex --version`; pin this release or a later compatible 0.x release and re-check commands)",
+  "provider_model_access": "Provider: OpenAI. The model is account/configuration selected; record the exact model shown by Codex for your run. Access requires an authorized ChatGPT Codex entitlement or an OpenAI API credential with available quota. This lesson does not provide credentials.",
+  "cost_and_authorization": "A ChatGPT plan may include Codex usage, or API usage may be billed by token according to the active OpenAI account. Confirm price, quota, and an explicit per-run budget before starting. Do not buy a plan, add credit, enable billing, or make external changes for this course.",
+  "official_sources": [
+    {"url":"https://developers.openai.com/codex/cli","use":"installation and CLI overview; consult the live page before pinning"},
+    {"url":"https://developers.openai.com/codex/cli/reference","use":"authoritative flags and `codex exec` reference"},
+    {"url":"https://developers.openai.com/codex/sandbox","use":"sandbox, approvals, network defaults, and safe combinations"}
+  ],
+  "setup": [
+    "Create a disposable Git repository or worktree containing only the fixture. Start with `git status --short` clean.",
+    "Install Codex only through the official instructions. Verify with `codex --version`; do not copy a guessed package name or an undocumented flag.",
+    "Authenticate only if you already have authorization. Never paste an API key into a prompt, repository, log, or lesson submission.",
+    "If access is unavailable, complete the deterministic fixture and documentation review, label the result as simulation, and stop: missing access is not a live pass."
+  ],
+  "configuration": [
+    "For the bounded interactive exercise use `codex --sandbox workspace-write --ask-for-approval on-request`. This allows workspace edits while preserving approval boundaries; network remains off unless deliberately enabled.",
+    "For read-only inspection use `codex --sandbox read-only --ask-for-approval on-request`.",
+    "Use `codex exec --sandbox workspace-write --ask-for-approval on-request` only after checking the current CLI reference. Never use `--yolo` or `--dangerously-bypass-approvals-and-sandbox` for this exercise.",
+    "Set a human budget before the run: one task, two correction rounds, a short timeout, and a pre-agreed spend ceiling. CLI flags are not assumed to be token-budget flags; verify them in the pinned reference."
+  ],
+  "bounded_task": {
+    "name": "Repair one validator in a disposable project",
+    "fixture": "Copy `fixture/validator.py` and `fixture/test_validator.py` to a temporary Git worktree. The starter has one null-record bug and a test that must remain intact.",
+    "prompt": "Inspect only validator.py and its test. Explain the failure first, make the smallest safe correction, run the stated test command, and stop. Do not edit secrets, dependencies, deployment files, or tests to hide failures.",
+    "command": "python3 -m unittest -v test_validator.py",
+    "scope_exit": "The task ends after the test passes, `git diff` contains only the intended validator change, and the learner records the exit code and diff. No commit, push, network call, or message is part of the task."
+  },
+  "context": [
+    "Give Codex the function contract, the failing test output, and the two fixture files only. Exclude home directories, credentials, unrelated repository history, and deployment scripts.",
+    "Ask for a plan and root-cause hypothesis before allowing a write. Context is evidence, not permission.",
+    "Use `AGENTS.md` only for instructions you wrote and reviewed; Codex discovers it from project scope, but it does not make an untrusted instruction safe."
+  ],
+  "permissions": [
+    "Use a disposable directory/worktree and keep the workspace root narrow.",
+    "Select `workspace-write` plus `on-request`; deny network, credential reads, external messages, package installation, and commands outside the task.",
+    "Inspect every approval request. Reject a request that reads secrets, changes tests, writes outside the worktree, or enables network without a separately authorized reason.",
+    "Never use full-access/yolo mode as a convenience. A sandbox limits technical reach; review and approval still belong to the learner."
+  ],
+  "inspection_and_tests": [
+    "Before and after the run: `git status --short` and `git diff --check`.",
+    "Review `git diff -- validator.py test_validator.py` line by line; confirm the test was not weakened and no secret or unrelated file changed.",
+    "Run `python3 -m unittest -v test_validator.py` yourself and record the exit code and test count. Model prose such as 'all tests passed' is not evidence.",
+    "The repository command `python3 tests/projects/test_codex_cli.py` checks the fixture and safe local CLI probes; it does not claim a model run."
+  ],
+  "failure_recovery": [
+    "Deliberately observe the starter failure before asking for correction. Preserve the complete traceback and exit code.",
+    "If Codex edits a test, adds a secret, broadens scope, or claims success without a run, stop, reject the action, and restore the unauthorized files with `git restore -- <path>`.",
+    "Ask for one root-cause correction at a time. Re-run the deterministic test after each correction; stop after two attempts and diagnose manually.",
+    "A successful local fixture run is deterministic evidence. It is not real-tool evidence unless an authenticated Codex transcript/action record exists."
+  ],
+  "troubleshooting": [
+    {"symptom":"Codex refuses to start or asks for login","response":"Check official access requirements and `codex --version`; do not invent an API key or mark the live task passed. Record access-blocked."},
+    {"symptom":"Sandbox or bwrap is unavailable","response":"Do not switch to yolo. Use a separately authorized outer disposable container, or stop and label the run unavailable; consult the official sandbox page for platform limits."},
+    {"symptom":"A command asks for network approval","response":"Keep network off for this fixture and deny it. Dependency installation and external services are out of scope."},
+    {"symptom":"The test still fails","response":"Capture the exact failure, inspect the smallest relevant diff, and test the null/valid cases independently. Do not delete assertions or broaden the task."}
+  ],
+  "answers": [
+    "The root cause is an unsafe dereference of a missing record field; the minimal correction must preserve the existing test contract and handle the missing record explicitly.",
+    "The learner must reject edits to tests, secrets, package files, deployment scripts, and any path outside the disposable worktree.",
+    "The acceptance proof is an independently run exit code 0 plus the reviewed diff and preserved test count, not a Codex completion message.",
+    "If credentials or an authorized plan are absent, the correct answer is 'live acceptance blocked', with the deterministic simulation clearly labeled."
+  ],
+  "acceptance_criteria": [
+    "All four Language Editions contain equivalent setup, access/cost disclosure, bounded task, context, permissions, inspection, tests, failure recovery, troubleshooting, answers, and criteria.",
+    "The learner records release, provider, exact model, permissions, verification date, and whether evidence is real-tool or deterministic.",
+    "The starter failure is reproduced, a real correction is requested or performed, unauthorized edits are rejected, and the local test is independently run.",
+    "`git diff` is limited to the intended correction; no credential, external mutation, package install, commit, or push is authorized by this track.",
+    "Missing credentials or subscription access blocks live acceptance; it never becomes a simulated pass."
+  ],
+  "evidence": {
+    "real_tool": "Local Codex CLI version/help/sandbox probes were run on 2026-10-30. No authenticated model task was run because this environment has no authorized Codex credential supplied for this ticket.",
+    "deterministic": "The fixture and repository tests exercise the failure, correction target, diff boundaries, and command-level test behavior without network or model calls."
+  }
+}

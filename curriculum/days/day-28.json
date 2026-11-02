@@ -1,0 +1,352 @@
+{
+  "id": "day-28",
+  "day_number": 28,
+  "active_minutes": 480,
+  "topic_category": "mathematics",
+  "is_review_day": true,
+  "status": "available",
+  "prerequisites": [
+    "day-27"
+  ],
+  "recovery_links": [
+    "day-25"
+  ],
+  "activities": [
+    {
+      "id": "day-28-act-01",
+      "lesson_id": "les-28",
+      "title": "Descriptive statistics: mean, spread, and honest summaries",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-27"
+      ],
+      "source_resources": [
+        {
+          "id": "nist-sematech-ehandbook",
+          "title": "NIST/SEMATECH e-Handbook of Statistical Methods",
+          "author": "NIST (U.S. National Institute of Standards and Technology) and SEMATECH",
+          "original_url": "https://www.itl.nist.gov/div898/handbook/",
+          "version_or_verification_date": "Current online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "NIST public information (U.S. government site; NIST/SEMATECH co-production)",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external linking to NIST public information, which NIST policy allows to be distributed or copied unless marked copyrighted; no source text is imported.",
+          "prerequisites": "High-school arithmetic; no calculus required for the descriptive sections.",
+          "selection_rationale": "Primary engineering reference for descriptive statistics, exploratory data analysis, and uncertainty quantification with worked formulas.",
+          "known_availability_limitations": "Hosted on itl.nist.gov; a U.S. government site generally accessible worldwide.",
+          "safe_fallback": "Every formula used in the lesson (mean, variance, standard error) is reproduced as original explanation; all exercises run fully offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "OpenIntro Statistics (4th edition)",
+              "url": "https://www.openintro.org/book/os/",
+              "license": "CC BY-SA 3.0",
+              "status": "compared_selected_for_day28",
+              "comparison_rationale": "Undergraduate statistics text with a stronger narrative bridge from probability to inference; retained as the second linked source for inferential framing."
+            },
+            {
+              "candidate_name": "Seeing Theory (Brown University)",
+              "url": "https://seeing-theory.brown.edu/",
+              "license": "Free web resource (site copyright)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong interactive visualizations of probability and sampling, but a browser-only interactive format is a weaker fit for an offline-capable 480-minute ledger."
+            }
+          ],
+          "relevant_timestamp": "Section 1.3.5 (Quantitative Techniques): measures of location and scale"
+        },
+        {
+          "id": "openintro-statistics",
+          "title": "OpenIntro Statistics (4th edition)",
+          "author": "David Diez, Mine Cetinkaya-Rundel, Christopher Barr",
+          "original_url": "https://www.openintro.org/book/os/",
+          "version_or_verification_date": "4th edition, 2019 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-SA 3.0",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Lawful external linking under CC BY-SA 3.0; the share-alike condition applies to derivative text and no source text is imported.",
+          "prerequisites": "Introductory algebra; comfort reading mathematical notation.",
+          "selection_rationale": "Rigorous open textbook treatment of sampling distributions, standard error, and the difference between an inferential claim and an anecdotal observation.",
+          "known_availability_limitations": "Free PDF and web distribution via openintro.org; print editions are commercial.",
+          "safe_fallback": "All required definitions and worked computations are given in the lesson itself; the book is a further-reading link.",
+          "compared_candidates": [
+            {
+              "candidate_name": "NIST/SEMATECH e-Handbook of Statistical Methods",
+              "url": "https://www.itl.nist.gov/div898/handbook/",
+              "license": "NIST public information (U.S. government site; NIST/SEMATECH co-production)",
+              "status": "compared_selected_for_day28",
+              "comparison_rationale": "Engineering handbook strength for formulas, tables, and measurement practice; OpenIntro supplies the probability-to-inference narrative."
+            },
+            {
+              "candidate_name": "Stat 110: Introduction to Probability (Harvard, Prof. Joe Blitzstein)",
+              "url": "https://projects.iq.harvard.edu/stat110/home",
+              "license": "All Rights Reserved (lectures and book)",
+              "status": "compared_rejected_for_day28",
+              "comparison_rationale": "Strong probability course, but lectures and the print book are under full copyright and the syllabus spans a semester rather than a single study block."
+            }
+          ],
+          "relevant_timestamp": "Chapters 1-2: data basics and summary statistics"
+        }
+      ]
+    },
+    {
+      "id": "day-28-act-02",
+      "lesson_id": "les-28",
+      "title": "Sampling uncertainty and the standard error",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-28-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "nist-sematech-ehandbook",
+          "title": "NIST/SEMATECH e-Handbook of Statistical Methods",
+          "author": "NIST (U.S. National Institute of Standards and Technology) and SEMATECH",
+          "original_url": "https://www.itl.nist.gov/div898/handbook/",
+          "version_or_verification_date": "Current online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "NIST public information (U.S. government site; NIST/SEMATECH co-production)",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external linking to NIST public information, which NIST policy allows to be distributed or copied unless marked copyrighted; no source text is imported.",
+          "prerequisites": "High-school arithmetic; no calculus required for the descriptive sections.",
+          "selection_rationale": "Primary engineering reference for descriptive statistics, exploratory data analysis, and uncertainty quantification with worked formulas.",
+          "known_availability_limitations": "Hosted on itl.nist.gov; a U.S. government site generally accessible worldwide.",
+          "safe_fallback": "Every formula used in the lesson (mean, variance, standard error) is reproduced as original explanation; all exercises run fully offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "OpenIntro Statistics (4th edition)",
+              "url": "https://www.openintro.org/book/os/",
+              "license": "CC BY-SA 3.0",
+              "status": "compared_selected_for_day28",
+              "comparison_rationale": "Undergraduate statistics text with a stronger narrative bridge from probability to inference; retained as the second linked source for inferential framing."
+            },
+            {
+              "candidate_name": "Seeing Theory (Brown University)",
+              "url": "https://seeing-theory.brown.edu/",
+              "license": "Free web resource (site copyright)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong interactive visualizations of probability and sampling, but a browser-only interactive format is a weaker fit for an offline-capable 480-minute ledger."
+            }
+          ],
+          "relevant_timestamp": "Sections 1.3.5 and 1.3.6: variability, probability distributions"
+        },
+        {
+          "id": "openintro-statistics",
+          "title": "OpenIntro Statistics (4th edition)",
+          "author": "David Diez, Mine Cetinkaya-Rundel, Christopher Barr",
+          "original_url": "https://www.openintro.org/book/os/",
+          "version_or_verification_date": "4th edition, 2019 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-SA 3.0",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Lawful external linking under CC BY-SA 3.0; the share-alike condition applies to derivative text and no source text is imported.",
+          "prerequisites": "Introductory algebra; comfort reading mathematical notation.",
+          "selection_rationale": "Rigorous open textbook treatment of sampling distributions, standard error, and the difference between an inferential claim and an anecdotal observation.",
+          "known_availability_limitations": "Free PDF and web distribution via openintro.org; print editions are commercial.",
+          "safe_fallback": "All required definitions and worked computations are given in the lesson itself; the book is a further-reading link.",
+          "compared_candidates": [
+            {
+              "candidate_name": "NIST/SEMATECH e-Handbook of Statistical Methods",
+              "url": "https://www.itl.nist.gov/div898/handbook/",
+              "license": "NIST public information (U.S. government site; NIST/SEMATECH co-production)",
+              "status": "compared_selected_for_day28",
+              "comparison_rationale": "Engineering handbook strength for formulas, tables, and measurement practice; OpenIntro supplies the probability-to-inference narrative."
+            },
+            {
+              "candidate_name": "Stat 110: Introduction to Probability (Harvard, Prof. Joe Blitzstein)",
+              "url": "https://projects.iq.harvard.edu/stat110/home",
+              "license": "All Rights Reserved (lectures and book)",
+              "status": "compared_rejected_for_day28",
+              "comparison_rationale": "Strong probability course, but lectures and the print book are under full copyright and the syllabus spans a semester rather than a single study block."
+            }
+          ],
+          "relevant_timestamp": "Chapter 4: foundations for inference; sampling distributions"
+        }
+      ]
+    },
+    {
+      "id": "day-28-act-03",
+      "lesson_id": "les-28",
+      "title": "Inference versus a single observation",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev3",
+      "prerequisites": [
+        "day-28-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "nist-sematech-ehandbook",
+          "title": "NIST/SEMATECH e-Handbook of Statistical Methods",
+          "author": "NIST (U.S. National Institute of Standards and Technology) and SEMATECH",
+          "original_url": "https://www.itl.nist.gov/div898/handbook/",
+          "version_or_verification_date": "Current online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "NIST public information (U.S. government site; NIST/SEMATECH co-production)",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external linking to NIST public information, which NIST policy allows to be distributed or copied unless marked copyrighted; no source text is imported.",
+          "prerequisites": "High-school arithmetic; no calculus required for the descriptive sections.",
+          "selection_rationale": "Primary engineering reference for descriptive statistics, exploratory data analysis, and uncertainty quantification with worked formulas.",
+          "known_availability_limitations": "Hosted on itl.nist.gov; a U.S. government site generally accessible worldwide.",
+          "safe_fallback": "Every formula used in the lesson (mean, variance, standard error) is reproduced as original explanation; all exercises run fully offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "OpenIntro Statistics (4th edition)",
+              "url": "https://www.openintro.org/book/os/",
+              "license": "CC BY-SA 3.0",
+              "status": "compared_selected_for_day28",
+              "comparison_rationale": "Undergraduate statistics text with a stronger narrative bridge from probability to inference; retained as the second linked source for inferential framing."
+            },
+            {
+              "candidate_name": "Seeing Theory (Brown University)",
+              "url": "https://seeing-theory.brown.edu/",
+              "license": "Free web resource (site copyright)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong interactive visualizations of probability and sampling, but a browser-only interactive format is a weaker fit for an offline-capable 480-minute ledger."
+            }
+          ],
+          "relevant_timestamp": "Section 1.3.5 (Quantitative Techniques): confidence in estimates"
+        },
+        {
+          "id": "openintro-statistics",
+          "title": "OpenIntro Statistics (4th edition)",
+          "author": "David Diez, Mine Cetinkaya-Rundel, Christopher Barr",
+          "original_url": "https://www.openintro.org/book/os/",
+          "version_or_verification_date": "4th edition, 2019 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-SA 3.0",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Lawful external linking under CC BY-SA 3.0; the share-alike condition applies to derivative text and no source text is imported.",
+          "prerequisites": "Introductory algebra; comfort reading mathematical notation.",
+          "selection_rationale": "Rigorous open textbook treatment of sampling distributions, standard error, and the difference between an inferential claim and an anecdotal observation.",
+          "known_availability_limitations": "Free PDF and web distribution via openintro.org; print editions are commercial.",
+          "safe_fallback": "All required definitions and worked computations are given in the lesson itself; the book is a further-reading link.",
+          "compared_candidates": [
+            {
+              "candidate_name": "NIST/SEMATECH e-Handbook of Statistical Methods",
+              "url": "https://www.itl.nist.gov/div898/handbook/",
+              "license": "NIST public information (U.S. government site; NIST/SEMATECH co-production)",
+              "status": "compared_selected_for_day28",
+              "comparison_rationale": "Engineering handbook strength for formulas, tables, and measurement practice; OpenIntro supplies the probability-to-inference narrative."
+            },
+            {
+              "candidate_name": "Stat 110: Introduction to Probability (Harvard, Prof. Joe Blitzstein)",
+              "url": "https://projects.iq.harvard.edu/stat110/home",
+              "license": "All Rights Reserved (lectures and book)",
+              "status": "compared_rejected_for_day28",
+              "comparison_rationale": "Strong probability course, but lectures and the print book are under full copyright and the syllabus spans a semester rather than a single study block."
+            }
+          ],
+          "relevant_timestamp": "Chapter 5: inference for numerical data; point estimates and variability"
+        }
+      ]
+    },
+    {
+      "id": "day-28-act-04",
+      "lesson_id": "les-28",
+      "title": "Retrieval and statistics review checkpoint",
+      "active_minutes": 120,
+      "activity_type": "review",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev3",
+      "prerequisites": [
+        "day-28-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "nist-sematech-ehandbook",
+          "title": "NIST/SEMATECH e-Handbook of Statistical Methods",
+          "author": "NIST (U.S. National Institute of Standards and Technology) and SEMATECH",
+          "original_url": "https://www.itl.nist.gov/div898/handbook/",
+          "version_or_verification_date": "Current online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "NIST public information (U.S. government site; NIST/SEMATECH co-production)",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external linking to NIST public information, which NIST policy allows to be distributed or copied unless marked copyrighted; no source text is imported.",
+          "prerequisites": "High-school arithmetic; no calculus required for the descriptive sections.",
+          "selection_rationale": "Primary engineering reference for descriptive statistics, exploratory data analysis, and uncertainty quantification with worked formulas.",
+          "known_availability_limitations": "Hosted on itl.nist.gov; a U.S. government site generally accessible worldwide.",
+          "safe_fallback": "Every formula used in the lesson (mean, variance, standard error) is reproduced as original explanation; all exercises run fully offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "OpenIntro Statistics (4th edition)",
+              "url": "https://www.openintro.org/book/os/",
+              "license": "CC BY-SA 3.0",
+              "status": "compared_selected_for_day28",
+              "comparison_rationale": "Undergraduate statistics text with a stronger narrative bridge from probability to inference; retained as the second linked source for inferential framing."
+            },
+            {
+              "candidate_name": "Seeing Theory (Brown University)",
+              "url": "https://seeing-theory.brown.edu/",
+              "license": "Free web resource (site copyright)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong interactive visualizations of probability and sampling, but a browser-only interactive format is a weaker fit for an offline-capable 480-minute ledger."
+            }
+          ],
+          "relevant_timestamp": "Sections 1.3.5-1.3.6: summary formulas used across the day"
+        },
+        {
+          "id": "openintro-statistics",
+          "title": "OpenIntro Statistics (4th edition)",
+          "author": "David Diez, Mine Cetinkaya-Rundel, Christopher Barr",
+          "original_url": "https://www.openintro.org/book/os/",
+          "version_or_verification_date": "4th edition, 2019 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-SA 3.0",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Lawful external linking under CC BY-SA 3.0; the share-alike condition applies to derivative text and no source text is imported.",
+          "prerequisites": "Introductory algebra; comfort reading mathematical notation.",
+          "selection_rationale": "Rigorous open textbook treatment of sampling distributions, standard error, and the difference between an inferential claim and an anecdotal observation.",
+          "known_availability_limitations": "Free PDF and web distribution via openintro.org; print editions are commercial.",
+          "safe_fallback": "All required definitions and worked computations are given in the lesson itself; the book is a further-reading link.",
+          "compared_candidates": [
+            {
+              "candidate_name": "NIST/SEMATECH e-Handbook of Statistical Methods",
+              "url": "https://www.itl.nist.gov/div898/handbook/",
+              "license": "NIST public information (U.S. government site; NIST/SEMATECH co-production)",
+              "status": "compared_selected_for_day28",
+              "comparison_rationale": "Engineering handbook strength for formulas, tables, and measurement practice; OpenIntro supplies the probability-to-inference narrative."
+            },
+            {
+              "candidate_name": "Stat 110: Introduction to Probability (Harvard, Prof. Joe Blitzstein)",
+              "url": "https://projects.iq.harvard.edu/stat110/home",
+              "license": "All Rights Reserved (lectures and book)",
+              "status": "compared_rejected_for_day28",
+              "comparison_rationale": "Strong probability course, but lectures and the print book are under full copyright and the syllabus spans a semester rather than a single study block."
+            }
+          ],
+          "relevant_timestamp": "Chapters 1-5 review: summaries through inference"
+        }
+      ]
+    }
+  ]
+}

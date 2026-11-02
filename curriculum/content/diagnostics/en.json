@@ -1,0 +1,114 @@
+{
+  "title": "Prerequisite Diagnostics & Targeted Review Plan",
+  "subtitle": "Assess Python fundamentals and mathematics intuition to identify gaps, verify skip eligibility, and schedule targeted reviews into planned review days.",
+  "category_label": "Prerequisite Diagnostics",
+  "budget_note": "Review items are scheduled into planned weekly review days (Day 07 / Day 14, 480 min budget each). Total mandatory curriculum hours remain exactly 720 hours.",
+  "assistance_independent_label": "Independent Diagnostic Check (No AI assistance)",
+  "btn_submit": "Submit Diagnostic & Generate Review Plan",
+  "btn_retry": "Retry Diagnostic",
+  "unverified_skip_section_title": "Prior Knowledge & Skip Requests",
+  "unverified_skip_notice": "Selecting a skip option without passing an independent diagnostic does not certify mastery. All skip recommendations require demonstrated evidence.",
+  "chk_skip_py_label": "I have extensive Python background and request skip consideration for Days 01-03",
+  "chk_skip_math_label": "I have college-level mathematics background and request skip consideration for Days 16-18",
+  "chk_uncertain_label": "I am uncertain about this concept and request a scheduled review",
+  "review_plan_title": "Targeted Review Plan & Skip Guidance",
+  "budget_status_title": "Planned Time Budget Accounting",
+  "demonstrated_criteria_title": "Demonstrated Mastery Criteria",
+  "recovery_materials_title": "Recovery Materials",
+  "linked_activity_label": "Linked Activity",
+  "scheduled_review_day_label": "Scheduled Review Day",
+  "allocated_time_label": "Allocated Active Effort",
+  "objective_label": "Recovery Objective",
+  "retry_condition_label": "Retry & Exit Condition",
+  "all_mastered_message": "Congratulations! All prerequisite diagnostics passed with 100% independent mastery.",
+  "nav_back_to_day": "Return to Study Day",
+  "questions": {
+    "q1": {
+      "title": "Question 1: Python Object Identity & In-Place Mutability",
+      "prompt": "In Python, when executing the following snippet:\n```python\na = [1, 2, 3]\nb = a\nb.append(4)\n```\nWhat is the value of `a` and what is the underlying memory reason?",
+      "choices": {
+        "a": "`a` is `[1, 2, 3]`; assignment `b = a` copies the list contents into a new object.",
+        "b": "`a` is `[1, 2, 3, 4]`; `b` and `a` reference the same mutable list object on the heap, so in-place mutation alters the shared object.",
+        "c": "`a` is `[1, 2, 3]`; mutating `b` creates a copy-on-write duplicate automatically.",
+        "d": "A `TypeError` is raised because list identifiers cannot be rebound."
+      },
+      "hint": "Consider whether assignment in Python copies objects or binds identifiers to existing object references.",
+      "explanation": "Assignment binds `b` to the same list instance as `a`. `append()` mutates the underlying list in-place, modifying the object visible through both references."
+    },
+    "q2": {
+      "title": "Question 2: Function Scope, State & Pure Functions",
+      "prompt": "When structuring code for autograd or machine learning pipelines, why are pure functions (functions whose outputs depend only on explicit arguments and do not mutate global variables) strongly preferred?",
+      "choices": {
+        "a": "Pure functions execute ten times faster because Python disables garbage collection inside them.",
+        "b": "Pure functions eliminate hidden state mutations and side effects, making gradient traces, backpropagation, and minimal reproducible examples deterministic and easily testable.",
+        "c": "Python compilers reject any function that references or reassigns an outer scope variable.",
+        "d": "Pure functions do not require memory allocation on the call stack."
+      },
+      "hint": "Think about debugging automatic differentiation when variables are modified unexpectedly across function boundaries.",
+      "explanation": "Pure functions isolate computations, preventing accidental global state mutation and making backpropagation graphs deterministic and reproducible."
+    },
+    "q3": {
+      "title": "Question 3: Derivatives, Tangent Lines & Gradient Intuition",
+      "prompt": "For a loss function $L(w) = w^2 - 4w + 4$, the derivative is $L'(w) = 2w - 4$. If current parameter is $w = 3$, what is $L'(3)$ and how should $w$ be updated to reduce loss?",
+      "choices": {
+        "a": "$L'(3) = -2$; because slope is negative, increase $w$ by adding a positive step.",
+        "b": "$L'(3) = +2$; because slope is positive, moving in the negative gradient direction requires decreasing $w$ ($w \\leftarrow w - \\eta \\cdot 2$).",
+        "c": "$L'(3) = 0$; the loss is already at its minimum value.",
+        "d": "$L'(3) = +5$; multiply the parameter by 3 to reach the origin."
+      },
+      "hint": "Gradient descent moves in the direction opposite to the derivative: $w_{new} = w - \\eta \\cdot \\nabla L$.",
+      "explanation": "At $w = 3$, $L'(3) = 2(3) - 4 = 2 > 0$. The tangent slopes upward, so increasing $w$ increases loss. To decrease loss, parameter update steps in the negative gradient direction: $w - \\eta \\cdot 2$."
+    },
+    "q4": {
+      "title": "Question 4: Linear Algebra, Matrix Dimensions & Layer Accounting",
+      "prompt": "In a neural network linear layer $Y = XW$, input batch $X$ has shape $(32, 128)$ and output $Y$ must have shape $(32, 64)$. What must the shape of parameter matrix $W$ be?",
+      "choices": {
+        "a": "Shape $(32, 64)$, matching batch size and target output dimension.",
+        "b": "Shape $(128, 64)$, matching inner dimension 128 to aggregate feature dot products and producing 64 output features.",
+        "c": "Shape $(64, 128)$, transposing outputs into batch dimensions.",
+        "d": "Shape $(32, 128)$, matching the input tensor shape exactly."
+      },
+      "hint": "Recall matrix multiplication rule: $(M \\times K) \\cdot (K \\times N) = (M \\times N)$.",
+      "explanation": "Matrix multiplication requires the inner dimensions to match: $(32, 128) \\times (128, 64) = (32, 64)$. Thus $W$ must have shape $(128, 64)$."
+    },
+    "q5": {
+      "title": "Question 5: Probability, Log-Likelihood & Cross-Entropy",
+      "prompt": "In classification, why does cross-entropy loss $-\\log(p_{\\text{true}})$ penalize a prediction of $p_{\\text{true}} = 0.01$ exponentially more than $p_{\\text{true}} = 0.50$?",
+      "choices": {
+        "a": "Because cross-entropy truncates small values to NaN.",
+        "b": "Because $-\\log(x)$ approaches infinity as $x \\to 0$, providing steep gradients to correct overconfident erroneous predictions.",
+        "c": "Because probabilities are squared before computing logarithms in modern deep learning.",
+        "d": "Because negative signs invert the numerical precision of floating-point representations."
+      },
+      "hint": "Examine the shape of the negative natural logarithm curve as input approaches 0.",
+      "explanation": "As predicted probability for the ground-truth token approaches 0, $-\\log(p)$ diverges toward $+\\infty$. This produces large gradients that quickly push parameters away from overconfident misclassifications."
+    }
+  },
+  "concepts": {
+    "py_mutability": {
+      "title": "Python Object References & In-Place Mutation",
+      "objective": "Independently write a minimal reproduction tracing object identity vs value and distinguishing in-place mutation from rebinding.",
+      "retry_condition": "Score 100% on Day 01 Independent Mastery Check without assistance."
+    },
+    "py_control_scope": {
+      "title": "Python Control Flow, Scope & Pure Functions",
+      "objective": "Decompose algorithms into pure functions with explicit inputs and outputs without accidental global variable pollution.",
+      "retry_condition": "Pass function scoping and control flow unit test suite with zero errors."
+    },
+    "math_calculus_derivatives": {
+      "title": "Rates of Change, Derivatives & Gradient Intuition",
+      "objective": "Derive simple function limits and compute analytical gradients, confirming agreement with finite-difference approximations.",
+      "retry_condition": "Pass Day 16 gradient computation and numerical verification check without assistance."
+    },
+    "math_linear_algebra_tensors": {
+      "title": "Linear Algebra, Matrix Dimensions & Tensor Shapes",
+      "objective": "Perform matrix and tensor shape accounting for neural network layers, identifying dimension mismatches before runtime.",
+      "retry_condition": "Implement and pass the tensor shape propagation matrix check."
+    },
+    "math_probability_loss": {
+      "title": "Probability, Distributions & Cross-Entropy Loss",
+      "objective": "Calculate categorical cross-entropy loss by hand and trace gradient flow back from loss to logits.",
+      "retry_condition": "Demonstrate manual and autograd loss verification matching within numerical tolerance."
+    }
+  }
+}

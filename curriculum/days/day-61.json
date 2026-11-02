@@ -1,0 +1,381 @@
+{
+  "id": "day-61",
+  "day_number": 61,
+  "active_minutes": 480,
+  "topic_category": "models-and-training",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-60"
+  ],
+  "recovery_links": [
+    "day-56"
+  ],
+  "activities": [
+    {
+      "id": "day-61-act-01",
+      "lesson_id": "les-61",
+      "title": "Instruction Dataset Schemas: Alpaca, ChatML, and ShareGPT Multi-Turn Conventions",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev5",
+      "prerequisites": [
+        "day-60"
+      ],
+      "source_resources": [
+        {
+          "id": "huggingface-llm-course-finetuning",
+          "title": "Hugging Face LLM Course: Fine-tuning LLMs",
+          "author": "Hugging Face course contributors",
+          "original_url": "https://huggingface.co/learn/llm-course/chapter11/1",
+          "relevant_timestamp": "Chapter 11.2: Common Template Formats; Hands-on Exercise",
+          "version_or_verification_date": "Public edition checked 2026-11-01; moving pages may change",
+          "reuse_category": "linking",
+          "source_type": "course",
+          "license": "Apache-2.0",
+          "license_restrictions": [],
+          "permission_basis": "External hyperlink only; no third-party prose, exercises, code or translations are imported.",
+          "prerequisites": "Python, PyTorch, language-model training and the preceding chat-format lessons.",
+          "selection_rationale": "Sequenced templates, supervised fine-tuning and evaluation teaching with exercises/quizzes. LoRA method and memory claims are checked against the original paper, PEFT and the local parameter ledger, not accepted wholesale from Chapter 11.4.",
+          "known_availability_limitations": "Free reading; hosted exercises can require accounts, model downloads and a GPU. Chapter 11.4 overstates GPU-memory savings by implying only adapters occupy GPU memory; that sentence is not adopted.",
+          "safe_fallback": "Use the original localized explanations, exercises and checks already present in this activity; no external account or purchase is required for that fallback.",
+          "compared_candidates": [
+            {
+              "candidate_name": "LoRA original paper",
+              "url": "https://arxiv.org/abs/2106.09685",
+              "license": "arXiv.org perpetual non-exclusive license / Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Retained for initialization and the low-rank method, not a beginner teaching sequence."
+            },
+            {
+              "candidate_name": "Hugging Face PEFT",
+              "url": "https://github.com/huggingface/peft",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Retained for actual API and implementation defaults; reference documentation is not a complete teaching course."
+            }
+          ],
+          "locator_url": "https://huggingface.co/learn/llm-course/chapter11/2"
+        },
+        {
+          "id": "stanford-alpaca-2023",
+          "title": "Stanford Alpaca: An Instruction-following LLaMA Model",
+          "author": "Rohan Taori, Ishaan Gulrajani, Tianyi Zhang, Yann Dubois, Xuechen Li, Carlos Guestrin, Percy Liang, Tatsunori B. Hashimoto",
+          "original_url": "https://github.com/tatsu-lab/stanford_alpaca",
+          "version_or_verification_date": "Stanford CRFM Release (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "repository",
+          "license": "Apache 2.0",
+          "license_restrictions": [],
+          "permission_basis": "Open source reference under Apache 2.0 license.",
+          "prerequisites": "LLM fine-tuning concepts, Python dictionary data structures.",
+          "selection_rationale": "Pioneering instruction fine-tuning dataset schema establishing the instruction/input/output format widely used across open source LLMs.",
+          "known_availability_limitations": "Public GitHub repository by Stanford Center for Research on Foundation Models.",
+          "safe_fallback": "Standard Alpaca schemas and data transformation scripts are completely specified in lesson materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Wei et al. Finetuned Language Models are Zero-Shot Learners (FLAN)",
+              "url": "https://arxiv.org/abs/2109.01652",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Pioneered academic instruction tuning across NLP benchmarks; Alpaca format provides the standardized single-turn JSON schema for consumer fine-tuning."
+            },
+            {
+              "candidate_name": "Databricks Dolly 15k Dataset",
+              "url": "https://github.com/databrickslabs/dolly",
+              "license": "CC-BY-SA 3.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Commercially permissive instruction dataset; Alpaca establishes the architectural schema archetype."
+            }
+          ],
+          "relevant_timestamp": "README 'Data Release' (alpaca_data.json fields instruction, input, output)"
+        },
+        {
+          "id": "openai-chatml-format",
+          "title": "OpenAI ChatML (Chat Markup Language) Specification and Guide",
+          "author": "OpenAI Documentation Team",
+          "original_url": "https://github.com/openai/openai-python/blob/v0.28.1/chatml.md",
+          "version_or_verification_date": "openai-python tag v0.28.1, last MIT-licensed release containing chatml.md (Verified: 2026-10-31)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful reference under MIT open source documentation.",
+          "prerequisites": "Tokenizer special token concepts, conversation tree data structures.",
+          "selection_rationale": "Standardized token delimiter schema (<|im_start|>, <|im_end|>) separating system, user, and assistant roles to prevent prompt injection and role confusion.",
+          "known_availability_limitations": "chatml.md was removed from the openai-python main branch (now Apache-2.0) in the v1 rewrite; this link is pinned to tag v0.28.1, and the page itself says it is no longer maintained.",
+          "safe_fallback": "Full ChatML delimiter specs, role headers, and token stream representations are embedded in the curriculum.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Anthropic Claude Prompt Engineering Guidelines",
+              "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering",
+              "license": "Proprietary Documentation",
+              "status": "compared_alternative",
+              "comparison_rationale": "Uses Human:/Assistant: plain text delimiters; ChatML provides formal token-level demarcation with dedicated boundary tokens."
+            },
+            {
+              "candidate_name": "Vicuna ShareGPT Multi-Turn Schema",
+              "url": "https://github.com/lm-sys/FastChat",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "FastChat conversation template; ChatML is the universal token-delimited primitive."
+            }
+          ],
+          "relevant_timestamp": "chatml.md: ChatML v0 message format (<|im_start|>role ... <|im_end|>)"
+        }
+      ]
+    },
+    {
+      "id": "day-61-act-02",
+      "lesson_id": "les-61",
+      "title": "Tokenizer Special Tokens, Delimiters, and Boundary Alignment",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-61-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "huggingface-chat-templates",
+          "title": "Hugging Face Transformers: Templates for Chat Models",
+          "author": "Hugging Face Documentation Team",
+          "original_url": "https://huggingface.co/docs/transformers/main/en/chat_templating",
+          "version_or_verification_date": "Hugging Face Documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Apache 2.0",
+          "license_restrictions": [],
+          "permission_basis": "Permissive open documentation under Apache 2.0.",
+          "prerequisites": "Python, Jinja2 template basics, Hugging Face PreTrainedTokenizer.",
+          "selection_rationale": "Widely adopted system for mapping list-of-dict messages into tokenized strings with tokenizer.apply_chat_template().",
+          "known_availability_limitations": "Freely accessible online documentation.",
+          "safe_fallback": "Complete Jinja2 template implementations and boundary token unit tests are self-contained.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Axolotl Prompt Formats Guide",
+              "url": "https://github.com/axolotl-ai-cloud/axolotl",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Configuration-driven formatting framework; Hugging Face chat templates are the direct tokenizer-level standard."
+            },
+            {
+              "candidate_name": "vLLM Online Serving: Chat Template",
+              "url": "https://docs.vllm.ai/en/latest/serving/online_serving/#chat-template",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-performance inference chat templating; HF chat templating is the training-time reference implementation."
+            }
+          ],
+          "relevant_timestamp": "Using apply_chat_template: add_generation_prompt",
+          "locator_url": "https://huggingface.co/docs/transformers/main/en/chat_templating#addgenerationprompt"
+        },
+        {
+          "id": "touvron-llama2-2023",
+          "title": "Llama 2: Open Foundation and Fine-Tuned Chat Models",
+          "author": "Hugo Touvron, Louis Martin, Kevin Stone, Peter Albert, Amjad Almahairi, et al.",
+          "original_url": "https://arxiv.org/abs/2307.09288",
+          "version_or_verification_date": "arXiv:2307.09288v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Open access scientific paper citation.",
+          "prerequisites": "Transformer architecture, RLHF/SFT pipelines.",
+          "selection_rationale": "Defines the standard LLaMA-2 instruction format ([INST] <<SYS>> ... <</SYS>> [/INST]) and analyzes token boundary alignment impact on generation stability.",
+          "known_availability_limitations": "Freely accessible on arXiv.",
+          "safe_fallback": "The LLaMA-2 prompt structure, token boundary rules, and comparative analysis are fully worked out in curriculum lessons.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Touvron et al. LLaMA: Open and Efficient Foundation Language Models",
+              "url": "https://arxiv.org/abs/2302.13971",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Original foundation model paper without conversational chat tuning details; LLaMA-2 formalizes dialogue formatting."
+            },
+            {
+              "candidate_name": "Jiang et al. Mistral 7B",
+              "url": "https://arxiv.org/abs/2310.06825",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Adopts similar [INST] formatting; LLaMA-2 provides the foundational ablation on system prompt integration."
+            }
+          ],
+          "relevant_timestamp": "Section 3.1 Supervised Fine-Tuning (SFT)"
+        }
+      ]
+    },
+    {
+      "id": "day-61-act-03",
+      "lesson_id": "les-61",
+      "title": "Multi-Turn Dialogue Serialization and System Prompt Conditioning",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-61-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "openai-chatml-format",
+          "title": "OpenAI ChatML (Chat Markup Language) Specification and Guide",
+          "author": "OpenAI Documentation Team",
+          "original_url": "https://github.com/openai/openai-python/blob/v0.28.1/chatml.md",
+          "version_or_verification_date": "openai-python tag v0.28.1, last MIT-licensed release containing chatml.md (Verified: 2026-10-31)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful reference under MIT open source documentation.",
+          "prerequisites": "Tokenizer special token concepts, conversation tree data structures.",
+          "selection_rationale": "Standardized token delimiter schema (<|im_start|>, <|im_end|>) separating system, user, and assistant roles to prevent prompt injection and role confusion.",
+          "known_availability_limitations": "chatml.md was removed from the openai-python main branch (now Apache-2.0) in the v1 rewrite; this link is pinned to tag v0.28.1, and the page itself says it is no longer maintained.",
+          "safe_fallback": "Full ChatML delimiter specs, role headers, and token stream representations are embedded in the curriculum.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Anthropic Claude Prompt Engineering Guidelines",
+              "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering",
+              "license": "Proprietary Documentation",
+              "status": "compared_alternative",
+              "comparison_rationale": "Uses Human:/Assistant: plain text delimiters; ChatML provides formal token-level demarcation with dedicated boundary tokens."
+            },
+            {
+              "candidate_name": "Vicuna ShareGPT Multi-Turn Schema",
+              "url": "https://github.com/lm-sys/FastChat",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "FastChat conversation template; ChatML is the universal token-delimited primitive."
+            }
+          ],
+          "relevant_timestamp": "chatml.md: ChatML v0 message format (<|im_start|>role ... <|im_end|>)"
+        },
+        {
+          "id": "huggingface-chat-templates",
+          "title": "Hugging Face Transformers: Templates for Chat Models",
+          "author": "Hugging Face Documentation Team",
+          "original_url": "https://huggingface.co/docs/transformers/main/en/chat_templating",
+          "version_or_verification_date": "Hugging Face Documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Apache 2.0",
+          "license_restrictions": [],
+          "permission_basis": "Permissive open documentation under Apache 2.0.",
+          "prerequisites": "Python, Jinja2 template basics, Hugging Face PreTrainedTokenizer.",
+          "selection_rationale": "Widely adopted system for mapping list-of-dict messages into tokenized strings with tokenizer.apply_chat_template().",
+          "known_availability_limitations": "Freely accessible online documentation.",
+          "safe_fallback": "Complete Jinja2 template implementations and boundary token unit tests are self-contained.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Axolotl Prompt Formats Guide",
+              "url": "https://github.com/axolotl-ai-cloud/axolotl",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Configuration-driven formatting framework; Hugging Face chat templates are the direct tokenizer-level standard."
+            },
+            {
+              "candidate_name": "vLLM Online Serving: Chat Template",
+              "url": "https://docs.vllm.ai/en/latest/serving/online_serving/#chat-template",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-performance inference chat templating; HF chat templating is the training-time reference implementation."
+            }
+          ],
+          "relevant_timestamp": "Using apply_chat_template",
+          "locator_url": "https://huggingface.co/docs/transformers/main/en/chat_templating#using-applychattemplate"
+        }
+      ]
+    },
+    {
+      "id": "day-61-act-04",
+      "lesson_id": "les-61",
+      "title": "Independent Assessment: Production ChatML Normalization and Token Boundary Validator",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-61-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "stanford-alpaca-2023",
+          "title": "Stanford Alpaca: An Instruction-following LLaMA Model",
+          "author": "Rohan Taori, Ishaan Gulrajani, Tianyi Zhang, Yann Dubois, Xuechen Li, Carlos Guestrin, Percy Liang, Tatsunori B. Hashimoto",
+          "original_url": "https://github.com/tatsu-lab/stanford_alpaca",
+          "version_or_verification_date": "Stanford CRFM Release (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "repository",
+          "license": "Apache 2.0",
+          "license_restrictions": [],
+          "permission_basis": "Open source reference under Apache 2.0 license.",
+          "prerequisites": "LLM fine-tuning concepts, Python dictionary data structures.",
+          "selection_rationale": "Pioneering instruction fine-tuning dataset schema establishing the instruction/input/output format widely used across open source LLMs.",
+          "known_availability_limitations": "Public GitHub repository by Stanford Center for Research on Foundation Models.",
+          "safe_fallback": "Standard Alpaca schemas and data transformation scripts are completely specified in lesson materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Wei et al. Finetuned Language Models are Zero-Shot Learners (FLAN)",
+              "url": "https://arxiv.org/abs/2109.01652",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Pioneered academic instruction tuning across NLP benchmarks; Alpaca format provides the standardized single-turn JSON schema for consumer fine-tuning."
+            },
+            {
+              "candidate_name": "Databricks Dolly 15k Dataset",
+              "url": "https://github.com/databrickslabs/dolly",
+              "license": "CC-BY-SA 3.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Commercially permissive instruction dataset; Alpaca establishes the architectural schema archetype."
+            }
+          ],
+          "relevant_timestamp": "README 'Data Release'"
+        },
+        {
+          "id": "huggingface-chat-templates",
+          "title": "Hugging Face Transformers: Templates for Chat Models",
+          "author": "Hugging Face Documentation Team",
+          "original_url": "https://huggingface.co/docs/transformers/main/en/chat_templating",
+          "version_or_verification_date": "Hugging Face Documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Apache 2.0",
+          "license_restrictions": [],
+          "permission_basis": "Permissive open documentation under Apache 2.0.",
+          "prerequisites": "Python, Jinja2 template basics, Hugging Face PreTrainedTokenizer.",
+          "selection_rationale": "Widely adopted system for mapping list-of-dict messages into tokenized strings with tokenizer.apply_chat_template().",
+          "known_availability_limitations": "Freely accessible online documentation.",
+          "safe_fallback": "Complete Jinja2 template implementations and boundary token unit tests are self-contained.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Axolotl Prompt Formats Guide",
+              "url": "https://github.com/axolotl-ai-cloud/axolotl",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Configuration-driven formatting framework; Hugging Face chat templates are the direct tokenizer-level standard."
+            },
+            {
+              "candidate_name": "vLLM Online Serving: Chat Template",
+              "url": "https://docs.vllm.ai/en/latest/serving/online_serving/#chat-template",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-performance inference chat templating; HF chat templating is the training-time reference implementation."
+            }
+          ],
+          "relevant_timestamp": "Model training",
+          "locator_url": "https://huggingface.co/docs/transformers/main/en/chat_templating#model-training"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "language": "zh-Hant",
+  "language_label": "繁體中文",
+  "day_title": "第 38 天：N-gram 語言模型 — 計數、條件機率與平滑化",
+  "day_subtitle": "在確定性訓練劃分上擬合基於計數的二元（bigram）基線：構建計數表、正規化為條件機率、對未見事件進行平滑化，並在留出文字上用概似度與困惑度進行評估 — 每個數值均可手算驗證。所有工作都計入 480 分鐘台帳。",
+  "time_budget_label": "480 分鐘有效學習（8 小時專注學習）",
+  "category_label": "模型與訓練",
+  "common": {
+    "nav_calendar": "📅 課程行事曆與台帳",
+    "nav_agent_track": "🤖 Agent 工具路線",
+    "day_label": "第 38 天",
+    "prerequisites_title": "前置要求",
+    "objective_title": "學習目標",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主實作與記錄",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看參考解答與分析",
+    "mastery_title": "獨立掌握標準",
+    "draft_placeholder": "在此記錄你的計數表、預測機率、計算出的概似度與回退證據...",
+    "dev_slice_notice": "90 天 AI 學習平台的已驗證正式課程模組。",
+    "sources_heading": "權威來源資源與權利證明",
+    "source_author_label": "作者 / 機構",
+    "source_url_label": "原始出處連結",
+    "source_range_label": "對應章節 / 時間戳",
+    "source_verification_label": "驗證版本與日期",
+    "source_reuse_label": "複用類別",
+    "source_license_label": "許可證與權利說明",
+    "source_rationale_label": "入選理由",
+    "source_prereqs_label": "來源前置條件",
+    "source_fallback_label": "安全回退方案（離線彈性）",
+    "compared_candidates_heading": "對比候選資源與選型分析",
+    "compared_status_label": "評估結論",
+    "auth": {
+      "sign_in": "使用 Google 登入",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "登出",
+      "signed_in_as": "已登入為",
+      "guest": "訪客模式",
+      "link_github": "綁定 GitHub",
+      "link_google": "綁定 Google",
+      "linked_identities": "已綁定帳號",
+      "auth_errors": {
+        "access_denied": "授權已取消或存取被拒絕。",
+        "invalid_state": "無效或已過期的授權狀態權杖，請重試。",
+        "identity_conflict": "該第三方身分已被綁定至其他帳號。",
+        "provider_error": "認證服務提供者發生錯誤。",
+        "server_error": "認證服務提供者發生錯誤。",
+        "session_expired": "登入工作階段已過期，請重新登入。"
+      }
+    },
+    "progress": {
+      "save_btn": "儲存進度",
+      "saved": "已儲存",
+      "saving": "正在儲存...",
+      "save_error": "儲存失敗",
+      "offline": "離線狀態",
+      "mark_completed": "標記為已完成",
+      "completed_badge": "已完成"
+    }
+  },
+  "activities": {
+    "day-38-act-01": {
+      "title": "統計二元詞元對：從詞元流到計數表",
+      "prerequisites": "完成第 37 天。如受阻，使用第 35 天的回退連結複習機率與 Python。",
+      "objective": "將詞元序列轉換為二元計數表 C(w_{i-1}, w_i)，區分上下文總頻次與配對頻次，並將每個計數值與手動追蹤對照驗證（支援 Unicode 字元與空輸入邊界處理）。",
+      "assistance_policy_label": "Agent 輔助工程檢查",
+      "instructions": "二元語法（bigram）指相鄰的兩個連續詞元。必做工作：在詞元流 'the cat sat the cat ran the dog sat'（模擬由三行訓練資料合併成的 9 詞元流，遵循 text_tools 的規範）上滑動長度為 2 的視窗，使用 Counter(zip(words, words[1:])) 統計所有相鄰配對。選做工作：在驗證集 val 劃分上重複此過程並比較資料稀疏度。注意：當輸入為空字串 '' 時配對計數為空集合，Unicode 字串如 'é貓é' 亦能完全按相同邏輯滑動計數。",
+      "exercise_prompt": "在執行任何程式碼之前，手工寫出 8 個相鄰詞元對以及完整計數表。然後用同樣方法計算 'banana' 的字元級 bigram 並記錄兩張表。",
+      "hint": "詞元流配對：(the,cat), (cat,sat), (sat,the), (the,cat), (cat,ran), (ran,the), (the,dog), (dog,sat)。對於 'banana' 字元流：(b,a), (a,n), (n,a), (a,n), (n,a)。",
+      "answer": "詞元流計數（8 個實例，7 種不同二元組）：(the,cat)=2, (cat,sat)=1, (sat,the)=1, (cat,ran)=1, (ran,the)=1, (the,dog)=1, (dog,sat)=1。上下文總量（以各詞元開頭的二元組總數）：the=3, cat=2, sat=1, ran=1, dog=1。'banana' 字元：(a,n)=2, (n,a)=2, (b,a)=1。空輸入 '' 產生的 bigram 計數為空字典 {}。",
+      "mastery_criterion": "你的手寫計數表與 Counter(zip(words, words[1:])) 的輸出完全一致，並能清晰闡述為什麼上下文行總和（而非全語料 unigram 詞頻）是下一步轉移機率正規化的正確分母。"
+    },
+    "day-38-act-02": {
+      "title": "最大概似條件機率估計",
+      "prerequisites": "完成上一活動；如受阻，使用列出的回退連結。",
+      "objective": "將計數表行正規化為最大概似轉移機率 P(w_i|w_{i-1}) = C(w_{i-1}, w_i) / C(w_{i-1})，驗證每個上下文行的機率和為 1，並透過條件機率連乘為簡短語句評分。",
+      "assistance_policy_label": "獨立掌握檢查（無 AI 輔助）",
+      "instructions": "必做工作：對每個上下文詞元，將其所有引出的配對計數除以該上下文的總頻次。手工計算 P(·|the)、P(·|cat) 和 P(·|dog) 各行，並驗證每行之和嚴格為 1。選做工作：在 'banana' 字元表上進行相同的機率正規化計算。",
+      "exercise_prompt": "計算 P(cat|the)、P(dog|the)、P(sat|cat)、P(ran|cat)、P(sat|dog)。然後計算在 'the' 之後接續 'cat ran' 的條件機率連乘得分，並預測是否有任何上下文行的和不為 1。",
+      "hint": "上下文 'the' 總數為 3，因此 P(cat|the)=2/3，P(dog|the)=1/3。上下文 'cat' 總數為 2，因此 P(sat|cat)=P(ran|cat)=1/2。上下文 'dog' 總數為 1，P(sat|dog)=1。",
+      "answer": "P(cat|the)=2/3≈0.6667, P(dog|the)=1/3≈0.3333, P(sat|cat)=1/2, P(ran|cat)=1/2, P(sat|dog)=1。每個上下文行的機率和嚴格等於 1。評分 Score('cat ran' | 'the') = P(cat|the) × P(ran|cat) = 2/3 × 1/2 = 1/3 ≈ 0.3333。若遇到未見轉移（如空機率或零計數），未平滑機率直接為 0。",
+      "mastery_criterion": "無輔助情況下寫出全部 5 個條件機率的精確分數形式，驗證各上下文行機率和為 1，並正確計算雙因子概似度乘積。"
+    },
+    "day-38-act-03": {
+      "title": "Add-k 平滑化、概似度與困惑度",
+      "prerequisites": "完成上一活動；如受阻，使用列出的回退連結。",
+      "objective": "解釋為什麼零機率會使概似度崩塌為 0，應用加一平滑化 P(next|context) = (C+1)/(context_total + V)（詞彙表大小為 V），並將平滑後的句子得分轉化為每個詞元的負對數概似度 (NLL) 和困惑度 (Perplexity)。",
+      "assistance_policy_label": "Agent 輔助工程檢查",
+      "instructions": "該詞元流的詞彙表大小為 V=5（{the, cat, sat, ran, dog}）。必做工作：使用加一平滑重新計算 'the' 和 'cat' 的條件分佈，並為留出接續文本 'cat ran'（跟在 'the' 後）評分：概似度 L 為平滑條件機率乘積，單詞元 NLL = -ln(L)/N（N=2），困惑度 = exp(單詞元 NLL)。選做工作：使用 add-0.5 平滑重複計算並對比數值差異。",
+      "exercise_prompt": "計算上下文 'the' 和 'cat' 的平滑行、接續句的平滑概似度、單詞元 NLL 與困惑度。先預測：平滑後的概似度會高於還是低於未平滑的 1/3，為什麼？",
+      "hint": "當 V=5 時：P(cat|the)=(2+1)/(3+5)=3/8，P(dog|the)=2/8，在 'the' 後的未見詞元各自分得 1/8；P(ran|cat)=(1+1)/(2+5)=2/7。平滑總是把機率質量從已見事件分配給未見事件。",
+      "answer": "平滑後 'the' 行：cat 3/8=0.375, dog 2/8=0.25, sat/ran/the 各 1/8=0.125（總和為 1）。P(ran|cat)=2/7≈0.2857。概似度 L = 3/8 × 2/7 = 3/28 ≈ 0.1071 — 低於未平滑的 1/3，因為機率質量轉移給了未見事件；這也正是未見轉移 'cat dog' 得分不再是 0 而是 1/7 的原因。單詞元 NLL = -ln(3/28)/2 ≈ 1.1168 nats ≈ 1.6112 bits；困惑度 Perplexity = (3/28)^(-1/2) = √(28/3) ≈ 3.055。",
+      "mastery_criterion": "能準確給出完整的平滑行、3/28 的概似度、≈1.117 nats 的單詞元 NLL、≈3.055 的困惑度，並清楚解釋為什麼模型評估只能在留出的測試集（held-out text）上進行。"
+    },
+    "day-38-act-04": {
+      "title": "獨立掌握檢查：實作並驗證二元語言模型基線",
+      "prerequisites": "完成前面所有活動；如受阻，使用列出的回退連結。",
+      "objective": "在無輔助情況下實作 bigram 計數、手算條件機率與平滑機率、診斷零概似失敗原因，並陳述留出評估防洩漏規則（支援空字串與 Unicode 邊界檢查）。",
+      "assistance_policy_label": "獨立掌握檢查（無 AI 輔助）",
+      "instructions": "本檢查期間不要查看答案或使用 AI。必做工作：(1) 在 Python 中實作 'banana' 字元的 bigram 計數；(2) 手算 P(n|a) 和 P(a|n)；(3) 為未見字元對計算加一平滑機率；(4) 解釋為什麼測試集必須封存。選做工作：將計數擴展到三元（trigram）。",
+      "exercise_prompt": "閉卷作答：(a) 列出 'banana' 的字元 bigram 及其計數值。(b) P(n|a)=? 與 P(a|n)=? (c) 設字元表 V={a,b,n}（V=3），加一平滑後的 P(b|a) 是多少？(d) 若未平滑模型對 'cat dog' 評分為 0，是哪個具體計數值導致的？加一平滑賦予其什麼機率？",
+      "hint": "(a) (a,n)×2, (n,a)×2, (b,a)×1。(b) 上下文 'a' 和 'n' 作為左側前驅各出現 2 次。(c) (0+1)/(2+3)。(d) C(cat,dog)=0 導致乘積為 0；平滑賦予 (0+1)/(2+5)。",
+      "answer": "(a) (b,a)=1, (a,n)=2, (n,a)=2。對空字串 '' 則回傳空計數。(b) P(n|a)=2/2=1.0，P(a|n)=2/2=1.0 — 'banana' 展現了確定的字元交替。(c) (0+1)/(2+3)=1/5=0.2。(d) C(cat,dog)=0 導致概似度乘積崩塌為 0；加一平滑賦予 P(dog|cat)=(0+1)/(2+5)=1/7≈0.1429。對包含 Unicode 字元（如 '😀'）的流同樣遵循 (C+1)/(N+V) 規則。",
+      "mastery_criterion": "程式碼實作的計數值與 Counter 完全一致，所有機率給出精確分數，並指出平滑機制與僅在訓練集擬合的防洩漏規則是解決零機率與虛假高表現的兩大基石。"
+    }
+  }
+}

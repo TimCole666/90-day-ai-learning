@@ -1,0 +1,29 @@
+{
+  "checkpoint": "/home/tiancaijb/projects/learn-worktrees/ticket-18/projects/pretrain/artifacts/latest.pt",
+  "step": 10,
+  "model_config": {
+    "block_size": 16,
+    "vocab_size": 65,
+    "n_layer": 2,
+    "n_head": 2,
+    "n_embd": 16,
+    "dropout": 0.1,
+    "bias": false
+  },
+  "parameter_ledger": {
+    "token_embedding": 1040,
+    "position_embedding": 256,
+    "attention_per_layer": 1024,
+    "mlp_per_layer": 2048,
+    "all_layers": 6144,
+    "final_layernorm": 0,
+    "lm_head_tied": 0,
+    "total_parameters": 7440
+  },
+  "train_loss": 4.048917961120606,
+  "train_perplexity": 57.335384353933705,
+  "val_loss": 4.051970195770264,
+  "val_perplexity": 57.51065274476934,
+  "prompt": "ROMEO:",
+  "generated_text": "ROMEO:jRmusjGyYJzhV$Yx!ULjfHjpRWmhlayhyyRcXxkG"
+}

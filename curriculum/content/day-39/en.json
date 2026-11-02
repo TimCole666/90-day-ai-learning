@@ -1,0 +1,108 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 39: Byte-Pair Encoding — Merge Mechanics and Tokenizer Boundaries",
+  "day_subtitle": "Learn the subword algorithm behind GPT-style tokenizers: start from raw UTF-8 bytes, merge the most frequent adjacent pair repeatedly, encode and decode losslessly, and fit merges on the training split only. The block closes with independent tracing and retrieval review.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Models & Training",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "nav_agent_track": "🤖 Agent Tool Track",
+    "day_label": "Day 39",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Record your pair counts, predicted merges, encoded ids, and recovery evidence here...",
+    "dev_slice_notice": "Verified curriculum module for the 90-Day AI Learning Platform.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account.",
+        "provider_error": "Authentication provider encountered an error.",
+        "server_error": "Authentication provider encountered an error.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    }
+  },
+  "activities": {
+    "day-39-act-01": {
+      "title": "Pair counts and the merge loop",
+      "prerequisites": "Complete Day 38. If blocked, use the Day 35 recovery link for probability review.",
+      "objective": "Trace the BPE training loop — count adjacent pairs, merge the most frequent pair into a fresh id, repeat — and reproduce a verified merge table by hand.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Start from the byte ids of 'aaabdaaabac': [97,97,97,98,100,97,97,97,98,97,99]. Required work: each round, count every adjacent pair; the most frequent pair receives the next free id (256, then 257, and so on); ties break by first occurrence, matching Python's max() over an insertion-ordered dict. An empty string '' has no pairs and returns empty immediately; Unicode strings decompose into UTF-8 bytes and follow the identical merge loop. Write the merge trace, then verify with a small script. Optional work: continue to a fourth merge and name the token it creates.",
+      "exercise_prompt": "Hand-trace 3 merges on 'aaabdaaabac': write the pair counts each round, the chosen pair, and the new sequence. Predict the final token count and vocabulary size before checking.",
+      "hint": "Round 1: (97,97) occurs 4 times → id 256; sequence becomes [256,97,98,100,256,97,98,97,99]. Round 2: (256,97) and (97,98) tie at 2 — first occurrence (256,97) wins → 257. Round 3: (257,98) occurs 2 times → 258.",
+      "answer": "Verified trace: merges {(97,97)→256 ('aa'), (256,97)→257 ('aaa'), (257,98)→258 ('aaab')}; final ids [258,100,258,97,99] read as 'aaab','d','aaab','a','c' — 11 bytes compressed to 5 tokens (2.2×), vocabulary 256+3=259.",
+      "mastery_criterion": "Your handwritten trace reproduces all three merges, the first-occurrence tie-break, the final token list, and the 259 vocabulary size without consulting the reference."
+    },
+    "day-39-act-02": {
+      "title": "Encoding, decoding, and the unknown-input policy",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Apply learned merges greedily by rank to encode new text, decode losslessly by concatenating vocabulary byte strings, and explain why byte-level input never needs an unknown token.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance)",
+      "instructions": "Encoding repeatedly scans the current id list and merges whichever adjacent pair has the lowest merge rank, until no known pair remains. Required work: with merges {(97,97)→256, (256,97)→257, (257,98)→258}, encode 'aab' and 'baaa' by hand, then decode [258,100,258,97,99]. Optional work: state which production features this teaching tokenizer still lacks.",
+      "exercise_prompt": "Predict encode('aab') and encode('baaa') under the trained merge table, then decode [258,100,258,97,99]. State what 'é猫' encodes to under byte-level input and why it can never be 'unknown'.",
+      "hint": "'aab' → merge (97,97) → [256,98]. 'baaa' → [98,97,97,97] → merge (97,97) → [98,256,97] → merge (256,97) → [98,257]. 'é猫' is five UTF-8 bytes, so it is already five valid ids.",
+      "answer": "encode('aab')=[256,98] ('aa'+'b'); encode('baaa')=[98,257] ('b'+'aaa'); decode([258,100,258,97,99])='aaabdaaabac' exactly — encoding is lossless. Empty input '' preserves round-trip. 'é猫'→[195,169,231,140,171]: byte-level coverage has no OOV case across any Unicode character; unseen merged forms simply stay unmerged. A teaching tokenizer like this still lacks production features — regex pre-tokenization (GPT-2 style), special tokens, and a ~50k-100k vocabulary — so its ids do not match a production model's tokenizer such as tiktoken.",
+      "mastery_criterion": "Given a merge table, you can encode and decode new strings by hand with correct ids, explain why byte-level input removes the <unk> case, and name two concrete differences from a production tokenizer."
+    },
+    "day-39-act-03": {
+      "title": "Fit merges on train only; evaluate compression on validation",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Treat the merge table as learned parameters: fit it on the deterministic train split, measure bytes-per-token compression on held-out validation — never test — and record which split each stage consumed.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Required work: reuse the Day-37 pipeline — run `python3 projects/text_tools/cli.py --input data/names.txt --split --output-dir /tmp/lm-data` (seed 42 → 25626/3203/3204). Train merges only on train.txt, then encode a val excerpt and report len(utf8_bytes)/len(token_ids) compression. Repeat with a different merge count and select on val, not test. Optional work: record the chosen merge count and both compression ratios in your notes.",
+      "exercise_prompt": "Predict whether compression will be higher on the training text or on held-out text, and why. Then verify on the toy corpus: merges fit on 'aaabdaaabac' compress it 11 bytes → 5 tokens; how does the same table compress the held-out string 'aab'?",
+      "hint": "Merge tables specialize to the statistics of the text they were fit on, so training compression is at least validation compression in general. 'aab'→[256,98]: 3 bytes → 2 tokens (1.5×). Keep test.txt sealed for the final report.",
+      "answer": "The trained table compresses its own training string 11 bytes → 5 tokens (2.2×) but the held-out 'aab' only 3 bytes → 2 tokens (1.5×): merges specialize to training statistics, so honest evaluation reports validation compression separately from training compression. The discipline is identical on the real artifacts: fit merges on train.txt, tune merge count on val.txt, and keep test.txt untouched.",
+      "mastery_criterion": "You can state which split each stage consumes, reproduce both compression numbers (2.2× on the fit text, 1.5× on held-out), and explain the leakage that fitting merges on validation data would create."
+    },
+    "day-39-act-04": {
+      "title": "Independent mastery check: hand-trace merges and block retrieval",
+      "prerequisites": "Complete the previous activities; use the listed recovery link if blocked.",
+      "objective": "Unaided, trace BPE merges on new text, encode with a known table, retrieve the UTF-8 length classes and the add-one formula from memory, and write a recovery plan for anything missed.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance)",
+      "instructions": "Do not consult answers or AI during this check. Required work: (1) trace the first two merges for 'ababa'; (2) encode 'aaab' under the Day-39 merge table; (3) from memory, write the four UTF-8 length classes and the add-one smoothing formula; (4) record a recovery plan for each miss. Optional work: contrast a count-based bigram model with a learned-merge tokenizer in two sentences.",
+      "exercise_prompt": "(a) What are the first two merges for 'ababa' and the final id list? (b) What is encode('aaab') under merges {(97,97)→256, (256,97)→257, (257,98)→258}? (c) From memory: UTF-8 byte counts for 'a', 'é', '猫', '😀', and the add-one formula P(next|context).",
+      "hint": "(a) Pairs (97,98) and (98,97) tie at 2; the first-occurrence rule picks (97,98)→256, giving [256,256,97]; then (256,256)→257. (b) Apply merges in rank order. (c) 1, 2, 3, 4 bytes; numerator and denominator each gain a smoothing term.",
+      "answer": "(a) merges {(97,98)→256, (256,256)→257}; ids [97,98,97,98,97] → [256,256,97] → [257,97]. (b) encode('aaab')=[258] — the whole word is the third learned token 'aaab' ([97,97,97,98] → [256,97,98] → [257,98] → [258]). (c) a→1 byte, é→2 bytes, 猫→3 bytes, 😀→4 bytes; P(next|context) = (C(context,next)+1) / (C(context)+V). Optional contrast: a count bigram LM models sequence probability from observed pair frequencies; BPE deterministically builds a symbol vocabulary by compression — complementary parts of the text pipeline.",
+      "mastery_criterion": "All merges and ids are exact, the retrieved facts are stated without notes, and the recovery plan names the specific Day 37-39 activity that repairs each miss."
+    }
+  }
+}

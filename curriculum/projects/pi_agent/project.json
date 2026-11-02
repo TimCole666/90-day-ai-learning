@@ -1,0 +1,26 @@
+{
+  "id": "pi-agent",
+  "title": "Pi Agent Tool Track",
+  "tested_release": "v1.4.0",
+  "runtime": "Node.js >=22.19",
+  "verification_date": "2026-10-30",
+  "official_sources": [
+    "https://github.com/earendil-works/pi",
+    "https://github.com/earendil-works/pi/releases/tag/v1.4.0"
+  ],
+  "language_editions": ["en", "zh-Hans", "zh-Hant", "ja"],
+  "live_run_status": "blocked-without-authorized-provider-access",
+  "capabilities": {
+    "built_in": ["interactive mode", "print/JSON mode", "sessions", "context compaction", "branching", "read", "write", "edit", "grep", "find", "bash"],
+    "extensions_required": ["sub-agent delegation", "plan mode", "third-party integrations"]
+  },
+  "acceptance": [
+    "context is minimal and relevant",
+    "permissions are bounded to the disposable fixture",
+    "provider/model/cost budget is recorded",
+    "complete diff is reviewed",
+    "tests are run independently",
+    "failure correction and root cause are recorded",
+    "simulation is not presented as live evidence"
+  ]
+}

@@ -1,0 +1,269 @@
+{
+  "id": "day-32",
+  "day_number": 32,
+  "active_minutes": 480,
+  "topic_category": "mathematics",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-31"
+  ],
+  "recovery_links": [
+    "day-28"
+  ],
+  "activities": [
+    {
+      "id": "day-32-act-01",
+      "lesson_id": "les-32",
+      "title": "Directed Acyclic Graph (DAG) Topological Sorting",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-31"
+      ],
+      "source_resources": [
+        {
+          "id": "karpathy-micrograd",
+          "title": "micrograd: A tiny scalar-valued autograd engine",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/micrograd",
+          "relevant_timestamp": "micrograd/engine.py: class Value (_backward closures and backward() topological sort); README 'Example usage'",
+          "version_or_verification_date": "commit a9a9f94 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT license.",
+          "prerequisites": "Graph traversal fundamentals (DFS/BFS)",
+          "selection_rationale": "Clear reference implementation of recursive DFS topological sort for reverse-mode ordering.",
+          "known_availability_limitations": "Public repository.",
+          "safe_fallback": "Local implementation in projects/autograd/engine.py.",
+          "compared_candidates": [
+            {
+              "candidate_name": "PyTorch autograd C++ engine",
+              "url": "https://github.com/pytorch/pytorch",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Production scale, but too large and complex for tracing by hand in introductory lessons."
+            },
+            {
+              "candidate_name": "Autograd (HIPS)",
+              "url": "https://github.com/HIPS/autograd",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Vectorized autograd; micrograd's pure scalar model is pedagogical for hand backprop."
+            }
+          ],
+          "has_unknown_subtitle_rights": true
+        }
+      ]
+    },
+    {
+      "id": "day-32-act-02",
+      "lesson_id": "les-32",
+      "title": "Shared-Node Gradient Accumulation and Multivariable Chain Rule",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-32-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "griewank-walther-autodiff",
+          "title": "Evaluating Derivatives: Principles and Techniques of Algorithmic Differentiation",
+          "author": "Andreas Griewank, Andrea Walther",
+          "original_url": "https://epubs.siam.org/doi/book/10.1137/1.9780898717761",
+          "relevant_timestamp": "Section 3.2: Accumulation along Adjoint Graphs",
+          "version_or_verification_date": "2nd Edition, SIAM 2008 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "SIAM Copyright / Academic Linking Only",
+          "license_restrictions": [
+            "No text extraction or distribution permitted"
+          ],
+          "permission_basis": "Academic citation and linking; explanations are original formulations.",
+          "prerequisites": "Multivariate calculus",
+          "selection_rationale": "Mathematical proof showing that total derivative equals the sum of adjoint contributions across all outbound paths.",
+          "known_availability_limitations": "Academic text.",
+          "safe_fallback": "Self-contained mathematical derivations in activity text.",
+          "compared_candidates": [
+            {
+              "candidate_name": "micrograd: A tiny scalar-valued autograd engine",
+              "url": "https://github.com/karpathy/micrograd",
+              "license": "MIT License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Executable scalar reference implementation the learner later rebuilds; the textbook supplies the formal reverse-mode theory."
+            },
+            {
+              "candidate_name": "Baydin, Pearlmutter, Radul, Siskind: Automatic Differentiation in Machine Learning: a Survey (JMLR 2018)",
+              "url": "https://jmlr.org/papers/v18/17-468.html",
+              "license": "JMLR open access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Broad survey taxonomy of the field; the textbook was selected for its rigorous treatment of reverse-mode complexity."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-32-act-03",
+      "lesson_id": "les-32",
+      "title": "Finite-Difference Numerical Gradient Checking (Gradcheck) & Tolerances",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-32-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "pytorch-gradcheck-docs",
+          "title": "PyTorch Autograd: Numerical Gradient Checking (torch.autograd.gradcheck)",
+          "author": "PyTorch Core Team",
+          "original_url": "https://docs.pytorch.org/docs/stable/generated/torch.autograd.gradcheck.gradcheck.html",
+          "relevant_timestamp": "Finite-difference formula, default tolerances (rtol, atol), and step-size selection",
+          "version_or_verification_date": "PyTorch 2.5 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD-style License",
+          "license_restrictions": [],
+          "permission_basis": "Open documentation reference under BSD terms.",
+          "prerequisites": "Numerical methods basics and IEEE 754 floating-point awareness",
+          "selection_rationale": "Widely adopted benchmark for validating analytical autodiff against central difference approximations.",
+          "known_availability_limitations": "Documentation available online.",
+          "safe_fallback": "Local gradcheck implementation in projects/autograd/gradcheck.py.",
+          "compared_candidates": [
+            {
+              "candidate_name": "JAX documentation: Automatic differentiation",
+              "url": "https://docs.jax.dev/en/latest/automatic-differentiation.html",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Alternative framework autodiff API; PyTorch gradcheck was selected to match the projects/autograd numerical checks used in the drill."
+            },
+            {
+              "candidate_name": "numdifftools: automatic numerical differentiation",
+              "url": "https://github.com/pbrod/numdifftools",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "General finite-difference toolkit; PyTorch gradcheck was selected because it integrates directly with the tensor autograd objects the drill verifies."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-32-act-04",
+      "lesson_id": "les-32",
+      "title": "Independent Mastery Check: Topological Order & Numerical Verification",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-32-act-03"
+      ],
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "q1",
+            "type": "choice",
+            "expected_answer": "c"
+          },
+          {
+            "id": "q2",
+            "type": "choice",
+            "expected_answer": "b"
+          },
+          {
+            "id": "q3",
+            "type": "choice",
+            "expected_answer": "a"
+          }
+        ]
+      },
+      "source_resources": [
+        {
+          "id": "pytorch-autograd-mechanics",
+          "title": "PyTorch Documentation: Autograd Mechanics",
+          "author": "PyTorch Contributors",
+          "original_url": "https://pytorch.org/docs/stable/notes/autograd.html",
+          "version_or_verification_date": "PyTorch 2.5 Documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Modified BSD",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under Modified BSD license terms.",
+          "prerequisites": "Basic understanding of computational graphs and tensors.",
+          "selection_rationale": "Official reference for computational graph construction, backward pass execution, and in-place mutation pitfalls.",
+          "compared_candidates": [
+            {
+              "candidate_name": "TensorFlow tf.GradientTape Documentation",
+              "url": "https://www.tensorflow.org/api_docs/python/tf/GradientTape",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Alternative tape-based execution; PyTorch dynamic graph semantics are standard in modern LLM research."
+            },
+            {
+              "candidate_name": "JAX autodiff cookbook",
+              "url": "https://jax.readthedocs.io/en/latest/notebooks/autodiff_cookbook.html",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Functional transformations (grad, vjp); PyTorch object-based graph is closer to the beginner micrograd model."
+            }
+          ],
+          "known_availability_limitations": "Web documentation on pytorch.org.",
+          "safe_fallback": "The training loop mechanics and zero_grad requirements are illustrated with runnable Python code.",
+          "relevant_timestamp": "How autograd encodes the history",
+          "locator_url": "https://pytorch.org/docs/stable/notes/autograd.html#how-autograd-encodes-the-history"
+        },
+        {
+          "id": "scipy-derivative",
+          "title": "SciPy numerical derivative reference",
+          "author": "SciPy Developers",
+          "original_url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+          "relevant_timestamp": "derivative API: finite differences, step-size iteration, tolerances",
+          "version_or_verification_date": "SciPy documentation, verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD-3-Clause",
+          "license_restrictions": [],
+          "permission_basis": "Link only; all learner-facing explanations and examples are original.",
+          "prerequisites": "Python arithmetic and the definition of a derivative",
+          "selection_rationale": "Documents numerical differentiation as an approximation with finite step sizes and stopping criteria.",
+          "known_availability_limitations": "Requires network access for the current hosted API page.",
+          "safe_fallback": "The local Day 18 tables and pure-Python snippets reproduce the relevant finite-difference behavior without SciPy.",
+          "compared_candidates": [
+            {
+              "candidate_name": "NumPy: numpy.gradient",
+              "url": "https://numpy.org/doc/stable/reference/generated/numpy.gradient.html",
+              "license": "BSD 3-Clause License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Array-oriented gradient estimation on sampled grids; the SciPy derivative reference matches the pointwise finite-difference helper the exercises implement."
+            },
+            {
+              "candidate_name": "SymPy Calculus tutorial",
+              "url": "https://docs.sympy.org/latest/tutorials/intro-tutorial/calculus.html",
+              "license": "BSD License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Symbolic rather than numerical differentiation; useful for exact cross-checks but not the finite-difference practice target."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

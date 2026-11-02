@@ -1,0 +1,143 @@
+{
+  "language": "zh-Hans",
+  "language_label": "简体中文",
+  "day_title": "第 18 天：有限差分、步长与浮点效应",
+  "day_subtitle": "通过定义、分步推导、检索练习与诚实的数值证据，让函数与变化变得可计算。",
+  "time_budget_label": "480 分钟主动学习（8 小时专注学习）",
+  "category_label": "数学与微积分",
+  "common": {
+    "nav_calendar": "课程日历",
+    "day_label": "Day 18",
+    "prerequisites_title": "前提条件",
+    "objective_title": "学习目标",
+    "instructions_title": "操作说明",
+    "exercise_title": "练习与预测记录",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看参考解答与推导过程",
+    "mastery_title": "独立掌握标准",
+    "draft_placeholder": "在此记录你的预测、演算过程、观察结果、复盘和恢复证据……",
+    "sources_heading": "权威来源资源与出处",
+    "source_author_label": "作者 / 机构",
+    "source_url_label": "原始出处链接",
+    "source_range_label": "对应章节 / 时间戳",
+    "source_verification_label": "验证版本与日期",
+    "source_rationale_label": "入选理由",
+    "source_prereqs_label": "来源前置条件",
+    "source_fallback_label": "安全回退方案（离线弹性）",
+    "compared_candidates_heading": "对比候选资源与选型分析"
+  },
+  "activities": {
+    "day-18-act-01": {
+      "title": "有限差分是近似",
+      "prerequisites": "完成前一项活动；如遇困难，使用列出的恢复来源。",
+      "objective": "由导数定义实现前向、后向和中心有限差分，保持 h 显式可见，并与解析答案比较，而不是把近似当作精确值。",
+      "assistance_policy_label": "Agent 辅助工程检查",
+      "instructions": "1. 代入数字之前，先用符号 h 写出三种格式：前向 [f(a+h) - f(a)]/h，后向 [f(a) - f(a-h)]/h，中心 [f(a+h) - f(a-h)]/(2h)。保持 h 的符号可见。\n2. 利用 Day 17 的结论（x^2 在 3 处的前向差商恰为 6 + h），预测哪种格式最接近 f'(3) = 6。\n3. 只计算一次 f(3.1)、f(3) 和 f(2.9)，然后在三种格式中复用这三个值。\n4. 列表写出每个估计值及其带符号的误差（估计值 - 6）。\n5. 用泰勒展开解释规律：对 x^2，前向误差恰为 +h，后向误差恰为 -h，二者在中心格式中相互抵消；下一项含 f'''，而二次函数的 f''' 为零。\n6. 说明哪些量是精确的（f'(3)、函数值），哪些是近似（一般情况下格式的输出），并解释为什么这里中心差分精确只是特例，而不是规律。\n\n**时间安排（120 分钟）：阅读 30 + 练习 55 + 检查 35。** 阅读：OpenStax 第 3.1 节（作为差商极限的导数）和 SciPy derivative 页面概述。练习：三种格式、误差表和泰勒解释。检查：独立完成 x=2、h=.01 的掌握题。",
+      "exercise_prompt": "对 x=3 处的 f(x)=x^2，取 h=.1，计算前向 [f(3+h)-f(3)]/h、后向 [f(3)-f(3-h)]/h、中心 [f(3+h)-f(3-h)]/(2h)。预测哪个最接近 f'(3)=6。",
+      "hint": "代入数字前先写出差分格式（stencil），并保持 h 的符号。恢复：SciPy 导数参考中的数值约定；离线后备是这里的三个公式和多项式精确计算。",
+      "answer": "f(3.1)=9.61，f(2.9)=8.41。前向=(9.61-9)/.1=6.1；后向=(9-8.41)/.1=5.9；中心=(9.61-8.41)/.2=6.0。这里中心差分恰好精确，因为二次函数的三阶余项为零，但这并不普遍成立。",
+      "mastery_criterion": "独立计算 f(x)=x^2 在 x=2、h=.01 处的三个估计值，与 4 比较，并说明哪些量是精确的、哪些是近似的。",
+      "source_recovery": "OpenStax 第 2.1-3.2 节与 SciPy 导数文档；若不可用，本活动中的分步推导和纯 Python 表格即为离线后备材料。"
+    },
+    "day-18-act-02": {
+      "title": "步长：截断误差与舍入误差",
+      "prerequisites": "完成前一项活动；如遇困难，使用列出的恢复来源。",
+      "objective": "解释为什么最小的步长并不总是最好：截断误差通常随 h 减小而减小，而当邻近函数值变得无法区分时，浮点相消与舍入却会增大。",
+      "assistance_policy_label": "独立掌握检查（无 AI 辅助）",
+      "instructions": "1. 计算前先预测：中心差分的截断误差大约按 h^2 减小，舍入误差大约按 eps/h 增大（双精度下 eps ≈ 2.2e-16）。写下你预计二者交叉的位置。\n2. 对 h = .1, 1e-3, 1e-5, 1e-8, 1e-12 计算中心估计 (sin(1+h) - sin(1-h))/(2h)，至少显示 12 位有效数字。\n3. 每个绝对误差都对照工作精度的 math.cos(1) 计算，而不是对照 10 位显示值 0.5403023059。\n4. 标出误差不再减小、开始增大的那一行（转折点）。\n5. 用两句话解释转折点：一句讲截断误差，一句讲相消与舍入。\n6. 明确说明：这张表只展示了一个函数、一个点、一种精度，并不给出普遍适用的最佳 h。\n\n**时间安排（120 分钟）：阅读 25 + 练习 60 + 检查 35。** 阅读：SciPy derivative 页面（步长、容差）和活动 1 的笔记。练习：含误差和转折点的五行表。检查：独立复现三行并解释为什么 1e-12 比 1e-5 差的掌握题。",
+      "exercise_prompt": "对 sin(1) 使用中心差分（其解析导数为 cos(1)≈0.5403023059（10 位十进制显示；误差应对照工作精度的 cos(1) 计算））。比较 h=.1, 1e-3, 1e-5, 1e-8 和 1e-12。解释最佳区间，而不是习惯性地选最小的 h。",
+      "hint": "使用双精度并打印足够多的位数。绝不要宣称这张表证明了普遍最优 h；它只展示了一个尺度和一个函数。恢复：SciPy 有限差分文档；离线后备是一个非代码作例和你自己写的循环：对每个 h，中心估计为 (sin(1+h)-sin(1-h))/(2h)，绝对误差为 |估计 - cos(1)|，其中 cos(1) 取工作精度值（0.5403023059 只是 10 位十进制显示，不是比较基准本身）；例如 h = .1 时，仅按显示的操作数计算 (0.8912074 - 0.7833269)/0.2 = 0.5394025，而未舍入的正弦商约为 0.53940225216976（显示为 ≈ 0.5394022522）。",
+      "answer": "观察值约为 .5394022522、.5403022158、.5403023059、.5403023084 和 .5402900349。误差在约 1e-5 之前一直减小，随后在 1e-8 特别是 1e-12 处舍入/相消变得明显。实用的 h 要平衡截断误差与浮点误差；应检查收敛性与容差。",
+      "mastery_criterion": "无协助地用计算器或 Python 复现至少三行表值，计算相对 cos(1) 的绝对误差，并解释此处为什么 h=1e-12 比 h=1e-5 更差。",
+      "source_recovery": "OpenStax 第 2.1-3.2 节与 SciPy 导数文档；若不可用，本活动中的分步推导和纯 Python 表格即为离线后备材料。"
+    },
+    "day-18-act-03": {
+      "title": "数值实验与失败分析",
+      "prerequisites": "完成前一项活动；如遇困难，使用列出的恢复来源。",
+      "objective": "运行一个可复现的纯 Python 有限差分实验，比较前向与中心误差，并在 h 变得极小时用 sqrt(1+h)-sqrt(1) 诊断相消。",
+      "assistance_policy_label": "Agent 辅助工程检查",
+      "instructions": "1. 脚本开头打印 sys.version，使运行可以复现。\n2. 参照值单独保存：只计算一次 math.cos(1)，绝不从有限差分推出它。\n3. 遍历 h = .1, 1e-3, 1e-5, 1e-8, 1e-12，以科学计数法打印 sin(1) 的 h、前向误差和中心误差。\n4. 加入相消的例子：h = 1e-8, 1e-12, 1e-16 时的前向估计 (sqrt(1+h) - sqrt(1))/h。运行前先预测在双精度下 1 + 1e-16 的结果，以及这对分子意味着什么。\n5. 保留所有行，包括不稳定的行；隐藏坏行的实验不能作为证据。\n6. 为每个区间写一行诊断：截断误差主导、相消/舍入主导，或有效数字完全丢失。\n\n**时间安排（120 分钟）：阅读 20 + 练习 70 + 检查 30。** 阅读：提示和活动 2 的表。练习：编写并运行脚本，记录完整输出。检查：将表和诊断与参考答案对照；若某行不一致，换一种格式重新运行。",
+      "exercise_prompt": "写一个短脚本，打印 sin(1) 的 h、前向误差和中心误差。为平方根例子加入 h=1e-16，并预测分子在浮点中是否仍可区分。",
+      "hint": "把解析导数作为独立参照。报告 Python 版本、h 值和观察到的输出；不要隐藏不稳定的行。恢复：以小数格式重跑本地脚本并重看活动 2。",
+      "answer": "对 sin(1)，h = .1, 1e-3, 1e-5, 1e-8, 1e-12 时前向误差约为 4.29e-2, 4.21e-4, 4.21e-6, 2.97e-9, 4.32e-5；中心误差约为 9.00e-4, 9.01e-8, 1.11e-11, 2.58e-9, 1.23e-5。h=1e-5 时中心误差 ≈1.1e-11 与精确算术的截断上界 h^2/6 ≈ 1.7e-11 同量级——截断主导，中心更优。但 h=1e-8 时观测误差 ≈2.6e-9 已达 h^2/6 上界 ≈1.7e-17 的约 10^8 倍：此时主导的是相消与舍入误差而非截断，到 1e-12 两种格式的误差都进一步恶化。该转折点并非普遍适用的 h——它取决于函数尺度、求值点与工作精度。对 x=1 处的 sqrt，前向估计在 h=1e-8 时约为 .5，在 1e-12 时漂移到 .50004445，在 1e-16 时变为 0.0，因为 sqrt(1+h) 被舍入成了 sqrt(1)。解析导数是 .5，但减法丢失了有效数字。",
+      "mastery_criterion": "独立作业必须包含可执行代码、至少四个 h 值的表格记录，以及区分截断误差与相消/舍入的书面诊断。",
+      "source_recovery": "OpenStax 第 2.1-3.2 节与 SciPy 导数文档；若不可用，本活动中的分步推导和纯 Python 表格即为离线后备材料。"
+    },
+    "day-18-act-04": {
+      "title": "检索、复习与独立掌握",
+      "prerequisites": "完成前一项活动；如遇困难，使用列出的恢复来源。",
+      "objective": "把解析导数、不可导性、有限差分与数值误差整合成一套可辩护的验证流程，用于模型训练数学。",
+      "instructions": "1. 合上书和笔记。凭记忆依次回答题目的 (1)-(6)。\n2. 在 (1) 和 (2) 中给出论证而不只是数值：写明 x^3 所用的法则，并写出 |x| 在 0 处的两个单侧斜率。\n3. 在 (3) 中定义一套流程：一种格式、一组跨越几个数量级的 h 值，以及一条接受规则（例如在舍入误差主导之前估计值逐渐逼近的相对误差容差）。\n4. 在 (4) 中列出要记录的证据字段：函数、点、dtype、h 值、估计值、参照值、误差和失败情况。\n5. 在 (5) 中自己选定并写明函数、点和 h，把中心差分计算一直做到与解析导数比较的误差。\n6. 在 (6) 中用自己的话写出局限性说明。\n7. 对照参考答案批改。每个遗漏都回看 Day 16-18 中对应的活动，并独立重做一道等价题。\n\n**时间安排（120 分钟）：阅读 15 + 练习 60 + 检查 45。** 阅读：无（闭卷回忆）。练习：六部分作答和计算示例。检查：批改、回看，并独立重做每道遗漏的题。",
+      "exercise_prompt": "闭卷：(1) 给出 x^3 在 2 处的导数；(2) 说明 |x| 在 0 处是否可导及原因；(3) 为检验黑箱光滑函数选择一种有限差分格式和 h 策略；(4) 列出你会记录的证据；(5) 附上由你自己选定并说明的函数、点和 h 的中心差分完整计算；(6) 明确说明有限差分检验是验证证据，而非可导性或精确性的证明。",
+      "hint": "先凭记忆作答再核对。恢复：复习三天的全部内容、OpenStax 第 2.1-3.2 节和 SciPy 链接；然后独立重做算错的部分。",
+      "answer": "导数为 12。|x| 在 0 处不可导，因为两侧斜率不等。对光滑黑箱，使用中心差分，尝试一系列 h 值，尽可能与解析或高精度参照比较，并记录收敛性、dtype、定义域假设与失败情况。最小的 h 并不保证总是最好。作例：对 f(x)=x^3 在 x=2 取 h=0.1，中心估计为 (2.1^3 - 1.9^3)/(2*0.1) = (9.261 - 6.859)/0.2 = 12.01，相对精确导数 3x^2 = 12 的误差 ≈0.01，量级为 h^2。这种检验是验证证据，而非可导性或精确性的证明。",
+      "mastery_criterion": "独立掌握检查：提交四部分回答、一个完整的中心差分计算，并明确声明有限差分是验证证据，而非可导性或精确性的证明。",
+      "source_recovery": "OpenStax 第 2.1-3.2 节与 SciPy 导数文档；若不可用，本活动中的分步推导和纯 Python 表格即为离线后备材料。",
+      "assistance_policy_label": "独立掌握检查（无 AI 辅助）"
+    }
+  },
+  "source_resources": [
+    {
+      "id": "openstax-calculus-1",
+      "title": "OpenStax《微积分》第一卷（Calculus Volume 1）",
+      "author": "Gilbert Strang and Edwin Herman / OpenStax",
+      "original_url": "https://openstax.org/details/books/calculus-volume-1",
+      "relevant_timestamp": "第 2.1-2.3 节（函数、极限与导数）；第 3.1-3.2 节（求导法则）",
+      "version_or_verification_date": "第 3 版，验证于 2026-10-30",
+      "reuse_category": "linking",
+      "source_type": "open_textbook",
+      "license": "CC BY-NC-SA 4.0",
+      "license_restrictions": [
+        "attribution",
+        "noncommercial",
+        "share-alike"
+      ],
+      "permission_basis": "仅链接并附独立编写的简短示例；未复制或翻译教科书原文。",
+      "prerequisites": "代数、坐标几何与函数记号",
+      "selection_rationale": "以开放体系系统讲解极限定义与求导法则，章节位置稳定。",
+      "known_availability_limitations": "托管版教科书可能离线不可用，或被网络策略阻断。",
+      "safe_fallback": "这三个学习日中原创的推导、表格与练习即为完整的离线恢复材料；链接章节仅供可选对照。",
+      "compared_candidates": [
+        {
+          "candidate_name": "MIT OpenCourseWare 18.01SC Single Variable Calculus",
+          "url": "https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/",
+          "license": "CC BY-NC-SA 4.0",
+          "status": "compared_selected_for_visual_practice",
+          "comparison_rationale": "练习与文字讲稿质量很高，但非商业性相同方式共享条款和课程导航结构使 OpenStax 成为更稳定的首选教材。"
+        },
+        {
+          "candidate_name": "Paul's Online Math Notes: Calculus I",
+          "url": "https://tutorial.math.lamar.edu/Classes/CalcI/CalcI.aspx",
+          "license": "All Rights Reserved",
+          "status": "compared_rejected_for_reuse",
+          "comparison_rationale": "有用的参考，但其权利与再分发条款不太适合作为嵌入式恢复材料。"
+        },
+        {
+          "candidate_name": "SciPy Numerical Differentiation Documentation",
+          "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+          "license": "BSD-3-Clause",
+          "status": "compared_selected_for_numerics",
+          "comparison_rationale": "数值导数步长行为的主要 API 参考；它对手工推导是补充而非替代。"
+        }
+      ]
+    },
+    {
+      "id": "scipy-derivative",
+      "title": "SciPy 数值导数参考",
+      "author": "SciPy Developers",
+      "original_url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+      "relevant_timestamp": "derivative API：有限差分、步长迭代、容差",
+      "version_or_verification_date": "SciPy 文档，验证于 2026-10-30",
+      "reuse_category": "linking",
+      "source_type": "documentation",
+      "license": "BSD-3-Clause",
+      "license_restrictions": [],
+      "permission_basis": "仅链接；所有面向学习者的讲解与示例均为原创。",
+      "prerequisites": "Python 算术与导数定义",
+      "selection_rationale": "将数值微分记述为具有有限步长和停止准则的近似方法。",
+      "known_availability_limitations": "访问当前托管的 API 页面需要网络连接。",
+      "safe_fallback": "本地第 18 天的表格与纯 Python 代码片段无需 SciPy 即可复现相关有限差分行为。",
+      "compared_candidates": []
+    }
+  ]
+}

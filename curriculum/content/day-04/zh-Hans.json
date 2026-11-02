@@ -1,0 +1,594 @@
+{
+  "language": "zh-Hans",
+  "language_label": "简体中文",
+  "day_title": "Day 04: 值、绑定与可观察文本",
+  "day_subtitle": "预测并运行 Python 表达式，区分值与变量绑定，并在不把标签和对象本身混为一谈的前提下报告可观察的文本／数据。",
+  "time_budget_label": "480 分钟（8 小时专注学习）",
+  "category_label": "自学方法与 Python 工程基础",
+  "common": {
+    "nav_calendar": "📅 课程日历与台账",
+    "nav_agent_track": "🤖 Agent 工具路线",
+    "day_label": "第 04",
+    "prerequisites_title": "前置要求",
+    "objective_title": "学习目标",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主演练与记录",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看参考解答与分析",
+    "mastery_title": "活动掌握标准",
+    "draft_placeholder": "在此输入你的预测输出、观察到的实测行为以及根因推导...",
+    "dev_slice_notice": "本地学习内容可供使用，验收仍未完成；外部访问、付费工具和生产环境证据分别记录。",
+    "sources_heading": "权威源资源与权利证明",
+    "source_author_label": "作者 / 机构",
+    "source_url_label": "原始出处链接",
+    "source_range_label": "对应章节 / 时间戳",
+    "source_verification_label": "验证版本与日期",
+    "source_reuse_label": "复用类别",
+    "source_license_label": "许可证与权利说明",
+    "source_rationale_label": "入选理由",
+    "source_prereqs_label": "来源前置条件",
+    "source_fallback_label": "安全回退方案（离线弹性）",
+    "compared_candidates_heading": "对比候选资源与选型分析",
+    "compared_status_label": "评估结论",
+    "auth": {
+      "sign_in": "使用 Google 登录",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "退出登录",
+      "signed_in_as": "已登录为",
+      "guest": "访客模式",
+      "link_github": "绑定 GitHub",
+      "link_google": "绑定 Google",
+      "linked_identities": "已绑定账号",
+      "auth_errors": {
+        "access_denied": "授权已取消或访问被拒绝。",
+        "invalid_state": "无效或已过期的授权状态令牌，请重试。",
+        "identity_conflict": "该第三方身份已被绑定至其他账号。为保护现有记录，已拒绝关联冲突。",
+        "provider_error": "认证服务提供商发生错误，请稍后重试。",
+        "server_error": "认证服务提供商发生错误，请稍后重试。",
+        "session_expired": "登录会话已过期，请重新登录。"
+      }
+    },
+    "progress": {
+      "save_btn": "保存进度",
+      "saved": "已保存",
+      "saving": "正在保存...",
+      "save_error": "保存失败",
+      "offline": "离线状态",
+      "mark_completed": "标记为已完成",
+      "completed_badge": "已完成"
+    },
+    "quiz": {
+      "quiz_title": "客观知识测验与诊断追踪",
+      "quiz_instructions": "请回答以下题目检验掌握情况。提交前请诚实声明你的辅助条件。",
+      "assistance_mode_label": "声明辅助条件",
+      "mode_independent": "独立掌握检查 (无 AI 辅助)",
+      "mode_agent_assisted": "Agent 辅助工程检查 (借助 AI 完成)",
+      "mode_disclaimer": "说明：无 AI 辅助属于诚实声明条件，非平台监控或强制检测手段。",
+      "submit_btn": "提交答案",
+      "retry_btn": "重新测验",
+      "view_hint": "查看提示",
+      "mastery_criterion_label": "掌握标准",
+      "mastery_criterion_desc": "本活动的测验须全题答对（100%）。要记为独立掌握，须在独立掌握检查模式下完成（无 AI 辅助）。",
+      "score_label": "测验得分",
+      "passed_badge": "通过",
+      "failed_badge": "未通过 (需复习)",
+      "independent_pass_badge": "独立掌握通过",
+      "agent_assisted_pass_badge": "Agent 辅助通过",
+      "self_reported_badge": "自主勾选完成",
+      "stale_badge": "历史记录 (内容已更新，需重新验证)",
+      "attempts_history_title": "作答应证与历史记录",
+      "no_attempts": "暂无测验记录。"
+    },
+    "submissions": {
+      "title": "学习项目提交与证据",
+      "repo_label": "代码仓库链接 (GitHub / GitLab)",
+      "repo_placeholder": "https://github.com/...",
+      "report_label": "项目报告或实验文档链接 (可选)",
+      "report_placeholder": "https://...",
+      "notes_label": "证据笔记与诊断记录 (最多 4096 字节)",
+      "notes_placeholder": "记录重现步骤、测试执行结果或最小重现示例 (MRE)...",
+      "assistance_mode_label": "声明的辅助条件",
+      "mode_independent": "独立完成 (未借助 AI 辅助)",
+      "mode_agent_assisted": "Agent 辅助工程 (借助 AI 工具定向完成)",
+      "mode_disclaimer": "注：无 AI 辅助属于诚实声明条件，而非平台监控。",
+      "track_label": "Agent 工具路线 (若适用)",
+      "tracks": {
+        "none": "无 / 不适用",
+        "claude_code": "Claude Code",
+        "codex": "Codex",
+        "pi_agent": "Pi Agent",
+        "deepseek_harness": "DeepSeek Harness"
+      },
+      "submit_btn": "提交项目证据",
+      "status_saving": "正在保存...",
+      "status_saved": "提交已成功保存。",
+      "status_error": "提交保存失败。",
+      "val_invalid_url": "无效链接：仓库链接与报告链接必须使用 http 或 https 协议。",
+      "val_notes_too_long": "证据笔记超出 4096 字节上限。",
+      "val_empty": "请至少填写仓库链接、报告链接或证据笔记之一。",
+      "pasted_log_notice": "提示：粘贴的执行日志与文字说明属于自述证据，不自动构成独立检查或自动化测试结果。",
+      "inspect_title": "当前提交的证据详情",
+      "status_self_reported": "自述证据 (Self-Reported Evidence)",
+      "status_verified_check": "确定性检查通过 (Verified Check)",
+      "status_independently_reviewed": "独立评审证据 (Independently Reviewed Evidence)",
+      "status_stale": "历史证据 (需重新验证 - 内容版本已更新)",
+      "no_submission": "暂无提交记录。"
+    }
+  },
+  "activities": {
+    "day-04-act-01": {
+      "title": "值普查与类型标签",
+      "prerequisites": "已完成 Day 03 的补救练习；能够从终端启动 Python；复习“先预测、再观察”的方法。",
+      "objective": "使用 repr()、type() 和 bool() 区分在屏幕上看起来相似的值（0、\"0\"、\"\"、None），并解释为什么文本 \"0\" 不是数字 0。",
+      "assistance_policy_label": "独立掌握检查（不使用 AI 辅助）。",
+      "instructions": "学习来源：在本活动现有的阅读与练习时段内，参考 Automate the Boring Stuff with Python, 3rd edition 的 Chapter 1; Practice Questions; Appendix B answers，用自己的话解释一处与本地任务的联系。保留现有练习与验收检查；若外部资料无法访问，使用课程自写的解释。必做任务：把下面的代码保存为 census.py。运行之前，先写下每一行输出的预测。然后运行 python3 census.py，记录准确的输出，并与预测进行比较。\n\n```python\nfor value in [0, \"0\", \"\", None]:\n    print(repr(value), type(value).__name__, bool(value))\nprint(\"0\" == 0, int(\"0\") == 0)\n```\n\n用一两句话解释：为什么 \"0\"（文本）和 0（整数）在 repr() 显示、类型和真值上都不同。\n\n选做任务：只有在必做证据完成之后，才在列表中再加入一个你自选的值（例如 0.0 或 \"False\"），先预测它的那一行，再重新运行。",
+      "exercise_prompt": "在运行下面的程序之前，预测全部 5 行输出，然后记录准确的输出：\n\n```python\nfor value in [0, \"0\", \"\", None]:\n    print(repr(value), type(value).__name__, bool(value))\nprint(\"0\" == 0, int(\"0\") == 0)\n```\n\n最后，解释为什么文本 \"0\" 不是数字零。",
+      "hint": "print() 不显示引号，repr() 会显示。非空字符串即使只包含字符 0 也为真；字符串永远不会等于整数。",
+      "answer": "准确输出：\n\n```text\n0 int False\n'0' str True\n'' str False\nNone NoneType False\nFalse True\n```\n\n解析：repr() 会给字符串加上引号，所以 \"0\" 显示为 '0'，而整数显示为 0。type(...).__name__ 对 0 是 int，对 \"0\" 和 \"\" 是 str，对 None 是 NoneType。bool() 对数字零、空字符串和 None 返回 False，但 \"0\" 是非空字符串，所以返回 True。最后一行说明 \"0\" == 0 为 False（str 永远不等于 int）；int(\"0\") 把文本转换为数字 0，因此那个比较为 True。",
+      "mastery_criterion": "你的预测记录和观察到的输出包含上面全部 5 行准确内容，并且解释中指出了类型差异（str 与 int）、真值规则（非空字符串为 True），以及需要用 int() 显式转换。记录中需写明必做／选做的边界，并声明未使用 AI 辅助。",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-04-act-01-q1",
+            "type": "choice",
+            "prompt": "`print(repr(\"0\"), type(\"0\").__name__, bool(\"0\"))` 会输出什么？",
+            "options": {
+              "a": "'0' str True",
+              "b": "0 int False",
+              "c": "'0' str False"
+            },
+            "expected_answer": "a",
+            "hint": "repr() 会保留字符串的引号；字符串中只有空字符串为假。",
+            "explanation": "\"0\" 是只有一个字符的字符串：repr() 显示为 '0'，类型是 str，任何非空字符串都为真，所以输出是 `'0' str True`。"
+          }
+        ]
+      },
+      "source_resources": [
+        {
+          "id": "automate-boring-stuff-3e",
+          "title": "Automate the Boring Stuff with Python, 3rd edition",
+          "author": "Al Sweigart",
+          "original_url": "https://automatetheboringstuff.com/3e/",
+          "relevant_timestamp": "Chapter 1; Practice Questions; Appendix B answers",
+          "version_or_verification_date": "Public edition checked 2026-11-01; moving pages may change",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Copyright Al Sweigart; edition-specific reuse terms unverified",
+          "license_restrictions": [
+            "linking only; no reproduction"
+          ],
+          "permission_basis": "External hyperlink only; no third-party prose, exercises, code or translations are imported.",
+          "prerequisites": "No prior programming required for Chapter 1; later chapters assume its basic Python concepts.",
+          "selection_rationale": "Beginner teaching and answer-keyed practice before checking exact semantics in the Python reference; selected chapters only, not the book's entire automation stack.",
+          "known_availability_limitations": "Free HTML; external website may be unavailable. Exact third-edition redistribution terms have not been verified, so no reuse permission is claimed.",
+          "safe_fallback": "Use the original localized explanations, exercises and checks already present in this activity; no external account or purchase is required for that fallback.",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Tutorial",
+              "url": "https://docs.python.org/3/tutorial/",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Guided Python syntax but assumes programming familiarity; paired with the beginner text rather than used as its replacement."
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Lectures and problem sets teach a broader CS1 course; the book offers shorter text-first entry and an answer appendix."
+            }
+          ],
+          "locator_url": "https://automatetheboringstuff.com/3e/chapter1.html"
+        },
+        {
+          "id": "py-docs-builtins-ticket26",
+          "title": "Python Standard Library: Built-in Types",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/stdtypes.html",
+          "relevant_timestamp": "“真值测试”“比较”和“可变序列类型”各节",
+          "version_or_verification_date": "Python 3.12 documentation (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "仅提供链接，未转载原文。",
+          "prerequisites": "Day 03 恢复演练",
+          "selection_rationale": "用于查阅真值、比较、绑定和对象修改行为的规范性参考资料。",
+          "known_availability_limitations": "离线时可能无法访问 Python 在线文档。",
+          "safe_fallback": "运行教材中提供的 Python 示例，并查阅已安装解释器的帮助。",
+          "compared_candidates": [
+            {
+              "candidate_name": "Python Data Model reference",
+              "url": "https://docs.python.org/3/reference/datamodel.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "该参考资料更深入地讲解对象语义，超出了表达式层面练习所需的范围；stdtypes 能将内容限定在运算符层面。"
+            },
+            {
+              "candidate_name": "The Python Tutorial: An Informal Introduction",
+              "url": "https://docs.python.org/3/tutorial/introduction.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "以叙述方式介绍相同的运算符；库参考文档则被选为查阅规范签名的资料。"
+            }
+          ]
+        },
+        {
+          "id": "git-scm-book-diffs",
+          "title": "Git User Manual: Recording Changes",
+          "author": "Git project",
+          "original_url": "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+          "relevant_timestamp": "将更改记录到仓库",
+          "version_or_verification_date": "Verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "CC BY-NC-SA 3.0 (book)",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "仅提供链接，未转载原文。",
+          "prerequisites": "Git 基础知识",
+          "selection_rationale": "用于在安全提交前检查小范围差异的第一手参考资料。",
+          "known_availability_limitations": "离线时可能无法访问在线书籍。",
+          "safe_fallback": "在本地使用 git diff 和 git status；理解差异之后再提交。",
+          "compared_candidates": [
+            {
+              "candidate_name": "git-diff command reference",
+              "url": "https://git-scm.com/docs/git-diff",
+              "license": "Git documentation (GPL-2.0)",
+              "status": "compared_alternative",
+              "comparison_rationale": "提供命令级别的选项参考；选择 Pro Git 章节，是因为它逐步讲解了如何在提交前检查更改。"
+            },
+            {
+              "candidate_name": "Atlassian Git tutorials: git diff",
+              "url": "https://www.atlassian.com/git/tutorials/saving-changes/git-diff",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "易于理解的商业教程；对于同样的检查习惯，书籍章节更深入地解释了暂存和索引的语义。"
+            }
+          ]
+        }
+      ],
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-04-act-02": {
+      "title": "绑定是名字，不是盒子",
+      "prerequisites": "已完成 Day 04 的活动 1；能够从终端启动 Python。",
+      "objective": "把赋值语句追踪为“名字绑定到对象”，并预测重新绑定一个名字不会改变另一个名字所引用的对象。",
+      "assistance_policy_label": "独立掌握检查（不使用 AI 辅助）。",
+      "instructions": "必做任务：把下面的代码保存为 binding.py。运行之前，先预测三行输出中的每一行，并为每条赋值语句画一个从名字指向其所引用列表对象的箭头。\n\n```python\nx = [\"draft\"]\ny = x\nx = [\"replaced\"]\nprint(y)\nprint(x)\nprint(x is y)\n```\n\n运行 python3 binding.py，记录准确的输出，并解释第 3 行改变了哪个绑定、哪个绑定没有改变。\n\n选做任务：只有在必做证据完成之后，才在第 3 行前后加入 print(id(x), id(y))，并描述发生了什么变化。",
+      "exercise_prompt": "预测下面程序的三行输出，运行它，并解释哪个名字被重新绑定了：\n\n```python\nx = [\"draft\"]\ny = x\nx = [\"replaced\"]\nprint(y)\nprint(x)\nprint(x is y)\n```",
+      "hint": "逐条跟踪赋值箭头，问问自己哪个名字仍然指向原来的列表。`x = [...]` 会创建一个新列表，并且只移动名字 x。",
+      "answer": "准确输出：\n\n```text\n['draft']\n['replaced']\nFalse\n```\n\n解析：第 1 行把 x 绑定到包含 \"draft\" 的列表。第 2 行把 y 绑定到同一个列表对象。第 3 行创建新列表 [\"replaced\"]，并且只把 x 重新绑定到它；y 仍然引用原来的列表。因此 print(y) 显示 ['draft']，print(x) 显示 ['replaced']，而由于两个名字现在引用不同的对象，x is y 为 False。注意 Python 打印列表时使用单引号。",
+      "mastery_criterion": "你的预测记录和观察到的输出包含上面三行准确内容，箭头图显示第 3 行之后 y 仍绑定在原来的列表上，并且解释中说明赋值是重新绑定名字，而不是覆盖对象。记录中需写明必做／选做的边界，并声明未使用 AI 辅助。",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-04-act-02-q1",
+            "type": "choice",
+            "prompt": "执行 `x = [\"draft\"]; y = x; x = [\"replaced\"]` 之后，`print(y)` 显示什么？",
+            "options": {
+              "a": "['draft']",
+              "b": "['replaced']",
+              "c": "['draft', 'replaced']"
+            },
+            "expected_answer": "a",
+            "hint": "第三条语句创建了新列表，并且只移动了名字 x。",
+            "explanation": "`y = x` 把 y 绑定到原来的列表。`x = [\"replaced\"]` 只把 x 重新绑定到新列表，不影响 y，所以 y 仍显示 `['draft']`。"
+          }
+        ]
+      },
+      "source_resources": [
+        {
+          "id": "py-docs-builtins-ticket26",
+          "title": "Python Standard Library: Built-in Types",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/stdtypes.html",
+          "relevant_timestamp": "“真值测试”“比较”和“可变序列类型”各节",
+          "version_or_verification_date": "Python 3.12 documentation (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "仅提供链接，未转载原文。",
+          "prerequisites": "Day 03 恢复演练",
+          "selection_rationale": "用于查阅真值、比较、绑定和对象修改行为的规范性参考资料。",
+          "known_availability_limitations": "离线时可能无法访问 Python 在线文档。",
+          "safe_fallback": "运行教材中提供的 Python 示例，并查阅已安装解释器的帮助。",
+          "compared_candidates": [
+            {
+              "candidate_name": "Python Data Model reference",
+              "url": "https://docs.python.org/3/reference/datamodel.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "该参考资料更深入地讲解对象语义，超出了表达式层面练习所需的范围；stdtypes 能将内容限定在运算符层面。"
+            },
+            {
+              "candidate_name": "The Python Tutorial: An Informal Introduction",
+              "url": "https://docs.python.org/3/tutorial/introduction.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "以叙述方式介绍相同的运算符；库参考文档则被选为查阅规范签名的资料。"
+            }
+          ]
+        },
+        {
+          "id": "git-scm-book-diffs",
+          "title": "Git User Manual: Recording Changes",
+          "author": "Git project",
+          "original_url": "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+          "relevant_timestamp": "将更改记录到仓库",
+          "version_or_verification_date": "Verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "CC BY-NC-SA 3.0 (book)",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "仅提供链接，未转载原文。",
+          "prerequisites": "Git 基础知识",
+          "selection_rationale": "用于在安全提交前检查小范围差异的第一手参考资料。",
+          "known_availability_limitations": "离线时可能无法访问在线书籍。",
+          "safe_fallback": "在本地使用 git diff 和 git status；理解差异之后再提交。",
+          "compared_candidates": [
+            {
+              "candidate_name": "git-diff command reference",
+              "url": "https://git-scm.com/docs/git-diff",
+              "license": "Git documentation (GPL-2.0)",
+              "status": "compared_alternative",
+              "comparison_rationale": "提供命令级别的选项参考；选择 Pro Git 章节，是因为它逐步讲解了如何在提交前检查更改。"
+            },
+            {
+              "candidate_name": "Atlassian Git tutorials: git diff",
+              "url": "https://www.atlassian.com/git/tutorials/saving-changes/git-diff",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "易于理解的商业教程；对于同样的检查习惯，书籍章节更深入地解释了暂存和索引的语义。"
+            }
+          ]
+        }
+      ]
+    },
+    "day-04-act-03": {
+      "title": "小改动：让报告更安全",
+      "prerequisites": "已完成 Day 04 的活动 1～2；已安装 Git 并配置 user.name 和 user.email；有一个可以由你指挥的 AI 编程 Agent。",
+      "objective": "指挥 Agent 做一个小而可审查的改动，把含糊的文本标签替换为 repr／类型报告，然后亲自核查 diff，并只提交这一处改动。",
+      "assistance_policy_label": "Agent 辅助工程检查：需声明你授予的权限与审查边界；Agent 的输出不构成独立掌握证据。",
+      "instructions": "必做任务：创建一个包含原始误导性报告的练习仓库：\n\n```bash\ngit init report-demo && cd report-demo\nprintf 'count = \"0\"\\nprint(\"count=\" + count)\\n' > report.py\ngit add report.py && git commit -m \"Add count report\"\npython3 report.py\n```\n\n该程序打印 count=0，掩盖了 count 是文本 \"0\" 而不是数字 0 的事实。原始的 report.py 是：\n\n```python\ncount = \"0\"\nprint(\"count=\" + count)\n```\n\n请让 Agent 只修改 report.py 中的 print 行，使其显示 count 的 repr 和类型。声明你授予的权限（例如：只允许编辑 report.py，不允许提交）。在运行任何东西之前，先预测新的输出。然后由你自己审查并提交：\n\n```bash\ngit status --short\ngit diff -- report.py\ngit diff --check\npython3 report.py\ngit add report.py\ngit commit -m \"Show repr and type in count report\"\ngit status --short\n```\n\n如果 git status 列出了 report.py 以外的文件（例如 ?? notes.txt），那就是无关改动：不要暂存它，在提交前删除或还原它。\n\n选做任务：只有在必做证据完成之后，才让 Agent 再打印 bool(count)，并用同样的方式审查第二个 diff。",
+      "exercise_prompt": "从下面的 report.py 开始：\n\n```python\ncount = \"0\"\nprint(\"count=\" + count)\n```\n\n让 Agent 修改 print 行，使输出为 count='0' type=str。记录你对新输出的预测、你审查过的 git status --short 与 git diff -- report.py 的输出、git diff --check 的结果，以及你创建的提交。拒绝 Agent 创建的任何无关文件。",
+      "hint": "提交前使用 git status --short、git diff -- report.py 和 git diff --check。用 git add report.py 暂存，这里不要用 git add .。",
+      "answer": "参考改动（编辑后的 report.py）：\n\n```python\ncount = \"0\"\nprint(f\"count={count!r} type={type(count).__name__}\")\n```\n\n编辑前，python3 report.py 输出 count=0。编辑后它准确输出：\n\n```text\ncount='0' type=str\n```\n\n如果 Agent 还创建了 notes.txt，git status --short 会显示：\n\n```text\n M report.py\n?? notes.txt\n```\n\ngit diff -- report.py 只显示一行改动：\n\n```diff\ndiff --git a/report.py b/report.py\nindex c19f8e2..1ae4899 100644\n--- a/report.py\n+++ b/report.py\n@@ -1,2 +1,2 @@\n count = \"0\"\n-print(\"count=\" + count)\n+print(f\"count={count!r} type={type(count).__name__}\")\n```\n\ngit diff --check 不输出任何内容，退出状态为 0（没有空白错误）。删除 notes.txt（rm notes.txt），然后运行 git add report.py 和 git commit -m \"Show repr and type in count report\"。最后的 git status --short 不输出任何内容。该提交属于 Agent 辅助：Agent 的输出不构成独立掌握证据。",
+      "mastery_criterion": "你的记录包含：你的预测、显示只改动了 print 行的已审查 git diff、git diff --check 的结果、观察到的输出 count='0' type=str、只涉及 report.py 的提交，以及你授予 Agent 的权限声明。记录中需写明必做／选做的边界，并声明这项工作使用了 Agent 辅助。",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-04-act-03-q1",
+            "type": "choice",
+            "prompt": "在提交 Agent 的改动之前，`git status --short` 显示 ` M report.py` 和 `?? notes.txt`。你从未要求创建 notes.txt。安全的下一步是什么？",
+            "options": {
+              "a": "审查 `git diff -- report.py`，用 `git add report.py` 只暂存 report.py，不把 notes.txt 放进提交。",
+              "b": "运行 `git add .` 并提交全部内容，因为所有改动都是 Agent 做的。",
+              "c": "先提交，之后再检查 diff，因为提交以后还可以修改。"
+            },
+            "expected_answer": "a",
+            "hint": "一个小而可审查的提交只包含你要求并检查过的改动。",
+            "explanation": "notes.txt 是无关改动。审查 diff 并只暂存 report.py，能让提交保持小而经过验证；`git add .` 会把无关文件也提交进去，而先提交再审查则跳过了验证。"
+          }
+        ]
+      },
+      "source_resources": [
+        {
+          "id": "py-docs-builtins-ticket26",
+          "title": "Python Standard Library: Built-in Types",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/stdtypes.html",
+          "relevant_timestamp": "“真值测试”“比较”和“可变序列类型”各节",
+          "version_or_verification_date": "Python 3.12 documentation (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "仅提供链接，未转载原文。",
+          "prerequisites": "Day 03 恢复演练",
+          "selection_rationale": "用于查阅真值、比较、绑定和对象修改行为的规范性参考资料。",
+          "known_availability_limitations": "离线时可能无法访问 Python 在线文档。",
+          "safe_fallback": "运行教材中提供的 Python 示例，并查阅已安装解释器的帮助。",
+          "compared_candidates": [
+            {
+              "candidate_name": "Python Data Model reference",
+              "url": "https://docs.python.org/3/reference/datamodel.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "该参考资料更深入地讲解对象语义，超出了表达式层面练习所需的范围；stdtypes 能将内容限定在运算符层面。"
+            },
+            {
+              "candidate_name": "The Python Tutorial: An Informal Introduction",
+              "url": "https://docs.python.org/3/tutorial/introduction.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "以叙述方式介绍相同的运算符；库参考文档则被选为查阅规范签名的资料。"
+            }
+          ]
+        },
+        {
+          "id": "git-scm-book-diffs",
+          "title": "Git User Manual: Recording Changes",
+          "author": "Git project",
+          "original_url": "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+          "relevant_timestamp": "将更改记录到仓库",
+          "version_or_verification_date": "Verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "CC BY-NC-SA 3.0 (book)",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "仅提供链接，未转载原文。",
+          "prerequisites": "Git 基础知识",
+          "selection_rationale": "用于在安全提交前检查小范围差异的第一手参考资料。",
+          "known_availability_limitations": "离线时可能无法访问在线书籍。",
+          "safe_fallback": "在本地使用 git diff 和 git status；理解差异之后再提交。",
+          "compared_candidates": [
+            {
+              "candidate_name": "git-diff command reference",
+              "url": "https://git-scm.com/docs/git-diff",
+              "license": "Git documentation (GPL-2.0)",
+              "status": "compared_alternative",
+              "comparison_rationale": "提供命令级别的选项参考；选择 Pro Git 章节，是因为它逐步讲解了如何在提交前检查更改。"
+            },
+            {
+              "candidate_name": "Atlassian Git tutorials: git diff",
+              "url": "https://www.atlassian.com/git/tutorials/saving-changes/git-diff",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "易于理解的商业教程；对于同样的检查习惯，书籍章节更深入地解释了暂存和索引的语义。"
+            }
+          ]
+        }
+      ]
+    },
+    "day-04-act-04": {
+      "title": "复习与独立检查",
+      "prerequisites": "已完成 Day 04 的活动 1～3。",
+      "objective": "在不借助任何 AI 的情况下，预测三个关于值与绑定的短代码片段的输出，通过运行加以核对，并解释任何不一致的根本原因。",
+      "assistance_policy_label": "独立掌握检查（不使用 AI 辅助）。",
+      "instructions": "必做任务：不使用 AI，在运行任何片段之前，先写下下面三个片段每一行输出的预测。然后运行每个片段（例如保存为 a.py、b.py、c.py），记录准确的输出，并给每一行标注“一致”或“不一致”。选一个不一致之处解释其根本原因；如果全部一致，就解释你认为最难的那个片段。\n\n片段 A:\n```python\nprint(repr(None), repr(\"None\"), None == \"None\")\n```\n\n片段 B:\n```python\na = \"draft\"\nb = a\na = a + \"!\"\nprint(a, b)\n```\n\n片段 C:\n```python\nitems = [\"draft\"]\nalias = items\nitems = items + [\"final\"]\nprint(alias, items)\nprint(alias is items)\n```\n\n选做任务：只有在必做证据完成之后，才修改某个片段中的一个输入（例如把片段 B 中的 \"!\" 换成 \"?\"），先预测再重新运行。",
+      "exercise_prompt": "先预测、再运行下面三个片段，并把预测与准确输出并排记录：\n\n片段 A:\n```python\nprint(repr(None), repr(\"None\"), None == \"None\")\n```\n\n片段 B:\n```python\na = \"draft\"\nb = a\na = a + \"!\"\nprint(a, b)\n```\n\n片段 C:\n```python\nitems = [\"draft\"]\nalias = items\nitems = items + [\"final\"]\nprint(alias, items)\nprint(alias is items)\n```\n\n从值与绑定的角度解释一个不一致之处（或你认为最难的片段）。",
+      "hint": "每个预测都要在运行前写下。问问自己：这是标签（文本）还是对象本身？这条语句是创建新对象并重新绑定名字，还是修改已有对象？",
+      "answer": "片段 A 的输出：\n\n```text\nNone 'None' False\n```\n\nrepr(None) 返回的是四个字符的字符串 \"None\"，不是 None 对象；repr(\"None\") 返回的是六个字符的字符串 \"'None'\"，首尾两个字符都是单引号。print 显示这些字符串时不会额外添加外围引号：print(repr(None)) 和 print(None) 都显示 None，但前者打印的是字符串，后者打印的是 None 值，而 print(repr(\"None\")) 显示 'None'。None == \"None\" 为 False。\n\n片段 B 的输出：\n\n```text\ndraft! draft\n```\n\na + \"!\" 构造了一个新字符串，并且只重新绑定了 a；b 仍然引用原来的 \"draft\"。\n\n片段 C 的输出：\n\n```text\n['draft'] ['draft', 'final']\nFalse\n```\n\nitems + [\"final\"] 构造了一个新列表并重新绑定 items；alias 仍然引用原来只有一个元素的列表，所以 alias is items 为 False。\n\n不一致解释示例：“我对片段 C 预测了 ['draft', 'final'] ['draft', 'final']，因为我以为 + 会修改列表。实际上它创建了新列表并重新绑定 items，所以 alias 保留的是旧对象。”",
+      "mastery_criterion": "你的记录显示：运行前写下的预测、与上文一致的三个片段的准确观察输出，以及从值与绑定角度对一个不一致之处（或最难片段）的正确根因解释。记录中需写明必做／选做的边界，并声明未使用 AI 辅助。",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-04-act-04-q1",
+            "type": "choice",
+            "prompt": "`n = 5; m = n; n = n + 1; print(m, n)` 会输出什么？",
+            "options": {
+              "a": "5 6",
+              "b": "6 6",
+              "c": "5 5"
+            },
+            "expected_answer": "a",
+            "hint": "n + 1 产生一个新的整数对象，然后只有名字 n 被重新绑定。",
+            "explanation": "`m = n` 把 m 绑定到 5。`n = n + 1` 把 n 绑定到新值 6，m 仍绑定在 5 上，所以输出是 `5 6`。"
+          }
+        ]
+      },
+      "source_resources": [
+        {
+          "id": "py-docs-builtins-ticket26",
+          "title": "Python Standard Library: Built-in Types",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/stdtypes.html",
+          "relevant_timestamp": "“真值测试”“比较”和“可变序列类型”各节",
+          "version_or_verification_date": "Python 3.12 documentation (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "仅提供链接，未转载原文。",
+          "prerequisites": "Day 03 恢复演练",
+          "selection_rationale": "用于查阅真值、比较、绑定和对象修改行为的规范性参考资料。",
+          "known_availability_limitations": "离线时可能无法访问 Python 在线文档。",
+          "safe_fallback": "运行教材中提供的 Python 示例，并查阅已安装解释器的帮助。",
+          "compared_candidates": [
+            {
+              "candidate_name": "Python Data Model reference",
+              "url": "https://docs.python.org/3/reference/datamodel.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "该参考资料更深入地讲解对象语义，超出了表达式层面练习所需的范围；stdtypes 能将内容限定在运算符层面。"
+            },
+            {
+              "candidate_name": "The Python Tutorial: An Informal Introduction",
+              "url": "https://docs.python.org/3/tutorial/introduction.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "以叙述方式介绍相同的运算符；库参考文档则被选为查阅规范签名的资料。"
+            }
+          ]
+        },
+        {
+          "id": "git-scm-book-diffs",
+          "title": "Git User Manual: Recording Changes",
+          "author": "Git project",
+          "original_url": "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+          "relevant_timestamp": "将更改记录到仓库",
+          "version_or_verification_date": "Verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "CC BY-NC-SA 3.0 (book)",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "仅提供链接，未转载原文。",
+          "prerequisites": "Git 基础知识",
+          "selection_rationale": "用于在安全提交前检查小范围差异的第一手参考资料。",
+          "known_availability_limitations": "离线时可能无法访问在线书籍。",
+          "safe_fallback": "在本地使用 git diff 和 git status；理解差异之后再提交。",
+          "compared_candidates": [
+            {
+              "candidate_name": "git-diff command reference",
+              "url": "https://git-scm.com/docs/git-diff",
+              "license": "Git documentation (GPL-2.0)",
+              "status": "compared_alternative",
+              "comparison_rationale": "提供命令级别的选项参考；选择 Pro Git 章节，是因为它逐步讲解了如何在提交前检查更改。"
+            },
+            {
+              "candidate_name": "Atlassian Git tutorials: git diff",
+              "url": "https://www.atlassian.com/git/tutorials/saving-changes/git-diff",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "易于理解的商业教程；对于同样的检查习惯，书籍章节更深入地解释了暂存和索引的语义。"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "source_resources": [
+    {
+      "id": "py-docs-builtins-ticket26",
+      "title": "Python 3 Built-in Types and Expressions",
+      "author": "Python Software Foundation",
+      "original_url": "https://docs.python.org/3/library/stdtypes.html",
+      "relevant_timestamp": "“真值测试”“比较”和“可变序列类型”各节",
+      "version_or_verification_date": "Python 3.12 documentation (verified 2026-10-30)",
+      "reuse_category": "linking",
+      "source_type": "documentation",
+      "license": "PSF License Version 2",
+      "license_restrictions": [],
+      "permission_basis": "仅提供链接，未转载原文。",
+      "prerequisites": "Day 03 恢复演练",
+      "selection_rationale": "用于查阅真值、比较、绑定和对象修改行为的规范性参考资料。",
+      "known_availability_limitations": "离线时可能无法访问 Python 在线文档。",
+      "safe_fallback": "运行教材中提供的 Python 示例，并查阅已安装解释器的帮助。"
+    },
+    {
+      "id": "git-scm-book-diffs",
+      "title": "Git User Manual: Recording Changes",
+      "author": "Git project",
+      "original_url": "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+      "relevant_timestamp": "将更改记录到仓库",
+      "version_or_verification_date": "Verified 2026-10-30",
+      "reuse_category": "linking",
+      "source_type": "documentation",
+      "license": "CC BY-NC-SA 3.0 (book)",
+      "license_restrictions": [],
+      "permission_basis": "仅提供链接，未转载原文。",
+      "prerequisites": "Git 基础知识",
+      "selection_rationale": "用于在安全提交前检查小范围差异的第一手参考资料。",
+      "known_availability_limitations": "离线时可能无法访问在线书籍。",
+      "safe_fallback": "在本地使用 git diff 和 git status；理解差异之后再提交。"
+    }
+  ]
+}

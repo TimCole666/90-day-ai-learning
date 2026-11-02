@@ -1,0 +1,108 @@
+{
+  "language": "zh-Hans",
+  "language_label": "简体中文",
+  "day_title": "第 37 天：从文本到词元 — Unicode、字节编码与词汇表",
+  "day_subtitle": "把原始文本变成词元 ID：区分字符、Unicode 码位与 UTF-8 字节序列；构建确定性词汇表；并复现任何语言模型基线都要使用的 text_tools train/val/test 数据产物。所有工作都计入 480 分钟台账。",
+  "time_budget_label": "480 分钟有效学习（8 小时专注学习）",
+  "category_label": "模型与训练",
+  "common": {
+    "nav_calendar": "📅 课程日历与台账",
+    "nav_agent_track": "🤖 Agent 工具路线",
+    "day_label": "第 37 天",
+    "prerequisites_title": "前置要求",
+    "objective_title": "学习目标",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主演练与记录",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看参考解答与分析",
+    "mastery_title": "独立掌握标准",
+    "draft_placeholder": "在此记录你的预测、观测到的字节数与 ID、复盘以及回退证据...",
+    "dev_slice_notice": "90 天 AI 学习平台的已验证正式课程模块。",
+    "sources_heading": "权威源资源与权利证明",
+    "source_author_label": "作者 / 机构",
+    "source_url_label": "原始出处链接",
+    "source_range_label": "对应章节 / 范围",
+    "source_verification_label": "验证版本与日期",
+    "source_reuse_label": "复用类别",
+    "source_license_label": "许可证与权利说明",
+    "source_rationale_label": "入选理由",
+    "source_prereqs_label": "来源前置条件",
+    "source_fallback_label": "安全回退方案（离线弹性）",
+    "compared_candidates_heading": "对比候选资源与选型分析",
+    "compared_status_label": "评估结论",
+    "auth": {
+      "sign_in": "使用 Google 登录",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "退出登录",
+      "signed_in_as": "已登录为",
+      "guest": "访客模式",
+      "link_github": "绑定 GitHub",
+      "link_google": "绑定 Google",
+      "linked_identities": "已绑定账号",
+      "auth_errors": {
+        "access_denied": "授权已取消或访问被拒绝。",
+        "invalid_state": "无效或已过期的授权状态令牌，请重试。",
+        "identity_conflict": "该第三方身份已被绑定至其他账号。",
+        "provider_error": "认证服务提供商发生错误。",
+        "server_error": "认证服务提供商发生错误。",
+        "session_expired": "登录会话已过期，请重新登录。"
+      }
+    },
+    "progress": {
+      "save_btn": "保存进度",
+      "saved": "已保存",
+      "saving": "正在保存...",
+      "save_error": "保存失败",
+      "offline": "离线状态",
+      "mark_completed": "标记为已完成",
+      "completed_badge": "已完成"
+    }
+  },
+  "activities": {
+    "day-37-act-01": {
+      "title": "从字符到字节：码位与 UTF-8",
+      "prerequisites": "完成第 36 天。如受阻，使用第 35 天的回退链接复习概率与 Python。",
+      "objective": "区分可见字符、其 Unicode 码位与其 UTF-8 字节序列；先预测字节数再测量；针对空串、ASCII、带重音字符、中日韩字符与 emoji 记录预测与观测的对照。",
+      "assistance_policy_label": "Agent 辅助工程检查",
+      "instructions": "字符是读者看到的东西；码位是它的 Unicode 编号（记作 U+XXXX）；编码把码位变成字节序列。必做工作：先预测，再运行 `python3 -c \"s='猫aé😀'; print(len(s), [hex(ord(c)) for c in s], list(s.encode('utf-8')))\"`，逐项对照预测。选做工作：把同一字符串用 UTF-16 编码并比较字节数。",
+      "exercise_prompt": "预测 s='猫aé😀' 与空字符串 '' 的 len(s)、码位序列与 UTF-8 字节列表；随后在 Python 中验证，并解释为什么字节数与码位数不同。",
+      "hint": "UTF-8 中 ASCII 占 1 字节、多数带重音拉丁字符占 2 字节、中日韩字符占 3 字节、多数 emoji 占 4 字节。`ord()` 返回码位，`.encode('utf-8')` 返回字节。",
+      "answer": "s='猫aé😀' 有 4 个码位——U+732B（猫）、U+0061（a）、U+00E9（é）、U+1F600（😀）——但 UTF-8 字节有 10 个：猫→[231,140,171]，a→[97]，é→[195,169]，😀→[240,159,152,128]。空字符串有 0 个码位、0 个字节。UTF-8 长度取决于码位所在范围，因此字符数与字节数一般不相等。",
+      "mastery_criterion": "对包括空串在内的全部探测字符串，你的书面预测与 ord()、encode() 的观测输出一致，并能说出码位范围到 UTF-8 字节数的对应规则。"
+    },
+    "day-37-act-02": {
+      "title": "词汇表与词元 ID 映射",
+      "prerequisites": "完成上一活动；如受阻，使用列出的回退链接。",
+      "objective": "构建一个确定性词汇表，把每个不同的符号映射到稳定的整数 ID，对文本做无损编码/解码，并为训练中从未出现的符号选定明确策略。",
+      "assistance_policy_label": "独立掌握检查（无 AI 辅助）",
+      "instructions": "分词器需要两张表：stoi（符号→ID）与 itos（ID→符号）。必做工作：按排序顺序为训练文本中不同的符号分配 ID 0..V-1，把 len(vocab) 保留为 <unk> 的 ID，然后对探测字符串编码并解码。选做工作：与不需要 <unk> 的 256 项字节级词汇表做对比。",
+      "exercise_prompt": "对训练文本 'banana'：建立排序后的字符词汇表，编码 'banana' 和 'cab'，解码第一个结果，并用 <unk> 编码 'banana!'。然后把 'é猫' 按 UTF-8 字节编码，说明为什么字节级输入永远不会落到 <unk>。",
+      "hint": "sorted(set('banana')) = ['a','b','n']，即 {a:0, b:1, n:2}，<unk>=3。'!' 不在表中，所以映射为 3。'é猫' 是 5 个 UTF-8 字节：[195,169,231,140,171]。",
+      "answer": "词汇表 {a:0, b:1, n:2}，<unk>=3。encode('banana')=[1,0,2,0,2,0]，解码后恰好还原 'banana'。encode('cab')=[2,0,1]。encode('banana!')=[1,0,2,0,2,0,3]——'!' 的信息丢失，这正是固定字符词汇表需要 OOV 策略的原因；而字节级输入 'é猫'→[195,169,231,140,171] 总能表示。",
+      "mastery_criterion": "给定任意短训练文本，你能写出词汇表、手工正确地编码/解码探测字符串，并说明何时需要 <unk>、何时字节级覆盖使其不再必要。"
+    },
+    "day-37-act-03": {
+      "title": "确定性的 train/val/test 划分与出处记录",
+      "prerequisites": "完成上一活动；如受阻，使用列出的回退链接。",
+      "objective": "复现 text_tools 的确定性划分产物并阅读清单（manifest），使下游所有模型只在 train 上拟合计数、在 val 上做选择、完全不接触 test。",
+      "assistance_policy_label": "Agent 辅助工程检查",
+      "instructions": "必做工作：运行 `python3 projects/text_tools/cli.py --input data/names.txt --split --output-dir /tmp/lm-data`（默认值：seed 42，比例 0.8/0.1/0.1），然后打开 /tmp/lm-data/manifest.json，找到 split_counts、split_sha256 与 leakage_check。换第二个输出目录重跑一次并确认哈希一致。选做工作：用 --seed 99 重复，观察计数不变而成员改变。",
+      "exercise_prompt": "先预测 32,033 行语料的 train/val/test 行数再运行验证。对一个 10 行文件预测同样的划分。指出清单中哪些字段证明确定性、以及没有任何索引同时出现在两个划分里。",
+      "hint": "int(round(32033*0.8))=25626，int(round(32033*0.1))=3203，剩余 3204 归 test；10 行文件划分为 8/1/1。清单中的 leakage_check.no_leakage_verified 与 split_sha256 证明互不相交且可复现。",
+      "answer": "已验证输出：train=25626，val=3203，test=3204，no_leakage_verified=True，seed=42。10 行文件在 seed 42 下划分为 8/1/1，train_indices 为 [7,3,2,8,5,6,9,4]，val 为 [0]，test 为 [1]；重跑会得到完全相同的 split_sha256 值。",
+      "mastery_criterion": "你能重新生成产物，引用精确的划分计数与证明确定性、互不相交的清单字段，并说明为什么计数、词汇表与合并表只能在 train 上拟合。"
+    },
+    "day-37-act-04": {
+      "title": "独立掌握检查：字节、ID 与划分证据",
+      "prerequisites": "完成前面所有活动；如受阻，使用列出的回退链接。",
+      "objective": "在无辅助的情况下复现码位/字节计算、词汇表编码/解码、划分计数与畸形输入策略，然后为每个失误记录诚实的回退计划。",
+      "assistance_policy_label": "独立掌握检查（无 AI 辅助）",
+      "instructions": "本检查期间不要查看答案或使用 AI。必做工作：先在草稿日志中写下全部四个预测答案，再用 Python 与 CLI 逐一验证。选做工作：举一个对嘈杂语料合理使用 --errors ignore 的例子。",
+      "exercise_prompt": "闭卷作答：(a) 'é猫' 有多少个码位、多少个 UTF-8 字节？(b) 词汇表 {a:0,b:1,c:2} 下 encode('cab') 是多少？(c) 10 行按 0.8/0.1/0.1 如何划分？(d) 含非法字节 0xFF 的文件在 --errors strict 下的退出码是多少？replace 下会出现哪个字符？",
+      "hint": "(a) é 是 U+00E9（2 字节），猫 是 U+732B（3 字节）。(b) 在表中逐个查字符。(c) round(10*0.8)=8，round(10*0.1)=1。(d) strict 会中止；replace 会替换为 U+FFFD。",
+      "answer": "(a) 2 个码位、5 个 UTF-8 字节 [195,169,231,140,171]。(b) [2,0,1]。(c) train 8、val 1、test 1。(d) strict 打印 UnicodeDecodeError 信息并以退出码 1 结束；replace 输出 U+FFFD 替换字符（字节 0xFF 0xFE 对应 2 个）并以退出码 0 结束。",
+      "mastery_criterion": "四个预测全部在无辅助情况下与观测输出一致；每个失误都连同用于修复的回退链接（第 35 天复习或对应的第 37 天活动）一并记录。"
+    }
+  }
+}

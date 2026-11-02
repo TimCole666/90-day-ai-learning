@@ -1,0 +1,109 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 28: Statistics — summaries, sampling uncertainty, inference",
+  "day_subtitle": "Compute honest descriptive statistics, quantify how much a sample can mislead, and separate a statistical claim from a toy observation. Retrieval and review are part of the 480-minute ledger.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Mathematics & Algorithmic Foundations",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "nav_agent_track": "🤖 Agent Tool Track",
+    "nav_export": "Export records",
+    "day_label": "Day 28",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Record your prediction, computed values, observation, and review evidence here...",
+    "dev_slice_notice": "Verified curriculum module for the 90-Day AI Learning Platform.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account.",
+        "provider_error": "Authentication provider encountered an error.",
+        "server_error": "Authentication provider encountered an error.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    }
+  },
+  "activities": {
+    "day-28-act-01": {
+      "title": "Descriptive statistics: mean, spread, and honest summaries",
+      "prerequisites": "Day 27 mathematics block; basic arithmetic and the prediction-review routine from Day 01.",
+      "objective": "Compute and interpret mean, median, population/sample variance, and standard deviation on a small dataset, and explain why two datasets with the same mean can still differ.",
+      "assistance_policy_label": "Assistance allowed only after prediction and observed evidence are recorded.",
+      "instructions": "Statistics begins by compressing data into a few numbers. The mean locates the center; variance and standard deviation measure spread around it. Population variance divides the squared deviations by n; sample variance divides by n−1 (Bessel's correction) to avoid systematically underestimating spread. Predict every value by hand before checking with `python3` — verification comes only after recorded predictions.",
+      "exercise_prompt": "For data = [2, 4, 4, 4, 5, 5, 7, 9]: compute the mean, median, sum of squared deviations, population variance, population standard deviation, and sample variance (divisor n−1). Then compute the mean and population standard deviation of data2 = [4, 5, 5, 5, 5, 5, 5, 6] and state what stays the same and what changes.",
+      "hint": "Mean = 40/8 = 5. Deviations: −3, −1, −1, −1, 0, 0, 2, 4. Squares: 9, 1, 1, 1, 0, 0, 4, 16 → sum 32. Population variance divides by 8; sample variance by 7. For data2 the mean is also 5 but the squared deviations sum to 2.",
+      "answer": "mean = 5.0, median = (4+5)/2 = 4.5, Σ(x−μ)² = 32, population variance = 32/8 = 4.0, population std = 2.0; sample variance = 32/7 ≈ 4.571 (sample std ≈ 2.138). data2 shares the mean 5.0 but has SS = 2, population variance 0.25, std 0.5 — the mean alone hides the spread.",
+      "mastery_criterion": "All hand-computed values match a Python check, and the explanation states that equal means do not imply equal distributions."
+    },
+    "day-28-act-02": {
+      "title": "Sampling uncertainty and the standard error",
+      "prerequisites": "Activity 28-01 complete; no AI assistance for this practice block.",
+      "objective": "Quantify how much a sample statistic moves: the standard error of the mean σ/√n and of a proportion √(p(1−p)/n).",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "In statistics, a sample mean is itself a random variable: repeat the sampling and it changes. Its standard deviation — the standard error — shrinks like 1/√n, so quadrupling n halves the error. Work the items by hand first, then verify with `python3 -c` one-liners using math.sqrt and math.comb.",
+      "exercise_prompt": "(a) With σ = 2, compute SE(mean) for n = 16 and n = 64. (b) For a fair-coin proportion, compute SE(p̂) = √(0.25/n) for n = 4, n = 100, n = 400. (c) Using math.comb, compute P(X ≥ 7 heads in 10 fair flips) = [C(10,7)+C(10,8)+C(10,9)+C(10,10)]/2¹⁰ and state whether 7 heads is strong evidence of a biased coin.",
+      "hint": "SE(mean): 2/4 and 2/8. SE(p̂): √(0.25/n). The tail sum is (120+45+10+1)/1024.",
+      "answer": "(a) SE = 0.5 (n=16), 0.25 (n=64). (b) 0.25, 0.05, 0.025 — the error halves each time n quadruples. (c) P(X≥7) = 176/1024 ≈ 0.1719 — about one fair coin in six does this, so 7/10 heads is a toy observation, not a statistical claim of bias.",
+      "mastery_criterion": "Both SE formulas applied correctly, the √n halving pattern stated, and the binomial tail computed and interpreted without assistance."
+    },
+    "day-28-act-03": {
+      "title": "Inference versus a single observation",
+      "prerequisites": "Activity 28-02 complete; record your prediction before asking for help.",
+      "objective": "Distinguish a statistical claim (a statement about a population with quantified uncertainty) from a toy observation (one small-sample result), and construct a misleading single-result counterexample.",
+      "assistance_policy_label": "Assistance allowed only after prediction and observed evidence are recorded.",
+      "instructions": "Inferential statistics attaches uncertainty to a claim: an estimate plus a standard error or interval. A single result is not a claim. Compare two toy models on 20 held-out examples: model A scores 16/20, model B 18/20. Before concluding B is better, ask how often equal-skill models would differ this much — each model's proportion has SE √(p(1−p)/20) ≈ 0.089 at p = .8 and ≈ 0.067 at p = .9 - in count units the SD is √(20p(1−p)) ≈ 1.79 at p = .8, 1.34 at .9 - so under a stated independence assumption a ±2-count gap is within ordinary fluctuation; the shared held-out set leaves A/B covariance unspecified, so this is not a paired or significance test.",
+      "exercise_prompt": "Construct the counterexample: two learners each flip a fair coin 10 times; A gets 4 heads, B gets 7. (a) What are p̂_A and p̂_B? (b) Using Activity 28-02's SE for n = 10 (≈0.16), would you claim B's coin is biased? (c) Write one sentence separating the observation from a statistical claim.",
+      "hint": "Compute each p̂, each SE √(p̂(1−p̂)/10), then the SE of the difference ≈ √2·0.16 ≈ 0.22. The observed 0.3 gap is about 1.3 standard errors — ordinary noise.",
+      "answer": "p̂_A = 0.4, p̂_B = 0.7; SE(p̂) ≈ 0.158 per coin, SE of the difference ≈ 0.22; the 0.3 gap is ≈1.3 SE — inside ordinary fluctuation, so no bias claim is licensed. Observation: 'B's coin landed heads 7 of 10 times.' Statistical claim: 'at this n, a fair coin produces ≥7 heads ≈17% of the time, so the data do not establish bias.'",
+      "mastery_criterion": "Learner produces both p̂ values, the SE comparison, and an explicit sentence distinguishing observation from claim; no fabricated significance is asserted."
+    },
+    "day-28-act-04": {
+      "title": "Retrieval and statistics review checkpoint",
+      "prerequisites": "Activities 28-01 through 28-03; use recovery link day-25 if earlier probability is shaky, and revisit Activities 28-01..03 for this day's statistics material.",
+      "objective": "Close the block with closed-book retrieval: define the statistics vocabulary, compute a fresh summary unaided, and name what evidence turns an observation into a claim.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "Without notes or AI: define mean, median, variance (population vs sample), standard deviation, standard error, and baseline. Then compute the full summary of data3 = [1, 3, 3, 5]. Finally answer: which two quantities must accompany any generalization beyond a toy observation? Use recovery link day-25 for missed probability basics, revisit Activities 28-01 through 28-03 for statistics misses, and record a review plan.",
+      "exercise_prompt": "data3 = [1, 3, 3, 5]: compute mean, median, Σ(x−μ)², population variance and std, sample variance and std. Then solve for the n that makes SE(p̂) = 0.05 for a fair-coin proportion (solve √(0.25/n) = 0.05).",
+      "hint": "Mean 3; deviations −2, 0, 0, 2 → SS = 8. Median = 3. Solve 0.25/n = 0.0025 → n = 100.",
+      "answer": "mean = 3.0, median = 3.0, SS = 8, population variance = 2.0, std = √2 ≈ 1.414; sample variance = 8/3 ≈ 2.667, std ≈ 1.633. √(0.25/n) = 0.05 → n = 100. A claim needs an estimate plus quantified uncertainty (an SE or interval) and a sample large enough to bound the noise.",
+      "mastery_criterion": "Unaided answers are numerically correct, all six vocabulary terms are defined from memory, and a concrete review plan names any term that was missed."
+    }
+  }
+}

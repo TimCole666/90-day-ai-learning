@@ -1,0 +1,76 @@
+{
+  "language": "ja",
+  "language_label": "日本語",
+  "day_title": "Day 10: ファイル、パス、エンコーディング",
+  "day_subtitle": "壊れやすいファイル読み取りを予測可能なプログラムに変える：パスをスクリプトに固定し、エンコーディングを明示し、with で資源を解放し、証拠からファイル不在と不正内容を診断する。 Retrieval and lower-new-content review are part of the 480-minute ledger.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Self-Directed Learning & Python",
+  "common": {
+    "nav_calendar": "Curriculum Calendar",
+    "day_label": "Day 10",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Record your prediction, observed output, review, and recovery evidence here...",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "著者・提供機関",
+    "source_url_label": "オリジナル出所URL",
+    "source_range_label": "該当セクション・タイムスタンプ",
+    "source_verification_label": "検証バージョンと日付",
+    "source_rationale_label": "選定理由",
+    "source_prereqs_label": "ソース前提知識",
+    "source_fallback_label": "安全フォールバック（オフライン回復性）",
+    "compared_candidates_heading": "比較対象候補リソースと選定評価"
+  },
+  "activities": {
+    "day-10-act-01": {
+      "title": "パス、エンコーディング、安全なファイル読み取り",
+      "prerequisites": "前のアクティビティを完了していること。行き詰まったら、記載の回復リンクを使う。",
+      "objective": "with ブロック内で UTF-8 エンコーディングを明示してテキストファイルを読み、空でない行を数える。実行前に行数を予測し、相対パスがカレントワーキングディレクトリに依存する理由を説明する。",
+      "assistance_policy_label": "支援は、予測と観察した証拠を記録した後にのみ許可される。",
+      "instructions": "参照資料: この活動に割り当てられた既存の読解・練習時間内で、Automate the Boring Stuff with Python, 3rd edition の Chapter 10; Practice Questions; Appendix B answers を参照し、ローカル課題とのつながりを一つ自分の言葉で説明する。既存の演習と合格基準は維持し、外部資料が開けない場合は本コース独自の説明を使う。新しいディレクトリに notes.txt を作り、ちょうど3行 alpha、beta、gamma を書く。open(\"notes.txt\") のような相対パスは、スクリプトのあるフォルダではなく Path.cwd() 基準で解決される。ファイルオブジェクトを反復すると1行ずつ得られ、各行は末尾の \"\\n\" を保持する。ただし最終行だけは例外になりうる：ファイルが改行で終わっていなければ最終行に改行は付かない（\"alpha\\nbeta\\ngamma\" と書いたファイルの最終行は 'gamma'）。line.strip() がその改行と前後の空白を取り除くので、空行かどうかは strip() で判定できる。with ブロックは定義済みのクリーンアップで、読み取りが例外を起こしてもファイルを閉じる。",
+      "exercise_prompt": "count = 0\nwith open(\"notes.txt\", encoding=\"utf-8\") as f:\n    for line in f:\n        if line.strip():\n            count += 1\nprint(count, f.closed)\n実行前に、出力される1行を正確に書き出し、2つの値がそれぞれなぜそうなるかを説明する。notes.txt が改行で終わっていなかったら結果は変わるか？",
+      "hint": "実行前に予測する。パスで迷ったら先に Path.cwd() を表示する。反復回数と空でない行数を比較し、空行判定は生の行ではなく strip() で決める。",
+      "answer": "count = 0\nwith open(\"notes.txt\", encoding=\"utf-8\") as f:\n    for line in f:\n        if line.strip():\n            count += 1\nprint(count, f.closed)\n出力：3 True。追跡：ループは 'alpha\\n'、'beta\\n'、'gamma\\n'（最終行に改行が無ければ 'gamma'）を順に受け取る。strip() 後もどれも空ではないので count は3になり、最終行の末尾の改行は4行目を作らない。print は with ブロックを抜けた後に実行されるので、f はすでに閉じており f.closed は True。",
+      "mastery_criterion": "予測が観察した出力と一致し、相対パスが Path.cwd() 基準で解決されると述べ、with ブロック終了後のファイルオブジェクトの closed 状態（f.closed）を示せる。",
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-10-act-02": {
+      "title": "コードを直す前にファイル不在を診断する",
+      "prerequisites": "前のアクティビティを完了していること。行き詰まったら、記載の回復リンクを使う。",
+      "objective": "open(\"data/notes.txt\") が投げる FileNotFoundError を再現し、コードを触る前に Path.exists() と Path.cwd() の証拠で、原因がファイル不在かワーキングディレクトリ違いかを分類する。",
+      "assistance_policy_label": "支援は、予測と観察した証拠を記録した後にのみ許可される。",
+      "instructions": "使い捨てのフィクスチャだけで作業する：このアクティビティのスクリプトは、新しい一時ディレクトリの中に project/（reader.py と data/notes.txt を含む）と空の兄弟フォルダ outside/ を作り、終了時に削除する。そのため結果は、ホームディレクトリや実際のプロジェクトにたまたま何があるかに左右されない。メッセージ [Errno 2] No such file or directory: 'data/notes.txt' は、相対パスがカレントワーキングディレクトリから解決できなかったことだけを示し、2つの原因を区別できない。まず証拠を集める：Path.cwd() とスクリプトのフォルダを比較し、Path(\"data/notes.txt\").exists()（cwd 基準）を評価し、BASE = Path(__file__).resolve().parent として (BASE / \"data\" / \"notes.txt\").exists()（スクリプト基準）を評価する。固定したパスは存在するのに相対パスが存在しないなら、原因はワーキングディレクトリ：open(BASE / \"data\" / \"notes.txt\", encoding=\"utf-8\") とする。固定したパスも存在しないなら、フィクスチャは本当に無く、作成か復元が必要で、コードを変えても解決しない。",
+      "exercise_prompt": "このスクリプトを任意のディレクトリから実行する。使い捨てのフィクスチャを作り、未修正の reader.py（相対パス data/notes.txt を開く）を、project フォルダを cwd にして1回、outside/ を cwd にして1回実行する。実行前に、両方の実行の終了コードと表示される全行を予測する。その後、証拠から原因を分類し、カウント処理を書き直さずに reader.py への最小の修正を書く。\n\n```python\nimport subprocess\nimport sys\nimport tempfile\nfrom pathlib import Path\n\nREADER = (\n    \"from pathlib import Path\\n\"\n    \"print('cwd is project:', Path.cwd() == Path(__file__).resolve().parent)\\n\"\n    \"print('exists:', Path('data/notes.txt').exists())\\n\"\n    \"with open('data/notes.txt', encoding='utf-8') as f:\\n\"\n    \"    print('lines:', sum(1 for line in f if line.strip()))\\n\"\n)\n\nwith tempfile.TemporaryDirectory() as tmp:\n    root = Path(tmp).resolve()\n    project = root / \"project\"\n    outside = root / \"outside\"\n    (project / \"data\").mkdir(parents=True)\n    outside.mkdir()\n    (project / \"data\" / \"notes.txt\").write_text(\"alpha\\nbeta\\ngamma\\n\", encoding=\"utf-8\")\n    (project / \"reader.py\").write_text(READER, encoding=\"utf-8\")\n    for label, cwd in [(\"project\", project), (\"outside\", outside)]:\n        run = subprocess.run([sys.executable, str(project / \"reader.py\")],\n                             cwd=cwd, capture_output=True, text=True)\n        print(f\"[{label}] exit={run.returncode}\")\n        print(run.stdout, end=\"\")\n        if run.stderr:\n            print(run.stderr.strip().splitlines()[-1])\n```",
+      "hint": "ファイル不在エラーをコードの作り直しで直してはいけない。先に cwd と exists() の証拠を集め、修正がパス固定とファイル復元のどちらに属するか決める。",
+      "answer": "演習スクリプトの観察結果（フィクスチャが専用なので、どのマシンでも同じになる）：\n\n```text\n[project] exit=0\ncwd is project: True\nexists: True\nlines: 3\n[outside] exit=1\ncwd is project: False\nexists: False\nFileNotFoundError: [Errno 2] No such file or directory: 'data/notes.txt'\n```\n\n診断：ファイルは存在する（cwd が project のとき exists: True）が、2回目の実行は cwd が異なる（cwd is project: False）ため、相対パスは存在しない outside/data/notes.txt に解決される。原因はワーキングディレクトリであり、ファイル不在ではない。最小の修正：BASE = Path(__file__).resolve().parent でパスをスクリプトに固定し、BASE / \"data\" / \"notes.txt\" を開く。カウントの行は変えない。下の完全な参照コードは、新しいフィクスチャに固定版の reader を書き込み、両方のフォルダから実行し、その後データファイルを削除してもう一方の原因を示す：固定したパス自体が存在しないときは、どんなコード変更も役に立たず、フィクスチャの復元で直る。\n\n```python\nimport subprocess\nimport sys\nimport tempfile\nfrom pathlib import Path\n\nFIXED = (\n    \"from pathlib import Path\\n\"\n    \"BASE = Path(__file__).resolve().parent\\n\"\n    \"with open(BASE / 'data' / 'notes.txt', encoding='utf-8') as f:\\n\"\n    \"    print('lines:', sum(1 for line in f if line.strip()))\\n\"\n)\n\n\ndef run(script, cwd):\n    done = subprocess.run([sys.executable, str(script)],\n                          cwd=cwd, capture_output=True, text=True)\n    if done.returncode == 0:\n        return f\"exit=0 {done.stdout.strip()}\"\n    last = done.stderr.strip().splitlines()[-1]\n    return f\"exit={done.returncode} {last.split(':')[0]}\"\n\n\nwith tempfile.TemporaryDirectory() as tmp:\n    root = Path(tmp).resolve()\n    project = root / \"project\"\n    outside = root / \"outside\"\n    notes = project / \"data\" / \"notes.txt\"\n    notes.parent.mkdir(parents=True)\n    outside.mkdir()\n    notes.write_text(\"alpha\\nbeta\\ngamma\\n\", encoding=\"utf-8\")\n    reader = project / \"reader.py\"\n    reader.write_text(FIXED, encoding=\"utf-8\")\n    print(\"anchored, from outside:\", run(reader, outside))\n    print(\"anchored, from project:\", run(reader, project))\n    notes.unlink()\n    print(\"fixture deleted, anchored path exists:\", notes.exists())\n    print(\"anchored, from project:\", run(reader, project))\n    notes.write_text(\"alpha\\nbeta\\ngamma\\n\", encoding=\"utf-8\")\n    print(\"fixture restored:\", run(reader, outside))\n```\n\n期待される出力：\n\n```text\nanchored, from outside: exit=0 lines: 3\nanchored, from project: exit=0 lines: 3\nfixture deleted, anchored path exists: False\nanchored, from project: exit=1 FileNotFoundError\nfixture restored: exit=0 lines: 3\n```",
+      "mastery_criterion": "ログに2つの原因のどちらが当てはまったか、その証拠となる cwd/exists() の値、そしてリーダーを書き直すのでなく最小の修正（パス固定かファイル復元）を適用したことが記録されている。"
+    },
+    "day-10-act-03": {
+      "title": "不正な内容：スキップ報告つきの寛容なパース",
+      "prerequisites": "前のアクティビティを完了していること。行き詰まったら、記載の回復リンクを使う。",
+      "objective": "1行だけ不正なスコアファイルをパースし、スキップした行番号をすべて記録して処理を続ける。UnicodeDecodeError（バイトを誤ったエンコーディングでデコード）と ValueError（テキストは正しいが値が不正）を区別する。",
+      "assistance_policy_label": "支援は、予測と観察した証拠を記録した後にのみ許可される。",
+      "instructions": "行は ana,7 の形。int(\"x9\") は ValueError: invalid literal for int() with base 10: 'x9' を投げる。int(raw) の呼び出しだけを try/except ValueError で囲み、行番号を skipped リストに追加し、パースが成功したときだけスコアを保存する。デコードの問題は別種の失敗である：バイト列 b'caf\\xe9'（Latin-1 で保存した café）は有効な UTF-8 ではないので、b'caf\\xe9'.decode(\"utf-8\") は UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe9 in position 3: unexpected end of data を投げる。これを「Latin-1 のファイルは必ず UTF-8 として失敗する」と一般化してはいけない：ASCII だけのファイルはどちらでも同じ結果にデコードされ、両方のエンコーディングで有効だが別のテキストになるバイト列もある（b'caf\\xc3\\xa9' は UTF-8 では café、Latin-1 では cafÃ©）。つまりデコードが成功しても、エンコーディングが正しい証明にはならない。直し方は本当のエンコーディングを指定すること——デコードできないバイトを黙って捨てて問題を隠す errors=\"ignore\" は使わない。",
+      "exercise_prompt": "行 ana,7 / bo,x9 / cy,5（1行1件）に対して、実行前に寛容なリーダーの結果を予測する：どの行が scores に入り、どの行番号が skipped に入るか。その後、この完全なプログラムを任意のディレクトリから実行する。プログラムは自前の scores.txt フィクスチャを一時ディレクトリに書き込み（終了後に削除される）、ループの前に scores と skipped を定義している。try ブロックは int(raw) だけに限定し、パースが成功した後でのみスコアを保存する。\n\n```python\nimport tempfile\nfrom pathlib import Path\n\nwith tempfile.TemporaryDirectory() as tmp:\n    path = Path(tmp) / \"scores.txt\"\n    path.write_text(\"ana,7\\nbo,x9\\ncy,5\\n\", encoding=\"utf-8\")\n    scores = {}\n    skipped = []\n    with open(path, encoding=\"utf-8\") as f:\n        for lineno, line in enumerate(f, 1):\n            line = line.strip()\n            if not line:\n                continue\n            name, _, raw = line.rpartition(\",\")\n            try:\n                score = int(raw)\n            except ValueError:\n                skipped.append(lineno)\n                continue\n            scores[name] = score\n    print(scores, skipped)\n```",
+      "hint": "try ブロックはできるだけ小さく——int(raw) 呼び出しだけ——にして、open() や行分割のエラーを飲み込まないようにする。件数ではなく行番号を記録する。",
+      "answer": "予測と観察結果：\n\n```text\n{'ana': 7, 'cy': 5} [2]\n```\n\n2行目（bo,x9）は try の中で ValueError を投げるので、その行番号が skipped に入り、continue によって代入は飛ばされる。1行目と3行目は scores[name] = score に到達する。try は int(raw) だけを囲んでいるので、open() の失敗や行分割のバグは、不正行として黙って数えられるのではなく traceback として表に出る。enumerate(f, 1) は物理行に番号を振るので、空行があっても番号は進む。デコードの問題は別種の失敗であり、次のプログラムで ValueError と対比する：\n\n```python\ndata = \"café\".encode(\"latin-1\")\nprint(data)\ntry:\n    data.decode(\"utf-8\")\nexcept UnicodeDecodeError as exc:\n    print(type(exc).__name__ + \":\", exc)\nprint(data.decode(\"latin-1\") == \"café\")\nprint(b\"plain ascii\".decode(\"utf-8\") == b\"plain ascii\".decode(\"latin-1\"))\nboth = b\"caf\\xc3\\xa9\"\nas_utf8 = both.decode(\"utf-8\")\nas_latin1 = both.decode(\"latin-1\")\nprint(as_utf8 == \"café\", as_latin1 == \"cafÃ©\", len(as_utf8), len(as_latin1))\n```\n\n期待される出力：\n\n```text\nb'caf\\xe9'\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0xe9 in position 3: unexpected end of data\nTrue\nTrue\nTrue True 4 5\n```\n\nb'caf\\xe9' は Latin-1 の café で、有効な UTF-8 ではないため、UTF-8 としてデコードすると UnicodeDecodeError になる。直し方は本当のエンコーディング（ここでは encoding=\"latin-1\"）を宣言すること。ASCII だけならどちらのエンコーディングでも同じ結果になり、b'caf\\xc3\\xa9' はどちらでもデコードに成功するが別のテキストになる（café は4文字、cafÃ© は5文字）。したがってデコードの成功は、宣言したエンコーディングが正しい証明にはならない。これに対して ValueError は、テキストは正しくデコードされたが、ある行の値が不正だという意味である。",
+      "mastery_criterion": "有効な行がすべて処理され、スキップした行番号が記録され、2種類の失敗を正しく名付けられる：UnicodeDecodeError は宣言したエンコーディングを直せ、ValueError はその行の内容が不正だという意味。"
+    },
+    "day-10-act-04": {
+      "title": "独立したファイル集計と回復計画",
+      "prerequisites": "前のアクティビティを完了していること。行き詰まったら、記載の回復リンクを使う。",
+      "objective": "閉巻で summarize_scores(path) を実装し、{\"scores\": {name: 最高点}, \"skipped\": [行番号], \"missing\": bool} を返す。有効なファイル、不正行を含むファイル、存在しないファイルの3つをクラッシュせず処理する。",
+      "assistance_policy_label": "独立習得チェック（AI の支援なし）。",
+      "instructions": "コーディング前に3つのフィクスチャの結果をすべて予測し、チェック中は答えや AI を見ない。行き詰まったときの回復リンク：ファイル不在は day-10-act-02、不正行は day-10-act-03。",
+      "exercise_prompt": "期待される契約（他のファイルが干渉しないよう、フィクスチャは新しい一時ディレクトリに作る。例：tempfile.TemporaryDirectory()）：ana,7 / bo,9 / ana,8 を含む s1.txt は {'scores': {'ana': 8, 'bo': 9}, 'skipped': [], 'missing': False} を返す（ana は8が7に勝つ）。ana,7 / bo,x9 / cy,5 を含む s2.txt は {'scores': {'ana': 7, 'cy': 5}, 'skipped': [2], 'missing': False} を返す（2行目が不正）。その一時ディレクトリ内の一度も作られていないパス（例：missing.txt）は、例外を投げず {'scores': {}, 'skipped': [], 'missing': True} を返す。",
+      "hint": "あるフィクスチャが失敗したら、その1つのファイルだけに絞り、予測した辞書と観察した辞書を比較し、対応する回復リンクを見直す。受けた支援は正直に記録する。",
+      "answer": "自己完結したフィクスチャ付きの参照実装（自分の版と比べるのは、無支援での試行を記録した後にする）：\n\n```python\nimport tempfile\nfrom pathlib import Path\n\n\ndef summarize_scores(path):\n    result = {\"scores\": {}, \"skipped\": [], \"missing\": False}\n    try:\n        f = open(path, encoding=\"utf-8\")\n    except FileNotFoundError:\n        result[\"missing\"] = True\n        return result\n    with f:\n        for lineno, line in enumerate(f, 1):\n            line = line.strip()\n            if not line:\n                continue\n            name, sep, raw = line.rpartition(\",\")\n            try:\n                score = int(raw)\n            except ValueError:\n                score = None\n            if not sep or not name or score is None:\n                result[\"skipped\"].append(lineno)\n                continue\n            best = result[\"scores\"].get(name)\n            if best is None or score > best:\n                result[\"scores\"][name] = score\n    return result\n\n\nwith tempfile.TemporaryDirectory() as tmp:\n    base = Path(tmp)\n    (base / \"s1.txt\").write_text(\"ana,7\\nbo,9\\nana,8\\n\", encoding=\"utf-8\")\n    (base / \"s2.txt\").write_text(\"ana,7\\nbo,x9\\ncy,5\\n\", encoding=\"utf-8\")\n    print(summarize_scores(base / \"s1.txt\"))\n    print(summarize_scores(base / \"s2.txt\"))\n    print(summarize_scores(base / \"missing.txt\"))\n```\n\n期待される出力：\n\n```text\n{'scores': {'ana': 8, 'bo': 9}, 'skipped': [], 'missing': False}\n{'scores': {'ana': 7, 'cy': 5}, 'skipped': [2], 'missing': False}\n{'scores': {}, 'skipped': [], 'missing': True}\n```\n\nこの形にした理由：FileNotFoundError のハンドラ内にあるのは open() だけなので、missing が True になるのはファイル不在のときだけで、他のエラーはそのまま表に出る。with f: ブロックはどの経路でもファイルを閉じる。ValueError のハンドラ内にあるのは int(raw) だけで、カンマが無い行、名前が空の行、整数でないスコアの行はスキップされ、その1始まりの行番号が記録される。名前ごとの最高点は保存済みの値と比較して保持するので、ana は8になる。",
+      "mastery_criterion": "独力で3つのフィクスチャが予測どおりの辞書を正確に返し、不正行が行番号で報告され、存在しないファイルが traceback ではなく missing フラグを返す。"
+    }
+  }
+}

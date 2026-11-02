@@ -1,0 +1,170 @@
+{
+  "language": "zh-Hant",
+  "language_label": "繁體中文",
+  "day_title": "第 44 天：自迴歸因果遮罩與嚴格不變性",
+  "day_subtitle": "在生成式語言模型中嚴格實施自迴歸約束。構建下三角因果遮罩，證明 Softmax 將 -inf 精確映射為零機率，並透過實驗驗證未來標記擾動對歷史表徵的影響精確為零。",
+  "time_budget_label": "480 分鐘主動學習（8 小時專注研讀）",
+  "category_label": "模型與訓練",
+  "common": {
+    "nav_calendar": "📅 課程行事曆與台帳",
+    "day_label": "第 44 天",
+    "prerequisites_title": "前置要求",
+    "objective_title": "學習目標",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主實作與記錄",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看參考解答與分析",
+    "mastery_title": "獨立掌握標準",
+    "draft_placeholder": "在此記錄您的因果遮罩構建、遮罩後分數矩陣、擾動實驗日誌與不變性證明草稿...",
+    "dev_slice_notice": "90 天 AI 學習平台的已驗證正式課程模組。",
+    "sources_heading": "權威來源資源與權利證明",
+    "source_author_label": "作者 / 機構",
+    "source_url_label": "原始出處連結",
+    "source_range_label": "對應章節 / 時間戳",
+    "source_verification_label": "驗證版本與日期",
+    "source_reuse_label": "複用類別",
+    "source_license_label": "許可證與權利說明",
+    "source_rationale_label": "入選理由",
+    "source_prereqs_label": "來源前置條件",
+    "source_fallback_label": "安全回退方案（離線彈性）",
+    "compared_candidates_heading": "對比候選資源與選型分析",
+    "compared_status_label": "評估結論",
+    "auth": {
+      "sign_in": "使用 Google 登入",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "登出",
+      "signed_in_as": "已登入為",
+      "guest": "訪客模式",
+      "link_github": "綁定 GitHub",
+      "link_google": "綁定 Google",
+      "linked_identities": "已綁定帳號",
+      "auth_errors": {
+        "access_denied": "授權已取消或存取被拒絕。",
+        "invalid_state": "無效或已過期的授權狀態權杖，請重試。",
+        "identity_conflict": "該第三方身分已被綁定至其他帳號。",
+        "provider_error": "認證服務提供者發生錯誤。",
+        "server_error": "認證服務提供者發生錯誤。",
+        "session_expired": "登入工作階段已過期，請重新登入。"
+      }
+    },
+    "progress": {
+      "save_btn": "儲存進度",
+      "saved": "已儲存",
+      "saving": "正在儲存...",
+      "save_error": "儲存失敗",
+      "offline": "離線狀態",
+      "mark_completed": "標記為已完成",
+      "completed_badge": "已完成"
+    },
+    "quiz": {
+      "quiz_title": "客觀理解度測試：因果遮罩與嚴格不變性",
+      "quiz_instructions": "請回答以下診斷題目檢驗掌握情況。提交前請誠實聲明你的輔助條件。",
+      "assistance_mode_label": "聲明輔助條件",
+      "mode_independent": "獨立掌握檢查 (無 AI 輔助)",
+      "mode_agent_assisted": "Agent 輔助工程檢查 (借助 AI 完成)",
+      "mode_disclaimer": "說明：無 AI 輔助屬於誠實聲明條件，非平台監控或強制檢測手段。",
+      "submit_btn": "提交答案",
+      "retry_btn": "重新測驗",
+      "view_hint": "查看提示",
+      "mastery_criterion_label": "掌握標準",
+      "mastery_criterion_desc": "在獨立掌握檢查模式下獲得 100% 得分（3/3 題完全正確）。",
+      "score_label": "測驗得分",
+      "passed_badge": "通過",
+      "failed_badge": "未通過 (需複習)",
+      "independent_pass_badge": "獨立掌握通過",
+      "agent_assisted_pass_badge": "Agent 輔助通過",
+      "self_reported_badge": "自主勾選完成",
+      "stale_badge": "歷史記錄 (內容已更新，需重新驗證)",
+      "attempts_history_title": "作答應證與歷史記錄",
+      "no_attempts": "暫無測驗記錄。"
+    }
+  },
+  "activities": {
+    "day-44-act-01": {
+      "title": "自迴歸約束與下三角因果遮罩構建",
+      "prerequisites": "第 43 天的注意力機制與縮放除法推導。",
+      "objective": "闡明解碼器語言模型的自迴歸因式分解約束，構建下三角因果遮罩矩陣 M，並推導遮罩後的分數矩陣 S_masked = S + M。",
+      "assistance_policy_label": "助教輔助工程檢查",
+      "instructions": "必做任務：解釋為什麼因果解碼器必須滿足 P(x_1, ..., x_T) = prod_{t=1}^T P(x_t | x_{<t})。證明若無遮罩，位置 t 將直接訪問未來位置 t' > t，導致模型在訓練時發生“作弊洩露”。定義加性因果遮罩 M in R^{T x T}，滿足當 j <= i 時 M_{i,j} = 0，當 j > i 時 M_{i,j} = -inf。寫出序列長度 T=3 時的具體矩陣 M。使用第 43 天縮放後的分數矩陣 S = [[2.0, 0.0, 2.0], [0.0, 3.0, 2.0], [1.0, 1.5, 2.0]]，計算遮罩後的分數矩陣 S_masked = S + M。",
+      "exercise_prompt": "1. 寫出 3x3 因果遮罩矩陣 M 的完整元素。\n2. 寫出加性遮罩後的分數矩陣 S_masked = S + M。\n3. 如果代碼中錯誤地將主對角線上方程設為 0、下方設為 -inf，會產生什麼後果？",
+      "hint": "M 的主對角線及其下方（下三角）全為 0，主對角線上方程全為 -inf。對於第 0 行，位置 1 和 2 均為 -inf。",
+      "answer": "遮罩矩陣 M：\n[[0.0, -inf, -inf],\n [0.0,  0.0, -inf],\n [0.0,  0.0,  0.0]]。\n遮罩後分數矩陣 S_masked：\n[[2.0, -inf, -inf],\n [0.0,  3.0, -inf],\n [1.0,  1.5,  2.0]]。\n若上下顛倒，模型將僅能關注未來而無法看到歷史上下文，導致反向因果洩漏，在自迴歸生成時徹底崩潰。",
+      "mastery_criterion": "準確寫出下三角因果遮罩 M 並完成 3x3 遮罩分數矩陣 S_masked 的推導。"
+    },
+    "day-44-act-02": {
+      "title": "因果遮罩下的 Softmax：逐步矩陣精確推導",
+      "prerequisites": "完成第 44 天活動 1。",
+      "objective": "在遮罩分數矩陣上利用最大值平移計算逐行 Softmax，求出因果注意力矩陣 A_causal，並計算因果加權輸出。",
+      "assistance_policy_label": "獨立掌握檢查",
+      "instructions": "必做任務：對 S_masked = [[2.0, -inf, -inf], [0.0, 3.0, -inf], [1.0, 1.5, 2.0]] 執行逐行 Softmax 計算。第 0 行：有限項最大值為 2.0。exp([2.0-2.0, -inf, -inf]) = [1.0, 0.0, 0.0]，歸一化得 A_causal[0, :] = [1.0, 0.0, 0.0]。第 1 行：最大值為 3.0。exp([-3.0, 0.0, -inf]) = [exp(-3), 1.0, 0.0] ~= [0.049787, 1.0, 0.0]，和為 1.049787。A_causal[1, :] = [0.047426, 0.952574, 0.0]。第 2 行無遮罩，得 [0.186324, 0.307196, 0.506480]。使用第 43 天的 V = [[1,0], [0,2], [1,1]] 計算因果輸出 Out_causal = A_causal V。",
+      "exercise_prompt": "1. 計算精確到小數點後 6 位的 A_causal 各行注意力權重。\n2. 計算全部 3 行的因果輸出 Out_causal = A_causal V。\n3. 對比第 43 天未遮罩的 Out[0] 與本節 Out_causal[0]，闡述其本質差異。",
+      "hint": "第 0 行因果輸出僅為 1.0 * v_0 = [1.0, 0.0]。而在第 43 天未遮罩時，第 0 行輸出被 v_1 和 v_2 嚴重污染。",
+      "answer": "A_causal 矩陣：\n第 0 行：[1.000000, 0.000000, 0.000000]\n第 1 行：[0.047426, 0.952574, 0.000000]\n第 2 行：[0.186324, 0.307196, 0.506480]。\nOut_causal = A_causal V：\n第 0 行：[1.000000, 0.000000]\n第 1 行：0.047426*[1,0] + 0.952574*[0,2] = [0.047426, 1.905148]\n第 2 行：[0.692804, 1.120872]。\n在未遮罩時 Out[0] 為 [0.936622, 0.595069]，包含了來自未來標記的資訊；在因果遮罩下，第 0 行僅與自身交互，保持獨立。",
+      "mastery_criterion": "精確計算 A_causal 和 Out_causal 各元素，數值與參考值在 4 位小數內一致。"
+    },
+    "day-44-act-03": {
+      "title": "因果不變性擾動實驗與代數證明",
+      "prerequisites": "完成第 44 天活動 2。",
+      "objective": "透過數值實驗與代數推導，嚴格驗證擾動未來標記時歷史位置的注意力權重和輸出表徵精確保持不變。",
+      "assistance_policy_label": "助教輔助工程檢查",
+      "instructions": "必做任務：對序列執行嚴格擾動實驗。將未來標記（t=2）替換為任意極端數值：q_2' = [99.0, -42.0, 13.0, 7.0], k_2' = [-50.0, 12.0, 34.0, -8.0], v_2' = [100.0, -200.0]。重新計算 S_masked、A_causal 和 Out_causal。證明 diff(A_causal[0], A_causal_pert[0]) = 0.0，diff(A_causal[1], A_causal_pert[1]) = 0.0，diff(Out[0], Out_pert[0]) = 0.0，以及 diff(Out[1], Out_pert[1]) = 0.0。將此特性與無遮罩層（所有歷史行均被污染）進行深入對比。",
+      "exercise_prompt": "1. 從 Softmax 分子分母公式證明為什麼 A_causal 的第 i 行絕不依賴任何 j > i 的 k_j 或 v_j。\n2. 給出對標記 2 擾動前後，第 0、1、2 行表徵差異的最大絕對值。\n3. 說明因果不變性如何保障大模型自迴歸生成中 KV-Cache（鍵值快取）機制的正確性？",
+      "hint": "對第 i 行而言，j > i 時項為 -inf。exp(-inf)=0，在分母求和中自動消失，因而與未來鍵向量完全無關。",
+      "answer": "代數證明：對於任意 j > i，S_masked[i,j] = -inf，其指數項 exp(S_masked[i,j] - max) = 0。分母配分函數 sum_{k=0}^{T-1} exp(S_masked[i,k] - max) = sum_{k=0}^i exp(S_masked[i,k] - max)，未來項對求和貢獻為 0。因此對於 j <= i，A_causal[i,j] 僅取決於 q_i 與 k_{<=i}。輸出 Out[i] = sum_{j=0}^i A_causal[i,j] v_j 僅由 v_{<=i} 決定。擾動實驗差值：第 0 行最大差異 = 0.0，第 1 行最大差異 = 0.0，第 2 行最大差異 > 0.0。因果不變性保證了已生成歷史標記的鍵和值在後續步永遠無需重新計算，KV-Cache 完全等價於全量計算。",
+      "mastery_criterion": "給出嚴謹的未來獨立性代數證明，並在數值上驗證歷史位置差異精確為 0.0。"
+    },
+    "day-44-act-04": {
+      "title": "獨立掌握檢查：因果洩漏、遮罩缺陷與不變性斷言",
+      "prerequisites": "活動 44-01 至 44-03。",
+      "objective": "在聲明無 AI 輔助條件下，獨立識別遮罩實現缺陷，推導 2 標記序列的因果注意力，並給出嚴謹的不變性斷言。",
+      "assistance_policy_label": "獨立掌握檢查",
+      "instructions": "必做任務：閉卷獨立作答。給定 T=2、縮放分數 S = [[3.0, 1.0], [2.0, 4.0]] 與 V = [[1.0, 2.0], [3.0, 0.0]]：1. 構建 2x2 因果遮罩 M 並寫出 S_masked。2. 計算精確的 2x2 因果注意力矩陣 A_causal。3. 計算 Out_causal。4. 若標記 1 被替換為任意新向量，證明 Out_causal[0] 的變化量。5. 完成客觀選擇題。",
+      "exercise_prompt": "1. 寫出 2x2 設置下的 S_masked。\n2. 計算精確到 6 位小數的 A_causal。\n3. 計算 Out_causal = A_causal V。\n4. 指出若擾動標記 1，Out_causal[0] 的精確變化量。\n5. 完成 3 道單項選擇題。",
+      "hint": "第 0 行為 [3.0, -inf]，Softmax 直接輸出 [1.0, 0.0]。第 1 行為 [2.0, 4.0]，最大值為 4.0。",
+      "answer": "S_masked = [[3.0, -inf], [2.0, 4.0]]。Softmax A_causal：第 0 行 [1.000000, 0.000000]；第 1 行 [exp(-2)/(exp(-2)+1), 1/(exp(-2)+1)] = [0.119203, 0.880797]。Out_causal：第 0 行 = 1.0*[1.0, 2.0] = [1.000000, 2.000000]；第 1 行 = 0.119203*[1,2] + 0.880797*[3,0] = [2.761594, 0.238406]。若擾動標記 1，Out_causal[0] 的變化量嚴格為 0.0。",
+      "mastery_criterion": "獨立推導 2x2 因果注意力和輸出，正確斷言歷史不變性，且客觀測試獲 100% 滿分。",
+      "quiz": {
+        "title": "客觀理解度測試：因果遮罩與嚴格不變性",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "在自迴歸生成中，下三角因果遮罩（Causal Mask）的核心操作目標是什麼？",
+            "options": {
+              "a": "阻止位置 t 注意任何未來標記 t' > t，確保生成分佈 P(x_t | x_{<t}) 不洩漏未來資訊。",
+              "b": "透過將完整矩陣轉化為對角矩陣來加速矩陣乘法。",
+              "c": "確保所有注意力權重之和等於 2.0。",
+              "d": "允許在整個提示詞上進行雙向上下文特徵匯聚。"
+            },
+            "hint": "考慮自迴歸語言模型對下一個標記的條件機率鏈式因式分解。",
+            "explanation": "在自迴歸解碼器中，生成標記 t 必須僅依賴歷史與當前標記（索引 <= t）。未來標記的鍵與值（索引 > t）必須被完全屏蔽。"
+          },
+          {
+            "id": "q2",
+            "prompt": "在為注意力分數構建加性因果遮罩時，必須為主對角線上方的上三角區域（j > i）賦予什麼數值？",
+            "options": {
+              "a": "0.0",
+              "b": "-無窮大（-inf，或數值極大負數如 -1e9）",
+              "c": "+1.0",
+              "d": "+無窮大（+inf）"
+            },
+            "hint": "回顧 Softmax 中 exp(-inf) = 0 的數學性質。",
+            "explanation": "給未縮放或縮放分數加上 -inf 後，exp(S_{i,j} + (-inf)) = exp(-inf) = 0.0，使未來位置的注意力權重精確為 0。"
+          },
+          {
+            "id": "q3",
+            "prompt": "若對長度為 3 的序列（t in {0, 1, 2}）中的第 2 個標記進行任意數值擾動，在嚴格因果遮罩下，位置 0 的注意力權重和輸出表徵會發生什麼變化？",
+            "options": {
+              "a": "它們會隨著擾動幅度成比例發生變化。",
+              "b": "它們保持嚴格不變，數值差異精確為 0.0。",
+              "c": "它們會產生浮點 NaN 溢出。",
+              "d": "它們的方差會擴大 sqrt(d_k) 倍。"
+            },
+            "hint": "在位置 0 處，只有位置 0 未被遮罩，位置 1 和 2 均被加了 -inf。",
+            "explanation": "因果遮罩完全切斷了位置 0 對未來位置 1 和 2 的連接，位置 0 僅能自注意力（權重 1.0）。未來標記的任何改動對先前位置的影響精確為零。"
+          }
+        ]
+      }
+    }
+  }
+}

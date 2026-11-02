@@ -1,0 +1,75 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 13: Text and data Learning Project",
+  "day_subtitle": "Turn the existing text_tools project into a reproducible corpus-to-artifact pipeline.",
+  "time_budget_label": "480 active minutes (breaks and unattended runtime excluded)",
+  "category_label": "Self-Directed Learning & Python",
+  "common": {
+    "nav_calendar": "Curriculum Calendar",
+    "day_label": "Day 13",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice and prediction",
+    "hint_title": "Hint",
+    "reveal_answer": "Reference answer",
+    "mastery_title": "Independent mastery criterion",
+    "draft_placeholder": "Record prediction, evidence, and recovery...",
+    "sources_heading": "Source resources and provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis"
+  },
+  "activities": {
+    "day-13-act-01": {
+      "title": "Build the CLI core",
+      "prerequisites": "Days 01–12: strings, dictionaries, files, exceptions, tests, and terminal use.",
+      "objective": "Implement or inspect projects/text_tools/core.py and cli.py for statistics, deterministic splits, a provenance manifest, and explicit encoding errors.",
+      "instructions": "Required work: create a private workspace for this exercise (`WORKDIR=$(mktemp -d)`), write a small corpus to `$WORKDIR/corpus.txt`, record a prediction, then run the complete invocation `python3 projects/text_tools/cli.py --input \"$WORKDIR/corpus.txt\" --stats --json --split --output-dir \"$WORKDIR/artifacts\"`; inspect the diff, and exercise --input, --stats, --split, --output-dir, --seed, --encoding, and --errors. Optional work: compare the Python documentation links.",
+      "exercise_prompt": "Use a small corpus containing repeated tokens, CJK, accents, and an emoji. Predict character/token counts, then verify stats.json and manifest.json -- including that `source_sha256` equals the SHA256 of the original input bytes (e.g. `sha256sum \"$WORKDIR/corpus.txt\"`) and that `input_decoding` records the encoding, error handling, and newline policy.",
+      "hint": "Keep calculation in core.py and presentation in cli.py. Use random.Random(seed), ordered indices, SHA256, and a zero-token guard.",
+      "answer": "A sound solution uses Counter for tokens/chars, len(text) for Unicode code points, random.Random(seed) over list(range(n)), disjoint index sets, and manifest fields for source/split hashes, ratios, counts, environment, and no_leakage_verified. The manifest also records `source_sha256` over the original bytes, `decoded_text_sha256`, the `input_decoding` policy, `normalized_ratios`, and rejects input/output path collisions before any artifact write.",
+      "mastery_criterion": "The learner can explain and run the real text_tools CLI, with prediction/evidence recorded and no claim that an agent-written diff proves independent understanding.",
+      "assistance_policy_label": "Agent assistance is allowed only after prediction; inspect and test every generated diff."
+    },
+    "day-13-act-02": {
+      "title": "Independent core implementation",
+      "prerequisites": "Complete Day 13 Activity 1 and close all reference tabs.",
+      "objective": "Without AI assistance, implement a bounded statistics or split function against the actual project interface.",
+      "instructions": "Required work: independently implement exactly one assessed interface -- either `analyze_text(text) -> dict` (statistics) or `compute_splits(lines, train_ratio, val_ratio, test_ratio, seed) -> dict` (partitioning) -- stating which you chose, then test it on a DISTINCT fresh unaided input whose result you predict first. Optional work: compare with the reference only after submission. Canonical worked outputs are public reference, never hidden evaluation.",
+      "exercise_prompt": "Choose ONE assessed interface and declare it. Route A `analyze_text(text) -> dict`: predict the complete result for the input 'a a\\n猫🙂' -- keys are total_chars, total_tokens, vocab_size, char_vocab_size, token_frequencies, char_frequencies, min_token_length, max_token_length, avg_token_length, and char_distribution. Route B `compute_splits(lines, train_ratio, val_ratio, test_ratio, seed) -> dict`: for ['a','b','c','d','e'] with seed 7 and ratios .6/.2/.2, predict counts and prove the index sets are pairwise disjoint. For your chosen route, also explain the distinctness rule it depends on (route B: equal text values still need index-level checks; route A: equal text values do not inflate vocabulary).",
+      "hint": "Record the expected result first. Route A: whitespace `split()` gives 3 tokens; '猫🙂' is ONE token spanning 2 code points; avg_token_length is the exact mean 4/3 rounded to 4 places; empty input yields zero counts and averages, empty frequency dicts, and a char_distribution whose five keys are all 0. Route B: validate ratio sums, use explicit ordered indices, do not use set iteration as input order.",
+      "answer": "Route A reference: analyze_text('a a\\n猫🙂') -> total_chars=6, total_tokens=3, vocab_size=2, char_vocab_size=5, token_frequencies={'a':2, '猫🙂':1}, char_frequencies={'a':2,' ':1,'\\n':1,'猫':1,'🙂':1}, min_token_length=1, max_token_length=2, avg_token_length=1.3333 (exact mean 4/3, rounded to 4 places), char_distribution={'alphabetic':3,'digits':0,'whitespace':2,'punctuation':0,'other':1}; empty input -> numeric statistics (counts, vocab sizes, min/max_token_length, avg_token_length=0.0) are zero, token_frequencies and char_frequencies are empty dicts {}, and char_distribution keeps its five keys alphabetic, digits, whitespace, punctuation, other, each 0.\nRoute B reference: seed 7 -> 3, 1, 1 records; every original index assigned exactly once; pairwise index intersections zero. Equal text values do not invalidate index disjointness, but deduplication policy must be stated; non-finite or out-of-range ratios are rejected before allocation.\nYour assessed attempt must use a DISTINCT fresh unaided input and its own predicted result; these canonical cases are public reference, not hidden evaluation.",
+      "mastery_criterion": "Independent code on a distinct fresh unaided input passes held-out behavior checks and the written explanation distinguishes index leakage, duplicate records, token/character counting, and evaluation limitations.",
+      "assistance_policy_label": "Independent Mastery Check: no AI, copied answer, or agent-generated code."
+    },
+    "day-13-act-03": {
+      "title": "Held-out behavior checks and debugging",
+      "prerequisites": "Have an independently implemented function and a clean temporary output directory.",
+      "objective": "Diagnose real failures without changing the curriculum repository: missing input, malformed UTF-8, empty input, invalid ratios, and nondeterministic ordering.",
+      "instructions": "Required work: run each debugging case in a process-isolated temporary directory, capture exit status/stderr, and regenerate artifacts from held-out data. Optional work: ask an agent to suggest tests, then reject unsafe or tautological tests.",
+      "exercise_prompt": "A held-out behavior check uses an empty file, a corrupt byte, multilingual lines, and the same seed twice. Predict which calls succeed, which fail, and which artifact bytes must match.",
+      "hint": "Strict decoding should fail descriptively; replace should expose U+FFFD. Empty averages are 0.0. Compare output bytes, not timestamps in manifests.",
+      "answer": "Missing files, strict malformed input, and bad ratio sums return non-zero with diagnostics; replace succeeds; empty input produces valid zero stats; identical seeds reproduce split-file bytes only under identical original input bytes, ratios, decoding/newline policy and implementation/runtime/platform (manifest created_at differs; compare semantic provenance, not manifest bytes); leakage is checked on indices. An input path colliding with any generated artifact name is rejected before any write and leaves the source byte-identical; non-finite or out-of-range ratios are also rejected.",
+      "mastery_criterion": "Evidence includes commands, exit codes, observed output, and a diagnosis/remediation for at least three cases; it does not confuse a passing subprocess with mastery.",
+      "assistance_policy_label": "Agent-assisted engineering check: direct the agent, inspect the diff, then run the held-out checks yourself."
+    },
+    "day-13-act-04": {
+      "title": "Project report: assumptions and limits",
+      "prerequisites": "Complete the three preceding activities and retain their evidence.",
+      "objective": "Write a short report connecting deterministic preparation to later tokenizer and model experiments while stating assumptions and limits.",
+      "instructions": "Required work: write and seal (submit, date) your unaided report first -- covering source attribution, encoding, token definition, split ratios/seed, leakage policy, observed measurements, reproducibility, and limits. Any later assisted polish is a separately labeled artifact that does not replace the sealed version; if assistance exposes a substantive gap, remediate with a fresh unaided check before counting mastery. Optional work: propose a later tokenizer experiment without changing this project.",
+      "exercise_prompt": "Explain why fixed train/validation/test artifacts can be reused by Makemore, minbpe, and NanoGPT, and why a fixed split does not prove model generalization.",
+      "hint": "Separate observed facts from theoretical claims. Mention Unicode code points versus bytes, duplicate records, seed/version dependence, and no live cloud or model result.",
+      "answer": "The manifest makes data identity and split membership auditable for later experiments; it does not remove distribution shift, duplicate-content leakage, encoding/tokenization choices, or environment differences. The project uses links/attribution rather than copied source text.",
+      "mastery_criterion": "Report is complete, cites the actual project artifacts, lists at least three assumptions and three limitations, and distinguishes the sealed unaided draft from any separately labeled assisted polish.",
+      "assistance_policy_label": "Independent Mastery Check: the first unaided report is sealed and submitted before any assistance; later AI polishing is a separately labeled, unassessed artifact that never replaces it."
+    }
+  }
+}

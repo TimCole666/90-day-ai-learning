@@ -1,0 +1,381 @@
+{
+  "id": "day-20",
+  "day_number": 20,
+  "active_minutes": 480,
+  "topic_category": "mathematics",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-19"
+  ],
+  "recovery_links": [
+    "day-19"
+  ],
+  "activities": [
+    {
+      "id": "day-20-act-01",
+      "lesson_id": "les-20",
+      "title": "Partial derivatives: hold every other variable constant",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev5",
+      "prerequisites": [
+        "day-19"
+      ],
+      "source_resources": [
+        {
+          "id": "mit-ocw-18-02sc",
+          "title": "MIT OCW 18.02SC Multivariable Calculus",
+          "author": "MIT OpenCourseWare (Prof. Denis Auroux)",
+          "original_url": "https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/",
+          "relevant_timestamp": "Part 2: Partial Derivatives; differentiation, chain rule and gradient sessions",
+          "version_or_verification_date": "Fall 2010 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "course",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Lawful external reference under CC BY-NC-SA 4.0; no transcript or figure is imported.",
+          "prerequisites": "Single-variable calculus and coordinate geometry",
+          "selection_rationale": "Rigorous university-lecture treatment that lets motivated learners go deeper on partial derivatives and the gradient after the OpenStax primary text.",
+          "known_availability_limitations": "Hosted on MIT OCW; video playback needs network access, with downloadable course archives available.",
+          "safe_fallback": "All required formulas, worked examples, and numeric checks are contained in the localized lesson text.",
+          "compared_candidates": [
+            {
+              "candidate_name": "OpenStax Calculus Volume 3",
+              "url": "https://openstax.org/books/calculus-volume-3/pages/4-introduction",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_selected_for_day20",
+              "comparison_rationale": "Chosen as the primary written reference; MIT OCW is the deeper lecture companion."
+            },
+            {
+              "candidate_name": "Khan Academy: Multivariable Calculus",
+              "url": "https://www.khanacademy.org/math/multivariable-calculus",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "More accessible pacing but less rigorous than the Auroux lectures for the path-sum chain rule."
+            }
+          ]
+        },
+        {
+          "id": "openstax-calculus-3",
+          "title": "OpenStax Calculus Volume 3",
+          "author": "OpenStax, Rice University (Gilbert Strang, Edwin Herman, et al.)",
+          "original_url": "https://openstax.org/details/books/calculus-volume-3",
+          "relevant_timestamp": "Section 4.3 Partial Derivatives: definition, notation, and worked examples",
+          "version_or_verification_date": "OpenStax Calculus Volume 3 web edition (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "textbook",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "attribution",
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no source text or figures reproduced.",
+          "prerequisites": "Single-variable derivatives and the chain rule (Study Days 16-19).",
+          "selection_rationale": "Openly licensed primary definition of the partial derivative matching the day's slice-and-differentiate method.",
+          "known_availability_limitations": "Online textbook requires network access; a PDF mirror can be downloaded in advance.",
+          "safe_fallback": "The lesson contains complete local derivations, worked answers, and a finite-difference check.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OCW 18.02SC Multivariable Calculus (Prof. Denis Auroux)",
+              "url": "https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_selected_for_day20",
+              "comparison_rationale": "Selected as the lecture-depth companion for partial derivatives; OpenStax Volume 3 remains the written primary reference."
+            },
+            {
+              "candidate_name": "Khan Academy: Multivariable Calculus",
+              "url": "https://www.khanacademy.org/math/multivariable-calculus",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong visual coverage of gradients, but the OpenStax text better matches the lesson's theorem-plus-hand-check structure."
+            }
+          ],
+          "locator_url": "https://openstax.org/books/calculus-volume-3/pages/4-3-partial-derivatives"
+        }
+      ]
+    },
+    {
+      "id": "day-20-act-02",
+      "lesson_id": "les-20",
+      "title": "The gradient vector points up the steepest slope",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev2",
+      "prerequisites": [
+        "day-20-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "openstax-calculus-3",
+          "title": "OpenStax Calculus Volume 3",
+          "author": "OpenStax, Rice University (Gilbert Strang, Edwin Herman, et al.)",
+          "original_url": "https://openstax.org/details/books/calculus-volume-3",
+          "relevant_timestamp": "Section 4.6: the gradient is the direction of maximum increase with magnitude equal to that rate",
+          "version_or_verification_date": "OpenStax Calculus Volume 3 web edition (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "textbook",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "attribution",
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no source text or figures reproduced.",
+          "prerequisites": "Partial derivatives (day-20-act-01).",
+          "selection_rationale": "States and proves the steepest-ascent property verified numerically in the exercise.",
+          "known_availability_limitations": "Online textbook requires network access; a PDF mirror can be downloaded in advance.",
+          "safe_fallback": "The exercise derives the norm equality locally and checks it with a finite difference.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OCW 18.02SC Multivariable Calculus (Prof. Denis Auroux)",
+              "url": "https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_selected_for_day20",
+              "comparison_rationale": "Selected as the lecture-depth companion for partial derivatives; OpenStax Volume 3 remains the written primary reference."
+            },
+            {
+              "candidate_name": "Khan Academy: Multivariable Calculus",
+              "url": "https://www.khanacademy.org/math/multivariable-calculus",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong visual coverage of gradients, but the OpenStax text better matches the lesson's theorem-plus-hand-check structure."
+            }
+          ],
+          "locator_url": "https://openstax.org/books/calculus-volume-3/pages/4-6-directional-derivatives-and-the-gradient"
+        },
+        {
+          "id": "3blue1brown-gradient-descent",
+          "title": "Gradient Descent, How Neural Networks Learn",
+          "author": "Grant Sanderson (3Blue1Brown)",
+          "original_url": "https://www.3blue1brown.com/lessons/gradient-descent",
+          "relevant_timestamp": "Chapter 2 video: the gradient points in the direction of steepest increase",
+          "version_or_verification_date": "2017 video release (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "video",
+          "license": "3Blue1Brown copyright (all rights reserved); site FAQ permits only short clips under stated conditions",
+          "license_restrictions": [
+            "No video, audio, transcript or frame redistribution permitted"
+          ],
+          "permission_basis": "Lawful external linking only. 3Blue1Brown lessons and videos are copyright 3Blue1Brown; the site FAQ allows only short clips under stated conditions, and the CC BY-NC-SA 4.0 license of the 3b1b/videos repository covers animation code, not the videos. No video, audio, transcript or frames are imported.",
+          "prerequisites": "Partial derivative intuition from the previous activity.",
+          "selection_rationale": "Visual motivation for why gradient descent moves downhill, connecting the math to later optimization days.",
+          "known_availability_limitations": "Video streaming may be blocked by regional networks or institutional firewalls.",
+          "safe_fallback": "The steepest-ascent fact is stated and verified numerically in the local content.",
+          "compared_candidates": [
+            {
+              "candidate_name": "OpenStax Calculus Volume 3 Section 4.6",
+              "url": "https://openstax.org/books/calculus-volume-3/pages/4-6-directional-derivatives-and-the-gradient",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_selected_for_day20",
+              "comparison_rationale": "Chosen as the primary written source proving the steepest-ascent theorem; 3Blue1Brown supplies the ML-motivation layer."
+            },
+            {
+              "candidate_name": "Khan Academy: The gradient",
+              "url": "https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivatives/gradient-and-directional-derivatives/v/gradient",
+              "license": "Proprietary (free course)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Free interactive drills on the same gradient concept; the 3Blue1Brown video was retained for its visual-first derivation of steepest descent."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-20-act-03",
+      "lesson_id": "les-20",
+      "title": "Multivariable chain rule: shared paths add contributions",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-20-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "openstax-calculus-3",
+          "title": "OpenStax Calculus Volume 3",
+          "author": "OpenStax, Rice University (Gilbert Strang, Edwin Herman, et al.)",
+          "original_url": "https://openstax.org/details/books/calculus-volume-3",
+          "relevant_timestamp": "Section 4.5: dz/dt equals the sum of partial-derivative products over all paths",
+          "version_or_verification_date": "OpenStax Calculus Volume 3 web edition (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "textbook",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "attribution",
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no source text or figures reproduced.",
+          "prerequisites": "Scalar chain rule (day-19) and partial derivatives (day-20-act-01).",
+          "selection_rationale": "Primary statement of the tree-diagram rule that the day's shared-path counterexample verifies.",
+          "known_availability_limitations": "Online textbook requires network access; a PDF mirror can be downloaded in advance.",
+          "safe_fallback": "Both worked examples are derived locally and cross-checked against direct substitution.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OCW 18.02SC Multivariable Calculus (Prof. Denis Auroux)",
+              "url": "https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_selected_for_day20",
+              "comparison_rationale": "Selected as the lecture-depth companion for partial derivatives; OpenStax Volume 3 remains the written primary reference."
+            },
+            {
+              "candidate_name": "Khan Academy: Multivariable Calculus",
+              "url": "https://www.khanacademy.org/math/multivariable-calculus",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong visual coverage of gradients, but the OpenStax text better matches the lesson's theorem-plus-hand-check structure."
+            }
+          ],
+          "locator_url": "https://openstax.org/books/calculus-volume-3/pages/4-5-the-chain-rule"
+        },
+        {
+          "id": "openstax-calculus-1",
+          "title": "OpenStax Calculus Volume 1",
+          "author": "OpenStax, Rice University (Gilbert Strang, Edwin Herman, et al.)",
+          "original_url": "https://openstax.org/details/books/calculus-volume-1",
+          "relevant_timestamp": "Section 3.6: scalar chain rule used to check each path product",
+          "version_or_verification_date": "OpenStax Calculus Volume 1 web edition (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "open_textbook",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "attribution",
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no source text or figures reproduced.",
+          "prerequisites": "Derivative rules for powers and polynomials (Study Days 16-18).",
+          "selection_rationale": "Recovery reference for the single-variable products inside the multivariable sum.",
+          "known_availability_limitations": "Online textbook requires network access; a PDF mirror can be downloaded in advance.",
+          "safe_fallback": "Day 19 content already covers the scalar rule; this link is optional review.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OpenCourseWare 18.01SC Single Variable Calculus",
+              "url": "https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_selected_for_visual_practice",
+              "comparison_rationale": "Strong exercises and transcripts, but the noncommercial share-alike terms and course navigation make OpenStax the primary stable text."
+            },
+            {
+              "candidate_name": "Paul's Online Math Notes: Calculus I",
+              "url": "https://tutorial.math.lamar.edu/Classes/CalcI/CalcI.aspx",
+              "license": "All Rights Reserved",
+              "status": "compared_rejected_for_reuse",
+              "comparison_rationale": "Useful reference, but rights and redistribution terms are less suitable for embedded recovery material."
+            },
+            {
+              "candidate_name": "SciPy Numerical Differentiation Documentation",
+              "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+              "license": "BSD-3-Clause",
+              "status": "compared_selected_for_numerics",
+              "comparison_rationale": "A primary API reference for numerical derivative step-size behavior; it complements rather than replaces the hand derivation."
+            }
+          ],
+          "locator_url": "https://openstax.org/books/calculus-volume-1/pages/3-6-the-chain-rule"
+        }
+      ]
+    },
+    {
+      "id": "day-20-act-04",
+      "lesson_id": "les-20",
+      "title": "Independent mastery check: gradients, verification, and edge cases",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-20-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "openstax-calculus-3",
+          "title": "OpenStax Calculus Volume 3",
+          "author": "OpenStax, Rice University (Gilbert Strang, Edwin Herman, et al.)",
+          "original_url": "https://openstax.org/details/books/calculus-volume-3",
+          "relevant_timestamp": "Section 4.6: gradient exists only where the partial derivatives exist",
+          "version_or_verification_date": "OpenStax Calculus Volume 3 web edition (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "textbook",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "attribution",
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no source text or figures reproduced.",
+          "prerequisites": "Partial derivatives and the multivariable chain rule.",
+          "selection_rationale": "Frames the nondifferentiable edge case in the mastery check.",
+          "known_availability_limitations": "Online textbook requires network access; a PDF mirror can be downloaded in advance.",
+          "safe_fallback": "The edge case is analyzed locally with directional slopes that disagree.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OCW 18.02SC Multivariable Calculus (Prof. Denis Auroux)",
+              "url": "https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_selected_for_day20",
+              "comparison_rationale": "Selected as the lecture-depth companion for partial derivatives; OpenStax Volume 3 remains the written primary reference."
+            },
+            {
+              "candidate_name": "Khan Academy: Multivariable Calculus",
+              "url": "https://www.khanacademy.org/math/multivariable-calculus",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong visual coverage of gradients, but the OpenStax text better matches the lesson's theorem-plus-hand-check structure."
+            }
+          ],
+          "locator_url": "https://openstax.org/books/calculus-volume-3/pages/4-6-directional-derivatives-and-the-gradient"
+        },
+        {
+          "id": "py-docs-numeric-ops",
+          "title": "The Python Tutorial: Numbers and Expressions",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/introduction.html#numbers",
+          "relevant_timestamp": "Section 3.1.1 Numbers: arithmetic used by the finite-difference checks",
+          "version_or_verification_date": "Python 3.12 documentation (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Linking only; no source text reproduced.",
+          "prerequisites": "Able to run a short Python file from the terminal.",
+          "selection_rationale": "Reference for the verification arithmetic used in the mastery check.",
+          "known_availability_limitations": "Online documentation may be unavailable offline.",
+          "safe_fallback": "The verification snippets are embedded and run on a standard Python install.",
+          "compared_candidates": [
+            {
+              "candidate_name": "math — Mathematical functions",
+              "url": "https://docs.python.org/3/library/math.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Extends the operator set to transcendental functions; kept as a follow-on once the arithmetic expressions are fluent."
+            },
+            {
+              "candidate_name": "The Python Tutorial: Floating Point Arithmetic Issues",
+              "url": "https://docs.python.org/3/tutorial/floatingpoint.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Explains binary float representation limits; deferred to the numerics days where tolerance reasoning is rehearsed."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,344 @@
+{
+  "id": "day-84",
+  "day_number": 84,
+  "active_minutes": 480,
+  "topic_category": "agents",
+  "is_review_day": true,
+  "status": "available",
+  "prerequisites": [
+    "day-83"
+  ],
+  "recovery_links": [
+    "day-77"
+  ],
+  "activities": [
+    {
+      "id": "day-84-act-01",
+      "lesson_id": "les-84",
+      "title": "Synthesis Review: Evidence Kinds, Pre-Registration, and Baseline Discipline",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-83"
+      ],
+      "source_resources": [
+        {
+          "id": "liu-agentbench-2023",
+          "title": "AgentBench: Evaluating LLMs as Agents",
+          "author": "Xiao Liu, Hao Yu, Hanchen Zhang, Yifan Xu, Xuanyu Lei, Hanyu Lai, Yu Gu, Hangliang Ding, Kaiwen Men, Kejuan Yang, et al.",
+          "original_url": "https://arxiv.org/abs/2308.03688",
+          "version_or_verification_date": "ICLR 2024 / arXiv:2308.03688v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "LLM prompting, tool-use environments, and multi-step task decomposition.",
+          "selection_rationale": "First systematic multi-environment benchmark measuring LLM-as-agent ability across eight interactive settings, establishing fixed task suites, environment-specific scoring, and comparable evaluation conventions.",
+          "known_availability_limitations": "Freely accessible on arXiv; benchmark code and data hosted on GitHub.",
+          "safe_fallback": "The curriculum fixes its own six-task evaluation suite with deterministic-v1 fixture analogs, so all protocol-design practice runs offline without reproducing AgentBench environments.",
+          "compared_candidates": [
+            {
+              "candidate_name": "OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments",
+              "url": "https://arxiv.org/abs/2404.07972",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Real computer-control benchmark for open-ended desktop tasks; AgentBench covers a wider environment spectrum for foundational evaluation design."
+            },
+            {
+              "candidate_name": "Mind2Web: Towards a Generalist Agent for the Web",
+              "url": "https://arxiv.org/abs/2306.06070",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Generalist web-agent benchmark with 2,350 tasks; AgentBench provides broader multi-domain coverage for studying evaluation protocol design."
+            }
+          ],
+          "relevant_timestamp": "Section 4.1 Evaluation Setup and Section 4.3 Analysis"
+        },
+        {
+          "id": "jimenez-swe-bench-2024",
+          "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+          "author": "Carlos E. Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir Press, Karthik R. Narasimhan",
+          "original_url": "https://arxiv.org/abs/2310.06770",
+          "version_or_verification_date": "ICLR 2024 / arXiv:2310.06770v3 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Unit testing, issue descriptions, and repository evaluation vocabulary.",
+          "selection_rationale": "Defines the standard pattern this block teaches: a bounded issue statement paired with executable fail-to-pass tests as verifiable acceptance criteria for agent-produced changes.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "The acceptance-criteria pattern is exercised locally through the Ticket 22 fixture scorer and the Ticket 24 regression exercise without external datasets.",
+          "compared_candidates": [
+            {
+              "candidate_name": "HumanEval: Evaluating Large Language Models Trained on Code",
+              "url": "https://arxiv.org/abs/2107.03374",
+              "license": "arXiv non-exclusive license / Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Function-level synthesis benchmark; SWE-bench models the repository-scoped issue-to-diff workflow that this delivery block rehearses."
+            },
+            {
+              "candidate_name": "Multi-SWE-bench: A Multilingual Benchmark for Issue Resolving",
+              "url": "https://arxiv.org/abs/2504.02605",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Extends issue resolution to multiple programming languages; the original Python-centric SWE-bench provides a cleaner pedagogical anchor."
+            }
+          ],
+          "locator_status": "whole_source_reference"
+        }
+      ]
+    },
+    {
+      "id": "day-84-act-02",
+      "lesson_id": "les-84",
+      "title": "Metric Recomputation Drill: From Raw Traces to Checkable Numbers",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-84-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "yao-taubench-2024",
+          "title": "tau-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains",
+          "author": "Shunyu Yao, Noah Shinn, Pedram Razavi, Karthik Narasimhan",
+          "original_url": "https://arxiv.org/abs/2406.12045",
+          "version_or_verification_date": "ICLR 2025 / arXiv:2406.12045v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Tool-calling APIs, conversational agents, and policy-following evaluation.",
+          "selection_rationale": "Introduces pass^k consistency metrics and database-state outcome checks for tool-agent-user interaction, separating reliable task completion from single lucky runs.",
+          "known_availability_limitations": "Freely available on arXiv; benchmark repository publicly hosted.",
+          "safe_fallback": "Consistency metrics and state-based outcome checking are re-implemented on the curriculum deterministic fixture for offline practice.",
+          "compared_candidates": [
+            {
+              "candidate_name": "ToolSandbox: A Stateful, Conversational, Interactive Evaluation Benchmark for LLM Tool Use",
+              "url": "https://arxiv.org/abs/2408.04682",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Stateful tool-use evaluation with milestone events; tau-bench additionally models a simulated user and reports pass^k reliability."
+            },
+            {
+              "candidate_name": "Berkeley Function-Calling Leaderboard (BFCL)",
+              "url": "https://gorilla.cs.berkeley.edu/leaderboard.html",
+              "license": "Apache 2.0 (Gorilla project)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Live leaderboard for function-call correctness across languages and parallel calls; tau-bench adds policy adherence and multi-trial consistency."
+            }
+          ],
+          "relevant_timestamp": "Section 3 τ-bench: A benchmark for Tool-Agent-User Interaction (pass^k definition); Section 4.2 Key Characteristics; Section 5 Experiments (pass^k results)"
+        },
+        {
+          "id": "zhou-webarena-2023",
+          "title": "WebArena: A Realistic Web Environment for Building Autonomous Agents",
+          "author": "Shuyan Zhou, Frank F. Xu, Hao Zhu, Xuhui Zhou, Robert Lo, Abishek Sridhar, Xianyi Cheng, Tianyue Ou, Yonatan Bisk, Daniel Fried, Uri Alon, Graham Neubig",
+          "original_url": "https://arxiv.org/abs/2307.13854",
+          "version_or_verification_date": "ICLR 2024 / arXiv:2307.13854v4 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Web navigation, browser action spaces, and functional correctness checking.",
+          "selection_rationale": "Defines reproducible web tasks scored by functional outcome rather than reference-string matching, grounding observable action/observation evidence for agent evaluation.",
+          "known_availability_limitations": "Freely available on arXiv; environment code and hosted containers publicly released.",
+          "safe_fallback": "The curriculum records action/observation traces on its own deterministic fixture, reproducing outcome-check discipline without hosting web environments.",
+          "compared_candidates": [
+            {
+              "candidate_name": "WorkArena: How Capable Are Web Agents at Solving Common Knowledge Work Tasks?",
+              "url": "https://arxiv.org/abs/2403.07718",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Enterprise-workflow web benchmark; WebArena offers broader self-hosted site diversity for foundational protocol study."
+            },
+            {
+              "candidate_name": "VisualWebArena: Evaluating Multimodal Agents on Realistic Visual Web Tasks",
+              "url": "https://arxiv.org/abs/2401.13649",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Extends WebArena to visual grounding; WebArena remains the base reference for action-space and functional scoring design."
+            }
+          ],
+          "relevant_timestamp": "Section 3.2 Evaluation Annotation (functional correctness checks)"
+        }
+      ]
+    },
+    {
+      "id": "day-84-act-03",
+      "lesson_id": "les-84",
+      "title": "Four-Language Scientific Evaluation Report Assembly",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-84-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "openai-evals-framework",
+          "title": "OpenAI Evals: Framework for Evaluating LLMs and Contamination Checks",
+          "author": "OpenAI Research",
+          "original_url": "https://github.com/openai/evals",
+          "version_or_verification_date": "OpenAI Evals Repository (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Permissive open source reference under MIT license.",
+          "prerequisites": "Python, evaluation harnesses (MMLU, GSM8K), JSONL datasets.",
+          "selection_rationale": "Standardized evaluation repository specifying rigorous separation of eval prompts, canary GUID strings, and contamination test protocols.",
+          "known_availability_limitations": "Public GitHub repository.",
+          "safe_fallback": "Canary GUID matching, token set intersection, and leak detection scripts are implemented in the curriculum.",
+          "compared_candidates": [
+            {
+              "candidate_name": "EleutherAI LM Evaluation Harness",
+              "url": "https://github.com/EleutherAI/lm-evaluation-harness",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Widely adopted evaluation harness; OpenAI Evals provides explicit canary guidance and contamination check specifications."
+            },
+            {
+              "candidate_name": "Hugging Face Lighteval",
+              "url": "https://github.com/huggingface/lighteval",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Modern lightweight eval framework; OpenAI Evals illustrates standard test-set integrity guarantees."
+            }
+          ],
+          "relevant_timestamp": "README sections 'Running evals' and 'Writing evals'"
+        },
+        {
+          "id": "liu-agentbench-2023",
+          "title": "AgentBench: Evaluating LLMs as Agents",
+          "author": "Xiao Liu, Hao Yu, Hanchen Zhang, Yifan Xu, Xuanyu Lei, Hanyu Lai, Yu Gu, Hangliang Ding, Kaiwen Men, Kejuan Yang, et al.",
+          "original_url": "https://arxiv.org/abs/2308.03688",
+          "version_or_verification_date": "ICLR 2024 / arXiv:2308.03688v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "LLM prompting, tool-use environments, and multi-step task decomposition.",
+          "selection_rationale": "First systematic multi-environment benchmark measuring LLM-as-agent ability across eight interactive settings, establishing fixed task suites, environment-specific scoring, and comparable evaluation conventions.",
+          "known_availability_limitations": "Freely accessible on arXiv; benchmark code and data hosted on GitHub.",
+          "safe_fallback": "The curriculum fixes its own six-task evaluation suite with deterministic-v1 fixture analogs, so all protocol-design practice runs offline without reproducing AgentBench environments.",
+          "compared_candidates": [
+            {
+              "candidate_name": "OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments",
+              "url": "https://arxiv.org/abs/2404.07972",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Real computer-control benchmark for open-ended desktop tasks; AgentBench covers a wider environment spectrum for foundational evaluation design."
+            },
+            {
+              "candidate_name": "Mind2Web: Towards a Generalist Agent for the Web",
+              "url": "https://arxiv.org/abs/2306.06070",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Generalist web-agent benchmark with 2,350 tasks; AgentBench provides broader multi-domain coverage for studying evaluation protocol design."
+            }
+          ],
+          "relevant_timestamp": "Section 4.1 Evaluation Setup and Section 4.3 Analysis"
+        }
+      ]
+    },
+    {
+      "id": "day-84-act-04",
+      "lesson_id": "les-84",
+      "title": "Consolidation & Assessment Review: Agent Evaluation Mastery Check and Catch-Up Plan",
+      "active_minutes": 120,
+      "activity_type": "review",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-84-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "jimenez-swe-bench-2024",
+          "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+          "author": "Carlos E. Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir Press, Karthik R. Narasimhan",
+          "original_url": "https://arxiv.org/abs/2310.06770",
+          "version_or_verification_date": "ICLR 2024 / arXiv:2310.06770v3 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Unit testing, issue descriptions, and repository evaluation vocabulary.",
+          "selection_rationale": "Defines the standard pattern this block teaches: a bounded issue statement paired with executable fail-to-pass tests as verifiable acceptance criteria for agent-produced changes.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "The acceptance-criteria pattern is exercised locally through the Ticket 22 fixture scorer and the Ticket 24 regression exercise without external datasets.",
+          "compared_candidates": [
+            {
+              "candidate_name": "HumanEval: Evaluating Large Language Models Trained on Code",
+              "url": "https://arxiv.org/abs/2107.03374",
+              "license": "arXiv non-exclusive license / Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Function-level synthesis benchmark; SWE-bench models the repository-scoped issue-to-diff workflow that this delivery block rehearses."
+            },
+            {
+              "candidate_name": "Multi-SWE-bench: A Multilingual Benchmark for Issue Resolving",
+              "url": "https://arxiv.org/abs/2504.02605",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Extends issue resolution to multiple programming languages; the original Python-centric SWE-bench provides a cleaner pedagogical anchor."
+            }
+          ],
+          "locator_status": "whole_source_reference"
+        },
+        {
+          "id": "yao-taubench-2024",
+          "title": "tau-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains",
+          "author": "Shunyu Yao, Noah Shinn, Pedram Razavi, Karthik Narasimhan",
+          "original_url": "https://arxiv.org/abs/2406.12045",
+          "version_or_verification_date": "ICLR 2025 / arXiv:2406.12045v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Tool-calling APIs, conversational agents, and policy-following evaluation.",
+          "selection_rationale": "Introduces pass^k consistency metrics and database-state outcome checks for tool-agent-user interaction, separating reliable task completion from single lucky runs.",
+          "known_availability_limitations": "Freely available on arXiv; benchmark repository publicly hosted.",
+          "safe_fallback": "Consistency metrics and state-based outcome checking are re-implemented on the curriculum deterministic fixture for offline practice.",
+          "compared_candidates": [
+            {
+              "candidate_name": "ToolSandbox: A Stateful, Conversational, Interactive Evaluation Benchmark for LLM Tool Use",
+              "url": "https://arxiv.org/abs/2408.04682",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Stateful tool-use evaluation with milestone events; tau-bench additionally models a simulated user and reports pass^k reliability."
+            },
+            {
+              "candidate_name": "Berkeley Function-Calling Leaderboard (BFCL)",
+              "url": "https://gorilla.cs.berkeley.edu/leaderboard.html",
+              "license": "Apache 2.0 (Gorilla project)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Live leaderboard for function-call correctness across languages and parallel calls; tau-bench adds policy adherence and multi-trial consistency."
+            }
+          ],
+          "relevant_timestamp": "Section 3 τ-bench: A benchmark for Tool-Agent-User Interaction (pass^k definition); Section 4.2 Key Characteristics; Section 5 Experiments (pass^k results)"
+        }
+      ]
+    }
+  ]
+}

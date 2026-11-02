@@ -1,0 +1,87 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 19: The chain rule for composed functions",
+  "day_subtitle": "Derive the chain rule on minimal scalar examples, drill hand calculations against expansion checks, and verify every derivative with a central finite difference. Prediction, observation, review, and recovery are part of the 480-minute ledger.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "AI Mathematics & Calculus",
+  "common": {
+    "nav_calendar": "Curriculum Calendar",
+    "day_label": "Day 19",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Record your prediction, hand derivation, finite-difference check, and recovery evidence here...",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "progress": {
+      "save_btn": "Save Progress",
+      "mark_completed": "Mark as Completed"
+    }
+  },
+  "activities": {
+    "day-19-act-01": {
+      "title": "Composition intuition: derivatives multiply along the chain",
+      "prerequisites": "Study Days 16-18 derivative rules; if any rule is shaky, open the day-level recovery link before continuing.",
+      "objective": "State the chain rule dy/dx = dy/du * du/dx for a composition y = g(u), u = h(x), motivate it with small changes, and apply it to a polynomial power with an independent expansion check.",
+      "assistance_policy_label": "Assistance allowed only after prediction and observed evidence are recorded.",
+      "instructions": "Study source: within this activity's existing reading/practice time, use MIT OCW 18.01SC Single Variable Calculus, Unit 1, Part A, Session 11: Chain Rule; lecture notes and worked example with solution, then explain one connection to the local task in your own words. Keep the local exercise and acceptance checks; use its original explanation if the external source is unavailable. Let y = (3x + 1)^2. Set u = 3x + 1 so y = u^2. A small change dx scales to du = 3 dx, and du scales to dy = 2u du, so dy/dx = 2u * 3 = 6(3x + 1) = 18x + 6. Verify by expanding first: (3x + 1)^2 = 9x^2 + 6x + 1, whose derivative is also 18x + 6. Write the two derivations side by side and predict dy/dx at x = 1 before computing.",
+      "exercise_prompt": "Predict, then compute: (a) d/dx (3x + 1)^2 evaluated at x = 1, using the chain rule and again by expansion; (b) d/dx (2x - 1)^3 evaluated at x = 1 using the chain rule.",
+      "hint": "The outer derivative is evaluated at the inner value, then multiplied by the inner derivative. For (b), u = 2x - 1 gives 3u^2 * 2 = 6(2x - 1)^2; at x = 1, u = 1.",
+      "answer": "(a) Chain rule: 2(3x + 1) * 3 = 18x + 6, so at x = 1 the slope is 24 and y = 16. Expansion check: 9x^2 + 6x + 1 differentiates to 18x + 6 — identical. (b) 3(2x - 1)^2 * 2 = 6(2x - 1)^2; at x = 1 this is 6 * 1 = 6, while the function value is 1. A central finite difference (f(1.00001) - f(0.99999)) / 0.00002 agrees: about 24.0000 for (a) and 6.0000 for (b).",
+      "mastery_criterion": "You state the chain rule with named inner and outer functions, reproduce both derivations of 18x + 6 without notes, and your predicted values 24 and 6 match a finite-difference check you ran yourself.",
+      "source_recovery": "If blocked, review the Day 19 scalar chain rule source links; the OpenStax section contains extra worked examples, and the 3Blue1Brown chapter restates the same product picture geometrically.",
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-19-act-02": {
+      "title": "Hand computation drills and the missing inner derivative",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Compute derivatives of composed powers by hand, confirm each result by polynomial expansion or a finite difference, and diagnose the classic error of dropping the inner derivative.",
+      "assistance_policy_label": "Independent practice: predict first and preserve the recorded unaided attempt; any later help is a separate assisted-recovery phase, and a fresh equivalent unaided check is required before the idea counts as independent evidence.",
+      "instructions": "Work without looking at answers first. For f(x) = (5x - 2)^3, the chain rule gives f'(x) = 3(5x - 2)^2 * 5 = 15(5x - 2)^2. Confirm at x = 1 by expanding (5x - 2)^3 = 125x^3 - 150x^2 + 60x - 8, whose derivative 375x^2 - 300x + 60 evaluates to 135 at x = 1 — the same as 15 * 3^2. Then repeat for g(x) = (x^2 + 1)^2 at x = 2, where the inner derivative is 2x instead of a constant. If you use help after the preserved attempt, treat it as assisted recovery: keep the original attempt unchanged, and pass a fresh equivalent unaided check before calling the idea remediated.",
+      "exercise_prompt": "Compute by hand and verify: (a) f'(1) for f(x) = (5x - 2)^3; (b) g'(2) for g(x) = (x^2 + 1)^2. For each, also write the wrong answer produced by forgetting the inner derivative, and explain the size of the error.",
+      "hint": "For (b) the inner function u = x^2 + 1 is not linear, so du/dx = 2x varies with x; at x = 2 it contributes a factor of 4, not 1.",
+      "answer": "(a) f'(x) = 15(5x - 2)^2, so f'(1) = 15 * 9 = 135; expansion gives the same 375 - 300 + 60 = 135. Dropping the inner derivative yields 3(5x - 2)^2 -> 27, low by the missing factor 5. (b) g'(x) = 2(x^2 + 1) * 2x = 4x(x^2 + 1), so g'(2) = 8 * 5 = 40; expanding x^4 + 2x^2 + 1 gives 4x^3 + 4x = 40 at x = 2. Dropping du/dx gives 2(x^2 + 1) -> 10, low by the missing factor 4. Finite-difference checks: about 135.0000 and 40.0000.",
+      "mastery_criterion": "Unaided, you produce 135 and 40 with a chain-rule derivation and an independent check for each, and you can state which factor the common omission loses (5 and 4 respectively).",
+      "source_recovery": "If blocked, redo the Day 19 activity-1 expansion check, then retry; the OpenStax exercise list provides more drill functions of the same shape."
+    },
+    "day-19-act-03": {
+      "title": "Deeper chains and finite-difference verification",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Apply the chain rule through three nested links, then write a tiny Python helper that verifies any hand derivative by a central finite difference.",
+      "assistance_policy_label": "Assistance allowed only after prediction and observed evidence are recorded.",
+      "instructions": "For w = (2x^2 + 1)^3, decompose as w = v^3 with v = 2x^2 + 1. Then dw/dx = 3v^2 * dv/dx = 3(2x^2 + 1)^2 * 4x = 12x(2x^2 + 1)^2. At x = 1 that is 12 * 9 = 108 while w = 27. Verification helper: def central_fd(f, x, h=1e-5): return (f(x + h) - f(x - h)) / (2 * h). Predict the printed value before running central_fd(lambda x: (2*x**2 + 1)**3, 1).",
+      "exercise_prompt": "Write the three-link derivation for dw/dx of w = (2x^2 + 1)^3, evaluate it at x = 1, and run the finite-difference helper to confirm. Then use the helper to re-verify 24 for d/dx (3x + 1)^2 at x = 1 and record any mismatch.",
+      "hint": "The innermost derivative dv/dx = 4x comes from the x^2 term; the constant 1 vanishes. In exact arithmetic under sufficient smoothness, central differences truncate at O(h^2) versus O(h) for one-sided as h -> 0 - but at finite h the differing truncation coefficients themselves — cancellation of terms, not floating-point roundoff — can reverse that order: in exact arithmetic f(x) = x^2 - 100000 x^3 at x = 0 with h = 1e-5 gives forward exactly 0 and central exactly -1/100000 (in binary floating point the forward value is ≈ -1.3e-21, approximately but not guaranteed exactly zero). Roundoff can shift the outcome further at tiny h, so never claim universal fixed-h superiority.",
+      "answer": "dw/dx = 3(2x^2 + 1)^2 * 4x = 12x(2x^2 + 1)^2, which at x = 1 gives 12 * 1 * 9 = 108. The helper prints approximately 108 (the final floating-point digits may vary), and returns about 24.0000 for (3x + 1)^2 at x = 1. Any larger disagreement is a signal to investigate, not a verdict on either side: recheck the hand derivation, the helper and harness code (the function passed in, the point, the formula), and the step size, since too large an h inflates truncation error and too small an h amplifies floating-point rounding error.",
+      "mastery_criterion": "Your written chain has exactly three factors in the right order, your prediction precedes the run, and the finite-difference output matches 108 and 24 to at least four decimal places.",
+      "source_recovery": "If the nested factors confuse you, re-derive the two-link case from activity 1, then insert the middle link; the OpenStax section on applying the rule more than once mirrors this exact pattern."
+    },
+    "day-19-act-04": {
+      "title": "Independent mastery check, kink edge cases, and recovery",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Under closed-book conditions, state and apply the chain rule, verify a derivative numerically, and explain why the rule fails at a nondifferentiable kink.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "No notes or AI during the check. Part 1: state the chain rule for y = g(u), u = h(x). Part 2: compute d/dx (4x + 3)^2 at x = 0 and verify with a finite difference. Part 3: f(x) = |2x - 2| has a kink at x = 1. Compute the left difference-quotient slope and the right slope there, and explain why the chain rule does not apply at that point even though |u| and 2x - 2 are simple functions.",
+      "exercise_prompt": "Submit: the chain rule statement, the value of d/dx (4x + 3)^2 at x = 0 with your verification number, the left and right slopes of |2x - 2| at x = 1, and one sentence on what hypothesis fails.",
+      "hint": "For Part 3, the chain rule requires both links to be differentiable at the evaluation point; u = 0 is exactly where |u| bends.",
+      "answer": "Part 1: dy/dx = (dy/du)(du/dx). Part 2: 2(4x + 3) * 4 = 8(4x + 3); at x = 0, u = 3, so the slope is 24 (finite difference about 23.9999). Part 3: left slope approaches -2, right slope approaches +2, so no single derivative exists at x = 1; the inner function u = 2x - 2 hits 0 there and |u| is not differentiable at 0, so the chain rule's differentiability hypothesis fails. Recovery: log any missed piece and re-attempt the matching earlier activity after a break.",
+      "mastery_criterion": "All four parts correct unaided: the rule statement, 24 with numeric agreement, slopes -2 and +2 with a correct hypothesis-failure explanation, plus an honest recovery note for anything missed.",
+      "source_recovery": "If you miss a part, schedule a recovery block using the day-level recovery link and re-attempt this check after rest; the OpenStax differentiability discussion explains the kink hypothesis formally."
+    }
+  }
+}

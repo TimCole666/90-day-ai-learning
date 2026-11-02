@@ -1,0 +1,74 @@
+{
+  "id": "diagnostic-prerequisites",
+  "content_revision": "2026.10.30-rev1",
+  "total_questions": 5,
+  "domains": {
+    "python_fundamentals": {
+      "question_ids": ["q1", "q2"],
+      "recovery_material": ["day-01", "day-04"],
+      "skip_scope": "Days 01-03 introductory syntax"
+    },
+    "math_foundations": {
+      "question_ids": ["q3", "q4", "q5"],
+      "recovery_material": ["day-16", "day-22", "day-25"],
+      "skip_scope": "Days 16-18 preliminary calculus reading"
+    }
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "concept_id": "py_mutability",
+      "domain": "python_fundamentals",
+      "expected_answer": "b",
+      "activity_id": "day-01-act-01",
+      "target_day": "day-01",
+      "scheduled_review_day": "day-07",
+      "allocated_minutes": 60,
+      "recovery_links": ["day-01"]
+    },
+    {
+      "id": "q2",
+      "concept_id": "py_control_scope",
+      "domain": "python_fundamentals",
+      "expected_answer": "b",
+      "activity_id": "day-04-act-01",
+      "target_day": "day-04",
+      "scheduled_review_day": "day-07",
+      "allocated_minutes": 60,
+      "recovery_links": ["day-04", "day-07"]
+    },
+    {
+      "id": "q3",
+      "concept_id": "math_calculus_derivatives",
+      "domain": "math_foundations",
+      "expected_answer": "b",
+      "activity_id": "day-16-act-01",
+      "target_day": "day-16",
+      "scheduled_review_day": "day-07",
+      "allocated_minutes": 90,
+      "recovery_links": ["day-16"]
+    },
+    {
+      "id": "q4",
+      "concept_id": "math_linear_algebra_tensors",
+      "domain": "math_foundations",
+      "expected_answer": "b",
+      "activity_id": "day-22-act-01",
+      "target_day": "day-22",
+      "scheduled_review_day": "day-07",
+      "allocated_minutes": 90,
+      "recovery_links": ["day-22"]
+    },
+    {
+      "id": "q5",
+      "concept_id": "math_probability_loss",
+      "domain": "math_foundations",
+      "expected_answer": "b",
+      "activity_id": "day-25-act-01",
+      "target_day": "day-25",
+      "scheduled_review_day": "day-07",
+      "allocated_minutes": 60,
+      "recovery_links": ["day-25"]
+    }
+  ]
+}

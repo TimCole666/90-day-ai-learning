@@ -1,0 +1,108 @@
+{
+  "language": "zh-Hans",
+  "language_label": "简体中文",
+  "day_title": "第 38 天：N-gram 语言模型 — 计数、条件概率与平滑",
+  "day_subtitle": "在确定性训练划分上拟合基于计数的二元（bigram）基线：构建计数表、归一化为条件概率、对未见事件进行平滑，并在留出文本上用似然度与困惑度进行评估 — 每个数值均可手算验证。所有工作都计入 480 分钟台账。",
+  "time_budget_label": "480 分钟有效学习（8 小时专注学习）",
+  "category_label": "模型与训练",
+  "common": {
+    "nav_calendar": "📅 课程日历与台账",
+    "nav_agent_track": "🤖 Agent 工具路线",
+    "day_label": "第 38 天",
+    "prerequisites_title": "前置要求",
+    "objective_title": "学习目标",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主演练与记录",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看参考解答与分析",
+    "mastery_title": "独立掌握标准",
+    "draft_placeholder": "在此记录你的计数表、预测概率、计算出的似然度与回退证据...",
+    "dev_slice_notice": "90 天 AI 学习平台的已验证正式课程模块。",
+    "sources_heading": "权威源资源与权利证明",
+    "source_author_label": "作者 / 机构",
+    "source_url_label": "原始出处链接",
+    "source_range_label": "对应章节 / 范围",
+    "source_verification_label": "验证版本与日期",
+    "source_reuse_label": "复用类别",
+    "source_license_label": "许可证与权利说明",
+    "source_rationale_label": "入选理由",
+    "source_prereqs_label": "来源前置条件",
+    "source_fallback_label": "安全回退方案（离线弹性）",
+    "compared_candidates_heading": "对比候选资源与选型分析",
+    "compared_status_label": "评估结论",
+    "auth": {
+      "sign_in": "使用 Google 登录",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "退出登录",
+      "signed_in_as": "已登录为",
+      "guest": "访客模式",
+      "link_github": "绑定 GitHub",
+      "link_google": "绑定 Google",
+      "linked_identities": "已绑定账号",
+      "auth_errors": {
+        "access_denied": "授权已取消或访问被拒绝。",
+        "invalid_state": "无效或已过期的授权状态令牌，请重试。",
+        "identity_conflict": "该第三方身份已被绑定至其他账号。",
+        "provider_error": "认证服务提供商发生错误。",
+        "server_error": "认证服务提供商发生错误。",
+        "session_expired": "登录会话已过期，请重新登录。"
+      }
+    },
+    "progress": {
+      "save_btn": "保存进度",
+      "saved": "已保存",
+      "saving": "正在保存...",
+      "save_error": "保存失败",
+      "offline": "离线状态",
+      "mark_completed": "标记为已完成",
+      "completed_badge": "已完成"
+    }
+  },
+  "activities": {
+    "day-38-act-01": {
+      "title": "统计二元词元对：从词元流到计数表",
+      "prerequisites": "完成第 37 天。如受阻，使用第 35 天的回退链接复习概率与 Python。",
+      "objective": "将词元序列转换为二元计数表 C(w_{i-1}, w_i)，区分上下文总频次与配对频次，并将每个计数值与手动追踪对照验证（支持 Unicode 字符与空输入边界处理）。",
+      "assistance_policy_label": "Agent 辅助工程检查",
+      "instructions": "二元语法（bigram）指相邻的两个连续词元。必做工作：在词元流 'the cat sat the cat ran the dog sat'（模拟由三行训练数据合并成的 9 词元流，遵循 text_tools 的规范）上滑动长度为 2 的窗口，使用 Counter(zip(words, words[1:])) 统计所有相邻配对。选做工作：在验证集 val 划分上重复此过程并比较数据稀疏度。注意：当输入为空文本 '' 时配对计数为空集，Unicode 字符串如 'é猫é' 亦能完全按相同逻辑滑动计数。",
+      "exercise_prompt": "在运行任何代码之前，手工写出 8 个相邻词元对以及完整计数表。然后用同样方法计算 'banana' 的字符级 bigram 并记录两张表。",
+      "hint": "词元流配对：(the,cat), (cat,sat), (sat,the), (the,cat), (cat,ran), (ran,the), (the,dog), (dog,sat)。对于 'banana' 字符流：(b,a), (a,n), (n,a), (a,n), (n,a)。",
+      "answer": "词元流计数（8 个实例，7 种不同二元组）：(the,cat)=2, (cat,sat)=1, (sat,the)=1, (cat,ran)=1, (ran,the)=1, (the,dog)=1, (dog,sat)=1。上下文总量（以各词元开头的二元组总数）：the=3, cat=2, sat=1, ran=1, dog=1。'banana' 字符：(a,n)=2, (n,a)=2, (b,a)=1。空输入 '' 产生的 bigram 计数为空字典 {}。",
+      "mastery_criterion": "你的手写计数表与 Counter(zip(words, words[1:])) 的输出完全一致，并能清晰阐述为什么上下文行总和（而非全语料 unigram 词频）是下一步转移概率归一化的正确分母。"
+    },
+    "day-38-act-02": {
+      "title": "最大似然条件概率估计",
+      "prerequisites": "完成上一活动；如受阻，使用列出的回退链接。",
+      "objective": "将计数表行归一化为最大似然转移概率 P(w_i|w_{i-1}) = C(w_{i-1}, w_i) / C(w_{i-1})，验证每个上下文行的概率和为 1，并通过条件概率连乘为简短语句打分。",
+      "assistance_policy_label": "独立掌握检查（无 AI 辅助）",
+      "instructions": "必做工作：对每个上下文词元，将其所有引出的配对计数除以该上下文的总频次。手工计算 P(·|the)、P(·|cat) 和 P(·|dog) 各行，并验证每行之和严格为 1。选做工作：在 'banana' 字符表上进行相同的概率归一化计算。",
+      "exercise_prompt": "计算 P(cat|the)、P(dog|the)、P(sat|cat)、P(ran|cat)、P(sat|dog)。然后计算在 'the' 之后接续 'cat ran' 的条件概率连乘得分，并预测是否有任何上下文行的和不为 1。",
+      "hint": "上下文 'the' 总数为 3，因此 P(cat|the)=2/3，P(dog|the)=1/3。上下文 'cat' 总数为 2，因此 P(sat|cat)=P(ran|cat)=1/2。上下文 'dog' 总数为 1，P(sat|dog)=1。",
+      "answer": "P(cat|the)=2/3≈0.6667, P(dog|the)=1/3≈0.3333, P(sat|cat)=1/2, P(ran|cat)=1/2, P(sat|dog)=1。每个上下文行的概率和严格等于 1。打分 Score('cat ran' | 'the') = P(cat|the) × P(ran|cat) = 2/3 × 1/2 = 1/3 ≈ 0.3333。若遇到未见转移（如空概率或零计数），未平滑概率直接为 0。",
+      "mastery_criterion": "无辅助情况下写出全部 5 个条件概率的精确分数形式，验证各上下文行概率和为 1，并正确计算双因子似然度乘积。"
+    },
+    "day-38-act-03": {
+      "title": "Add-k 平滑、似然度与困惑度",
+      "prerequisites": "完成上一活动；如受阻，使用列出的回退链接。",
+      "objective": "解释为什么零概率会使似然度崩塌为 0，应用加一平滑 P(next|context) = (C+1)/(context_total + V)（词汇表大小为 V），并将平滑后的句子得分转化为每个词元的负对数似然 (NLL) 和困惑度 (Perplexity)。",
+      "assistance_policy_label": "Agent 辅助工程检查",
+      "instructions": "该词元流的词汇表大小为 V=5（{the, cat, sat, ran, dog}）。必做工作：使用加一平滑重新计算 'the' 和 'cat' 的条件分布，并为留出接续文本 'cat ran'（跟在 'the' 后）打分：似然度 L 为平滑条件概率乘积，单词元 NLL = -ln(L)/N（N=2），困惑度 = exp(单词元 NLL)。选做工作：使用 add-0.5 平滑重复计算并对比数值差异。",
+      "exercise_prompt": "计算上下文 'the' 和 'cat' 的平滑行、接续句的平滑似然度、单词元 NLL 与困惑度。先预测：平滑后的似然度会高于还是低于未平滑的 1/3，为什么？",
+      "hint": "当 V=5 时：P(cat|the)=(2+1)/(3+5)=3/8，P(dog|the)=2/8，在 'the' 后的未见词元各自分得 1/8；P(ran|cat)=(1+1)/(2+5)=2/7。平滑总是把概率质量从已见事件分配给未见事件。",
+      "answer": "平滑后 'the' 行：cat 3/8=0.375, dog 2/8=0.25, sat/ran/the 各 1/8=0.125（总和为 1）。P(ran|cat)=2/7≈0.2857。似然度 L = 3/8 × 2/7 = 3/28 ≈ 0.1071 — 低于未平滑的 1/3，因为概率质量转移给了未见事件；这也正是未见转移 'cat dog' 得分不再是 0 而是 1/7 的原因。单词元 NLL = -ln(3/28)/2 ≈ 1.1168 nats ≈ 1.6112 bits；困惑度 Perplexity = (3/28)^(-1/2) = √(28/3) ≈ 3.055。",
+      "mastery_criterion": "能准确给出完整的平滑行、3/28 的似然度、≈1.117 nats 的单词元 NLL、≈3.055 的困惑度，并清楚解释为什么模型评估只能在留出的测试集（held-out text）上进行。"
+    },
+    "day-38-act-04": {
+      "title": "独立掌握检查：实现并验证二元语言模型基线",
+      "prerequisites": "完成前面所有活动；如受阻，使用列出的回退链接。",
+      "objective": "在无辅助情况下实现 bigram 计数、手算条件概率与平滑概率、诊断零似然失败原因，并陈述留出评估防泄露规则（支持空串与 Unicode 边界检查）。",
+      "assistance_policy_label": "独立掌握检查（无 AI 辅助）",
+      "instructions": "本检查期间不要查看答案或使用 AI。必做工作：(1) 在 Python 中实现 'banana' 字符的 bigram 计数；(2) 手算 P(n|a) 和 P(a|n)；(3) 为未见字符对计算加一平滑概率；(4) 解释为什么测试集必须封存。选做工作：将计数扩展到三元（trigram）。",
+      "exercise_prompt": "闭卷作答：(a) 列出 'banana' 的字符 bigram 及其计数值。(b) P(n|a)=? 与 P(a|n)=? (c) 设字符表 V={a,b,n}（V=3），加一平滑后的 P(b|a) 是多少？(d) 若未平滑模型对 'cat dog' 打分为 0，是哪个具体计数值导致的？加一平滑赋予其什么概率？",
+      "hint": "(a) (a,n)×2, (n,a)×2, (b,a)×1。(b) 上下文 'a' 和 'n' 作为左侧前驱各出现 2 次。(c) (0+1)/(2+3)。(d) C(cat,dog)=0 导致乘积为 0；平滑赋予 (0+1)/(2+5)。",
+      "answer": "(a) (b,a)=1, (a,n)=2, (n,a)=2。对空字符串 '' 则返回空计数。(b) P(n|a)=2/2=1.0，P(a|n)=2/2=1.0 — 'banana' 展现了确定的字符交替。(c) (0+1)/(2+3)=1/5=0.2。(d) C(cat,dog)=0 导致似然度乘积崩塌为 0；加一平滑赋予 P(dog|cat)=(0+1)/(2+5)=1/7≈0.1429。对包含 Unicode 字符（如 '😀'）的流同样遵循 (C+1)/(N+V) 规则。",
+      "mastery_criterion": "代码实现的计数值与 Counter 完全一致，所有概率给出精确分数，并指出平滑机制与仅在训练集拟合的防泄露规则是解决零概率与虚假高表现的两大基石。"
+    }
+  }
+}

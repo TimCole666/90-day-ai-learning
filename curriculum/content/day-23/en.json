@@ -1,0 +1,78 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 23: Matrix Multiplication, Shape Ledgers, Transpose & Inverse",
+  "day_subtitle": "Multiply matrices as composed linear maps, keep an explicit (m x k)(k x n) -> m x n shape ledger for every product, and build intuition for transpose, identity, and inverse. Connect every product to the weight matrices inside a model. Every activity records prediction, observation, review, and recovery inside the 480-minute ledger.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Mathematics & Algorithmic Foundations",
+  "common": {
+    "nav_calendar": "Curriculum Calendar",
+    "day_label": "Day 23",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Record your predicted values, observed output, shape ledger, review, and recovery evidence here...",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision"
+  },
+  "activities": {
+    "day-23-act-01": {
+      "title": "Matrix multiplication as composed linear maps",
+      "prerequisites": "Complete Day 22; use the listed recovery link if matrix-vector products are shaky.",
+      "objective": "Compute matrix products entry-by-entry as row-times-column dot products, interpret A*B as the composed map 'apply B then apply A', and demonstrate that matrix multiplication is not commutative.",
+      "assistance_policy_label": "Assistance allowed only after prediction and observed evidence are recorded.",
+      "instructions": "Entry (A*B)_ij is the dot product of row i of A with column j of B. Geometrically (A*B)*x = A*(B*x): the product matrix applies the inner map first, so composition reads right-to-left. Because composition depends on order, A*B and B*A generally differ.",
+      "exercise_prompt": "Let A = [[1,2],[3,4]] and B = [[0,1],[1,0]] (B swaps a vector's coordinates). Predict both products before computing: (a) A*B; (b) B*A. Are they equal?",
+      "hint": "For A*B, entry (1,1) is row 1 of A . column 1 of B = 1*0 + 2*1. Complete all four entries before starting the second product.",
+      "answer": "(a) A*B = [[1*0+2*1, 1*1+2*0], [3*0+4*1, 3*1+4*0]] = [[2,1],[4,3]]: B first swaps the coordinates, then A acts. (b) B*A = [[0*1+1*3, 0*2+1*4], [1*1+0*3, 1*2+0*4]] = [[3,4],[1,2]]: A acts first, then the swap. A*B != B*A, so matrix multiplication is not commutative; the order of transformations matters.",
+      "mastery_criterion": "You compute both products correctly, explain the right-to-left composition reading, and give one geometric reason the two orders differ (swap-then-map vs map-then-swap)."
+    },
+    "day-23-act-02": {
+      "title": "Shape ledgers: predicting product dimensions",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Keep a written shape ledger for every product: (m x k)(k x n) -> (m x n), the inner dimensions must match, and a mismatch is an error to predict, not to memorize.",
+      "assistance_policy_label": "Independent practice: record predictions before checking results; assistance only after evidence is logged.",
+      "instructions": "Write both shapes, check that the inner dimensions agree, then predict the output shape before computing a single entry. Apply the same ledger to model blocks: an MLP takes X of shape (batch x d_model) through W1 (d_model x d_ff) then W2 (d_ff x d_model). Each weight matrix is a rank-2 tensor inside the model.",
+      "exercise_prompt": "Predict shapes and values. (a) C (2x3) = [[1,0,2],[-1,3,1]] times D (3x2) = [[3,1],[2,1],[1,0]]: output shape? Compute all four entries. (b) Ledger for a transformer MLP: X (32 x 768) * W1 (768 x 3072) then * W2 (3072 x 768). (c) Is (2x3)(2x3) valid?",
+      "hint": "Entry (i,j) needs row i of the left matrix and column j of the right matrix to have equal length. In (b), carry the batch axis through unchanged.",
+      "answer": "(a) Inner dims 3 match, so C*D is 2x2. Row 1: 1*3+0*2+2*1 = 5 and 1*1+0*1+2*0 = 1; row 2: -1*3+3*2+1*1 = 4 and -1*1+3*1+1*0 = 2. C*D = [[5,1],[4,2]]. (b) (32 x 768)(768 x 3072) -> (32 x 3072); then (32 x 3072)(3072 x 768) -> (32 x 768): the MLP up-projects then returns to d_model. (c) Invalid: inner dims 3 and 2 disagree, so the product is undefined and libraries raise a shape error.",
+      "mastery_criterion": "You predict every output shape before computing, reproduce C*D = [[5,1],[4,2]] exactly, and state the rule 'inner dimensions must match' with one failing example."
+    },
+    "day-23-act-03": {
+      "title": "Transpose, identity, and inverse intuition",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Use the transpose as a mirror across the diagonal with (A*B)^T = B^T * A^T, treat the identity I as the 'do nothing' map, and read A^-1 as the map that undoes A - which exists only when A collapses nothing.",
+      "assistance_policy_label": "Assistance allowed only after prediction and observed evidence are recorded.",
+      "instructions": "Transpose swaps rows and columns: (A^T)_ij = A_ji, and products reverse order under transpose. The identity matrix I satisfies I*x = x. An inverse A^-1 satisfies A*A^-1 = I. A matrix with a nonzero null space collapses a direction to zero, so no inverse can recover it; for a 2x2 matrix, det = ad - bc = 0 signals this collapse.",
+      "exercise_prompt": "(a) With C*D = [[5,1],[4,2]] from the last activity, predict (C*D)^T and verify it equals D^T * C^T. (b) For A = [[2,1],[1,1]], verify A^-1 = [[1,-1],[-1,2]] by computing A * A^-1. (c) S = [[1,2],[2,4]]: find det(S) and a nonzero x with S*x = 0; can S be inverted?",
+      "hint": "For (b) multiply all four entries of A * A^-1 and look for I. For (c) try x = (2, -1).",
+      "answer": "(a) (C*D)^T = [[5,4],[1,2]], and D^T * C^T = [[3,2,1],[1,1,0]] * [[1,-1],[0,3],[2,1]] = [[5,4],[1,2]]: equal, confirming (C*D)^T = D^T * C^T. (b) A * A^-1 = [[2*1+1*(-1), 2*(-1)+1*2], [1*1+1*(-1), 1*(-1)+1*2]] = [[1,0],[0,1]] = I. (c) det(S) = 1*4 - 2*2 = 0, and S*(2,-1) = (0,0): S collapses a whole direction, so no inverse exists. In models, near-singular weights make optimization ill-conditioned.",
+      "mastery_criterion": "Your trace verifies A * A^-1 = I entry-by-entry, you demonstrate the transpose product rule numerically, and you explain 'singular means some direction is destroyed' using S*(2,-1) = 0."
+    },
+    "day-23-act-04": {
+      "title": "Independent mastery: products, shapes, and invertibility",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Without assistance, compute a 2x2 product, predict an attention shape ledger, and decide whether a given matrix is invertible; write a recovery note for any miss.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "Closed book: predict first, compute second, compare. Log every shape before multiplying. If a result surprises you, record which rule was misapplied and note the recovery link.",
+      "exercise_prompt": "Tasks: (a) P*M for P = [[1,1],[0,1]], M = [[2,0],[1,1]]; (b) attention ledger: Q (8 x 64) times K^T where K is (8 x 64), then softmax, then times V (8 x 64): predict each output shape; (c) is [[2,4],[1,2]] invertible?",
+      "hint": "In (b) write K^T as (64 x 8) first. In (c) compute det = ad - bc before attempting any inverse.",
+      "answer": "(a) P*M = [[1*2+1*1, 1*0+1*1], [0*2+1*1, 0*0+1*1]] = [[3,1],[1,1]]. (b) (8 x 64)(64 x 8) -> (8 x 8) attention scores over all token pairs; softmax keeps (8 x 8); (8 x 8)(8 x 64) -> (8 x 64) output. (c) det = 2*2 - 4*1 = 0, so the matrix is singular and not invertible; row 2 is half of row 1, collapsing the plane onto a line.",
+      "mastery_criterion": "All predictions verified unaided; the (8x8) attention-score shape and the singularity argument are written in your own words with the full shape ledger."
+    }
+  }
+}

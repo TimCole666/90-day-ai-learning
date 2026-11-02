@@ -1,0 +1,360 @@
+{
+  "id": "day-30",
+  "day_number": 30,
+  "active_minutes": 480,
+  "topic_category": "mathematics",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-29"
+  ],
+  "recovery_links": [
+    "day-28"
+  ],
+  "activities": [
+    {
+      "id": "day-30-act-01",
+      "lesson_id": "les-30",
+      "title": "Gradient descent mechanics on a convex bowl",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-29"
+      ],
+      "source_resources": [
+        {
+          "id": "d2l-ai",
+          "title": "Dive into Deep Learning (d2l.ai)",
+          "author": "Aston Zhang, Zachary C. Lipton, Mu Li, Alexander J. Smola",
+          "original_url": "https://d2l.ai/",
+          "version_or_verification_date": "Current online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-SA 4.0 (book text) / modified MIT (sample code)",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Lawful external linking under CC BY-SA 4.0 (book text; sample code under a modified MIT license); share-alike conditions are retained separately and no source text is imported.",
+          "prerequisites": "Linear algebra, calculus, and probability at the Days 19-28 level.",
+          "selection_rationale": "Primary open reference tying evaluation discipline (model selection, underfitting, overfitting) and optimization algorithms (gradient descent, minibatch) to the rest of the curriculum.",
+          "known_availability_limitations": "Free web book at d2l.ai; Jupyter source notebooks are on GitHub.",
+          "safe_fallback": "All required formulas and worked numbers are reproduced as original explanations; the book is further reading.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Deep Learning (Goodfellow, Bengio, Courville)",
+              "url": "https://www.deeplearningbook.org/",
+              "license": "MIT Press; free HTML for reading, all rights reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Detailed treatment of optimization difficulties (chapter 8) including saddle points and plateaus; all-rights-reserved text kept as a linking-only alternative."
+            },
+            {
+              "candidate_name": "fast.ai: Practical Deep Learning for Coders",
+              "url": "https://course.fast.ai/",
+              "license": "Course site copyright / Apache-2.0 (fastai code)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong practitioner framing, but organized around the fastai library and video lessons rather than self-contained mathematics."
+            }
+          ],
+          "relevant_timestamp": "Chapter Optimization Algorithms: Gradient Descent"
+        },
+        {
+          "id": "3blue1brown-gradient-descent",
+          "title": "Gradient Descent, How Neural Networks Learn",
+          "author": "Grant Sanderson (3Blue1Brown)",
+          "original_url": "https://www.3blue1brown.com/lessons/gradient-descent",
+          "version_or_verification_date": "Neural networks series chapter 2, 2017 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "video",
+          "license": "3Blue1Brown copyright (all rights reserved); site FAQ permits only short clips under stated conditions",
+          "license_restrictions": [
+            "No video, audio, transcript or frame redistribution permitted"
+          ],
+          "permission_basis": "Lawful external linking only. 3Blue1Brown lessons and videos are copyright 3Blue1Brown; the site FAQ allows only short clips under stated conditions, and the CC BY-NC-SA 4.0 license of the 3b1b/videos repository covers animation code, not the videos. No video, audio, transcript or frames are imported.",
+          "prerequisites": "High-school functions and slope intuition.",
+          "selection_rationale": "Visual intuition connecting the gradient vector to steepest descent; complements d2l.ai's worked equations for the optimization day.",
+          "known_availability_limitations": "Video hosted on YouTube and 3blue1brown.com; streaming may be blocked on some networks.",
+          "safe_fallback": "The lesson contains complete derivations and numerical traces; the video is optional visual intuition.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Convex Optimization (Boyd and Vandenberghe)",
+              "url": "https://web.stanford.edu/~boyd/cvxbook/",
+              "license": "Cambridge University Press; free PDF for individual use",
+              "status": "compared_alternative",
+              "comparison_rationale": "A detailed optimization text, kept as an advanced alternative; its scope exceeds a single study day."
+            },
+            {
+              "candidate_name": "Deep Learning chapter 8 (Goodfellow, Bengio, Courville)",
+              "url": "https://www.deeplearningbook.org/",
+              "license": "MIT Press; free HTML for reading, all rights reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Rigorous discussion of saddle points and plateaus in high-dimensional optimization; kept as a linking-only alternative."
+            }
+          ],
+          "relevant_timestamp": "Neural networks chapter 2: the gradient and the descent update"
+        }
+      ]
+    },
+    {
+      "id": "day-30-act-02",
+      "lesson_id": "les-30",
+      "title": "Unstable step sizes: divergence and the slow crawl",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-30-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "d2l-ai",
+          "title": "Dive into Deep Learning (d2l.ai)",
+          "author": "Aston Zhang, Zachary C. Lipton, Mu Li, Alexander J. Smola",
+          "original_url": "https://d2l.ai/",
+          "version_or_verification_date": "Current online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-SA 4.0 (book text) / modified MIT (sample code)",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Lawful external linking under CC BY-SA 4.0 (book text; sample code under a modified MIT license); share-alike conditions are retained separately and no source text is imported.",
+          "prerequisites": "Linear algebra, calculus, and probability at the Days 19-28 level.",
+          "selection_rationale": "Primary open reference tying evaluation discipline (model selection, underfitting, overfitting) and optimization algorithms (gradient descent, minibatch) to the rest of the curriculum.",
+          "known_availability_limitations": "Free web book at d2l.ai; Jupyter source notebooks are on GitHub.",
+          "safe_fallback": "All required formulas and worked numbers are reproduced as original explanations; the book is further reading.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Deep Learning (Goodfellow, Bengio, Courville)",
+              "url": "https://www.deeplearningbook.org/",
+              "license": "MIT Press; free HTML for reading, all rights reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Detailed treatment of optimization difficulties (chapter 8) including saddle points and plateaus; all-rights-reserved text kept as a linking-only alternative."
+            },
+            {
+              "candidate_name": "fast.ai: Practical Deep Learning for Coders",
+              "url": "https://course.fast.ai/",
+              "license": "Course site copyright / Apache-2.0 (fastai code)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong practitioner framing, but organized around the fastai library and video lessons rather than self-contained mathematics."
+            }
+          ],
+          "relevant_timestamp": "Chapter Optimization Algorithms: Gradient Descent; learning-rate selection"
+        },
+        {
+          "id": "3blue1brown-gradient-descent",
+          "title": "Gradient Descent, How Neural Networks Learn",
+          "author": "Grant Sanderson (3Blue1Brown)",
+          "original_url": "https://www.3blue1brown.com/lessons/gradient-descent",
+          "version_or_verification_date": "Neural networks series chapter 2, 2017 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "video",
+          "license": "3Blue1Brown copyright (all rights reserved); site FAQ permits only short clips under stated conditions",
+          "license_restrictions": [
+            "No video, audio, transcript or frame redistribution permitted"
+          ],
+          "permission_basis": "Lawful external linking only. 3Blue1Brown lessons and videos are copyright 3Blue1Brown; the site FAQ allows only short clips under stated conditions, and the CC BY-NC-SA 4.0 license of the 3b1b/videos repository covers animation code, not the videos. No video, audio, transcript or frames are imported.",
+          "prerequisites": "High-school functions and slope intuition.",
+          "selection_rationale": "Visual intuition connecting the gradient vector to steepest descent; complements d2l.ai's worked equations for the optimization day.",
+          "known_availability_limitations": "Video hosted on YouTube and 3blue1brown.com; streaming may be blocked on some networks.",
+          "safe_fallback": "The lesson contains complete derivations and numerical traces; the video is optional visual intuition.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Convex Optimization (Boyd and Vandenberghe)",
+              "url": "https://web.stanford.edu/~boyd/cvxbook/",
+              "license": "Cambridge University Press; free PDF for individual use",
+              "status": "compared_alternative",
+              "comparison_rationale": "A detailed optimization text, kept as an advanced alternative; its scope exceeds a single study day."
+            },
+            {
+              "candidate_name": "Deep Learning chapter 8 (Goodfellow, Bengio, Courville)",
+              "url": "https://www.deeplearningbook.org/",
+              "license": "MIT Press; free HTML for reading, all rights reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Rigorous discussion of saddle points and plateaus in high-dimensional optimization; kept as a linking-only alternative."
+            }
+          ],
+          "relevant_timestamp": "Neural networks chapter 2: step size intuition"
+        }
+      ]
+    },
+    {
+      "id": "day-30-act-03",
+      "lesson_id": "les-30",
+      "title": "Saddle points and honest failure analysis",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-30-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "d2l-ai",
+          "title": "Dive into Deep Learning (d2l.ai)",
+          "author": "Aston Zhang, Zachary C. Lipton, Mu Li, Alexander J. Smola",
+          "original_url": "https://d2l.ai/",
+          "version_or_verification_date": "Current online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-SA 4.0 (book text) / modified MIT (sample code)",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Lawful external linking under CC BY-SA 4.0 (book text; sample code under a modified MIT license); share-alike conditions are retained separately and no source text is imported.",
+          "prerequisites": "Linear algebra, calculus, and probability at the Days 19-28 level.",
+          "selection_rationale": "Primary open reference tying evaluation discipline (model selection, underfitting, overfitting) and optimization algorithms (gradient descent, minibatch) to the rest of the curriculum.",
+          "known_availability_limitations": "Free web book at d2l.ai; Jupyter source notebooks are on GitHub.",
+          "safe_fallback": "All required formulas and worked numbers are reproduced as original explanations; the book is further reading.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Deep Learning (Goodfellow, Bengio, Courville)",
+              "url": "https://www.deeplearningbook.org/",
+              "license": "MIT Press; free HTML for reading, all rights reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Detailed treatment of optimization difficulties (chapter 8) including saddle points and plateaus; all-rights-reserved text kept as a linking-only alternative."
+            },
+            {
+              "candidate_name": "fast.ai: Practical Deep Learning for Coders",
+              "url": "https://course.fast.ai/",
+              "license": "Course site copyright / Apache-2.0 (fastai code)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong practitioner framing, but organized around the fastai library and video lessons rather than self-contained mathematics."
+            }
+          ],
+          "relevant_timestamp": "Chapter Optimization Algorithms: Optimization and Deep Learning (local minima, saddle points)"
+        },
+        {
+          "id": "3blue1brown-gradient-descent",
+          "title": "Gradient Descent, How Neural Networks Learn",
+          "author": "Grant Sanderson (3Blue1Brown)",
+          "original_url": "https://www.3blue1brown.com/lessons/gradient-descent",
+          "version_or_verification_date": "Neural networks series chapter 2, 2017 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "video",
+          "license": "3Blue1Brown copyright (all rights reserved); site FAQ permits only short clips under stated conditions",
+          "license_restrictions": [
+            "No video, audio, transcript or frame redistribution permitted"
+          ],
+          "permission_basis": "Lawful external linking only. 3Blue1Brown lessons and videos are copyright 3Blue1Brown; the site FAQ allows only short clips under stated conditions, and the CC BY-NC-SA 4.0 license of the 3b1b/videos repository covers animation code, not the videos. No video, audio, transcript or frames are imported.",
+          "prerequisites": "High-school functions and slope intuition.",
+          "selection_rationale": "Visual intuition connecting the gradient vector to steepest descent; complements d2l.ai's worked equations for the optimization day.",
+          "known_availability_limitations": "Video hosted on YouTube and 3blue1brown.com; streaming may be blocked on some networks.",
+          "safe_fallback": "The lesson contains complete derivations and numerical traces; the video is optional visual intuition.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Convex Optimization (Boyd and Vandenberghe)",
+              "url": "https://web.stanford.edu/~boyd/cvxbook/",
+              "license": "Cambridge University Press; free PDF for individual use",
+              "status": "compared_alternative",
+              "comparison_rationale": "A detailed optimization text, kept as an advanced alternative; its scope exceeds a single study day."
+            },
+            {
+              "candidate_name": "Deep Learning chapter 8 (Goodfellow, Bengio, Courville)",
+              "url": "https://www.deeplearningbook.org/",
+              "license": "MIT Press; free HTML for reading, all rights reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Rigorous discussion of saddle points and plateaus in high-dimensional optimization; kept as a linking-only alternative."
+            }
+          ],
+          "relevant_timestamp": "Neural networks chapter 2: valleys, plateaus, and saddle intuition"
+        }
+      ]
+    },
+    {
+      "id": "day-30-act-04",
+      "lesson_id": "les-30",
+      "title": "Assessment: predict, classify, and diagnose optimization behavior",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-30-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "d2l-ai",
+          "title": "Dive into Deep Learning (d2l.ai)",
+          "author": "Aston Zhang, Zachary C. Lipton, Mu Li, Alexander J. Smola",
+          "original_url": "https://d2l.ai/",
+          "version_or_verification_date": "Current online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-SA 4.0 (book text) / modified MIT (sample code)",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Lawful external linking under CC BY-SA 4.0 (book text; sample code under a modified MIT license); share-alike conditions are retained separately and no source text is imported.",
+          "prerequisites": "Linear algebra, calculus, and probability at the Days 19-28 level.",
+          "selection_rationale": "Primary open reference tying evaluation discipline (model selection, underfitting, overfitting) and optimization algorithms (gradient descent, minibatch) to the rest of the curriculum.",
+          "known_availability_limitations": "Free web book at d2l.ai; Jupyter source notebooks are on GitHub.",
+          "safe_fallback": "All required formulas and worked numbers are reproduced as original explanations; the book is further reading.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Deep Learning (Goodfellow, Bengio, Courville)",
+              "url": "https://www.deeplearningbook.org/",
+              "license": "MIT Press; free HTML for reading, all rights reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Detailed treatment of optimization difficulties (chapter 8) including saddle points and plateaus; all-rights-reserved text kept as a linking-only alternative."
+            },
+            {
+              "candidate_name": "fast.ai: Practical Deep Learning for Coders",
+              "url": "https://course.fast.ai/",
+              "license": "Course site copyright / Apache-2.0 (fastai code)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong practitioner framing, but organized around the fastai library and video lessons rather than self-contained mathematics."
+            }
+          ],
+          "relevant_timestamp": "Chapter Optimization Algorithms: Gradient Descent; Optimization and Deep Learning"
+        },
+        {
+          "id": "3blue1brown-gradient-descent",
+          "title": "Gradient Descent, How Neural Networks Learn",
+          "author": "Grant Sanderson (3Blue1Brown)",
+          "original_url": "https://www.3blue1brown.com/lessons/gradient-descent",
+          "version_or_verification_date": "Neural networks series chapter 2, 2017 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "video",
+          "license": "3Blue1Brown copyright (all rights reserved); site FAQ permits only short clips under stated conditions",
+          "license_restrictions": [
+            "No video, audio, transcript or frame redistribution permitted"
+          ],
+          "permission_basis": "Lawful external linking only. 3Blue1Brown lessons and videos are copyright 3Blue1Brown; the site FAQ allows only short clips under stated conditions, and the CC BY-NC-SA 4.0 license of the 3b1b/videos repository covers animation code, not the videos. No video, audio, transcript or frames are imported.",
+          "prerequisites": "High-school functions and slope intuition.",
+          "selection_rationale": "Visual intuition connecting the gradient vector to steepest descent; complements d2l.ai's worked equations for the optimization day.",
+          "known_availability_limitations": "Video hosted on YouTube and 3blue1brown.com; streaming may be blocked on some networks.",
+          "safe_fallback": "The lesson contains complete derivations and numerical traces; the video is optional visual intuition.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Convex Optimization (Boyd and Vandenberghe)",
+              "url": "https://web.stanford.edu/~boyd/cvxbook/",
+              "license": "Cambridge University Press; free PDF for individual use",
+              "status": "compared_alternative",
+              "comparison_rationale": "A detailed optimization text, kept as an advanced alternative; its scope exceeds a single study day."
+            },
+            {
+              "candidate_name": "Deep Learning chapter 8 (Goodfellow, Bengio, Courville)",
+              "url": "https://www.deeplearningbook.org/",
+              "license": "MIT Press; free HTML for reading, all rights reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Rigorous discussion of saddle points and plateaus in high-dimensional optimization; kept as a linking-only alternative."
+            }
+          ],
+          "relevant_timestamp": "Neural networks chapter 2: the gradient and the descent update"
+        }
+      ]
+    }
+  ]
+}

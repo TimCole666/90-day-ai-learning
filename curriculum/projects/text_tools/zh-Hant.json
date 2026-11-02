@@ -1,0 +1,172 @@
+{
+  "project_id": "text_tools",
+  "title": "文本與資料工具學習專案",
+  "category": "self-directed-learning-and-python",
+  "prerequisites": "完成學習日 01-12：Python 字串、字典、清單、檔案 I/O、基礎終端機命令列操作以及測試驅動開發 (TDD) 基礎規範。",
+  "requirements": [
+    "1. 命令列介面：實作可執行的 CLI（例如 `python3 projects/text_tools/cli.py`），支援 `--input`、`--stats`、`--split`、`--output-dir`、`--seed`、`--encoding` 與 `--errors` 選項。",
+    "2. 語料統計分析：讀取文本語料，統計總字元數、總詞元數、詞彙表大小（唯一詞元數）、字元頻率分佈表、詞元頻率分佈表以及詞元最小/最大/平均長度。",
+    "3. 確定性資料集分割：依據可設定比例（預設 0.8、0.1、0.1）將輸入樣本分割為訓練集、驗證集與測試集，使用顯式固定的隨機種子保證多次執行產生逐位元組一致的可重現輸出。 逐位元組可重現性限於相同輸入位元組、相同比例、相同種子、相同解碼選項與本實作/環境，不保證跨實作或跨平台一致。",
+    "4. 資料來源與分割清單：生成 `manifest.json`，記錄來源檔案路徑、原始輸入位元組的 SHA256、檔案大小、輸入解碼策略（編碼／錯誤處理／換行正規化）、隨機種子、劃分比例、樣本數量、各子集雜湊值、執行環境，以及所分配記錄索引兩兩不相交的驗證結論。清單記錄並檢查索引身分；它本身並不約束消費者如何使用各子集，也不能證明不存在重複內容。",
+    "5. 嚴苛邊界異常處理：空輸入、完全重複詞元、多語言 Unicode 字元（繁簡漢字、日文假名、Emoji、重音符號）以及 `--errors replace` 復原應當正常成功（結束碼 0）；檔案缺失、strict 模式下無法解碼的位元組、非有限或越界的分割比例、輸入輸出路徑衝突則必須輸出清晰可診斷的錯誤訊息並以非零結束碼失敗。"
+  ],
+  "predictions": [
+    {
+      "id": "pred-01",
+      "question": "處理 `data/names.txt`（32,033 個姓名）時，你預測詞元頻率分佈與字元頻率分佈各呈現什麼特徵？",
+      "guidance": "預測哪些英文字母（母音 vs 子音）出現最頻繁，並預測姓名文本是絕大多數唯一還是存在極高重合度。"
+    },
+    {
+      "id": "pred-02",
+      "question": "如果兩次執行分割時使用完全相同的種子（如 `--seed 42`）對比使用不同種子（`--seed 42` 與 `--seed 99`），分割產物會有何差異？",
+      "guidance": "預測生成的 `train.txt`、`val.txt` 與 `test.txt` 的 SHA256 雜湊值是否完全相同，並思考為什麼固定隨機種子是機器學習可重現性的生命線。"
+    },
+    {
+      "id": "pred-03",
+      "question": "對於英文字元與中日文字元，Python 中的字串長度（`len(s)`）與 UTF-8 編碼位元組長度（`len(s.encode('utf-8'))`）有何規律差異？",
+      "guidance": "預測從單位元組 ASCII 擴展到變長 UTF-8 編碼時，對記憶體開銷與分詞器（Tokenizer）緩衝區設計的影響。"
+    }
+  ],
+  "worked_examples": [
+    {
+      "title": "範例 1：計算 names.txt 語料統計",
+      "command": "python3 projects/text_tools/cli.py --input data/names.txt --stats --json",
+      "expected_output_summary": "輸出標準 JSON，顯示 total_chars=228145、total_tokens=32033、vocab_size=29494（唯一詞元數，而非出現總次數），char_frequencies 中字母 'a' 與 'e' 是出現最多的字母；換行字元也位居字元頻率前列（僅次於 'a'，排第二）。"
+    },
+    {
+      "title": "範例 2：確定性 80/10/10 劃分與產物生成",
+      "command": "( LEARN=\"$PWD\" && [ -f \"$LEARN/projects/text_tools/cli.py\" ] && [ -f \"$LEARN/data/names.txt\" ] && WORKDIR=$(mktemp -d) && cd \"$(mktemp -d)\" && python3 \"$LEARN/projects/text_tools/cli.py\" --input \"$LEARN/data/names.txt\" --split --output-dir \"$WORKDIR/artifacts\" --train-ratio 0.8 --val-ratio 0.1 --test-ratio 0.1 --seed 42 && ls \"$WORKDIR/artifacts\" )",
+      "expected_output_summary": "示例輸出：首行在切換目錄之前取得並校驗儲存庫、CLI 與語料庫的絕對路徑，隨後建立兩個呼叫方自有的私有目錄。在無關的私有工作目錄中，僅用絕對路徑和私有 --output-dir 呼叫真實 CLI；ls 列出 train.txt（25,626 列）、val.txt（3,203 列）、test.txt（3,204 列）、stats.json、vocab.json 與 manifest.json。已在 bash 中驗證；這只是普通的行程隔離，並非作業系統安全沙箱，也不主張在其他 shell 或平台上成立。 整條命令在子 shell 中執行，因此呼叫方的工作目錄會為下一個示例保留。"
+    },
+    {
+      "title": "範例 3：非標準編碼故障復原處理",
+      "command": "WORKDIR=$(mktemp -d) && printf 'ok line \\377 bad\\n' > \"$WORKDIR/corrupt.txt\" && python3 -c \"import sys; assert b'\\xff' in open(sys.argv[1],'rb').read()\" \"$WORKDIR/corrupt.txt\" && python3 projects/text_tools/cli.py --input \"$WORKDIR/corrupt.txt\" --stats --errors replace",
+      "expected_output_summary": "示例：printf 八進制 \\377 把字面量 0xFF 位元組寫入呼叫方私有目錄中的檔案，內嵌的 python assert 驗證該位元組存在。--errors replace 下 CLI 將其解碼為 U+FFFD 並以結束碼 0 結束；單獨標註的 strict 變體（同一輸入加 --errors strict）以描述性 UnicodeDecodeError 非零結束。已在 bash 與指向 bash 的 sh 中驗證；本機未安裝 dash，故不聲明 dash 特定結果，僅為所執行 shell 的證據。"
+    }
+  ],
+  "exercises": [
+    {
+      "step": 1,
+      "title": "語料統計與頻率計數模組實作",
+      "prompt": "在 `projects/text_tools/core.py` 中實作 `analyze_text(text: str)`。回傳總字元數、總詞元數、詞彙表大小、字元分佈統計與遞減頻率字典。",
+      "check": "使用已知短句（如 'the cat sat on the mat'）核對詞元數與頻率是否與手工計算嚴格一致。"
+    },
+    {
+      "step": 2,
+      "title": "帶種子的確定性劃分演算法實作",
+      "prompt": "實作 `compute_splits(lines, train_ratio, val_ratio, test_ratio, seed)`。使用指定種子的偽隨機產生器打亂索引，劃分為互不相交的切片。",
+      "check": "驗證 `len(set(train_indices) & set(val_indices)) == 0`（索引級兩兩不相交），並驗證 `--seed 42` 兩次執行產出完全一致；同時宣告你的重複/取樣策略——內容相同的記錄是否允許出現在多個子集中，以及對你的資料而言是否可接受。"
+    },
+    {
+      "step": 3,
+      "title": "資料血統清單生成",
+      "prompt": "建構 `manifest.json`，記錄來源語料及分割子集的 SHA256 雜湊值、劃分參數、樣本數以及執行環境資訊。",
+      "check": "驗證輸出的 JSON 結構符合規範並完整記錄執行環境。"
+    },
+    {
+      "step": 4,
+      "title": "邊界異常韌性強化",
+      "prompt": "完善空檔案、不存在檔案、非法劃分比例總和以及不同編碼模式（`--errors strict|replace|ignore`）的錯誤攔截與結束代碼控制。",
+      "check": "在完全隔離的乾淨暫存目錄下執行程序隔離測試。"
+    }
+  ],
+  "reference_feedback": {
+    "architecture_notes": "將核心計算邏輯（`core.py`）與命令列互動介面（`cli.py`）解耦，形成可以在後續 Makemore、minBPE 與 NanoGPT 專案中直接復用的深層模組。處理大型檔案時應避免在記憶體中維護多份多餘副本。",
+    "benchmark_metrics": {
+      "names_txt_tokens": 32033,
+      "tinyshakespeare_chars": 1115394,
+      "tinyshakespeare_unique_chars": 65
+    },
+    "common_pitfalls": [
+      "遺漏隨機種子導致每次劃分結果隨機飄移，破壞實驗的可對比性。",
+      "誤把索引不相交的分割當作「無洩漏」的證明：除非所宣告的取樣/重複策略允許，內容相同的記錄仍可能跨越多個子集。",
+      "簡單假設 1 字元等於 1 位元組，導致多語言（中日文、Emoji）文本長度統計或分割截斷出錯。",
+      "未對空檔案做除零防護，在計算平均詞長時觸發 ZeroDivisionError 崩潰。"
+    ]
+  },
+  "debugging_cases": [
+    {
+      "case_id": "debug-01",
+      "title": "隱蔽的資料外洩（Data Leakage）",
+      "symptom": "模型訓練時驗證集準確率高達 99.8%，但在真實獨立測試中表現災難性崩潰。",
+      "root_cause": "按索引分配記錄但未宣告重複策略：索引重疊為 0，但內容相同的記錄仍出現在多個子集中（例如 10 列完全相同的 'echo' 在 train/val/test 間共享同一取值；names.txt 在 seed 42 下 train 與 val 有 424 個相同唯一值）。",
+      "remediation": "以索引不相交（`len(set(train_indices) & set(val_indices)) == 0`）驗證分配的完整性，並另行報告各子集間重複的唯一值數量。僅打亂順序並不能去除重複內容；重複的獨立取值是否合理取決於所宣告的取樣/重複策略。"
+    },
+    {
+      "case_id": "debug-02",
+      "title": "多語言文本的 UnicodeDecodeError",
+      "symptom": "CLI 崩潰並印出 `UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 12`。",
+      "root_cause": "檔案包含非 UTF-8 位元組，或來源於歷史遺留編碼（Big5、Shift-JIS、ISO-8859）。",
+      "remediation": "提供 `--encoding` 與 `--errors` 設定參數，向 stderr 印出清晰的人類可讀診斷訊息，並支援 `--errors replace` 容錯模式。"
+    },
+    {
+      "case_id": "debug-03",
+      "title": "空檔案引發的 ZeroDivisionError",
+      "symptom": "處理 0 位元組文本時，CLI 拋出 `ZeroDivisionError: division by zero` 異常退出。",
+      "root_cause": "計算平均詞元長度時除以了 `total_tokens`，但未對 `total_tokens == 0` 進行前置保護。",
+      "remediation": "新增前置保護分支：當 `total_tokens == 0` 時明確回傳 `avg_token_length = 0.0`。"
+    },
+    {
+      "case_id": "debug-04",
+      "title": "不同執行環境下的非確定性分割",
+      "symptom": "在兩台不同機器上使用相同隨機種子執行，得到的分割順序卻並不一致。",
+      "root_cause": "在打亂前遍歷了無序的 `set`（或由 set 構建 dict）：set 的迭代順序會隨 `PYTHONHASHSEED` 在不同行程間變化。dict 在同一行程內確定性地保持插入順序，雜湊隨機化並不會重排以相同方式構建的 dict；但由無序來源構建的 dict 會繼承其不穩定的順序。",
+      "remediation": "只使用有序列表和明確索引置換（`indices = list(range(n)); rng.shuffle(indices)`）；若必須經過無序容器，先透過排序等方式固定順序。"
+    }
+  ],
+  "independent_mastery_checks": [
+    {
+      "check_id": "ind-01",
+      "prompt": "在沒有 AI 輔助的情況下，解釋訓練集與驗證集之間發生資料外洩時對模型評估造成的實質危害，並說明如何透過集合論進行數學核驗。",
+      "criteria": "能清楚說明樂觀評估偏差，在公開介面回傳的列表值結果上演示索引級交集驗證 `len(set(train_indices) & set(val_indices)) == 0`，並能區分索引不相交與重複內容重疊。"
+    },
+    {
+      "check_id": "ind-02",
+      "prompt": "純手寫實作 Python 確定性樣本劃分函式，嚴禁引入 scikit-learn 或任何第三方機器學習庫。",
+      "criteria": "程式碼使用 `random.Random(seed)` 與列表索引，正確計算邊界切片，保證索引分配互不重疊，並宣告針對重複內容記錄的重複/取樣策略。"
+    },
+    {
+      "check_id": "ind-03",
+      "prompt": "詳細說明英文字元、漢字及 Emoji 在字元數、Unicode 碼點與 UTF-8 位元組數上的差異與底層原理。",
+      "criteria": "能準確區分碼點、UTF-8 位元組長度與顯示上的字素簇：'A' 為 1 碼點/1 位元組，'中' 為 1/3，'😀' 為 1/4，'❤️' 為 2/6（心形＋變體選擇符），'👍🏽' 為 2/8（表情＋膚色修飾符），家庭 ZWJ 序列可達 7/25——每個顯示字形的位元組數並非常數。"
+    }
+  ],
+  "agent_assisted_checks": [
+    {
+      "check_id": "agent-01",
+      "prompt": "指示 AI Agent 編寫命令列參數解析邏輯與單元測試用例，隨後對 Agent 提交的程式碼 Diff 進行深度程式碼審查。",
+      "criteria": "以真實的邊界用例檢查（如除零保護、失敗結束代碼規範）與留存的證據批判性評審 Agent 的差異。發現真實的遺漏或缺陷時，指導 Agent 定向修復；若實作本已正確，則記錄已執行的檢查、未發現缺陷的證據及該測試的局限——絕不編造 bug。"
+    },
+    {
+      "check_id": "agent-02",
+      "prompt": "利用 AI Agent 生成針對字串邊界與模糊測試的自動化用例，同時核查沙盒安全性與環境隔離性。",
+      "criteria": "學習者能夠確保測試指令碼在暫存沙箱目錄內受限執行，嚴禁破壞宿主環境。"
+    }
+  ],
+  "acceptance_checklist": [
+    {
+      "id": "chk-01",
+      "label": "命令列介面可透過 `python3 projects/text_tools/cli.py` 攜帶標準參數正常執行。"
+    },
+    {
+      "id": "chk-02",
+      "label": "語料統計能準確計算字元總數、詞元總數、詞彙表大小及遞減頻率表。"
+    },
+    {
+      "id": "chk-03",
+      "label": "確定性分割僅在受測環境內、相同原始輸入位元組（產生相同有序解碼記錄）、相同比例、相同種子、相同解碼/換行策略及同一實作/執行環境/平台下，保證分割檔案位元組一致；manifest 時間戳記會變化，不保證跨版本/跨作業系統位元組一致。"
+    },
+    {
+      "id": "chk-04",
+      "label": "train/val/test 所分配記錄索引的重疊為零已驗證並記錄於 `manifest.json`；已宣告的重複／取樣策略說明是否允許內容相同的記錄。"
+    },
+    {
+      "id": "chk-05",
+      "label": "對空檔案、重複內容、多語言 Unicode（繁簡漢字、日文、Emoji）、缺失檔案與非法編碼均具備健全防禦機制。"
+    },
+    {
+      "id": "chk-06",
+      "label": "所有驗證測試均在乾淨暫存目錄下透過完全隔離的子程序完成驗收。"
+    }
+  ]
+}

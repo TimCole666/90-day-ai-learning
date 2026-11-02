@@ -1,0 +1,108 @@
+{
+  "language": "ja",
+  "language_label": "日本語",
+  "day_title": "Day 37: テキストからトークンへ ― Unicode、バイトエンコーディング、語彙",
+  "day_subtitle": "生テキストをトークン ID に変換する。文字・Unicode コードポイント・UTF-8 バイト列を区別し、決定的な語彙を構築し、あらゆる言語モデル基盤が消費する text_tools の train/val/test アーティファクトを再現する。すべての作業は 480 分台帳の中で行う。",
+  "time_budget_label": "480 アクティブ分（集中学習 8 時間）",
+  "category_label": "モデルと訓練",
+  "common": {
+    "nav_calendar": "📅 カリキュラムカレンダー",
+    "nav_agent_track": "🤖 Agent ツールトラック",
+    "day_label": "第 37 日",
+    "prerequisites_title": "前提条件",
+    "objective_title": "学習目標",
+    "instructions_title": "手順",
+    "exercise_title": "演習と予測記録",
+    "hint_title": "ヒントを確認",
+    "reveal_answer": "参考解答と分析を表示",
+    "mastery_title": "独立習得基準",
+    "draft_placeholder": "予測、観測したバイト数と ID、復習、回復の根拠をここに記録してください...",
+    "dev_slice_notice": "90 日 AI 学習プラットフォームの検証済み正式モジュールです。",
+    "sources_heading": "公式ソースリソースと権利証跡",
+    "source_author_label": "著者・提供機関",
+    "source_url_label": "オリジナル出所URL",
+    "source_range_label": "該当セクション・範囲",
+    "source_verification_label": "検証バージョンと日付",
+    "source_reuse_label": "再利用区分",
+    "source_license_label": "ライセンスと権利情報",
+    "source_rationale_label": "選定理由",
+    "source_prereqs_label": "ソース前提知識",
+    "source_fallback_label": "安全フォールバック（オフライン回復性）",
+    "compared_candidates_heading": "比較対象候補リソースと選定評価",
+    "compared_status_label": "評価結果",
+    "auth": {
+      "sign_in": "Googleでログイン",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "ログアウト",
+      "signed_in_as": "ログイン中:",
+      "guest": "ゲストモード",
+      "link_github": "GitHubを連携",
+      "link_google": "Googleを連携",
+      "linked_identities": "連携済みアカウント",
+      "auth_errors": {
+        "access_denied": "認証がキャンセルされたか、アクセスが拒否されました。",
+        "invalid_state": "無効または期限切れの認証状態です。再試行してください。",
+        "identity_conflict": "このIDは既に別のアカウントに連携されています。",
+        "provider_error": "認証プロバイダーでエラーが発生しました。",
+        "server_error": "認証プロバイダーでエラーが発生しました。",
+        "session_expired": "セッションの有効期限が切れました。再度ログインしてください。"
+      }
+    },
+    "progress": {
+      "save_btn": "進捗を保存",
+      "saved": "保存済み",
+      "saving": "保存中...",
+      "save_error": "保存に失敗しました",
+      "offline": "オフライン",
+      "mark_completed": "完了としてマーク",
+      "completed_badge": "完了"
+    }
+  },
+  "activities": {
+    "day-37-act-01": {
+      "title": "文字からバイトへ：コードポイントと UTF-8",
+      "prerequisites": "Day 36 を完了していること。詰まった場合は Day 35 の回復リンクで確率と Python を復習すること。",
+      "objective": "目に見える文字、その Unicode コードポイント、その UTF-8 バイト列を区別する。測定前にバイト数を予測し、空文字列・ASCII・アクセント付き・CJK・絵文字について予測と観測の比較を記録する。",
+      "assistance_policy_label": "Agent支援エンジニアリング確認",
+      "instructions": "文字は読者に見えるもの、コードポイントはその Unicode 番号（U+XXXX と表記）、エンコーディングはコードポイントをバイト列に変換する規則である。必須作業：予測してから `python3 -c \"s='猫aé😀'; print(len(s), [hex(ord(c)) for c in s], list(s.encode('utf-8')))\"` を実行し、各予測と比較する。任意作業：同じ文字列を UTF-16 でエンコードし、バイト数を比較する。",
+      "exercise_prompt": "s='猫aé😀' と空文字列 '' について、len(s)、コードポイント、UTF-8 バイト列を予測する。次に Python で検証し、なぜバイト数がコードポイント数と異なるかを説明する。",
+      "hint": "UTF-8 は ASCII に 1 バイト、多くのアクセント付きラテン文字に 2 バイト、CJK に 3 バイト、多くの絵文字に 4 バイトを使う。`ord()` はコードポイントを返し、`.encode('utf-8')` はバイト列を返す。",
+      "answer": "s='猫aé😀' は 4 個のコードポイント ― U+732B（猫）、U+0061（a）、U+00E9（é）、U+1F600（😀）― だが UTF-8 では 10 バイトになる：猫→[231,140,171]、a→[97]、é→[195,169]、😀→[240,159,152,128]。空文字列はコードポイント 0、バイト 0。UTF-8 の長さはコードポイントの範囲に依存するため、文字数とバイト数は一般に一致しない。",
+      "mastery_criterion": "空文字列を含むすべての探索文字列で、書いた予測が観測された ord() と encode() の出力と一致し、コードポイント範囲から UTF-8 バイト数への対応規則を述べられること。"
+    },
+    "day-37-act-02": {
+      "title": "語彙とトークン ID 対応表",
+      "prerequisites": "前の活動を完了していること。詰まった場合は記載の回復リンクを使うこと。",
+      "objective": "すべての相異なる記号を安定した整数 ID に対応づける決定的な語彙を構築し、テキストを可逆にエンコード・デコードし、訓練時に現れなかった記号への明示的な方針を選ぶ。",
+      "assistance_policy_label": "独立習得確認（AI 支援なし）",
+      "instructions": "トークナイザには 2 つの表が必要：stoi（記号→ID）と itos（ID→記号）。必須作業：訓練テキストの相異なる記号をソート順に ID 0..V-1 で割り当て、len(vocab) を <unk> の ID として予約し、探索文字列をエンコード・デコードする。任意作業：<unk> を必要としない 256 エントリのバイトレベル語彙と比較する。",
+      "exercise_prompt": "訓練テキスト 'banana' について：ソート済み文字語彙を作り、'banana' と 'cab' をエンコードし、最初の結果をデコードし、<unk> を使って 'banana!' をエンコードする。次に 'é猫' を UTF-8 バイトとしてエンコードし、なぜバイトレベル入力が <unk> に到達しないかを述べる。",
+      "hint": "sorted(set('banana')) = ['a','b','n'] なので {a:0, b:1, n:2}、<unk>=3。'!' は表にないので 3 に対応づく。'é猫' は 5 個の UTF-8 バイト：[195,169,231,140,171]。",
+      "answer": "語彙 {a:0, b:1, n:2}、<unk>=3。encode('banana')=[1,0,2,0,2,0] でデコードは 'banana' をそのまま返す。encode('cab')=[2,0,1]。encode('banana!')=[1,0,2,0,2,0,3] ― '!' の情報は失われる。だから固定文字語彙には OOV 方針が必要で、バイトレベル入力 'é猫'→[195,169,231,140,171] は常に表現できる。",
+      "mastery_criterion": "任意の短い訓練テキストについて、語彙表を書き、探索文字列を手で正しくエンコード・デコードでき、いつ <unk> が必要で、いつバイトレベルの網羅がそれを不要にするか説明できること。"
+    },
+    "day-37-act-03": {
+      "title": "決定的な train/val/test 分割と出所管理",
+      "prerequisites": "前の活動を完了していること。詰まった場合は記載の回復リンクを使うこと。",
+      "objective": "text_tools の決定的な分割アーティファクトを再現してマニフェストを読み、下流のすべてのモデルがカウントの学習に train のみ、選択に val を使い、test には触れない状態を確認する。",
+      "assistance_policy_label": "Agent支援エンジニアリング確認",
+      "instructions": "必須作業：`python3 projects/text_tools/cli.py --input data/names.txt --split --output-dir /tmp/lm-data`（既定値：seed 42、比率 0.8/0.1/0.1）を実行し、/tmp/lm-data/manifest.json を開いて split_counts、split_sha256、leakage_check を確認する。別ディレクトリに再実行し、ハッシュが一致することを確認する。任意作業：--seed 99 で繰り返し、カウントは同じでもメンバーシップが変わることを観察する。",
+      "exercise_prompt": "実行前に 32,033 行コーパスの train/val/test 行数を予測し、検証する。10 行ファイルについても同じ分割を予測する。決定性と、どのインデックスも 2 つの分割に現れないことを証明するマニフェストのフィールドを述べる。",
+      "hint": "int(round(32033*0.8))=25626、int(round(32033*0.1))=3203、残り 3204 が test。10 行なら 8/1/1。マニフェストの leakage_check.no_leakage_verified と split_sha256 が互いに疎であることと再現性を保証する。",
+      "answer": "検証済み出力：train=25626、val=3203、test=3204、no_leakage_verified=True、seed=42。10 行ファイルは seed 42 で 8/1/1 に分かれ、train_indices [7,3,2,8,5,6,9,4]、val [0]、test [1] となり、再実行すると split_sha256 の値が一致する。",
+      "mastery_criterion": "アーティファクトを再生成でき、正確な分割数と、決定性・非重複を証明するマニフェストのフィールドを引用でき、カウント・語彙・マージを train でのみ学習できる理由を述べられること。"
+    },
+    "day-37-act-04": {
+      "title": "独立習得確認：バイト、ID、分割の証跡",
+      "prerequisites": "前の活動をすべて完了していること。詰まった場合は記載の回復リンクを使うこと。",
+      "objective": "支援なしで、コードポイント／バイトの計算、語彙のエンコード・デコード、分割数、不正入力の方針を再現し、外した項目について正直な回復計画を記録する。",
+      "assistance_policy_label": "独立習得確認（AI 支援なし）",
+      "instructions": "この確認中は解答や AI を参照しないこと。必須作業：4 つの回答すべてを下書きログで予測してから、Python と CLI で 1 つずつ検証する。任意作業：ノイズの多いコーパスに --errors ignore を使う正当な用途を 1 つ述べる。",
+      "exercise_prompt": "閉じた状態で：(a) 'é猫' のコードポイント数と UTF-8 バイト数は？ (b) 語彙 {a:0,b:1,c:2} で encode('cab') は？ (c) 10 行を 0.8/0.1/0.1 で分割すると各行数は？ (d) 不正バイト 0xFF を含むファイルで --errors strict の終了コードは？ replace ではどの文字が現れる？",
+      "hint": "(a) é は U+00E9（2 バイト）、猫 は U+732B（3 バイト）。(b) 各文字を表で引く。(c) round(10*0.8)=8、round(10*0.1)=1。(d) strict は中断し、replace は U+FFFD を挿入する。",
+      "answer": "(a) コードポイント 2、UTF-8 バイト 5 [195,169,231,140,171]。(b) [2,0,1]。(c) train 8、val 1、test 1。(d) strict は UnicodeDecodeError のメッセージで終了コード 1。replace は U+FFFD の置換文字（バイト 0xFF 0xFE に対し 2 個）を出力して終了コード 0。",
+      "mastery_criterion": "4 つの予測すべてが支援なしで観測出力と一致し、外した項目には修復に使う回復リンク（Day 35 復習または対応する Day 37 活動）を併記していること。"
+    }
+  }
+}

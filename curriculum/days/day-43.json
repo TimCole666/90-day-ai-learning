@@ -1,0 +1,459 @@
+{
+  "id": "day-43",
+  "day_number": 43,
+  "active_minutes": 480,
+  "topic_category": "models-and-training",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-42"
+  ],
+  "recovery_links": [
+    "day-42",
+    "day-35"
+  ],
+  "activities": [
+    {
+      "id": "day-43-act-01",
+      "lesson_id": "les-43",
+      "title": "Query, Key, and Value: Vector Roles and Attention Formulation",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev5",
+      "prerequisites": [
+        "day-42"
+      ],
+      "source_resources": [
+        {
+          "id": "stanford-cs224n",
+          "title": "Stanford CS224N: Natural Language Processing with Deep Learning",
+          "author": "Stanford University CS224N staff",
+          "original_url": "https://web.stanford.edu/class/cs224n/",
+          "relevant_timestamp": "Winter 2026 Lecture 05 Transformers (2026-01-20); attention and self-attention slides",
+          "version_or_verification_date": "Public edition checked 2026-11-01; moving pages may change",
+          "reuse_category": "linking",
+          "source_type": "course",
+          "license": "Stanford University copyright; no course-wide open reuse license verified",
+          "license_restrictions": [
+            "linking only; no reproduction"
+          ],
+          "permission_basis": "External hyperlink only; no third-party prose, exercises, code or translations are imported.",
+          "prerequisites": "Linear algebra, gradients, basic neural language models and PyTorch.",
+          "selection_rationale": "Selected attention/Transformer lecture slides provide a coherent teaching check on Q/K/V and architecture; original papers remain definition references and local code exercises remain required.",
+          "known_availability_limitations": "Course offerings and lecture numbers can change. Public slides do not imply access to campus grading or all videos; the whole course is not assigned.",
+          "safe_fallback": "Use the original localized explanations, exercises and checks already present in this activity; no external account or purchase is required for that fallback.",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Annotated Transformer",
+              "url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Runnable code commentary remains the implementation spine; its sublayer convention must not be mistaken for the original paper."
+            },
+            {
+              "candidate_name": "The Illustrated Transformer",
+              "url": "https://jalammar.github.io/illustrated-transformer/",
+              "license": "Copyright Jay Alammar; edition-specific reuse terms unverified",
+              "status": "compared_alternative",
+              "comparison_rationale": "Concise diagrams are useful, but provide neither the wider lecture sequence nor checked implementation exercises."
+            }
+          ],
+          "locator_url": "https://web.stanford.edu/class/cs224n/slides_w26/cs224n-2026-lecture05-transformers.pdf"
+        },
+        {
+          "id": "vaswani-attention-2017",
+          "title": "Attention Is All You Need",
+          "author": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin",
+          "original_url": "https://arxiv.org/abs/1706.03762",
+          "relevant_timestamp": "Section 3.2.1: Scaled Dot-Product Attention equation and query/key/value matrix definitions",
+          "version_or_verification_date": "NeurIPS 2017 / arXiv:1706.03762v7 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference to open-access paper; all explanations and mathematical formulations in this curriculum are original works.",
+          "prerequisites": "Linear algebra, matrix multiplication, softmax probability distributions",
+          "selection_rationale": "The foundational primary literature establishing scaled dot-product attention, multi-head projection mechanisms, and autoregressive causal masking.",
+          "known_availability_limitations": "Open-access paper freely hosted on arXiv.org; no paywall.",
+          "safe_fallback": "Complete original algebraic derivations, matrix examples, variance proofs, and tensor diagrams are self-contained in the curriculum text without external document dependency.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Bahdanau et al.: Neural Machine Translation by Jointly Learning to Align and Translate (ICLR 2015)",
+              "url": "https://arxiv.org/abs/1409.0473",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Pioneered additive attention in RNNs, but Vaswani scaled dot-product attention replaced additive alignment in modern LLM architectures due to parallel matrix multiplication speed."
+            },
+            {
+              "candidate_name": "Shaw et al.: Self-Attention with Relative Position Representations (NAACL 2018)",
+              "url": "https://arxiv.org/abs/1803.02155",
+              "license": "arXiv Open Access",
+              "status": "compared_deferred",
+              "comparison_rationale": "Introduces relative positional biases into attention; deferred to subsequent positional embedding modules after absolute scaled attention is thoroughly mastered."
+            },
+            {
+              "candidate_name": "Karpathy nanoGPT (causal self-attention module)",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_selected_co_primary",
+              "comparison_rationale": "Selected jointly as the primary code reference: translates Section 3.2 of the Vaswani paper into minimal, idiomatic PyTorch tensor operations."
+            }
+          ]
+        },
+        {
+          "id": "karpathy-nanogpt",
+          "title": "nanoGPT: Simplest, Fastest Repository for Training and Finetuning Medium GPTs",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/nanoGPT",
+          "relevant_timestamp": "model.py: CausalSelfAttention forward pass query/key/value projection extraction",
+          "version_or_verification_date": "GitHub master commit (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "software_repository_license_only": true,
+          "permission_basis": "Lawful external hyperlink to the public GitHub repository under the permissive MIT license; no proprietary lecture video or transcript text imported.",
+          "prerequisites": "Python, NumPy/PyTorch tensor fundamentals, and feed-forward network basics",
+          "selection_rationale": "Detailed modern reference implementation of clean, idiomatic batched causal self-attention in fewer than 60 lines of code.",
+          "known_availability_limitations": "Public repository hosted on GitHub.",
+          "safe_fallback": "Self-contained step-by-step tensor derivations, numeric matrix traces, and pure Python/NumPy implementations are directly provided in curriculum exercises.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Hugging Face transformers (GPT2Attention)",
+              "url": "https://github.com/huggingface/transformers/blob/main/src/transformers/models/gpt2/modeling_gpt2.py",
+              "license": "Apache-2.0",
+              "status": "compared_rejected_for_foundations",
+              "comparison_rationale": "Includes extensive production abstraction layers, configuration polymorphism, and cache tracking that obscure direct mathematical tensor operations for beginner learners."
+            },
+            {
+              "candidate_name": "Harvard NLP: The Annotated Transformer",
+              "url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+              "license": "MIT",
+              "status": "compared_selected_co_primary",
+              "comparison_rationale": "Selected jointly: provides line-by-line literary commentary mapping equations directly to PyTorch tensors."
+            },
+            {
+              "candidate_name": "Karpathy: build-nanogpt (YouTube & GitHub 2024)",
+              "url": "https://github.com/karpathy/build-nanogpt",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Expanded video walkthrough; software is MIT-licensed while video audio/subtitles remain linking-only without transcript import."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-43-act-02",
+      "lesson_id": "les-43",
+      "title": "The Scaling Factor sqrt(d_k) and Attention Score Matrices",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-43-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "vaswani-attention-2017",
+          "title": "Attention Is All You Need",
+          "author": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin",
+          "original_url": "https://arxiv.org/abs/1706.03762",
+          "relevant_timestamp": "Section 3.2.1: Mathematical justification for scaling factor 1/sqrt(d_k) to prevent vanishing softmax gradients",
+          "version_or_verification_date": "NeurIPS 2017 / arXiv:1706.03762v7 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference to open-access paper; all explanations and mathematical formulations in this curriculum are original works.",
+          "prerequisites": "Linear algebra, matrix multiplication, softmax probability distributions",
+          "selection_rationale": "The foundational primary literature establishing scaled dot-product attention, multi-head projection mechanisms, and autoregressive causal masking.",
+          "known_availability_limitations": "Open-access paper freely hosted on arXiv.org; no paywall.",
+          "safe_fallback": "Complete original algebraic derivations, matrix examples, variance proofs, and tensor diagrams are self-contained in the curriculum text without external document dependency.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Bahdanau et al.: Neural Machine Translation by Jointly Learning to Align and Translate (ICLR 2015)",
+              "url": "https://arxiv.org/abs/1409.0473",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Pioneered additive attention in RNNs, but Vaswani scaled dot-product attention replaced additive alignment in modern LLM architectures due to parallel matrix multiplication speed."
+            },
+            {
+              "candidate_name": "Shaw et al.: Self-Attention with Relative Position Representations (NAACL 2018)",
+              "url": "https://arxiv.org/abs/1803.02155",
+              "license": "arXiv Open Access",
+              "status": "compared_deferred",
+              "comparison_rationale": "Introduces relative positional biases into attention; deferred to subsequent positional embedding modules after absolute scaled attention is thoroughly mastered."
+            },
+            {
+              "candidate_name": "Karpathy nanoGPT (causal self-attention module)",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_selected_co_primary",
+              "comparison_rationale": "Selected jointly as the primary code reference: translates Section 3.2 of the Vaswani paper into minimal, idiomatic PyTorch tensor operations."
+            }
+          ]
+        },
+        {
+          "id": "annotated-transformer",
+          "title": "The Annotated Transformer",
+          "author": "v2022: Austin Huang, Suraj Subramanian, Jonathan Sum, Khalid Almubarak, Stella Biderman; original: Sasha Rush (Harvard NLP)",
+          "original_url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+          "relevant_timestamp": "Scaled Dot Product Attention code cell and attention matrix visualization",
+          "version_or_verification_date": "Updated 2022 edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT License terms; all text, examples, and exercise code in this curriculum are original works.",
+          "prerequisites": "Intermediate Python, PyTorch broadcasting and tensor slicing semantics",
+          "selection_rationale": "Widely used pedagogical commentary that pairs every paragraph of the original Vaswani paper with an executable, testable code cell.",
+          "known_availability_limitations": "Publicly hosted on Harvard SEAS and GitHub pages.",
+          "safe_fallback": "The curriculum provides standalone hand-worked numerical tables, explicit causal mask verification scripts, and offline analytical proofs.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Jay Alammar: The Illustrated Transformer",
+              "url": "https://jalammar.github.io/illustrated-transformer/",
+              "license": "CC BY-NC 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Spectacular visual diagrams and intuitive color-coding, but lacks executable tensor code and formal numerical shape validation."
+            },
+            {
+              "candidate_name": "Stanford CS224N: Natural Language Processing with Deep Learning (Lecture 10)",
+              "url": "https://web.stanford.edu/class/cs224n/",
+              "license": "Stanford University Copyright",
+              "status": "compared_alternative",
+              "comparison_rationale": "Rigorous academic slides and video lectures, but access to assignment grading is restricted to Stanford enrolled students."
+            },
+            {
+              "candidate_name": "Vaswani et al.: Attention Is All You Need",
+              "url": "https://arxiv.org/abs/1706.03762",
+              "license": "arXiv Open Access",
+              "status": "compared_selected_co_primary",
+              "comparison_rationale": "The original primary paper; Annotated Transformer annotates it directly."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-43-act-03",
+      "lesson_id": "les-43",
+      "title": "Variance Scaling Derivation and Gradient Saturation Analysis",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-43-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "vaswani-attention-2017",
+          "title": "Attention Is All You Need",
+          "author": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin",
+          "original_url": "https://arxiv.org/abs/1706.03762",
+          "relevant_timestamp": "Section 3.2.1 footnote and variance derivation for inner products of unit-variance components",
+          "version_or_verification_date": "NeurIPS 2017 / arXiv:1706.03762v7 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference to open-access paper; all explanations and mathematical formulations in this curriculum are original works.",
+          "prerequisites": "Linear algebra, matrix multiplication, softmax probability distributions",
+          "selection_rationale": "The foundational primary literature establishing scaled dot-product attention, multi-head projection mechanisms, and autoregressive causal masking.",
+          "known_availability_limitations": "Open-access paper freely hosted on arXiv.org; no paywall.",
+          "safe_fallback": "Complete original algebraic derivations, matrix examples, variance proofs, and tensor diagrams are self-contained in the curriculum text without external document dependency.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Bahdanau et al.: Neural Machine Translation by Jointly Learning to Align and Translate (ICLR 2015)",
+              "url": "https://arxiv.org/abs/1409.0473",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Pioneered additive attention in RNNs, but Vaswani scaled dot-product attention replaced additive alignment in modern LLM architectures due to parallel matrix multiplication speed."
+            },
+            {
+              "candidate_name": "Shaw et al.: Self-Attention with Relative Position Representations (NAACL 2018)",
+              "url": "https://arxiv.org/abs/1803.02155",
+              "license": "arXiv Open Access",
+              "status": "compared_deferred",
+              "comparison_rationale": "Introduces relative positional biases into attention; deferred to subsequent positional embedding modules after absolute scaled attention is thoroughly mastered."
+            },
+            {
+              "candidate_name": "Karpathy nanoGPT (causal self-attention module)",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_selected_co_primary",
+              "comparison_rationale": "Selected jointly as the primary code reference: translates Section 3.2 of the Vaswani paper into minimal, idiomatic PyTorch tensor operations."
+            }
+          ]
+        },
+        {
+          "id": "karpathy-nanogpt",
+          "title": "nanoGPT: Simplest, Fastest Repository for Training and Finetuning Medium GPTs",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/nanoGPT",
+          "relevant_timestamp": "model.py: scaling by 1.0 / math.sqrt(k.size(-1)) in attention calculation",
+          "version_or_verification_date": "GitHub master commit (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "software_repository_license_only": true,
+          "permission_basis": "Lawful external hyperlink to the public GitHub repository under the permissive MIT license; no proprietary lecture video or transcript text imported.",
+          "prerequisites": "Python, NumPy/PyTorch tensor fundamentals, and feed-forward network basics",
+          "selection_rationale": "Detailed modern reference implementation of clean, idiomatic batched causal self-attention in fewer than 60 lines of code.",
+          "known_availability_limitations": "Public repository hosted on GitHub.",
+          "safe_fallback": "Self-contained step-by-step tensor derivations, numeric matrix traces, and pure Python/NumPy implementations are directly provided in curriculum exercises.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Hugging Face transformers (GPT2Attention)",
+              "url": "https://github.com/huggingface/transformers/blob/main/src/transformers/models/gpt2/modeling_gpt2.py",
+              "license": "Apache-2.0",
+              "status": "compared_rejected_for_foundations",
+              "comparison_rationale": "Includes extensive production abstraction layers, configuration polymorphism, and cache tracking that obscure direct mathematical tensor operations for beginner learners."
+            },
+            {
+              "candidate_name": "Harvard NLP: The Annotated Transformer",
+              "url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+              "license": "MIT",
+              "status": "compared_selected_co_primary",
+              "comparison_rationale": "Selected jointly: provides line-by-line literary commentary mapping equations directly to PyTorch tensors."
+            },
+            {
+              "candidate_name": "Karpathy: build-nanogpt (YouTube & GitHub 2024)",
+              "url": "https://github.com/karpathy/build-nanogpt",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Expanded video walkthrough; software is MIT-licensed while video audio/subtitles remain linking-only without transcript import."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-43-act-04",
+      "lesson_id": "les-43",
+      "title": "Independent Mastery Check: Dot-Product Attention and Tensor Shapes",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-43-act-03"
+      ],
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "q1",
+            "type": "choice",
+            "expected_answer": "a"
+          },
+          {
+            "id": "q2",
+            "type": "choice",
+            "expected_answer": "b"
+          },
+          {
+            "id": "q3",
+            "type": "choice",
+            "expected_answer": "c"
+          }
+        ]
+      },
+      "source_resources": [
+        {
+          "id": "vaswani-attention-2017",
+          "title": "Attention Is All You Need",
+          "author": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin",
+          "original_url": "https://arxiv.org/abs/1706.03762",
+          "relevant_timestamp": "Section 3.2.1: Attention equation verification and tensor shape dimensions",
+          "version_or_verification_date": "NeurIPS 2017 / arXiv:1706.03762v7 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference to open-access paper; all explanations and mathematical formulations in this curriculum are original works.",
+          "prerequisites": "Linear algebra, matrix multiplication, softmax probability distributions",
+          "selection_rationale": "The foundational primary literature establishing scaled dot-product attention, multi-head projection mechanisms, and autoregressive causal masking.",
+          "known_availability_limitations": "Open-access paper freely hosted on arXiv.org; no paywall.",
+          "safe_fallback": "Complete original algebraic derivations, matrix examples, variance proofs, and tensor diagrams are self-contained in the curriculum text without external document dependency.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Bahdanau et al.: Neural Machine Translation by Jointly Learning to Align and Translate (ICLR 2015)",
+              "url": "https://arxiv.org/abs/1409.0473",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Pioneered additive attention in RNNs, but Vaswani scaled dot-product attention replaced additive alignment in modern LLM architectures due to parallel matrix multiplication speed."
+            },
+            {
+              "candidate_name": "Shaw et al.: Self-Attention with Relative Position Representations (NAACL 2018)",
+              "url": "https://arxiv.org/abs/1803.02155",
+              "license": "arXiv Open Access",
+              "status": "compared_deferred",
+              "comparison_rationale": "Introduces relative positional biases into attention; deferred to subsequent positional embedding modules after absolute scaled attention is thoroughly mastered."
+            },
+            {
+              "candidate_name": "Karpathy nanoGPT (causal self-attention module)",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_selected_co_primary",
+              "comparison_rationale": "Selected jointly as the primary code reference: translates Section 3.2 of the Vaswani paper into minimal, idiomatic PyTorch tensor operations."
+            }
+          ]
+        },
+        {
+          "id": "annotated-transformer",
+          "title": "The Annotated Transformer",
+          "author": "v2022: Austin Huang, Suraj Subramanian, Jonathan Sum, Khalid Almubarak, Stella Biderman; original: Sasha Rush (Harvard NLP)",
+          "original_url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+          "relevant_timestamp": "Attention function test assertions and shape contracts",
+          "version_or_verification_date": "Updated 2022 edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT License terms; all text, examples, and exercise code in this curriculum are original works.",
+          "prerequisites": "Intermediate Python, PyTorch broadcasting and tensor slicing semantics",
+          "selection_rationale": "Widely used pedagogical commentary that pairs every paragraph of the original Vaswani paper with an executable, testable code cell.",
+          "known_availability_limitations": "Publicly hosted on Harvard SEAS and GitHub pages.",
+          "safe_fallback": "The curriculum provides standalone hand-worked numerical tables, explicit causal mask verification scripts, and offline analytical proofs.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Jay Alammar: The Illustrated Transformer",
+              "url": "https://jalammar.github.io/illustrated-transformer/",
+              "license": "CC BY-NC 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Spectacular visual diagrams and intuitive color-coding, but lacks executable tensor code and formal numerical shape validation."
+            },
+            {
+              "candidate_name": "Stanford CS224N: Natural Language Processing with Deep Learning (Lecture 10)",
+              "url": "https://web.stanford.edu/class/cs224n/",
+              "license": "Stanford University Copyright",
+              "status": "compared_alternative",
+              "comparison_rationale": "Rigorous academic slides and video lectures, but access to assignment grading is restricted to Stanford enrolled students."
+            },
+            {
+              "candidate_name": "Vaswani et al.: Attention Is All You Need",
+              "url": "https://arxiv.org/abs/1706.03762",
+              "license": "arXiv Open Access",
+              "status": "compared_selected_co_primary",
+              "comparison_rationale": "The original primary paper; Annotated Transformer annotates it directly."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

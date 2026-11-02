@@ -1,0 +1,252 @@
+{
+  "id": "day-13",
+  "day_number": 13,
+  "active_minutes": 480,
+  "topic_category": "self-directed-learning-and-python",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-12"
+  ],
+  "recovery_links": [
+    "day-07"
+  ],
+  "activities": [
+    {
+      "id": "day-13-act-01",
+      "lesson_id": "les-13",
+      "title": "Build the text/data CLI core",
+      "active_minutes": 120,
+      "activity_type": "project",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev2",
+      "prerequisites": [
+        "day-12"
+      ],
+      "source_resources": [
+        {
+          "id": "py-docs-builtins-ticket26",
+          "title": "Python Standard Library: Built-in Types",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/stdtypes.html",
+          "relevant_timestamp": "str methods and Unicode semantics used by analyze_text (split, join, isalpha, isdigit)",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "prerequisites": "Study Days 01–12 Python fundamentals",
+          "selection_rationale": "Primary reference for the string methods and Unicode semantics behind corpus statistics.",
+          "known_availability_limitations": "Documentation hosted on python.org; regional connectivity may vary.",
+          "safe_fallback": "The lesson explains all required behavior locally and the reference implementation ships in the repository; pydoc mirrors the same documentation offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GNU coreutils wc/split",
+              "url": "https://www.gnu.org/software/coreutils/",
+              "license": "GPL-3.0-or-later",
+              "status": "compared_rejected_for_day13",
+              "comparison_rationale": "Powerful system tools, but the learning target is implementing and testing the behavior in Python, not delegating to platform-specific utilities."
+            },
+            {
+              "candidate_name": "Python HOWTO: Unicode",
+              "url": "https://docs.python.org/3/howto/unicode.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Deeper Unicode background for the encoding edge cases; str method reference remains the primary doc."
+            }
+          ],
+          "locator_url": "https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str"
+        },
+        {
+          "id": "python-argparse",
+          "title": "argparse — Parser for command-line options, arguments and subcommands",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/argparse.html",
+          "relevant_timestamp": "add_argument flags, choices, and type conversion used by cli.py",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "prerequisites": "Study Days 01–12 Python fundamentals",
+          "selection_rationale": "Primary reference for the CLI flags the learner exercises on the real project.",
+          "known_availability_limitations": "Documentation hosted on python.org; regional connectivity may vary.",
+          "safe_fallback": "argparse is part of the standard library; python3 -c \"import argparse; help(argparse)\" works fully offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Click package documentation",
+              "url": "https://click.palletsprojects.com/",
+              "license": "BSD-3-Clause",
+              "status": "compared_rejected_for_day13",
+              "comparison_rationale": "Strong third-party CLI framework, but the project intentionally uses only the standard library so the exercise needs no extra dependency."
+            },
+            {
+              "candidate_name": "docopt",
+              "url": "https://github.com/docopt/docopt",
+              "license": "MIT",
+              "status": "compared_rejected_for_day13",
+              "comparison_rationale": "Usage-string DSL for CLIs, but an external dependency is unjustified when argparse covers the project."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-13-act-02",
+      "lesson_id": "les-13",
+      "title": "Independent core implementation",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev3",
+      "prerequisites": [
+        "day-13-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "text-tools-project",
+          "title": "Text and Data Tools Learning Project",
+          "author": "Curriculum team (delivered in Ticket 16)",
+          "original_url": "curriculum/projects/text_tools/project.json",
+          "relevant_timestamp": "projects/text_tools/core.py: analyze_text and compute_splits interfaces",
+          "version_or_verification_date": "Verified against the checked-in implementation on 2026-10-30",
+          "reuse_category": "original_explanation",
+          "source_type": "internal-project",
+          "license": "Apache-2.0 AND CC-BY-SA-4.0",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Internal curriculum artifact authored inside this repository; no external rights needed beyond the stated project license.",
+          "prerequisites": "Study Days 01–12 Python fundamentals",
+          "selection_rationale": "The actual project whose interfaces the learner re-implements independently, keeping the exercise tied to real artifacts.",
+          "known_availability_limitations": "Fully local to the repository; no network dependency.",
+          "safe_fallback": "The implementation and its project manifest are committed in the repository and work offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "External toy CLI tutorials",
+              "url": "https://docs.python.org/3/tutorial/",
+              "license": "PSF License Version 2",
+              "status": "compared_rejected_for_day13",
+              "comparison_rationale": "Generic tutorials duplicate earlier days and disconnect the exercise from the deterministic data artifacts later experiments reuse."
+            },
+            {
+              "candidate_name": "CPython Lib/string.py reference implementation",
+              "url": "https://github.com/python/cpython/blob/main/Lib/string.py",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Production string-tooling internals are instructive but heavier than the project's focused interfaces."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-13-act-03",
+      "lesson_id": "les-13",
+      "title": "Held-out behavior and debugging checks",
+      "active_minutes": 120,
+      "activity_type": "project",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev3",
+      "prerequisites": [
+        "day-13-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "text-tools-project",
+          "title": "Text and Data Tools Learning Project",
+          "author": "Curriculum team (delivered in Ticket 16)",
+          "original_url": "curriculum/projects/text_tools/project.json",
+          "relevant_timestamp": "cli.py error paths: missing input, strict decoding, --output-dir requirement, ratio validation",
+          "version_or_verification_date": "Verified against the checked-in implementation on 2026-10-30",
+          "reuse_category": "original_explanation",
+          "source_type": "internal-project",
+          "license": "Apache-2.0 AND CC-BY-SA-4.0",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Internal curriculum artifact authored inside this repository; no external rights needed beyond the stated project license.",
+          "prerequisites": "Study Days 01–12 Python fundamentals",
+          "selection_rationale": "Held-out debugging must target the real CLI seams and exit codes, not a simplified re-implementation.",
+          "known_availability_limitations": "Fully local to the repository; no network dependency.",
+          "safe_fallback": "All debugging cases run on a temporary corpus in a disposable directory with no external services.",
+          "compared_candidates": [
+            {
+              "candidate_name": "External debugging courses",
+              "url": "https://docs.python.org/3/library/pdb.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "pdb documentation is a useful secondary reference, but the held-out cases exercise CLI behavior end to end."
+            },
+            {
+              "candidate_name": "pytest documentation",
+              "url": "https://docs.pytest.org/",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Natural next step to formalize the held-out cases; the activity first exercises the CLI seams directly."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-13-act-04",
+      "lesson_id": "les-13",
+      "title": "Project report: assumptions and limits",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev2",
+      "prerequisites": [
+        "day-13-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "text-tools-project",
+          "title": "Text and Data Tools Learning Project",
+          "author": "Curriculum team (delivered in Ticket 16)",
+          "original_url": "curriculum/projects/text_tools/project.json",
+          "relevant_timestamp": "manifest.json fields: source_sha256, split ratios/counts/hashes, leakage_check, environment, created_at",
+          "version_or_verification_date": "Verified against the checked-in implementation on 2026-10-30",
+          "reuse_category": "original_explanation",
+          "source_type": "internal-project",
+          "license": "Apache-2.0 AND CC-BY-SA-4.0",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Internal curriculum artifact authored inside this repository; no external rights needed beyond the stated project license.",
+          "prerequisites": "Study Days 01–12 Python fundamentals",
+          "selection_rationale": "The report must cite the real manifest and artifacts the learner generated, preserving attribution to the project.",
+          "known_availability_limitations": "Fully local to the repository; no network dependency.",
+          "safe_fallback": "Report evidence consists of local artifacts and command output captured in earlier activities.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Google Technical Writing One",
+              "url": "https://developers.google.com/tech-writing/one",
+              "license": "CC BY 4.0 (course content)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Solid general technical-writing training, but the report rubric here is specific to the project's manifest fields and provenance."
+            },
+            {
+              "candidate_name": "Write the Docs: Beginner's guide to documentation",
+              "url": "https://www.writethedocs.org/guide/writing/beginners-guide-to-docs/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "General documentation guidance; the report rubric remains bound to this project's manifest fields."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

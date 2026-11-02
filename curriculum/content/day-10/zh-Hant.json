@@ -1,0 +1,76 @@
+{
+  "language": "zh-Hant",
+  "language_label": "繁體中文",
+  "day_title": "Day 10: 檔案、路徑與編碼",
+  "day_subtitle": "把脆弱的檔案讀取變成可預測的程式：把路徑錨定到腳本、明確寫出編碼、用 with 釋放資源，並憑證據診斷遺失檔案和無效內容。 Retrieval and lower-new-content review are part of the 480-minute ledger.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Self-Directed Learning & Python",
+  "common": {
+    "nav_calendar": "Curriculum Calendar",
+    "day_label": "Day 10",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Record your prediction, observed output, review, and recovery evidence here...",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "作者 / 機構",
+    "source_url_label": "原始出處連結",
+    "source_range_label": "對應章節 / 時間戳",
+    "source_verification_label": "驗證版本與日期",
+    "source_rationale_label": "入選理由",
+    "source_prereqs_label": "來源前置條件",
+    "source_fallback_label": "安全回退方案（離線彈性）",
+    "compared_candidates_heading": "對比候選資源與選型分析"
+  },
+  "activities": {
+    "day-10-act-01": {
+      "title": "路徑、編碼與安全的檔案讀取",
+      "prerequisites": "完成上一個活動；如遇卡關，請使用列出的恢復連結。",
+      "objective": "在 with 區塊內用明確的 UTF-8 編碼讀取文字檔並統計非空行數。執行前先預測結果，再解釋為什麼相對路徑取決於目前工作目錄。",
+      "assistance_policy_label": "只有在記錄了預測和觀察到的證據之後，才允許使用協助。",
+      "instructions": "學習來源：在本活動現有的閱讀與練習時段內，參考 Automate the Boring Stuff with Python, 3rd edition 的 Chapter 10; Practice Questions; Appendix B answers，用自己的話解釋一處與本地任務的聯繫。保留現有練習與驗收檢查；若外部資料無法存取，使用課程自寫的解釋。在全新目錄中建立 notes.txt，恰好三行：alpha、beta、gamma。open(\"notes.txt\") 這類相對路徑會相對 Path.cwd() 解析，而不是相對腳本所在資料夾。迭代檔案物件每次產生一行，每行都保留結尾的 \"\\n\"，但最後一行可能例外：如果檔案不以換行符號結尾，最後一行就沒有換行符號（寫成 \"alpha\\nbeta\\ngamma\" 的檔案，最後一行是 'gamma'）。line.strip() 會去掉該換行符號及前後空白，因此由它判斷一行是否為空。with 區塊是預先定義的清理動作：即使讀取拋出例外也會關閉檔案。",
+      "exercise_prompt": "count = 0\nwith open(\"notes.txt\", encoding=\"utf-8\") as f:\n    for line in f:\n        if line.strip():\n            count += 1\nprint(count, f.closed)\n執行前先寫下它會印出的那一行，並解釋兩個值各自為什麼是這樣。如果 notes.txt 不以換行符號結尾，結果會變嗎？",
+      "hint": "先預測再執行。路徑困惑時先印出 Path.cwd()。比較迭代次數與非空行數；判空靠 strip() 而不是原始行。",
+      "answer": "count = 0\nwith open(\"notes.txt\", encoding=\"utf-8\") as f:\n    for line in f:\n        if line.strip():\n            count += 1\nprint(count, f.closed)\n輸出：3 True。追蹤：迴圈依序取得 'alpha\\n'、'beta\\n'、'gamma\\n'（若檔案沒有結尾換行符號則為 'gamma'）；strip() 之後每一行都非空，所以 count 達到 3，最後一行結尾的換行符號不會產生第四行。print 在 with 區塊結束之後才執行，此時 f 已關閉，所以 f.closed 為 True。",
+      "mastery_criterion": "預測與觀察到的輸出一致；能說明相對路徑相對 Path.cwd() 解析；能展示 with 區塊結束後檔案物件的關閉狀態（f.closed）。",
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-10-act-02": {
+      "title": "先診斷遺失檔案，再改程式",
+      "prerequisites": "完成上一個活動；如遇卡關，請使用列出的恢復連結。",
+      "objective": "重現 open(\"data/notes.txt\") 拋出的 FileNotFoundError，並在改動任何程式之前，用 Path.exists() 和 Path.cwd() 的證據把原因歸類為檔案不存在或工作目錄錯誤。",
+      "assistance_policy_label": "只有在記錄了預測和觀察到的證據之後，才允許使用協助。",
+      "instructions": "只在一次性夾具中操作：本活動的腳本會在一個全新的暫存目錄裡建立 project/（包含 reader.py 和 data/notes.txt）以及一個空的同層資料夾 outside/，並在結束時刪除它們，因此結果不會取決於你的家目錄或真實專案裡碰巧有什麼。訊息 [Errno 2] No such file or directory: 'data/notes.txt' 只說明相對路徑無法從目前工作目錄解析，無法區分兩種原因。先收集證據：比較 Path.cwd() 與腳本所在資料夾，求值 Path(\"data/notes.txt\").exists()（相對 cwd），再令 BASE = Path(__file__).resolve().parent 並求值 (BASE / \"data\" / \"notes.txt\").exists()（相對腳本）。如果錨定路徑存在而相對路徑不存在，表示工作目錄錯了：改用 open(BASE / \"data\" / \"notes.txt\", encoding=\"utf-8\")。如果錨定路徑也不存在，則夾具確實遺失，需要建立或還原；改程式無濟於事。",
+      "exercise_prompt": "從任意目錄執行這個腳本。它會建立一次性夾具，然後執行未修改的 reader.py（開啟相對路徑 data/notes.txt）：一次以 project 資料夾為 cwd，一次以 outside/ 為 cwd。執行前，預測兩次執行的結束碼和印出的每一行。然後根據證據歸類原因，並在不重寫計數邏輯的前提下寫出 reader.py 的最小修復。\n\n```python\nimport subprocess\nimport sys\nimport tempfile\nfrom pathlib import Path\n\nREADER = (\n    \"from pathlib import Path\\n\"\n    \"print('cwd is project:', Path.cwd() == Path(__file__).resolve().parent)\\n\"\n    \"print('exists:', Path('data/notes.txt').exists())\\n\"\n    \"with open('data/notes.txt', encoding='utf-8') as f:\\n\"\n    \"    print('lines:', sum(1 for line in f if line.strip()))\\n\"\n)\n\nwith tempfile.TemporaryDirectory() as tmp:\n    root = Path(tmp).resolve()\n    project = root / \"project\"\n    outside = root / \"outside\"\n    (project / \"data\").mkdir(parents=True)\n    outside.mkdir()\n    (project / \"data\" / \"notes.txt\").write_text(\"alpha\\nbeta\\ngamma\\n\", encoding=\"utf-8\")\n    (project / \"reader.py\").write_text(READER, encoding=\"utf-8\")\n    for label, cwd in [(\"project\", project), (\"outside\", outside)]:\n        run = subprocess.run([sys.executable, str(project / \"reader.py\")],\n                             cwd=cwd, capture_output=True, text=True)\n        print(f\"[{label}] exit={run.returncode}\")\n        print(run.stdout, end=\"\")\n        if run.stderr:\n            print(run.stderr.strip().splitlines()[-1])\n```",
+      "hint": "絕不要用重寫程式來修遺失檔案錯誤。先收集 cwd 和 exists() 證據，再決定修復屬於路徑錨定還是檔案還原。",
+      "answer": "練習腳本的觀察輸出（因為夾具是私有的，在每台機器上都相同）：\n\n```text\n[project] exit=0\ncwd is project: True\nexists: True\nlines: 3\n[outside] exit=1\ncwd is project: False\nexists: False\nFileNotFoundError: [Errno 2] No such file or directory: 'data/notes.txt'\n```\n\n診斷：檔案存在（cwd 為 project 時 exists: True），但第二次執行的 cwd 不同（cwd is project: False），所以相對路徑解析為並不存在的 outside/data/notes.txt。原因是工作目錄，而不是檔案遺失。最小修復：用 BASE = Path(__file__).resolve().parent 把路徑錨定到腳本，並開啟 BASE / \"data\" / \"notes.txt\"；計數那一行保持不變。下面的完整參考程式把錨定版 reader 寫入一個新夾具，從兩個資料夾分別執行，然後刪除資料檔以展示另一種原因：當錨定路徑本身不存在時，任何程式修改都沒用，還原夾具才能解決。\n\n```python\nimport subprocess\nimport sys\nimport tempfile\nfrom pathlib import Path\n\nFIXED = (\n    \"from pathlib import Path\\n\"\n    \"BASE = Path(__file__).resolve().parent\\n\"\n    \"with open(BASE / 'data' / 'notes.txt', encoding='utf-8') as f:\\n\"\n    \"    print('lines:', sum(1 for line in f if line.strip()))\\n\"\n)\n\n\ndef run(script, cwd):\n    done = subprocess.run([sys.executable, str(script)],\n                          cwd=cwd, capture_output=True, text=True)\n    if done.returncode == 0:\n        return f\"exit=0 {done.stdout.strip()}\"\n    last = done.stderr.strip().splitlines()[-1]\n    return f\"exit={done.returncode} {last.split(':')[0]}\"\n\n\nwith tempfile.TemporaryDirectory() as tmp:\n    root = Path(tmp).resolve()\n    project = root / \"project\"\n    outside = root / \"outside\"\n    notes = project / \"data\" / \"notes.txt\"\n    notes.parent.mkdir(parents=True)\n    outside.mkdir()\n    notes.write_text(\"alpha\\nbeta\\ngamma\\n\", encoding=\"utf-8\")\n    reader = project / \"reader.py\"\n    reader.write_text(FIXED, encoding=\"utf-8\")\n    print(\"anchored, from outside:\", run(reader, outside))\n    print(\"anchored, from project:\", run(reader, project))\n    notes.unlink()\n    print(\"fixture deleted, anchored path exists:\", notes.exists())\n    print(\"anchored, from project:\", run(reader, project))\n    notes.write_text(\"alpha\\nbeta\\ngamma\\n\", encoding=\"utf-8\")\n    print(\"fixture restored:\", run(reader, outside))\n```\n\n預期輸出：\n\n```text\nanchored, from outside: exit=0 lines: 3\nanchored, from project: exit=0 lines: 3\nfixture deleted, anchored path exists: False\nanchored, from project: exit=1 FileNotFoundError\nfixture restored: exit=0 lines: 3\n```",
+      "mastery_criterion": "日誌寫明兩種原因中哪一個成立、給出證明它的 cwd/exists() 證據，並套用最小修復（錨定路徑或還原檔案），而不是重寫讀取程式。"
+    },
+    "day-10-act-03": {
+      "title": "無效內容：帶跳過報告的容錯解析",
+      "prerequisites": "完成上一個活動；如遇卡關，請使用列出的恢復連結。",
+      "objective": "解析一個含有一行畸形資料的分數檔：記錄每個被跳過的行號並繼續處理。區分 UnicodeDecodeError（用錯編碼解碼位元組）與 ValueError（文字有效、數值無效）。",
+      "assistance_policy_label": "只有在記錄了預測和觀察到的證據之後，才允許使用協助。",
+      "instructions": "行形如 ana,7。int(\"x9\") 拋出 ValueError: invalid literal for int() with base 10: 'x9'。只用 try/except ValueError 包住 int(raw) 呼叫，把行號附加到 skipped 列表，並且只在解析成功時儲存分數。解碼問題是另一類失敗：位元組 b'caf\\xe9'（以 Latin-1 儲存的 café）不是有效的 UTF-8，所以 b'caf\\xe9'.decode(\"utf-8\") 會拋出 UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe9 in position 3: unexpected end of data。不要把它推廣成「所有 Latin-1 檔案按 UTF-8 解碼都會失敗」：純 ASCII 檔案在兩種編碼下解碼結果相同，而且有些位元組序列在兩種編碼下都有效卻表示不同的文字（b'caf\\xc3\\xa9' 在 UTF-8 下是 café，在 Latin-1 下是 cafÃ©），所以解碼成功並不能證明編碼正確。修復方法是寫明真實編碼——絕不用 errors=\"ignore\"，那會悄悄丟棄無法解碼的位元組、掩蓋問題。",
+      "exercise_prompt": "給定行 ana,7 / bo,x9 / cy,5（每行一筆），執行前先預測容錯讀取器的結果：哪些行進入 scores，哪些行號進入 skipped。然後從任意目錄執行這個完整程式；它會把自己的 scores.txt 夾具寫入一個暫存目錄（結束後刪除），並在迴圈之前定義 scores 和 skipped。try 區塊只包住 int(raw)，並且只在解析成功後才儲存分數。\n\n```python\nimport tempfile\nfrom pathlib import Path\n\nwith tempfile.TemporaryDirectory() as tmp:\n    path = Path(tmp) / \"scores.txt\"\n    path.write_text(\"ana,7\\nbo,x9\\ncy,5\\n\", encoding=\"utf-8\")\n    scores = {}\n    skipped = []\n    with open(path, encoding=\"utf-8\") as f:\n        for lineno, line in enumerate(f, 1):\n            line = line.strip()\n            if not line:\n                continue\n            name, _, raw = line.rpartition(\",\")\n            try:\n                score = int(raw)\n            except ValueError:\n                skipped.append(lineno)\n                continue\n            scores[name] = score\n    print(scores, skipped)\n```",
+      "hint": "讓 try 區塊盡可能小——只包 int(raw) 呼叫——避免吞掉 open() 或拆行產生的錯誤。記錄行號而不是只記數量。",
+      "answer": "預測與觀察輸出：\n\n```text\n{'ana': 7, 'cy': 5} [2]\n```\n\n第 2 行（bo,x9）在 try 內拋出 ValueError，所以它的行號進入 skipped，continue 跳過了指派；第 1 行和第 3 行執行到 scores[name] = score。try 只包住 int(raw)，所以 open() 失敗或拆行程式碼裡的 bug 仍會以 traceback 暴露出來，而不會被悄悄算作壞行。enumerate(f, 1) 給實體行編號，所以空行也會讓行號前進。解碼問題是另一類失敗，下面的程式把它與 ValueError 對比：\n\n```python\ndata = \"café\".encode(\"latin-1\")\nprint(data)\ntry:\n    data.decode(\"utf-8\")\nexcept UnicodeDecodeError as exc:\n    print(type(exc).__name__ + \":\", exc)\nprint(data.decode(\"latin-1\") == \"café\")\nprint(b\"plain ascii\".decode(\"utf-8\") == b\"plain ascii\".decode(\"latin-1\"))\nboth = b\"caf\\xc3\\xa9\"\nas_utf8 = both.decode(\"utf-8\")\nas_latin1 = both.decode(\"latin-1\")\nprint(as_utf8 == \"café\", as_latin1 == \"cafÃ©\", len(as_utf8), len(as_latin1))\n```\n\n預期輸出：\n\n```text\nb'caf\\xe9'\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0xe9 in position 3: unexpected end of data\nTrue\nTrue\nTrue True 4 5\n```\n\nb'caf\\xe9' 是 Latin-1 編碼的 café，不是有效的 UTF-8，所以按 UTF-8 解碼會拋出 UnicodeDecodeError；修復方法是宣告真實編碼（這裡是 encoding=\"latin-1\"）。純 ASCII 在兩種編碼下解碼結果相同，而 b'caf\\xc3\\xa9' 在兩種編碼下都能解碼成功，卻得到不同的文字（café 是 4 個字元，cafÃ© 是 5 個字元），所以解碼成功並不能證明宣告的編碼正確。相較之下，ValueError 表示文字解碼正常，但某一行的值無效。",
+      "mastery_criterion": "有效行都被處理、跳過的行號被記錄，並能正確命名兩種失敗：UnicodeDecodeError 表示修正宣告的編碼；ValueError 表示某行內容無效。"
+    },
+    "day-10-act-04": {
+      "title": "獨立的檔案彙總與恢復計畫",
+      "prerequisites": "完成上一個活動；如遇卡關，請使用列出的恢復連結。",
+      "objective": "閉卷實作 summarize_scores(path)，回傳 {\"scores\": {name: 最高分}, \"skipped\": [行號], \"missing\": bool}。它必須能處理有效檔案、含畸形行的檔案和遺失檔案而不崩潰。",
+      "assistance_policy_label": "獨立掌握檢查（不使用 AI 協助）。",
+      "instructions": "寫程式前先預測三個夾具的結果，檢查期間不看答案、不用 AI。卡住時的恢復連結：遺失檔案看 day-10-act-02，畸形行看 day-10-act-03。",
+      "exercise_prompt": "預期契約（在全新的暫存目錄中建立夾具，例如用 tempfile.TemporaryDirectory()，這樣其他檔案無法干擾）：內容為 ana,7 / bo,9 / ana,8 的 s1.txt 回傳 {'scores': {'ana': 8, 'bo': 9}, 'skipped': [], 'missing': False}，因為 ana 的 8 勝過 7。內容為 ana,7 / bo,x9 / cy,5 的 s2.txt 回傳 {'scores': {'ana': 7, 'cy': 5}, 'skipped': [2], 'missing': False}，因為第 2 行是畸形的。該暫存目錄中從未建立過的路徑（例如 missing.txt）回傳 {'scores': {}, 'skipped': [], 'missing': True}，而不是拋出例外。",
+      "hint": "某個夾具失敗時縮小到那一個檔案，對比預測字典與觀察字典，再看對應的恢復連結。如實記錄任何協助。",
+      "answer": "附有自足夾具測試的參考實作（請在記錄了你獨立完成的嘗試之後，再拿它與自己的版本比較）：\n\n```python\nimport tempfile\nfrom pathlib import Path\n\n\ndef summarize_scores(path):\n    result = {\"scores\": {}, \"skipped\": [], \"missing\": False}\n    try:\n        f = open(path, encoding=\"utf-8\")\n    except FileNotFoundError:\n        result[\"missing\"] = True\n        return result\n    with f:\n        for lineno, line in enumerate(f, 1):\n            line = line.strip()\n            if not line:\n                continue\n            name, sep, raw = line.rpartition(\",\")\n            try:\n                score = int(raw)\n            except ValueError:\n                score = None\n            if not sep or not name or score is None:\n                result[\"skipped\"].append(lineno)\n                continue\n            best = result[\"scores\"].get(name)\n            if best is None or score > best:\n                result[\"scores\"][name] = score\n    return result\n\n\nwith tempfile.TemporaryDirectory() as tmp:\n    base = Path(tmp)\n    (base / \"s1.txt\").write_text(\"ana,7\\nbo,9\\nana,8\\n\", encoding=\"utf-8\")\n    (base / \"s2.txt\").write_text(\"ana,7\\nbo,x9\\ncy,5\\n\", encoding=\"utf-8\")\n    print(summarize_scores(base / \"s1.txt\"))\n    print(summarize_scores(base / \"s2.txt\"))\n    print(summarize_scores(base / \"missing.txt\"))\n```\n\n預期輸出：\n\n```text\n{'scores': {'ana': 8, 'bo': 9}, 'skipped': [], 'missing': False}\n{'scores': {'ana': 7, 'cy': 5}, 'skipped': [2], 'missing': False}\n{'scores': {}, 'skipped': [], 'missing': True}\n```\n\n為什麼這樣寫：FileNotFoundError 處理器裡只有 open()，所以只有檔案遺失才會把 missing 設為 True，其他錯誤照常暴露。with f: 區塊在每條路徑上都會關閉檔案。ValueError 處理器裡只有 int(raw)；沒有逗號、名字為空或分數不是整數的行會被跳過，並記錄其從 1 開始的行號。每個名字的最高分透過與已存值比較來保留，所以 ana 最終是 8。",
+      "mastery_criterion": "獨立完成時三個夾具都精確回傳預測的字典；畸形行按行號報告；遺失檔案回傳 missing 標誌而不是 traceback。"
+    }
+  }
+}

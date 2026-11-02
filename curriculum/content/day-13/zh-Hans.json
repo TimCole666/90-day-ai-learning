@@ -1,0 +1,75 @@
+{
+  "language": "zh-Hans",
+  "language_label": "简体中文",
+  "day_title": "学习日 13：文本与数据学习项目",
+  "day_subtitle": "将现有的 text_tools 项目变成一条可复现的语料到产物的流水线。",
+  "time_budget_label": "480 分钟（8 小时专注学习）",
+  "category_label": "自主学习与 Python",
+  "common": {
+    "nav_calendar": "课程日历",
+    "day_label": "学习日 13",
+    "prerequisites_title": "先决条件",
+    "objective_title": "学习目标",
+    "instructions_title": "操作说明",
+    "exercise_title": "练习与预测",
+    "hint_title": "提示",
+    "reveal_answer": "参考答案",
+    "mastery_title": "独立掌握标准",
+    "draft_placeholder": "在此记录预测、证据与恢复情况...",
+    "sources_heading": "来源资源与出处",
+    "source_author_label": "作者 / 机构",
+    "source_url_label": "原始出处链接",
+    "source_range_label": "对应章节 / 时间戳",
+    "source_verification_label": "验证版本与日期",
+    "source_rationale_label": "入选理由",
+    "source_prereqs_label": "来源前置条件",
+    "source_fallback_label": "安全回退方案（离线弹性）",
+    "compared_candidates_heading": "对比候选资源与选型分析"
+  },
+  "activities": {
+    "day-13-act-01": {
+      "title": "构建 CLI 核心",
+      "prerequisites": "第 01–12 天：字符串、字典、文件、异常、测试与终端使用。",
+      "objective": "实现或检查 projects/text_tools/core.py 与 cli.py，覆盖统计、确定性分割、出处清单（manifest）以及显式的编码错误。",
+      "instructions": "必做：先创建本练习专用的私有工作区（`WORKDIR=$(mktemp -d)`），把小型语料写入 `$WORKDIR/corpus.txt`，记录预测，然后运行完整调用 `python3 projects/text_tools/cli.py --input \"$WORKDIR/corpus.txt\" --stats --json --split --output-dir \"$WORKDIR/artifacts\"`；检查差异，并逐一练习 --input、--stats、--split、--output-dir、--seed、--encoding 和 --errors。选做：对比 Python 文档链接。",
+      "exercise_prompt": "使用一个包含重复词元、中日韩文字、带重音字符和一个表情符号的小型语料库。先预测字符数/词元数，然后验证 stats.json 和 manifest.json——包括 `source_sha256` 与原始输入字节的 SHA256（如 `sha256sum \"$WORKDIR/corpus.txt\"`）一致，且 `input_decoding` 记录了编码、错误处理与换行策略。",
+      "hint": "计算放在 core.py，展示放在 cli.py。使用 random.Random(seed)、有序索引、SHA256，以及零词元保护。",
+      "answer": "合理方案：用词元/字符 Counter 计数，用 len(text) 统计 Unicode 码点数，在 list(range(n)) 上使用 random.Random(seed)，保证索引集合互不相交，并在清单中记录源/分割哈希、比例、计数、环境和 no_leakage_verified 字段。 清单还会记录原始字节的 `source_sha256`、`decoded_text_sha256`、`input_decoding` 策略与 `normalized_ratios`，并在任何写入前拒绝输入/输出路径冲突。",
+      "mastery_criterion": "学习者能够讲解并运行真实的 text_tools CLI，记录预测与证据，且不会把智能体写出的差异当作独立理解的证明。",
+      "assistance_policy_label": "只有在记录预测之后才允许智能体协助；必须检查并测试每一处生成的差异。"
+    },
+    "day-13-act-02": {
+      "title": "独立实现核心",
+      "prerequisites": "完成第 13 天活动 1，并关闭所有参考标签页。",
+      "objective": "在无 AI 协助的情况下，按照真实项目接口实现一个有边界的统计或分割函数。",
+      "instructions": "必做：独立实现且只实现一个被评估接口并声明所选——`analyze_text(text) -> dict`（统计）或 `compute_splits(lines, train_ratio, val_ratio, test_ratio, seed) -> dict`（切分）；然后在一个“你事先预测结果的、不同的新无协助输入”上测试。选做：提交后再与参考对照。正典示例输出是公开参考，绝非隐藏评估。",
+      "exercise_prompt": "选择一个被评估接口并声明。路线 A `analyze_text(text) -> dict`：预测输入 'a a\\n猫🙂' 的完整结果——键为 total_chars、total_tokens、vocab_size、char_vocab_size、token_frequencies、char_frequencies、min_token_length、max_token_length、avg_token_length、char_distribution。路线 B `compute_splits(lines, train_ratio, val_ratio, test_ratio, seed) -> dict`：对 ['a','b','c','d','e']、种子 7、比例 .6/.2/.2，预测计数并证明索引集合两两不相交。并说明所选路线依赖的区分规则（B：相同文本值仍需索引级检查；A：相同文本值不会虚增词表）。",
+      "hint": "先记录预期结果。路线 A：空白 `split()` 得 3 个 token；'猫🙂' 是占 2 个码位的 1 个 token；avg_token_length 是精确均值 4/3 按 4 位小数取整；空输入时计数与均值为零、频率字典为空，char_distribution 保留五个键且值均为 0。路线 B：校验比例之和，使用显式有序索引，不要用集合迭代充当输入顺序。",
+      "answer": "路线 A 参考：analyze_text('a a\\n猫🙂') -> total_chars=6, total_tokens=3, vocab_size=2, char_vocab_size=5, token_frequencies={'a':2, '猫🙂':1}, char_frequencies={'a':2,' ':1,'\\n':1,'猫':1,'🙂':1}, min_token_length=1, max_token_length=2, avg_token_length=1.3333（精确均值 4/3，按 4 位小数取整）, char_distribution={'alphabetic':3,'digits':0,'whitespace':2,'punctuation':0,'other':1}；空输入 -> 数值统计（计数、词表大小、min/max_token_length、avg_token_length=0.0）为 0，token_frequencies 与 char_frequencies 为空字典 {}，char_distribution 保留 alphabetic、digits、whitespace、punctuation、other 五个键，各值为 0。\n路线 B 参考：种子 7 -> 3、1、1 条记录；每个原始索引恰好分配一次；两两索引交集为 0。相同文本值不使索引不相交失效，但须声明去重策略；非有限或越界比例在分配前被拒。\n你的受评尝试必须使用不同的新无协助输入及其自测预测；这些正典案例是公开参考，不是隐藏评估。",
+      "mastery_criterion": "独立代码在不同的新无协助输入上通过留出行为检查，书面解释能区分索引泄漏、重复记录、token/字符计数与评估局限。",
+      "assistance_policy_label": "独立掌握检查：不允许 AI、抄写答案或智能体生成的代码。"
+    },
+    "day-13-act-03": {
+      "title": "留出行为检查与调试",
+      "prerequisites": "已有独立实现的函数，以及一个干净的临时输出目录。",
+      "objective": "在不改动课程仓库的前提下诊断真实故障：输入缺失、UTF-8 损坏、空输入、非法比例以及非确定性排序。",
+      "instructions": "必做：在进程隔离的临时目录中运行每个调试用例，记录退出状态和标准错误，并用留出数据重新生成产物。选做：让智能体提出测试建议，然后拒绝不安全或同义反复的测试。",
+      "exercise_prompt": "留出行为检查使用空文件、损坏字节、多语言行和相同种子连跑两次。预测哪些调用会成功、哪些会失败、哪些产物字节必须一致。",
+      "hint": "严格解码应当给出可描述的失败；replace 应当暴露 U+FFFD。空输入的平均值为 0.0。比较输出字节，而不是清单中的时间戳。",
+      "answer": "缺失文件、严格模式下损坏的输入以及错误比例之和都会返回非零并给出诊断；replace 会成功；空输入产出合法的零值统计；相同种子仅在相同原始输入字节、比例、解码/换行策略及同一实现/运行时/平台下逐字节复现分割文件（manifest 的 created_at 会变化；比较语义来因而非 manifest 字节）；泄漏在索引层面检查。 与任一生成产物名冲突的输入路径会在写入前被拒绝，且源文件保持字节不变；非有限或越界比例也会被拒绝。",
+      "mastery_criterion": "证据包含命令、退出码、观察到的输出，以及至少三个案例的诊断和修复说明；不把子进程通过等同于掌握。",
+      "assistance_policy_label": "智能体协助的工程检查：指挥智能体、检查差异，然后亲自运行留出检查。"
+    },
+    "day-13-act-04": {
+      "title": "项目报告：假设与局限",
+      "prerequisites": "完成前面三个活动并保留其证据。",
+      "objective": "撰写一份简短报告，把确定性数据准备与后续分词器和模型实验联系起来，同时说明假设与局限。",
+      "instructions": "必做：先撰写并封存（提交、注明日期）无协助的报告——覆盖来源归属、编码、词元定义、分割比例/种子、泄漏策略、观测到的测量值、可复现性和局限。之后的协助润色是单独标记的产物，不替代已封存版本；若协助暴露出实质缺漏，必须先做一次新的无协助检查方可计入掌握。选做：在不改动本项目的情况下提出一个后续分词器实验。",
+      "exercise_prompt": "解释为什么固定的训练/验证/测试产物可以被 Makemore、minbpe 和 NanoGPT 复用，以及为什么固定分割并不能证明模型泛化。",
+      "hint": "把观测事实与理论主张分开。提及 Unicode 码点与字节、重复记录、种子/版本依赖，以及没有真实云端或模型结果。",
+      "answer": "清单让数据身份和分割归属在后续实验中可审计；它并不能消除分布漂移、重复内容泄漏、编码/分词选择或环境差异。本项目使用链接/归属，而不是复制源文本。",
+      "mastery_criterion": "报告完整，引用真实的项目产物，列出至少三条假设和三条局限，并能区分已封存的无协助草稿与单独标记的协助润色稿。",
+      "assistance_policy_label": "独立掌握检查：先提交并封存未受协助的报告；之后的 AI 文字润色是单独标记、不计评估的产物，绝不替代独立证据。"
+    }
+  }
+}

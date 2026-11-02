@@ -1,0 +1,224 @@
+{
+  "id": "day-14",
+  "day_number": 14,
+  "active_minutes": 480,
+  "topic_category": "self-directed-learning-and-python",
+  "is_review_day": true,
+  "status": "available",
+  "prerequisites": [
+    "day-13"
+  ],
+  "recovery_links": [
+    "day-13"
+  ],
+  "activities": [
+    {
+      "id": "day-14-act-01",
+      "lesson_id": "les-14",
+      "title": "Disposable branches, diffs, and review",
+      "active_minutes": 120,
+      "activity_type": "project",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev4",
+      "prerequisites": [
+        "day-13"
+      ],
+      "source_resources": [
+        {
+          "id": "git-book",
+          "title": "Pro Git, Second Edition",
+          "author": "Scott Chacon and Ben Straub",
+          "original_url": "https://git-scm.com/book/en/v2",
+          "relevant_timestamp": "Chapter 3 (Git Branching: branches, basic merging and conflicts), Chapter 7.7 (Reset Demystified), Chapter 5.2 (Contributing to a Project)",
+          "version_or_verification_date": "Second edition (Apress, 2014); verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-SA 3.0",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no book text reproduced in curriculum content.",
+          "prerequisites": "Basic git status/log/diff vocabulary from earlier study days",
+          "selection_rationale": "Freely licensed reference for branching, merging, conflict resolution, and safe recovery vocabulary.",
+          "known_availability_limitations": "Readable free at git-scm.com; availability depends on the site staying online.",
+          "safe_fallback": "git help <command> and the Git manual pages ship with Git and cover the same commands offline; every required workflow is stated locally in the lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GitHub Skills interactive courses",
+              "url": "https://skills.github.com/",
+              "license": "MIT (varies by course)",
+              "status": "compared_rejected_for_day14",
+              "comparison_rationale": "Interactive but requires a GitHub account and an external service; disposable local repositories keep the exercise self-contained."
+            },
+            {
+              "candidate_name": "Atlassian Git Tutorials",
+              "url": "https://www.atlassian.com/git/tutorials",
+              "license": "All Rights Reserved",
+              "status": "compared_rejected_for_day14",
+              "comparison_rationale": "Vendor-owned prose with no permissive license; Pro Git covers the same ground under CC BY-NC-SA."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-14-act-02",
+      "lesson_id": "les-14",
+      "title": "Independent conflict resolution",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev4",
+      "prerequisites": [
+        "day-14-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "git-book",
+          "title": "Pro Git, Second Edition",
+          "author": "Scott Chacon and Ben Straub",
+          "original_url": "https://git-scm.com/book/en/v2",
+          "relevant_timestamp": "Section 3.2 (Basic Merging and Conflicts)",
+          "version_or_verification_date": "Second edition (Apress, 2014); verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-SA 3.0",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no book text reproduced in curriculum content.",
+          "prerequisites": "Completion of day-14-act-01 in a disposable repository",
+          "selection_rationale": "Standard reference for conflict markers and merge semantics underlying the independent resolution exercise.",
+          "known_availability_limitations": "Readable free at git-scm.com; availability depends on the site staying online.",
+          "safe_fallback": "git help merge documents conflict handling offline; the disposable fixture and instructions are fully local.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Oh Shit, Git!?!",
+              "url": "https://ohshitgit.com/",
+              "license": "Copyright Katie Sylor-Miller (all rights reserved; linking only)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong recovery cheatsheet, but conflict resolution is exercised hands-on; Pro Git remains the primary reference."
+            },
+            {
+              "candidate_name": "Learn Git Branching",
+              "url": "https://learngitbranching.js.org/",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Visual branch/merge sandbox; useful companion but the exercise must run in a real disposable repo."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-14-act-03",
+      "lesson_id": "les-14",
+      "title": "Safe recovery in a disposable repository",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev4",
+      "prerequisites": [
+        "day-14-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "git-book",
+          "title": "Pro Git, Second Edition",
+          "author": "Scott Chacon and Ben Straub",
+          "original_url": "https://git-scm.com/book/en/v2",
+          "relevant_timestamp": "Section 7.7 (Reset Demystified) and Section 2.4 (Undoing Things): restore, revert, and history boundaries",
+          "version_or_verification_date": "Second edition (Apress, 2014); verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-SA 3.0",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no book text reproduced in curriculum content.",
+          "prerequisites": "Completion of day-14-act-02",
+          "selection_rationale": "Freely licensed explanation of why restore and revert are the safe recovery tools while destructive commands are deferred.",
+          "known_availability_limitations": "Readable free at git-scm.com; availability depends on the site staying online.",
+          "safe_fallback": "git help restore and git help revert document the same safe operations offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Git documentation: git-restore/git-revert",
+              "url": "https://git-scm.com/docs/git-restore",
+              "license": "GPL-2.0 (Git) / CC BY-NC-SA 3.0 (book-derived pages)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Exact command references, useful as a companion; Pro Git provides the conceptual model the activity teaches."
+            },
+            {
+              "candidate_name": "Oh Shit, Git!?!",
+              "url": "https://ohshitgit.com/",
+              "license": "Copyright Katie Sylor-Miller (all rights reserved; linking only)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Recovery cheatsheet matching the safe-recovery theme; Pro Git provides the underlying model."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-14-act-04",
+      "lesson_id": "les-14",
+      "title": "PR-style review and retrieval",
+      "active_minutes": 120,
+      "activity_type": "review",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev4",
+      "prerequisites": [
+        "day-14-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "git-book",
+          "title": "Pro Git, Second Edition",
+          "author": "Scott Chacon and Ben Straub",
+          "original_url": "https://git-scm.com/book/en/v2",
+          "relevant_timestamp": "Section 5.2 (Contributing to a Project: commit and review etiquette) and Section 6.2 (Contributing via pull requests)",
+          "version_or_verification_date": "Second edition (Apress, 2014); verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-SA 3.0",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no book text reproduced in curriculum content.",
+          "prerequisites": "Completion of day-14-act-03",
+          "selection_rationale": "Provides the shared vocabulary for PR-style review findings while the exercise stays entirely local and disposable.",
+          "known_availability_limitations": "Readable free at git-scm.com; availability depends on the site staying online.",
+          "safe_fallback": "The review rubric is fully specified in the lesson; no network access is required to complete it.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Google eng-practices: The CL author's guide / How to do a code review",
+              "url": "https://google.github.io/eng-practices/",
+              "license": "CC BY 3.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Industry-grade review guidance; offered as optional further reading since the exercise reviews a local disposable change."
+            },
+            {
+              "candidate_name": "Conventional Comments",
+              "url": "https://conventionalcomments.org/",
+              "license": "CC BY 3.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Comment-labeling convention for review findings; optional vocabulary, not a substitute for the local rubric."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

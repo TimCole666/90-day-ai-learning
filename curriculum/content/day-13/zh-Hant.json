@@ -1,0 +1,75 @@
+{
+  "language": "zh-Hant",
+  "language_label": "繁體中文",
+  "day_title": "學習日 13：文字與資料學習專案",
+  "day_subtitle": "將現有的 text_tools 專案變成一條可重現的語料到產物管線。",
+  "time_budget_label": "480 分鐘（8 小時專注學習）",
+  "category_label": "自主學習與 Python",
+  "common": {
+    "nav_calendar": "課程日曆",
+    "day_label": "學習日 13",
+    "prerequisites_title": "先決條件",
+    "objective_title": "學習目標",
+    "instructions_title": "操作說明",
+    "exercise_title": "練習與預測",
+    "hint_title": "提示",
+    "reveal_answer": "參考答案",
+    "mastery_title": "獨立掌握標準",
+    "draft_placeholder": "在此記錄預測、證據與復原情況...",
+    "sources_heading": "來源資源與出處",
+    "source_author_label": "作者 / 機構",
+    "source_url_label": "原始出處連結",
+    "source_range_label": "對應章節 / 時間戳",
+    "source_verification_label": "驗證版本與日期",
+    "source_rationale_label": "入選理由",
+    "source_prereqs_label": "來源前置條件",
+    "source_fallback_label": "安全回退方案（離線彈性）",
+    "compared_candidates_heading": "對比候選資源與選型分析"
+  },
+  "activities": {
+    "day-13-act-01": {
+      "title": "建構 CLI 核心",
+      "prerequisites": "第 01–12 天：字串、字典、檔案、例外、測試與終端機使用。",
+      "objective": "實作或檢查 projects/text_tools/core.py 與 cli.py，涵蓋統計、決定性分割、出處清單（manifest）以及明確的編碼錯誤。",
+      "instructions": "必做：先建立本練習專用的私有工作區（`WORKDIR=$(mktemp -d)`），把小型語料寫入 `$WORKDIR/corpus.txt`，記錄預測，然後執行完整呼叫 `python3 projects/text_tools/cli.py --input \"$WORKDIR/corpus.txt\" --stats --json --split --output-dir \"$WORKDIR/artifacts\"`；檢查差異，並逐一練習 --input、--stats、--split、--output-dir、--seed、--encoding 和 --errors。選做：比較 Python 文件連結。",
+      "exercise_prompt": "使用一個包含重複詞元、中日韓文字、帶重音字元和一個表情符號的小型語料庫。先預測字元數/詞元數，然後驗證 stats.json 和 manifest.json——包括 `source_sha256` 與原始輸入位元組的 SHA256（如 `sha256sum \"$WORKDIR/corpus.txt\"`）一致，且 `input_decoding` 記錄了編碼、錯誤處理與換行策略。",
+      "hint": "計算放在 core.py，展示放在 cli.py。使用 random.Random(seed)、有序索引、SHA256，以及零詞元保護。",
+      "answer": "合理方案：用詞元/字元 Counter 計數，用 len(text) 統計 Unicode 碼位數，在 list(range(n)) 上使用 random.Random(seed)，保證索引集合互不相交，並在清單中記錄來源/分割雜湊、比例、計數、環境和 no_leakage_verified 欄位。 清單還會記錄原始位元組的 `source_sha256`、`decoded_text_sha256`、`input_decoding` 策略與 `normalized_ratios`，並在任何寫入前拒絕輸入/輸出路徑衝突。",
+      "mastery_criterion": "學習者能夠講解並執行真實的 text_tools CLI，記錄預測與證據，且不會把代理寫出的差異當作獨立理解的證明。",
+      "assistance_policy_label": "只有在記錄預測之後才允許代理協助；必須檢查並測試每一處產生的差異。"
+    },
+    "day-13-act-02": {
+      "title": "獨立實作核心",
+      "prerequisites": "完成第 13 天活動 1，並關閉所有參考分頁。",
+      "objective": "在無 AI 協助的情況下，按照真實專案介面實作一個有邊界的統計或分割函式。",
+      "instructions": "必做：獨立實作且只實作一個被評估介面並聲明所選——`analyze_text(text) -> dict`（統計）或 `compute_splits(lines, train_ratio, val_ratio, test_ratio, seed) -> dict`（分割）；然後在一個「你事先預測結果的、不同的新無協助輸入」上測試。選做：提交後再與參考對照。正典示例輸出是公開參考，絕非隱藏評估。",
+      "exercise_prompt": "選擇一個被評估介面並聲明。路線 A `analyze_text(text) -> dict`：預測輸入 'a a\\n猫🙂' 的完整結果——鍵為 total_chars、total_tokens、vocab_size、char_vocab_size、token_frequencies、char_frequencies、min_token_length、max_token_length、avg_token_length、char_distribution。路線 B `compute_splits(lines, train_ratio, val_ratio, test_ratio, seed) -> dict`：對 ['a','b','c','d','e']、種子 7、比例 .6/.2/.2，預測計數並證明索引集合兩兩不相交。並說明所選路線依賴的區分規則（B：相同文本值仍需索引級檢查；A：相同文本值不會虛增詞表）。",
+      "hint": "先記錄預期結果。路線 A：空白 `split()` 得 3 個 token；'猫🙂' 是占 2 個碼位的 1 個 token；avg_token_length 是精確均值 4/3 按 4 位小數取整；空輸入時計數與均值為零、頻率字典為空，char_distribution 保留五個鍵且值均為 0。路線 B：校驗比例之和，使用顯式有序索引，不要用集合迭代充當輸入順序。",
+      "answer": "路線 A 參考：analyze_text('a a\\n猫🙂') -> total_chars=6, total_tokens=3, vocab_size=2, char_vocab_size=5, token_frequencies={'a':2, '猫🙂':1}, char_frequencies={'a':2,' ':1,'\\n':1,'猫':1,'🙂':1}, min_token_length=1, max_token_length=2, avg_token_length=1.3333（精確均值 4/3，按 4 位小數取整）, char_distribution={'alphabetic':3,'digits':0,'whitespace':2,'punctuation':0,'other':1}；空輸入 -> 數值統計（計數、詞表大小、min/max_token_length、avg_token_length=0.0）為 0，token_frequencies 與 char_frequencies 為空字典 {}，char_distribution 保留 alphabetic、digits、whitespace、punctuation、other 五個鍵，各值為 0。\n路線 B 參考：種子 7 -> 3、1、1 筆記錄；每個原始索引恰好分配一次；兩兩索引交集為 0。相同文本值不使索引不相交失效，但須聲明去重策略；非有限或越界比例在分配前被拒。\n你的受評嘗試必須使用不同的新無協助輸入及其自測預測；這些正典案例是公開參考，不是隱藏評估。",
+      "mastery_criterion": "獨立程式碼在不同的新無協助輸入上通過保留行為檢查，書面解釋能區分索引洩漏、重複記錄、token/字元計數與評估侷限。",
+      "assistance_policy_label": "獨立掌握檢查：不允許 AI、抄寫答案或代理產生的程式碼。"
+    },
+    "day-13-act-03": {
+      "title": "保留行為檢查與除錯",
+      "prerequisites": "已有獨立實作的函式，以及一個乾淨的暫時輸出目錄。",
+      "objective": "在不改動課程儲存庫的前提下診斷真實故障：輸入缺失、UTF-8 損毀、空輸入、非法比例以及非決定性排序。",
+      "instructions": "必做：在程序隔離的暫時目錄中執行每個除錯案例，記錄結束狀態和標準錯誤，並用保留資料重新產生產物。選做：讓代理提出測試建議，然後拒絕不安全或同義反覆的測試。",
+      "exercise_prompt": "保留行為檢查使用空檔案、損毀位元組、多語言行和相同種子連跑兩次。預測哪些呼叫會成功、哪些會失敗、哪些產物位元組必須一致。",
+      "hint": "嚴格解碼應當給出可描述的失敗；replace 應當暴露 U+FFFD。空輸入的平均值為 0.0。比較輸出位元組，而不是清單中的時間戳記。",
+      "answer": "缺失檔案、嚴格模式下損毀的輸入以及錯誤比例之和都會回傳非零並給出診斷；replace 會成功；空輸入產生合法的零值統計；相同種子僅在相同原始輸入位元組、比例、解碼/換行策略及同一實作/執行環境/平台下逐位元組重現分割檔案（manifest 的 created_at 會變化；比較語義來歷而非 manifest 位元組）；洩漏在索引層面檢查。 與任一產生產物名稱衝突的輸入路徑會在寫入前被拒絕，且來源檔案保持位元組不變；非有限或越界比例也會被拒絕。",
+      "mastery_criterion": "證據包含命令、結束碼、觀察到的輸出，以及至少三個案例的診斷和修復說明；不把子程序通過等同於掌握。",
+      "assistance_policy_label": "代理協助的工程檢查：指揮代理、檢查差異，然後親自執行保留檢查。"
+    },
+    "day-13-act-04": {
+      "title": "專案報告：假設與侷限",
+      "prerequisites": "完成前面三個活動並保留其證據。",
+      "objective": "撰寫一份簡短報告，把決定性資料準備與後續分詞器和模型實驗連結起來，同時說明假設與侷限。",
+      "instructions": "必做：先撰寫並封存（提交、註明日期）無協助的報告——涵蓋來源歸屬、編碼、詞元定義、分割比例/種子、洩漏策略、觀測到的測量值、可重現性和侷限。之後的協助潤飾是單獨標記的產物，不替代已封存版本；若協助暴露出實質缺漏，必須先做一次新的無協助檢查方可計入掌握。選做：在不改動本專案的情況下提出一個後續分詞器實驗。",
+      "exercise_prompt": "解釋為什麼固定的訓練/驗證/測試產物可以被 Makemore、minbpe 和 NanoGPT 重複使用，以及為什麼固定分割並不能證明模型泛化。",
+      "hint": "把觀測事實與理論主張分開。提及 Unicode 碼位與位元組、重複記錄、種子/版本依賴，以及沒有真實雲端或模型結果。",
+      "answer": "清單讓資料身分和分割歸屬在後續實驗中可稽核；它並不能消除分布漂移、重複內容洩漏、編碼/分詞選擇或環境差異。本專案使用連結/歸屬，而不是複製來源文字。",
+      "mastery_criterion": "報告完整，引用真實的專案產物，列出至少三條假設和三條侷限，並能區分已封存的無協助草稿與單獨標記的協助潤飾稿。",
+      "assistance_policy_label": "獨立掌握檢查：先提交並封存未受協助的報告；之後的 AI 文字潤飾是單獨標記、不計評估的產物，絕不替代獨立證據。"
+    }
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 34: MLP Structure and the Forward Pass",
+  "day_subtitle": "Move from the historical perceptron to differentiable neurons, assemble a 2-2-1 multilayer perceptron on the projects/autograd scalar engine, hand-compute every forward value, and collect the parameter gradients that Day 35 will derive by hand.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Models, Pretraining & LoRA",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "day_label": "Day 34",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Enter your forward-pass predictions, observed engine values, and parameter counts here...",
+    "dev_slice_notice": "Verified curriculum module for the 90-Day AI Learning Platform.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account.",
+        "provider_error": "Authentication provider encountered an error.",
+        "server_error": "Authentication provider encountered an error.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    },
+    "quiz": {
+      "quiz_title": "Objective Knowledge Check: MLP Structure & Forward Pass",
+      "quiz_instructions": "Answer the following questions to verify your understanding. Select your declared assistance condition before submitting.",
+      "assistance_mode_label": "Declared Assistance Condition",
+      "mode_independent": "Independent Mastery Check (No AI assistance)",
+      "mode_agent_assisted": "Agent-Assisted Engineering Check (Completed with AI assistance)",
+      "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+      "submit_btn": "Submit Answers",
+      "retry_btn": "Retry Quiz",
+      "view_hint": "Question Hint",
+      "mastery_criterion_label": "Mastery Criterion",
+      "mastery_criterion_desc": "Score 100% (3/3 correct) on an Independent Mastery Check.",
+      "score_label": "Score",
+      "passed_badge": "Passed",
+      "failed_badge": "Needs Review",
+      "independent_pass_badge": "Independent Mastery Verified",
+      "agent_assisted_pass_badge": "Agent-Assisted Verified",
+      "self_reported_badge": "Self-Reported Checkbox",
+      "stale_badge": "Historical (Revalidation Needed - Content Revision Changed)",
+      "attempts_history_title": "Attempt History & Evidence",
+      "no_attempts": "No attempts recorded yet."
+    }
+  },
+  "activities": {
+    "day-34-act-01": {
+      "title": "From Perceptron to Differentiable MLP: Layers, Weights, and Activations",
+      "prerequisites": "Day 33 autograd mastery check and the verified Value backward() semantics.",
+      "objective": "Distinguish the historical perceptron (step activation) from a differentiable neuron $z = \\sum_i w_i x_i + b$, $a = \\sigma(z)$; explain why stacked layers with nonlinear activations are required for functions such as XOR; and state the exact structure of the reference 2-2-1 network used today.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Read the concept decomposition below, then predict before computing.\n\nA perceptron computes $z = \\sum_i w_i x_i + b$ and fires $1$ if $z > 0$ else $0$. Its step activation makes the input-output map piecewise constant: the gradient is $0$ almost everywhere and undefined at the kink, so gradient-based training cannot improve it. A differentiable neuron replaces the step with a smooth activation such as $\\tanh$.\n\nA multilayer perceptron (MLP) stacks fully-connected layers: every neuron in layer $l$ consumes every activation in layer $l-1$. A single linear unit can only draw one straight decision boundary and cannot represent XOR; two or more layers with a nonlinear activation can.\n\nReference network N1 (used all day): inputs $x=(2.0, -1.0)$; hidden neuron $h_1$: weights $(0.5, -0.25)$, bias $0.1$, $\\tanh$; hidden neuron $h_2$: weights $(-0.5, 1.0)$, bias $-0.2$, $\\tanh$; output neuron $o$: weights $(1.0, -2.0)$, bias $0.3$, linear (no activation); loss $L = (o - y)^2$ with target $y = 1.0$.",
+      "exercise_prompt": "1. Before any computation, predict the signs of $z_1$ and $z_2$ and whether either hidden neuron is near saturation.\n2. Count the trainable parameters of N1 and split them into weights and biases.\n3. In one sentence, state why a step-activated perceptron cannot be trained by gradient descent.\n4. Predict whether $o$ will be above or below the target $y = 1.0$.",
+      "hint": "Compute the weighted sums first: $z_1 = 0.5(2.0) + (-0.25)(-1.0) + 0.1$ and $z_2 = -0.5(2.0) + 1.0(-1.0) + (-0.2)$. For the parameter count, list every weight and every bias separately. For saturation, recall that $\\tanh$ saturates for $|z| \\gtrsim 4$.",
+      "answer": "Reference Solution:\n1. $z_1 = 1.0 + 0.25 + 0.1 = 1.35$ (positive, mid-range, not saturated); $z_2 = -1.0 - 1.0 - 0.2 = -2.2$ (negative, also not deeply saturated).\n2. Nine trainable parameters: six weights ($(w_{11}, w_{12}), (w_{21}, w_{22}), (w_{o1}, w_{o2})$) and three biases ($b_1, b_2, b_o$).\n3. The step function is flat almost everywhere, so its derivative is $0$ wherever defined and undefined at $z = 0$; no useful gradient reaches the weights.\n4. $o = 1.0 \\cdot \\tanh(1.35) + (-2.0) \\cdot \\tanh(-2.2) + 0.3 \\approx 0.874 + 1.951 + 0.3 = 3.126$, well above $y = 1.0$.",
+      "mastery_criterion": "The learner states the $z = \\sum w_i x_i + b$ and $a = \\sigma(z)$ equations, counts N1's nine parameters correctly, and explains in their own words why differentiability is required for gradient-based learning."
+    },
+    "day-34-act-02": {
+      "title": "Hand-Computed Forward Pass Through a 2-2-1 Network",
+      "prerequisites": "Activity 34-01 network definition and tanh evaluation.",
+      "objective": "Compute every intermediate value of network N1 by hand — $z_1, a_1, z_2, a_2, o, L$ — record the results in a forward-pass ledger, and then verify each entry against the scalar autograd engine.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Work the forward pass on paper or in a plain calculator before touching the engine. Fill a ledger with one row per node: node name, local inputs, computed value.\n\nThen verify with the engine:\n\n```bash\npython3 - <<'EOF'\nimport sys; sys.path.insert(0, '.')\nfrom projects.autograd.engine import Value\nx1, x2 = Value(2.0), Value(-1.0)\na1 = (x1*Value(0.5) + x2*Value(-0.25) + Value(0.1)).tanh()\na2 = (x1*Value(-0.5) + x2*Value(1.0) + Value(-0.2)).tanh()\no = a1*Value(1.0) + a2*Value(-2.0) + Value(0.3)\nloss = (o - 1.0)**2\nprint(a1.data, a2.data, o.data, loss.data)\nEOF\n```\n\nCompare each printed value with your ledger row by row. Any disagreement means a ledger row is wrong — find the first one.",
+      "exercise_prompt": "Produce a complete forward ledger for N1: $z_1$, $a_1 = \\tanh(z_1)$, $z_2$, $a_2 = \\tanh(z_2)$, $o$, and $L = (o - 1.0)^2$. Record your hand values to at least 4 decimal places and mark which engine outputs confirmed or contradicted them.",
+      "hint": "$\\tanh(1.35) \\approx 0.8741$ and $\\tanh(-2.2) \\approx -0.9757$. The output neuron is linear, so $o$ is just a weighted sum — do not apply $\\tanh$ to it.",
+      "answer": "Reference ledger:\n| node | value |\n| --- | --- |\n| $z_1$ | $1.35$ |\n| $a_1$ | $0.8741$ |\n| $z_2$ | $-2.2$ |\n| $a_2$ | $-0.9757$ |\n| $o$ | $3.1255$ |\n| $L$ | $4.5179$ |\n\nCheck: $o = 0.8741 - 2(-0.9757) + 0.3 = 0.8741 + 1.9515 + 0.3 = 3.1255$, and $L = (3.1255 - 1.0)^2 = 2.1255^2 = 4.5179$. Engine output matches to the printed precision.",
+      "mastery_criterion": "Every ledger entry is within $10^{-3}$ of the engine value, the linear output neuron is not passed through tanh, and the learner identifies the first divergent row if any disagreement occurred."
+    },
+    "day-34-act-03": {
+      "title": "Composing Neuron, Layer, and MLP Classes on the Scalar Autograd Engine",
+      "prerequisites": "Verified forward ledger from Activity 34-02.",
+      "objective": "Implement Module/Neuron/Layer/MLP classes that compose projects/autograd `Value` objects exactly like the micrograd `nn.py` pattern: a neuron holds weights and a bias, a layer holds neurons, an MLP holds layers, and `parameters()` returns every trainable `Value`.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Write a small module (for example `mlp_scratch.py` in a scratch directory, not inside `lessons/` or `projects/autograd/`) with this skeleton:\n\n```python\nfrom projects.autograd.engine import Value\n\nclass Module:\n    def parameters(self):\n        return []\n\nclass Neuron(Module):\n    def __init__(self, weights, bias):\n        assert len(weights) > 0\n        self.w = [Value(w) for w in weights]\n        self.b = Value(bias)\n    def __call__(self, x):\n        assert len(x) == len(self.w), 'input/weight length mismatch'\n        z = sum((wi * xi for wi, xi in zip(self.w, x)), self.b)\n        return z.tanh()\n    def parameters(self):\n        return self.w + [self.b]\n```\n\nExtend it with `Layer` (a list of neurons evaluated on the same input) and `MLP` (a list of layers applied in sequence). Build N1 with `Linear` output: give the output neuron a flag that skips `tanh`. Evaluate the loss on the Day 34 sample, call `loss.backward()`, and print all nine parameter gradients.\n\nFor a reference neuron trace, compare with:\n\n```bash\npython3 projects/autograd/cli.py forward-backward --preset neuron --json\n```",
+      "exercise_prompt": "1. Implement the three classes and collect exactly nine parameters for N1.\n2. Evaluate `loss.data` and confirm it equals your hand-computed $4.5179$.\n3. After `loss.backward()`, record all nine `.grad` values — you will re-derive them by hand on Day 35.\n4. State one advantage of keeping every parameter reachable through `parameters()`.",
+      "hint": "The `sum(iterable, start)` trick with `start = self.b` keeps the bias inside the graph. If `len(x) != len(self.w)`, `zip` silently truncates — the `assert` in the skeleton exists precisely to catch that shape bug before it corrupts results.",
+      "answer": "Reference results:\n1. `len(mlp.parameters()) == 9`.\n2. `loss.data == 4.5179...` matching the hand ledger.\n3. Recorded gradients (verified against the engine): $w_{11}\\!:\\ 2.0068$, $w_{12}\\!:\\ -1.0034$, $b_1\\!:\\ 1.0034$, $w_{21}\\!:\\ -0.8149$, $w_{22}\\!:\\ 0.4075$, $b_2\\!:\\ -0.4075$, $w_{o1}\\!:\\ 3.7157$, $w_{o2}\\!:\\ -4.1480$, $b_o\\!:\\ 4.2511$.\n4. A flat `parameters()` list lets a single training loop update every parameter and zero every gradient without knowing the architecture's shape.",
+      "mastery_criterion": "The learner's classes reproduce the forward values and produce nine parameter gradients matching the engine within $10^{-3}$, with an explicit length check guarding the weighted sum."
+    },
+    "day-34-act-04": {
+      "title": "Independent Mastery Check: MLP Structure and Forward-Pass Numeracy",
+      "prerequisites": "Activities 34-01 through 34-03.",
+      "objective": "Demonstrate unassisted command of perceptron-vs-MLP structure, parameter accounting, and a complete numeric forward pass, verified by the objective quiz below.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Without consulting earlier activities or AI tools: write the forward equations for a generic neuron, compute the output of N1 for the new input $x = (1.0, 1.0)$ (all weights and biases unchanged), and then complete the objective quiz. Record your scratch work in the draft space before submitting.",
+      "exercise_prompt": "Independent tasks:\n1. For $x = (1.0, 1.0)$: compute $z_1, a_1, z_2, a_2, o$ and $L$ by hand.\n2. Explain why evaluating this new input requires no change to any parameter.\n3. Complete the 3-question objective quiz at 100% in Independent mode.",
+      "hint": "$z_1 = 0.5(1.0) + (-0.25)(1.0) + 0.1 = 0.35$ and $z_2 = -0.5(1.0) + 1.0(1.0) - 0.2 = 0.3$. $\\tanh(0.35) \\approx 0.3364$, $\\tanh(0.3) \\approx 0.2913$.",
+      "answer": "Reference Solution:\n1. $z_1 = 0.35$, $a_1 = 0.3364$; $z_2 = 0.3$, $a_2 = 0.2913$; $o = 0.3364 - 2(0.2913) + 0.3 = 0.0538$; $L = (0.0538 - 1.0)^2 = 0.8954$.\n2. The input feeds only the first weighted sum; weights and biases are fixed objects whose values do not depend on the input, so the same graph structure evaluates any input.\n3. Quiz answers derive directly from the activities: the step activation blocks gradient flow, $o \\approx 3.13$ for the original input, and N1 has nine parameters.",
+      "mastery_criterion": "Unaided forward pass for the new input matches $o \\approx 0.0538$ and $L \\approx 0.8954$ within $10^{-3}$, plus a 100% independent quiz score.",
+      "quiz": {
+        "title": "Objective Knowledge Check: MLP Structure & Forward Pass",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "Why can't a classic perceptron with a step activation be trained by gradient descent?",
+            "options": {
+              "a": "It has too many parameters for memory.",
+              "b": "Its weighted sum always overflows floating point.",
+              "c": "The step function's gradient is 0 almost everywhere and undefined at the kink, so no useful gradient reaches the weights.",
+              "d": "Perceptrons require supervised labels to exist."
+            },
+            "hint": "Think about what `backward()` would multiply through a flat function.",
+            "explanation": "Gradient training needs a nonzero local derivative. A step activation is piecewise constant with a kink at the threshold, so the chain rule delivers a zero (or undefined) signal and weights never improve."
+          },
+          {
+            "id": "q2",
+            "prompt": "For network N1 with input $x = (2.0, -1.0)$, what is the output $o$?",
+            "options": {
+              "a": "$o \\approx 3.13$",
+              "b": "$o \\approx 0.87$",
+              "c": "$o \\approx -2.20$",
+              "d": "$o \\approx 4.52$"
+            },
+            "hint": "$o$ mixes both hidden activations linearly before the loss squares the error.",
+            "explanation": "$o = \\tanh(1.35) - 2\\tanh(-2.2) + 0.3 = 0.8741 + 1.9515 + 0.3 = 3.1255 \\approx 3.13$. The value $4.52$ is the loss $L$, not the output."
+          },
+          {
+            "id": "q3",
+            "prompt": "How many trainable parameters does the 2-2-1 network N1 contain?",
+            "options": {
+              "a": "6",
+              "b": "9",
+              "c": "12",
+              "d": "4"
+            },
+            "hint": "Count weights and biases separately for each of the three neurons.",
+            "explanation": "Hidden neurons carry $2 + 2$ weights and $2$ biases; the output neuron carries $2$ weights and $1$ bias: $4 + 2 + 2 + 1 = 9$ parameters total."
+          }
+        ]
+      }
+    }
+  }
+}

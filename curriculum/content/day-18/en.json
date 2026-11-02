@@ -1,0 +1,143 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 18: Finite differences, step size, and floating-point effects",
+  "day_subtitle": "Functions and change become calculable through definitions, worked derivations, retrieval, and honest numerical evidence.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Mathematics & Calculus",
+  "common": {
+    "nav_calendar": "Curriculum Calendar",
+    "day_label": "Day 18",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Record your prediction, work, observed result, review, and recovery evidence here...",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis"
+  },
+  "activities": {
+    "day-18-act-01": {
+      "title": "Finite differences are approximations",
+      "prerequisites": "Complete the previous activity and use the listed recovery source if blocked.",
+      "objective": "Implement forward, backward, and central finite differences from the derivative definition, keep h explicit, and compare them with an analytical answer rather than treating an approximation as exact.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "1. Write the three stencils with a symbolic h before inserting numbers: forward [f(a+h) - f(a)]/h, backward [f(a) - f(a-h)]/h, central [f(a+h) - f(a-h)]/(2h). Keep the sign of h visible.\n2. Predict which stencil lands closest to f'(3) = 6, using Day 17's result that the forward quotient for x^2 at 3 is exactly 6 + h.\n3. Compute f(3.1), f(3) and f(2.9) once, then reuse those three values in all three stencils.\n4. Tabulate each estimate next to its signed error (estimate - 6).\n5. Explain the pattern with a Taylor expansion: for x^2 the forward error is exactly +h and the backward error exactly -h, and in the central stencil these cancel; the next term would involve f''', which is zero for a quadratic.\n6. Say which quantities are exact (f'(3), the function values) and which are approximations (the stencil outputs in general), and why the central result here is a special case, not a rule.\n\n**Time plan (120 min): reading 30 + exercise 55 + check 35.** Reading: OpenStax Section 3.1 (the derivative as a limit of difference quotients) and the SciPy derivative page overview. Exercise: the three stencils, the error table and the Taylor explanation. Check: the mastery item at x=2, h=.01, unaided.",
+      "exercise_prompt": "For f(x)=x^2 at x=3 and h=.1, calculate forward [f(3+h)-f(3)]/h, backward [f(3)-f(3-h)]/h, and central [f(3+h)-f(3-h)]/(2h). Predict which is closest to f'(3)=6.",
+      "hint": "Write the stencil before inserting numbers and preserve the sign of h. Recovery: SciPy derivative reference for the numerical convention; offline fallback is the three formulas and exact polynomial calculation here.",
+      "answer": "f(3.1)=9.61 and f(2.9)=8.41. Forward=(9.61-9)/.1=6.1; backward=(9-8.41)/.1=5.9; central=(9.61-8.41)/.2=6.0. Here central is exact because the quadratic's third-order remainder vanishes, but this is not universal.",
+      "mastery_criterion": "Unaided, calculate all three estimates for f(x)=x^2 at x=2 and h=.01, compare with 4, and state which quantities are exact versus approximate.",
+      "source_recovery": "OpenStax Sections 2.1-3.2 and SciPy derivative documentation; if unavailable, the worked derivation and pure-Python tables in this activity are the offline fallback."
+    },
+    "day-18-act-02": {
+      "title": "Step size: truncation versus roundoff",
+      "prerequisites": "Complete the previous activity and use the listed recovery source if blocked.",
+      "objective": "Explain why smaller h is not universally better: truncation error often decreases with h, while floating-point cancellation and rounding can grow as nearby function values become indistinguishable.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "1. Predict before computing: the central-difference truncation error shrinks roughly like h^2, while the roundoff error grows roughly like eps/h (eps ≈ 2.2e-16 in double precision). Write down where you expect the two to cross.\n2. Compute the central estimate (sin(1+h) - sin(1-h))/(2h) for h = .1, 1e-3, 1e-5, 1e-8 and 1e-12, printing at least 12 significant digits.\n3. Measure each absolute error against math.cos(1) at working precision, not against the 10-decimal display 0.5403023059.\n4. Mark the row where the error stops decreasing and starts growing (the turnover).\n5. Explain the turnover in two sentences: one for truncation, one for cancellation and roundoff.\n6. State explicitly that this table shows one function at one point in one precision; it does not give a universal best h.\n\n**Time plan (120 min): reading 25 + exercise 60 + check 35.** Reading: the SciPy derivative page (step size, tolerances) and your Activity 1 notes. Exercise: the five-row table with errors and the turnover. Check: the mastery item, reproducing three rows unaided and explaining why 1e-12 is worse than 1e-5.",
+      "exercise_prompt": "Use central differences for sin(1), whose analytical derivative is cos(1)≈0.5403023059 (10 displayed decimals; measure errors against cos(1) at working precision). Compare h=.1, 1e-3, 1e-5, 1e-8, and 1e-12. Explain the best region rather than selecting the smallest h by habit.",
+      "hint": "Use double precision and print enough digits. Never claim the table proves a universal optimal h; it demonstrates one scale and one function. Recovery: SciPy finite-difference documentation; offline fallback is a non-code worked example plus a loop you write: for each h, the central estimate is (sin(1+h)-sin(1-h))/(2h) with absolute error |estimate - cos(1)| measured against cos(1) at working precision (0.5403023059 is a 10-decimal display, not the oracle); e.g. at h = .1 the displayed operands alone give (0.8912074 - 0.7833269)/0.2 = 0.5394025, while the unrounded-sine quotient is ≈ 0.53940225216976 (shown as ≈ 0.5394022522).",
+      "answer": "Observed values are approximately .5394022522, .5403022158, .5403023059, .5403023084, and .5402900349. Error decreases through about 1e-5, then roundoff/cancellation becomes visible at 1e-8 and especially 1e-12. A practical h balances truncation and floating-point error; inspect convergence and tolerance.",
+      "mastery_criterion": "Without assistance, reproduce at least three table rows with a calculator or Python, compute absolute error against cos(1), and explain why h=1e-12 is worse than h=1e-5 here.",
+      "source_recovery": "OpenStax Sections 2.1-3.2 and SciPy derivative documentation; if unavailable, the worked derivation and pure-Python tables in this activity are the offline fallback."
+    },
+    "day-18-act-03": {
+      "title": "Numerical experiment and failure analysis",
+      "prerequisites": "Complete the previous activity and use the listed recovery source if blocked.",
+      "objective": "Run a reproducible pure-Python finite-difference experiment, compare forward and central errors, and diagnose cancellation using sqrt(1+h)-sqrt(1) as h becomes tiny.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "1. Start the script by printing sys.version so the run can be reproduced.\n2. Keep the oracle separate: compute math.cos(1) once and never derive it from a finite difference.\n3. Loop over h = .1, 1e-3, 1e-5, 1e-8, 1e-12 and print h, the forward error and the central error for sin(1) in scientific notation.\n4. Add the cancellation case: the forward estimate (sqrt(1+h) - sqrt(1))/h at h = 1e-8, 1e-12 and 1e-16. Before running it, predict what 1 + 1e-16 evaluates to in double precision and what that does to the numerator.\n5. Keep every row, including the unstable ones; an experiment that hides bad rows is not evidence.\n6. For each regime write one diagnosis line: truncation-dominated, cancellation/roundoff-dominated, or total loss of significance.\n\n**Time plan (120 min): reading 20 + exercise 70 + check 30.** Reading: the hint and your Activity 2 table. Exercise: write and run the script and capture its full output. Check: compare your table and diagnoses with the reference, then rerun with different formatting if a row disagrees.",
+      "exercise_prompt": "Write a short script that prints h, forward error, and central error for sin(1). Add h=1e-16 for the square-root example and predict whether the numerator remains distinguishable in floating point.",
+      "hint": "Keep the analytical derivative as an independent oracle. Report Python version, h values, and observed outputs; do not hide an unstable row. Recovery: run the local script again with decimal formatting and revisit Activity 2.",
+      "answer": "For sin(1) the forward errors at h = .1, 1e-3, 1e-5, 1e-8, 1e-12 are about 4.29e-2, 4.21e-4, 4.21e-6, 2.97e-9, 4.32e-5; central errors are about 9.00e-4, 9.01e-8, 1.11e-11, 2.58e-9, 1.23e-5. At h=1e-5 the central error ≈1.1e-11 sits at the exact-arithmetic truncation bound h^2/6 ≈ 1.7e-11 - truncation-dominated, and central leads. At h=1e-8 the observed error ≈2.6e-9 is already about 10^8 times the h^2/6 bound ≈1.7e-17: subtractive cancellation and roundoff dominate there, not truncation, and at 1e-12 they degrade both stencils further. The turnover is not a universal h - it depends on function scale, evaluation point, and working precision. For sqrt at x=1, the forward estimate is about .5 at h=1e-8, drifts to .50004445 at 1e-12, and becomes 0.0 at 1e-16 because sqrt(1+h) rounds to sqrt(1). The derivative is .5 analytically, but the subtraction loses significant digits.",
+      "mastery_criterion": "Independent work must include executable code, a captured table with at least four h values, and a written diagnosis distinguishing truncation error from cancellation/roundoff.",
+      "source_recovery": "OpenStax Sections 2.1-3.2 and SciPy derivative documentation; if unavailable, the worked derivation and pure-Python tables in this activity are the offline fallback."
+    },
+    "day-18-act-04": {
+      "title": "Retrieval, review, and independent mastery",
+      "prerequisites": "Complete the previous activity and use the listed recovery source if blocked.",
+      "objective": "Integrate analytical derivatives, nondifferentiability, finite differences, and numerical error into a defensible verification protocol for model-training mathematics.",
+      "instructions": "1. Close the book and your notes. Answer parts (1)-(6) of the prompt from memory, in order.\n2. For (1) and (2), give the argument and not just the value: name the rule used for x^3, and give both one-sided slopes for |x| at 0.\n3. For (3), define a protocol: a stencil, a set of h values spanning several orders of magnitude, and an acceptance rule (for example a relative-error tolerance that the estimates approach before roundoff takes over).\n4. For (4), list the evidence fields you would record: function, point, dtype, h values, estimates, oracle, errors, and failures.\n5. For (5), choose your own function, point and h, state them, and carry the central-difference calculation through to an error against the analytical derivative.\n6. For (6), write the limitation sentence in your own words.\n7. Mark your answers against the reference. For every miss, revisit the matching activity of Days 16-18 and redo an equivalent item unaided.\n\n**Time plan (120 min): reading 15 + exercise 60 + check 45.** Reading: none; this is closed-book retrieval. Exercise: the six-part response and the worked calculation. Check: mark, revisit, and redo each missed item unaided.",
+      "exercise_prompt": "Closed book: (1) give the derivative of x^3 at 2; (2) state whether |x| is differentiable at 0 and why; (3) choose a finite-difference stencil and h policy for checking a black-box smooth function; (4) list what evidence you would record; (5) include a worked central-difference calculation on a function, point, and h you choose and state explicitly; (6) add an explicit statement that a finite-difference check is verification evidence, not a proof of differentiability or exactness.",
+      "hint": "Answer from memory before checking. Recovery: review all three days, OpenStax Sections 2.1-3.2, and the SciPy link; then repeat the missed calculation independently.",
+      "answer": "The derivative is 12. |x| is not differentiable at 0 because its one-sided slopes differ. For a smooth black box, use central differences, try a range of h values, compare to an analytical or high-precision oracle when possible, and record convergence, dtype, domain assumptions, and failures. The smallest h is not always best. Worked example: for f(x)=x^3 at x=2 with h=0.1, the central estimate is (2.1^3 - 1.9^3)/(2*0.1) = (9.261 - 6.859)/0.2 = 12.01 against the exact derivative 3x^2 = 12 - an h^2-scaled error of ≈0.01. Such a check is verification evidence, not a proof of differentiability or exactness.",
+      "mastery_criterion": "Independent Mastery Check: submit the four-part response plus a worked central-difference calculation and an explicit statement that finite differences are verification evidence, not proof of differentiability or exactness.",
+      "source_recovery": "OpenStax Sections 2.1-3.2 and SciPy derivative documentation; if unavailable, the worked derivation and pure-Python tables in this activity are the offline fallback.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance)"
+    }
+  },
+  "source_resources": [
+    {
+      "id": "openstax-calculus-1",
+      "title": "OpenStax Calculus Volume 1",
+      "author": "Gilbert Strang and Edwin Herman / OpenStax",
+      "original_url": "https://openstax.org/details/books/calculus-volume-1",
+      "relevant_timestamp": "Sections 2.1-2.3 (Functions, Limits, and the Derivative); Sections 3.1-3.2 (Derivative Rules)",
+      "version_or_verification_date": "3rd edition, verified 2026-10-30",
+      "reuse_category": "linking",
+      "source_type": "open_textbook",
+      "license": "CC BY-NC-SA 4.0",
+      "license_restrictions": [
+        "attribution",
+        "noncommercial",
+        "share-alike"
+      ],
+      "permission_basis": "Linking and short, independently authored examples; no textbook prose is reproduced or translated.",
+      "prerequisites": "Algebra, coordinate geometry, and function notation",
+      "selection_rationale": "Open, systematic treatment of the limit definition and derivative rules with stable section locations.",
+      "known_availability_limitations": "The hosted textbook may be unavailable offline or blocked by a network policy.",
+      "safe_fallback": "The authored derivations, tables, and exercises in these three Study Days are complete offline recovery material; use the linked section only for optional comparison.",
+      "compared_candidates": [
+        {
+          "candidate_name": "MIT OpenCourseWare 18.01SC Single Variable Calculus",
+          "url": "https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/",
+          "license": "CC BY-NC-SA 4.0",
+          "status": "compared_selected_for_visual_practice",
+          "comparison_rationale": "Excellent exercises and transcripts, but the noncommercial share-alike terms and course navigation make OpenStax the primary stable text."
+        },
+        {
+          "candidate_name": "Paul's Online Math Notes: Calculus I",
+          "url": "https://tutorial.math.lamar.edu/Classes/CalcI/CalcI.aspx",
+          "license": "All Rights Reserved",
+          "status": "compared_rejected_for_reuse",
+          "comparison_rationale": "Useful reference, but rights and redistribution terms are less suitable for embedded recovery material."
+        },
+        {
+          "candidate_name": "SciPy Numerical Differentiation Documentation",
+          "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+          "license": "BSD-3-Clause",
+          "status": "compared_selected_for_numerics",
+          "comparison_rationale": "A primary API reference for numerical derivative step-size behavior; it complements rather than replaces the hand derivation."
+        }
+      ]
+    },
+    {
+      "id": "scipy-derivative",
+      "title": "SciPy numerical derivative reference",
+      "author": "SciPy Developers",
+      "original_url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+      "relevant_timestamp": "derivative API: finite differences, step-size iteration, tolerances",
+      "version_or_verification_date": "SciPy documentation, verified 2026-10-30",
+      "reuse_category": "linking",
+      "source_type": "documentation",
+      "license": "BSD-3-Clause",
+      "license_restrictions": [],
+      "permission_basis": "Link only; all learner-facing explanations and examples are original.",
+      "prerequisites": "Python arithmetic and the definition of a derivative",
+      "selection_rationale": "Documents numerical differentiation as an approximation with finite step sizes and stopping criteria.",
+      "known_availability_limitations": "Requires network access for the current hosted API page.",
+      "safe_fallback": "The local Day 18 tables and pure-Python snippets reproduce the relevant finite-difference behavior without SciPy.",
+      "compared_candidates": []
+    }
+  ]
+}

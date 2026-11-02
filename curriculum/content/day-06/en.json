@@ -1,0 +1,273 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 06: Truthiness and branching with text/data",
+  "day_subtitle": "Build and test branches that handle normal, empty, and misleading text/data inputs, while using safe Git diffs and commits to preserve evidence.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Self-Directed Learning & Python",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "nav_agent_track": "🤖 Agent Tool Track",
+    "day_label": "Day 06",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Activity Mastery Criterion",
+    "draft_placeholder": "Enter your predicted output, observed behavior, and root-cause derivation here...",
+    "dev_slice_notice": "Local learning content is available; acceptance remains pending. External access, paid tools, and production evidence are tracked separately.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account. Conflict rejected to preserve existing records.",
+        "provider_error": "Authentication provider encountered an error. Please try again later.",
+        "server_error": "Authentication provider encountered an error. Please try again later.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    },
+    "quiz": {
+      "quiz_title": "Objective Knowledge Check & Diagnostic Trace",
+      "quiz_instructions": "Answer the following questions to verify your understanding. Select your declared assistance condition before submitting.",
+      "assistance_mode_label": "Declared Assistance Condition",
+      "mode_independent": "Independent Mastery Check (No AI assistance)",
+      "mode_agent_assisted": "Agent-Assisted Engineering Check (Completed with AI assistance)",
+      "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+      "submit_btn": "Submit Answers",
+      "retry_btn": "Retry Quiz",
+      "view_hint": "Question Hint",
+      "mastery_criterion_label": "Mastery Criterion",
+      "mastery_criterion_desc": "Score 100% (all questions correct) on this activity's quiz. Independent mastery requires Independent Mastery Check mode (no AI assistance).",
+      "score_label": "Score",
+      "passed_badge": "Passed",
+      "failed_badge": "Needs Review",
+      "independent_pass_badge": "Independent Mastery Verified",
+      "agent_assisted_pass_badge": "Agent-Assisted Verified",
+      "self_reported_badge": "Self-Reported Checkbox",
+      "stale_badge": "Historical (Revalidation Needed - Content Revision Changed)",
+      "attempts_history_title": "Attempt History & Evidence",
+      "no_attempts": "No attempts recorded yet."
+    },
+    "submissions": {
+      "title": "Learning Project Submission & Evidence",
+      "repo_label": "Repository Link (GitHub / GitLab)",
+      "repo_placeholder": "https://github.com/...",
+      "report_label": "Report Link (Optional)",
+      "report_placeholder": "https://...",
+      "notes_label": "Evidence Notes & Diagnostic Log (Max 4096 bytes)",
+      "notes_placeholder": "Record minimal reproducible examples (MRE), observed results, or diagnosis notes...",
+      "assistance_mode_label": "Declared Assistance Condition",
+      "mode_independent": "Independent Project (No AI assistance)",
+      "mode_agent_assisted": "Agent-Assisted Project (Directed AI assistance)",
+      "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+      "track_label": "Agent Tool Track (if applicable)",
+      "tracks": {
+        "none": "None / Not Applicable",
+        "claude_code": "Claude Code",
+        "codex": "Codex",
+        "pi_agent": "Pi Agent",
+        "deepseek_harness": "DeepSeek Harness"
+      },
+      "submit_btn": "Submit Project Evidence",
+      "status_saving": "Saving submission...",
+      "status_saved": "Submission saved successfully.",
+      "status_error": "Submission failed.",
+      "val_invalid_url": "Invalid URL: Repository and report links must use http or https.",
+      "val_notes_too_long": "Evidence notes exceed the maximum limit of 4096 bytes.",
+      "val_empty": "Please provide at least a repository link, report link, or evidence notes.",
+      "pasted_log_notice": "Notice: Pasted execution logs and notes are self-reported evidence and do not constitute independent or automated verification.",
+      "inspect_title": "Current Submitted Evidence Details",
+      "status_self_reported": "Self-Reported Evidence",
+      "status_verified_check": "Deterministic Verification Check",
+      "status_independently_reviewed": "Independently Reviewed Evidence",
+      "status_stale": "Historical Evidence (Revalidation Needed - Content Revision Changed)",
+      "no_submission": "No submission recorded yet."
+    }
+  },
+  "activities": {
+    "day-06-act-01": {
+      "title": "Truthiness table for real inputs",
+      "prerequisites": "Day 05 comparison check completed; you can run a Python file with python3 and read its output.",
+      "objective": "Predict and verify bool() for empty, zero, and whitespace inputs, and explain why an `if value:` branch can mislabel real data.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "Required work: Before running anything, write down your prediction of `bool(value)` and of the branch `presence(value)` (\"present\" when the value is truthy, otherwise \"missing\") for each of `[]`, `[0]`, `\"\"`, `\" \"`, `0`, and `\"0\"`. Then run the program, copy the exact output, and mark every row where your prediction differed.\n\nReview: For each mismatch, write one sentence that states the rule: empty containers and numeric zero are falsy; every non-empty string, including `\" \"` and `\"0\"`, is truthy.\n\nOptional work: Only after the required evidence is complete, add `None` and `[[]]` to the list, predict them first, then run.",
+      "exercise_prompt": "Create `truthiness.py` that defines `presence(value)` (return \"present\" when `value` is truthy, otherwise \"missing\") and prints `repr(value)`, `bool(value)`, and `presence(value)` on one line for each of `[]`, `[0]`, `\"\"`, `\" \"`, `0`, `\"0\"`, in that order.",
+      "hint": "A string is falsy only when its length is 0, so `\" \"` (one space) and `\"0\"` are truthy. A list is falsy only when it is empty, so `[0]` is truthy even though its single element is falsy.",
+      "answer": "Reference solution (`truthiness.py`):\n\n```python\ndef presence(value):\n    if value:\n        return \"present\"\n    return \"missing\"\nfor value in [[], [0], \"\", \" \", 0, \"0\"]:\n    print(repr(value), bool(value), presence(value))\n```\n\nExact output (Python 3.13 and 3.14):\n\n```text\n[] False missing\n[0] True present\n'' False missing\n' ' True present\n0 False missing\n'0' True present\n```\n\nExplanation: `[]`, `\"\"`, and `0` are falsy, so the branch reports them as \"missing\". `[0]`, `\" \"`, and `\"0\"` are truthy, so the branch reports them as \"present\". Two rows mislead: whitespace-only text is reported as present although it carries no data, and the number `0` is reported as missing although it is a real value. When the meaning matters, test explicitly (for example `text.strip() == \"\"` or `value is None`) instead of relying on truthiness.",
+      "mastery_criterion": "Without AI assistance, your prediction for all six inputs is written before execution, your captured output matches the reference exactly, and you correctly explain both misleading rows (`\" \"` reported present, `0` reported missing). Required and optional work are kept separate, and your evidence states the independent assistance condition.",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-06-act-01-q1",
+            "type": "choice",
+            "prompt": "In the truthiness table, which input is truthy, so `presence(value)` reports it as \"present\", even though it holds no visible data?",
+            "options": {
+              "a": "\" \" (a string containing one space)",
+              "b": "\"\" (the empty string)",
+              "c": "[] (an empty list)"
+            },
+            "hint": "The truthiness of a string depends only on its length, not on what its characters look like.",
+            "explanation": "`bool(\" \")` is `True` because the string has length 1. `\"\"` and `[]` are empty, so they are falsy and reported as \"missing\".",
+            "expected_answer": "a"
+          }
+        ]
+      }
+    },
+    "day-06-act-02": {
+      "title": "Explicit conditions and input normalization",
+      "prerequisites": "Activity 01 truthiness table completed; you know what `str.strip()` and `int()` do.",
+      "objective": "Implement classify(raw) against an exact contract that normalizes text once and converts only validated digit text, so missing, zero, positive, and invalid inputs are never confused.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "Required work: Read the contract in the exercise. Before running any code, write the return value you expect for each of the 16 inputs in the reference table (at minimum `\" 7 \"`, `\"\"`, `\"0\"`, and `\"unknown\"`). Implement `classify(raw)`, run it on all inputs, capture the exact output, and compare it line by line with your predictions.\n\nReview: For every mismatch, name the contract rule that was broken, fix the code, and rerun until the output matches exactly.\n\nOptional work: Only after the required evidence is complete, add an input of your own (for example `\"٣\"`, the Arabic-Indic digit three), predict its result from the contract, then run it.",
+      "exercise_prompt": "Write `classify(raw)` that follows this contract exactly:\n- Input: `raw` is always a `str`. Other types are outside the contract (for example, `classify(None)` raises `AttributeError`).\n- Normalize once: `text = raw.strip()`. This removes leading and trailing whitespace of every kind (spaces, tabs, newlines, the full-width space U+3000). Inner spaces are kept.\n- If `text == \"\"`, return `\"missing\"`.\n- If `text` consists only of the ASCII digits 0-9 (`text.isascii() and text.isdigit()`), convert it with `int(text)`: return `\"zero\"` when the number is 0 (so `\"00\"` is zero) and `\"positive\"` otherwise (so `\"007\"` is positive).\n- Everything else returns `\"invalid\"`: letters in any case (`\"unknown\"`, `\"Zero\"`), signs (`\"-3\"`, `\"+7\"`), decimal points (`\"3.5\"`), underscores (`\"1_000\"`), inner spaces (`\"1 2\"`), and non-ASCII digits (`\"７\"`). Invalid text is never treated as zero.\n- The return value is exactly one of the four lowercase strings `\"missing\"`, `\"zero\"`, `\"positive\"`, `\"invalid\"`.\nPrint one line per input in the form `f\"{raw!r:12} -> {classify(raw)}\"`, so the output is stable and whitespace stays visible.\nThe 16 inputs to predict and run, in this order (`\"\\t\\n\"` is a tab plus a newline; `\"\\u30007\"` is the full-width space U+3000 followed by 7): `\" 7 \"`, `\"\"`, `\"0\"`, `\"unknown\"`, `\"   \"`, `\"\\t\\n\"`, `\"\\u30007\"`, `\"007\"`, `\"00\"`, `\"Zero\"`, `\"-3\"`, `\"+7\"`, `\"3.5\"`, `\"1_000\"`, `\"1 2\"`, `\"７\"`.",
+      "hint": "Normalize once with `strip()`, then branch only on `text`. Check the digits before calling `int()`: `int()` on its own would accept `\"-3\"`, `\"+7\"`, `\"1_000\"`, and `\"７\"`, and would raise `ValueError` on `\"unknown\"`.",
+      "answer": "Conversion rule: strip once; empty text is \"missing\"; text made only of ASCII digits is converted with `int(text)` and becomes \"zero\" or \"positive\"; everything else is \"invalid\".\n\nReference implementation (`classify.py`):\n\n```python\ndef classify(raw):\n    text = raw.strip()\n    if text == \"\":\n        return \"missing\"\n    if text.isascii() and text.isdigit():\n        number = int(text)\n        if number == 0:\n            return \"zero\"\n        return \"positive\"\n    return \"invalid\"\ncases = [\" 7 \", \"\", \"0\", \"unknown\", \"   \", \"\\t\\n\", \"　7\", \"007\", \"00\",\n         \"Zero\", \"-3\", \"+7\", \"3.5\", \"1_000\", \"1 2\", \"７\"]\nfor raw in cases:\n    print(f\"{raw!r:12} -> {classify(raw)}\")\n```\n\nExact output, which is the complete input → output table (Python 3.13 and 3.14):\n\n```text\n' 7 '        -> positive\n''           -> missing\n'0'          -> zero\n'unknown'    -> invalid\n'   '        -> missing\n'\\t\\n'       -> missing\n'\\u30007'    -> positive\n'007'        -> positive\n'00'         -> zero\n'Zero'       -> invalid\n'-3'         -> invalid\n'+7'         -> invalid\n'3.5'        -> invalid\n'1_000'      -> invalid\n'1 2'        -> invalid\n'７'          -> invalid\n```\n\nWhy each guard exists: `strip()` turns `'   '` and `'\\t\\n'` into empty text, so they are \"missing\" (plain `bool()` would call them present), and turns `'\\u30007'` (full-width space plus 7) into `'7'`. `'00'` converts to 0, so it is \"zero\". The `isascii()` check rejects `'７'` even though `'７'.isdigit()` is `True` and `int('７')` returns 7. Signs, decimal points, underscores, inner spaces, and words are \"invalid\" and are never converted to 0.",
+      "mastery_criterion": "Without AI assistance, your predictions for the 16 inputs are written before execution, your classify output matches the reference table exactly, and you can state the conversion rule in one sentence. Required and optional work are kept separate, and your evidence states the independent assistance condition.",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-06-act-02-q1",
+            "type": "choice",
+            "prompt": "Under the Day 06 contract, what does `classify(\"  0\\t\")` return?",
+            "options": {
+              "a": "\"zero\"",
+              "b": "\"missing\"",
+              "c": "\"invalid\""
+            },
+            "hint": "Apply `strip()` first, then check what remains.",
+            "explanation": "`\"  0\\t\".strip()` is `\"0\"`, which is ASCII digit text, and `int(\"0\")` is 0, so the result is `\"zero\"`. It is not missing, because the stripped text is not empty, and not invalid, because the whitespace is removed before the digit check.",
+            "expected_answer": "a"
+          }
+        ]
+      }
+    },
+    "day-06-act-03": {
+      "title": "Safe diff and commit rehearsal",
+      "prerequisites": "Activity 02 contract and reference classify completed; Git and python3 available in a terminal; an AI coding agent that you can give a read-only, bounded review request.",
+      "objective": "Write expected outputs before asking an agent, then review a proposed fix in a disposable Git repository: test it against those expectations, check the diff with git diff --check, and commit only the reviewed file.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check: declare permissions and review boundary; agent output is not independent evidence.",
+      "instructions": "Required work: Work only in a new disposable repository created with `mktemp -d`, never in a real project. (1) Write `expected.txt` with your own expected outputs for six inputs before you ask any agent. (2) Commit the buggy baseline `classify.py`, run it, and record the mismatch with `diff`. (3) Ask an agent for a bounded review with a request such as: \"Review only classify.py against the contract below. Do not run commands, edit files, or commit. Reply with a proposed replacement and list which of the six inputs change result.\" Record the agent's name, the permissions you granted (read-only, one file), and its reply. (4) Apply the proposed replacement, inspect `git diff`, rerun the cases, run `git diff --check`, and commit only `classify.py`. The reference answer gives a complete reproducible sequence that uses the Activity 02 implementation as the proposal.\n\nReview: Write a prediction before each command, capture the exact output, and explain every difference between expected and observed output.\n\nOptional work: Only after the required evidence is complete, add a trailing space to one line of the committed `classify.py`, observe what `git diff --check` reports, then undo it with `git restore classify.py`.",
+      "exercise_prompt": "In a disposable repository, record your expected output for `\" 7 \"`, `\"\"`, `\"0\"`, `\"unknown\"`, `\"   \"`, and `\" 0 \"` under the Activity 02 contract (print format `f\"{raw!r} -> {classify(raw)}\"`). Commit a baseline, review an agent-proposed fix with `git diff`, verify it with `diff expected.txt actual.txt` and `git diff --check`, and commit only `classify.py`, leaving `expected.txt` and `actual.txt` untracked.",
+      "hint": "A commit is not a test: run the program and compare outputs before staging. `git diff --check` prints nothing and exits 0 when the change adds no whitespace errors such as trailing spaces; otherwise it lists file:line and exits non-zero. Stage by file name (`git add classify.py`), not with `git add .`.",
+      "answer": "Complete sequence (bash). Run every step in the same terminal; all commands run inside the disposable repository.\n\nStep 1: create the repository and write your expectations before seeing any proposal.\n\n```bash\nwork=$(mktemp -d)\ncd \"$work\"\ngit init -q\ncat > expected.txt <<'EOF'\n' 7 ' -> positive\n'' -> missing\n'0' -> zero\n'unknown' -> invalid\n'   ' -> missing\n' 0 ' -> zero\nEOF\n```\n\nStep 2: commit the buggy baseline and test it.\n\n```bash\ncat > classify.py <<'EOF'\ndef classify(raw):\n    if not raw:\n        return \"missing\"\n    if raw == \"0\":\n        return \"zero\"\n    return \"positive\"\nfor raw in [\" 7 \", \"\", \"0\", \"unknown\", \"   \", \" 0 \"]:\n    print(f\"{raw!r} -> {classify(raw)}\")\nEOF\ngit add classify.py\ngit -c user.name=\"Day06 Learner\" -c user.email=learner@example.invalid commit -q -m \"Add baseline classify\"\npython3 classify.py > actual.txt\ndiff expected.txt actual.txt; echo \"diff exit: $?\"\n```\n\nOutput: the baseline mislabels three inputs because it branches on the truthiness of the raw text.\n\n```text\n4,6c4,6\n< 'unknown' -> invalid\n< '   ' -> missing\n< ' 0 ' -> zero\n---\n> 'unknown' -> positive\n> '   ' -> positive\n> ' 0 ' -> positive\ndiff exit: 1\n```\n\nStep 3: apply the proposed replacement (here, the Activity 02 reference with the same six inputs) and inspect the diff.\n\n```bash\ncat > classify.py <<'EOF'\ndef classify(raw):\n    text = raw.strip()\n    if text == \"\":\n        return \"missing\"\n    if text.isascii() and text.isdigit():\n        number = int(text)\n        if number == 0:\n            return \"zero\"\n        return \"positive\"\n    return \"invalid\"\nfor raw in [\" 7 \", \"\", \"0\", \"unknown\", \"   \", \" 0 \"]:\n    print(f\"{raw!r} -> {classify(raw)}\")\nEOF\ngit diff\ngit diff --stat\n```\n\nOutput:\n\n```text\ndiff --git a/classify.py b/classify.py\nindex 35040ac..bc9c7bf 100644\n--- a/classify.py\n+++ b/classify.py\n@@ -1,8 +1,12 @@\n def classify(raw):\n-    if not raw:\n+    text = raw.strip()\n+    if text == \"\":\n         return \"missing\"\n-    if raw == \"0\":\n-        return \"zero\"\n-    return \"positive\"\n+    if text.isascii() and text.isdigit():\n+        number = int(text)\n+        if number == 0:\n+            return \"zero\"\n+        return \"positive\"\n+    return \"invalid\"\n for raw in [\" 7 \", \"\", \"0\", \"unknown\", \"   \", \" 0 \"]:\n     print(f\"{raw!r} -> {classify(raw)}\")\n classify.py | 12 ++++++++----\n 1 file changed, 8 insertions(+), 4 deletions(-)\n```\n\nStep 4: verify before staging.\n\n```bash\npython3 classify.py > actual.txt\ndiff expected.txt actual.txt; echo \"diff exit: $?\"\ngit diff --check; echo \"check exit: $?\"\ngit status --short\n```\n\nOutput:\n\n```text\ndiff exit: 0\ncheck exit: 0\n M classify.py\n?? actual.txt\n?? expected.txt\n```\n\nStep 5: stage and commit only the reviewed file.\n\n```bash\ngit add classify.py\ngit diff --cached --name-only\ngit -c user.name=\"Day06 Learner\" -c user.email=learner@example.invalid commit -q -m \"Classify by normalized text\"\ngit log -1 --format=%s\ngit diff --stat HEAD~1 HEAD\ngit status --short\n```\n\nOutput:\n\n```text\nclassify.py\nClassify by normalized text\n classify.py | 12 ++++++++----\n 1 file changed, 8 insertions(+), 4 deletions(-)\n?? actual.txt\n?? expected.txt\n```\n\nVerified with Git 2.56 and Python 3.13/3.14. `git -c user.name=... -c user.email=...` sets the author for that single commit without changing your Git configuration. Keep as evidence: `expected.txt`, both `diff` results, the clean `git diff --check`, and the one-file commit. Label the agent review as agent-assisted; it does not prove independent mastery.",
+      "mastery_criterion": "Your expected.txt was written before the agent request; your evidence shows the baseline mismatch, the inspected diff, `diff exit: 0`, `check exit: 0`, and a commit that contains only classify.py while expected.txt and actual.txt stay untracked. The agent request, the permissions granted (read-only, one file), and the reply are recorded and labeled agent-assisted, not independent evidence. Required and optional work are kept separate.",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-06-act-03-q1",
+            "type": "choice",
+            "prompt": "Your outputs match `expected.txt` and `git diff --check` prints nothing. `git status --short` shows ` M classify.py`, `?? actual.txt`, and `?? expected.txt`. Which command stages only the reviewed file?",
+            "options": {
+              "a": "git add classify.py",
+              "b": "git add .",
+              "c": "git add -A"
+            },
+            "hint": "Stage by explicit path: the two text files are evidence, not part of the reviewed change.",
+            "explanation": "`git add classify.py` stages exactly the reviewed file. `git add .` and `git add -A` would also stage the untracked `actual.txt` and `expected.txt`, so the commit would no longer be focused. The agent's review is still recorded as agent-assisted.",
+            "expected_answer": "a"
+          }
+        ]
+      }
+    },
+    "day-06-act-04": {
+      "title": "Three-day review: independent edge-case function",
+      "prerequisites": "Activities 01-03 completed; your Day 04 and Day 05 notes available for the explanation.",
+      "objective": "Without AI, implement and test a branch that handles an empty string, \"0\", and unknown text, explain one surprising Python behavior from Days 04-06, and record a one-file safe commit.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "Required work: Without AI, write the four acceptance cases (`\"\"`, `\"0\"`, `\"unknown\"`, `\" 12 \"`) and their exact expected messages before coding. Implement `quantity_message(raw)` so that every case passes its `assert`, commit only `quantity.py` in a disposable repository, and write a short explanation of one surprising result from Days 04-06.\n\nReview: Write a prediction of the output before running, compare it literally with the expected messages, and explain any difference.\n\nOptional work: Only after the required evidence is complete, translate the four messages into another language while keeping the same rules and the same four cases.",
+      "exercise_prompt": "Implement `quantity_message(raw)` (where `raw` is a `str`) with these exact messages: empty or whitespace-only text → `missing: enter a whole number`; ASCII digit text equal to 0 → `zero: nothing to order`; other ASCII digit text → `ok: <number>`; anything else → `invalid: <repr of the stripped text> is not a whole number`. Test it with `assert` on `\"\"`, `\"0\"`, `\"unknown\"`, and `\" 12 \"`, commit only `quantity.py` in a disposable repository, and explain one surprising result from Days 04-06 in two or three sentences.",
+      "hint": "Write the acceptance cases before the function and compare output literally. Reuse the Activity 02 shape: strip once, check for empty text, check for ASCII digits, then convert.",
+      "answer": "Complete worked solution (bash; the Python file is created and committed inside a new disposable repository):\n\n```bash\nwork=$(mktemp -d)\ncd \"$work\"\ngit init -q\ncat > quantity.py <<'EOF'\ndef quantity_message(raw):\n    text = raw.strip()\n    if text == \"\":\n        return \"missing: enter a whole number\"\n    if text.isascii() and text.isdigit():\n        number = int(text)\n        if number == 0:\n            return \"zero: nothing to order\"\n        return f\"ok: {number}\"\n    return f\"invalid: {text!r} is not a whole number\"\ncases = {\n    \"\": \"missing: enter a whole number\",\n    \"0\": \"zero: nothing to order\",\n    \"unknown\": \"invalid: 'unknown' is not a whole number\",\n    \" 12 \": \"ok: 12\",\n}\nfor raw, expected in cases.items():\n    actual = quantity_message(raw)\n    assert actual == expected, (raw, actual, expected)\n    print(f\"{raw!r} -> {actual}\")\nprint(\"all 4 cases passed\")\nEOF\npython3 quantity.py\ngit add quantity.py\ngit diff --cached --check && echo \"diff check clean\"\ngit diff --cached --name-only\ngit -c user.name=\"Day06 Learner\" -c user.email=learner@example.invalid commit -q -m \"Add quantity_message with edge-case checks\"\ngit log -1 --format=%s\ngit status --short; echo \"status exit: $?\"\n```\n\nExact output (Python 3.13/3.14, Git 2.56):\n\n```text\n'' -> missing: enter a whole number\n'0' -> zero: nothing to order\n'unknown' -> invalid: 'unknown' is not a whole number\n' 12 ' -> ok: 12\nall 4 cases passed\ndiff check clean\nquantity.py\nAdd quantity_message with edge-case checks\nstatus exit: 0\n```\n\nWorked explanation of a surprising result: `bool(\"0\")` is `True`, so a branch written as `if raw:` treats the text \"0\" as present, and `bool(\" \")` is also `True`, so whitespace-only text looks present too. The function therefore never branches on raw truthiness: it strips first and compares `text == \"\"` explicitly. A second surprise: `int(\" 7 \")` returns 7 and `int(\"７\")` returns 7, because `int()` itself strips whitespace and accepts non-ASCII digits; the `isascii() and isdigit()` check keeps the accepted inputs exactly as the contract states.\n\nSafe-diff record: `git diff --cached --name-only` lists only `quantity.py`, `git diff --cached --check` is clean, and `git status --short` prints nothing after the commit.",
+      "mastery_criterion": "Without AI assistance, all four acceptance cases pass with the exact messages, your explanation correctly contrasts truthiness with explicit comparison, and the commit contains only quantity.py with a clean diff check and empty `git status --short` output afterwards. Required and optional work are kept separate, and your evidence states the independent assistance condition.",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-06-act-04-q1",
+            "type": "choice",
+            "prompt": "Why is the branch `if raw:` not enough to detect a missing quantity?",
+            "options": {
+              "a": "Whitespace-only text such as \" \" is truthy, so it would be treated as present.",
+              "b": "The string \"0\" is falsy, so it would be treated as missing.",
+              "c": "Calling bool() on an empty string raises an error."
+            },
+            "hint": "Recall your Activity 01 table: which rows were truthy?",
+            "explanation": "Every non-empty string is truthy, so `\" \"` passes `if raw:` even though it holds no quantity. `\"0\"` is truthy too, so option b is false, and `bool(\"\")` simply returns `False` without an error, so option c is false. Strip first, then compare `text == \"\"`.",
+            "expected_answer": "a"
+          }
+        ]
+      }
+    }
+  },
+  "source_resources": [
+    {
+      "id": "py-docs-builtins-ticket26",
+      "title": "Python 3 Built-in Types and Expressions",
+      "author": "Python Software Foundation",
+      "original_url": "https://docs.python.org/3/library/stdtypes.html",
+      "relevant_timestamp": "Sections  Truth Value Testing, Comparisons, and Mutable Sequence Types",
+      "version_or_verification_date": "Python 3.12 documentation (verified 2026-10-30)",
+      "reuse_category": "linking",
+      "source_type": "documentation",
+      "license": "PSF License Version 2",
+      "license_restrictions": [],
+      "permission_basis": "Linking only; no source text reproduced.",
+      "prerequisites": "Day 03 recovery drill",
+      "selection_rationale": "Normative reference for truthiness, comparison, binding, and mutation behavior.",
+      "known_availability_limitations": "Online Python documentation may be unavailable offline.",
+      "safe_fallback": "Run the included Python examples and consult the installed interpreter help."
+    },
+    {
+      "id": "git-scm-book-diffs",
+      "title": "Git User Manual: Recording Changes",
+      "author": "Git project",
+      "original_url": "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+      "relevant_timestamp": "Recording Changes to the Repository",
+      "version_or_verification_date": "Verified 2026-10-30",
+      "reuse_category": "linking",
+      "source_type": "documentation",
+      "license": "CC BY-NC-SA 3.0 (book)",
+      "license_restrictions": [],
+      "permission_basis": "Linking only; no source text reproduced.",
+      "prerequisites": "Basic Git awareness",
+      "selection_rationale": "Primary reference for inspecting a small diff before a safe commit.",
+      "known_availability_limitations": "Online book may be unavailable offline.",
+      "safe_fallback": "Use git diff and git status locally; do not commit until the diff is understood."
+    }
+  ]
+}

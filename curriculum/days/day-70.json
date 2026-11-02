@@ -1,0 +1,414 @@
+{
+  "id": "day-70",
+  "day_number": 70,
+  "active_minutes": 480,
+  "topic_category": "self-directed-learning-and-python",
+  "is_review_day": true,
+  "status": "available",
+  "prerequisites": [
+    "day-69"
+  ],
+  "recovery_links": [
+    "day-63"
+  ],
+  "activities": [
+    {
+      "id": "day-70-act-01",
+      "lesson_id": "les-70",
+      "title": "New Material: Honest Baselines and MMLU and GSM8K Scoring",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev5",
+      "prerequisites": [
+        "day-69"
+      ],
+      "source_resources": [
+        {
+          "id": "huggingface-evaluation-guidebook",
+          "title": "Hugging Face LLM Evaluation Guidebook (legacy edition)",
+          "author": "Hugging Face evaluation-guidebook contributors",
+          "original_url": "https://github.com/huggingface/evaluation-guidebook",
+          "relevant_timestamp": "contents/automated-benchmarks/designing-your-automatic-evaluation.md: Choosing a dataset; Choosing an inference method; Choosing a prompt",
+          "version_or_verification_date": "Public edition checked 2026-11-01; moving pages may change",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "External hyperlink only; no third-party prose, exercises, code or translations are imported.",
+          "prerequisites": "Held-out data, basic language-model metrics and experimental comparisons.",
+          "selection_rationale": "Teaching-oriented evaluation design and reproducibility guidance complements the benchmark papers. Stable methodological chapters only; not a current tooling/version reference.",
+          "known_availability_limitations": "README says no longer maintained. The replacement OpenEvals Space was not verified as containing the guidebook; its license and content are not substituted. No bootstrap derivation is claimed.",
+          "safe_fallback": "Use the original localized explanations, exercises and checks already present in this activity; no external account or purchase is required for that fallback.",
+          "compared_candidates": [
+            {
+              "candidate_name": "HELM",
+              "url": "https://arxiv.org/abs/2211.09110",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Retained for the multi-metric framework; the guidebook makes practical choices easier to teach."
+            },
+            {
+              "candidate_name": "LM Evaluation Harness",
+              "url": "https://github.com/EleutherAI/lm-evaluation-harness",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Useful implementation cross-check; tool configuration alone does not teach metric choice or evaluator limitations."
+            }
+          ]
+        },
+        {
+          "id": "liang-helm-2022",
+          "title": "Holistic Evaluation of Language Models (HELM)",
+          "author": "Percy Liang, Rishi Bommasani, Tony Lee, Dimitris Tsipras, Dilara Soylu, et al.",
+          "original_url": "https://arxiv.org/abs/2211.09110",
+          "version_or_verification_date": "NeurIPS 2023 / arXiv:2211.09110v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation of open access benchmark taxonomy.",
+          "prerequisites": "Language model architectures, multi-metric benchmarking, prompt formatting.",
+          "selection_rationale": "Original holistic benchmark framework establishing multi-metric evaluation across accuracy, calibration, robustness, fairness, toxicity, and efficiency under standardized prompt interfaces.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Complete evaluation taxonomies, multi-metric scorecards, and standardized baseline protocol definitions are implemented directly in curriculum lessons.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Wang et al. GLUE: A Multi-Task Benchmark and Analysis Platform for Natural Language Understanding",
+              "url": "https://arxiv.org/abs/1804.07461",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "NLU benchmark focused on classification and regression fine-tuning; HELM addresses generative autoregressive foundation models."
+            },
+            {
+              "candidate_name": "Wang et al. SuperGLUE: A Stickier Benchmark for General-Purpose Language Understanding Systems",
+              "url": "https://arxiv.org/abs/1905.00537",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Harder successor to GLUE but still constrained to classification; HELM formalizes multi-dimensional open-ended generation evaluation."
+            }
+          ],
+          "relevant_timestamp": "Section 1.1 HELM and Section 2 Preliminaries (2.1 Scenarios, 2.3 Metrics)"
+        },
+        {
+          "id": "hendrycks-mmlu-2020",
+          "title": "Measuring Massive Multitask Language Understanding (MMLU)",
+          "author": "Dan Hendrycks, Collin Burns, Steven Basart, Andy Zou, Mantas Mazeika, Dawn Song, Jacob Steinhardt",
+          "original_url": "https://arxiv.org/abs/2009.03300",
+          "version_or_verification_date": "ICLR 2021 / arXiv:2009.03300v3 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / arXiv non-exclusive license",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation of open access benchmark specification.",
+          "prerequisites": "Multiple-choice evaluation, conditional log-likelihood, 5-shot prompt templates.",
+          "selection_rationale": "Standardized benchmark spanning 57 subjects across STEM, humanities, and social sciences; foundational reference for few-shot multiple-choice evaluation formulation.",
+          "known_availability_limitations": "Freely available on arXiv and GitHub.",
+          "safe_fallback": "MMLU prompt formatting, 5-shot exemplar layout, log-likelihood ranking algorithms, and category aggregation logic are fully explained in lesson materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Zhong et al. AGIEval: A Human-Centric Benchmark for Evaluating Foundation Models Towards General Intelligence",
+              "url": "https://arxiv.org/abs/2304.06364",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Evaluates qualification exam questions; MMLU provides a widely used multi-task knowledge baseline."
+            },
+            {
+              "candidate_name": "Srivastava et al. Beyond the Imitation Game: Quantifying and Extrapolating the Capabilities of Language Models (BIG-bench)",
+              "url": "https://arxiv.org/abs/2206.04615",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Enormous community benchmark with high task heterogeneity; MMLU offers a focused, standard 57-subject knowledge distribution."
+            }
+          ],
+          "relevant_timestamp": "Section 3 A Multitask Test and Section 4 Experiments"
+        },
+        {
+          "id": "cobbe-gsm8k-2021",
+          "title": "Training Verifiers to Solve Math Word Problems (GSM8K)",
+          "author": "Karl Cobbe, Vineet Kosaraju, Mohammad Bavarian, Mark Chen, Heewoo Jun, et al.",
+          "original_url": "https://arxiv.org/abs/2110.14168",
+          "version_or_verification_date": "arXiv:2110.14168v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / MIT License dataset",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation and open source evaluation harness reference.",
+          "prerequisites": "Elementary grade school mathematics, multi-step word problem reasoning, answer extraction formatting.",
+          "selection_rationale": "Defines the GSM8K dataset and its final-answer format ('#### <answer>') that the lesson's answer parser and exact-match scorer rely on.",
+          "known_availability_limitations": "Freely available on arXiv and GitHub.",
+          "safe_fallback": "GSM8K multi-step problem templates, calculation traces, and exact regex extraction routines are fully coded in lesson text.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Patel et al. Are NLP Models really able to Solve Simple Math Word Problems? (SVAMP)",
+              "url": "https://arxiv.org/abs/2103.07191",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Adversarial perturbations on math problems; GSM8K provides the standard training/testing distribution for multi-step reasoning."
+            },
+            {
+              "candidate_name": "Hendrycks et al. Measuring Mathematical Problem Solving With the MATH Dataset",
+              "url": "https://arxiv.org/abs/2103.03874",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-school competition math requiring complex LaTeX typesetting; GSM8K isolates core elementary arithmetic reasoning chains."
+            }
+          ],
+          "relevant_timestamp": "Section 2 Dataset; Appendix F Verifier Visualization (solutions end with '#### <answer>')"
+        }
+      ]
+    },
+    {
+      "id": "day-70-act-02",
+      "lesson_id": "les-70",
+      "title": "Review Drill: LoRA Math, Freezing, Optimizer Memory, and Merging (Days 64-66)",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.11.01-rev2",
+      "prerequisites": [
+        "day-70-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "hu-lora-2021",
+          "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+          "author": "Edward J. Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, Weizhu Chen",
+          "original_url": "https://arxiv.org/abs/2106.09685",
+          "version_or_verification_date": "ICLR 2022 / arXiv:2106.09685v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Matrix factorization, rank, linear layers, and transformer attention.",
+          "selection_rationale": "Primary literature introducing Low-Rank Adaptation, establishing parameter decomposition W = W0 + (alpha/r)*BA, initialization strategies, and zero inference latency merging.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Complete matrix derivations, tensor dimensions, and pure PyTorch LoRALinear modules are implemented directly in lesson code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Houlsby et al. Parameter-Efficient Transfer Learning for NLP (Series Adapters)",
+              "url": "https://arxiv.org/abs/1902.00751",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Introduces bottleneck adapter layers in series, which introduces unavoidable inference latency overhead; LoRA's parallel formulation merges with zero latency."
+            },
+            {
+              "candidate_name": "Li & Liang: Prefix-Tuning: Optimizing Continuous Prompts for Generation",
+              "url": "https://arxiv.org/abs/2101.00190",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Prepends virtual prompt tokens; reduces available context length, unlike LoRA which preserves full sequence capacity."
+            }
+          ],
+          "relevant_timestamp": "Section 4.1 Low-Rank-Parametrized Update Matrices (W0 + BA, B initialized to zero, scaling by alpha/r); Section 4.2 Applying LoRA to Transformer (frozen W0, VRAM and checkpoint-size reduction)"
+        },
+        {
+          "id": "huggingface-peft",
+          "title": "PEFT: State-of-the-art Parameter-Efficient Fine-Tuning Methods",
+          "author": "Sourab Mangrulkar, Sylvain Gugger, Lysandre Debut, Younes Belkada, Sayak Paul, Benjamin Bossan",
+          "original_url": "https://github.com/huggingface/peft",
+          "version_or_verification_date": "PEFT 0.10.x / GitHub (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "Apache-2.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under Apache-2.0 open-source terms.",
+          "prerequisites": "PyTorch nn.Module, Hugging Face transformers, and LoRA equations.",
+          "selection_rationale": "Widely adopted open-source library implementing LoRA configuration classes (LoraConfig), get_peft_model, and adapter serialization.",
+          "known_availability_limitations": "Freely hosted on GitHub.",
+          "safe_fallback": "Standalone, zero-dependency PyTorch implementations of LoRALinear layers and save/reload logic are provided in curriculum scripts.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Microsoft LoRA Original PyTorch Package (loralib)",
+              "url": "https://github.com/microsoft/LoRA",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Original reference code by Hu et al.; PEFT expands this to broader multi-model ecosystem integration."
+            },
+            {
+              "candidate_name": "Lit-GPT LoRA implementation (Lightning AI)",
+              "url": "https://github.com/Lightning-AI/litgpt",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-performance clean implementation; compared alongside PEFT for modular code architecture."
+            }
+          ],
+          "relevant_timestamp": "README 'Quickstart' (LoraConfig, get_peft_model, print_trainable_parameters)"
+        }
+      ]
+    },
+    {
+      "id": "day-70-act-03",
+      "lesson_id": "les-70",
+      "title": "Review Practice: Recipe, Checkpoint Choice, Delta Evaluation, and Leak Check (Days 67-69)",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev2",
+      "prerequisites": [
+        "day-70-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "taori-alpaca-2023",
+          "title": "Stanford Alpaca: An Instruction-following LLaMA Model",
+          "author": "Rohan Taori, Ishaan Gulrajani, Tianyi Zhang, Yann Dubois, Xuechen Li, Carlos Guestrin, Percy Liang, Tatsunori B. Hashimoto",
+          "original_url": "https://crfm.stanford.edu/2023/03/13/alpaca.html",
+          "version_or_verification_date": "Stanford CRFM Release (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "article",
+          "license": "Copyright Stanford CRFM (blog post; no open license stated)",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external linking to a copyrighted blog post; no text is imported.",
+          "prerequisites": "Supervised fine-tuning, instruction formatting, and LoRA fundamentals.",
+          "selection_rationale": "Original open recipe demonstrating lightweight instruction fine-tuning of open models, establishing prompt/response templates, batch scheduling, and learning rate ranges.",
+          "known_availability_limitations": "Publicly hosted on Stanford CRFM website.",
+          "safe_fallback": "Complete instruction templates, JSONL formatting scripts, and learning rate schedules are self-contained in curriculum materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Vicuna: An Open-Source Chatbot Impressing GPT-4 (LMSYS)",
+              "url": "https://lmsys.org/blog/2023-03-30-vicuna/",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Multi-turn ShareGPT tuning recipe; Alpaca provides simpler, single-turn clarity ideal for foundational instruction tuning study."
+            },
+            {
+              "candidate_name": "Databricks Dolly 15k Dataset & Training Recipe",
+              "url": "https://www.databricks.com/blog/2023/04/12/dolly-first-open-commercially-viable-instruction-tuned-llm",
+              "license": "CC-BY-SA 3.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Commercially permissive crowdsourced dataset; Alpaca established the academic instruction tuning standard."
+            }
+          ],
+          "locator_status": "whole_source_reference"
+        },
+        {
+          "id": "hu-lora-2021",
+          "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+          "author": "Edward J. Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, Weizhu Chen",
+          "original_url": "https://arxiv.org/abs/2106.09685",
+          "version_or_verification_date": "ICLR 2022 / arXiv:2106.09685v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Matrix factorization, rank, linear layers, and transformer attention.",
+          "selection_rationale": "Primary literature introducing Low-Rank Adaptation, establishing parameter decomposition W = W0 + (alpha/r)*BA, initialization strategies, and zero inference latency merging.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Complete matrix derivations, tensor dimensions, and pure PyTorch LoRALinear modules are implemented directly in lesson code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Houlsby et al. Parameter-Efficient Transfer Learning for NLP (Series Adapters)",
+              "url": "https://arxiv.org/abs/1902.00751",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Introduces bottleneck adapter layers in series, which introduces unavoidable inference latency overhead; LoRA's parallel formulation merges with zero latency."
+            },
+            {
+              "candidate_name": "Li & Liang: Prefix-Tuning: Optimizing Continuous Prompts for Generation",
+              "url": "https://arxiv.org/abs/2101.00190",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Prepends virtual prompt tokens; reduces available context length, unlike LoRA which preserves full sequence capacity."
+            }
+          ],
+          "locator_status": "whole_source_reference"
+        }
+      ]
+    },
+    {
+      "id": "day-70-act-04",
+      "lesson_id": "les-70",
+      "title": "Week 10 Assessment: Benchmark Integrity Report for a LoRA Model (Days 64-70)",
+      "active_minutes": 120,
+      "activity_type": "review",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.11.01-rev2",
+      "prerequisites": [
+        "day-70-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "hu-lora-2021",
+          "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+          "author": "Edward J. Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, Weizhu Chen",
+          "original_url": "https://arxiv.org/abs/2106.09685",
+          "version_or_verification_date": "ICLR 2022 / arXiv:2106.09685v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Matrix factorization, rank, linear layers, and transformer attention.",
+          "selection_rationale": "Primary literature introducing Low-Rank Adaptation, establishing parameter decomposition W = W0 + (alpha/r)*BA, initialization strategies, and zero inference latency merging.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Complete matrix derivations, tensor dimensions, and pure PyTorch LoRALinear modules are implemented directly in lesson code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Houlsby et al. Parameter-Efficient Transfer Learning for NLP (Series Adapters)",
+              "url": "https://arxiv.org/abs/1902.00751",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Introduces bottleneck adapter layers in series, which introduces unavoidable inference latency overhead; LoRA's parallel formulation merges with zero latency."
+            },
+            {
+              "candidate_name": "Li & Liang: Prefix-Tuning: Optimizing Continuous Prompts for Generation",
+              "url": "https://arxiv.org/abs/2101.00190",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Prepends virtual prompt tokens; reduces available context length, unlike LoRA which preserves full sequence capacity."
+            }
+          ],
+          "locator_status": "whole_source_reference"
+        },
+        {
+          "id": "taori-alpaca-2023",
+          "title": "Stanford Alpaca: An Instruction-following LLaMA Model",
+          "author": "Rohan Taori, Ishaan Gulrajani, Tianyi Zhang, Yann Dubois, Xuechen Li, Carlos Guestrin, Percy Liang, Tatsunori B. Hashimoto",
+          "original_url": "https://crfm.stanford.edu/2023/03/13/alpaca.html",
+          "version_or_verification_date": "Stanford CRFM Release (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "article",
+          "license": "Copyright Stanford CRFM (blog post; no open license stated)",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external linking to a copyrighted blog post; no text is imported.",
+          "prerequisites": "Supervised fine-tuning, instruction formatting, and LoRA fundamentals.",
+          "selection_rationale": "Original open recipe demonstrating lightweight instruction fine-tuning of open models, establishing prompt/response templates, batch scheduling, and learning rate ranges.",
+          "known_availability_limitations": "Publicly hosted on Stanford CRFM website.",
+          "safe_fallback": "Complete instruction templates, JSONL formatting scripts, and learning rate schedules are self-contained in curriculum materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Vicuna: An Open-Source Chatbot Impressing GPT-4 (LMSYS)",
+              "url": "https://lmsys.org/blog/2023-03-30-vicuna/",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Multi-turn ShareGPT tuning recipe; Alpaca provides simpler, single-turn clarity ideal for foundational instruction tuning study."
+            },
+            {
+              "candidate_name": "Databricks Dolly 15k Dataset & Training Recipe",
+              "url": "https://www.databricks.com/blog/2023/04/12/dolly-first-open-commercially-viable-instruction-tuned-llm",
+              "license": "CC-BY-SA 3.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Commercially permissive crowdsourced dataset; Alpaca established the academic instruction tuning standard."
+            }
+          ],
+          "relevant_timestamp": "Known limitations",
+          "locator_url": "https://crfm.stanford.edu/2023/03/13/alpaca.html#known-limitations"
+        }
+      ]
+    }
+  ]
+}

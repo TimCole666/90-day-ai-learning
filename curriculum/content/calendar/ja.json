@@ -1,0 +1,28 @@
+{
+  "page_title": "90日間カリキュラムカレンダー＆学習時間台帳",
+  "page_subtitle": "前提依存関係DAG、週次復習・定着確認、43,200分の透明な学習時間予算",
+  "ledger_title": "学習時間総合台帳 (Time Ledger)",
+  "total_days_label": "学習日",
+  "total_hours_label": "アクティブ学習時間",
+  "total_minutes_label": "有効分",
+  "category_hours_label": "カテゴリ別時間配分",
+  "categories": {
+    "self-directed-learning-and-python": "自律学習とPythonエンジニアリング",
+    "mathematics": "AI数学・微積分・線形代数",
+    "models-and-training": "モデル構造・事前学習・LoRA",
+    "agents": "AIエージェントとシステム開発"
+  },
+  "status_labels": {
+    "planned": "予定",
+    "available": "学習可能",
+    "reviewed": "レビュー済",
+    "accepted": "承認済"
+  },
+  "review_badge": "週次復習・評価日",
+  "prerequisites_label": "前提条件",
+  "recovery_label": "復習・リ remedial リンク",
+  "open_day": "学習日を開始",
+  "planned_notice": "この学習日は現在計画中です。Course Readiness Gateの規定に基づき、未完了の教材が準備完了として表示されることはありません。",
+  "nav_calendar": "カリキュラムカレンダー",
+  "nav_agent_track": "🤖 Agent ツールトラック"
+}

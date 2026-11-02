@@ -1,0 +1,170 @@
+{
+  "language": "ja",
+  "language_label": "日本語",
+  "day_title": "第36日：訓練ループ、学習率と工学失敗事例ギャラリー",
+  "day_subtitle": "完全なニューラルネットワーク訓練ループ（順伝播、損失、zero_grad、逆伝播、ステップ更新）を構築・実行し、学習率が収束軌跡に与える実際の影響を比較し、工学的不具合を診断し、独立習熟度テストに合格する。",
+  "time_budget_label": "480分の集中学習（8時間）",
+  "category_label": "モデル・事前学習とLoRA",
+  "common": {
+    "nav_calendar": "📅 カリキュラムカレンダー",
+    "day_label": "Day 36",
+    "prerequisites_title": "前提条件",
+    "objective_title": "学習目標",
+    "instructions_title": "手順",
+    "exercise_title": "演習と予測記録",
+    "hint_title": "ヒントを確認",
+    "reveal_answer": "参考解答と分析を表示",
+    "mastery_title": "独立習得基準",
+    "draft_placeholder": "ここに訓練ループのコード、各学習率での損失の推移、トラブルシューティングログを記録してください...",
+    "dev_slice_notice": "90 日 AI 学習プラットフォームの検証済み正式モジュールです。",
+    "sources_heading": "公式ソースリソースと権利証跡",
+    "source_author_label": "著者・提供機関",
+    "source_url_label": "オリジナル出所URL",
+    "source_range_label": "該当セクション・タイムスタンプ",
+    "source_verification_label": "検証バージョンと日付",
+    "source_reuse_label": "再利用区分",
+    "source_license_label": "ライセンスと権利情報",
+    "source_rationale_label": "選定理由",
+    "source_prereqs_label": "ソース前提知識",
+    "source_fallback_label": "安全フォールバック（オフライン回復性）",
+    "compared_candidates_heading": "比較対象候補リソースと選定評価",
+    "compared_status_label": "評価結果",
+    "auth": {
+      "sign_in": "Googleでログイン",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "ログアウト",
+      "signed_in_as": "ログイン中:",
+      "guest": "ゲストモード",
+      "link_github": "GitHubを連携",
+      "link_google": "Googleを連携",
+      "linked_identities": "連携済みアカウント",
+      "auth_errors": {
+        "access_denied": "認可がキャンセルされたか、アクセスが拒否されました。",
+        "invalid_state": "認可状態が無効または期限切れです。もう一度お試しください。",
+        "identity_conflict": "このIDはすでに別のアカウントに連携されています。",
+        "provider_error": "認証プロバイダーでエラーが発生しました。",
+        "server_error": "認証プロバイダーでエラーが発生しました。",
+        "session_expired": "セッションの有効期限が切れました。再度ログインしてください。"
+      }
+    },
+    "progress": {
+      "save_btn": "進捗を保存",
+      "saved": "保存しました",
+      "saving": "保存中...",
+      "save_error": "保存に失敗しました",
+      "offline": "オフラインモード",
+      "mark_completed": "完了としてマーク",
+      "completed_badge": "完了"
+    },
+    "quiz": {
+      "quiz_title": "客観的知識チェック：MLP の構造と順伝播",
+      "quiz_instructions": "理解度を確認するために次の質問に答えてください。提出前に申告する支援条件を選択してください。",
+      "assistance_mode_label": "申告する支援条件",
+      "mode_independent": "独立習得チェック (AI 支援なし)",
+      "mode_agent_assisted": "エージェント支援エンジニアリングチェック (AI 支援ありで完了)",
+      "mode_disclaimer": "注意：AI 不使用は正直な申告条件であり、監視を主張するものではありません。",
+      "submit_btn": "回答を送信",
+      "retry_btn": "クイズをやり直す",
+      "view_hint": "ヒントを見る",
+      "mastery_criterion_label": "習得基準",
+      "mastery_criterion_desc": "独立習得チェックで 100% のスコア (3/3 正解) を取得します。",
+      "score_label": "スコア",
+      "passed_badge": "合格",
+      "failed_badge": "要復習",
+      "independent_pass_badge": "独立習得確認済み",
+      "agent_assisted_pass_badge": "エージェント支援確認済み",
+      "self_reported_badge": "自己申告チェックボックス",
+      "stale_badge": "過去の記録 (コンテンツ改訂済み・再検証が必要)",
+      "attempts_history_title": "受験履歴と証拠",
+      "no_attempts": "まだ受験記録がありません。"
+    }
+  },
+  "activities": {
+    "day-36-act-01": {
+      "title": "訓練ループの全容：順伝播、損失計算、勾配ゼロ化、逆伝播、ステップ更新",
+      "prerequisites": "第35日のN1全9勾配の手計算。",
+      "objective": "forward、loss、zero_grad、backward、stepの5段階を説明し、全バッチと単一例の確率的更新を区別する。",
+      "assistance_policy_label": "Agent支援エンジニアリングチェック",
+      "instructions": "実行前に予測する。各epochで例のループ前にパラメータ勾配をゼロ化し、各例で新しい順伝播グラフを作り、二乗lossとbackwardを計算して勾配を累積する。全例の後で一度stepする。zero_gradはバッチ内最初の反伝播より前に置く。下記ではepochの先頭に置く。活動36-02と同じ4例、初期値を使い、初期平均損失は2.106。\n\n```python\nfor epoch in range(EPOCHS):\n    for p in model.parameters():\n        p.grad = 0.0                 # 1. zero stale gradients\n    total = 0.0\n    for (x, y) in dataset:\n        out = model(x)               # 2. forward\n        loss = (out - y) ** 2        # 3. loss\n        loss.backward()              # 4. backward (accumulates batch grads)\n        total += loss.data\n    for p in model.parameters():\n        p.data -= lr * p.grad        # 5. step along -gradient\n    log(epoch, total / len(dataset))\n```",
+      "exercise_prompt": "1. 最初の例のb_o勾配4.2511とη=0.05から確率的更新を予測する。2. 全バッチ勾配3.2111の更新を予測する。3. 40epoch後の平均損失を予測する。4. zero_gradの位置と省略の影響を書く。",
+      "hint": "正勾配ならパラメータを減らす。全バッチでは例ループ前に一度だけゼロ化する。各例前にゼロ化すると過去の例を失うため、各例後に独立stepをする確率的更新でのみ適切。",
+      "answer": "単一例はΔb_o=-0.05×4.2511=-0.2126で0.3から0.0874。全バッチはΔb_o=-0.05×3.2111=-0.1606で0.1394。η=0.05の40epochで平均損失は2.106から約0.13になるが、一つの玩具実験で一般保証ではない。毎バッチの反伝播前にzero_gradを行わないと古い葉の勾配が混入する。",
+      "mastery_criterion": "5段階の順序、2種類の更新方向と大きさ、zero_gradが必要な累積方針を説明できる。"
+    },
+    "day-36-act-02": {
+      "title": "実際の訓練観察：極小データセットにおける学習率の影響比較",
+      "prerequisites": "活動36-01のループと第34日のN1。",
+      "objective": "同一N1と4例でη=0.05とη=5.0の40epochを独立に実行し、epoch 0/10/20/30/39の平均損失を記録する。",
+      "assistance_policy_label": "独立習熟度チェック",
+      "instructions": "リポジトリのルートで次のコマンドを実行する。各runは同じ9初期値と4例から開始する。epochごとに葉を、例ごとに内部グラフを再作成し、4例の勾配を累積して更新する。ログは更新前の平均損失。更新には平均でなく勾配の和を使い、規約変更は実効学習率を変える。\n\n```bash\npython3 - <<'EOF'\nfrom projects.autograd.engine import Value\ninitial = [0.5, -0.25, 0.1, -0.5, 1.0, -0.2, 1.0, -2.0, 0.3]\ndata = [((2.0,-1.0),1.0), ((0.5,0.5),-1.0), ((-1.0,1.0),-1.0), ((1.0,1.0),1.0)]\nfor lr in (0.05, 5.0):\n    params = initial[:]\n    for epoch in range(40):\n        W = [Value(v) for v in params]  # Fresh leaves start with zero gradients.\n        total = 0.0\n        for (x1, x2), y in data:\n            a1 = (W[0]*x1 + W[1]*x2 + W[2]).tanh()\n            a2 = (W[3]*x1 + W[4]*x2 + W[5]).tanh()\n            loss = (a1*W[6] + a2*W[7] + W[8] - y)**2\n            loss.backward()  # Fresh interior graph, shared batch parameter leaves.\n            total += loss.data\n        if epoch in (0, 10, 20, 30, 39):\n            print(lr, epoch, total / len(data))\n        params = [p.data - lr*p.grad for p in W]  # Sum-gradient update, not mean.\nEOF\n```",
+      "exercise_prompt": "1. η=0.05のepoch 0、10、20、30、39の損失を報告する。2. η=5.0も報告する。3. 局所曲率を無視した大きなstepが谷を越え発散を増幅する仕組みを書く。4. この実験から主張できない一般論を一つ挙げる。",
+      "hint": "勾配降下は局所線形近似であり、大きなstepは反対側の急斜面に着地する。η=5.0が初期損失に戻るかを観察する。",
+      "answer": "同一コマンドの観測：η=0.05はepoch 0/10/20/30/39で2.106→0.369→0.268→0.189→0.129。η=5.0は2.106→6.0×10^36→1.6×10^76→4.4×10^115→1.3×10^151。谷を越えた後の大きな勾配が過走を増幅する。0.05が最適、全MLPが収束、損失が永遠に低下するとは主張できない。",
+      "mastery_criterion": "両runの損失表を再現し、偶然でなく過走の累積として説明し、結論をこの実験だけに限定する。"
+    },
+    "day-36-act-03": {
+      "title": "失敗事例ギャラリー：飽和デッドゾーン、zero_gradの失念、無言の形状切り捨て",
+      "prerequisites": "活動36-02のローカル訓練観察。",
+      "objective": "同一グラフの古い勾配、tanh飽和、zipによる入力の切り捨てを測定し、3つの故障を修正する。",
+      "assistance_policy_label": "Agent支援エンジニアリングチェック",
+      "instructions": "故障A：次のコマンドで同じグラフを2回反伝播しw11.gradを記録する。故障B：b1だけ8.0に変更してz1=9.25とし、tanh微分と隠れ重み勾配を測る。故障C：`sum(w*x for w,x in zip([0.5,-0.25], [2.0,-1.0,999.0]))` を評価し、余分な入力の行方を調べる。\n\n```bash\npython3 - <<'EOF'\nimport sys; sys.path.insert(0, '.')\nfrom projects.autograd.engine import Value\nx1, x2 = Value(2.0), Value(-1.0)\nW = [Value(v) for v in (0.5,-0.25,0.1, -0.5,1.0,-0.2, 1.0,-2.0,0.3)]\na1 = (x1*W[0]+x2*W[1]+W[2]).tanh(); a2 = (x1*W[3]+x2*W[4]+W[5]).tanh()\nloss = (a1*W[6]+a2*W[7]+W[8]-1.0)**2\nloss.backward(); print('after 1st:', W[0].grad)\nloss.backward(); print('after 2nd:', W[0].grad)\nEOF\n```",
+      "exercise_prompt": "各故障の数値、機構、最小修正を書く。1. 同グラフ2回のw11.grad。2. b1=8.0でのtanh'(9.25)と勾配。3. zipのzと捨てられた999.0。",
+      "hint": "`.grad` は累積する。2回目の `backward()` は同じ勾配を根以外の各ノードにもう一度加える（根の `loss.grad` は毎回 1 に再設定される）。tanh'(9.25)≈3.7×10^-8。zipは最短列で止まり例外を出さない。",
+      "answer": "1. w11.gradは2.0068→4.0135、ちょうど2倍。同じグラフで反伝播を繰り返すと `.grad` に同じ勾配がそのまま加算され、根以外の勾配がすべて2倍になる（根の `loss.grad` は毎回 1 に再設定される）。同じグラフでは `loss.zero_grad()` で全到達ノードを清めてから再反伝播する。葉だけをゼロにしても葉の値は戻るが、内部ノードの `.grad` には古い累積が残るため、再利用グラフでは全ノードの消去が必要。訓練では例ごとに順伝播グラフを作り直し、バッチ先頭で葉の勾配をゼロ化する。2. b1=8.0でz1=9.25、tanh微分は約3.7×10^-8、w11勾配は約3.3×10^-7。小さい初期化や適切な活性化・初期化を選ぶ。3. z=1.25、999.0はzipで切り捨てられる。先に `assert len(x) == len(self.w)` で防ぐ。",
+      "mastery_criterion": "3測定を再現し、症状・機構・最小修正を対応付け、葉だけのゼロ化が再利用グラフを直せない理由を述べる。"
+    },
+    "day-36-act-04": {
+      "title": "独立習熟度チェック：診断、修正、そして技術原理の解説",
+      "prerequisites": "活動36-01～36-03。",
+      "objective": "MLP訓練ループを独立に記述し、一つの植え込まれた故障を診断・修正して客観クイズを完了する。",
+      "assistance_policy_label": "独立習熟度チェック",
+      "instructions": "AIなしでzero_grad→forward→loss→backward→stepを再現する。各epochで勾配が累積し損失が発散するrunについて症状・機構・修正を書く。独立クイズを受け、誤答ごとの回復リンクを記録する。",
+      "exercise_prompt": "1. 5段階を書き、どの行の削除で古い勾配が累積するか示す。2. 損失2.1→10^30の原因をη過大、zero_grad欠如、飽和から2つ選び、区別する測定を設計する。3. 独立モードの3問で100%を達成する。",
+      "hint": "入力とパラメータを固定し、疑わしい勾配を新規・全ゼロ化グラフでの一回の反伝播と比較する。更新済みパラメータを第35日の古い数値と直接比較しない。",
+      "answer": "1. バッチ先頭で葉をゼロ化し、例ごとにforwardグラフ、loss、backwardを実行し、最後に `p -= lr * grad`。同グラフ再利用なら `loss.zero_grad()` で全ノードを清める。2. η過大またはzero_grad欠如が有力。同じ入力・パラメータの新規グラフと不一致なら古い累積、一致するがstepが過走するならηを下げる。飽和は隠れ勾配がほぼゼロという逆の症状。3. クイズは未リセットの勾配累積、過走、長さチェックを問う。単調低下を無条件には保証しない。",
+      "mastery_criterion": "独立にループを書き、故障機構と修正を対応付け、独立クイズ100%を達成する。",
+      "quiz": {
+        "title": "客観的知識チェック：訓練ループと失敗診断",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "N1 の多層グラフで、ゼロ化せずに `loss.backward()` を 2 度目に呼び出すと、$w_{11}.grad$ が $2.0068$ の後に $4.0135$ になりました — ちょうど $2$ 倍です。なぜですか？",
+            "options": {
+              "a": "浮動小数点誤差が結果をランダムに増幅した。",
+              "b": "`.grad` フィールドは呼び出し間で累積する。2 回目の `backward()` は同じベクトル・ヤコビ積を根以外の各ノードにもう一度加え、パラメータと内部ノードの勾配をすべて 2 倍にする。",
+              "c": "エンジンが異なる入力で順伝播を再計算した。",
+              "d": "`backward()` が累積勾配をゼロで割った。"
+            },
+            "hint": "`backward()` がどの `.grad` フィールドをリセットするか — そしてしないか — を確認してください。",
+            "explanation": "各 `backward()` は今回の寄与を既存の `.grad` に加算するため、同じパスを繰り返すと根以外の勾配はちょうど 2 倍になります（根は毎回 1 に再設定されます）（増幅ではなく累積）。繰り返し呼び出しの前に `loss.zero_grad()` で全到達ノードを清めるとクリーンなパスに戻ります。葉だけのゼロ化は葉の値を戻しますが、内部ノードの `.grad` には古い記録が残ります。"
+          },
+          {
+            "id": "q2",
+            "prompt": "観測された $\\eta = 5.0$ の実行では、平均損失が 40 エポック以内に $10^{151}$ を超えて爆発しました。そのメカニズムは：",
+            "options": {
+              "a": "ステップが盆地を行き過ぎ、各エポックがより大きな新しい勾配を通じて行き過ぎを複利で拡大した。",
+              "b": "MLP のパラメータが少なすぎて損失を格納できなかった。",
+              "c": "tanh が NaN を生成し、それが黙って伝播した。",
+              "d": "MSE 損失は微分できないため、勾配はランダムだった。"
+            },
+            "hint": "勾配降下は曲面の局所線形近似です。",
+            "explanation": "ステップ $\\eta \\cdot \\nabla L$ は勾配が局所的に一定であると仮定します。巨大な $\\eta$ ではステップがより急な斜面に着地し、次のエポックでさらに大きな勾配を生みます — 指数関数的発散であり、ここでは $2.1 \\rightarrow 10^{151}$ として観測されました。"
+          },
+          {
+            "id": "q3",
+            "prompt": "スカラー Neuron 実装で、黙って起きる `zip` の形状バグを防ぐガードはどれですか？",
+            "options": {
+              "a": "余分な重みを追加して `zip` に常に十分なペアを用意する。",
+              "b": "加重和を `try/except` で包み、エラーを無視する。",
+              "c": "加重和を計算する前に `len(x) == len(self.w)` をアサートする。",
+              "d": "学習率を上げて、欠落した入力の影響を小さくする。"
+            },
+            "hint": "`zip` はエラーを出さずに最短のシーケンスに切り詰めます。",
+            "explanation": "明示的な長さのアサートは、黙った切り詰め（余分な入力 $999.0$ が捨てられ $z = 1.25$）を、形状不一致の現場での即座の診断可能な失敗に変えます。"
+          }
+        ]
+      }
+    }
+  }
+}

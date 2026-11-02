@@ -1,0 +1,170 @@
+{
+  "language": "zh-Hant",
+  "language_label": "繁體中文",
+  "day_title": "第 35 日：手算反向傳播與梯度流動",
+  "day_subtitle": "使用鏈式法則推導 2-2-1 神經網絡 N1 的所有參數梯度，將每個數值與標量自動微分引擎對齊，測量飽和與網絡深度對梯度量級的影響，並通過間隔提取鞏固第 31-34 日內容。",
+  "time_budget_label": "480 分鐘專注學習（8 小時）",
+  "category_label": "模型、預訓練與微調 (LoRA)",
+  "common": {
+    "nav_calendar": "📅 課程行事曆與台帳",
+    "day_label": "Day 35",
+    "prerequisites_title": "前置要求",
+    "objective_title": "學習目標",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主實作與記錄",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看參考解答與分析",
+    "mastery_title": "獨立掌握標準",
+    "draft_placeholder": "在此輸入你的鏈式法則推導過程、中間 delta 誤差項數值以及測量梯度...",
+    "dev_slice_notice": "90 天 AI 學習平台的已驗證正式課程模組。",
+    "sources_heading": "權威來源資源與權利證明",
+    "source_author_label": "作者 / 機構",
+    "source_url_label": "原始出處連結",
+    "source_range_label": "對應章節 / 時間戳",
+    "source_verification_label": "驗證版本與日期",
+    "source_reuse_label": "複用類別",
+    "source_license_label": "許可證與權利說明",
+    "source_rationale_label": "入選理由",
+    "source_prereqs_label": "來源前置條件",
+    "source_fallback_label": "安全回退方案（離線彈性）",
+    "compared_candidates_heading": "對比候選資源與選型分析",
+    "compared_status_label": "評估結論",
+    "auth": {
+      "sign_in": "使用 Google 登入",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "登出",
+      "signed_in_as": "已登入為",
+      "guest": "訪客模式",
+      "link_github": "綁定 GitHub",
+      "link_google": "綁定 Google",
+      "linked_identities": "已綁定帳號",
+      "auth_errors": {
+        "access_denied": "授權已取消或存取被拒絕。",
+        "invalid_state": "無效或已過期的授權狀態權杖，請重試。",
+        "identity_conflict": "該第三方身分已被綁定至其他帳號。",
+        "provider_error": "認證服務提供商發生錯誤。",
+        "server_error": "認證服務提供商發生錯誤。",
+        "session_expired": "登入工作階段已過期，請重新登入。"
+      }
+    },
+    "progress": {
+      "save_btn": "儲存進度",
+      "saved": "已儲存",
+      "saving": "正在儲存...",
+      "save_error": "儲存失敗",
+      "offline": "離線狀態",
+      "mark_completed": "標記為已完成",
+      "completed_badge": "已完成"
+    },
+    "quiz": {
+      "quiz_title": "客觀知識測驗：MLP 結構與前向傳播",
+      "quiz_instructions": "請回答以下題目檢驗掌握情況。提交前請誠實聲明你的輔助條件。",
+      "assistance_mode_label": "聲明輔助條件",
+      "mode_independent": "獨立掌握檢查 (無 AI 輔助)",
+      "mode_agent_assisted": "Agent 輔助工程檢查 (借助 AI 完成)",
+      "mode_disclaimer": "說明：無 AI 輔助屬於誠實聲明條件，非平台監控或強制檢測手段。",
+      "submit_btn": "提交答案",
+      "retry_btn": "重新測驗",
+      "view_hint": "查看提示",
+      "mastery_criterion_label": "掌握標準",
+      "mastery_criterion_desc": "在獨立掌握檢查模式下獲得 100% 得分（3/3 題完全正確）。",
+      "score_label": "測驗得分",
+      "passed_badge": "通過",
+      "failed_badge": "未通過 (需複習)",
+      "independent_pass_badge": "獨立掌握通過",
+      "agent_assisted_pass_badge": "Agent 輔助通過",
+      "self_reported_badge": "自主勾選完成",
+      "stale_badge": "歷史記錄 (內容已更新，需重新驗證)",
+      "attempts_history_title": "作答應證與歷史記錄",
+      "no_attempts": "暫無測驗記錄。"
+    }
+  },
+  "activities": {
+    "day-35-act-01": {
+      "title": "手算反向傳播：輸出層誤差項與參數梯度",
+      "prerequisites": "第34日 N1 的前向賬本：$o=3.1255$，$L=4.5179$。",
+      "objective": "對 N1 的線性輸出與平方損失 $L=(o - y)^2$ 分步應用鏈式法則，求輸出誤差項與三個輸出層參數梯度。",
+      "assistance_policy_label": "Agent輔助工程檢查",
+      "instructions": "先推符號，再代數值。N1 的輸出是線性單元 $o=w_{o1}a_1+w_{o2}a_2+b_o$，不是 sigmoid；損失沒有 $1/2$ 係數。\n\n1. $\\delta_o=\\partial L/\\partial o=2(o-y)$。\n2. 局部輸入導數為 $\\partial o/\\partial a_1=w_{o1}$、$\\partial o/\\partial a_2=w_{o2}$。\n3. 局部參數導數為 $a_1$、$a_2$、$1$，因此參數梯度是上游 $\\delta_o$ 乘局部導數。\n4. 使用第34日 $a_1=0.8741$、$a_2=-0.9757$、$o=3.1255$、$y=1.0$ 預測三個輸出梯度，再看答案。",
+      "exercise_prompt": "1. 推導 $\\delta_o$。2. 算出兩個輸出權重與偏置的梯度。3. 解釋線性單元偏置的局部導數為何是1。4. 指出傳到 $a_1$ 的梯度還需通過哪個激活導數才能到達 $z_1$。",
+      "hint": "$\\delta_o=2(3.1255-1.0)=4.2511$；權重乘對應激活，偏置的局部導數是1。",
+      "answer": "$\\delta_o=4.2511$；$\\partial L/\\partial w_{o1}=4.2511\\times0.8741=3.7157$，$\\partial L/\\partial w_{o2}=4.2511\\times(-0.9757)=-4.1480$，$\\partial L/\\partial b_o=4.2511$。偏置以係數1進入線性輸出。到達 $a_1$ 的梯度是 $\\delta_o w_{o1}=4.2511$，還需乘 $\\tanh'(z_1)=1-a_1^2$。",
+      "mastery_criterion": "不看答案重現全部三個輸出梯度（3.7157、-4.1480、4.2511），與引擎誤差小於 $10^{-3}$，並解釋上游乘局部的結構。"
+    },
+    "day-35-act-02": {
+      "title": "隱藏層反向傳播：手算完成全部九個參數梯度",
+      "prerequisites": "活動35-01的輸出誤差項。",
+      "objective": "把誤差通過 tanh 隱藏層傳播，完成其餘六個參數梯度，與 `loss.backward()` 的九個結果逐個覈對。",
+      "assistance_policy_label": "獨立掌握檢查",
+      "instructions": "獨立計算 $\\delta_{z_1}=(\\delta_o w_{o1})(1-a_1^2)$ 與 $\\delta_{z_2}=(\\delta_o w_{o2})(1-a_2^2)$。使用 $w_{o1}=1.0$、$w_{o2}=-2.0$，局部激活導數分別約為0.2360與0.0479。每個隱藏權重梯度是隱藏誤差項乘對應輸入，偏置梯度是誤差項自身。完成手算後運行同一引擎命令覈驗全部九項：\n\n```bash\npython3 - <<'EOF'\nimport sys; sys.path.insert(0, '.')\nfrom projects.autograd.engine import Value\nx1, x2 = Value(2.0), Value(-1.0)\nW = [Value(v) for v in (0.5,-0.25,0.1, -0.5,1.0,-0.2, 1.0,-2.0,0.3)]\na1 = (x1*W[0] + x2*W[1] + W[2]).tanh()\na2 = (x1*W[3] + x2*W[4] + W[5]).tanh()\nloss = (a1*W[6] + a2*W[7] + W[8] - 1.0)**2\nloss.backward()\nprint([round(w.grad, 4) for w in W])\nEOF\n```",
+      "exercise_prompt": "按 (w11,w12,b1,w21,w22,b2,w_o1,w_o2,b_o) 給出九項梯度表；隱藏權重必須展示“上游×激活導數×輸入”三因子，並標記引擎確認的每項。",
+      "hint": "$\\delta_{z_1}\\approx1.0034$、$\\delta_{z_2}\\approx-0.4075$；輸入 $x_1=2.0$、$x_2=-1.0$，注意第二列的符號。",
+      "answer": "參考梯度表（表中值來自同一引擎，手算允許顯示精度的舍入）：\n| param | factors | value |\n| --- | --- | --- |\n| $w_{o1}$ | $4.2511 \\times 0.8741$ | $3.7157$ |\n| $w_{o2}$ | $4.2511 \\times (-0.9757)$ | $-4.1480$ |\n| $b_o$ | $4.2511 \\times 1$ | $4.2511$ |\n| $w_{11}$ | $4.2511 \\times 0.2360 \\times 2.0$ | $2.0068$ |\n| $w_{12}$ | $4.2511 \\times 0.2360 \\times (-1.0)$ | $-1.0034$ |\n| $b_1$ | $4.2511 \\times 0.2360 \\times 1$ | $1.0034$ |\n| $w_{21}$ | $-8.5022 \\times 0.0479 \\times 2.0$ | $-0.8149$ |\n| $w_{22}$ | $-8.5022 \\times 0.0479 \\times (-1.0)$ | $0.4075$ |\n| $b_2$ | $-8.5022 \\times 0.0479 \\times 1$ | $-0.4075$ |\n\n$\\tanh'(z_2)=0.0479$ 明顯縮小了第二個神經元的梯度，這是飽和的預告。",
+      "mastery_criterion": "九項與引擎誤差均小於 $10^{-3}$；隱藏權重三因子完整，w12和w22符號正確。"
+    },
+    "day-35-act-03": {
+      "title": "梯度流動、飽和現象、梯度消失直覺與間隔提取",
+      "prerequisites": "完成活動35-02的九梯度推導。",
+      "objective": "通過飽和測量與十層鏈的界，解釋梯度消失；閉卷提取第31—34日的四個關鍵事實。",
+      "assistance_policy_label": "Agent輔助工程檢查",
+      "instructions": "測量A：運行下面的命令，記錄 $\\tanh'(4)$ 與 $\\tanh'(8)$。每層飽和激活都會乘入 $1-\\tanh^2(z)$。\n\n測量B：十層 tanh 鏈每層權重0.5，每層梯度因子 $|w\\tanh'(z_i)|\\le0.5$，最早層的傳入梯度因子上界是 $0.5^{10}$。\n\n閉卷提取：為什麼 `_backward` 用 `+=`；逆序拓撲傳播何時允許一個節點反傳；$f=(a+b)a$ 在 $(a,b)=(3,4)$ 時對 a 的導數；N1 的四個前向值。記錄查閱過的知識點供間隔複習。\n\n```bash\npython3 - <<'EOF'\nimport sys; sys.path.insert(0, '.')\nfrom projects.autograd.engine import Value\nfor z0 in (4.0, 8.0):\n    z = Value(z0); a = z.tanh(); a.backward()\n    print(z0, round(a.data, 6), z.grad)\nEOF\n```",
+      "exercise_prompt": "1. 記錄兩個飽和導數並解釋 $|z|=8$ 的影響。2. 計算 $0.5^{10}$ 並解釋十層衰減。3. 閉卷寫出四個提取事實，誠實標記需要查閱的部分。",
+      "hint": "$\\tanh(8)$ 已接近1；$0.5^{10}=1/1024$。",
+      "answer": "$\\tanh'(4)\\approx1.34\\times10^{-3}$、$\\tanh'(8)\\approx4.5\\times10^{-7}$。後者傳過的梯度不到百萬分之一。$0.5^{10}=9.77\\times10^{-4}$，十個不大於0.5的因子使傳入梯度低於0.1%。`+=` 合計共享節點的所有消費路徑；節點的 `_backward` 要在全部下游貢獻到齊後執行。$\\partial f/\\partial a=10=7+3$。N1：$a_1=0.8741$、$a_2=-0.9757$、$o=3.1255$、$L=4.5179$。",
+      "mastery_criterion": "兩個測量數量級、十層上界、四個提取事實均正確；未掌握部分進入複習計劃。"
+    },
+    "day-35-act-04": {
+      "title": "鞏固複習：獨立反向傳播推導與知識塊提取",
+      "prerequisites": "活動35-01至35-03。",
+      "objective": "閉卷在新輸入上重推 N1 的全部九個梯度，關聯向量—雅可比積，並獨立完成客觀測驗。",
+      "assistance_policy_label": "獨立掌握檢查",
+      "instructions": "不使用 AI 或筆記：對 N1 輸入 $(1.0, 1.0)$ 重算前向和全部九個梯度（$a_1=0.3364$、$a_2=0.2913$、$o=0.0538$）。寫出 VJP $\\mathbf v^T J$，指出它在標量情況下就是上游導數乘局部導數；獨立模式完成測驗，每個錯點選擇一個補救鏈接。",
+      "exercise_prompt": "1. 從 $\\delta_o=2(o-1.0)=-1.8925$ 開始完成九項。2. 寫出輸出誤差、隱藏誤差、偏置梯度、權重梯度四條 delta 公式。3. 獨立完成三題測驗並達100%。",
+      "hint": "$1-0.3364^2=0.8869$、$1-0.2913^2=0.9151$；輸入都是1.0。這裏是 tanh 隱藏層與線性輸出，不是 ReLU 任務。",
+      "answer": "參考解（均表示損失對參數的導數，不是參數新值）：\n$\\delta_o = -1.8925$; $\\partial L/\\partial w_{o1} = -0.6366$, $\\partial L/\\partial w_{o2} = -0.5513$, $\\partial L/\\partial b_o = -1.8925$; $\\partial L/\\partial w_{11} = \\partial L/\\partial w_{12} = \\partial L/\\partial b_1 = -1.6784$; $\\partial L/\\partial w_{21} = \\partial L/\\partial w_{22} = \\partial L/\\partial b_2 = 3.4638$.\n\n四條公式：\n$\\delta^L = \\nabla_a L \\odot \\sigma'(z^L)$; $\\delta^l = (W^{l+1})^T\\delta^{l+1}\\odot\\sigma'(z^l)$; $\\partial L/\\partial b^l = \\delta^l$; $\\partial L/\\partial W^l = \\delta^l(a^{l-1})^T$.\n\n引擎覈驗九項；測驗檢查 delta 結構、飽和與梯度累加。",
+      "mastery_criterion": "新輸入的全部九項在 $10^{-3}$ 內匹配引擎，正確寫出四條公式，獨立測驗100%。",
+      "quiz": {
+        "title": "客觀知識檢測：反向傳播推導與梯度流",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "在隱藏層遞推式 $\\delta^l = (W^{l+1})^T \\delta^{l+1} \\odot \\sigma'(z^l)$ 中，運算子 $\\odot$ 代表什麼？",
+            "options": {
+              "a": "矩陣乘法",
+              "b": "逐元素（Hadamard）乘法",
+              "c": "卷積",
+              "d": "外積"
+            },
+            "hint": "每個神經元的 delta 都會被其自身的活化導數縮放。",
+            "explanation": "$\\odot$ 是逐元素乘積：反向傳播的 delta 向量的每個分量都乘以對應神經元的局部導數 $\\sigma'(z_j^l)$。"
+          },
+          {
+            "id": "q2",
+            "prompt": "在引擎上測得，$\\tanh'(8) = 1 - \\tanh^2(8)$ 約等於：",
+            "options": {
+              "a": "$1.0$",
+              "b": "$0.5$",
+              "c": "$0.05$",
+              "d": "$4.5 \\times 10^{-7}$"
+            },
+            "hint": "$\\tanh(8)$ 取四位小數已經是 $1.0000$。",
+            "explanation": "$\\tanh(8) \\approx 0.9999998$，所以 $1 - \\tanh^2(8) \\approx 4.5 \\times 10^{-7}$：飽和的神經元幾乎不讓傳入的梯度通過。"
+          },
+          {
+            "id": "q3",
+            "prompt": "為什麼到達共享節點的梯度必須累加來自每條下游路徑的貢獻？",
+            "options": {
+              "a": "多變數鏈式法則將全導數定義為經過該節點的所有路徑之和。",
+              "b": "累加用於補償浮點捨入誤差。",
+              "c": "GPU 核心不能對同一記憶體寫兩次。",
+              "d": "並不需要——最後一個貢獻才是正確的。"
+            },
+            "hint": "回想 $f = (a + b) \\cdot a$，以及從 $f$ 回到 $a$ 的兩條路徑。",
+            "explanation": "當一個值供給多個消費方時，其全導數是沿每條路徑的偏導貢獻之和——這正是引擎的 backward 閉包中 `grad +=` 所實現的。"
+          }
+        ]
+      }
+    }
+  }
+}

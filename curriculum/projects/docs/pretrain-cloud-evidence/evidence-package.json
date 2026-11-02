@@ -1,0 +1,81 @@
+{
+  "schema_version": "cloud-pretraining-evidence-v1",
+  "run_id": "ticket-19-pending-authorized-run",
+  "run_status": "blocked",
+  "approval_gate": {
+    "required_before_paid_execution": true,
+    "approval_requested": false,
+    "approved": false,
+    "approval_scope": "One small-model run using cloud-run-config.json, up to the spending ceiling; no destructive deletion.",
+    "request_text": "Please approve the provider, region, model/data/runtime assumptions, spending ceiling, and stop behavior before any paid resource is created.",
+    "approved_by": null,
+    "approved_at": null
+  },
+  "assumptions": {
+    "provider": null,
+    "region": null,
+    "gpu_shape": null,
+    "model": "The existing 4-layer, 4-head, 64-embedding GPT recipe; exact parameter count depends on the dataset vocabulary.",
+    "data": "data/tinyshakespeare.txt; public teaching fixture; verify license/provenance and SHA-256 before upload.",
+    "runtime": "Python >=3.10, PyTorch >=2.0, provider image records exact CUDA/driver versions; no provider image selected.",
+    "storage": "Checkpoint volume/object storage sized for latest.pt plus step checkpoints and logs; exact size measured during the run."
+  },
+  "cost_plan": {
+    "spending_ceiling_usd": 25.0,
+    "estimate_method": "theoretical GPU hourly rate * planned wall time + storage rate * retained GB-days + provider taxes/fees; replace assumptions with provider quote before approval",
+    "theoretical_compute_hours": 2.0,
+    "theoretical_storage_gb_days": 5.0,
+    "provider_hourly_rate_usd": null,
+    "provider_storage_rate_usd_per_gb_day": null,
+    "theoretical_total_usd": null,
+    "stop_behavior": "Use a timer and provider-side budget alert where available. Stop/release the compute instance at the ceiling, on failed health checks, or after the planned run. Do not delete retained storage without separate confirmation.",
+    "billing_uncertainty": "Free quota is not assumed; quota eligibility, billing lag, minimums, taxes, and provider-side hard-cap availability must be confirmed before approval.",
+    "storage_charge_follow_up": "After compute release, record volume/object identifiers in private notes only and report continuing storage charges; never commit identifiers or secrets."
+  },
+  "versioned_inputs": {
+    "config_path": "curriculum/projects/pretrain/cloud-run-config.json",
+    "config_sha256": "pending-compute-according-to-documented-omit-self-method",
+    "data_path": "data/tinyshakespeare.txt",
+    "data_sha256": "86c4e6aa9db7c042ec79f339dcb96d42b0075e16b8fc2e86bf0ca57e2dc565ed",
+    "code_revision": "record commit SHA immediately before launch",
+    "environment_lock": "record image digest, Python, PyTorch, CUDA, driver, and git SHA in private run log"
+  },
+  "commands": {
+    "local_contract_test": "python3 -m unittest tests/unit/test_cloud_evidence.py",
+    "cloud_start_after_approval": "python projects/pretrain/train.py --data-path data/tinyshakespeare.txt --work-dir runs/ticket-19 --device cuda --max-iters 1000 --checkpoint-interval 200 --eval-interval 200",
+    "interrupt_recipe": "stop the process after a checkpoint (for example step 200) and preserve the work directory; do not delete latest.pt",
+    "resume_recipe": "python projects/pretrain/train.py --data-path data/tinyshakespeare.txt --work-dir runs/ticket-19 --device cuda --resume auto --max-iters 1000",
+    "independent_eval": "python projects/pretrain/evaluate.py --checkpoint runs/ticket-19/latest.pt --data-path data/tinyshakespeare.txt --device cuda --output-json runs/ticket-19/eval_results.json",
+    "release": "provider-specific stop/release command, copied into the private run log only after approval"
+  },
+  "evidence": {
+    "provider": null,
+    "region": null,
+    "gpu_identity": null,
+    "image_digest": null,
+    "cuda_driver": null,
+    "git_revision": null,
+    "elapsed_seconds": null,
+    "steps_before_interrupt": null,
+    "steps_after_resume": null,
+    "checkpoint_paths": [],
+    "independent_eval_path": null,
+    "measured_train_loss": null,
+    "measured_val_loss": null,
+    "measured_cost_usd": null,
+    "billing_snapshot_at": null,
+    "storage_released": null,
+    "failure_cases": [],
+    "status_note": "No provider authorization or paid execution was available for this delivery. No cloud result, GPU identity, elapsed time, metric, or spending value is claimed."
+  },
+  "measured_vs_theoretical": {
+    "theoretical_fields": ["theoretical_compute_hours", "theoretical_storage_gb_days", "theoretical_total_usd"],
+    "measured_fields": ["elapsed_seconds", "measured_cost_usd", "gpu_identity", "measured_train_loss", "measured_val_loss"],
+    "interpretation": "Local CPU tests validate schema and command shape only; they cannot validate provider billing, GPU throughput, or cloud recovery."
+  },
+  "limitations": [
+    "Actual-run acceptance is unmet until an authorized provider, approval, and real execution record exist.",
+    "A provider-side hard cap may not be enforceable; alerts and an operator stop are not guarantees against billing lag.",
+    "The config is a prepared recipe, not a cloud result."
+  ]
+}

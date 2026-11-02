@@ -1,0 +1,170 @@
+{
+  "language": "zh-Hans",
+  "language_label": "简体中文",
+  "day_title": "第 35 日：手算反向传播与梯度流动",
+  "day_subtitle": "使用链式法则推导 2-2-1 神经网络 N1 的所有参数梯度，将每个数值与标量自动微分引擎对齐，测量饱和与网络深度对梯度量级的影响，并通过间隔提取巩固第 31-34 日内容。",
+  "time_budget_label": "480 分钟专注学习（8 小时）",
+  "category_label": "模型、预训练与微调 (LoRA)",
+  "common": {
+    "nav_calendar": "📅 课程日历与台账",
+    "day_label": "Day 35",
+    "prerequisites_title": "前置要求",
+    "objective_title": "学习目标",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主演练与记录",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看参考解答与分析",
+    "mastery_title": "独立掌握标准",
+    "draft_placeholder": "在此输入你的链式法则推导过程、中间 delta 误差项数值以及测量梯度...",
+    "dev_slice_notice": "90 天 AI 学习平台的已验证正式课程模块。",
+    "sources_heading": "权威源资源与权利证明",
+    "source_author_label": "作者 / 机构",
+    "source_url_label": "原始出处链接",
+    "source_range_label": "对应章节 / 时间戳",
+    "source_verification_label": "验证版本与日期",
+    "source_reuse_label": "复用类别",
+    "source_license_label": "许可证与权利说明",
+    "source_rationale_label": "入选理由",
+    "source_prereqs_label": "来源前置条件",
+    "source_fallback_label": "安全回退方案（离线弹性）",
+    "compared_candidates_heading": "对比候选资源与选型分析",
+    "compared_status_label": "评估结论",
+    "auth": {
+      "sign_in": "使用 Google 登录",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "退出登录",
+      "signed_in_as": "已登录为",
+      "guest": "访客模式",
+      "link_github": "绑定 GitHub",
+      "link_google": "绑定 Google",
+      "linked_identities": "已绑定账号",
+      "auth_errors": {
+        "access_denied": "授权已取消或访问被拒绝。",
+        "invalid_state": "无效或已过期的授权状态令牌，请重试。",
+        "identity_conflict": "该第三方身份已被绑定至其他账号。",
+        "provider_error": "认证服务提供商发生错误。",
+        "server_error": "认证服务提供商发生错误。",
+        "session_expired": "登录会话已过期，请重新登录。"
+      }
+    },
+    "progress": {
+      "save_btn": "保存进度",
+      "saved": "已保存",
+      "saving": "正在保存...",
+      "save_error": "保存失败",
+      "offline": "离线状态",
+      "mark_completed": "标记为已完成",
+      "completed_badge": "已完成"
+    },
+    "quiz": {
+      "quiz_title": "客观知识测验：MLP 结构与前向传播",
+      "quiz_instructions": "请回答以下题目检验掌握情况。提交前请诚实声明你的辅助条件。",
+      "assistance_mode_label": "声明辅助条件",
+      "mode_independent": "独立掌握检查 (无 AI 辅助)",
+      "mode_agent_assisted": "Agent 辅助工程检查 (借助 AI 完成)",
+      "mode_disclaimer": "说明：无 AI 辅助属于诚实声明条件，非平台监控或强制检测手段。",
+      "submit_btn": "提交答案",
+      "retry_btn": "重新测验",
+      "view_hint": "查看提示",
+      "mastery_criterion_label": "掌握标准",
+      "mastery_criterion_desc": "在独立掌握检查模式下获得 100% 得分（3/3 题完全正确）。",
+      "score_label": "测验得分",
+      "passed_badge": "通过",
+      "failed_badge": "未通过 (需复习)",
+      "independent_pass_badge": "独立掌握通过",
+      "agent_assisted_pass_badge": "Agent 辅助通过",
+      "self_reported_badge": "自主勾选完成",
+      "stale_badge": "历史记录 (内容已更新，需重新验证)",
+      "attempts_history_title": "作答应证与历史记录",
+      "no_attempts": "暂无测验记录。"
+    }
+  },
+  "activities": {
+    "day-35-act-01": {
+      "title": "手算反向传播：输出层误差项与参数梯度",
+      "prerequisites": "第34日 N1 的前向账本：$o=3.1255$，$L=4.5179$。",
+      "objective": "对 N1 的线性输出与平方损失 $L=(o - y)^2$ 分步应用链式法则，求输出误差项与三个输出层参数梯度。",
+      "assistance_policy_label": "Agent辅助工程检查",
+      "instructions": "先推符号，再代数值。N1 的输出是线性单元 $o=w_{o1}a_1+w_{o2}a_2+b_o$，不是 sigmoid；损失没有 $1/2$ 系数。\n\n1. $\\delta_o=\\partial L/\\partial o=2(o-y)$。\n2. 局部输入导数为 $\\partial o/\\partial a_1=w_{o1}$、$\\partial o/\\partial a_2=w_{o2}$。\n3. 局部参数导数为 $a_1$、$a_2$、$1$，因此参数梯度是上游 $\\delta_o$ 乘局部导数。\n4. 使用第34日 $a_1=0.8741$、$a_2=-0.9757$、$o=3.1255$、$y=1.0$ 预测三个输出梯度，再看答案。",
+      "exercise_prompt": "1. 推导 $\\delta_o$。2. 算出两个输出权重与偏置的梯度。3. 解释线性单元偏置的局部导数为何是1。4. 指出传到 $a_1$ 的梯度还需通过哪个激活导数才能到达 $z_1$。",
+      "hint": "$\\delta_o=2(3.1255-1.0)=4.2511$；权重乘对应激活，偏置的局部导数是1。",
+      "answer": "$\\delta_o=4.2511$；$\\partial L/\\partial w_{o1}=4.2511\\times0.8741=3.7157$，$\\partial L/\\partial w_{o2}=4.2511\\times(-0.9757)=-4.1480$，$\\partial L/\\partial b_o=4.2511$。偏置以系数1进入线性输出。到达 $a_1$ 的梯度是 $\\delta_o w_{o1}=4.2511$，还需乘 $\\tanh'(z_1)=1-a_1^2$。",
+      "mastery_criterion": "不看答案重现全部三个输出梯度（3.7157、-4.1480、4.2511），与引擎误差小于 $10^{-3}$，并解释上游乘局部的结构。"
+    },
+    "day-35-act-02": {
+      "title": "隐藏层反向传播：手算完成全部九个参数梯度",
+      "prerequisites": "活动35-01的输出误差项。",
+      "objective": "把误差通过 tanh 隐藏层传播，完成其余六个参数梯度，与 `loss.backward()` 的九个结果逐个核对。",
+      "assistance_policy_label": "独立掌握检查",
+      "instructions": "独立计算 $\\delta_{z_1}=(\\delta_o w_{o1})(1-a_1^2)$ 与 $\\delta_{z_2}=(\\delta_o w_{o2})(1-a_2^2)$。使用 $w_{o1}=1.0$、$w_{o2}=-2.0$，局部激活导数分别约为0.2360与0.0479。每个隐藏权重梯度是隐藏误差项乘对应输入，偏置梯度是误差项自身。完成手算后运行同一引擎命令核验全部九项：\n\n```bash\npython3 - <<'EOF'\nimport sys; sys.path.insert(0, '.')\nfrom projects.autograd.engine import Value\nx1, x2 = Value(2.0), Value(-1.0)\nW = [Value(v) for v in (0.5,-0.25,0.1, -0.5,1.0,-0.2, 1.0,-2.0,0.3)]\na1 = (x1*W[0] + x2*W[1] + W[2]).tanh()\na2 = (x1*W[3] + x2*W[4] + W[5]).tanh()\nloss = (a1*W[6] + a2*W[7] + W[8] - 1.0)**2\nloss.backward()\nprint([round(w.grad, 4) for w in W])\nEOF\n```",
+      "exercise_prompt": "按 (w11,w12,b1,w21,w22,b2,w_o1,w_o2,b_o) 给出九项梯度表；隐藏权重必须展示“上游×激活导数×输入”三因子，并标记引擎确认的每项。",
+      "hint": "$\\delta_{z_1}\\approx1.0034$、$\\delta_{z_2}\\approx-0.4075$；输入 $x_1=2.0$、$x_2=-1.0$，注意第二列的符号。",
+      "answer": "参考梯度表（表中值来自同一引擎，手算允许显示精度的舍入）：\n| param | factors | value |\n| --- | --- | --- |\n| $w_{o1}$ | $4.2511 \\times 0.8741$ | $3.7157$ |\n| $w_{o2}$ | $4.2511 \\times (-0.9757)$ | $-4.1480$ |\n| $b_o$ | $4.2511 \\times 1$ | $4.2511$ |\n| $w_{11}$ | $4.2511 \\times 0.2360 \\times 2.0$ | $2.0068$ |\n| $w_{12}$ | $4.2511 \\times 0.2360 \\times (-1.0)$ | $-1.0034$ |\n| $b_1$ | $4.2511 \\times 0.2360 \\times 1$ | $1.0034$ |\n| $w_{21}$ | $-8.5022 \\times 0.0479 \\times 2.0$ | $-0.8149$ |\n| $w_{22}$ | $-8.5022 \\times 0.0479 \\times (-1.0)$ | $0.4075$ |\n| $b_2$ | $-8.5022 \\times 0.0479 \\times 1$ | $-0.4075$ |\n\n$\\tanh'(z_2)=0.0479$ 明显缩小了第二个神经元的梯度，这是饱和的预告。",
+      "mastery_criterion": "九项与引擎误差均小于 $10^{-3}$；隐藏权重三因子完整，w12和w22符号正确。"
+    },
+    "day-35-act-03": {
+      "title": "梯度流动、饱和现象、梯度消失直觉与间隔提取",
+      "prerequisites": "完成活动35-02的九梯度推导。",
+      "objective": "通过饱和测量与十层链的界，解释梯度消失；闭卷提取第31—34日的四个关键事实。",
+      "assistance_policy_label": "Agent辅助工程检查",
+      "instructions": "测量A：运行下面的命令，记录 $\\tanh'(4)$ 与 $\\tanh'(8)$。每层饱和激活都会乘入 $1-\\tanh^2(z)$。\n\n测量B：十层 tanh 链每层权重0.5，每层梯度因子 $|w\\tanh'(z_i)|\\le0.5$，最早层的传入梯度因子上界是 $0.5^{10}$。\n\n闭卷提取：为什么 `_backward` 用 `+=`；逆序拓扑传播何时允许一个节点反传；$f=(a+b)a$ 在 $(a,b)=(3,4)$ 时对 a 的导数；N1 的四个前向值。记录查阅过的知识点供间隔复习。\n\n```bash\npython3 - <<'EOF'\nimport sys; sys.path.insert(0, '.')\nfrom projects.autograd.engine import Value\nfor z0 in (4.0, 8.0):\n    z = Value(z0); a = z.tanh(); a.backward()\n    print(z0, round(a.data, 6), z.grad)\nEOF\n```",
+      "exercise_prompt": "1. 记录两个饱和导数并解释 $|z|=8$ 的影响。2. 计算 $0.5^{10}$ 并解释十层衰减。3. 闭卷写出四个提取事实，诚实标记需要查阅的部分。",
+      "hint": "$\\tanh(8)$ 已接近1；$0.5^{10}=1/1024$。",
+      "answer": "$\\tanh'(4)\\approx1.34\\times10^{-3}$、$\\tanh'(8)\\approx4.5\\times10^{-7}$。后者传过的梯度不到百万分之一。$0.5^{10}=9.77\\times10^{-4}$，十个不大于0.5的因子使传入梯度低于0.1%。`+=` 合计共享节点的所有消费路径；节点的 `_backward` 要在全部下游贡献到齐后执行。$\\partial f/\\partial a=10=7+3$。N1：$a_1=0.8741$、$a_2=-0.9757$、$o=3.1255$、$L=4.5179$。",
+      "mastery_criterion": "两个测量数量级、十层上界、四个提取事实均正确；未掌握部分进入复习计划。"
+    },
+    "day-35-act-04": {
+      "title": "巩固复习：独立反向传播推导与知识块提取",
+      "prerequisites": "活动35-01至35-03。",
+      "objective": "闭卷在新输入上重推 N1 的全部九个梯度，关联向量—雅可比积，并独立完成客观测验。",
+      "assistance_policy_label": "独立掌握检查",
+      "instructions": "不使用 AI 或笔记：对 N1 输入 $(1.0, 1.0)$ 重算前向和全部九个梯度（$a_1=0.3364$、$a_2=0.2913$、$o=0.0538$）。写出 VJP $\\mathbf v^T J$，指出它在标量情况下就是上游导数乘局部导数；独立模式完成测验，每个错点选择一个补救链接。",
+      "exercise_prompt": "1. 从 $\\delta_o=2(o-1.0)=-1.8925$ 开始完成九项。2. 写出输出误差、隐藏误差、偏置梯度、权重梯度四条 delta 公式。3. 独立完成三题测验并达100%。",
+      "hint": "$1-0.3364^2=0.8869$、$1-0.2913^2=0.9151$；输入都是1.0。这里是 tanh 隐藏层与线性输出，不是 ReLU 任务。",
+      "answer": "参考解（均表示损失对参数的导数，不是参数新值）：\n$\\delta_o = -1.8925$; $\\partial L/\\partial w_{o1} = -0.6366$, $\\partial L/\\partial w_{o2} = -0.5513$, $\\partial L/\\partial b_o = -1.8925$; $\\partial L/\\partial w_{11} = \\partial L/\\partial w_{12} = \\partial L/\\partial b_1 = -1.6784$; $\\partial L/\\partial w_{21} = \\partial L/\\partial w_{22} = \\partial L/\\partial b_2 = 3.4638$.\n\n四条公式：\n$\\delta^L = \\nabla_a L \\odot \\sigma'(z^L)$; $\\delta^l = (W^{l+1})^T\\delta^{l+1}\\odot\\sigma'(z^l)$; $\\partial L/\\partial b^l = \\delta^l$; $\\partial L/\\partial W^l = \\delta^l(a^{l-1})^T$.\n\n引擎核验九项；测验检查 delta 结构、饱和与梯度累加。",
+      "mastery_criterion": "新输入的全部九项在 $10^{-3}$ 内匹配引擎，正确写出四条公式，独立测验100%。",
+      "quiz": {
+        "title": "客观知识检测：反向传播推导与梯度流",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "在隐藏层递推式 $\\delta^l = (W^{l+1})^T \\delta^{l+1} \\odot \\sigma'(z^l)$ 中，运算符 $\\odot$ 表示什么？",
+            "options": {
+              "a": "矩阵乘法",
+              "b": "逐元素（Hadamard）乘法",
+              "c": "卷积",
+              "d": "外积"
+            },
+            "hint": "每个神经元的 delta 都会被其自身的激活导数缩放。",
+            "explanation": "$\\odot$ 是逐元素乘积：反向传播的 delta 向量的每个分量都乘以对应神经元的局部导数 $\\sigma'(z_j^l)$。"
+          },
+          {
+            "id": "q2",
+            "prompt": "在引擎上测得，$\\tanh'(8) = 1 - \\tanh^2(8)$ 约等于：",
+            "options": {
+              "a": "$1.0$",
+              "b": "$0.5$",
+              "c": "$0.05$",
+              "d": "$4.5 \\times 10^{-7}$"
+            },
+            "hint": "$\\tanh(8)$ 取四位小数已经是 $1.0000$。",
+            "explanation": "$\\tanh(8) \\approx 0.9999998$，所以 $1 - \\tanh^2(8) \\approx 4.5 \\times 10^{-7}$：饱和的神经元几乎不让传入的梯度通过。"
+          },
+          {
+            "id": "q3",
+            "prompt": "为什么到达共享节点的梯度必须累加来自每条下游路径的贡献？",
+            "options": {
+              "a": "多变量链式法则将全导数定义为经过该节点的所有路径之和。",
+              "b": "累加用于补偿浮点舍入误差。",
+              "c": "GPU 内核不能对同一内存写两次。",
+              "d": "并不需要——最后一个贡献才是正确的。"
+            },
+            "hint": "回忆 $f = (a + b) \\cdot a$，以及从 $f$ 回到 $a$ 的两条路径。",
+            "explanation": "当一个值供给多个消费方时，其全导数是沿每条路径的偏导贡献之和——这正是引擎的 backward 闭包中 `grad +=` 所实现的。"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-10-30",
+  "notice": "Completing all four Agent Tool Tracks is not a learner requirement. Choose one track suited to your environment. Untested tracks are visibly pending verification and are not accepted solely because documentation exists.",
+  "tracks": [
+    {
+      "id": "claude-code",
+      "name": "Claude Code",
+      "tested_version": "2.1.312",
+      "provider_model": "Anthropic / model selected by authorized account (not observed without authorization)",
+      "verification_state": "pending",
+      "verification_date": "2026-10-30",
+      "verification_evidence": "CLI version observed; documentation and deterministic fixture audited. No authorized Anthropic account or paid live run was available, so real-tool acceptance remains blocked.",
+      "setup_availability": "blocked-pending-authorized-access",
+      "access_prerequisites": "Anthropic API Key or Claude Pro/Team plan",
+      "cost_assumptions": "Pay-per-token API consumption (~$0.01 - $0.10/task) or plan quota. Unbudgeted or automatic spend strictly prohibited.",
+      "execution_boundary": "Disposable git worktree; command approval required; tool use does not authorize unrestricted bash execution, network purchases, or external messages.",
+      "tool_specific_command": "claude",
+      "unexercised": true
+    },
+    {
+      "id": "codex",
+      "name": "OpenAI Codex",
+      "tested_version": "codex-cli 0.148.0 (observed 2026-10-30; pin or re-verify a compatible 0.x release)",
+      "provider_model": "OpenAI / account-selected Codex-supported model (record exact model per run)",
+      "verification_state": "pending",
+      "verification_date": "2026-10-30 (CLI/docs); live model acceptance pending authorized access",
+      "verification_evidence": "Official CLI, reference, and sandbox guidance reviewed; local version/help/sandbox probes passed. Authenticated model task was not run because no authorized credential was supplied. Deterministic fixture evidence is not a live pass.",
+      "setup_availability": "CLI available; live access conditional",
+      "access_prerequisites": "Authorized ChatGPT Codex entitlement or OpenAI API credential with available quota; exact model must be recorded",
+      "cost_assumptions": "ChatGPT plan quota or OpenAI token billing according to the active account. Confirm budget first; no purchase, credit, or paid run is authorized.",
+      "execution_boundary": "Disposable Git worktree; workspace-write plus on-request approvals; network off; no credentials, external mutations, yolo mode, or writes outside scope.",
+      "tool_specific_command": "codex --sandbox workspace-write --ask-for-approval on-request; codex exec only after reference check",
+      "unexercised": true
+    },
+    {
+      "id": "pi-agent",
+      "name": "Pi Agent",
+      "tested_version": "v1.4.0",
+      "provider_model": "Learner-approved provider / learner-selected model",
+      "verification_state": "pending",
+      "verification_date": "2026-10-30",
+      "verification_evidence": "Official README and v1.4.0 release notes checked on 2026-10-30; live provider execution is not claimed without authorization.",
+      "setup_availability": "available with Node.js >=22.19 and approved provider access",
+      "access_prerequisites": "Node.js >=22.19 and an authorized provider account or local endpoint",
+      "cost_assumptions": "Pi has no model fee; provider token/subscription/local compute cost must be budgeted and recorded before a paid run.",
+      "execution_boundary": "Disposable worktree; built-in file/shell tools only as approved; no credentials, external mutations, installs, or network writes.",
+      "tool_specific_command": "pi",
+      "unexercised": true
+    },
+    {
+      "id": "deepseek-harness",
+      "name": "DeepSeek Harness",
+      "tested_version": "@deepseek-ai/dsh 0.1.1-preview",
+      "provider_model": "DeepSeek API / model recorded at live run (docs list deepseek-flash and deepseek-v4-pro)",
+      "verification_state": "pending",
+      "verification_date": "2026-10-30",
+      "verification_evidence": "Official repository and API documentation audited; deterministic fixture executed with exit=1 then exit=0. No authorized DEEPSEEK_API_KEY or paid-use approval was available, so real-tool acceptance remains blocked.",
+      "setup_availability": "blocked-pending-authorized-access",
+      "access_prerequisites": "Node.js/npm, authorized DeepSeek API key, and preview package; no implicit purchase or cloud rental.",
+      "cost_assumptions": "DeepSeek input/output token billing; verify current pricing and set a hard spend limit before every run.",
+      "execution_boundary": "Disposable worktree and explicit learner instructions; plugins are not assumed isolated, read-only, or network-denied; inspect diff and tests.",
+      "tool_specific_command": "npx --yes @deepseek-ai/dsh@0.1.1-preview web --no-open",
+      "unexercised": true
+    }
+  ]
+}

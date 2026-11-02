@@ -1,0 +1,170 @@
+{
+  "language": "zh-Hant",
+  "language_label": "繁體中文",
+  "day_title": "第 36 日：訓練循環、學習率與工程故障陳列室",
+  "day_subtitle": "構建並執行神經網絡訓練循環（前向、損失、zero_grad、反向傳播、參數更新），比較不同學習率對收斂軌跡的真實影響，診斷常見工程故障，並通過獨立掌握度考核。",
+  "time_budget_label": "480 分鐘專注學習（8 小時）",
+  "category_label": "模型、預訓練與微調 (LoRA)",
+  "common": {
+    "nav_calendar": "📅 課程行事曆與台帳",
+    "day_label": "Day 36",
+    "prerequisites_title": "前置要求",
+    "objective_title": "學習目標",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主實作與記錄",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看參考解答與分析",
+    "mastery_title": "獨立掌握標準",
+    "draft_placeholder": "在此記錄你的訓練循環代碼、各學習率下的損失軌跡以及故障排除日誌...",
+    "dev_slice_notice": "90 天 AI 學習平台的已驗證正式課程模組。",
+    "sources_heading": "權威來源資源與權利證明",
+    "source_author_label": "作者 / 機構",
+    "source_url_label": "原始出處連結",
+    "source_range_label": "對應章節 / 時間戳",
+    "source_verification_label": "驗證版本與日期",
+    "source_reuse_label": "複用類別",
+    "source_license_label": "許可證與權利說明",
+    "source_rationale_label": "入選理由",
+    "source_prereqs_label": "來源前置條件",
+    "source_fallback_label": "安全回退方案（離線彈性）",
+    "compared_candidates_heading": "對比候選資源與選型分析",
+    "compared_status_label": "評估結論",
+    "auth": {
+      "sign_in": "使用 Google 登入",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "登出",
+      "signed_in_as": "已登入為",
+      "guest": "訪客模式",
+      "link_github": "綁定 GitHub",
+      "link_google": "綁定 Google",
+      "linked_identities": "已綁定帳號",
+      "auth_errors": {
+        "access_denied": "授權已取消或存取被拒絕。",
+        "invalid_state": "無效或已過期的授權狀態權杖，請重試。",
+        "identity_conflict": "該第三方身分已被綁定至其他帳號。",
+        "provider_error": "認證服務提供商發生錯誤。",
+        "server_error": "認證服務提供商發生錯誤。",
+        "session_expired": "登入工作階段已過期，請重新登入。"
+      }
+    },
+    "progress": {
+      "save_btn": "儲存進度",
+      "saved": "已儲存",
+      "saving": "正在儲存...",
+      "save_error": "儲存失敗",
+      "offline": "離線狀態",
+      "mark_completed": "標記為已完成",
+      "completed_badge": "已完成"
+    },
+    "quiz": {
+      "quiz_title": "客觀知識測驗：MLP 結構與前向傳播",
+      "quiz_instructions": "請回答以下題目檢驗掌握情況。提交前請誠實聲明你的輔助條件。",
+      "assistance_mode_label": "聲明輔助條件",
+      "mode_independent": "獨立掌握檢查 (無 AI 輔助)",
+      "mode_agent_assisted": "Agent 輔助工程檢查 (借助 AI 完成)",
+      "mode_disclaimer": "說明：無 AI 輔助屬於誠實聲明條件，非平台監控或強制檢測手段。",
+      "submit_btn": "提交答案",
+      "retry_btn": "重新測驗",
+      "view_hint": "查看提示",
+      "mastery_criterion_label": "掌握標準",
+      "mastery_criterion_desc": "在獨立掌握檢查模式下獲得 100% 得分（3/3 題完全正確）。",
+      "score_label": "測驗得分",
+      "passed_badge": "通過",
+      "failed_badge": "未通過 (需複習)",
+      "independent_pass_badge": "獨立掌握通過",
+      "agent_assisted_pass_badge": "Agent 輔助通過",
+      "self_reported_badge": "自主勾選完成",
+      "stale_badge": "歷史記錄 (內容已更新，需重新驗證)",
+      "attempts_history_title": "作答應證與歷史記錄",
+      "no_attempts": "暫無測驗記錄。"
+    }
+  },
+  "activities": {
+    "day-36-act-01": {
+      "title": "訓練循環全流程：前向、損失、梯度清零、反向、參數更新",
+      "prerequisites": "第35日 N1 的九項梯度手算。",
+      "objective": "解釋 forward、loss、zero_grad、backward、step 五步契約，區分全批次梯度和單樣本隨機更新。",
+      "assistance_policy_label": "Agent輔助工程檢查",
+      "instructions": "先預測再運行。每個 epoch 在樣本循環前清空參數梯度，每個樣本新建前向計算圖、計算平方 loss 並 backward 累加梯度；全部樣本之後 step 一次。zero_grad 只要在本批首次反傳前即可，下面將其放在 epoch 開頭。四樣本使用活動36-02的同一初始參數和數據，初始平均損失為2.106。\n\n```python\nfor epoch in range(EPOCHS):\n    for p in model.parameters():\n        p.grad = 0.0                 # 1. zero stale gradients\n    total = 0.0\n    for (x, y) in dataset:\n        out = model(x)               # 2. forward\n        loss = (out - y) ** 2        # 3. loss\n        loss.backward()              # 4. backward (accumulates batch grads)\n        total += loss.data\n    for p in model.parameters():\n        p.data -= lr * p.grad        # 5. step along -gradient\n    log(epoch, total / len(dataset))\n```",
+      "exercise_prompt": "1. 首樣本 b_o 梯度4.2511，η=0.05，預測隨機更新的方向與大小。2. 四樣本累加梯度為3.2111，預測全批次更新。3. 預測40個epoch後均值損失。4. 指出 zero_grad 的位置及刪除它的後果。",
+      "hint": "正梯度對應減小參數。全批次只在樣本循環之前清零一次；在每個樣本之前清零會丟棄之前樣本的貢獻，只有每個樣本隨後獨立step時才符合隨機更新。",
+      "answer": "隨機一步 Δb_o=-0.05×4.2511=-0.2126，從0.3到0.0874。全批次 Δb_o=-0.05×3.2111=-0.1606，到0.1394。η=0.05的40個epoch中平均損失從2.106到約0.13，這是一次玩具實驗而非一般保證。參數必須在每批反傳前 zero_grad；省略後舊葉子梯度污染本批結果。",
+      "mastery_criterion": "寫對五步次序、兩種更新的方向與大小，並解釋需要 zero_grad 的累加約定。"
+    },
+    "day-36-act-02": {
+      "title": "真實訓練觀察：微型數據集上的學習率效應對比",
+      "prerequisites": "活動36-01的訓練循環與第34日 N1。",
+      "objective": "獨立運行同一 N1 四樣本實驗，比較η=0.05與η=5.0的40個epoch，在0/10/20/30/39記錄均值損失。",
+      "assistance_policy_label": "獨立掌握檢查",
+      "instructions": "在倉庫根目錄執行以下命令。兩次運行恢復相同九個初始權重與四個樣本。每個epoch重新建立參數葉子，每個樣本重建內部圖；四個梯度累加後更新。日誌記錄更新前的均值損失；更新用梯度之和，不是均值，改變約定會改變有效學習率。\n\n```bash\npython3 - <<'EOF'\nfrom projects.autograd.engine import Value\ninitial = [0.5, -0.25, 0.1, -0.5, 1.0, -0.2, 1.0, -2.0, 0.3]\ndata = [((2.0,-1.0),1.0), ((0.5,0.5),-1.0), ((-1.0,1.0),-1.0), ((1.0,1.0),1.0)]\nfor lr in (0.05, 5.0):\n    params = initial[:]\n    for epoch in range(40):\n        W = [Value(v) for v in params]  # Fresh leaves start with zero gradients.\n        total = 0.0\n        for (x1, x2), y in data:\n            a1 = (W[0]*x1 + W[1]*x2 + W[2]).tanh()\n            a2 = (W[3]*x1 + W[4]*x2 + W[5]).tanh()\n            loss = (a1*W[6] + a2*W[7] + W[8] - y)**2\n            loss.backward()  # Fresh interior graph, shared batch parameter leaves.\n            total += loss.data\n        if epoch in (0, 10, 20, 30, 39):\n            print(lr, epoch, total / len(data))\n        params = [p.data - lr*p.grad for p in W]  # Sum-gradient update, not mean.\nEOF\n```",
+      "exercise_prompt": "1. 報告η=0.05在epoch 0、10、20、30、39的損失。2. 報告η=5.0對應數值。3. 從局部曲率解釋步長過大如何越過谷底並放大發散。4. 給出本次玩具實驗不能支持的一條一般性結論。",
+      "hint": "梯度下降使用局部線性近似，步長過大會落到更陡的另一側；檢查η=5.0是否回到初始損失附近。",
+      "answer": "同一命令的觀測：η=0.05，在epoch 0/10/20/30/39為2.106→0.369→0.268→0.189→0.129；η=5.0為2.106→6.0×10^36→1.6×10^76→4.4×10^115→1.3×10^151。大步越過谷底，新位置的更大梯度繼續放大過沖。不可以聲稱0.05最優、所有MLP都會收斂或損失會永遠下降。",
+      "mastery_criterion": "兩次運行重現同一損失表，解釋複合過沖而不是歸因於隨機失敗，並限定結論只適用於本實驗。"
+    },
+    "day-36-act-03": {
+      "title": "故障陳列室：飽和死區、遺漏 zero_grad 與靜默形狀截斷",
+      "prerequisites": "活動36-02的實際本地訓練觀察。",
+      "objective": "測量並修復重複反傳的舊梯度、tanh 飽和、zip 靜默丟輸入三種不同故障。",
+      "assistance_policy_label": "Agent輔助工程檢查",
+      "instructions": "故障A：執行下方同一計算圖反傳兩次的命令，測量w11.grad。故障B：僅將b1設為8.0使z1=9.25，記錄tanh導數及隱藏權重梯度。故障C：計算 `sum(w*x for w,x in zip([0.5,-0.25], [2.0,-1.0,999.0]))`，指出額外輸入如何被丟棄。\n\n```bash\npython3 - <<'EOF'\nimport sys; sys.path.insert(0, '.')\nfrom projects.autograd.engine import Value\nx1, x2 = Value(2.0), Value(-1.0)\nW = [Value(v) for v in (0.5,-0.25,0.1, -0.5,1.0,-0.2, 1.0,-2.0,0.3)]\na1 = (x1*W[0]+x2*W[1]+W[2]).tanh(); a2 = (x1*W[3]+x2*W[4]+W[5]).tanh()\nloss = (a1*W[6]+a2*W[7]+W[8]-1.0)**2\nloss.backward(); print('after 1st:', W[0].grad)\nloss.backward(); print('after 2nd:', W[0].grad)\nEOF\n```",
+      "exercise_prompt": "每個故障都記錄數值、機制與最小修復：1. 同圖兩次反傳的w11.grad。2. b1=8.0時 tanh'(9.25) 與隱藏權重梯度。3. zip求和的z及丟棄的輸入999.0。",
+      "hint": "`.grad` 會累積：第二次 `backward()` 把相同的梯度再加到每個非根節點上（根 `loss.grad` 每次呼叫都重新設為 1）。tanh'(9.25)≈3.7×10^-8。zip在最短輸入處停止，不拋異常。",
+      "answer": "1. w11.grad：2.0068→4.0135，恰好2倍；同圖重複反傳會把相同的梯度再累加進 `.grad`，所有非根節點的梯度翻倍（根 `loss.grad` 每次呼叫都重新設為 1）。同圖再反傳前須 `loss.zero_grad()` 清空全部可達節點；只清參數葉子雖能恢復葉子值，但內部節點的 `.grad` 仍殘留舊累計，複用圖仍需全圖清零；訓練應逐樣本重建前向圖，在批次開頭清參數梯度。2. b1=8.0時z1=9.25，tanh導數約3.7×10^-8，w11梯度約3.3×10^-7；縮小初始化或選擇合適激活/初始化以避開飽和。3. z=1.25，999.0被zip截斷；先檢查 `assert len(x) == len(self.w)`。",
+      "mastery_criterion": "復現三種測量，將症狀、機制、最小修復逐一對應，且能解釋只清葉子為何不能修復複用的圖。"
+    },
+    "day-36-act-04": {
+      "title": "獨立掌握度考核：診斷、修復與技術原理解釋",
+      "prerequisites": "活動36-01至36-03。",
+      "objective": "獨立寫出 MLP 訓練循環、診斷一個植入的故障並修復，完成客觀測驗。",
+      "assistance_policy_label": "獨立掌握檢查",
+      "instructions": "不使用AI：默寫 zero_grad→forward→loss→backward→step。某次運行每輪梯度不斷累加且損失發散，寫出症狀、機制和修復；獨立完成測驗，為錯點選擇補救鏈接。",
+      "exercise_prompt": "1. 寫出五步循環，指出刪除哪行造成舊梯度累加。2. 損失2.1→10^30時，在η過大、遺漏zero_grad、飽和中選擇最可能的兩個原因，並設計區分測量。3. 獨立模式完成三題並達100%。",
+      "hint": "固定相同輸入和參數，比較可疑梯度與新建、全清零圖的一次反傳，避免把改變過的參數與第35日舊梯度硬比較。",
+      "answer": "1. 批次開頭清葉子梯度；每樣本新建forward圖、計算loss並backward，最後 `p -= lr * grad`。若複用同圖，先 `loss.zero_grad()` 清全部節點；僅清葉子只能恢復葉子值，內部節點的 `.grad` 仍殘留舊累計。2. 最可能是η過大或未清零；相同輸入和參數下與乾淨新圖梯度比較：不一致提示累加污染，梯度一致但一步過沖則縮小η。飽和通常使隱藏梯度接近零。3. 測驗考查未清零的梯度累加、過沖與長度檢查；不能無條件保證每步損失單調下降。",
+      "mastery_criterion": "獨立正確寫出循環、對應故障機制與修復，並在獨立測驗取得100%。",
+      "quiz": {
+        "title": "客觀知識檢測：訓練迴圈與故障診斷",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "在 N1 的多層計算圖上，未清零就第二次呼叫 `loss.backward()`，使 $w_{11}.grad$ 在 $2.0068$ 之後變成 $4.0135$——恰好 $2$ 倍。為什麼？",
+            "options": {
+              "a": "浮點誤差隨機放大了結果。",
+              "b": "`.grad` 欄位在呼叫間累積：第二次 `backward()` 把相同的向量-雅可比積再加到每個非根節點上，參數與內部節點的梯度全部翻倍。",
+              "c": "引擎用不同的輸入重新計算了前向傳播。",
+              "d": "`backward()` 將累加梯度除以了零。"
+            },
+            "hint": "檢查 `backward()` 重置了哪些 `.grad` 欄位——以及沒有重置哪些。",
+            "explanation": "每次 `backward()` 都把本次的貢獻加到已有的 `.grad` 上，所以同一遍重複呼叫會讓所有非根節點的梯度恰好翻倍（根每次呼叫都重新設為 1）——是累加而非放大。重複呼叫前執行 `loss.zero_grad()` 清空全部可達節點才能恢復乾淨的一次反傳；只清參數葉子能恢復葉子值，但內部節點的 `.grad` 仍殘留舊記錄。"
+          },
+          {
+            "id": "q2",
+            "prompt": "在觀測到的 $\\eta = 5.0$ 執行中，平均損失在 40 個 epoch 內爆炸到超過 $10^{151}$。其機制是：",
+            "options": {
+              "a": "步長越過了盆地，且每個 epoch 透過更大的新梯度複利式放大了過衝。",
+              "b": "MLP 的參數太少，存不下損失。",
+              "c": "tanh 產生了 NaN 並悄悄傳播。",
+              "d": "MSE 損失不可微，所以梯度是隨機的。"
+            },
+            "hint": "梯度下降是對曲面的局部線性近似。",
+            "explanation": "步長 $\\eta \\cdot \\nabla L$ 假設梯度在局部不變；當 $\\eta$ 很大時，這一步落在更陡的斜坡上，下一個 epoch 會產生更大的梯度——指數發散，這裡觀測為 $2.1 \\rightarrow 10^{151}$。"
+          },
+          {
+            "id": "q3",
+            "prompt": "哪一種防護可以阻止純量 Neuron 實作中 `zip` 的靜默形狀 bug？",
+            "options": {
+              "a": "額外追加權重，讓 `zip` 總有足夠的配對。",
+              "b": "把加權和包在 `try/except` 裡並忽略錯誤。",
+              "c": "在計算加權和之前斷言 `len(x) == len(self.w)`。",
+              "d": "提高學習率，讓缺失的輸入影響更小。"
+            },
+            "hint": "`zip` 會靜默截斷到最短的序列，不拋任何錯誤。",
+            "explanation": "顯式的長度斷言把靜默截斷（多餘輸入 $999.0$ 被丟棄，$z = 1.25$）變成形狀不匹配現場立即可診斷的失敗。"
+          }
+        ]
+      }
+    }
+  }
+}

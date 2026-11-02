@@ -1,0 +1,2965 @@
+{
+  "version": "1.1.0",
+  "assessed_on": "2026-11-01",
+  "assessed_by": "Claude (author assessment, not independent); ChatGPT (internal re-assessment, not independent)",
+  "independent_review": {
+    "status": "not_performed",
+    "note": "No independent subject-matter expert has reviewed these selections. Independent review is not a prerequisite for the evidence-based internal acceptance process; none is claimed or scheduled. The strict highest-quality publicly available learning-resource goal remains active, with finite candidate coverage and disclosed uncertainty rather than a claim of objectively proven global superiority."
+  },
+  "method": "Each topic block compares public candidates on seven criteria using 1-5 ordinal scores and source-specific evidence. Scores are not summed or weighted: the highest teaching score alone does not settle a multidimensional choice, and primary-definition references are distinguished from teaching resources. The original scoring followed existing selections; the subsequent internal re-assessment explicitly revisits stronger and close alternatives and changes the learning route where warranted. Licensing governs permitted use only, never pedagogical merit. Assessment is AI-assisted and not independent; structural tests verify records, not teaching effectiveness or an exhaustive global optimum.",
+  "scale": {
+    "1": "absent or poor fit",
+    "2": "weak",
+    "3": "adequate",
+    "4": "strong",
+    "5": "very strong for this block"
+  },
+  "criteria": [
+    "pedagogical_quality",
+    "coverage",
+    "clarity",
+    "exercises",
+    "currency",
+    "accessibility",
+    "relevance"
+  ],
+  "criteria_definitions": {
+    "pedagogical_quality": "Is the material written to teach (sequence, motivation, worked examples) rather than only to specify?",
+    "coverage": "How much of the block's concepts does it cover?",
+    "clarity": "How readable is it for a learner at this point of the course?",
+    "exercises": "Does it provide practice with answers or checks?",
+    "currency": "How recent and maintained is it, and does its age affect correctness?",
+    "accessibility": "Free to read? Offline copy? Platform or hardware requirements?",
+    "relevance": "How closely does it match the block's specific activities and projects?"
+  },
+  "licensing_policy": "Licensing is recorded per candidate (license, licensing_note) and is not scored. A license never raises a quality score; it only limits how a source may be used. All cited sources are linked or explained in the course's own words (reuse_category linking or original_explanation); nothing is reproduced.",
+  "blocks": [
+    {
+      "id": "b01-python-semantics-and-git",
+      "title": "Python object semantics, files and first Git workflow",
+      "days": [
+        1,
+        7
+      ],
+      "candidates": [
+        {
+          "name": "Python documentation: Built-in Types and Data model",
+          "url": "https://docs.python.org/3/library/stdtypes.html",
+          "registry_ids": [
+            "py-docs-builtins-ticket26",
+            "py-docs-datamodel"
+          ],
+          "license": "PSF License Version 2",
+          "licensing_note": "Linking only; the documentation license would allow excerpts but none are used.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Reference prose, not a teaching sequence; examples are short and assume the reader knows what to look for."
+            },
+            "coverage": {
+              "score": 5,
+              "evidence": "Specifies truthiness, comparisons, mutability, identity and every built-in type the days use."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Precise wording; dense for a first-week learner."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises; the course supplies its own drills."
+            },
+            "currency": {
+              "score": 5,
+              "evidence": "Versioned per Python release and maintained with CPython."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free online and downloadable for offline use."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Days 1-7 check claims about mutation and aliasing against exactly these sections."
+            }
+          }
+        },
+        {
+          "name": "The Python Tutorial",
+          "url": "https://docs.python.org/3/tutorial/",
+          "registry_ids": [
+            "py-tutorial-control-flow"
+          ],
+          "license": "PSF License Version 2",
+          "licensing_note": "Linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Written as a guided introduction with interpreter sessions."
+            },
+            "coverage": {
+              "score": 3,
+              "evidence": "Covers syntax and data structures; the object model is only sketched."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Plain language with runnable snippets."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercise sets."
+            },
+            "currency": {
+              "score": 5,
+              "evidence": "Maintained with each Python release."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free online and downloadable."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Used for control flow; too shallow alone for the aliasing drills."
+            }
+          }
+        },
+        {
+          "name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python (Fall 2016)",
+          "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+          "registry_ids": [
+            "mit-ocw-6-0001"
+          ],
+          "license": "CC BY-NC-SA 4.0",
+          "licensing_note": "Noncommercial and share-alike terms; linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Full university course with lectures, slides and problem sets."
+            },
+            "coverage": {
+              "score": 3,
+              "evidence": "Broad CS1 scope; the data model is covered less precisely than the reference."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Lecture-paced explanations."
+            },
+            "exercises": {
+              "score": 4,
+              "evidence": "Problem sets with starter code."
+            },
+            "currency": {
+              "score": 2,
+              "evidence": "Fall 2016 offering targets Python 3.5."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Free; videos need streaming or a manual download."
+            },
+            "relevance": {
+              "score": 2,
+              "evidence": "Semester pacing does not match a seven-day block; kept as a compared candidate (D4.13)."
+            }
+          }
+        },
+        {
+          "name": "Pro Git, 2nd edition (Chacon and Straub)",
+          "url": "https://git-scm.com/book/en/v2",
+          "registry_ids": [
+            "git-scm-book-diffs"
+          ],
+          "license": "CC BY-NC-SA 3.0",
+          "licensing_note": "Noncommercial share-alike book license; chapters are linked, not copied.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Builds the snapshot/staging mental model before commands."
+            },
+            "coverage": {
+              "score": 5,
+              "evidence": "Recording changes, diffs, branching and recovery all covered."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Clear prose with diagrams."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises; the course adds a disposable practice repo."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "Second edition dates from 2014; the online copy receives corrections."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free online, PDF and EPUB."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Day 6-7 Git drills follow its Git Basics chapter."
+            }
+          }
+        },
+        {
+          "name": "Atlassian Git tutorials",
+          "url": "https://www.atlassian.com/git/tutorials",
+          "registry_ids": [],
+          "license": "All Rights Reserved",
+          "licensing_note": "Proprietary site; would be linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Task-oriented pages with diagrams."
+            },
+            "coverage": {
+              "score": 3,
+              "evidence": "Common commands; less on the object model."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Short, readable pages."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "Undated pages; maintained by a vendor."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Free online; no offline package."
+            },
+            "relevance": {
+              "score": 3,
+              "evidence": "Usable but vendor-oriented; Pro Git covers the same ground under an open license."
+            }
+          }
+        },
+        {
+          "name": "Automate the Boring Stuff with Python, 3rd edition (selected introductory chapters)",
+          "url": "https://automatetheboringstuff.com/3e/",
+          "registry_ids": [
+            "automate-boring-stuff-3e"
+          ],
+          "license": "Copyright Al Sweigart; edition-specific reuse terms unverified",
+          "licensing_note": "Publicly readable HTML and answer appendix; exact edition reuse terms unverified, so linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Chapters introduce interactive predictions before short programs; suitable for a complete programming beginner."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Selected chapters cover values, names, containers and files; no Git and not the complete data-model specification."
+            },
+            "clarity": {
+              "score": 5,
+              "evidence": "Concrete prose and small examples; no prerequisite programming experience assumed."
+            },
+            "exercises": {
+              "score": 4,
+              "evidence": "Chapter-end questions and Appendix B answers; projects do not have unique official solutions."
+            },
+            "currency": {
+              "score": 4,
+              "evidence": "Third-edition text is public; modern Python basics, not a release-specific language reference."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free static HTML, including the answer appendix; no account or specialist hardware needed for these chapters."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Chapter 1 supports Day 4 values/types before exact language semantics are checked in the reference."
+            }
+          }
+        }
+      ],
+      "selected": [
+        "automate-boring-stuff-3e",
+        "py-tutorial-control-flow",
+        "py-docs-builtins-ticket26",
+        "py-docs-datamodel",
+        "git-scm-book-diffs"
+      ],
+      "supporting_sources": [
+        "dunlosky-2013-effective-techniques"
+      ],
+      "selection_rationale": "Use beginner book practice before exact Python semantic checks, with Pro Git for staging and diffs. The official tutorial assumes some programming familiarity; it is no longer treated as the only teaching route. MIT 6.0001 remains a substantive lecture alternative, not rejected for copyright; shorter selected text chapters match the existing reading window without importing the whole semester.",
+      "teaching_sources": [
+        "automate-boring-stuff-3e",
+        "py-tutorial-control-flow",
+        "git-scm-book-diffs"
+      ],
+      "definition_sources": [
+        "py-docs-builtins-ticket26",
+        "py-docs-datamodel"
+      ]
+    },
+    {
+      "id": "b02-text-tools-and-testing",
+      "title": "Text tools project, control flow and unit testing",
+      "days": [
+        8,
+        15
+      ],
+      "candidates": [
+        {
+          "name": "The Python Tutorial (control flow, input and output, venv)",
+          "url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "registry_ids": [
+            "py-tutorial-control-flow"
+          ],
+          "license": "PSF License Version 2",
+          "licensing_note": "Linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Guided introduction with interpreter sessions."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Control flow, functions, file I/O and virtual environments are all present."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Plain language with runnable snippets."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 5,
+              "evidence": "Maintained with each Python release."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free online and downloadable."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Matches the text_tools project's functions, file reading and venv setup."
+            }
+          }
+        },
+        {
+          "name": "Python documentation: unittest",
+          "url": "https://docs.python.org/3/library/unittest.html",
+          "registry_ids": [
+            "py-docs-unittest"
+          ],
+          "license": "PSF License Version 2",
+          "licensing_note": "Linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Reference with a short basic example."
+            },
+            "coverage": {
+              "score": 5,
+              "evidence": "TestCase, assertions, discovery and the command-line runner."
+            },
+            "clarity": {
+              "score": 3,
+              "evidence": "Complete but long."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 5,
+              "evidence": "Maintained with CPython."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Standard library; nothing to install."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "The project's tests use unittest so no environment change is needed."
+            }
+          }
+        },
+        {
+          "name": "pytest documentation",
+          "url": "https://docs.pytest.org/en/stable/",
+          "registry_ids": [],
+          "license": "MIT",
+          "licensing_note": "Linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Getting-started guide and how-to pages."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Fixtures and parametrization go beyond what the block needs."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Concise examples."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 5,
+              "evidence": "Actively maintained."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Free; requires installing a third-party package."
+            },
+            "relevance": {
+              "score": 3,
+              "evidence": "Adds an installation step the block avoids on purpose."
+            }
+          }
+        },
+        {
+          "name": "Automate the Boring Stuff with Python (Al Sweigart)",
+          "url": "https://automatetheboringstuff.com/3e/",
+          "registry_ids": [
+            "automate-boring-stuff-3e"
+          ],
+          "license": "Copyright Al Sweigart; edition-specific reuse terms unverified",
+          "licensing_note": "Publicly readable HTML and answer appendix; exact edition reuse terms unverified, so linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Beginner-oriented, project-driven chapters."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Files, strings and regular expressions overlap the text tools project."
+            },
+            "clarity": {
+              "score": 5,
+              "evidence": "Very gentle prose."
+            },
+            "exercises": {
+              "score": 4,
+              "evidence": "Practice questions and projects at chapter ends."
+            },
+            "currency": {
+              "score": 4,
+              "evidence": "Revised editions continue; the site links the third edition."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free to read online."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Selected Chapters 3, 4, 6, 7 and 10 directly support Days 8-10 loops, functions, containers and files; unittest remains separately taught."
+            }
+          }
+        },
+        {
+          "name": "Pro Git, 2nd edition",
+          "url": "https://git-scm.com/book/en/v2",
+          "registry_ids": [
+            "git-book"
+          ],
+          "license": "CC BY-NC-SA 3.0",
+          "licensing_note": "Noncommercial share-alike; linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Builds the branch model with diagrams."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Branching, merging and conflicts."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Clear prose."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "Second edition from 2014."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free online, PDF and EPUB."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Used for the branch and merge practice in the project."
+            }
+          }
+        }
+      ],
+      "selected": [
+        "automate-boring-stuff-3e",
+        "py-tutorial-control-flow",
+        "py-docs-unittest",
+        "git-book"
+      ],
+      "supporting_sources": [
+        "text-tools-project"
+      ],
+      "selection_rationale": "Promote the higher-clarity, answer-keyed book chapters for loops, functions, containers and files. Retain unittest docs for its actual API rather than using lack of unittest coverage to reject the book wholesale; pytest would change the taught test framework, not improve all concepts. Git practice remains anchored in Pro Git.",
+      "teaching_sources": [
+        "automate-boring-stuff-3e",
+        "py-tutorial-control-flow",
+        "git-book"
+      ],
+      "definition_sources": [
+        "py-docs-unittest"
+      ]
+    },
+    {
+      "id": "b03-calculus",
+      "title": "Derivatives, the chain rule and gradients",
+      "days": [
+        16,
+        21
+      ],
+      "candidates": [
+        {
+          "name": "OpenStax Calculus Volumes 1 and 3",
+          "url": "https://openstax.org/details/books/calculus-volume-1",
+          "registry_ids": [
+            "openstax-calculus-1",
+            "openstax-calculus-3"
+          ],
+          "license": "CC BY-NC-SA 4.0",
+          "licensing_note": "Attribution, noncommercial and share-alike; sections are linked, not copied.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Textbook sequence with definitions, theorems and worked examples."
+            },
+            "coverage": {
+              "score": 5,
+              "evidence": "Section 3.6 (chain rule), 4.3 (partial derivatives), 4.5 and 4.6 cover every day's topic."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Careful notation; standard textbook density."
+            },
+            "exercises": {
+              "score": 5,
+              "evidence": "End-of-section exercises with answers to odd-numbered problems."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "First published 2016; the web edition receives errata."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free web, PDF and print-on-demand."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Section numbers map one-to-one to the day plans."
+            }
+          }
+        },
+        {
+          "name": "MIT OCW 18.01SC and 18.02SC (Single and Multivariable Calculus)",
+          "url": "https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/",
+          "registry_ids": [
+            "mit-ocw-18-01sc",
+            "mit-ocw-18-02sc"
+          ],
+          "license": "CC BY-NC-SA 4.0",
+          "licensing_note": "Noncommercial share-alike; linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 5,
+              "evidence": "Scholar-format sessions: lecture, recitation video, problems and solutions."
+            },
+            "coverage": {
+              "score": 5,
+              "evidence": "Full single- and multivariable calculus."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Clear lectures; navigation spans many pages."
+            },
+            "exercises": {
+              "score": 5,
+              "evidence": "Problem sets with full solutions."
+            },
+            "currency": {
+              "score": 2,
+              "evidence": "Fall 2010 materials."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Free; videos need streaming or a manual download."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Selected Unit 1 sessions support Days 16, 17 and 19; Part 2 partial derivatives supports Day 20. The unassigned semester remainder is not a workload requirement."
+            }
+          }
+        },
+        {
+          "name": "3Blue1Brown: Essence of Calculus",
+          "url": "https://www.3blue1brown.com/topics/calculus",
+          "registry_ids": [
+            "3blue1brown-essence-of-calculus"
+          ],
+          "license": "3Blue1Brown copyright (all rights reserved)",
+          "licensing_note": "All rights reserved; videos are linked, never embedded or transcribed.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 5,
+              "evidence": "Visual explanations built around intuition."
+            },
+            "coverage": {
+              "score": 2,
+              "evidence": "Single-variable only; no gradients."
+            },
+            "clarity": {
+              "score": 5,
+              "evidence": "Animated geometric explanations."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercise sets."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "Released 2017; the mathematics is stable."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Free to watch; needs streaming."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Chapter 4 supports the Day 19 chain-rule intuition."
+            }
+          }
+        },
+        {
+          "name": "Paul's Online Math Notes: Calculus I and III",
+          "url": "https://tutorial.math.lamar.edu/Classes/CalcI/CalcI.aspx",
+          "registry_ids": [],
+          "license": "All Rights Reserved",
+          "licensing_note": "Proprietary; would be linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Notes written for students with many worked examples."
+            },
+            "coverage": {
+              "score": 5,
+              "evidence": "Calculus I through III."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Step-by-step worked examples."
+            },
+            "exercises": {
+              "score": 5,
+              "evidence": "Practice and assignment problems, practice solutions provided."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "Maintained by one author; pages are undated."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Free online; PDF downloads offered."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Worked solutions fit the derivative drills. Not selected as an additional spine because OpenStax plus selected OCW sessions already supply text and checked practice, not because of copyright."
+            }
+          }
+        },
+        {
+          "name": "Khan Academy: Multivariable Calculus",
+          "url": "https://www.khanacademy.org/math/multivariable-calculus",
+          "registry_ids": [],
+          "license": "CC BY-NC-SA 4.0",
+          "licensing_note": "Noncommercial share-alike; linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Short videos and articles."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Partial derivatives, gradient and multivariable chain rule."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Short focused units."
+            },
+            "exercises": {
+              "score": 3,
+              "evidence": "Some practice items; fewer than the single-variable courses."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "Videos largely from 2016."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Free; needs network and JavaScript."
+            },
+            "relevance": {
+              "score": 3,
+              "evidence": "Useful for gradients but no single section structure to cite."
+            }
+          }
+        }
+      ],
+      "selected": [
+        "mit-ocw-18-01sc",
+        "openstax-calculus-1",
+        "openstax-calculus-3",
+        "3blue1brown-essence-of-calculus",
+        "mit-ocw-18-02sc"
+      ],
+      "supporting_sources": [
+        "scipy-derivative"
+      ],
+      "selection_rationale": "Promote selected OCW independent-study sessions and worked practice alongside OpenStax numbered text; older recording dates do not make stable calculus inferior. 3Blue1Brown supplies intuition, not checked exercises. Paul's Notes is a close worked-solution alternative, not excluded for rights; the selected text-plus-recitation set avoids duplicate assigned reading.",
+      "teaching_sources": [
+        "mit-ocw-18-01sc",
+        "mit-ocw-18-02sc",
+        "openstax-calculus-1",
+        "openstax-calculus-3",
+        "3blue1brown-essence-of-calculus"
+      ],
+      "definition_sources": []
+    },
+    {
+      "id": "b04-linear-algebra",
+      "title": "Vectors, matrices and array memory",
+      "days": [
+        22,
+        24
+      ],
+      "candidates": [
+        {
+          "name": "3Blue1Brown: Essence of Linear Algebra",
+          "url": "https://www.3blue1brown.com/topics/linear-algebra",
+          "registry_ids": [
+            "3blue1brown-linear-algebra"
+          ],
+          "license": "3Blue1Brown copyright (all rights reserved)",
+          "licensing_note": "All rights reserved; linked, never embedded or transcribed.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 5,
+              "evidence": "Geometric intuition for linear maps and matrix products."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Vectors to eigenvectors; no numerical computing."
+            },
+            "clarity": {
+              "score": 5,
+              "evidence": "Animated explanations."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercise sets."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "Released 2016; stable mathematics."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Free to watch; needs streaming."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Matrix-as-transformation view used throughout the three days."
+            }
+          }
+        },
+        {
+          "name": "MIT OCW 18.06 Linear Algebra (Gilbert Strang, Spring 2010)",
+          "url": "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/",
+          "registry_ids": [
+            "mit-ocw-1806-strang"
+          ],
+          "license": "CC BY-NC-SA 4.0",
+          "licensing_note": "Noncommercial share-alike; linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 5,
+              "evidence": "Full lecture course with a consistent row/column-picture approach."
+            },
+            "coverage": {
+              "score": 5,
+              "evidence": "Linear systems, products, inverses, spaces."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Lecture style; long sessions."
+            },
+            "exercises": {
+              "score": 5,
+              "evidence": "Problem sets and exams with solutions."
+            },
+            "currency": {
+              "score": 2,
+              "evidence": "Spring 2010 recordings."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Free; videos need streaming or a manual download."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Lectures 1-3 match the block; the rest exceeds it."
+            }
+          }
+        },
+        {
+          "name": "NumPy documentation: ndarray and broadcasting",
+          "url": "https://numpy.org/doc/stable/reference/arrays.ndarray.html",
+          "registry_ids": [
+            "numpy-docs-ndarray",
+            "numpy-docs-broadcasting"
+          ],
+          "license": "BSD 3-Clause License",
+          "licensing_note": "Linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Reference pages with a few examples."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Shapes, strides, views and broadcasting rules."
+            },
+            "clarity": {
+              "score": 3,
+              "evidence": "Precise but technical."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 5,
+              "evidence": "Versioned with NumPy releases."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free online and downloadable."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Days 23-24 memory accounting uses strides and views."
+            }
+          }
+        },
+        {
+          "name": "Linear Algebra Done Right, 4th edition (Sheldon Axler)",
+          "url": "https://linear.axler.net/",
+          "registry_ids": [],
+          "license": "CC BY-NC (4th edition, Open Access)",
+          "licensing_note": "The 4th edition is Open Access under a Creative Commons BY-NC license (checked on linear.axler.net, 2026-11-01).",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Proof-based, determinant-free approach."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Abstract vector spaces in depth."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Careful prose; abstract."
+            },
+            "exercises": {
+              "score": 5,
+              "evidence": "Many exercises per section."
+            },
+            "currency": {
+              "score": 5,
+              "evidence": "4th edition published 2023-2024."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free PDF."
+            },
+            "relevance": {
+              "score": 2,
+              "evidence": "Proof-oriented; the block needs computation with matrices and arrays."
+            }
+          }
+        },
+        {
+          "name": "Immersive Linear Algebra",
+          "url": "https://immersivemath.com/ila/index.html",
+          "registry_ids": [],
+          "license": "Free online (site terms; no open license stated)",
+          "licensing_note": "Site terms only; linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Interactive figures for each concept."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Vectors to eigenvalues."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Readable chapters."
+            },
+            "exercises": {
+              "score": 2,
+              "evidence": "Few exercises."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "Undated pages; update cadence unknown."
+            },
+            "accessibility": {
+              "score": 3,
+              "evidence": "Free; needs a browser with interactive graphics."
+            },
+            "relevance": {
+              "score": 3,
+              "evidence": "Visual support only; overlaps 3Blue1Brown."
+            }
+          }
+        }
+      ],
+      "selected": [
+        "3blue1brown-linear-algebra",
+        "mit-ocw-1806-strang",
+        "numpy-docs-ndarray"
+      ],
+      "supporting_sources": [
+        "numpy-docs-broadcasting"
+      ],
+      "selection_rationale": "Retain the visual-plus-computational Strang route and NumPy memory reference. Axler remains a close mathematical text with strong exercises and openly readable fourth edition; its proof-first abstract-space progression does not replace the particular matrix/shape/stride tasks in this three-day block. Recording age is not evidence of mathematical error.",
+      "teaching_sources": [
+        "3blue1brown-linear-algebra",
+        "mit-ocw-1806-strang"
+      ],
+      "definition_sources": [
+        "numpy-docs-ndarray"
+      ]
+    },
+    {
+      "id": "b05-probability-statistics",
+      "title": "Probability, statistics and information theory",
+      "days": [
+        25,
+        30
+      ],
+      "candidates": [
+        {
+          "name": "OpenStax Introductory Statistics 2e",
+          "url": "https://openstax.org/details/books/introductory-statistics-2e",
+          "registry_ids": [
+            "openstax-introductory-statistics-2e"
+          ],
+          "license": "CC BY-NC-SA 4.0",
+          "licensing_note": "Noncommercial share-alike; sections linked, not copied.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Textbook with worked examples and practice."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Probability, distributions, sampling and confidence intervals; no information theory."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Accessible to non-majors."
+            },
+            "exercises": {
+              "score": 5,
+              "evidence": "Practice, homework and bringing-it-together exercises with answers."
+            },
+            "currency": {
+              "score": 4,
+              "evidence": "Second edition 2023."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free web and PDF."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Matches the probability and estimation days."
+            }
+          }
+        },
+        {
+          "name": "Dive into Deep Learning (d2l.ai)",
+          "url": "https://d2l.ai/",
+          "registry_ids": [
+            "d2l-ai"
+          ],
+          "license": "CC BY-SA 4.0 (book text) / modified MIT (code)",
+          "licensing_note": "Share-alike text license; linked, not copied.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Explanations paired with runnable code."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Probability, statistics and information theory appendix aimed at ML."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Readable; assumes some programming."
+            },
+            "exercises": {
+              "score": 4,
+              "evidence": "Exercises at the end of each section."
+            },
+            "currency": {
+              "score": 4,
+              "evidence": "Maintained online with framework updates."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free web, PDF and notebooks."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Connects probability directly to the loss functions used later."
+            }
+          }
+        },
+        {
+          "name": "Information Theory, Inference, and Learning Algorithms (David MacKay)",
+          "url": "https://www.inference.org.uk/itila/book.html",
+          "registry_ids": [
+            "mackay-itila"
+          ],
+          "license": "Cambridge University Press copyright; free online reading",
+          "licensing_note": "Publisher copyright with a free PDF for on-screen reading; linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Exercise-driven with commentary."
+            },
+            "coverage": {
+              "score": 5,
+              "evidence": "Entropy, cross-entropy, KL divergence and coding."
+            },
+            "clarity": {
+              "score": 3,
+              "evidence": "Demanding mathematical prose."
+            },
+            "exercises": {
+              "score": 5,
+              "evidence": "Hundreds of exercises, many with solutions."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "Published 2003; the subject is stable."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Free PDF for reading; printing restricted."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Cited for Day 27 surprisal, entropy and cross-entropy."
+            }
+          }
+        },
+        {
+          "name": "OpenIntro Statistics",
+          "url": "https://www.openintro.org/book/os/",
+          "registry_ids": [
+            "openintro-statistics"
+          ],
+          "license": "CC BY-SA 3.0",
+          "licensing_note": "Share-alike; linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Introductory textbook with case studies."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Probability, inference and regression."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Accessible prose."
+            },
+            "exercises": {
+              "score": 5,
+              "evidence": "Exercises with odd-numbered solutions."
+            },
+            "currency": {
+              "score": 4,
+              "evidence": "Fourth edition 2019."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free PDF (pay-what-you-want)."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Overlaps OpenStax for the estimation days."
+            }
+          }
+        },
+        {
+          "name": "Harvard Stat 110: Introduction to Probability (Joe Blitzstein)",
+          "url": "https://stat110.hsites.harvard.edu/strategic-practice-problems",
+          "registry_ids": [
+            "harvard-stat110-practice"
+          ],
+          "license": "Harvard University copyright; no open reuse license verified",
+          "licensing_note": "Public course practice and solutions are linked only; publisher-held textbook rights do not reduce teaching scores or prohibit linking.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 5,
+              "evidence": "Story-driven probability course with strong intuition."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Full probability course; no information theory."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Engaging lectures."
+            },
+            "exercises": {
+              "score": 5,
+              "evidence": "Problem sets and strategic practice with solutions."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "Lecture videos are from a past offering; the subject is stable."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Current official practice hub and early PDFs inspected via web retrieval; some direct clients receive HTTP 403. No free textbook availability or reproduction permission is inferred."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Early counting and conditional-probability sets now map directly to Day 25; information theory, inference and optimization still require other sources in Days 26-30."
+            }
+          }
+        }
+      ],
+      "selected": [
+        "harvard-stat110-practice",
+        "openstax-introductory-statistics-2e",
+        "d2l-ai",
+        "mackay-itila"
+      ],
+      "supporting_sources": [
+        "cs229-probability-review",
+        "openintro-statistics",
+        "nist-sematech-ehandbook"
+      ],
+      "selection_rationale": "Add early Stat 110 counting/conditioning practice with solutions instead of rejecting the higher teaching score because of textbook rights. OpenStax/OpenIntro cover statistics; d2l and MacKay retain information-theory and model-loss roles that the probability course does not supply. Current Harvard access limitations are disclosed, not scored as copyright restrictions.",
+      "teaching_sources": [
+        "harvard-stat110-practice",
+        "openstax-introductory-statistics-2e",
+        "d2l-ai",
+        "mackay-itila"
+      ],
+      "definition_sources": []
+    },
+    {
+      "id": "b06-autodiff",
+      "title": "Backpropagation and a scalar autograd engine",
+      "days": [
+        31,
+        36
+      ],
+      "candidates": [
+        {
+          "name": "micrograd and 'The spelled-out intro to neural networks and backpropagation' (Andrej Karpathy)",
+          "url": "https://github.com/karpathy/micrograd",
+          "registry_ids": [
+            "karpathy-micrograd"
+          ],
+          "license": "MIT (code) / Standard YouTube License (video)",
+          "licensing_note": "Code is MIT; video subtitles have unknown rights and are not imported.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 5,
+              "evidence": "Builds a working engine step by step from scratch."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Scalar autograd, topological sort, a small MLP; no tensors."
+            },
+            "clarity": {
+              "score": 5,
+              "evidence": "About 100 lines of engine code."
+            },
+            "exercises": {
+              "score": 3,
+              "evidence": "Exercises are informal; the course adds tests."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "2020 code and 2022 lecture; stable topic."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free; code runs offline."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "projects/autograd mirrors engine.py's Value class."
+            }
+          }
+        },
+        {
+          "name": "Neural Networks and Deep Learning, Chapter 2 (Michael Nielsen)",
+          "url": "http://neuralnetworksanddeeplearning.com/chap2.html",
+          "registry_ids": [
+            "nielsen-neural-networks"
+          ],
+          "license": "CC BY-NC 3.0",
+          "licensing_note": "Noncommercial; linked, not copied. The site is served over http only (http only, no https).",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 5,
+              "evidence": "Derives the four backpropagation equations with motivation."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Matrix-form backpropagation for feed-forward nets."
+            },
+            "clarity": {
+              "score": 5,
+              "evidence": "Patient explanations."
+            },
+            "exercises": {
+              "score": 4,
+              "evidence": "In-text exercises and problems."
+            },
+            "currency": {
+              "score": 2,
+              "evidence": "Written 2015; code is Python 2."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Free online; http only."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Used for the matrix-form derivation."
+            }
+          }
+        },
+        {
+          "name": "PyTorch: Autograd mechanics",
+          "url": "https://pytorch.org/docs/stable/notes/autograd.html",
+          "registry_ids": [
+            "pytorch-autograd-mechanics"
+          ],
+          "license": "Modified BSD",
+          "licensing_note": "Linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Explains internals for users who already know backprop."
+            },
+            "coverage": {
+              "score": 3,
+              "evidence": "Graph recording, saved tensors, no_grad."
+            },
+            "clarity": {
+              "score": 3,
+              "evidence": "Technical notes."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 5,
+              "evidence": "Versioned with PyTorch."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free online."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Bridges the scalar engine to PyTorch on Days 33-36."
+            }
+          }
+        },
+        {
+          "name": "CS231n notes: Backpropagation, Intuitions",
+          "url": "https://cs231n.github.io/optimization-2/",
+          "registry_ids": [
+            "cs231n-backprop"
+          ],
+          "license": "MIT",
+          "licensing_note": "Linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Circuit-diagram intuition for local gradients."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Gates, patterns in backward flow, vectorized gradients."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Short and concrete."
+            },
+            "exercises": {
+              "score": 3,
+              "evidence": "Course assignments exist separately on the site."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "Notes date from 2015-2017."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free online."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Gate patterns match the Day 32-34 drills."
+            }
+          }
+        },
+        {
+          "name": "3Blue1Brown: Backpropagation",
+          "url": "https://www.3blue1brown.com/lessons/backpropagation",
+          "registry_ids": [
+            "3blue1brown-backprop"
+          ],
+          "license": "3Blue1Brown copyright (all rights reserved)",
+          "licensing_note": "All rights reserved; linked only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 5,
+              "evidence": "Visual intuition for credit assignment."
+            },
+            "coverage": {
+              "score": 2,
+              "evidence": "Intuition only; no algorithm."
+            },
+            "clarity": {
+              "score": 5,
+              "evidence": "Animated explanation."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "Released 2017."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Free; needs streaming."
+            },
+            "relevance": {
+              "score": 3,
+              "evidence": "Optional intuition before the engine work."
+            }
+          }
+        }
+      ],
+      "selected": [
+        "karpathy-micrograd",
+        "nielsen-neural-networks",
+        "pytorch-autograd-mechanics"
+      ],
+      "supporting_sources": [
+        "cs231n-backprop",
+        "3blue1brown-backprop",
+        "cs336-basics"
+      ],
+      "selection_rationale": "Retain micrograd's complete small-engine construction and Nielsen's mathematical explanation. CS231n provides concise gate intuition, while 3Blue1Brown offers visual motivation without a full engine. PyTorch notes specify framework behavior rather than replacing beginner teaching; old Nielsen Python 2 examples are not assigned as runnable code.",
+      "teaching_sources": [
+        "karpathy-micrograd",
+        "nielsen-neural-networks"
+      ],
+      "definition_sources": [
+        "pytorch-autograd-mechanics"
+      ]
+    },
+    {
+      "id": "b07-language-models-and-transformer",
+      "title": "Tokenization, n-gram and neural language models, the Transformer",
+      "days": [
+        37,
+        48
+      ],
+      "candidates": [
+        {
+          "name": "makemore and minbpe with the Neural Networks: Zero to Hero lectures (Andrej Karpathy)",
+          "url": "https://github.com/karpathy/makemore",
+          "registry_ids": [
+            "karpathy-makemore",
+            "karpathy-minbpe"
+          ],
+          "license": "MIT (code) / Standard YouTube License (video)",
+          "licensing_note": "Code is MIT; video subtitles have unknown rights and are not imported.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 5,
+              "evidence": "Builds bigram, MLP and BPE models from scratch on screen."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Bigram to MLP language models and byte-level BPE; attention is covered in a later lecture."
+            },
+            "clarity": {
+              "score": 5,
+              "evidence": "Small, readable code."
+            },
+            "exercises": {
+              "score": 3,
+              "evidence": "Suggested exercises only; the course adds tests."
+            },
+            "currency": {
+              "score": 4,
+              "evidence": "2022-2024."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free; code runs offline."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Days 37-42 follow the same progression on names.txt."
+            }
+          }
+        },
+        {
+          "name": "The Annotated Transformer (Harvard NLP, 2022 edition)",
+          "url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+          "registry_ids": [
+            "annotated-transformer"
+          ],
+          "license": "MIT",
+          "licensing_note": "Linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 5,
+              "evidence": "Pairs each part of the paper with runnable code."
+            },
+            "coverage": {
+              "score": 5,
+              "evidence": "Full encoder-decoder with training loop."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Clear, but assumes PyTorch fluency."
+            },
+            "exercises": {
+              "score": 3,
+              "evidence": "Runnable notebook; no graded exercises."
+            },
+            "currency": {
+              "score": 4,
+              "evidence": "Updated in 2022."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free web page and notebook."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Days 46-48 build the same sublayer and positional-encoding classes."
+            }
+          }
+        },
+        {
+          "name": "Attention Is All You Need (Vaswani et al., 2017) with Bengio et al. 2003",
+          "url": "https://arxiv.org/abs/1706.03762",
+          "registry_ids": [
+            "vaswani-attention-2017",
+            "bengio-2003-nplm"
+          ],
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "licensing_note": "arXiv distribution license; cited, never reproduced.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 2,
+              "evidence": "Research papers, not teaching texts."
+            },
+            "coverage": {
+              "score": 5,
+              "evidence": "Primary definitions of the architectures taught."
+            },
+            "clarity": {
+              "score": 3,
+              "evidence": "Terse research prose."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "2003 and 2017; the post-LN placement differs from current practice."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free PDFs."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Section numbers anchor each architecture claim."
+            }
+          }
+        },
+        {
+          "name": "Stanford CS224N: NLP with Deep Learning",
+          "url": "https://web.stanford.edu/class/cs224n/",
+          "registry_ids": [
+            "stanford-cs224n"
+          ],
+          "license": "Stanford University copyright",
+          "licensing_note": "Proprietary course site; linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 5,
+              "evidence": "Full university course with lectures and notes."
+            },
+            "coverage": {
+              "score": 5,
+              "evidence": "Word vectors through Transformers and pretraining."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Well-structured lectures."
+            },
+            "exercises": {
+              "score": 5,
+              "evidence": "Graded assignments with starter code."
+            },
+            "currency": {
+              "score": 5,
+              "evidence": "Offered yearly."
+            },
+            "accessibility": {
+              "score": 3,
+              "evidence": "Slides free; assignments and some videos depend on the offering."
+            },
+            "relevance": {
+              "score": 3,
+              "evidence": "The actual course schedule exposes attention/Transformer lecture slides now assigned to Day 43; a whole-quarter course is not required."
+            }
+          }
+        },
+        {
+          "name": "The Illustrated Transformer (Jay Alammar)",
+          "url": "https://jalammar.github.io/illustrated-transformer/",
+          "registry_ids": [],
+          "license": "CC BY-NC 4.0",
+          "licensing_note": "Noncommercial; linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Step-by-step diagrams."
+            },
+            "coverage": {
+              "score": 3,
+              "evidence": "Architecture only; no training or code."
+            },
+            "clarity": {
+              "score": 5,
+              "evidence": "Very visual."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "Written 2018."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free online."
+            },
+            "relevance": {
+              "score": 3,
+              "evidence": "Visual support; no code to check against."
+            }
+          }
+        }
+      ],
+      "selected": [
+        "stanford-cs224n",
+        "karpathy-makemore",
+        "karpathy-minbpe",
+        "annotated-transformer",
+        "vaswani-attention-2017",
+        "bengio-2003-nplm"
+      ],
+      "supporting_sources": [
+        "karpathy-nanogpt-model"
+      ],
+      "selection_rationale": "Keep code-first Karpathy/Annotated Transformer teaching and add targeted public CS224N Transformer slides rather than dismissing its exercise advantage as merely a broad semester. Original papers define the architectures, not the teaching sequence. The Day 46 convention now explicitly separates original Post-LN, pre-normalization examples and the tested Xiong claims.",
+      "teaching_sources": [
+        "karpathy-makemore",
+        "karpathy-minbpe",
+        "annotated-transformer",
+        "stanford-cs224n"
+      ],
+      "definition_sources": [
+        "vaswani-attention-2017",
+        "bengio-2003-nplm"
+      ]
+    },
+    {
+      "id": "b08-pretraining",
+      "title": "Pretraining loop, decoding, checkpoints and compute",
+      "days": [
+        49,
+        60
+      ],
+      "candidates": [
+        {
+          "name": "nanoGPT (train.py, model.py, sample.py)",
+          "url": "https://github.com/karpathy/nanoGPT",
+          "registry_ids": [
+            "karpathy-nanogpt-train",
+            "karpathy-nanogpt-model",
+            "karpathy-nanogpt-sample"
+          ],
+          "license": "MIT",
+          "licensing_note": "Linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "About 300-line training loop that can be read end to end."
+            },
+            "coverage": {
+              "score": 5,
+              "evidence": "Batching, AdamW groups, cosine schedule, clipping, checkpointing, sampling."
+            },
+            "clarity": {
+              "score": 5,
+              "evidence": "Plain code."
+            },
+            "exercises": {
+              "score": 2,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 2,
+              "evidence": "README since November 2025 calls the repo 'very old and deprecated' and points to nanochat."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free; runs on CPU at toy scale."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Every locator in Days 49-60 points at a named function in these files."
+            }
+          }
+        },
+        {
+          "name": "Stanford CS336: Language Modeling from Scratch (Assignment 1)",
+          "url": "https://github.com/stanford-cs336/assignment1-basics/tree/spring2025",
+          "registry_ids": [
+            "cs336-basics"
+          ],
+          "license": "MIT",
+          "licensing_note": "spring2025 tagged repository LICENSE is MIT; this differs from the older 2024 repository. Linking only; no lecture/video permission is inferred.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 5,
+              "evidence": "Assignment-driven course with a written handout."
+            },
+            "coverage": {
+              "score": 5,
+              "evidence": "Tokenizer, Transformer, AdamW, schedules, checkpointing."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Precise handout."
+            },
+            "exercises": {
+              "score": 5,
+              "evidence": "Unit tests for every component."
+            },
+            "currency": {
+              "score": 4,
+              "evidence": "The exact spring2025 archived tag is used, not a claim that a 2024 repository contains the latest offering; compared with current nanochat."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Public handout, adapters and component tests. Reading and small component work need no Stanford account; full assignment runs require suitable compute."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Same components as the block, with tests."
+            }
+          }
+        },
+        {
+          "name": "Transformer Math 101 (EleutherAI)",
+          "url": "https://blog.eleuther.ai/transformer-math/",
+          "registry_ids": [
+            "eleutherai-transformer-math"
+          ],
+          "license": "CC-BY 4.0",
+          "licensing_note": "Attribution license; linked.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Short derivations with rules of thumb."
+            },
+            "coverage": {
+              "score": 3,
+              "evidence": "Compute and memory only."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Clear formulas."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 4,
+              "evidence": "Published 2023."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free online."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Day 56 compute and memory arithmetic."
+            }
+          }
+        },
+        {
+          "name": "Hugging Face Accelerate and Trainer documentation",
+          "url": "https://github.com/huggingface/accelerate",
+          "registry_ids": [],
+          "license": "Apache-2.0",
+          "licensing_note": "Linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Usage-oriented docs."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Distributed training, mixed precision, checkpointing."
+            },
+            "clarity": {
+              "score": 3,
+              "evidence": "Abstractions hide the loop being taught."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 5,
+              "evidence": "Actively maintained."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free to read online."
+            },
+            "relevance": {
+              "score": 2,
+              "evidence": "Hides the steps the block asks learners to write."
+            }
+          }
+        },
+        {
+          "name": "Megatron-LM (NVIDIA)",
+          "url": "https://github.com/NVIDIA/Megatron-LM",
+          "registry_ids": [],
+          "license": "BSD-3-Clause",
+          "licensing_note": "Linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 2,
+              "evidence": "Production code base, not teaching material."
+            },
+            "coverage": {
+              "score": 5,
+              "evidence": "Large-scale parallel training."
+            },
+            "clarity": {
+              "score": 2,
+              "evidence": "Large and complex."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 5,
+              "evidence": "Actively maintained."
+            },
+            "accessibility": {
+              "score": 3,
+              "evidence": "Free; needs multi-GPU hardware to run."
+            },
+            "relevance": {
+              "score": 1,
+              "evidence": "Far beyond single-machine scope."
+            }
+          }
+        },
+        {
+          "name": "nanochat (current repository, compared systems reference)",
+          "url": "https://github.com/karpathy/nanochat",
+          "registry_ids": [],
+          "license": "MIT",
+          "licensing_note": "Repository MIT LICENSE inspected; no source code or data is imported.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "README explains the scope, but optimized training code is not a stepwise beginner implementation lesson."
+            },
+            "coverage": {
+              "score": 5,
+              "evidence": "Pretraining, evaluation, telemetry and checkpointing; no directly inspected gradient-clipping example."
+            },
+            "clarity": {
+              "score": 3,
+              "evidence": "Compilation, custom optimizers, distributed state and precision add complexity to the first loop walkthrough."
+            },
+            "exercises": {
+              "score": 3,
+              "evidence": "Suggested experiments and optimizer tests, but inspected tests require CUDA and are not a staged assignment."
+            },
+            "currency": {
+              "score": 5,
+              "evidence": "Current README includes 2026 updates; moving master is not a pinned stable course edition."
+            },
+            "accessibility": {
+              "score": 3,
+              "evidence": "Free repository with a shrunk CPU/MPS demo; full speedrun is an 8xH100 path, not equivalent CPU training."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Useful scale comparison; not a direct replacement for the clipping, fault-injection and billing lessons."
+            }
+          }
+        }
+      ],
+      "selected": [
+        "karpathy-nanogpt-train",
+        "karpathy-nanogpt-model",
+        "cs336-basics",
+        "eleutherai-transformer-math"
+      ],
+      "supporting_sources": [
+        "holtzman-degeneration-2019",
+        "pytorch-save-load",
+        "adamw-paper-2019",
+        "karpathy-nanogpt-sample"
+      ],
+      "selection_rationale": "CS336 spring2025 now leads the optimizer, clipping and serialization exercises with verifiable adapter contracts/tests; nanoGPT is explicitly historical compact code, not current primary training instruction. Current nanochat was compared rather than ignored, but optimized multi-GPU code is less suited to the first raw-loop exercise. No source is claimed to cover billing cutoffs, atomic writes or top-p when it does not.",
+      "teaching_sources": [
+        "cs336-basics",
+        "eleutherai-transformer-math"
+      ],
+      "definition_sources": [
+        "karpathy-nanogpt-train",
+        "karpathy-nanogpt-model"
+      ]
+    },
+    {
+      "id": "b09-instruction-tuning-lora",
+      "title": "Instruction data, supervised fine-tuning and LoRA",
+      "days": [
+        61,
+        69
+      ],
+      "candidates": [
+        {
+          "name": "LoRA: Low-Rank Adaptation of Large Language Models (Hu et al., 2021)",
+          "url": "https://arxiv.org/abs/2106.09685",
+          "registry_ids": [
+            "hu-lora-2021"
+          ],
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "licensing_note": "Cited, never reproduced.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Research paper with clear method section."
+            },
+            "coverage": {
+              "score": 5,
+              "evidence": "Method, initialization, merging and rank studies."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Readable for a paper."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 4,
+              "evidence": "2021; still the reference method for adapters."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free PDF."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Sections 4.1, 4.2 and 7 anchor Days 64-66."
+            }
+          }
+        },
+        {
+          "name": "Hugging Face PEFT",
+          "url": "https://github.com/huggingface/peft",
+          "registry_ids": [
+            "huggingface-peft"
+          ],
+          "license": "Apache-2.0",
+          "licensing_note": "Linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Quickstart and task guides."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "LoRA and other adapters, saving and merging."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Concise API docs."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 5,
+              "evidence": "Actively maintained."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free to read online."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Used to check the from-scratch adapter against a library."
+            }
+          }
+        },
+        {
+          "name": "Stanford Alpaca (blog post and repository)",
+          "url": "https://crfm.stanford.edu/2023/03/13/alpaca.html",
+          "registry_ids": [
+            "taori-alpaca-2023",
+            "stanford-alpaca-2023"
+          ],
+          "license": "Copyright Stanford CRFM (blog post; no open license stated)",
+          "licensing_note": "The post has no open license; the linked repository's code is Apache-2.0 and its data is CC BY-NC 4.0 (noncommercial). Nothing is copied.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Short recipe write-up."
+            },
+            "coverage": {
+              "score": 3,
+              "evidence": "Data format, training recipe, limitations."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Brief and clear."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "March 2023."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free to read online."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Days 61-62 data schema and prompt template."
+            }
+          }
+        },
+        {
+          "name": "microsoft/LoRA (loralib)",
+          "url": "https://github.com/microsoft/LoRA",
+          "registry_ids": [],
+          "license": "MIT",
+          "licensing_note": "Linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Reference implementation with a short README."
+            },
+            "coverage": {
+              "score": 3,
+              "evidence": "LoRA layers only."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Small code base."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 2,
+              "evidence": "Last commit December 2024 (GitHub API, checked 2026-11-01)."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free to read online."
+            },
+            "relevance": {
+              "score": 3,
+              "evidence": "Smaller than PEFT but less maintained."
+            }
+          }
+        },
+        {
+          "name": "Parameter-Efficient Transfer Learning for NLP (Houlsby et al., 2019)",
+          "url": "https://arxiv.org/abs/1902.00751",
+          "registry_ids": [],
+          "license": "Open Access (arXiv)",
+          "licensing_note": "Cited only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Research paper."
+            },
+            "coverage": {
+              "score": 3,
+              "evidence": "Adapter layers, not low-rank updates."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Readable prose."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "Published 2019."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free PDF."
+            },
+            "relevance": {
+              "score": 2,
+              "evidence": "Background for adapters; not the method taught."
+            }
+          }
+        },
+        {
+          "name": "Hugging Face LLM Course: Fine-tuning LLMs",
+          "url": "https://huggingface.co/learn/llm-course/chapter11/1",
+          "registry_ids": [
+            "huggingface-llm-course-finetuning"
+          ],
+          "license": "Apache-2.0",
+          "licensing_note": "First-party huggingface/course LICENSE is Apache-2.0; linked chapters only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Sequenced templates, SFT and evaluation with quizzes. Chapter 11.4 has an overbroad GPU-memory claim, so its LoRA memory explanation is not adopted."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Workflow coverage complements the low-rank paper; does not derive local masking, contamination or bootstrap mathematics."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Short headings and runnable examples; compressed claims need comparison with the paper and actual implementation."
+            },
+            "exercises": {
+              "score": 4,
+              "evidence": "Template conversion exercise, LoRA experiments and quizzes; only the assigned templates/SFT/evaluation sections are used here."
+            },
+            "currency": {
+              "score": 5,
+              "evidence": "Current first-party course pages and repository checked; API examples must be re-verified against the selected environment."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Free reading; account, downloads and sometimes GPU resources are needed for hosted practical runs."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Assigned Chapters 11.2, 11.3 and 11.5 match Days 61-62 and 67-69; original paper and PEFT still anchor Days 64-66."
+            }
+          }
+        }
+      ],
+      "selected": [
+        "huggingface-llm-course-finetuning",
+        "hu-lora-2021",
+        "huggingface-peft",
+        "taori-alpaca-2023",
+        "stanford-alpaca-2023"
+      ],
+      "supporting_sources": [
+        "ouyang-instructgpt-2022",
+        "huggingface-trl-sfttrainer",
+        "pytorch-cross-entropy",
+        "huggingface-chat-templates"
+      ],
+      "selection_rationale": "Add the course's templates/SFT/evaluation sequence and exercises, retaining LoRA Section 4.1 and actual PEFT initialization defaults for method fidelity. Chapter 11.4's overbroad GPU-memory explanation is not adopted; the local ledger includes frozen base weights. Original papers and APIs still lack a fully checked beginner LoRA exercise route, an explicit remaining quality limitation.",
+      "teaching_sources": [
+        "huggingface-llm-course-finetuning"
+      ],
+      "definition_sources": [
+        "hu-lora-2021",
+        "huggingface-peft",
+        "taori-alpaca-2023",
+        "stanford-alpaca-2023"
+      ]
+    },
+    {
+      "id": "b10-evaluation",
+      "title": "Benchmarks, metrics and honest baselines",
+      "days": [
+        70,
+        72
+      ],
+      "candidates": [
+        {
+          "name": "Holistic Evaluation of Language Models (HELM, Liang et al., 2022)",
+          "url": "https://arxiv.org/abs/2211.09110",
+          "registry_ids": [
+            "liang-helm-2022"
+          ],
+          "license": "Open Access / CC BY 4.0",
+          "licensing_note": "Attribution license; cited only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Long report with a clear taxonomy."
+            },
+            "coverage": {
+              "score": 5,
+              "evidence": "Scenarios, metrics, standardised prompting."
+            },
+            "clarity": {
+              "score": 3,
+              "evidence": "Very long."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 4,
+              "evidence": "2022 with a maintained leaderboard."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free PDF."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Frames the multi-metric reporting on Day 70."
+            }
+          }
+        },
+        {
+          "name": "Measuring Massive Multitask Language Understanding (MMLU) with GSM8K",
+          "url": "https://arxiv.org/abs/2009.03300",
+          "registry_ids": [
+            "hendrycks-mmlu-2020",
+            "cobbe-gsm8k-2021"
+          ],
+          "license": "Open Access / arXiv non-exclusive license",
+          "licensing_note": "Cited only; dataset items are not copied.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Benchmark papers."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Define the tasks and scoring the block reproduces."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Short papers."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "2020-2021; known saturation and contamination issues."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free PDFs."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Day 70 scorers follow their answer formats."
+            }
+          }
+        },
+        {
+          "name": "SQuAD (Rajpurkar et al., 2016)",
+          "url": "https://arxiv.org/abs/1606.05250",
+          "registry_ids": [
+            "rajpurkar-squad-2016"
+          ],
+          "license": "Open Access / CC BY-SA 4.0",
+          "licensing_note": "Cited only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Benchmark paper."
+            },
+            "coverage": {
+              "score": 3,
+              "evidence": "Defines exact match and token F1."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Short paper."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "Published 2016."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free PDF."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Day 71 EM and F1 normalisation."
+            }
+          }
+        },
+        {
+          "name": "EleutherAI LM Evaluation Harness",
+          "url": "https://github.com/EleutherAI/lm-evaluation-harness",
+          "registry_ids": [],
+          "license": "MIT",
+          "licensing_note": "Linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 2,
+              "evidence": "Tool documentation."
+            },
+            "coverage": {
+              "score": 5,
+              "evidence": "Hundreds of tasks with shared scoring."
+            },
+            "clarity": {
+              "score": 3,
+              "evidence": "Large configuration surface."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 5,
+              "evidence": "Actively maintained."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Free; needs model weights to run."
+            },
+            "relevance": {
+              "score": 3,
+              "evidence": "Useful to compare against, but hides the scoring the block teaches."
+            }
+          }
+        },
+        {
+          "name": "SuperGLUE (Wang et al., 2019)",
+          "url": "https://arxiv.org/abs/1905.00537",
+          "registry_ids": [],
+          "license": "Open Access (arXiv)",
+          "licensing_note": "Cited only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Benchmark paper."
+            },
+            "coverage": {
+              "score": 3,
+              "evidence": "Classification-style tasks."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Readable prose."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 2,
+              "evidence": "2019; saturated."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free PDF."
+            },
+            "relevance": {
+              "score": 2,
+              "evidence": "Task style differs from generative evaluation."
+            }
+          }
+        },
+        {
+          "name": "Hugging Face LLM Evaluation Guidebook (legacy edition)",
+          "url": "https://github.com/huggingface/evaluation-guidebook",
+          "registry_ids": [
+            "huggingface-evaluation-guidebook"
+          ],
+          "license": "CC BY-NC-SA 4.0",
+          "licensing_note": "Repository LICENSE verified; noncommercial/share-alike affects reuse, not teaching merit. Linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 5,
+              "evidence": "Beginner/advanced routes explain practical dataset, prompt, metric and evaluator choices rather than only defining a benchmark."
+            },
+            "coverage": {
+              "score": 5,
+              "evidence": "Covers held-out evaluation, contamination, prompts, metrics, judges and reproducibility; exact formulas remain paper references."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Readable Markdown and concrete checklists; some claims require local qualification."
+            },
+            "exercises": {
+              "score": 2,
+              "evidence": "Suggested audits and comparisons, but no graded notebook or answer-keyed exercise sequence."
+            },
+            "currency": {
+              "score": 1,
+              "evidence": "README explicitly says no longer maintained; replacement Space content was not verified as the guidebook."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Public lightweight Markdown; stale replacement pointer and external links may fail, independently of license terms."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Stable methodological chapters map to Days 70-72 honesty, metric choice and reproducible reporting; not tooling-version advice."
+            }
+          }
+        }
+      ],
+      "selected": [
+        "huggingface-evaluation-guidebook",
+        "liang-helm-2022",
+        "hendrycks-mmlu-2020",
+        "cobbe-gsm8k-2021",
+        "rajpurkar-squad-2016"
+      ],
+      "supporting_sources": [
+        "hu-lora-2021",
+        "taori-alpaca-2023"
+      ],
+      "selection_rationale": "Add practical evaluation-design guidance instead of treating a benchmark-paper-only candidate set as adequate pedagogy. The legacy guidebook is selected for stable methodological chapters with its no-longer-maintained warning, not current commands; individual papers still define exact metrics. The Efron primary-text locator remains unverified, and no guidebook bootstrap derivation is invented.",
+      "teaching_sources": [
+        "huggingface-evaluation-guidebook"
+      ],
+      "definition_sources": [
+        "liang-helm-2022",
+        "hendrycks-mmlu-2020",
+        "cobbe-gsm8k-2021",
+        "rajpurkar-squad-2016"
+      ]
+    },
+    {
+      "id": "b11-agents-and-reliability",
+      "title": "Tool-using agents, recovery and delivery engineering",
+      "days": [
+        73,
+        81
+      ],
+      "candidates": [
+        {
+          "name": "ReAct (Yao et al., 2022)",
+          "url": "https://arxiv.org/abs/2210.03629",
+          "registry_ids": [
+            "yao-react-2022"
+          ],
+          "license": "Open Access / CC BY 4.0",
+          "licensing_note": "Attribution license; cited only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Research paper with clear trace examples."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Thought-action-observation loop and evaluations."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Readable prose."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "2022; agent practice has moved fast since."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free PDF."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Day 73 loop structure."
+            }
+          }
+        },
+        {
+          "name": "Anthropic: Tool use documentation",
+          "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview",
+          "registry_ids": [
+            "anthropic-tool-use-docs"
+          ],
+          "license": "Anthropic PBC copyright (no open license)",
+          "licensing_note": "Proprietary docs; linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Task-oriented developer guide."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Tool definitions, tool_use and tool_result blocks."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Clear examples."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 5,
+              "evidence": "Maintained with the API."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Free online; vendor-specific."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Message format for the Day 74 tool-call drills."
+            }
+          }
+        },
+        {
+          "name": "Site Reliability Engineering book (Google): Cascading Failures, Release Engineering, Postmortem Culture",
+          "url": "https://sre.google/sre-book/addressing-cascading-failures/",
+          "registry_ids": [
+            "google-sre-cascading-failures",
+            "google-sre-release-engineering",
+            "google-sre-postmortem-culture"
+          ],
+          "license": "CC BY-NC-ND 4.0",
+          "licensing_note": "Noncommercial, no derivatives; chapters linked, never adapted.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Practitioner chapters with case studies."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Retries, overload, release process, postmortems."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Readable chapters."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "Published 2016; practices still widely used."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free online."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Days 76-81 retry budgets, release gates and postmortems."
+            }
+          }
+        },
+        {
+          "name": "Reflexion (Shinn et al., 2023)",
+          "url": "https://arxiv.org/abs/2303.11366",
+          "registry_ids": [
+            "shinn-reflexion-2023"
+          ],
+          "license": "Open Access / CC BY 4.0",
+          "licensing_note": "Cited only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Research paper."
+            },
+            "coverage": {
+              "score": 3,
+              "evidence": "Self-reflection loop with memory."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Readable prose."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 4,
+              "evidence": "Published 2023."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free PDF."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Day 75 retry-with-feedback pattern."
+            }
+          }
+        },
+        {
+          "name": "Google Gemini API: Function calling",
+          "url": "https://ai.google.dev/gemini-api/docs/function-calling",
+          "registry_ids": [],
+          "license": "CC BY 4.0 (content) / Apache-2.0 (code samples)",
+          "licensing_note": "Linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Developer guide."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Function declarations and call loop."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Clear examples."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 5,
+              "evidence": "Maintained with the API."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Free online; vendor-specific."
+            },
+            "relevance": {
+              "score": 3,
+              "evidence": "Equivalent to the selected docs; one vendor format is enough."
+            }
+          }
+        },
+        {
+          "name": "Hugging Face Agents Course: Introduction to Agents",
+          "url": "https://huggingface.co/learn/agents-course/en/unit1/introduction",
+          "registry_ids": [
+            "huggingface-agents-course"
+          ],
+          "license": "Apache-2.0",
+          "licensing_note": "First-party huggingface/agents-course LICENSE is Apache-2.0; external links only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 5,
+              "evidence": "Unit 1 builds agent, model, tool and control-loop concepts before a summary and quiz."
+            },
+            "coverage": {
+              "score": 3,
+              "evidence": "Covers agent fundamentals, not the complete Days 76-81 durability, security and delivery work."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Short sequenced explanations; framework examples must not be treated as universal protocols."
+            },
+            "exercises": {
+              "score": 4,
+              "evidence": "Quizzes and hands-on course units; local bounded exercises remain the acceptance evidence."
+            },
+            "currency": {
+              "score": 4,
+              "evidence": "Public current course checked; rapidly changing frameworks remain a re-verification risk."
+            },
+            "accessibility": {
+              "score": 4,
+              "evidence": "Free reading; hosted exercises can require model or platform access."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Introductory loop supports Day 73; no-private-reasoning local trace policy and SRE work remain distinct."
+            }
+          }
+        }
+      ],
+      "selected": [
+        "huggingface-agents-course",
+        "yao-react-2022",
+        "anthropic-tool-use-docs",
+        "google-sre-cascading-failures",
+        "google-sre-release-engineering",
+        "shinn-reflexion-2023"
+      ],
+      "supporting_sources": [
+        "langgraph-persistence-docs",
+        "yang-swe-agent-2024"
+      ],
+      "selection_rationale": "Add a staged agent introduction and quiz before ReAct/API definitions; retain SRE teaching for durability and delivery. Provider protocols are not interchangeable, and course examples do not certify local sandbox safety. Gemini remains a valid compared protocol guide, not a lower-quality source merely because it is a different vendor.",
+      "teaching_sources": [
+        "huggingface-agents-course",
+        "google-sre-cascading-failures",
+        "google-sre-release-engineering"
+      ],
+      "definition_sources": [
+        "yao-react-2022",
+        "anthropic-tool-use-docs",
+        "shinn-reflexion-2023"
+      ]
+    },
+    {
+      "id": "b12-agent-evaluation-capstone",
+      "title": "Agent evaluation, reporting and capstone",
+      "days": [
+        82,
+        90
+      ],
+      "candidates": [
+        {
+          "name": "SWE-bench (Jimenez et al., 2024)",
+          "url": "https://arxiv.org/abs/2310.06770",
+          "registry_ids": [
+            "jimenez-swe-bench-2024"
+          ],
+          "license": "Open Access / CC BY 4.0",
+          "licensing_note": "Attribution license; cited only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Benchmark paper with clear task construction."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Issue-to-patch tasks with FAIL_TO_PASS tests."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Readable prose."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 4,
+              "evidence": "2023-2024; Verified and multilingual variants followed."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free PDF; harness is MIT."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Capstone acceptance tests use the same fail-to-pass idea."
+            }
+          }
+        },
+        {
+          "name": "AgentBench (Liu et al., 2023)",
+          "url": "https://arxiv.org/abs/2308.03688",
+          "registry_ids": [
+            "liu-agentbench-2023"
+          ],
+          "license": "Open Access / CC BY 4.0",
+          "licensing_note": "Cited only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Benchmark paper."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Eight environments and failure analysis."
+            },
+            "clarity": {
+              "score": 3,
+              "evidence": "Dense results tables."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "Published 2023."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free PDF."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Failure categories used for the Day 82-84 trace review."
+            }
+          }
+        },
+        {
+          "name": "tau-bench (Yao et al., 2024)",
+          "url": "https://arxiv.org/abs/2406.12045",
+          "registry_ids": [
+            "yao-taubench-2024"
+          ],
+          "license": "Open Access / CC BY 4.0",
+          "licensing_note": "Cited only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Benchmark paper."
+            },
+            "coverage": {
+              "score": 3,
+              "evidence": "Tool-agent-user tasks and pass^k reliability."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Readable prose."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 4,
+              "evidence": "Published 2024."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free PDF."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "pass^k is the reliability metric used in the capstone."
+            }
+          }
+        },
+        {
+          "name": "OpenAI Evals",
+          "url": "https://github.com/openai/evals",
+          "registry_ids": [
+            "openai-evals-framework"
+          ],
+          "license": "MIT",
+          "licensing_note": "Linking only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "README-driven framework guide."
+            },
+            "coverage": {
+              "score": 3,
+              "evidence": "Eval registry, templates and runners."
+            },
+            "clarity": {
+              "score": 3,
+              "evidence": "Docs are spread across files."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 3,
+              "evidence": "Last commit April 2026 (GitHub API, checked 2026-11-01)."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free to read online."
+            },
+            "relevance": {
+              "score": 4,
+              "evidence": "Eval-spec structure for Day 83."
+            }
+          }
+        },
+        {
+          "name": "GAIA: a benchmark for General AI Assistants (Mialon et al., 2023)",
+          "url": "https://arxiv.org/abs/2311.12983",
+          "registry_ids": [],
+          "license": "Open Access (arXiv)",
+          "licensing_note": "Cited only.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 3,
+              "evidence": "Benchmark paper."
+            },
+            "coverage": {
+              "score": 3,
+              "evidence": "Assistant tasks with short exact answers."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Readable prose."
+            },
+            "exercises": {
+              "score": 1,
+              "evidence": "No exercises."
+            },
+            "currency": {
+              "score": 4,
+              "evidence": "Published 2023."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free PDF."
+            },
+            "relevance": {
+              "score": 2,
+              "evidence": "Web-browsing tasks fall outside the sandboxed capstone."
+            }
+          }
+        },
+        {
+          "name": "Demystifying evals for AI agents",
+          "url": "https://www.anthropic.com/research/demystifying-evals-for-ai-agents",
+          "registry_ids": [
+            "anthropic-agent-evals-2026"
+          ],
+          "license": "Anthropic copyright; no open reuse license verified",
+          "licensing_note": "Public practitioner article linked only; no general reproduction permission inferred.",
+          "scores": {
+            "pedagogical_quality": {
+              "score": 4,
+              "evidence": "Explains task/trial/grader/outcome concepts then offers a staged workflow for building evaluations."
+            },
+            "coverage": {
+              "score": 4,
+              "evidence": "Covers graders, multiple trials, capability/regression suites and practical failure modes; not the complete portfolio."
+            },
+            "clarity": {
+              "score": 4,
+              "evidence": "Examples and distinctions aid beginners; commercial perspective is explicit."
+            },
+            "exercises": {
+              "score": 2,
+              "evidence": "Actionable audit/checklist work, but no formal exercise set or reference solutions."
+            },
+            "currency": {
+              "score": 5,
+              "evidence": "Published 2026-01-09 and inspected; the date is not itself proof of quality."
+            },
+            "accessibility": {
+              "score": 5,
+              "evidence": "Free article; its conceptual design advice requires no paid API."
+            },
+            "relevance": {
+              "score": 5,
+              "evidence": "Task/trial/outcome and grader choices map directly to Days 82-83; exact pass^k still comes from tau-bench Section 3."
+            }
+          }
+        }
+      ],
+      "selected": [
+        "anthropic-agent-evals-2026",
+        "jimenez-swe-bench-2024",
+        "liu-agentbench-2023",
+        "yao-taubench-2024",
+        "openai-evals-framework"
+      ],
+      "supporting_sources": [
+        "mitchell-model-cards-2019",
+        "zhou-webarena-2023",
+        "yao-react-2022"
+      ],
+      "selection_rationale": "Add a teaching-oriented evaluation workflow before benchmark definitions. Retain SWE-bench acceptance-test structure, AgentBench failure analysis, tau-bench Section 3 reliability and the Evals spec layout as distinct reference roles. GAIA targets external browsing absent from the local sandbox; practitioner advice is not an independent validation of the capstone.",
+      "teaching_sources": [
+        "anthropic-agent-evals-2026"
+      ],
+      "definition_sources": [
+        "jimenez-swe-bench-2024",
+        "liu-agentbench-2023",
+        "yao-taubench-2024",
+        "openai-evals-framework"
+      ]
+    }
+  ],
+  "internal_review": {
+    "status": "needs_work",
+    "evidence": "curriculum/reviews/source-selection-review.md",
+    "remaining_gaps": [
+      "The claim-fidelity review is a twelve-claim sample, not an audit of every required lesson claim.",
+      "Efron 1979 primary-text locator remains pending; its body could not be inspected.",
+      "The fine-tuning teaching candidate has an overbroad LoRA GPU-memory claim, excluded from the assigned sections; a fuller vetted LoRA teaching comparison remains desirable.",
+      "The legacy evaluation guidebook is useful for stable methodology, but an accessible maintained teaching successor has not been established."
+    ]
+  },
+  "requirement_status": "partially satisfied; expert review pending."
+}

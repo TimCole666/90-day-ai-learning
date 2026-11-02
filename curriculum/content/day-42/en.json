@@ -1,0 +1,170 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 42: Loss, Training Discipline, and Weekly Consolidation",
+  "day_subtitle": "Turn softmax probabilities into the cross-entropy loss, observe a disciplined training loop with fixed splits and seeds, confront overfitting and numerical-instability counterexamples honestly, then close the week with an independent retrieval assessment. Review time is counted inside the 480-minute ledger.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Models & Training",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "day_label": "Day 42",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Enter your loss calculations, training-loop predictions, counterexample work, and retrieval notes here...",
+    "dev_slice_notice": "Verified curriculum module for the 90-Day AI Learning Platform.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account.",
+        "provider_error": "Authentication provider encountered an error.",
+        "server_error": "Authentication provider encountered an error.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    },
+    "quiz": {
+      "quiz_title": "Objective Knowledge Check: Loss, Training & Honest Comparison",
+      "quiz_instructions": "Answer the following diagnostic questions to verify your understanding. Select your declared assistance condition before submitting.",
+      "assistance_mode_label": "Declared Assistance Condition",
+      "mode_independent": "Independent Mastery Check (No AI assistance)",
+      "mode_agent_assisted": "Agent-Assisted Engineering Check (Completed with AI assistance)",
+      "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+      "submit_btn": "Submit Answers",
+      "retry_btn": "Retry Quiz",
+      "view_hint": "Question Hint",
+      "mastery_criterion_label": "Mastery Criterion",
+      "mastery_criterion_desc": "Score 100% (3/3 correct) on an Independent Mastery Check.",
+      "score_label": "Score",
+      "passed_badge": "Passed",
+      "failed_badge": "Needs Review",
+      "independent_pass_badge": "Independent Mastery Verified",
+      "agent_assisted_pass_badge": "Agent-Assisted Verified",
+      "self_reported_badge": "Self-Reported Checkbox",
+      "stale_badge": "Historical (Revalidation Needed - Content Revision Changed)",
+      "attempts_history_title": "Attempt History & Evidence",
+      "no_attempts": "No attempts recorded yet."
+    }
+  },
+  "activities": {
+    "day-42-act-01": {
+      "title": "Cross-Entropy Loss: From Probabilities to a Scalar Surprisal",
+      "prerequisites": "Day 41 forward pass and softmax; natural logarithms.",
+      "objective": "Define the negative log-likelihood loss, compute it for a worked distribution, and interpret it against the uniform baseline.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Required work: for target index t the loss is L = -ln p_t. Yesterday's forward pass produced p = [0.229291, 0.209107, 0.306433, 0.255169] for context ('a','b') whose true next symbol is 'c' (index 3). Compute L, then compare it with the uniform baseline ln(4) = 1.386294. Decide whether this model is better than chance. Optional work: express L in bits by switching to log2.",
+      "exercise_prompt": "1. L = -ln(0.255169) = ?\n2. For logits z = [1.0, 0.5, -0.5] over 3 classes with target index 0, compute the softmax probabilities and the NLL.\n3. What does perplexity exp(L) mean in this example?",
+      "hint": "e^1 = 2.7183, e^0.5 = 1.6487, e^-0.5 = 0.6065; their sum is 4.9735. Perplexity is the reciprocal of the target probability.",
+      "answer": "L = -ln(0.255169) = 1.365831 nats - barely below uniform 1.386294, so the untrained model sits at about chance level. Second example: p = [0.5465, 0.3315, 0.1220], NLL = -ln(0.5465) = 0.6041. Perplexity = 1/0.255169 ~= 3.92: the model behaves as if choosing among about 3.9 equally likely options instead of 4.",
+      "mastery_criterion": "Both losses computed to 4+ decimals, the uniform-baseline comparison stated, and perplexity interpreted as an effective vocabulary size."
+    },
+    "day-42-act-02": {
+      "title": "Training Loop Observation: Loss, Gradient, Update with Fixed Splits",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Describe one training step (forward -> loss -> backward -> update) and the role of fixed train/dev/test splits and seeds; predict the direction of loss movement without being promised any threshold.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Required work: recall the gradient step from Days 34-36. One iteration draws a minibatch of (context, target) pairs, runs the forward pass, averages the NLL, backpropagates, and updates every parameter by p <- p - lr * dL/dp. Record a predicted loss-curve shape, then describe what a fixed 80/10/10 train/dev/test split and a fixed seed guarantee for comparisons. Optional work: predict what a learning rate that is too large does to the curve.",
+      "exercise_prompt": "1. List the four stages of one training step in order.\n2. If dev loss rises while train loss keeps falling, what does that signal?\n3. Why do a fixed seed and split make two model variants honestly comparable?",
+      "hint": "Order: forward, scalarize to one loss, backward, update. A train/dev divergence is the classic signature of memorization.",
+      "answer": "Stages: forward pass -> mean NLL -> backpropagation -> parameter update p <- p - lr * dL/dp. Rising dev loss with falling train loss means the model is memorizing noise: overfitting. A fixed seed and split remove initialization and data-order luck, so observed differences reflect the models rather than the shuffle. No specific loss threshold is promised; only the direction and honest measurement are claimed.",
+      "mastery_criterion": "The learner orders the four stages, names overfitting as the dev-rises explanation, and states that fixed seeds/splits give comparability - without inventing loss guarantees."
+    },
+    "day-42-act-03": {
+      "title": "Counterexamples: Overfitting, Numerical Instability, and the Bigram Baseline",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Produce honest counterexamples: memorization on tiny data, exp overflow in softmax, and a simple counting baseline that can beat the untrained network.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Required work: three counterexamples. (1) Memorization: on a 4-symbol toy corpus the model can drive train NLL toward 0 while dev NLL stays near ln(4) = 1.386294. (2) Instability: logits [1000,999,998] - unshifted exp overflows float64, while the shifted softmax is [0.665241, 0.244728, 0.090031]. (3) Baseline: if 'b' is followed by 'c' in 3 of 4 occurrences in the corpus, a bigram gives p(c|b) = 0.75. Optional work: describe one situation where even a trained MLP loses to the bigram.",
+      "exercise_prompt": "1. Reproduce the shifted-softmax distribution for logits [1000,999,998].\n2. Compute the bigram NLL for p(c|b) = 0.75 and for an unseen pair with p = 0.25.\n3. Write one honest sentence comparing the untrained MLP with the bigram baseline.",
+      "hint": "-ln(0.75) = 0.287682 and -ln(0.25) = 1.386294. The baseline wins while the network is untrained; learning is what closes the gap, and it must be demonstrated, not assumed.",
+      "answer": "Shifted: exp([0,-1,-2]) = [1, 0.367879, 0.135335], sum 1.503215, p = [0.665241, 0.244728, 0.090031]. Bigram NLL: -ln(0.75) = 0.287682 for a seen pair; -ln(0.25) = 1.386294 for an unseen uniform guess. Honest comparison: on contexts it has counted, the bigram beats the untrained MLP (0.29 < 1.37); the MLP's edge is generalizing to contexts the count table never saw, which must be proven on dev data rather than claimed.",
+      "mastery_criterion": "All three counterexamples reproduced with correct numbers, plus an honest comparison sentence covering both memorization limits and the conditions for a real advantage."
+    },
+    "day-42-act-04": {
+      "title": "Weekly Consolidation: Independent Retrieval and End-to-End Assessment",
+      "prerequisites": "Activities 42-01 through 42-03; review of Days 40-41 as needed.",
+      "objective": "Retrieve the entire Days 40-42 pipeline unaided, recompute the loss for a held-out context, and record recovery links for every missed idea.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Required work: closed book. Sketch the pipeline index -> C rows -> concat -> W1/b1 -> tanh -> W2/b2 -> softmax -> NLL with every shape. Then compute the loss for context ('b','a') with true next symbol 'a' (index 1) using Day 41's probabilities. Complete the knowledge check. For anything missed, record which of Day 40, Day 41, or recovery link Day 35 you will revisit. Optional work: re-derive the uniform baseline for V=27.",
+      "exercise_prompt": "1. Loss for p = [0.290410, 0.237875, 0.220627, 0.251087] with target index 1.\n2. From memory, rebuild the tiny model's parameter ledger (total 39).\n3. State the two conditions that make a neural language model honestly better than a bigram.",
+      "hint": "L = -ln(p[1]). Ledger: C + W1 + b1 + W2 + b2 = 8 + 12 + 3 + 12 + 4. Think about dev loss and held-out evaluation.",
+      "answer": "L = -ln(0.237875) = 1.436009 nats - above uniform 1.386294, so on that pair the untrained model is worse than chance. Ledger: 8 + 12 + 3 + 12 + 4 = 39 parameters. A neural model beats a bigram only if (a) training actually lowers dev loss below the baseline and (b) evaluation uses held-out data with fixed splits and seeds - otherwise the claim is unproven.",
+      "mastery_criterion": "Unaided loss 1.436009 with the ledger rebuilt, the pipeline sketched with correct shapes, honest better-than-baseline conditions stated, and recovery links named for any gap.",
+      "quiz": {
+        "title": "Objective Knowledge Check: Loss, Training & Honest Comparison",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "A model with NLL below ln(4) = 1.386294 on a 4-symbol task is, on average:",
+            "options": {
+              "a": "worse than uniform guessing",
+              "b": "necessarily memorizing",
+              "c": "assigning more probability to correct targets than uniform guessing",
+              "d": "guaranteed to generalize"
+            },
+            "hint": "Uniform guessing assigns p = 1/4 to every target; compare the loss direction only.",
+            "explanation": "NLL below ln(4) means targets receive more probability than the 1/4 uniform level on average; it says nothing yet about generalization to held-out data."
+          },
+          {
+            "id": "q2",
+            "prompt": "Train NLL near 0 with dev NLL near 1.39 on a V=4 task most likely indicates:",
+            "options": {
+              "a": "overfitting / memorization",
+              "b": "numerical underflow",
+              "c": "correct generalization",
+              "d": "a broken softmax"
+            },
+            "hint": "The model can be perfect on data it has seen and useless on data it has not.",
+            "explanation": "A train/dev gap this wide is the classic overfitting signature: the model memorized the training pairs instead of learning transferable structure."
+          },
+          {
+            "id": "q3",
+            "prompt": "Why do we fix the random seed and the train/dev/test split before comparing two models?",
+            "options": {
+              "a": "To make training faster",
+              "b": "To lower the final loss",
+              "c": "To increase the vocabulary",
+              "d": "To make runs reproducible and comparisons honest"
+            },
+            "hint": "What happens if each model sees a different split or a luckier initialization?",
+            "explanation": "Fixing seed and split removes initialization and data-order luck, so remaining differences reflect the models; it is a comparability and reproducibility measure, not a performance trick."
+          }
+        ]
+      }
+    }
+  }
+}

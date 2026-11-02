@@ -1,0 +1,84 @@
+{
+  "practice_id": "ci_delivery_rollback",
+  "title": "Continuous Integration, Controlled Delivery, and Rollback Practice",
+  "category": "engineering-foundations-and-delivery",
+  "prerequisites": "Completion of Ticket 16 (Text and Data Tools Learning Project) and basic familiarity with Git branching, pull requests, automated unit testing, and terminal execution.",
+  "requirements": [
+    "1. Reproducible Artifact Packaging: Package the project artifact into an isolated bundle and verify it executes cleanly in a pristine environment with zero dependencies on parent worktree state.",
+    "2. Defect Detection & Diagnosis: Inject a controlled regression (broken Unicode normalization or split ratio calculation), confirm that automated test suites fail (RED), diagnose the root cause, and apply a reviewed fix restoring correct functionality without changing test assertions (GREEN).",
+    "3. Disposable Git Collaboration: Practice multi-branch git operations, upstream divergence, and merge conflict resolution strictly inside disposable temporary repositories, preserving unrelated collaborator changes.",
+    "4. Observable Health Verification: Deploy project releases to a disposable staging environment, evaluate health checks through real machine-verifiable exit codes and output metrics rather than command screenshots.",
+    "5. Controlled Rollback Runbook: Upon detecting a simulated deployment failure or degraded health status, execute a documented rollback procedure restoring the previous known-good release and verifying system integrity."
+  ],
+  "branching_and_commits": {
+    "workflow": "Trunk-based development with short-lived feature branches",
+    "branch_naming": "feature/<ticket-id>-<short-description>, bugfix/<issue-id>-<description>",
+    "commit_standards": "Atomic commits following Conventional Commits format (e.g. feat:, fix:, test:, docs:). Every commit must include an informative message explaining the problem and solution.",
+    "merge_strategy": "Non-fast-forward merge or squash-merge with linear history on trunk, accompanied by peer review."
+  },
+  "diff_and_pr_review_checklist": [
+    "Correctness & Spec Alignment: Does the change implement the agreed specification without scope creep or missing edge cases?",
+    "Test Adequacy: Are there dedicated regression and unit tests exercising the changed logic at public seams, passing cleanly in process-isolated environments?",
+    "No Assertion Tampering: Does the fix genuinely repair the underlying fault rather than weakening or altering expected test assertions?",
+    "Code Quality & Backward Compatibility: Are existing APIs, data structures, and serialized file formats preserved without breaking existing callers?",
+    "Secrets & Security: Does the diff contain zero hardcoded secrets, temporary credentials, or unsafe shell invocations?",
+    "Non-Destructive Git History: Are commits clean, free of merge conflict artifacts, and preserving unrelated upstream changes?"
+  ],
+  "ci_workflow_documentation": {
+    "pipeline_stages": [
+      "Lint & Syntax Checking: Validates code formatting, AST parsing, and import validity.",
+      "Process-Isolated Unit Tests: Runs unittest suite in fresh subprocesses across clean directories to ensure no leakages.",
+      "Artifact Packaging: Creates portable archive containing necessary code and manifests.",
+      "Clean-Install Smoke Test: Executes CLI tool against benchmark dataset in disposable environment and checks output schemas."
+    ],
+    "gate_criteria": "All stages must exit with return code 0 before a pull request can be accepted or deployed."
+  },
+  "regression_exercise": {
+    "target": "projects/text_tools/core.py (Unicode multi-byte tokenization and splitting logic)",
+    "deliberate_defect": "Invert character decoding or corrupt split ratio partition calculation such that multi-byte Unicode or sample count distributions fail invariant checks.",
+    "expected_test_behavior": "Automated test suite catches the defect with AssertionError or UnicodeDecodeError (RED).",
+    "diagnostic_steps": [
+      "1. Run the test suite and inspect the failure traceback and stderr output.",
+      "2. Pinpoint the root-cause line where token boundaries or ratios diverge from the mathematical specification.",
+      "3. Do not modify the test assertions to accommodate incorrect output.",
+      "4. Apply the reviewed repair in the implementation code and verify tests pass cleanly (GREEN)."
+    ]
+  },
+  "conflict_resolution_guide": {
+    "principles": [
+      "Never run destructive git operations (reset --hard, clean -fdx) against repositories with uncommitted user work.",
+      "Always inspect both HEAD (incoming) and target branches before deciding resolution.",
+      "Preserve upstream collaborator modifications that do not contradict the intended feature change.",
+      "Run automated tests immediately after conflict resolution to guarantee semantic consistency before completing the merge."
+    ]
+  },
+  "deployment_and_health_checks": {
+    "deployment_model": "Blue/green or symlink-swapped versioned directory deployment in disposable staging path.",
+    "health_check_seam": "Observable CLI command execution (`--stats --json` on benchmark corpus) and manifest validation checking returncode == 0 and valid JSON output.",
+    "observable_metrics": [
+      "Process return code == 0",
+      "Valid JSON schema with expected integer counts (total_chars, total_tokens, vocab_size)",
+      "Zero data leakage verified in split manifest"
+    ]
+  },
+  "rollback_runbook": {
+    "trigger_conditions": "Health check failure, process crash (non-zero exit code), corrupted artifact manifest, or degraded processing throughput.",
+    "steps": [
+      "Step 1: Detect failure during automated post-deployment health verification.",
+      "Step 2: Log failure details and prevent promotional routing to the broken release.",
+      "Step 3: Repoint deployment pointer/symlink to the previous known-good version tag or directory.",
+      "Step 4: Execute health check against restored release to prove operational recovery.",
+      "Step 5: Record incident evidence log (`evidence.json`) detailing defective version, root cause, rollback timestamp, and restored verification status."
+    ]
+  },
+  "simulated_collaboration_notice": "All Git collaboration, remote pull requests, and multi-developer conflicts in this practice are executed against disposable local repository fixtures (e.g. temporary bare repos). No live network requests, unauthorized GitHub pushes, or destructive actions against production or user files are performed.",
+  "acceptance_checklist": [
+    "Clean-install packaging runs successfully in a pristine temporary environment and passes baseline checks.",
+    "A deliberate regression is injected into the disposable workspace and reliably fails the automated CI tests.",
+    "Diagnosis and a reviewed fix restore correct behavior, passing all automated tests without modifying test assertions.",
+    "Git merge conflict resolution successfully merges conflicting branches while retaining both upstream changes and feature changes in disposable fixtures.",
+    "A defective deployment triggers an observable health check failure.",
+    "Rollback to the known-good release succeeds and observable health check verifies complete state restoration.",
+    "An evidence report (`evidence.json`) is generated with full timestamps, commit hashes, and verification metrics."
+  ]
+}

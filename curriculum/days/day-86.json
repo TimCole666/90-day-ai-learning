@@ -1,0 +1,351 @@
+{
+  "id": "day-86",
+  "day_number": 86,
+  "active_minutes": 480,
+  "topic_category": "agents",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-85"
+  ],
+  "recovery_links": [
+    "day-85"
+  ],
+  "activities": [
+    {
+      "id": "day-86-act-01",
+      "lesson_id": "les-86",
+      "title": "Integration Architecture: The Adapter Boundary",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-85"
+      ],
+      "source_resources": [
+        {
+          "id": "schick-toolformer-2023",
+          "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+          "author": "Timo Schick, Jane Dwivedi-Yu, Roberto Dessì, Roberta Raileanu, Maria Lomeli, Luke Zettlemoyer, Nicola Cancedda, Thomas Scialom",
+          "original_url": "https://arxiv.org/abs/2302.04761",
+          "relevant_timestamp": "Sections 2-3: API-call annotation, sampling, filtering, tool integration",
+          "version_or_verification_date": "NeurIPS 2023 / arXiv:2302.04761v4 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Language-model finetuning, API calls, and tool schemas.",
+          "selection_rationale": "Primary reference for model-tool integration with explicit API contracts; informs the capstone's adapter boundary where the harness owns tool validation and the model only proposes calls.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "The capstone's tool contract template (name, typed arguments, error modes) is fully specified in the lesson instructions.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Yao et al.: ReAct",
+              "url": "https://arxiv.org/abs/2210.03629",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Prompt-time interleaving rather than finetuned tool calls; both define the model-side of the same adapter boundary."
+            },
+            {
+              "candidate_name": "Patil et al.: Gorilla: Large Language Model Connected with Massive APIs",
+              "url": "https://arxiv.org/abs/2305.15334",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Large API-corpus retrieval; Toolformer's minimal single-tool mechanics match the capstone's bounded tool set."
+            }
+          ]
+        },
+        {
+          "id": "weng-llm-agents-2023",
+          "title": "LLM Powered Autonomous Agents",
+          "author": "Lilian Weng",
+          "original_url": "https://lilianweng.github.io/posts/2023-06-23-agent/",
+          "relevant_timestamp": "Sections: planning, memory, tool use, challenges",
+          "version_or_verification_date": "Blog post June 23, 2023 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "article",
+          "license": "All Rights Reserved (personal research blog)",
+          "license_restrictions": [
+            "Prose is linked, not copied; the curriculum uses its own bounded-agent implementation"
+          ],
+          "permission_basis": "Lawful external hyperlink to a publicly published research blog; no text imported.",
+          "prerequisites": "Agent loops, tool use, and planning vocabulary.",
+          "selection_rationale": "Widely used survey mapping agent architecture components (planning, memory, tools) and their failure modes; supports the capstone integration architecture review.",
+          "known_availability_limitations": "Personal blog; availability depends on the author's hosting.",
+          "safe_fallback": "The capstone architecture lesson specifies the adapter boundary, budgets, and tool contracts directly; no blog content is required offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Significant Gravitas: AutoGPT repository",
+              "url": "https://github.com/Significant-Gravitas/AutoGPT",
+              "license": "MIT License (outside autogpt_platform/); Polyform Shield License (autogpt_platform/)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Open-ended autonomous loop; deliberately excluded as the capstone must remain a bounded, evaluable system."
+            },
+            {
+              "candidate_name": "Yohei Nakajima: BabyAGI repository",
+              "url": "https://github.com/yoheinakajima/babyagi",
+              "license": "MIT License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Task-list autonomy demo; the survey article gives vocabulary while the capstone keeps fixed tasks and budgets."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-86-act-02",
+      "lesson_id": "les-86",
+      "title": "Baseline Re-Execution and Evidence Ledger",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-86-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "openai-evals-framework",
+          "title": "OpenAI Evals: Framework for Evaluating LLMs and Contamination Checks",
+          "author": "OpenAI Research",
+          "original_url": "https://github.com/openai/evals",
+          "version_or_verification_date": "OpenAI Evals Repository (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Permissive open source reference under MIT license.",
+          "prerequisites": "Python, evaluation harnesses (MMLU, GSM8K), JSONL datasets.",
+          "selection_rationale": "Standardized evaluation repository specifying rigorous separation of eval prompts, canary GUID strings, and contamination test protocols.",
+          "known_availability_limitations": "Public GitHub repository.",
+          "safe_fallback": "Canary GUID matching, token set intersection, and leak detection scripts are implemented in the curriculum.",
+          "compared_candidates": [
+            {
+              "candidate_name": "EleutherAI LM Evaluation Harness",
+              "url": "https://github.com/EleutherAI/lm-evaluation-harness",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Widely adopted evaluation harness; OpenAI Evals provides explicit canary guidance and contamination check specifications."
+            },
+            {
+              "candidate_name": "Hugging Face Lighteval",
+              "url": "https://github.com/huggingface/lighteval",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Modern lightweight eval framework; OpenAI Evals illustrates standard test-set integrity guarantees."
+            }
+          ],
+          "relevant_timestamp": "README sections 'Running evals' and 'Writing evals'"
+        },
+        {
+          "id": "shinn-reflexion-2023",
+          "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+          "author": "Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik Narasimhan, Shunyu Yao",
+          "original_url": "https://arxiv.org/abs/2303.11366",
+          "relevant_timestamp": "Sections 3-4: self-reflection loop, episodic memory, retry budgets",
+          "version_or_verification_date": "NeurIPS 2023 / arXiv:2303.11366v4 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Agent loops, tool feedback, and retry semantics.",
+          "selection_rationale": "Defines failure-feedback-driven retry with bounded attempts; justifies the capstone's retry budget and its distinction between corrected-in-budget and safe termination.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "The fault-injection drill specifies verdict classes and budgets locally without needing the paper.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Yao et al.: ReAct",
+              "url": "https://arxiv.org/abs/2210.03629",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Single-episode action/observation protocol; Reflexion adds the cross-attempt self-correction used in the recovery drill."
+            },
+            {
+              "candidate_name": "Gou et al.: CRITIC: Large Language Models Can Self-Correct with Tool-Interactive Critiquing",
+              "url": "https://arxiv.org/abs/2305.11738",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "External-tool critiquing loop; Reflexion's verbal-feedback retry is simpler to bind to the capstone's retry budget."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-86-act-03",
+      "lesson_id": "les-86",
+      "title": "Controlled Delivery: CI Checks and Rollback Rehearsal",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-86-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "fowler-continuous-integration",
+          "title": "Continuous Integration",
+          "author": "Martin Fowler",
+          "original_url": "https://martinfowler.com/articles/continuousIntegration.html",
+          "relevant_timestamp": "Practices of Continuous Integration: Make the Build Self-Testing; Fix Broken Builds Immediately",
+          "version_or_verification_date": "Second edition, May 2006 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "article",
+          "license": "All Rights Reserved (martinfowler.com)",
+          "license_restrictions": [
+            "Article is linked, not copied; pipeline practice uses the repository's own runner"
+          ],
+          "permission_basis": "Lawful external hyperlink to a publicly published essay; no text imported.",
+          "prerequisites": "Version control, automated tests, and build scripts.",
+          "selection_rationale": "Standard essay defining CI as verified mainline integration; grounds the capstone delivery rehearsal's check-before-merge and broken-build-response rules.",
+          "known_availability_limitations": "Publicly hosted on martinfowler.com.",
+          "safe_fallback": "scripts/ci_practice_runner.py demonstrates each stage locally; the article is a reference, not a dependency.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Humble & Farley: Continuous Delivery (Addison-Wesley)",
+              "url": "https://continuousdelivery.com/",
+              "license": "All Rights Reserved (book)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Full deployment-pipeline book; the Fowler essay suffices for the rehearsal vocabulary while the repo runner supplies practice."
+            },
+            {
+              "candidate_name": "Forsgren, Humble, Kim: Accelerate / DORA State of DevOps",
+              "url": "https://dora.dev/",
+              "license": "CC BY-NC-ND (reports)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Industry metrics research; cited as background while the article supplies the operative CI definition."
+            }
+          ]
+        },
+        {
+          "id": "google-sre-release-engineering",
+          "title": "Site Reliability Engineering, Chapter 8: Release Engineering",
+          "author": "Dinah McNutt (ed. Betsy Beyer, Tim Harvey), in Site Reliability Engineering (eds. Betsy Beyer, Chris Jones, Jennifer Petoff, Niall Richard Murphy; Google)",
+          "original_url": "https://sre.google/sre-book/release-engineering/",
+          "relevant_timestamp": "Chapter 8: release pipeline, canarying, rollback criteria",
+          "version_or_verification_date": "O'Reilly 2016 / sre.google online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-ND 4.0",
+          "license_restrictions": [
+            "noncommercial",
+            "no-derivatives"
+          ],
+          "permission_basis": "Lawful external hyperlink under the book's published Creative Commons terms; no text imported into proprietary material.",
+          "prerequisites": "Version control, CI basics, and deployment vocabulary.",
+          "selection_rationale": "Defines staged rollout, health-gated release, and rollback criteria; supplies the controlled-deployment and health-failure stages rehearsed by the capstone.",
+          "known_availability_limitations": "Freely readable on sre.google; print edition is commercial.",
+          "safe_fallback": "The CI practice runner encodes the same stages in disposable fixtures, so the exercise is self-contained.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Humble & Farley: Continuous Delivery",
+              "url": "https://continuousdelivery.com/",
+              "license": "All Rights Reserved (book)",
+              "status": "compared_alternative",
+              "comparison_rationale": "General delivery pipeline text; the SRE chapter adds explicit rollback/health-gate criteria used by the drill."
+            },
+            {
+              "candidate_name": "Martin Fowler: Continuous Integration",
+              "url": "https://martinfowler.com/articles/continuousIntegration.html",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Integration-side discipline; the SRE chapter covers the release and rollback side of the same rehearsal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-86-act-04",
+      "lesson_id": "les-86",
+      "title": "Assessment: Fault Injection and Bounded Recovery Drill",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-86-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "shinn-reflexion-2023",
+          "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+          "author": "Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik Narasimhan, Shunyu Yao",
+          "original_url": "https://arxiv.org/abs/2303.11366",
+          "relevant_timestamp": "Sections 3-4: self-reflection loop, episodic memory, retry budgets",
+          "version_or_verification_date": "NeurIPS 2023 / arXiv:2303.11366v4 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Agent loops, tool feedback, and retry semantics.",
+          "selection_rationale": "Defines failure-feedback-driven retry with bounded attempts; justifies the capstone's retry budget and its distinction between corrected-in-budget and safe termination.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "The fault-injection drill specifies verdict classes and budgets locally without needing the paper.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Yao et al.: ReAct",
+              "url": "https://arxiv.org/abs/2210.03629",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Single-episode action/observation protocol; Reflexion adds the cross-attempt self-correction used in the recovery drill."
+            },
+            {
+              "candidate_name": "Gou et al.: CRITIC: Large Language Models Can Self-Correct with Tool-Interactive Critiquing",
+              "url": "https://arxiv.org/abs/2305.11738",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "External-tool critiquing loop; Reflexion's verbal-feedback retry is simpler to bind to the capstone's retry budget."
+            }
+          ]
+        },
+        {
+          "id": "schick-toolformer-2023",
+          "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+          "author": "Timo Schick, Jane Dwivedi-Yu, Roberto Dessì, Roberta Raileanu, Maria Lomeli, Luke Zettlemoyer, Nicola Cancedda, Thomas Scialom",
+          "original_url": "https://arxiv.org/abs/2302.04761",
+          "relevant_timestamp": "Sections 2-3: API-call annotation, sampling, filtering, tool integration",
+          "version_or_verification_date": "NeurIPS 2023 / arXiv:2302.04761v4 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Language-model finetuning, API calls, and tool schemas.",
+          "selection_rationale": "Primary reference for model-tool integration with explicit API contracts; informs the capstone's adapter boundary where the harness owns tool validation and the model only proposes calls.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "The capstone's tool contract template (name, typed arguments, error modes) is fully specified in the lesson instructions.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Yao et al.: ReAct",
+              "url": "https://arxiv.org/abs/2210.03629",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Prompt-time interleaving rather than finetuned tool calls; both define the model-side of the same adapter boundary."
+            },
+            {
+              "candidate_name": "Patil et al.: Gorilla: Large Language Model Connected with Massive APIs",
+              "url": "https://arxiv.org/abs/2305.15334",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Large API-corpus retrieval; Toolformer's minimal single-tool mechanics match the capstone's bounded tool set."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

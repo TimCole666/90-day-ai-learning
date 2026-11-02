@@ -1,0 +1,171 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 43: Scaled Dot-Product Attention and Query-Key-Value Projections",
+  "day_subtitle": "Formulate attention as routing queries against keys to weight values. Derive the variance of dot products in R^{d_k}, prove why the 1/sqrt(d_k) scaling factor prevents vanishing gradients in softmax, and trace explicit (T, d_k) score matrices by hand and in code.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Models & Training",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "day_label": "Day 43",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Enter your score matrices, scaling divisions, softmax distributions, and variance derivations here...",
+    "dev_slice_notice": "Verified curriculum module for the 90-Day AI Learning Platform.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account.",
+        "provider_error": "Authentication provider encountered an error.",
+        "server_error": "Authentication provider encountered an error.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    },
+    "quiz": {
+      "quiz_title": "Objective Knowledge Check: Scaled Dot-Product Attention",
+      "quiz_instructions": "Answer the following diagnostic questions to verify your understanding. Select your declared assistance condition before submitting.",
+      "assistance_mode_label": "Declared Assistance Condition",
+      "mode_independent": "Independent Mastery Check (No AI assistance)",
+      "mode_agent_assisted": "Agent-Assisted Engineering Check (Completed with AI assistance)",
+      "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+      "submit_btn": "Submit Answers",
+      "retry_btn": "Retry Quiz",
+      "view_hint": "Question Hint",
+      "mastery_criterion_label": "Mastery Criterion",
+      "mastery_criterion_desc": "Score 100% (3/3 correct) on an Independent Mastery Check.",
+      "score_label": "Score",
+      "passed_badge": "Passed",
+      "failed_badge": "Needs Review",
+      "independent_pass_badge": "Independent Mastery Verified",
+      "agent_assisted_pass_badge": "Agent-Assisted Verified",
+      "self_reported_badge": "Self-Reported Checkbox",
+      "stale_badge": "Historical (Revalidation Needed - Content Revision Changed)",
+      "attempts_history_title": "Attempt History & Evidence",
+      "no_attempts": "No attempts recorded yet."
+    }
+  },
+  "activities": {
+    "day-43-act-01": {
+      "title": "Query, Key, and Value: Vector Roles and Attention Formulation",
+      "prerequisites": "Day 41-42 forward pass, matrix multiplication, and row-wise softmax mechanics.",
+      "objective": "Deconstruct attention into query routing against keys to retrieve values, derive matrix dimensions, and compute raw dot-product score matrices.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Study source: within this activity's existing reading/practice time, use Stanford CS224N: Natural Language Processing with Deep Learning, Winter 2026 Lecture 05 Transformers (2026-01-20); attention and self-attention slides, then explain one connection to the local task in your own words. Keep the local exercise and acceptance checks; use its original explanation if the external source is unavailable. Required work: formulate scaled dot-product attention Attention(Q, K, V) = softmax(Q K^T / sqrt(d_k)) V. Given sequence length T=3, key dimension d_k=4, and value dimension d_v=2, define Q with rows q_0=[2.0, 0.0, 2.0, 0.0], q_1=[0.0, 2.0, 0.0, 2.0], q_2=[1.0, 1.0, 1.0, 1.0]; K with rows k_0=[1.0, 0.0, 1.0, 0.0], k_1=[0.0, 2.0, 0.0, 1.0], k_2=[2.0, 1.0, 0.0, 1.0]; and V with rows v_0=[1.0, 0.0], v_1=[0.0, 2.0], v_2=[1.0, 1.0]. Compute the raw dot-product matrix S_raw = Q K^T step by step. Explain the conceptual role of Query (what position seeks), Key (what position offers), and Value (content transmitted).",
+      "exercise_prompt": "1. Compute the 3x3 entries of S_raw = Q K^T for the matrices above.\n2. State the tensor shapes of Q, K, V, Q K^T, and the final output.\n3. Why is attention an associative retrieval mechanism rather than a fixed linear layer?",
+      "hint": "Row i of S_raw is computed by dotting q_i with each key column k_j (equivalent to row j of K). For example, S_raw[0,0] = 2*1 + 0*0 + 2*1 + 0*0 = 4.",
+      "answer": "S_raw row 0: [4.0, 0.0, 4.0]; row 1: [0.0, 6.0, 4.0]; row 2: [2.0, 3.0, 4.0]. Shapes: Q is (3,4), K is (3,4), V is (3,2), Q K^T is (3,3), and output is (3,2). Unlike fixed weights, attention weights are dynamic data-dependent routing coefficients computed from the current context.",
+      "mastery_criterion": "Accurate step-by-step matrix multiplication yielding the exact 3x3 S_raw matrix and correct shape annotations.",
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-43-act-02": {
+      "title": "The Scaling Factor sqrt(d_k) and Attention Score Matrices",
+      "prerequisites": "Complete Day 43 Activity 1.",
+      "objective": "Apply the 1/sqrt(d_k) scale factor to score matrices, calculate row-wise stable softmax distributions, and compute weighted value outputs.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Required work: with d_k = 4, the scaling factor is sqrt(4) = 2.0. Scale S_raw by dividing each entry by 2.0 to obtain S = S_raw / 2.0. Then compute the row-wise softmax using max-shift: row 0 scaled is [2.0, 0.0, 2.0]; row 1 is [0.0, 3.0, 2.0]; row 2 is [1.0, 1.5, 2.0]. Compute softmax weights A = softmax(S) and the final output Out = A V. Verify that every row of A sums strictly to 1.0.",
+      "exercise_prompt": "1. Write the scaled score matrix S = S_raw / 2.0.\n2. Compute the exact softmax attention matrix A to 6 decimal places.\n3. Compute the output representation Out = A V for all 3 positions.",
+      "hint": "For row 0: max is 2.0. exp([0, -2, 0]) = [1.0, 0.135335, 1.0], sum = 2.135335. A[0, :] = [0.468311, 0.063379, 0.468311].",
+      "answer": "Scaled matrix S:\n[[2.0, 0.0, 2.0],\n [0.0, 3.0, 2.0],\n [1.0, 1.5, 2.0]].\nSoftmax attention matrix A:\nRow 0: [0.468311, 0.063379, 0.468311]\nRow 1: [0.035119, 0.705385, 0.259496]\nRow 2: [0.186324, 0.307196, 0.506480].\nOutput Out = A V:\nRow 0: [0.936622, 0.595069]\nRow 1: [0.294615, 1.670266]\nRow 2: [0.692804, 1.120872].",
+      "mastery_criterion": "Learner derives S, computes the normalized attention probabilities matching to 4+ decimal places, and produces correct value mixtures Out."
+    },
+    "day-43-act-03": {
+      "title": "Variance Scaling Derivation and Gradient Saturation Analysis",
+      "prerequisites": "Complete Day 43 Activity 2; basic probability and calculus.",
+      "objective": "Mathematically prove that the variance of the dot product of two d_k-dimensional random vectors is d_k, and demonstrate softmax gradient vanishing without scaling.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Required work: let q and k have independent components q_i, k_i with E[q_i] = E[k_i] = 0 and Var(q_i) = Var(k_i) = 1. Prove E[q . k] = 0 and Var(q . k) = d_k. Show that Var((q . k) / sqrt(d_k)) = 1. Then analyze the counterexample with d_k = 64 (sqrt(d_k) = 8): suppose unscaled scores reach +16 and -16. Calculate softmax on logits [16, 0, -16] and show that softmax derivative dp_i / dz_j = p_i (delta_ij - p_j) saturates to near-zero.",
+      "exercise_prompt": "1. Write out the variance proof step by step using Var(X Y) = E[X^2] E[Y^2] - (E[X]E[Y])^2 for independent zero-mean variables.\n2. Compute softmax([16, 0, -16]) and its local gradient magnitude.\n3. In two sentences, why does unscaled dot-product attention cause training to stall in deep transformers?",
+      "hint": "Var(q_i k_i) = E[q_i^2] E[k_i^2] - 0 = 1 * 1 = 1. Summing d_k identical independent terms gives d_k. softmax([16, 0, -16]) yields p_0 ~= 0.99999989, p_1 ~= 1.125e-7, p_2 ~= 1.266e-14.",
+      "answer": "Proof: E[q . k] = sum E[q_i k_i] = 0. For each term, Var(q_i k_i) = E[q_i^2] E[k_i^2] - (E[q_i]E[k_i])^2 = 1*1 - 0 = 1. Because components are independent, Var(sum q_i k_i) = sum Var(q_i k_i) = d_k. Then Var((q.k)/sqrt(d_k)) = (1/d_k)*d_k = 1. Without scaling, large d_k pushes logits into extreme magnitudes where softmax outputs approach 1 and 0; because dp_i/dz_j = p_i(delta_ij - p_j), gradients collapse exponentially toward zero, preventing optimization.",
+      "mastery_criterion": "Complete algebraic proof of variance scaling plus concrete numerical demonstration of gradient saturation on extreme logits."
+    },
+    "day-43-act-04": {
+      "title": "Independent Mastery Check: Dot-Product Attention and Tensor Shapes",
+      "prerequisites": "Activities 43-01 through 43-03.",
+      "objective": "Verify unassisted mastery of scaled dot-product attention calculation, variance scaling proof, and multi-dimensional tensor shape contracts under declared AI-free conditions.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Required work: work independently without AI assistants or external calculators. For a new setup with T=2, d_k=4, d_v=2: Q has rows [0.0, 2.0, 0.0, 2.0], [2.0, 0.0, 2.0, 0.0]; K has rows [0.0, 2.0, 0.0, 2.0], [1.0, 0.0, 1.0, 0.0]; V has rows [2.0, 1.0], [0.0, 3.0]. Compute S_raw, scale by sqrt(4)=2, calculate exact softmax weights, and find the output representations. Complete the knowledge check quiz.",
+      "exercise_prompt": "1. Compute S_raw and scaled S = S_raw / 2.0.\n2. Compute the exact 2x2 softmax matrix A.\n3. Compute the 2x2 output matrix Out = A V.\n4. Complete the 3-question objective quiz.",
+      "hint": "S_raw[0,0] = 0*0 + 2*2 + 0*0 + 2*2 = 8. S_raw[0,1] = 0. S_raw[1,0] = 0. S_raw[1,1] = 4. Scaled: row 0 is [4, 0], row 1 is [0, 2].",
+      "answer": "S_raw = [[8.0, 0.0], [0.0, 4.0]]. Scaled S = [[4.0, 0.0], [0.0, 2.0]]. Softmax A: row 0 is [0.982014, 0.017986]; row 1 is [0.119203, 0.880797]. Output Out: row 0 = 0.982014*[2,1] + 0.017986*[0,3] = [1.964028, 1.035972]; row 1 = 0.119203*[2,1] + 0.880797*[0,3] = [0.238406, 2.761594].",
+      "mastery_criterion": "Independent derivation of exact matrices S, A, Out and 100% score on the objective diagnostic quiz.",
+      "quiz": {
+        "title": "Objective Knowledge Check: Scaled Dot-Product Attention",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "What is the primary mathematical reason for dividing the dot product Q K^T by sqrt(d_k)?",
+            "options": {
+              "a": "To normalize the score variance to 1 and prevent vanishing gradients in softmax as d_k grows.",
+              "b": "To guarantee that the resulting score matrix is always symmetric.",
+              "c": "To compress the memory complexity from O(T^2) to O(T).",
+              "d": "To enforce the autoregressive causal constraint."
+            },
+            "hint": "Recall the variance of the sum of d_k independent unit-variance product terms.",
+            "explanation": "When components of q and k are independent standard normal variables, their dot product has mean 0 and variance d_k. Dividing by sqrt(d_k) scales the variance back to 1.0, preventing softmax saturation."
+          },
+          {
+            "id": "q2",
+            "prompt": "For an input sequence of length T=3, key dimension d_k=4, and value dimension d_v=2, what is the shape of the attention score matrix S = (Q K^T) / sqrt(d_k)?",
+            "options": {
+              "a": "(4, 4)",
+              "b": "(3, 3)",
+              "c": "(3, 2)",
+              "d": "(4, 2)"
+            },
+            "hint": "Q has shape (T, d_k) and K^T has shape (d_k, T). Matrix multiplication contracts the d_k dimension.",
+            "explanation": "Multiplying (T, d_k) by (d_k, T) yields a (T, T) pairwise attention score matrix, which is (3, 3) for T=3."
+          },
+          {
+            "id": "q3",
+            "prompt": "If vectors q, k in R^{d_k} have independent components with zero mean and unit variance, what is the variance of their unscaled dot product q . k?",
+            "options": {
+              "a": "1",
+              "b": "sqrt(d_k)",
+              "c": "d_k",
+              "d": "d_k^2"
+            },
+            "hint": "The variance of a sum of independent random variables is the sum of their individual variances.",
+            "explanation": "Var(q . k) = sum_{i=1}^{d_k} Var(q_i k_i) = sum_{i=1}^{d_k} 1 = d_k."
+          }
+        ]
+      }
+    }
+  }
+}

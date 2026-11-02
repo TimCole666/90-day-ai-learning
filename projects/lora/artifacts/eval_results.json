@@ -1,0 +1,18 @@
+{
+  "format": "learning-project-lora-eval-v2",
+  "smoke": true,
+  "downloads_performed": false,
+  "held_out_samples": 1,
+  "loss_before": 4.097592830657959,
+  "loss_after": 4.09445858001709,
+  "perplexity_before": 60.195212986597795,
+  "perplexity_after": 60.0068414577159,
+  "loss_delta": 0.0031342506408691406,
+  "merge_verified": true,
+  "sample_generations": [
+    {
+      "prompt": "What is the capital city of Japan?",
+      "completion": " nstruction  What is the capital city of Japan? Response     SSSSSSSSSSSSSWWWWWWWWWWWWWWW"
+    }
+  ]
+}

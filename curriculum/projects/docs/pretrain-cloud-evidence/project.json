@@ -1,0 +1,22 @@
+{
+  "id": "resumable-small-model-cloud-evidence",
+  "title": "Authorized Cloud-GPU Pretraining Evidence (Ticket 19)",
+  "source_project": "projects/pretrain",
+  "language_editions": ["en", "zh-Hans", "zh-Hant", "ja"],
+  "evidence_status": "blocked-without-authorized-provider-access-and-approval",
+  "actual_cloud_run": false,
+  "local_tests_are_cloud_evidence": false,
+  "artifacts": {
+    "config": "cloud-run-config.json",
+    "evidence": "evidence-package.json",
+    "guides": "docs/README.en.md"
+  },
+  "acceptance": [
+    "explicit approval precedes any paid execution",
+    "versioned config and data hashes are recorded",
+    "independent evaluation and interruption/resume evidence are recorded",
+    "measured values are distinguished from theoretical estimates",
+    "provider secrets and private identifiers stay out of the repository",
+    "actual cloud acceptance remains unmet until authorized execution exists"
+  ]
+}

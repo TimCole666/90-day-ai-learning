@@ -1,0 +1,170 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 31: Forward Computation Graphs, Local Derivatives & Reverse-Mode Chain Rule",
+  "day_subtitle": "Master the foundations of automatic differentiation: build scalar DAG computation graphs, derive elementary local operator derivatives, and trace the backward pass step-by-step.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Mathematics & Algorithmic Foundations",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "day_label": "Day 31",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Enter your manual derivative derivation, forward values, and backward gradient trace here...",
+    "dev_slice_notice": "Verified curriculum module for the 90-Day AI Learning Platform.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account.",
+        "provider_error": "Authentication provider encountered an error.",
+        "server_error": "Authentication provider encountered an error.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    },
+    "quiz": {
+      "quiz_title": "Objective Knowledge Check: Computation Graphs & Chain Rule",
+      "quiz_instructions": "Answer the following diagnostic questions to verify your understanding. Select your declared assistance condition before submitting.",
+      "assistance_mode_label": "Declared Assistance Condition",
+      "mode_independent": "Independent Mastery Check (No AI assistance)",
+      "mode_agent_assisted": "Agent-Assisted Engineering Check (Completed with AI assistance)",
+      "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+      "submit_btn": "Submit Answers",
+      "retry_btn": "Retry Quiz",
+      "view_hint": "Question Hint",
+      "mastery_criterion_label": "Mastery Criterion",
+      "mastery_criterion_desc": "Score 100% (3/3 correct) on an Independent Mastery Check.",
+      "score_label": "Score",
+      "passed_badge": "Passed",
+      "failed_badge": "Needs Review",
+      "independent_pass_badge": "Independent Mastery Verified",
+      "agent_assisted_pass_badge": "Agent-Assisted Verified",
+      "self_reported_badge": "Self-Reported Checkbox",
+      "stale_badge": "Historical (Revalidation Needed - Content Revision Changed)",
+      "attempts_history_title": "Attempt History & Evidence",
+      "no_attempts": "No attempts recorded yet."
+    }
+  },
+  "activities": {
+    "day-31-act-01": {
+      "title": "Computational Graphs and Forward Scalar Evaluation",
+      "prerequisites": "Day 30 mathematics, basic object-oriented programming in Python, and understanding of variables as memory references.",
+      "objective": "Understand how scalar arithmetic expressions are mapped into a Directed Acyclic Graph (DAG) of `Value` objects, and trace the forward pass.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "In automatic differentiation, a computation graph represents each mathematical operation as an interior node, with operands as input edges. Run the graph inspection command:\n\n```bash\npython3 projects/autograd/cli.py graph --preset neuron --format ascii\n```\n\nObserve how $x_1 w_1 + x_2 w_2 + b$ flows into activation $o = \\tanh(n)$. Inspect the forward values.",
+      "exercise_prompt": "Consider the expression $f(x, y) = (x \\cdot y + 2)^2$. At $x = 1.5, y = -2.0$:\n1. Construct the step-by-step forward nodes: let $u = x \\cdot y$, $v = u + 2$, $f = v^2$.\n2. Calculate the numerical value of $u$, $v$, and $f$.\n3. Write your predicted forward values in the editor below before running any script.",
+      "hint": "Calculate intermediate values sequentially: $u = 1.5 \\times (-2.0) = -3.0$; then $v = -3.0 + 2 = -1.0$; finally $f = (-1.0)^2 = 1.0$.",
+      "answer": "Reference Solution:\n- $u = 1.5 \\times (-2.0) = -3.0$\n- $v = -3.0 + 2 = -1.0$\n- $f = (-1.0)^2 = 1.0$\nThe computation graph has 2 leaf nodes ($x, y$), one constant ($2$), and 3 operation nodes ($*, +, **2$).",
+      "mastery_criterion": "The learner accurately represents scalar operations as DAG nodes with tracked child dependencies (`_prev`) and forward data floats."
+    },
+    "day-31-act-02": {
+      "title": "Local Derivatives and Elementary Operator Chain Rules",
+      "prerequisites": "Basic single-variable calculus (power rule, exponential, logarithm, tanh derivatives).",
+      "objective": "Derive local analytical partial derivatives for all primary operators (+, -, *, /, pow, exp, log, relu, tanh) and formulate the local `_backward` closures.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "For each operator $z = f(x, y)$, the node must encapsulate a `_backward()` closure that multiplies the incoming upstream gradient (`out.grad`) by the local derivative $\\frac{\\partial z}{\\partial x}$. Review the mathematical operator table in `projects/autograd/docs/guide.en.md`.",
+      "exercise_prompt": "Hand-derive the local derivatives for:\n1. Multiplication $z = x \\cdot y$: derive $\\frac{\\partial z}{\\partial x}$ and $\\frac{\\partial z}{\\partial y}$.\n2. Power $z = x^n$ where $n$ is a scalar constant: derive $\\frac{\\partial z}{\\partial x}$.\n3. Hyperbolic tangent $z = \\tanh(x)$: express $\\frac{\\partial z}{\\partial x}$ in terms of $z$ itself.",
+      "hint": "Recall that $\\frac{d}{dx} \\tanh(x) = 1 - \\tanh^2(x)$. Because $z = \\tanh(x)$ is already stored in the node's forward value `self.data`, the local derivative can be evaluated simply as $1.0 - z^2$ without re-evaluating transcendental functions.",
+      "answer": "Reference Derivation:\n1. For $z = x \\cdot y$: $\\frac{\\partial z}{\\partial x} = y$, $\\frac{\\partial z}{\\partial y} = x$.\n2. For $z = x^n$: $\\frac{\\partial z}{\\partial x} = n x^{n-1}$.\n3. For $z = \\tanh(x)$: $\\frac{\\partial z}{\\partial x} = 1 - z^2$. In Python: `self.grad += (1.0 - out.data ** 2) * out.grad`.",
+      "mastery_criterion": "The learner independently writes down correct local derivative formulas without table lookups or generative AI assistance."
+    },
+    "day-31-act-03": {
+      "title": "Reverse-Mode Chain Rule Intuition and Backward Pass Trace",
+      "prerequisites": "Completion of Activity 31-01 and 31-02.",
+      "objective": "Understand how the multivariable chain rule propagates gradients backwards from target loss to input weights, and trace a single artificial neuron.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Execute the forward-backward command for the neuron preset:\n\n```bash\npython3 projects/autograd/cli.py forward-backward --preset neuron\n```\n\nVerify that the backward pass initializes $o.\\text{grad} = 1.0$ and propagates through $n = x_1 w_1 + x_2 w_2 + b$ to yield $\\frac{\\partial o}{\\partial w_1} = 1.0$ and $\\frac{\\partial o}{\\partial x_1} = -1.5$.",
+      "exercise_prompt": "Given $o = \\tanh(n)$ with $n = 0.8814$ ($o \\approx 0.7071$):\n1. Calculate $\\frac{\\partial o}{\\partial n} = 1 - o^2$.\n2. Given $n = x_1 w_1 + x_2 w_2 + b$, where $x_1 = 2.0, w_1 = -3.0$, calculate $\\frac{\\partial o}{\\partial x_1}$ and $\\frac{\\partial o}{\\partial w_1}$.\n3. Compare your manual numbers with the CLI output.",
+      "hint": "$1 - 0.70710678^2 = 1 - 0.5 = 0.5$. Then $\\frac{\\partial o}{\\partial (x_1 w_1)} = 0.5$. By chain rule, $\\frac{\\partial o}{\\partial x_1} = 0.5 \\times w_1 = 0.5 \\times (-3.0) = -1.5$, and $\\frac{\\partial o}{\\partial w_1} = 0.5 \\times x_1 = 0.5 \\times 2.0 = 1.0$.",
+      "answer": "Reference Solution:\n- Local tanh derivative: $1 - (0.70710678)^2 = 0.500000$\n- $\\frac{\\partial o}{\\partial n} = 0.5$\n- $\\frac{\\partial o}{\\partial x_1} = 0.5 \\times (-3.0) = -1.5$\n- $\\frac{\\partial o}{\\partial w_1} = 0.5 \\times 2.0 = 1.0$\nMatches `projects/autograd/cli.py forward-backward --preset neuron` exactly.",
+      "mastery_criterion": "The learner traces numerical chain rule products through 3+ layers of graph hierarchy without missing intermediate scaling factors."
+    },
+    "day-31-act-04": {
+      "title": "Independent Mastery Check: Hand-Deriving Scalar Graphs",
+      "prerequisites": "Activities 31-01 through 31-03.",
+      "objective": "Verify unaided mastery of scalar computational graphs and chain rule backpropagation under declared AI-free conditions.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Complete the diagnostic check below without using AI assistants, large language models, or automated symbolic calculators. Record your reasoning in the draft workspace.",
+      "exercise_prompt": "For the loss function $L = (x \\cdot y + 2)^2$ at $x = 1.5, y = -2.0$:\nCalculate the exact analytical gradients $\\frac{\\partial L}{\\partial x}$ and $\\frac{\\partial L}{\\partial y}$. Show your chain rule steps.",
+      "hint": "Let $u = x \\cdot y + 2$. Then $L = u^2$. $\\frac{\\partial L}{\\partial u} = 2u$. Then apply $\\frac{\\partial u}{\\partial x} = y$ and $\\frac{\\partial u}{\\partial y} = x$.",
+      "answer": "Reference Solution:\n$u = 1.5 \\times (-2.0) + 2 = -1.0$\n$L = (-1.0)^2 = 1.0$\n$\\frac{\\partial L}{\\partial u} = 2u = -2.0$\n$\\frac{\\partial L}{\\partial x} = \\frac{\\partial L}{\\partial u} \\cdot y = (-2.0) \\times (-2.0) = 4.0$\n$\\frac{\\partial L}{\\partial y} = \\frac{\\partial L}{\\partial u} \\cdot x = (-2.0) \\times 1.5 = -3.0$",
+      "mastery_criterion": "Independent calculation producing $\\frac{\\partial L}{\\partial x} = 4.0$ and $\\frac{\\partial L}{\\partial y} = -3.0$ with documented intermediate variable definitions.",
+      "quiz": {
+        "title": "Objective Knowledge Check: Computation Graphs & Chain Rule",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "In reverse-mode automatic differentiation, what numerical value must the seed gradient `loss.grad` be initialized to prior to traversing the DAG backward?",
+            "options": {
+              "a": "0.0",
+              "b": "1.0",
+              "c": "The loss tensor's forward value",
+              "d": "The global learning rate"
+            },
+            "hint": "Consider the mathematical definition of $\\frac{\\partial L}{\\partial L}$.",
+            "explanation": "Because $\\frac{\\partial L}{\\partial L} = 1.0$, the root/loss node must be seeded with `grad = 1.0` to start reverse-mode chain rule propagation."
+          },
+          {
+            "id": "q2",
+            "prompt": "For an operation node $z = x \\cdot y$, if `z.grad` is currently $5.0$, and $x = 2.0, y = -3.0$, what is the gradient contribution propagated to $x$?",
+            "options": {
+              "a": "10.0",
+              "b": "-6.0",
+              "c": "-15.0",
+              "d": "2.5"
+            },
+            "hint": "By the chain rule: $\\frac{\\partial L}{\\partial x} = \\frac{\\partial L}{\\partial z} \\cdot \\frac{\\partial z}{\\partial x} = z.\\text{grad} \\cdot y$.",
+            "explanation": "$\\frac{\\partial L}{\\partial x} = z.\\text{grad} \\times y = 5.0 \\times (-3.0) = -15.0$."
+          },
+          {
+            "id": "q3",
+            "prompt": "Why is reverse-mode automatic differentiation asymptotically superior to forward-mode for training neural networks?",
+            "options": {
+              "a": "It computes gradients of one scalar loss with respect to N parameters in a single backward pass O(1) proportional to forward work.",
+              "b": "It avoids all floating-point roundoff errors completely.",
+              "c": "It does not require storing any intermediate activation values in memory.",
+              "d": "It can only be used with scalar inputs and vector outputs."
+            },
+            "hint": "Consider a model with 1 output (loss) and millions of input parameters.",
+            "explanation": "Reverse-mode autodiff evaluates $\\nabla L \\in \\mathbb{R}^N$ for a scalar loss $L \\in \\mathbb{R}^1$ in a single backward sweep. Forward-mode would require $N$ separate forward passes."
+          }
+        ]
+      }
+    }
+  }
+}

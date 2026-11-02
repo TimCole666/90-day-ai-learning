@@ -1,0 +1,391 @@
+{
+  "id": "day-71",
+  "day_number": 71,
+  "active_minutes": 480,
+  "topic_category": "self-directed-learning-and-python",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-70"
+  ],
+  "recovery_links": [
+    "day-70"
+  ],
+  "activities": [
+    {
+      "id": "day-71-act-01",
+      "lesson_id": "les-71",
+      "title": "Exact Match (EM) and Token-Level Precision, Recall, and F1",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev5",
+      "prerequisites": [
+        "day-70"
+      ],
+      "source_resources": [
+        {
+          "id": "huggingface-evaluation-guidebook",
+          "title": "Hugging Face LLM Evaluation Guidebook (legacy edition)",
+          "author": "Hugging Face evaluation-guidebook contributors",
+          "original_url": "https://github.com/huggingface/evaluation-guidebook",
+          "relevant_timestamp": "contents/automated-benchmarks/designing-your-automatic-evaluation.md: Choosing a metric; contents/troubleshooting/troubleshooting-reproducibility.md",
+          "version_or_verification_date": "Public edition checked 2026-11-01; moving pages may change",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "External hyperlink only; no third-party prose, exercises, code or translations are imported.",
+          "prerequisites": "Held-out data, basic language-model metrics and experimental comparisons.",
+          "selection_rationale": "Teaching-oriented evaluation design and reproducibility guidance complements the benchmark papers. Stable methodological chapters only; not a current tooling/version reference.",
+          "known_availability_limitations": "README says no longer maintained. The replacement OpenEvals Space was not verified as containing the guidebook; its license and content are not substituted. No bootstrap derivation is claimed.",
+          "safe_fallback": "Use the original localized explanations, exercises and checks already present in this activity; no external account or purchase is required for that fallback.",
+          "compared_candidates": [
+            {
+              "candidate_name": "HELM",
+              "url": "https://arxiv.org/abs/2211.09110",
+              "license": "Open Access / CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Retained for the multi-metric framework; the guidebook makes practical choices easier to teach."
+            },
+            {
+              "candidate_name": "LM Evaluation Harness",
+              "url": "https://github.com/EleutherAI/lm-evaluation-harness",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Useful implementation cross-check; tool configuration alone does not teach metric choice or evaluator limitations."
+            }
+          ]
+        },
+        {
+          "id": "rajpurkar-squad-2016",
+          "title": "SQuAD: 100,000+ Questions for Machine Comprehension of Text",
+          "author": "Pranav Rajpurkar, Jian Zhang, Konstantin Lopyrev, Percy Liang",
+          "original_url": "https://arxiv.org/abs/1606.05250",
+          "version_or_verification_date": "EMNLP 2016 / arXiv:1606.05250v3 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / CC BY-SA 4.0",
+          "license_restrictions": [
+            "share-alike"
+          ],
+          "permission_basis": "Lawful academic citation of evaluation standard definition.",
+          "prerequisites": "Tokenization, text normalization, precision, recall, and harmonic mean F1.",
+          "selection_rationale": "Defines the standard NLP Exact Match (EM) and token-level Macro/Micro F1 evaluation metrics, establishing standard text normalization rules (lowercasing, punctuation stripping, article removal).",
+          "known_availability_limitations": "Freely available on arXiv and Stanford NLP.",
+          "safe_fallback": "Exact normalization code, multiset token intersection logic, and F1 calculations are completely coded in lesson exercises.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Rajpurkar et al. Know What You Don't Know: Unanswerable Questions for SQuAD 2.0",
+              "url": "https://arxiv.org/abs/1806.03822",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Adds unanswerable questions; SQuAD 1.1 formalizes the foundational token F1 and EM mathematical definitions."
+            },
+            {
+              "candidate_name": "Reddy et al. CoQA: A Conversational Question Answering Challenge",
+              "url": "https://arxiv.org/abs/1808.07042",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Conversational multi-turn QA; SQuAD provides a widely adopted implementation of normalized token F1."
+            }
+          ],
+          "relevant_timestamp": "Section 6.1 Model Evaluation (Exact match and macro-averaged F1)"
+        },
+        {
+          "id": "papineni-bleu-2002",
+          "title": "BLEU: a Method for Automatic Evaluation of Machine Translation",
+          "author": "Kishore Papineni, Salim Roukos, Todd Ward, Wei-Jing Zhu",
+          "original_url": "https://aclanthology.org/P02-1040/",
+          "version_or_verification_date": "ACL 2002 Anthology (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "CC BY-NC-SA 3.0 (ACL Anthology, pre-2016 material)",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Lawful academic citation of foundational n-gram precision metric.",
+          "prerequisites": "N-gram precision, modified n-gram clipping, brevity penalty.",
+          "selection_rationale": "Foundational literature introducing modified n-gram precision and brevity penalties, providing the mathematical contrast between precision-oriented n-gram clipping and recall-oriented sequence metrics.",
+          "known_availability_limitations": "Freely available on ACL Anthology.",
+          "safe_fallback": "N-gram clipping algorithms, geometric mean precision, and brevity penalty formulas are completely implemented in lesson code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Banerjee & Lavie. METEOR: An Automatic Metric for MT Evaluation with Improved Correlation with Human Judgments",
+              "url": "https://aclanthology.org/W05-0909/",
+              "license": "CC BY-NC-SA 3.0 (ACL Anthology, pre-2016 material)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Incorporates stemming and WordNet synonymy; BLEU is the fundamental n-gram precision baseline required for quantitative comparison."
+            },
+            {
+              "candidate_name": "Popović. chrF: character n-gram F-score for automatic MT evaluation",
+              "url": "https://aclanthology.org/W15-3049/",
+              "license": "CC BY-NC-SA 3.0 (ACL Anthology, pre-2016 material)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Character-level n-gram F-score; Papineni BLEU provides the historic foundation for token-based precision clipping."
+            }
+          ],
+          "relevant_timestamp": "Section 2.1.1 Modified n-gram precision on blocks of text; Section 2.3 BLEU details"
+        }
+      ]
+    },
+    {
+      "id": "day-71-act-02",
+      "lesson_id": "les-71",
+      "title": "Sequence Overlap Metrics: ROUGE-L and Longest Common Subsequence",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-71-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "lin-rouge-2004",
+          "title": "ROUGE: A Package for Automatic Evaluation of Summaries",
+          "author": "Chin-Yew Lin",
+          "original_url": "https://aclanthology.org/W04-1013/",
+          "version_or_verification_date": "ACL 2004 Workshop Anthology (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "CC BY-NC-SA 3.0 (ACL Anthology, pre-2016 material)",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Lawful academic citation of sequence evaluation literature.",
+          "prerequisites": "Longest Common Subsequence (LCS), dynamic programming, recall-oriented evaluation.",
+          "selection_rationale": "Primary literature establishing ROUGE-N and ROUGE-L (Longest Common Subsequence), deriving sequence-level recall, precision, and F-measure without requiring consecutive n-gram matches.",
+          "known_availability_limitations": "Freely available on ACL Anthology.",
+          "safe_fallback": "Dynamic programming LCS algorithms and ROUGE-L scoring equations are completely self-contained in lesson code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Zhang et al. BERTScore: Evaluating Text Generation with BERT",
+              "url": "https://arxiv.org/abs/1904.09675",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Embedding similarity based metric; ROUGE-L provides exact deterministic surface-form sequence overlap without model weights."
+            },
+            {
+              "candidate_name": "Zhao et al. MoverScore: Text Generation Evaluating with Contextualized Embeddings and Earth Mover Distance",
+              "url": "https://arxiv.org/abs/1909.02622",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Optimal transport metric; ROUGE-L is the required universal baseline for summary and instruction evaluation."
+            }
+          ],
+          "relevant_timestamp": "Section 3 ROUGE-L: Longest Common Subsequence"
+        },
+        {
+          "id": "post-sacrebleu-2018",
+          "title": "A Call for Clarity in Reporting BLEU Scores",
+          "author": "Matt Post",
+          "original_url": "https://arxiv.org/abs/1804.08771",
+          "version_or_verification_date": "WMT 2018 / arXiv:1804.08771v1 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Apache License 2.0 / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation of evaluation reproducibility standards.",
+          "prerequisites": "Tokenization standardization, evaluation parameters, string normalization pipelines.",
+          "selection_rationale": "Critical paper on metric reproducibility, proving how inconsistent tokenization schemes and smoothing parameters alter reported metrics by multiple percentage points, demanding standardized evaluation strings.",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Standardized token normalization pipelines, deterministic tokenizer flags, and signature strings are implemented in curriculum exercises.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Google Research rouge-score Python library",
+              "url": "https://github.com/google-research/google-research/tree/master/rouge",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Specific ROUGE implementation; Post et al. provides the overarching reproducibility doctrine for NLP metric reporting."
+            },
+            {
+              "candidate_name": "Hugging Face evaluate library",
+              "url": "https://github.com/huggingface/evaluate",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Unified evaluation framework; Post establishes the critical methodology for eliminating hidden tokenization divergence."
+            }
+          ],
+          "relevant_timestamp": "Section 2 Problem Description"
+        }
+      ]
+    },
+    {
+      "id": "day-71-act-03",
+      "lesson_id": "les-71",
+      "title": "Held-Out Log-Likelihood Evaluation & Perplexity Under Length Penalties",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-71-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "radford-gpt2-2019",
+          "title": "Language Models are Unsupervised Multitask Learners",
+          "author": "Alec Radford, Jeffrey Wu, Rewon Child, David Luan, Dario Amodei, Ilya Sutskever",
+          "original_url": "https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf",
+          "version_or_verification_date": "OpenAI Technical Report 2019 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / OpenAI Public Publication",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation of foundation language model research.",
+          "prerequisites": "Autoregressive conditional likelihood, cross-entropy loss, perplexity exponentiation.",
+          "selection_rationale": "Foundational demonstration of zero-shot task transfer via log-likelihood evaluation over target candidate completions, formalizing length normalization and held-out perplexity scoring.",
+          "known_availability_limitations": "Freely accessible PDF from OpenAI.",
+          "safe_fallback": "Conditional log-likelihood equations, length normalization factors, and held-out cross-entropy calculations are fully derived in lesson material.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Kaplan et al. Scaling Laws for Neural Language Models",
+              "url": "https://arxiv.org/abs/2001.08361",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Focuses on empirical power-law loss curves; Radford et al. establishes the zero-shot log-likelihood task evaluation protocol."
+            },
+            {
+              "candidate_name": "Hoffmann et al. Training Compute-Optimal Large Language Models (Chinchilla)",
+              "url": "https://arxiv.org/abs/2203.15556",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Optimal compute scaling; Radford provides the fundamental zero-shot conditional probability formulation."
+            }
+          ],
+          "relevant_timestamp": "Section 3.1 Language Modeling"
+        },
+        {
+          "id": "holtzman-degeneration-2019",
+          "title": "The Curious Case of Neural Text Degeneration",
+          "author": "Ari Holtzman, Jan Buys, Li Du, Maxwell Forbes, Yejin Choi",
+          "original_url": "https://arxiv.org/abs/1904.09751",
+          "version_or_verification_date": "ICLR 2020 / arXiv:1904.09751v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Softmax probabilities, cumulative probability distributions from Days 25-27 and 41-42.",
+          "selection_rationale": "Primary source introducing Nucleus (Top-p) sampling and analyzing the failure of greedy decoding (loops, repetition).",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Top-p truncation algorithms and worked probability cutoffs are completely explained in the lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Fan et al. Hierarchical Neural Story Generation (Top-k)",
+              "url": "https://arxiv.org/abs/1805.04833",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Introduces top-k sampling; Holtzman et al. dynamic nucleus threshold is compared directly against top-k."
+            },
+            {
+              "candidate_name": "Hugging Face Generation Strategies Guide",
+              "url": "https://huggingface.co/docs/transformers/generation_strategies",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Practical library guide; Holtzman provides the foundational mathematical reasoning."
+            }
+          ],
+          "relevant_timestamp": "Section 4.2 Perplexity"
+        }
+      ]
+    },
+    {
+      "id": "day-71-act-04",
+      "lesson_id": "les-71",
+      "title": "Assessment: Non-Parametric Bootstrap Confidence Intervals on Small Slices",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-71-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "efron-bootstrap-1979",
+          "title": "Bootstrap Methods: Another Look at the Jackknife",
+          "author": "Bradley Efron",
+          "original_url": "https://projecteuclid.org/journals/annals-of-statistics/volume-7/issue-1/Bootstrap-Methods-Another-Look-at-the-Jackknife/10.1214/aos/1176344552.full",
+          "version_or_verification_date": "The Annals of Statistics 1979 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Institute of Mathematical Statistics copyright / Academic linking only",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation of foundational statistical resampling methodology.",
+          "prerequisites": "Empirical distributions, sampling with replacement, confidence intervals, standard error.",
+          "selection_rationale": "Original statistical work introducing non-parametric bootstrap resampling, enabling rigorous confidence interval estimation without Gaussian distribution assumptions.",
+          "known_availability_limitations": "Hosted on Project Euclid; free-access status could not be verified because the site blocks automated access.",
+          "safe_fallback": "Bootstrap resampling algorithms with replacement, empirical percentile confidence interval bounds, and standard error formulas are coded in Python.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Student. The Probable Error of a Mean (Biometrika 1908)",
+              "url": "https://doi.org/10.2307/2331554",
+              "license": "Public Domain",
+              "status": "compared_alternative",
+              "comparison_rationale": "Requires strong normality assumptions; Efron's non-parametric bootstrap applies directly to non-Gaussian NLP accuracy metrics."
+            },
+            {
+              "candidate_name": "Fisher. The Design of Experiments (Permutation Testing 1935)",
+              "url": "https://archive.org/details/in.ernet.dli.2015.502011",
+              "license": "Public Domain",
+              "status": "compared_alternative",
+              "comparison_rationale": "Tests sharp null hypotheses under exchangeability; bootstrap directly yields confidence intervals for point estimates."
+            }
+          ],
+          "locator_status": "pending_verification"
+        },
+        {
+          "id": "koehn-significance-2004",
+          "title": "Statistical Significance Tests for Machine Translation Evaluation",
+          "author": "Philipp Koehn",
+          "original_url": "https://aclanthology.org/W04-3250/",
+          "version_or_verification_date": "EMNLP 2004 Anthology (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "CC BY-NC-SA 3.0 (ACL Anthology, pre-2016 material)",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Lawful academic citation of empirical NLP significance testing.",
+          "prerequisites": "Paired bootstrap resampling, hypothesis testing, p-values, test set variance.",
+          "selection_rationale": "Pioneering application of paired bootstrap resampling in NLP evaluation, demonstrating how to compute statistical significance and prevent false claims of model superiority on small test slices.",
+          "known_availability_limitations": "Freely available on ACL Anthology.",
+          "safe_fallback": "Paired bootstrap hypothesis testing, delta confidence intervals, and empirical p-value computation are completely implemented in lesson code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Dror et al. The Hitchhiker's Guide to Testing Statistical Significance in NLP",
+              "url": "https://aclanthology.org/P18-1128/",
+              "license": "CC BY 4.0 (ACL Anthology, 2016 or later)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Modern comprehensive survey of significance testing; Koehn 2004 is the established, accessible paired bootstrap paper in NLP."
+            },
+            {
+              "candidate_name": "Berg-Kirkpatrick et al. An Empirical Investigation of Statistical Significance in NLP",
+              "url": "https://aclanthology.org/D12-1091/",
+              "license": "CC BY-NC-SA 3.0 (ACL Anthology, pre-2016 material)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Evaluates optimizer vs test-set randomness; Koehn provides the direct, actionable paired test-set bootstrap."
+            }
+          ],
+          "relevant_timestamp": "Section 5 Bootstrap Resampling and Section 6 Paired Bootstrap Resampling"
+        }
+      ]
+    }
+  ]
+}

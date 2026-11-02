@@ -1,0 +1,170 @@
+{
+  "language": "ja",
+  "language_label": "日本語",
+  "day_title": "第35日：手計算による誤差逆伝播と勾配流",
+  "day_subtitle": "連鎖律を用いて 2-2-1 ニューラルネットワーク N1 の全パラメータ勾配を導出し、スカラー自動微分エンジンの結果と一致させ、飽和と層の深さが勾配に与える影響を測定し、第31-34日を間隔反復で定着させる。",
+  "time_budget_label": "480分の集中学習（8時間）",
+  "category_label": "モデル・事前学習とLoRA",
+  "common": {
+    "nav_calendar": "📅 カリキュラムカレンダー",
+    "day_label": "Day 35",
+    "prerequisites_title": "前提条件",
+    "objective_title": "学習目標",
+    "instructions_title": "手順",
+    "exercise_title": "演習と予測記録",
+    "hint_title": "ヒントを確認",
+    "reveal_answer": "参考解答と分析を表示",
+    "mastery_title": "独立習得基準",
+    "draft_placeholder": "ここに連鎖律の導出過程、中間誤差デルタ項、測定した勾配を入力してください...",
+    "dev_slice_notice": "90 日 AI 学習プラットフォームの検証済み正式モジュールです。",
+    "sources_heading": "公式ソースリソースと権利証跡",
+    "source_author_label": "著者・提供機関",
+    "source_url_label": "オリジナル出所URL",
+    "source_range_label": "該当セクション・タイムスタンプ",
+    "source_verification_label": "検証バージョンと日付",
+    "source_reuse_label": "再利用区分",
+    "source_license_label": "ライセンスと権利情報",
+    "source_rationale_label": "選定理由",
+    "source_prereqs_label": "ソース前提知識",
+    "source_fallback_label": "安全フォールバック（オフライン回復性）",
+    "compared_candidates_heading": "比較対象候補リソースと選定評価",
+    "compared_status_label": "評価結果",
+    "auth": {
+      "sign_in": "Googleでログイン",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "ログアウト",
+      "signed_in_as": "ログイン中:",
+      "guest": "ゲストモード",
+      "link_github": "GitHubを連携",
+      "link_google": "Googleを連携",
+      "linked_identities": "連携済みアカウント",
+      "auth_errors": {
+        "access_denied": "認可がキャンセルされたか、アクセスが拒否されました。",
+        "invalid_state": "認可状態が無効または期限切れです。もう一度お試しください。",
+        "identity_conflict": "このIDはすでに別のアカウントに連携されています。",
+        "provider_error": "認証プロバイダーでエラーが発生しました。",
+        "server_error": "認証プロバイダーでエラーが発生しました。",
+        "session_expired": "セッションの有効期限が切れました。再度ログインしてください。"
+      }
+    },
+    "progress": {
+      "save_btn": "進捗を保存",
+      "saved": "保存しました",
+      "saving": "保存中...",
+      "save_error": "保存に失敗しました",
+      "offline": "オフラインモード",
+      "mark_completed": "完了としてマーク",
+      "completed_badge": "完了"
+    },
+    "quiz": {
+      "quiz_title": "客観的知識チェック：MLP の構造と順伝播",
+      "quiz_instructions": "理解度を確認するために次の質問に答えてください。提出前に申告する支援条件を選択してください。",
+      "assistance_mode_label": "申告する支援条件",
+      "mode_independent": "独立習得チェック (AI 支援なし)",
+      "mode_agent_assisted": "エージェント支援エンジニアリングチェック (AI 支援ありで完了)",
+      "mode_disclaimer": "注意：AI 不使用は正直な申告条件であり、監視を主張するものではありません。",
+      "submit_btn": "回答を送信",
+      "retry_btn": "クイズをやり直す",
+      "view_hint": "ヒントを見る",
+      "mastery_criterion_label": "習得基準",
+      "mastery_criterion_desc": "独立習得チェックで 100% のスコア (3/3 正解) を取得します。",
+      "score_label": "スコア",
+      "passed_badge": "合格",
+      "failed_badge": "要復習",
+      "independent_pass_badge": "独立習得確認済み",
+      "agent_assisted_pass_badge": "エージェント支援確認済み",
+      "self_reported_badge": "自己申告チェックボックス",
+      "stale_badge": "過去の記録 (コンテンツ改訂済み・再検証が必要)",
+      "attempts_history_title": "受験履歴と証拠",
+      "no_attempts": "まだ受験記録がありません。"
+    }
+  },
+  "activities": {
+    "day-35-act-01": {
+      "title": "手計算による誤差逆伝播：出力層誤差項とパラメータ勾配",
+      "prerequisites": "第34日のN1順伝播表：$o=3.1255$、$L=4.5179$。",
+      "objective": "N1の線形出力と二乗損失 $L=(o - y)^2$ に連鎖律を適用し、出力誤差項と3つの出力層勾配を求める。",
+      "assistance_policy_label": "Agent支援エンジニアリングチェック",
+      "instructions": "先に記号で導出し、その後で数値を代入する。出力は $o=w_{o1}a_1+w_{o2}a_2+b_o$ という線形単位で、損失に $1/2$ の係数はない。\n\n1. $\\delta_o=\\partial L/\\partial o=2(o-y)$。\n2. 局所入力微分は $w_{o1}$ と $w_{o2}$。\n3. 局所パラメータ微分は $a_1$、$a_2$、$1$。各勾配は上流の $\\delta_o$ と局所微分の積になる。\n4. $a_1=0.8741$、$a_2=-0.9757$、$o=3.1255$、$y=1.0$ を使い、答えを見る前に予測する。",
+      "exercise_prompt": "1. $\\delta_o$ を導出する。2. 出力重み2個とバイアスの勾配を求める。3. バイアスの局所微分が1となる理由を述べる。4. $a_1$ への勾配が $z_1$ に届く前に通る活性化微分を答える。",
+      "hint": "$\\delta_o=2(3.1255-1.0)=4.2511$。各重みの局所微分は対応する活性値、バイアスの局所微分は1。",
+      "answer": "$\\delta_o=4.2511$。$\\partial L/\\partial w_{o1}=4.2511\\times0.8741=3.7157$、$\\partial L/\\partial w_{o2}=4.2511\\times(-0.9757)=-4.1480$、$\\partial L/\\partial b_o=4.2511$。バイアスは係数1で加算される。$a_1$ に届く勾配は $\\delta_o w_{o1}=4.2511$ で、さらに $\\tanh'(z_1)=1-a_1^2$ を掛ける。",
+      "mastery_criterion": "答えを見ずに3勾配（3.7157、-4.1480、4.2511）を $10^{-3}$ 以内で再現し、上流×局所の構造を説明する。"
+    },
+    "day-35-act-02": {
+      "title": "隠れ層の誤差逆伝播：手計算で全9個のパラメータ勾配を完成させる",
+      "prerequisites": "活動35-01の出力誤差項。",
+      "objective": "tanh隠れ層に誤差を伝え、残り6勾配を求めて全9項を `loss.backward()` と照合する。",
+      "assistance_policy_label": "独立習熟度チェック",
+      "instructions": "独立に $\\delta_{z_1}=(\\delta_o w_{o1})(1-a_1^2)$、$\\delta_{z_2}=(\\delta_o w_{o2})(1-a_2^2)$ を計算する。$w_{o1}=1.0$、$w_{o2}=-2.0$、局所微分は約0.2360と0.0479。隠れ重みの勾配は誤差項×対応する入力、バイアス勾配は誤差項自身。手計算後、次の同一コマンドで9項を検証する。\n\n```bash\npython3 - <<'EOF'\nimport sys; sys.path.insert(0, '.')\nfrom projects.autograd.engine import Value\nx1, x2 = Value(2.0), Value(-1.0)\nW = [Value(v) for v in (0.5,-0.25,0.1, -0.5,1.0,-0.2, 1.0,-2.0,0.3)]\na1 = (x1*W[0] + x2*W[1] + W[2]).tanh()\na2 = (x1*W[3] + x2*W[4] + W[5]).tanh()\nloss = (a1*W[6] + a2*W[7] + W[8] - 1.0)**2\nloss.backward()\nprint([round(w.grad, 4) for w in W])\nEOF\n```",
+      "exercise_prompt": "(w11,w12,b1,w21,w22,b2,w_o1,w_o2,b_o)の9勾配表を作る。隠れ重みには上流×活性化微分×入力の3因子を示し、エンジンで確認した項を記す。",
+      "hint": "$\\delta_{z_1}\\approx1.0034$、$\\delta_{z_2}\\approx-0.4075$。$x_1=2.0$、$x_2=-1.0$ なので符号に注意する。",
+      "answer": "参照勾配表（表示桁による丸めは許容する）：\n| param | factors | value |\n| --- | --- | --- |\n| $w_{o1}$ | $4.2511 \\times 0.8741$ | $3.7157$ |\n| $w_{o2}$ | $4.2511 \\times (-0.9757)$ | $-4.1480$ |\n| $b_o$ | $4.2511 \\times 1$ | $4.2511$ |\n| $w_{11}$ | $4.2511 \\times 0.2360 \\times 2.0$ | $2.0068$ |\n| $w_{12}$ | $4.2511 \\times 0.2360 \\times (-1.0)$ | $-1.0034$ |\n| $b_1$ | $4.2511 \\times 0.2360 \\times 1$ | $1.0034$ |\n| $w_{21}$ | $-8.5022 \\times 0.0479 \\times 2.0$ | $-0.8149$ |\n| $w_{22}$ | $-8.5022 \\times 0.0479 \\times (-1.0)$ | $0.4075$ |\n| $b_2$ | $-8.5022 \\times 0.0479 \\times 1$ | $-0.4075$ |\n\n$\\tanh'(z_2)=0.0479$ が第2ニューロンの勾配を縮める。これは飽和の予告である。",
+      "mastery_criterion": "全9項がエンジンと $10^{-3}$ 以内で一致し、隠れ重みの3因子とw12、w22の符号が正しい。"
+    },
+    "day-35-act-03": {
+      "title": "勾配の流れ、飽和現象、勾配消失の直感と間隔反復想起",
+      "prerequisites": "活動35-02の9勾配導出。",
+      "objective": "飽和測定と10層の上限から勾配消失を説明し、第31～34日の4事実を閉本で想起する。",
+      "assistance_policy_label": "Agent支援エンジニアリングチェック",
+      "instructions": "測定A：下記コマンドで $\\tanh'(4)$ と $\\tanh'(8)$ を測る。各飽和層は勾配に $1-\\tanh^2(z)$ を掛ける。\n\n測定B：重み0.5のtanh10層では各因子 $|w\\tanh'(z_i)|\\le0.5$ なので最初の層への入力勾配因子は $0.5^{10}$ 以下。\n\n閉本想起：`_backward` の `+=` が必要な理由、逆位相順でノードが反伝播できる時点、$f=(a+b)a$ の $(a,b)=(3,4)$ でのa微分、N1の4つの順伝播値。調べ直した項目を復習計画に記録する。\n\n```bash\npython3 - <<'EOF'\nimport sys; sys.path.insert(0, '.')\nfrom projects.autograd.engine import Value\nfor z0 in (4.0, 8.0):\n    z = Value(z0); a = z.tanh(); a.backward()\n    print(z0, round(a.data, 6), z.grad)\nEOF\n```",
+      "exercise_prompt": "1. 飽和微分2つと $|z|=8$ の意味を記す。2. $0.5^{10}$ を計算し10層の減衰を解釈する。3. 4つの事実を閉本で書き、参照した項目は正直に記録する。",
+      "hint": "$\\tanh(8)$ はほぼ1。$0.5^{10}=1/1024$。",
+      "answer": "$\\tanh'(4)\\approx1.34\\times10^{-3}$、$\\tanh'(8)\\approx4.5\\times10^{-7}$。後者は入力勾配の百万分の一も通さない。$0.5^{10}=9.77\\times10^{-4}$ で入力勾配の0.1%未満になる。`+=` は共有ノードの全消費経路を加算する。`_backward` は全下流寄与の到着後に実行する。$\\partial f/\\partial a=10=7+3$。N1は $a_1=0.8741$、$a_2=-0.9757$、$o=3.1255$、$L=4.5179$。",
+      "mastery_criterion": "測定2つの桁、10層上限、4つの想起事実が正しく、不足項目を復習に回す。"
+    },
+    "day-35-act-04": {
+      "title": "定着復習：独立した誤差逆伝播の導出とブロック想起",
+      "prerequisites": "活動35-01～35-03。",
+      "objective": "新しい入力でN1の全9勾配を閉本で導出し、ベクトル・ヤコビ積と結び、独立クイズを完了する。",
+      "assistance_policy_label": "独立習熟度チェック",
+      "instructions": "AIやノートを使わず、N1の入力 $(1.0, 1.0)$ で順伝播と全9勾配を再計算する（$a_1=0.3364$、$a_2=0.2913$、$o=0.0538$）。VJP $\\mathbf v^T J$ を書き、スカラーの場合の上流微分×局所微分を対応付ける。独立モードのクイズを受け、誤答ごとに回復リンクを選ぶ。",
+      "exercise_prompt": "1. $\\delta_o=2(o-1.0)=-1.8925$ から全9項を求める。2. 出力誤差、隠れ誤差、バイアス勾配、重み勾配の4式を書く。3. 独立モードで3問100%を達成する。",
+      "hint": "$1-0.3364^2=0.8869$、$1-0.2913^2=0.9151$。入力は両方1.0。ここはtanh隠れ層と線形出力であり、別の活性化を使う課題ではない。",
+      "answer": "参照解（値は新しい重みでなく、損失のパラメータ微分）：\n$\\delta_o = -1.8925$; $\\partial L/\\partial w_{o1} = -0.6366$, $\\partial L/\\partial w_{o2} = -0.5513$, $\\partial L/\\partial b_o = -1.8925$; $\\partial L/\\partial w_{11} = \\partial L/\\partial w_{12} = \\partial L/\\partial b_1 = -1.6784$; $\\partial L/\\partial w_{21} = \\partial L/\\partial w_{22} = \\partial L/\\partial b_2 = 3.4638$.\n\n4つの式：\n$\\delta^L = \\nabla_a L \\odot \\sigma'(z^L)$; $\\delta^l = (W^{l+1})^T\\delta^{l+1}\\odot\\sigma'(z^l)$; $\\partial L/\\partial b^l = \\delta^l$; $\\partial L/\\partial W^l = \\delta^l(a^{l-1})^T$.\n\nエンジンで全9項を照合する。クイズはdelta構造、飽和、累積を扱う。",
+      "mastery_criterion": "新入力の全9勾配が $10^{-3}$ 以内で一致し、4式を正しく書き、独立クイズ100%を達成する。",
+      "quiz": {
+        "title": "客観的知識チェック：誤差逆伝播の導出と勾配流",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "隠れ層の漸化式 $\\delta^l = (W^{l+1})^T \\delta^{l+1} \\odot \\sigma'(z^l)$ において、演算子 $\\odot$ は何を表しますか？",
+            "options": {
+              "a": "行列乗算",
+              "b": "要素ごとの（アダマール）乗算",
+              "c": "畳み込み",
+              "d": "外積"
+            },
+            "hint": "各ニューロンのデルタは自身の活性化導数でスケールされます。",
+            "explanation": "$\\odot$ は要素ごとの積です。逆伝播されるデルタベクトルの各成分が、対応するニューロンの局所導数 $\\sigma'(z_j^l)$ で乗算されます。"
+          },
+          {
+            "id": "q2",
+            "prompt": "エンジンで測定すると、$\\tanh'(8) = 1 - \\tanh^2(8)$ はおおよそいくらですか？",
+            "options": {
+              "a": "$1.0$",
+              "b": "$0.5$",
+              "c": "$0.05$",
+              "d": "$4.5 \\times 10^{-7}$"
+            },
+            "hint": "$\\tanh(8)$ は小数点以下 4 桁ですでに $1.0000$ です。",
+            "explanation": "$\\tanh(8) \\approx 0.9999998$ なので、$1 - \\tanh^2(8) \\approx 4.5 \\times 10^{-7}$ となります。飽和したニューロンは入力勾配をほとんど通しません。"
+          },
+          {
+            "id": "q3",
+            "prompt": "共有ノードに到達した勾配が、下流のすべての経路からの寄与を累積しなければならないのはなぜですか？",
+            "options": {
+              "a": "多変数の連鎖律は全微分をノードを通るすべての経路にわたる和として定義するから。",
+              "b": "累積は浮動小数点の丸め誤差を補正するため。",
+              "c": "GPU カーネルは同じメモリに二度書き込めないため。",
+              "d": "累積する必要はない — 最後の寄与が正しいものだ。"
+            },
+            "hint": "$f = (a + b) \\cdot a$ と、$f$ から $a$ に戻る 2 つの経路を思い出してください。",
+            "explanation": "ある値が複数の消費者に供給されるとき、その全微分は各経路に沿った偏微分の寄与の和になります — まさにエンジンの backward クロージャで `grad +=` が実装していることです。"
+          }
+        ]
+      }
+    }
+  }
+}

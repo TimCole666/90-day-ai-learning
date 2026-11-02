@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "last_updated": "2026-11-01",
+  "states": {
+    "source-edition": "Authored edition. Technical review per lesson is recorded in curriculum/reviews/.",
+    "automated-checks-only": "Translated edition checked only by automated structure, activity, number and code parity checks plus spot checks by the course author. No native-speaker review yet.",
+    "native-reviewed": "A named native-speaker reviewer checked this edition at the recorded edition revision."
+  },
+  "editions": {
+    "en": { "state": "source-edition" },
+    "ja": { "state": "automated-checks-only", "blocker": "ticket 61: native-speaker review not yet commissioned" },
+    "zh-Hans": { "state": "automated-checks-only", "blocker": "ticket 61: native-speaker review not yet commissioned" },
+    "zh-Hant": { "state": "automated-checks-only", "blocker": "ticket 61: native-speaker review not yet commissioned" }
+  },
+  "days": {}
+}

@@ -1,0 +1,19 @@
+{
+  "track_id":"codex","language":"zh-Hans","title":"Codex Agent 工具轨道",
+  "status":"2026-10-30 已验证文档与本地 CLI 行为；认证后的模型执行因等待学习者提供授权访问而受阻。",
+  "tested_release":"codex-cli 0.148.0（`codex --version` 实测；固定此版本或兼容的较新 0.x 版本后重新检查命令）",
+  "provider_model_access":"提供方：OpenAI。模型由账户或配置选择；运行时必须记录 Codex 显示的准确模型。需要已授权的 ChatGPT Codex 权益，或有可用额度的 OpenAI API 凭据。本课不提供凭据。",
+  "cost_and_authorization":"ChatGPT 方案可能包含 Codex 用量，API 则按当前 OpenAI 账户的 token 价格计费。运行前确认价格、额度和明确的单次预算。本课程不会购买方案、充值、开启计费或进行外部变更。",
+  "official_sources":[{"url":"https://developers.openai.com/codex/cli","use":"安装与 CLI 总览；固定版本前查看实时页面"},{"url":"https://developers.openai.com/codex/cli/reference","use":"`codex exec` 与参数参考"},{"url":"https://developers.openai.com/codex/sandbox","use":"沙箱、审批、网络默认值与安全组合"}],
+  "setup":["建立只含 fixture 的一次性 Git 仓库或工作树，并用 `git status --short` 确认干净。","只按官方说明安装，用 `codex --version` 验证；不要猜测包名或未记录的参数。","只有在已有授权时才登录；不要把 API key 放进提示、仓库、日志或提交。","没有访问权限时完成确定性 fixture 和文档检查，标注为模拟并停止；缺少访问不是实测通过。"],
+  "configuration":["本练习交互执行使用 `codex --sandbox workspace-write --ask-for-approval on-request`：允许工作区编辑并保留审批边界；除非明确开启，网络仍关闭。","只读检查使用 `codex --sandbox read-only --ask-for-approval on-request`。","只有检查当前 CLI 参考后才使用 `codex exec --sandbox workspace-write --ask-for-approval on-request`；本练习禁止 `--yolo` 或 `--dangerously-bypass-approvals-and-sandbox`。","运行前设定人工预算：一个任务、两轮纠错、短超时和预先同意的费用上限。不要假定 CLI 参数就是 token 预算参数。"],
+  "bounded_task":{"name":"在一次性项目修复一个验证器","fixture":"把 `fixture/validator.py` 和 `fixture/test_validator.py` 复制到临时 Git 工作树。起始代码有一个空记录 bug，测试必须保留。","prompt":"只检查 validator.py 和其测试。先解释失败原因，作最小安全修正，运行指定测试并停止。不得修改 secret、依赖、部署文件，也不得用改测试隐藏失败。","command":"python3 -m unittest -v test_validator.py","scope_exit":"测试通过、`git diff` 只有预期的验证器修改，并记录退出码与 diff 后结束。不包含提交、推送、网络调用或外部消息。"},
+  "context":["只提供函数契约、失败输出和两个 fixture 文件；排除 home、凭据、无关历史和部署脚本。","先要求计划和根因假设，再允许写入。上下文是证据，不是权限。","仅使用自己审阅过的项目级 `AGENTS.md`；Codex 能发现它不等于不可信指令变安全。"],
+  "permissions":["使用一次性目录/工作树并缩小 workspace 根。","使用 `workspace-write` 加 `on-request`；拒绝网络、凭据读取、外部消息、安装包和任务外命令。","审阅每一次审批；读取 secret、修改测试、写出工作树或无授权开启网络的请求必须拒绝。","不要为了方便使用 full-access/yolo；沙箱限制技术范围，审查和审批仍由学习者负责。"],
+  "inspection_and_tests":["运行前后执行 `git status --short` 和 `git diff --check`。","逐行审阅 `git diff -- validator.py test_validator.py`；确认测试未削弱、没有 secret 和无关文件。","自己运行 `python3 -m unittest -v test_validator.py`，记录退出码和测试数量；模型说“全部通过”不是证据。","仓库命令 `python3 tests/projects/test_codex_cli.py` 检查 fixture 和安全本地 CLI 探针，不声称模型运行。"],
+  "failure_recovery":["先观察起始代码失败，保存完整 traceback 与退出码。","若 Codex 修改测试、加入 secret、扩大范围或未运行就声称成功，停止、拒绝并用 `git restore -- <path>` 恢复未授权文件。","一次只要求一个根因修正；每次后重跑确定性测试，最多两次后手动诊断。","fixture 的本地通过是确定性证据；没有认证 Codex 行动记录就不是真实工具证据。"],
+  "troubleshooting":[{"symptom":"Codex 无法启动或要求登录","response":"检查官方访问条件和 `codex --version`；不要伪造 key 或标记 live 通过，记录为 access-blocked。"},{"symptom":"沙箱或 bwrap 不可用","response":"不要切换到 yolo。使用另行授权的一次性外层容器，或停止并标记不可用；查看官方沙箱页面的平台限制。"},{"symptom":"命令要求网络审批","response":"本 fixture 保持网络关闭并拒绝；安装依赖和外部服务超出范围。"},{"symptom":"测试仍失败","response":"保存精确错误，检查最小 diff，分别测试空值和有效值；不要删除断言或扩大任务。"}],
+  "answers":["根因是对缺失记录字段的不安全解引用；最小修正应保留测试契约并显式处理缺失记录。","必须拒绝修改测试、secret、包文件、部署脚本和工作树外路径。","验收证据是独立运行的退出码 0、经审阅的 diff 和保留的测试数量，不是 Codex 完成消息。","没有凭据或授权方案时，正确答案是“live 验收受阻”，并清楚标注确定性模拟。"],
+  "acceptance_criteria":["四个 Language Edition 都有等价的设置、访问/成本披露、有限任务、上下文、权限、检查、测试、纠错、排障、答案和标准。","记录版本、提供方、准确模型、权限、验证日期，并区分真实工具证据与确定性证据。","重现起始失败，执行或请求真实修正，拒绝未授权编辑，并独立运行本地测试。","`git diff` 只含预期修正；本轨道不授权凭据、外部变更、安装包、commit 或 push。","缺少凭据或订阅会阻塞 live 验收，不能变成模拟通过。"],
+  "evidence":{"real_tool":"2026-10-30 已运行本地 Codex CLI 版本/帮助/沙箱探针。本 ticket 未提供可授权的 Codex 凭据，因此未运行认证模型任务。","deterministic":"fixture 与仓库测试在无网络、无模型调用下检查失败、修正目标、diff 边界和命令级测试行为。"}
+}

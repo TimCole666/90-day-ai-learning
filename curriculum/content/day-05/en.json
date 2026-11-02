@@ -1,0 +1,273 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 05: Mutation, identity, types, and comparisons",
+  "day_subtitle": "Explain mutation versus rebinding, use == and is deliberately, and diagnose misleading inputs and beginner failures with observable Python data.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Self-Directed Learning & Python",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "nav_agent_track": "🤖 Agent Tool Track",
+    "day_label": "Day 05",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Mastery Criterion",
+    "draft_placeholder": "Enter your predicted output, observed behavior, and root-cause derivation here...",
+    "dev_slice_notice": "Local learning content is available; external access, paid tools, and production evidence are tracked separately. Availability does not establish course completeness or acceptance.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account. Conflict rejected to preserve existing records.",
+        "provider_error": "Authentication provider encountered an error. Please try again later.",
+        "server_error": "Authentication provider encountered an error. Please try again later.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    },
+    "quiz": {
+      "quiz_title": "Objective Knowledge Check & Diagnostic Trace",
+      "quiz_instructions": "Answer the following questions to verify your understanding. Select your declared assistance condition before submitting.",
+      "assistance_mode_label": "Declared Assistance Condition",
+      "mode_independent": "Independent Mastery Check (No AI assistance)",
+      "mode_agent_assisted": "Agent-Assisted Engineering Check (Completed with AI assistance)",
+      "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+      "submit_btn": "Submit Answers",
+      "retry_btn": "Retry Quiz",
+      "view_hint": "Question Hint",
+      "mastery_criterion_label": "Mastery Criterion",
+      "mastery_criterion_desc": "Answer every question in the current activity correctly (100%); follow that activity's stated assistance policy.",
+      "score_label": "Score",
+      "passed_badge": "Passed",
+      "failed_badge": "Needs Review",
+      "independent_pass_badge": "Independent Mastery Verified",
+      "agent_assisted_pass_badge": "Agent-Assisted Verified",
+      "self_reported_badge": "Self-Reported Checkbox",
+      "stale_badge": "Historical (Revalidation Needed - Content Revision Changed)",
+      "attempts_history_title": "Attempt History & Evidence",
+      "no_attempts": "No attempts recorded yet."
+    },
+    "submissions": {
+      "title": "Learning Project Submission & Evidence",
+      "repo_label": "Repository Link (GitHub / GitLab)",
+      "repo_placeholder": "https://github.com/...",
+      "report_label": "Report Link (Optional)",
+      "report_placeholder": "https://...",
+      "notes_label": "Evidence Notes & Diagnostic Log (Max 4096 bytes)",
+      "notes_placeholder": "Record minimal reproducible examples (MRE), observed results, or diagnosis notes...",
+      "assistance_mode_label": "Declared Assistance Condition",
+      "mode_independent": "Independent Project (No AI assistance)",
+      "mode_agent_assisted": "Agent-Assisted Project (Directed AI assistance)",
+      "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+      "track_label": "Agent Tool Track (if applicable)",
+      "tracks": {
+        "none": "None / Not Applicable",
+        "claude_code": "Claude Code",
+        "codex": "Codex",
+        "pi_agent": "Pi Agent",
+        "deepseek_harness": "DeepSeek Harness"
+      },
+      "submit_btn": "Submit Project Evidence",
+      "status_saving": "Saving submission...",
+      "status_saved": "Submission saved successfully.",
+      "status_error": "Submission failed.",
+      "val_invalid_url": "Invalid URL: Repository and report links must use http or https.",
+      "val_notes_too_long": "Evidence notes exceed the maximum limit of 4096 bytes.",
+      "val_empty": "Please provide at least a repository link, report link, or evidence notes.",
+      "pasted_log_notice": "Notice: Pasted execution logs and notes are self-reported evidence and do not constitute independent or automated verification.",
+      "inspect_title": "Current Submitted Evidence Details",
+      "status_self_reported": "Self-Reported Evidence",
+      "status_verified_check": "Deterministic Verification Check",
+      "status_independently_reviewed": "Independently Reviewed Evidence",
+      "status_stale": "Historical Evidence (Revalidation Needed - Content Revision Changed)",
+      "no_submission": "No submission recorded yet."
+    }
+  },
+  "activities": {
+    "day-05-act-01": {
+      "title": "Mutation versus rebinding trace",
+      "prerequisites": "Day 04 value-and-binding check completed; you can save a short Python file and run it from the terminal.",
+      "objective": "Predict, run, and explain why append changes a list that two names share, while a = a + [2] rebinds only the name a.",
+      "assistance_policy_label": "Independent Mastery Check — no AI assistance during the assessed work. If you receive any help, declare it honestly; assisted work counts only as remediation, and you must complete a fresh unassisted attempt before claiming mastery.",
+      "instructions": "Required work:\n1. Before running anything, write your prediction of both printed lines in the draft area.\n2. Save the program from the exercise as `trace.py` and run `python trace.py`.\n3. Copy the exact output next to your prediction and mark every mismatch.\n4. For each case, explain in one or two sentences which list object `a` and `b` refer to after the third line of that case.\n\nOptional work: once the required evidence is complete, add `print(id(a), id(b))` after each case and confirm that the two ids match only in case 1.",
+      "exercise_prompt": "Predict the output, then run:\n\n```python\na = [1]\nb = a\na.append(2)\nprint(\"case 1:\", a, b, a is b)\na = [1]\nb = a\na = a + [2]\nprint(\"case 2:\", a, b, a is b)\n```\n\nWhy does `b` change in case 1 but not in case 2?",
+      "hint": "`a.append(2)` modifies the list object that both names refer to. `a + [2]` builds a brand-new list, and `a = ...` points only the name `a` at it; `b` still refers to the old list.",
+      "answer": "Output (identical on Python 3.13 and 3.14):\n```text\ncase 1: [1, 2] [1, 2] True\ncase 2: [1, 2] [1] False\n```\n\nExplanation:\n- Case 1: `b = a` makes both names refer to one list. `append` mutates that list in place, so both names show `[1, 2]` and `a is b` is `True`.\n- Case 2: `a + [2]` creates a new list `[1, 2]` and the assignment rebinds `a` to it. `b` still refers to the original `[1]`, so `a is b` is `False`.\n\nRule: mutation changes an object, and every name that refers to it sees the change; rebinding changes which object one name refers to, and other names are unaffected.",
+      "mastery_criterion": "Without AI assistance, you recorded a prediction before running, the exact two output lines, and a correct explanation that distinguishes mutating a shared object (case 1) from rebinding one name to a new object (case 2).",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-05-act-01-q1",
+            "type": "choice",
+            "prompt": "After running `a = [1]`, then `b = a`, then `a = a + [2]`, what does `print(b)` show?",
+            "options": {
+              "a": "[1] — a + [2] built a new list and only a was rebound to it",
+              "b": "[1, 2] — after b = a, the two names always stay in sync",
+              "c": "[1, 2, 2] — the + operation is applied through both names"
+            },
+            "expected_answer": "a",
+            "hint": "Ask whether the third line changes an existing object or creates a new one.",
+            "explanation": "`a + [2]` returns a new list, and the assignment points only `a` at it. `b` still refers to the original list `[1]`. Only an in-place operation such as `append` would be visible through `b`."
+          }
+        ]
+      }
+    },
+    "day-05-act-02": {
+      "title": "Equality, identity, and misleading inputs",
+      "prerequisites": "Activity 1 (mutation versus rebinding) completed; Day 04 value-and-type check.",
+      "objective": "Use == for value comparison and is for identity (especially is None), and expose misleading inputs such as the text \"3\" versus the integer 3 with printed evidence.",
+      "assistance_policy_label": "Independent Mastery Check — no AI assistance during the assessed work. If you receive any help, declare it honestly; assisted work counts only as remediation, and you must complete a fresh unassisted attempt before claiming mastery.",
+      "instructions": "Required work:\n1. Write a prediction for every value on the four printed lines.\n2. Save the program as `compare.py`, run it, and record the exact output beside your prediction.\n3. Explain why `[1] == [1]` is `True` but `[1] is [1]` is `False`.\n4. Explain why `raw == 3` is `False` even though the text looks like 3, and what `int(raw)` changes.\n5. Explain why `value is None` is the recommended way to test for `None`.\n\nOptional work: once the required evidence is complete, set `raw` to `\" 3 \"` and then to `\"3.0\"`, predict what `int(raw)` does each time, and run it.",
+      "exercise_prompt": "Predict every value, then run the program. `raw` stands for what `input()` returns when a user types 3: `input()` always returns a string.\n\n```python\nprint(1 == True, 0 == False)\nprint([1] == [1], [1] is [1])\nraw = \"3\"\nprint(raw == 3, int(raw) == 3)\nvalue = None\nprint(value is None)\n```",
+      "hint": "`==` asks “do these have equal values?”; `is` asks “are these the very same object?”. Two separately created lists can be equal without being the same object. `True` and `False` compare equal to `1` and `0` because `bool` is a subclass of `int`. Never rely on `is` to compare numbers or strings.",
+      "answer": "Output (identical on Python 3.13 and 3.14):\n```text\nTrue True\nTrue False\nFalse True\nTrue\n```\n\nExplanation:\n- `1 == True` and `0 == False` are `True`: `bool` is a subclass of `int`, so `True` equals 1 and `False` equals 0.\n- `[1] == [1]` is `True` because the contents are equal; `[1] is [1]` is `False` because each list display creates a new object.\n- `raw == 3` is `False`: a `str` never equals an `int`. After explicit conversion, `int(raw) == 3` is `True`. The input is misleading because `3` and `\"3\"` look alike when printed; `repr(raw)` and `type(raw)` reveal the difference.\n- `value is None` is `True`. There is exactly one `None` object, so `is None` checks that object directly and cannot be fooled by a class that redefines `==`.\n\nOptional work result: `int(\" 3 \")` returns `3` (surrounding whitespace is ignored); `int(\"3.0\")` raises `ValueError: invalid literal for int() with base 10: '3.0'`.",
+      "mastery_criterion": "Without AI assistance, your predictions and exact output cover all four lines, and your explanations correctly separate value equality (==) from object identity (is), name the str-versus-int mismatch, and justify is None.",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-05-act-02-q1",
+            "type": "choice",
+            "prompt": "Why is `if value is None:` preferred over `if value == None:`?",
+            "options": {
+              "a": "There is only one None object, so is checks exactly that object and cannot be changed by a class that redefines ==",
+              "b": "is compares values, so it also works for checks such as [1] is [1]",
+              "c": "value == None always raises a TypeError"
+            },
+            "expected_answer": "a",
+            "hint": "Recall what `is` compares and how many `None` objects exist.",
+            "explanation": "`None` is a singleton, and `is` compares identity, so `value is None` is exact. `==` calls the object's `__eq__`, which a class can redefine. Option b is wrong because `[1] is [1]` is `False`; option c is wrong because `== None` runs without error — it is only less reliable."
+          }
+        ]
+      }
+    },
+    "day-05-act-03": {
+      "title": "Beginner failure clinic: SyntaxError, str versus int, and None",
+      "prerequisites": "Activities 1–2 completed; you can read the last line of a traceback and compare two files with `diff` or `git diff`.",
+      "objective": "Reproduce three classic beginner failures from complete starter files, name each failure category before editing, apply a minimal fix, and confirm it with post-fix output and edge cases.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check — you may ask an authorized coding agent to help diagnose. Declare the tool, what it was allowed to read or change, and your review boundary. You must run every starter and fix yourself and review every diff; agent output is not independent evidence. If no authorized tool is available, do the clinic by hand and record the agent part as “blocked — not run”.",
+      "instructions": "Required work:\n1. Save the three starter files from the exercise exactly as shown.\n2. Before running each one, write a prediction: will it fail, and in which category (syntax error, type/value mismatch, or invalid operation on None)?\n3. Run each starter and copy the exact last line of the error, or the printed output.\n4. Fix each starter with the smallest change, save it as `fixed_syntax.py`, `fixed_compare.py`, or `fixed_none.py`, compare it with `diff -u starter_x.py fixed_x.py` (or `git diff`), and run the fixed file.\n5. For the comparison bug, run two edge cases after the fix — `raw = \"4\"` and `raw = \"three\"` — and state which inputs the program accepts.\n6. If you used an agent, record the tool, its permissions, what it suggested, and which suggestion you verified or rejected.\n\nOptional work: once the required evidence is complete, make the comparison program reject non-numeric text with a clear message instead of a traceback.",
+      "exercise_prompt": "Three complete starter programs, each with exactly one bug:\n\n`starter_syntax.py`\n```python\nscore = 3\nif score = 3:\n    print(\"passed\")\n```\n\n`starter_compare.py` (`raw` stands for what `input()` returns when a user types 3)\n```python\nraw = \"3\"\nif raw == 3:\n    print(\"passed\")\nelse:\n    print(\"not passed:\", repr(raw), type(raw).__name__)\n```\n\n`starter_none.py`\n```python\nitems = None\nitems.append(1)\nprint(items)\n```\n\nRun each one, name the failure category, fix it, and show the output after the fix.",
+      "hint": "Name the failure category before changing code: did Python refuse to run the file (syntax), did it run but choose the wrong branch (type/value mismatch), or did it stop with a traceback about `NoneType` (invalid operation on None)?",
+      "answer": "Worked solution. Outputs are identical on Python 3.13 and 3.14. The `File` line shows your own path; the caret (`^`) and suggestion lines may differ on older Python versions, so match the final error line.\n\n1. `starter_syntax.py` — syntax error. Python rejects the whole file before running any line:\n```text\n  File \"starter_syntax.py\", line 2\n    if score = 3:\n       ^^^^^^^^^\nSyntaxError: invalid syntax. Maybe you meant '==' or ':=' instead of '='?\n```\nFix: `=` binds a name; a condition needs the comparison `==`.\n```diff\n score = 3\n-if score = 3:\n+if score == 3:\n     print(\"passed\")\n```\nOutput after the fix:\n```text\npassed\n```\n\n2. `starter_compare.py` — type/value mismatch. There is no error, but the wrong branch runs, because the str `\"3\"` never equals the int `3`:\n```text\nnot passed: '3' str\n```\nFix: convert the text to an integer at the input boundary, then compare integers.\n```diff\n raw = \"3\"\n-if raw == 3:\n+score = int(raw)\n+if score == 3:\n     print(\"passed\")\n else:\n-    print(\"not passed:\", repr(raw), type(raw).__name__)\n+    print(\"not passed:\", repr(score), type(score).__name__)\n```\nOutput after the fix:\n```text\npassed\n```\nEdge case `raw = \"4\"`:\n```text\nnot passed: 4 int\n```\nEdge case `raw = \"three\"`:\n```text\nTraceback (most recent call last):\n  File \"fixed_compare.py\", line 2, in <module>\n    score = int(raw)\nValueError: invalid literal for int() with base 10: 'three'\n```\nInput contract: the fixed program accepts text that contains a whole number (`int()` also ignores surrounding spaces); non-numeric text raises `ValueError`, which the optional work turns into a clear message.\n\n3. `starter_none.py` — invalid operation on None. `None` means “no list yet” and has no `append` method:\n```text\nTraceback (most recent call last):\n  File \"starter_none.py\", line 2, in <module>\n    items.append(1)\n    ^^^^^^^^^^^^\nAttributeError: 'NoneType' object has no attribute 'append'\n```\nFix: create an empty list before appending to it.\n```diff\n-items = None\n+items = []\n items.append(1)\n print(items)\n```\nOutput after the fix:\n```text\n[1]\n```\n\nAssistance declaration example: “Agent: <tool name>, read-only access to the three starter files; I ran every file and reviewed every diff myself.” — or “No agent used.”",
+      "mastery_criterion": "For all three starters you recorded a prediction, the exact error line or output, the failure category, a minimal diff, and the post-fix output; the comparison fix is checked with raw = \"4\" and raw = \"three\"; and any agent use is declared with tool, permissions, and review boundary.",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-05-act-03-q1",
+            "type": "choice",
+            "prompt": "`starter_compare.py` runs without any error but prints `not passed: '3' str`. Which failure category is this?",
+            "options": {
+              "a": "A type/value mismatch: the syntax is valid, but the str \"3\" is compared with the int 3, so the comparison is False",
+              "b": "A syntax error: == cannot be used between a str and an int",
+              "c": "An invalid operation on None: raw has no value yet"
+            },
+            "expected_answer": "a",
+            "hint": "Did Python stop with a traceback, or did the program simply choose the wrong branch?",
+            "explanation": "There is no traceback, so it is not a syntax error, and `raw` is a `str`, not `None`. `\"3\" == 3` is simply `False` because a `str` never equals an `int`. Converting at the input boundary with `int(raw)` fixes it."
+          }
+        ]
+      }
+    },
+    "day-05-act-04": {
+      "title": "Review: trace table, four comparison predictions, and prevention rules",
+      "prerequisites": "Activities 1–3 completed, including your recorded failure-clinic evidence.",
+      "objective": "Independently reproduce the day's evidence: a two-column mutation/rebinding trace, four predicted-then-verified comparisons, and one prevention rule for each failure from the clinic.",
+      "assistance_policy_label": "Independent Mastery Check — no AI assistance during the assessed work. If you receive any help, declare it honestly; assisted work counts only as remediation, and you must complete a fresh unassisted attempt before claiming mastery.",
+      "instructions": "Required work:\n1. Without AI assistance and before running any code, fill in a two-column trace (column 1: mutation with `append`; column 2: rebinding with `a = a + [2]`) showing `a`, `b`, and `a is b` after each line.\n2. Write your prediction (True or False) for the four comparisons `1 == True`, `[1] == [1]`, `[1] is [1]`, and `\"3\" == 3`.\n3. Run the program in the exercise and mark each prediction correct or incorrect.\n4. Write one prevention rule for each of the three clinic failures (syntax error, str versus int, None) and cite the observed output line that supports it.\n\nOptional work: once the required evidence is complete, invent one new comparison that mixes equality and identity, predict it, and verify it.",
+      "exercise_prompt": "Fill in the trace and the four predictions first, then run:\n\n```python\na = [1]\nb = a\na.append(2)\nprint(\"mutation:\", a, b, a is b)\na = [1]\nb = a\na = a + [2]\nprint(\"rebinding:\", a, b, a is b)\nprint(1 == True)\nprint([1] == [1])\nprint([1] is [1])\nprint(\"3\" == 3)\n```",
+      "hint": "Keep identity questions (`is`: one object or two?) separate from equality questions (`==`: same value?).",
+      "answer": "Worked solution.\n\nFull trace of the single combined program in a fresh script. The mutation column covers lines 1–4; the rebinding column continues at lines 5–8 without resetting `b`. Lines 9–12 are comparison checkpoints in that same run. `L1`, `L2`, and `L3` are distinct list-object labels, not Python variables or memory addresses; `a → L1 [1]` records both the binding and that object's current contents. `UNBOUND` means the name has not been assigned.\n\n| Checkpoint / source line just executed | `a` binding and object contents | `b` binding and object contents | `a is b` |\n| --- | --- | --- | --- |\n| Initial state, before line 1 | UNBOUND | UNBOUND | Not evaluable: `NameError` for `a` |\n| 1. `a = [1]` | → L1 [1] | UNBOUND | Not evaluable: `NameError` for `b` |\n| 2. `b = a` | → L1 [1] | → L1 [1] | `True` |\n| 3. `a.append(2)` | → L1 [1, 2] | → L1 [1, 2] | `True` |\n| 4. `print(\"mutation:\", a, b, a is b)` | → L1 [1, 2] | → L1 [1, 2] | `True` |\n| 5. `a = [1]` | → L2 [1] | → L1 [1, 2] | `False` |\n| 6. `b = a` | → L2 [1] | → L2 [1] | `True` |\n| 7. `a = a + [2]` | → L3 [1, 2] | → L2 [1] | `False` |\n| 8. `print(\"rebinding:\", a, b, a is b)` | → L3 [1, 2] | → L2 [1] | `False` |\n| 9. `print(1 == True)` | → L3 [1, 2] | → L2 [1] | `False` |\n| 10. `print([1] == [1])` | → L3 [1, 2] | → L2 [1] | `False` |\n| 11. `print([1] is [1])` | → L3 [1, 2] | → L2 [1] | `False` |\n| 12. `print(\"3\" == 3)` | → L3 [1, 2] | → L2 [1] | `False` |\n\nThe initial and line-1 `NameError` entries describe what an added `a is b` probe would raise; the published program does not evaluate it there, so execution continues normally. Line 3 mutates the one shared L1 object. At line 5, `b` still refers to that mutated L1 while `a` refers to a new L2. Line 6 rebinds `b` to L2; L1 is no longer referenced by either name. Line 7 creates L3 and rebinds only `a`; L2 stays unchanged. Printing does not change either binding. The temporary lists in lines 10–11 are not `a` or `b`; those comparison results are shown in the preserved output below.\n\nOutput (identical on Python 3.13 and 3.14):\n```text\nmutation: [1, 2] [1, 2] True\nrebinding: [1, 2] [1] False\nTrue\nTrue\nFalse\nFalse\n```\n\nComparisons: `1 == True` is `True` (bool is a subclass of int); `[1] == [1]` is `True` (equal contents); `[1] is [1]` is `False` (two separate objects); `\"3\" == 3` is `False` (str never equals int).\n\nPrevention rules:\n1. Syntax error — when testing equality, use `==`, not assignment `=`. In this clinic, `if score == 3:` tests equality; `score = 3` binds a name. Conditions need not test equality: truthiness (`if items:`), ordering (`if score < 3:`), identity (`if items is None:`), and other predicates are valid in `if` and `while`. Evidence: `SyntaxError: invalid syntax. Maybe you meant '==' or ':=' instead of '='?`\n2. str versus int — convert text input with `int(raw)` at the input boundary before comparing it with numbers, and print `repr()` and `type()` when a comparison is unexpectedly `False`. Evidence: `\"3\" == 3` printed `False`, and the clinic printed `not passed: '3' str`.\n3. None — create a collection (`items = []`) before calling its methods, and when `None` is possible, check `if items is None:` first. Evidence: `AttributeError: 'NoneType' object has no attribute 'append'`.",
+      "mastery_criterion": "Without AI assistance: the trace is correct before running, all four predictions are recorded and checked against the exact output, and each of the three prevention rules cites an observed output line.",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-05-act-04-q1",
+            "type": "choice",
+            "prompt": "Which question is about identity rather than equality?",
+            "options": {
+              "a": "Do a and b refer to the very same list object (a is b)?",
+              "b": "Do a and b contain the same elements in the same order (a == b)?",
+              "c": "Do a and b have the same length (len(a) == len(b))?"
+            },
+            "expected_answer": "a",
+            "hint": "Identity is about one object versus two objects, not about contents.",
+            "explanation": "Identity asks whether two names refer to one object, which `is` tests. Options b and c compare values (contents or lengths); two different lists can satisfy both while `a is b` is `False`."
+          }
+        ]
+      }
+    }
+  },
+  "source_resources": [
+    {
+      "id": "py-docs-builtins-ticket26",
+      "title": "Python 3 Built-in Types and Expressions",
+      "author": "Python Software Foundation",
+      "original_url": "https://docs.python.org/3/library/stdtypes.html",
+      "relevant_timestamp": "Sections  Truth Value Testing, Comparisons, and Mutable Sequence Types",
+      "version_or_verification_date": "Python 3.12 documentation (verified 2026-10-30)",
+      "reuse_category": "linking",
+      "source_type": "documentation",
+      "license": "PSF License Version 2",
+      "license_restrictions": [],
+      "permission_basis": "Linking only; no source text reproduced.",
+      "prerequisites": "Day 03 recovery drill",
+      "selection_rationale": "Normative reference for truthiness, comparison, binding, and mutation behavior.",
+      "known_availability_limitations": "Online Python documentation may be unavailable offline.",
+      "safe_fallback": "Run the included Python examples and consult the installed interpreter help."
+    },
+    {
+      "id": "git-scm-book-diffs",
+      "title": "Git User Manual: Recording Changes",
+      "author": "Git project",
+      "original_url": "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+      "relevant_timestamp": "Recording Changes to the Repository",
+      "version_or_verification_date": "Verified 2026-10-30",
+      "reuse_category": "linking",
+      "source_type": "documentation",
+      "license": "CC BY-NC-SA 3.0 (book)",
+      "license_restrictions": [],
+      "permission_basis": "Linking only; no source text reproduced.",
+      "prerequisites": "Basic Git awareness",
+      "selection_rationale": "Primary reference for inspecting a small diff before a safe commit.",
+      "known_availability_limitations": "Online book may be unavailable offline.",
+      "safe_fallback": "Use git diff and git status locally; do not commit until the diff is understood."
+    }
+  ]
+}

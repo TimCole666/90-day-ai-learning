@@ -1,0 +1,269 @@
+{
+ "language": "zh-Hant",
+ "language_label": "繁體中文",
+ "day_title": "第 1 天：診斷、學習方法與環境",
+ "day_subtitle": "使用診斷、預測-實驗-複盤、提取練習、概念拆解與已驗證終端機環境；既有突變範例是共用 tracer bullet，不重複複製。",
+ "time_budget_label": "480 分鐘（8 小時專注學習）",
+ "category_label": "自學方法與 Python 工程基礎",
+ "common": {
+  "nav_calendar": "📅 課程行事曆與台帳",
+  "nav_agent_track": "🤖 Agent 工具路線",
+  "day_label": "第 1 天",
+  "prerequisites_title": "前置要求",
+  "objective_title": "學習目標",
+  "instructions_title": "操作指引",
+  "exercise_title": "自主實作與記錄",
+  "hint_title": "查看提示",
+  "reveal_answer": "查看參考解答與分析",
+  "mastery_title": "獨立掌握標準",
+  "draft_placeholder": "在此輸入你的預測輸出、觀察到的實測行為以及根因推導...",
+  "dev_slice_notice": "第 01–03 學習日的本地課程內容已可查閱，驗收評審尚在進行中；外部存取、付費工具與生產環境證據均明確區分，本提示不聲稱內容完備。",
+  "sources_heading": "權威來源資源與權利證明",
+  "source_author_label": "作者 / 機構",
+  "source_url_label": "原始出處連結",
+  "source_range_label": "對應章節 / 時間戳",
+  "source_verification_label": "驗證版本與日期",
+  "source_reuse_label": "複用類別",
+  "source_license_label": "許可證與權利說明",
+  "source_rationale_label": "入選理由",
+  "source_prereqs_label": "來源前置條件",
+  "source_fallback_label": "安全回退方案（離線彈性）",
+  "compared_candidates_heading": "對比候選資源與選型分析",
+  "compared_status_label": "評估結論",
+  "auth": {
+   "sign_in": "使用 Google 登入",
+   "sign_in_google": "Google",
+   "sign_in_github": "GitHub",
+   "sign_out": "登出",
+   "signed_in_as": "已登入為",
+   "guest": "訪客模式",
+   "link_github": "綁定 GitHub",
+   "link_google": "綁定 Google",
+   "linked_identities": "已綁定帳號",
+   "auth_errors": {
+    "access_denied": "授權已取消或存取被拒絕。",
+    "invalid_state": "無效或已過期的授權狀態權杖，請重試。",
+    "identity_conflict": "該第三方身分已被綁定至其他帳號。為保護現有記錄，已拒絕關聯衝突。",
+    "provider_error": "認證服務提供者發生錯誤，請稍後重試。",
+    "server_error": "認證服務提供者發生錯誤，請稍後重試。",
+    "session_expired": "登入工作階段已過期，請重新登入。"
+   }
+  },
+  "progress": {
+   "save_btn": "儲存進度",
+   "saved": "已儲存",
+   "saving": "正在儲存...",
+   "save_error": "儲存失敗",
+   "offline": "離線狀態",
+   "mark_completed": "標記為已完成",
+   "completed_badge": "已完成"
+  },
+  "quiz": {
+   "quiz_title": "客觀知識測驗與診斷追蹤",
+   "quiz_instructions": "請回答以下題目檢驗掌握情況。提交前請誠實聲明你的輔助條件。",
+   "assistance_mode_label": "聲明輔助條件",
+   "mode_independent": "獨立掌握檢查 (無 AI 輔助)",
+   "mode_agent_assisted": "Agent 輔助工程檢查 (借助 AI 完成)",
+   "mode_disclaimer": "說明：無 AI 輔助屬於誠實聲明條件，非平台監控或強制檢測手段。",
+   "submit_btn": "提交答案",
+   "retry_btn": "重新測驗",
+   "view_hint": "查看提示",
+   "mastery_criterion_label": "掌握標準",
+   "mastery_criterion_desc": "在獨立掌握檢查模式下獲得 100% 得分（3/3 題完全正確）。",
+   "score_label": "測驗得分",
+   "passed_badge": "通過",
+   "failed_badge": "未通過 (需複習)",
+   "independent_pass_badge": "獨立掌握通過",
+   "agent_assisted_pass_badge": "Agent 輔助通過",
+   "self_reported_badge": "自主勾選完成",
+   "stale_badge": "歷史記錄 (內容已更新，需重新驗證)",
+   "attempts_history_title": "作答應證與歷史記錄",
+   "no_attempts": "暫無測驗記錄。"
+  },
+  "submissions": {
+   "title": "學習專案提交與證據",
+   "repo_label": "程式碼倉庫連結 (GitHub / GitLab)",
+   "repo_placeholder": "https://github.com/...",
+   "report_label": "專案報告或實驗文件連結 (可選)",
+   "report_placeholder": "https://...",
+   "notes_label": "證據筆記與診斷記錄 (最多 4096 位元組)",
+   "notes_placeholder": "記錄重現步驟、測試執行結果或最小重現範例 (MRE)...",
+   "assistance_mode_label": "聲明的輔助條件",
+   "mode_independent": "獨立完成 (未借助 AI 輔助)",
+   "mode_agent_assisted": "Agent 輔助工程 (借助 AI 工具定向完成)",
+   "mode_disclaimer": "註：無 AI 輔助屬於誠實聲明條件，而非平台監控。",
+   "track_label": "Agent 工具路線 (若適用)",
+   "tracks": {
+    "none": "無 / 不適用",
+    "claude_code": "Claude Code",
+    "codex": "Codex",
+    "pi_agent": "Pi Agent",
+    "deepseek_harness": "DeepSeek Harness"
+   },
+   "submit_btn": "提交專案證據",
+   "status_saving": "正在儲存...",
+   "status_saved": "提交已成功儲存。",
+   "status_error": "提交儲存失敗。",
+   "val_invalid_url": "無效連結：倉庫連結與報告連結必須使用 http 或 https 協定。",
+   "val_notes_too_long": "證據筆記超出 4096 位元組上限。",
+   "val_empty": "請至少填寫倉庫連結、報告連結或證據筆記之一。",
+   "pasted_log_notice": "提示：貼上的執行日誌與文字說明屬於自述證據，不自動構成獨立檢查或自動化測試結果。",
+   "inspect_title": "目前提交的證據詳情",
+   "status_self_reported": "自述證據 (Self-Reported Evidence)",
+   "status_verified_check": "確定性檢查通過 (Verified Check)",
+   "status_independently_reviewed": "獨立評審證據 (Independently Reviewed Evidence)",
+   "status_stale": "歷史證據 (需重新驗證 - 內容版本已更新)",
+   "no_submission": "暫無提交記錄。"
+  }
+ },
+ "activities": {
+  "day-01-act-01": {
+   "title": "學習方法、極簡復現與預測-實驗-複盤慣例",
+   "prerequisites": "高中閱讀理解能力與終端機基礎認知；無需預先掌握複雜 Python 語法。",
+   "objective": "在既有的變更追蹤範例上進行診斷自檢並運用「預測-實驗-複盤」閉環：在執行任何程式碼或測試前明確書寫預期結果（Prediction），執行後比對差異（Experiment），提煉出極簡復現用例與根因假設（Review），再將該概念拆解為名稱、物件、變更、配置與證據。",
+   "assistance_policy_label": "獨立掌握檢查 (Independent Mastery Check)；記錄預測與觀測輸出之後獲得的協助僅用於補救複習，不代表藉 AI 完成本檢查——受評量的解說必須獨立撰寫，接受輔助補救後須再進行一次新的獨立檢查方可申報掌握。",
+   "instructions": "在程式設計與模型除錯中，盲目嘗試提示詞或反覆猜測只會掩蓋真實認知漏洞。本活動要求針對一個變數可變性與引用的經典案例，嚴格遵循「預測-實驗-複盤」閉環進行分析。",
+   "exercise_prompt": "請觀察以下 Python 程式碼片段，在下方草稿區明確寫出你的預測輸出（包含變數值與物件同一性假設），不要提前執行：\n\n```python\na = [1, 2, 3]\nb = a\nb.append(4)\nc = a + [5]\nprint('Case 1:', a)\nprint('Case 2:', c)\nprint('Case 3:', a is b, a is c)\n```\n\n預測完成後，分析為什麼 `b.append(4)` 會改變 `a`，而 `a + [5]` 不會改變 `a`。再構思一份最小復現用例（MRE）：一段證明 `b` 與 `a` 參照同一物件的簡短見證程式碼——它不僅是應對非預期行為的手段，更是同一性主張的證據，因此即使所有預測都正確也必須提交。",
+   "hint": "提示：在 Python 中，變數名稱是對記憶體中物件的引用。`b = a` 並沒有建立串列的新副本，只是賦予了同一個串列物件一個新的名字；`.append()` 是原地修改（in-place mutation）。而 `+` 拼接運算子會分配並返回一個全新的串列物件。",
+   "answer": "參考解答與執行追蹤：\n1. 預測輸出：\n   Case 1: [1, 2, 3, 4]\n   Case 2: [1, 2, 3, 4, 5]\n   Case 3: True False\n2. 根因解析：\n   - `b = a` 使 `b` 與 `a` 參照同一個串列物件（`id(a) == id(b)` 成立即同一物件）。`b.append(4)` 就地修改該物件，因此 `a` 的內容也變為 `[1, 2, 3, 4]`。\n   - `a + [5]` 會建立一個新的串列物件賦值給 `c`，因此 `a is c` 為 `False`，`a` 自身保持不變。\n3. 極簡復現範例 (MRE):\n   ```python\n   x = []\n   y = x\n   y.append(1)\n   assert x == [1] and x is y  # 原地修改共享參照\n   ```",
+   "mastery_criterion": "掌握標準：學習者能夠在不依賴外部 AI 輔助的情況下，準確預測原地修改與物件建立的差異，並獨立寫出包含預測、實測驗證與根因解釋的 3 步診斷記錄，以及一份最小的同一性/變更見證用例（MRE）——無論預測結果如何都必須提交。",
+   "source_resources": [
+    {
+     "id": "py-docs-datamodel",
+     "title": "Python 數據模型與可變性官方參考",
+     "author": "Python 軟體基金會 (Python Software Foundation)",
+     "original_url": "https://docs.python.org/3/reference/datamodel.html",
+     "relevant_timestamp": "第 3.1 節與第 3.2 節（物件、值與型別）",
+     "version_or_verification_date": "Python 3.12 官方文件（驗證日期：2026-10-30）",
+     "reuse_category": "linking",
+     "reuse_category_label": "連結引用（合法外部引用，無未授權匯入）",
+     "license": "PSF License Version 2",
+     "license_restrictions": [],
+     "permission_basis": "基於 PSF 開放文件許可的合法外部引用；未匯入或鏡像專有版權內容。",
+     "selection_rationale": "關於 Python 變數引用、物件同一性（identity）與值語意（value）的權威規範來源，杜絕網路二手教學中的概念誤導。",
+     "prerequisites": "基礎終端機操作意識與高中閱讀理解能力",
+     "known_availability_limitations": "託管於 python.org；全球公共可造訪，支援 Python 內建本地離線手冊。",
+     "safe_fallback": "官方文件可透過本地 Python 自帶的 pydoc 離線查閱，課程內部提供完全自包含的程式碼解釋與本地驗證測試，外部網路中斷不影響完整學習體驗。",
+     "compared_candidates": [
+      {
+       "candidate_name": "MIT OCW 6.0001 (Prof. Eric Grimson)",
+       "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+       "license": "CC BY-NC-SA 4.0",
+       "status": "對比評估（Day 01 未採納）",
+       "comparison_rationale": "教學清晰度極高，但偏向傳統學期制課堂節奏，不如官方規範直接服務於最小復現反思循環（MRE）。保留為補充參考。"
+      },
+      {
+       "candidate_name": "Stanford CS336: Language Modeling from Scratch (Spring 2024)",
+       "url": "https://github.com/stanford-cs336/spring2024-assignment1-basics",
+       "license": "No license declared (the repository has no LICENSE file, so all rights are reserved by default)",
+       "status": "對比評估（延後階段採納）",
+       "comparison_rationale": "工程深度極高，但前置依賴完整 PyTorch 與 CUDA 環境，延後至 Day 30-60 模型訓練階段引入。"
+      },
+      {
+       "candidate_name": "3Blue1Brown: 線性代數的本質",
+       "url": "https://www.3blue1brown.com/topics/linear-algebra",
+       "license": "3Blue1Brown copyright (all rights reserved); site FAQ permits only short clips under stated conditions",
+       "status": "對比評估（延後階段採納）",
+       "comparison_rationale": "幾何直覺無與倫比，針對 Day 10-18 數學基礎採納，不適用於 Day 01 基礎引用教學。"
+      },
+      {
+       "candidate_name": "Andrej Karpathy: micrograd",
+       "url": "https://github.com/karpathy/micrograd",
+       "license": "MIT (Repository) / Standard YouTube License (Video)",
+       "status": "對比評估（延後階段採納）",
+       "comparison_rationale": "自底向上自動求導教學典範。程式碼為 MIT 授權，但 YouTube 影片字幕權利不明，嚴禁全文字幕匯入，僅以合法外鏈與原創解釋形式在 Day 19-25 結合。"
+      }
+     ],
+     "source_type": "documentation"
+    }
+   ],
+   "optional_media": {
+    "title": "可選講解視聽資源（如無法存取不影響學習）",
+    "url": "https://example.com/videos/day-01-prediction.mp4",
+    "fallback_notice": "提示：外部可選視聽資源目前不可用。本課程所有文字講解、自包含練習、提示與掌握標準均完全離線可用，無需等待外部媒體。"
+   },
+   "quiz": {
+    "title": "第一天客觀診斷測驗：物件參照與就地修改",
+    "mastery_criterion": "在無 AI 輔助的獨立模式下取得 100% 得分（3/3 題全對）。",
+    "questions": [
+     {
+      "id": "q1",
+      "prompt": "運行代碼 `a = [1, 2, 3]; b = a; b.append(4)` 後，`a` 的最終值是什麼？",
+      "options": {
+       "a": "[1, 2, 3]",
+       "b": "[1, 2, 3, 4]",
+       "c": "[1, 2, 3, 5]",
+       "d": "[4, 1, 2, 3]"
+      },
+      "hint": "在 Python 中，變數賦值是將識別碼綁定到現有物件，並不會建立串列副本。",
+      "explanation": "因為 `b = a` 使 `b` 與 `a` 參照同一個串列物件，調用 `b.append(4)` 會就地修改該物件，因此 `a` 的值也變為 `[1, 2, 3, 4]`。"
+     },
+     {
+      "id": "q2",
+      "prompt": "接著執行 `c = a + [5]`，運算式 `a is c` 的求值結果是什麼？",
+      "options": {
+       "a": "True",
+       "b": "TypeError",
+       "c": "False",
+       "d": "None"
+      },
+      "hint": "串列的 `+` 串接運算符會分配並返回一個全新的串列物件，而不是就地修改原有串列。",
+      "explanation": "`a + [5]` 會建立並回傳一個全新的串列物件。`is` 運算符檢測兩個名稱是否參照同一個物件（`id(a) == id(c)` 是否成立），因此結果為 `False`。"
+     },
+     {
+      "id": "q3",
+      "prompt": "下列哪一項準確描述了 Python 中 `b = a` 賦值語句的底層機制？",
+      "options": {
+       "a": "Python 自動建立了串列元素的深層拷貝。",
+       "b": "變數 `b` 和 `a` 參照記憶體中完全相同的物件。",
+       "c": "每當兩個物件長度相同時，Python 運行時會自動保持兩者的內容同步。",
+       "d": "賦值運算符自動將可變串列轉換為不可變元組。"
+      },
+      "hint": "注意區分參照語意與數值拷貝。",
+      "explanation": "Python 中的變數是指向物件的命名參照。賦值操作只是將新名稱 `b` 綁定到 `a` 所指向的現有物件上。"
+     }
+    ]
+   },
+   "tracer_bullet": "這個已有的變更示例是第 01–03 學習日共用的追蹤樣例。請複用對它的觀察和證據，不要把它複製到別的活動中。"
+  },
+  "day-01-act-02": {
+   "title": "Python 環境建立、終端機操作與虛擬環境隔離",
+   "prerequisites": "現代作業系統終端機存取權限。",
+   "objective": "在空沙箱目錄中建立乾淨的 Python 3.12+ 虛擬環境，並以 `sys.prefix`、`sys.executable` 與 `python -m pip` 驗證直譯器與套件隔離。",
+   "assistance_policy_label": "獨立掌握檢查 (Independent Mastery Check)",
+   "instructions": "在 POSIX shell（Linux/macOS 的 bash 或 zsh）中完成評量。請在未啟動任何虛擬環境的新終端機中開始——開始前的探針必須輸出 `True`，並記錄它回報的直譯器路徑與 prefix 路徑。文末給出 Windows 對應命令，但在本材料中未實際執行。\n\n```sh\npython3 --version\npython3 -c \"import sys; print(sys.executable); print(sys.prefix); print(sys.base_prefix); print(sys.prefix == sys.base_prefix)\"\nmkdir venv-sandbox && cd venv-sandbox\nprintf 'marker\\n' > marker.txt\npython3 -m venv .venv\n. .venv/bin/activate          # bash/zsh; cmd.exe and PowerShell differ (below)\necho \"$VIRTUAL_ENV\"\npython -c \"import sys; print(sys.executable); print(sys.prefix); print(sys.base_prefix); print(sys.prefix == sys.base_prefix)\"\npython -c \"print(open('marker.txt').read().strip())\"\npython -m pip --version\ndeactivate\npython3 -c \"import sys; print(sys.executable); print(sys.prefix); print(sys.base_prefix); print(sys.prefix == sys.base_prefix)\"\n```\n\n期望不變量：\n- `python3 --version` 回報 Python 3.12 或更高版本後再繼續。\n- 新 shell 中的開始前探針輸出 `sys.prefix == sys.base_prefix` 為 `True`；把這些路徑記錄為你的「之前狀態」。\n- 啟動後 `$VIRTUAL_ENV` 指向 `.venv` 目錄；`sys.executable` 解析到 `.venv` 內；`sys.prefix` 等於 `.venv` 路徑而 `sys.base_prefix` 仍指向基礎安裝——此差異即隔離的驗證依據。`sys.executable` 回報的是調用路徑（可能是符號連結），因此以 prefix 的值為準，不要去解析物理可執行檔。\n- venv 直譯器自己讀取 `marker.txt` 並輸出 `marker`：venv 的 Python 行程仍能讀取 `.venv` 之外、工作目錄之內的檔案——被隔離的是直譯器/套件，而非檔案系統沙箱。\n- `python -m pip --version` 回報來自 `.venv` site-packages 的 pip；`python -m pip` 使 pip 與現行直譯器配對。\n- `deactivate` 後，結尾探針輸出與記錄的之前狀態一致（`sys.prefix == sys.base_prefix` 再次為真）。\n\nWindows 對應命令（參考命令，本材料未實際執行驗證）：以 `py -m venv .venv` 建立；以 `.venv\\Scripts\\Activate.ps1`（PowerShell）或 `.venv\\Scripts\\activate.bat`（cmd.exe）啟動；診斷用 PowerShell 的 `$env:VIRTUAL_ENV`、cmd.exe 的 `%VIRTUAL_ENV%`，並以 `where.exe python` 代替 `command -v`/`echo $PATH`。`deactivate`、`python -c` 以及 `sys.prefix`/`sys.base_prefix` 檢查相同。\n\n若無可用且受支援的 Python，請依練習中的記錄回退方案執行，不要為未完成的虛擬環境部分申報掌握。\n\n範圍說明：虛擬環境透過 `sys.prefix`/`sys.path` 隔離 Python 直譯器及其已安裝套件。正如 venv 的 Python 讀取 marker 所示，它不是檔案系統或安全沙箱：在其中執行的程式仍可讀取你的檔案；它也不鎖定 Python 版本。",
+   "exercise_prompt": "在未啟動任何虛擬環境的新終端機中執行完整序列：記錄開始前探針；在新建空目錄中建立 `.venv` 並啟動；記錄 `echo $VIRTUAL_ENV`、venv 內探針、venv 直譯器讀取 `marker.txt` 和 `python -m pip --version`；然後 `deactivate` 並確認結尾探針與記錄的之前狀態一致。若 `python3 --version` 失敗或回報低於 3.12 的版本，請勿申報既定環境：若只有較舊直譯器，記錄觀測版本並明確按其版本範圍執行相同的檢查；若完全沒有直譯器，記錄 `command -v python3`（Windows 用 `where.exe python`）、`python3 --version`、`echo $PATH`（Windows 用 `%PATH%` / `$env:PATH`）與觀測到的錯誤，並把安裝 Python 排為補救任務。未執行的虛擬環境任務不構成掌握證據。",
+   "hint": "若 `python3 -m venv` 失敗（如 ensurepip 報錯），請記錄並走回退路徑，不要跳過。POSIX 啟動為 `source .venv/bin/activate`；Windows 為 `.venv\\Scripts\\Activate.ps1`（PowerShell）/ `.venv\\Scripts\\activate.bat`（cmd.exe）。判斷是否啟動要看 `sys.prefix`/`sys.base_prefix` 探針與 `echo $VIRTUAL_ENV`（PowerShell 為 `$env:VIRTUAL_ENV`，cmd.exe 為 `%VIRTUAL_ENV%`），而非提示符裝飾。",
+   "answer": "參考執行記錄（新 shell 中的 bash/zsh；路徑為範例）：\n\n```text\n$ python3 --version\nPython 3.14.8\n$ python3 -c \"import sys; print(sys.executable); print(sys.prefix); ...\"\n/usr/bin/python3         # 之前狀態：基礎直譯器，未啟動 venv\n/usr\n/usr\nTrue                     # 新 shell 中 prefix == base_prefix\n$ mkdir venv-sandbox && cd venv-sandbox && printf 'marker\\n' > marker.txt && python3 -m venv .venv\n$ . .venv/bin/activate\n$ echo \"$VIRTUAL_ENV\"\n.../venv-sandbox/.venv\n$ python -c \"import sys; print(sys.executable); print(sys.prefix); ...\"\n.../venv-sandbox/.venv/bin/python   # 調用路徑（可能是符號連結）——以 prefix 為準\n.../venv-sandbox/.venv\n/usr\nFalse                    # prefix != base_prefix → 直譯器已隔離\n$ python -c \"print(open('marker.txt').read().strip())\"\nmarker                   # venv 的 Python 仍可讀取 .venv 之外的檔案 → 非檔案系統沙箱\n$ python -m pip --version\npip 26.2.1 from .../venv-sandbox/.venv/lib/python3.14/site-packages/pip (python 3.14)\n$ deactivate\n$ python3 -c \"import sys; print(sys.executable); print(sys.prefix); ...\"\n/usr/bin/python3         # 回到記錄的之前狀態\n/usr\n/usr\nTrue\n```\n\n不變量成立的原因：`sys.prefix` 表示執行中直譯器所屬的環境，`sys.base_prefix` 始終表示基礎安裝；在 venv 內兩者不同，這就是可檢驗的隔離特徵。`sys.executable` 回報的是調用直譯器的路徑，可能是 `.venv` 內的符號連結，因此應以 prefix 值而非解析出的可執行路徑為準。`python -m pip` 透過現行直譯器解析 pip。`$VIRTUAL_ENV` 與 PATH 的變化是啟動機制，`deactivate` 將其還原，結尾探針必須與記錄的之前狀態一致。\n\n邊界：該隔離只涵蓋直譯器與套件——venv 直譯器自己讀取了 `.venv` 之外的 `marker.txt` 並輸出 `marker`，說明它不是檔案系統沙箱；`.venv` 始終綁定建立它的直譯器。",
+   "mastery_criterion": "在未啟動任何環境的新 shell 中，於新建目錄獨立完成 建立→啟動→驗證→退出 全流程，產出的記錄中 venv 內探針顯示 `sys.prefix != sys.base_prefix` 且 `python -m pip` 解析到 `.venv` 內、`marker.txt` 讀取證明其非檔案系統沙箱、結尾探針與記錄的之前狀態一致，並能用一句話正確區分直譯器隔離與檔案系統/安全沙箱。若無受支援的 Python，則不為本部分申報掌握，以已記錄的回退證據與補救任務代替。",
+   "optional_media": null,
+   "tracer_bullet": null
+  },
+  "day-01-act-03": {
+   "title": "Git 核心概念：儲存庫初始化、提交與狀態檢查",
+   "prerequisites": "終端機檔案基礎命令（mkdir, cd, ls）且 `git --version` 可用。",
+   "objective": "獨立初始化一個一次性 Git 儲存庫並完成 修改→暫存→提交→日誌 循環，每一步以 `git status`、`git diff`、`git log` 驗證狀態。",
+   "assistance_policy_label": "獨立掌握檢查 (Independent Mastery Check)",
+   "instructions": "受評量任務（獨立完成）：在新建的一次性目錄中親自完成全部流程；切勿在本專案或任何既有工作區內執行。不使用破壞性命令（`reset --hard`、`clean`、`push --force`）。若因缺少作者資訊導致提交失敗，依範例僅在該儲存庫內設定。\n\n```sh\nmkdir git-sandbox && cd git-sandbox\ngit init\ngit config user.name \"Learner\"\ngit config user.email \"learner@example.invalid\"\nprintf 'first line\\n' > notes.txt\ngit status\ngit add notes.txt\ngit diff --cached\ngit commit -m \"Add notes file\"\nprintf 'second line\\n' >> notes.txt\ngit status\ngit diff\ngit add notes.txt\ngit commit -m \"Append a second line to notes\"\ngit log --oneline\ngit status\n```\n\n期望不變量：\n- `git add` 之前 `git status` 將 `notes.txt` 列為未追蹤（untracked）；暫存後 `git diff --cached` 顯示以 `+` 開頭的新增行。\n- 修改後 `git status`/`git status --porcelain` 顯示檔案為未暫存的修改（` M`），`git diff` 顯示未暫存差異。\n- `git log --oneline` 依新到舊列出兩筆提交；最後的 `git status` 回報工作區乾淨。\n- 不帶 `--global` 的 `git config user.name`/`user.email` 只寫入該儲存庫的 `.git/config`，不更改整機設定。\n\n將每條命令與實測輸出記入日誌。\n\n可選且不計入評量的參觀（不屬於本檢查）：可打開 Agent 工具路線頁面，預覽之後將使用的 Agent 工具。這僅是參觀，不是本次獨立掌握檢查的一部分，也不構成其證據。",
+   "exercise_prompt": "在新建空目錄中執行上述完整命令序列。受評量的成果物是一份命令與輸出記錄，展示 `notes.txt` 的 未追蹤→已暫存→已提交 流轉、第二輪 修改→暫存→提交，以及最終列出兩筆提交的 `git log --oneline`。另請記錄一條 status 觀察：可以是 `git status` 回報中與你預期不同的內容；若沒有任何意外，則寫下一個符合預期的狀態轉換、它的實際輸出，以及該輸出為何印證了你的預測。原始的預測和輸出須原樣保留。",
+   "hint": "若 `git commit` 提示缺少作者資訊，依範例執行兩行 `git config user.name`/`user.email`——不帶 `--global` 時只作用於該儲存庫的 `.git/config`，不影響全域設定。自上而下閱讀 `git status`：它區分未追蹤、已修改與已暫存三種狀態。",
+   "answer": "參考執行記錄（節選；雜湊與 `main`/`master` 名因環境而異）：\n\n```text\n$ git status\n... Untracked files: notes.txt            # 新檔案，尚未暫存\n$ git add notes.txt && git diff --cached\n+first line                              # 可見已暫存的新增\n$ git commit -m \"Add notes file\"\n[main (root-commit) 8bddb5d] Add notes file\n$ printf 'second line\\n' >> notes.txt && git status --porcelain\n M notes.txt                             # 已修改，尚未暫存\n$ git diff\n+second line                             # 可見未暫存差異\n$ git add notes.txt && git commit -m \"Append a second line to notes\"\n[main a0d6969] Append a second line to notes\n$ git log --oneline\na0d6969 Append a second line to notes    # 新提交在前\n8bddb5d Add notes file\n```\n\n提交是已暫存樹的快照，加上零個或多個父提交 ID 與元資料——最初的根提交沒有父提交；`git log` 用來驗證該快照確實存在。`git status` 區分未追蹤（`??`）、未暫存修改（` M`）與已暫存；`git diff` 顯示未暫存差異，`git diff --cached` 顯示已暫存內容。作者資訊用不帶 `--global` 的 `git config` 設定，只存在於此一次性儲存庫的 `.git/config` 中。`git-sandbox/` 之外未被更動，也不需要任何破壞性命令。",
+   "mastery_criterion": "在一次性目錄中獨立完成完整流程——初始化新儲存庫、修改檔案、暫存、核對暫存差異、提交、以 `git log --oneline` 確認兩筆提交並以乾淨的 `git status` 收尾；不依賴任何既有儲存庫狀態，不使用破壞性命令，不借助 Agent 輔助。",
+   "optional_media": null,
+   "tracer_bullet": null
+  },
+  "day-01-act-04": {
+   "title": "首日複盤：提取練習、學習日誌與認知對齊",
+   "prerequisites": "完成今日前 3 項活動。",
+   "objective": "閉卷用自己的話寫出今日關鍵概念，依據證據糾正一個誤解（若未發現誤解，則明確記錄「未發現」並用證據否定一個常見誤解），並安排具體的補救步驟，形成提取日誌。",
+   "assistance_policy_label": "獨立掌握檢查 (Independent Mastery Check)",
+   "instructions": "合上課程與筆記，獨立完成。\n第一步——獨立回憶（合上所有參考資料）：不查任何資料，寫下你對今天三條主線的記憶——物件參照與可變修改、虛擬環境隔離、Git 的 修改→暫存→提交 循環。\n第二步——對照檢查與糾正：現在才打開參考答案，標出回憶錯誤或遺漏之處，並按量規處理一個誤解。不要改寫第一步的文字，用批註方式標註，使獨立回憶保持可區分。\n第三步——新的獨立檢查（再次合上參考資料）：把糾正或回憶起的一個概念應用到新的小例子上（預測新程式碼的輸出或重新推導一個檢查），並記錄結果。\n第四步——安排短時補救：確定在開始 Day 02 之前重測最弱項的具體時間與觸發條件。\n\n量規——你的日誌須滿足全部四項：\n- 在獨立回憶階段用自己的話複述至少兩個 Day 01 概念，而非照抄原文；\n- 記錄一個真實誤解及糾正它的具體證據，成對出現；若確實沒有發現誤解，則明確寫出「未發現誤解」，並舉出一個常見的合理誤解、用證據加以否定；\n- 記錄第三步新的獨立遷移/提取檢查及其結果（只聲稱「全部正確」不能證明任何事）；\n- 安排一個有具體時間與觸發條件的補救步驟。\n篇幅不是證據：滿足量規的短日誌優於冗長總結。",
+   "exercise_prompt": "依說明撰寫提取日誌：先獨立回憶，再做對照糾正（或明確的「未發現誤解」替代路徑），隨後完成新的獨立檢查並安排補救步驟。",
+   "hint": "量規看重的是有證據的糾正和新的檢查，而非文筆——也絕不要求編造錯誤。在對照實驗中，提取練習比重複學習更能改善延遲後的散文保持（Roediger & Karpicke, 2006）；它是證據充分的方法之一，並非萬能最優。",
+   "answer": "示例日誌（僅為示範，非照抄範本）：\n\n```text\n第一步——獨立回憶（合上所有參考資料）：\n- `b = a` 讓 b 指向同一個串列，所以 b.append 會改變 a。`a + [5]` 為 c 新建串列。\n- venv 提供隔離。我寫了「它會沙箱化整個程式」——錯誤。\n- git add 給檔案做快照，commit 把它儲存。\n\n第二步——對照檢查與糾正（現在打開參考答案）：\n誤解：虛擬環境能阻止程式讀我的檔案。\n今天實際觀察到的證據：在啟動的 .venv 中，venv 直譯器自己的 `python` 讀取 `marker.txt` 仍印出\n'marker'——該檔案在 .venv 之外、一次性沙箱之內。venv 探針改變的是\nsys.executable/sys.prefix 和 pip 使用的 site-packages，檔案存取並未被阻止。\n這是直譯器/套件隔離，不是檔案系統沙箱。\n沒想起的條目：為什麼推薦 `python -m pip` 而不是裸 `pip`（如實記錄而非猜測）。\n\n第三步——新的獨立檢查（再次合上參考資料）：\n不用筆記的新例子：`d = [9]; e = d; e.append(0)` — 無輔助預測：因為 e 參照同一個串列物件，\nd == [9, 0]。隨後實際執行並觀察到 [9, 0]——這是用實際輸出核對的結果，不是憑記憶的斷言。\n\n第四步——補救步驟：\n明天 09:00、Day 02 開始前：憑記憶重新推導 `b = a` 與 `a + [5]`；\n若仍不確定，重跑 sys.prefix != sys.base_prefix 探針。\n```\n\n對照量規自查：第一步用自己的措辭複述了兩個概念；第二步把一個誤解與今天實際觀察到的命令輸出配對記錄（若未發現誤解，則改為記錄「未發現誤解」並附一個用證據否定的常見誤解）；第三步記錄了一次新的獨立檢查及其結果；第四步安排了帶日期的補救步驟。僅聲稱「全部正確」無法滿足量規的證據項。",
+   "mastery_criterion": "產出滿足全部量規項的閉卷提取日誌：用自己的話複述至少兩個 Day 01 概念；一個真實誤解及其糾正證據，或明確的「未發現誤解」記錄加一個用證據否定的常見誤解；一次記錄結果的新獨立遷移檢查；一個已安排的補救步驟。字數與空泛的正確性聲明都不是概念掌握的證據。",
+   "optional_media": null,
+   "tracer_bullet": null
+  }
+ }
+}

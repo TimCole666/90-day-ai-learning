@@ -1,0 +1,375 @@
+{
+  "id": "day-37",
+  "day_number": 37,
+  "active_minutes": 480,
+  "topic_category": "models-and-training",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-36"
+  ],
+  "recovery_links": [
+    "day-35"
+  ],
+  "activities": [
+    {
+      "id": "day-37-act-01",
+      "lesson_id": "les-37",
+      "title": "From characters to bytes: Unicode code points and UTF-8",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-36"
+      ],
+      "source_resources": [
+        {
+          "id": "py-unicode-howto",
+          "title": "Python Unicode HOWTO",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/howto/unicode.html",
+          "relevant_timestamp": "Sections: Definitions of Character, Code Point, and Encodings (UTF-8)",
+          "version_or_verification_date": "Python 3.12 documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "prerequisites": "Basic Python strings and byte literals",
+          "selection_rationale": "Normative reference for Python 3 code points, encodings, and variable-length UTF-8 byte behavior used in every tokenization step.",
+          "known_availability_limitations": "Hosted on python.org; the same text ships with local pydoc documentation bundles.",
+          "safe_fallback": "The lesson defines every required Unicode concept locally and all commands run offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Unicode Standard (unicode.org) official documentation",
+              "url": "https://www.unicode.org/versions/latest/",
+              "license": "Unicode License Agreement / Terms of Use",
+              "status": "compared_alternative",
+              "comparison_rationale": "Exhaustive normative standard but far too deep for a first contact; the Python HOWTO teaches the same code point/encoding distinction in executable form."
+            },
+            {
+              "candidate_name": "Joel Spolsky: The Absolute Minimum Every Software Developer Must Know About Unicode",
+              "url": "https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/",
+              "license": "All Rights Reserved (blog)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong motivation and history but pre-Python-3 and not runnable; retained as optional background reading only."
+            }
+          ]
+        },
+        {
+          "id": "karpathy-minbpe",
+          "title": "minbpe: Minimal Byte-Pair Encoding tokenizer (Let's build the GPT Tokenizer)",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/minbpe",
+          "relevant_timestamp": "README exercise flow and minbpe/base.py; lecture segment on Unicode code points vs raw bytes",
+          "version_or_verification_date": "commit 1acefe9 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT License (repository) / Standard YouTube License (video, subtitle rights unknown)",
+          "license_restrictions": [
+            "Video subtitles have unknown distribution rights and are not imported"
+          ],
+          "has_unknown_subtitle_rights": true,
+          "software_repository_license_only": true,
+          "permission_basis": "Lawful external hyperlink to public repository and lecture; no code or transcript text imported.",
+          "prerequisites": "Basic Python and strings",
+          "selection_rationale": "Standard teaching reference connecting Unicode code points, UTF-8 bytes, and subword token ids for GPT-style tokenizers.",
+          "known_availability_limitations": "GitHub repository is public; the companion lecture video may be unreachable on some networks.",
+          "safe_fallback": "The lesson re-implements the same algorithms locally in pure Python with verified outputs.",
+          "compared_candidates": [
+            {
+              "candidate_name": "OpenAI tiktoken",
+              "url": "https://github.com/openai/tiktoken",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Production BPE with Rust core and regex pre-tokenization; selected as the production contrast source rather than the primary teaching implementation."
+            },
+            {
+              "candidate_name": "Hugging Face tokenizers + NLP course chapter 6",
+              "url": "https://huggingface.co/learn/nlp-course/chapter6/1",
+              "license": "Apache-2.0 (library) / CC BY-NC-SA? (course text varies)",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-quality BPE coverage but frames tokenization through library APIs; minbpe exposes the raw merge loop for hand tracing."
+            },
+            {
+              "candidate_name": "Google SentencePiece",
+              "url": "https://github.com/google/sentencepiece",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Industrial tokenizer trainer supporting BPE and unigram models; C++ core hides the teaching mechanics."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-37-act-02",
+      "lesson_id": "les-37",
+      "title": "Vocabularies and token-id mappings",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-37-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "karpathy-minbpe",
+          "title": "minbpe: Minimal Byte-Pair Encoding tokenizer (Let's build the GPT Tokenizer)",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/minbpe",
+          "relevant_timestamp": "minbpe/base.py: vocab dict, ids<->bytes mapping, encode/decode contract",
+          "version_or_verification_date": "commit 1acefe9 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT License (repository) / Standard YouTube License (video, subtitle rights unknown)",
+          "license_restrictions": [
+            "Video subtitles have unknown distribution rights and are not imported"
+          ],
+          "has_unknown_subtitle_rights": true,
+          "software_repository_license_only": true,
+          "permission_basis": "Lawful external hyperlink to public repository; no code or transcript text imported.",
+          "prerequisites": "Basic Python dicts and lists",
+          "selection_rationale": "Shows the exact vocab, merges, and encode/decode invariants a teaching tokenizer must satisfy.",
+          "known_availability_limitations": "GitHub repository is public; companion lecture video may be unreachable on some networks.",
+          "safe_fallback": "All mapping exercises are re-implemented locally with verified expected ids.",
+          "compared_candidates": [
+            {
+              "candidate_name": "OpenAI tiktoken",
+              "url": "https://github.com/openai/tiktoken",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Production BPE with Rust core and regex pre-tokenization; selected as the production contrast source rather than the primary teaching implementation."
+            },
+            {
+              "candidate_name": "Hugging Face tokenizers + NLP course chapter 6",
+              "url": "https://huggingface.co/learn/nlp-course/chapter6/1",
+              "license": "Apache-2.0 (library) / CC BY-NC-SA? (course text varies)",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-quality BPE coverage but frames tokenization through library APIs; minbpe exposes the raw merge loop for hand tracing."
+            },
+            {
+              "candidate_name": "Google SentencePiece",
+              "url": "https://github.com/google/sentencepiece",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Industrial tokenizer trainer supporting BPE and unigram models; C++ core hides the teaching mechanics."
+            }
+          ]
+        },
+        {
+          "id": "openai-tiktoken",
+          "title": "tiktoken: Fast byte-pair encoding tokenizer used by OpenAI models",
+          "author": "OpenAI",
+          "original_url": "https://github.com/openai/tiktoken",
+          "relevant_timestamp": "README: encoding.get_encoding(\"cl100k_base\"), encode/decode API, special token policy",
+          "version_or_verification_date": "Verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT License",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external hyperlink to public repository; no code imported.",
+          "prerequisites": "Basic Python",
+          "selection_rationale": "Production reference that contrasts a teaching tokenizer's explicit vocab dict with industrial byte-level BPE ranks and special tokens.",
+          "known_availability_limitations": "GitHub repository is public; encoding BPE ranks load from OpenAI-hosted blobs on first use.",
+          "safe_fallback": "The lesson's vocabulary/id exercises run entirely on a local Python dict with fixed expected values.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Hugging Face tokenizers library",
+              "url": "https://github.com/huggingface/tokenizers",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Broad production tokenizer framework with training APIs; tiktoken is a cleaner contrast for GPT-style compatibility claims."
+            },
+            {
+              "candidate_name": "Google SentencePiece",
+              "url": "https://github.com/google/sentencepiece",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Widely used trainer/tokenizer for open models; treated as further production context rather than the contrast reference."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-37-act-03",
+      "lesson_id": "les-37",
+      "title": "Deterministic train/val/test splits and provenance",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-37-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "karpathy-makemore",
+          "title": "makemore: Character-level language models on names.txt",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/makemore",
+          "relevant_timestamp": "README and notebook part 1: names.txt corpus, 90% train / 5% dev / 5% test split rationale",
+          "version_or_verification_date": "Verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT License (repository) / Standard YouTube License (video, subtitle rights unknown)",
+          "license_restrictions": [
+            "Video subtitles have unknown distribution rights and are not imported"
+          ],
+          "has_unknown_subtitle_rights": true,
+          "software_repository_license_only": true,
+          "permission_basis": "Lawful external hyperlink to public repository; no code or transcript text imported.",
+          "prerequisites": "Basic Python",
+          "selection_rationale": "Uses the same data/names.txt corpus family and demonstrates why model fitting must see only the training split while dev/test remain held out.",
+          "known_availability_limitations": "GitHub repository is public; companion lecture video may be unreachable on some networks.",
+          "safe_fallback": "Local projects/text_tools/cli.py produces the deterministic splits and manifest offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Stanford CS336: Language Modeling from Scratch",
+              "url": "https://github.com/stanford-cs336/spring2024-assignment1-basics",
+              "license": "No license declared (the repository has no LICENSE file, so all rights are reserved by default)",
+              "status": "compared_alternative",
+              "comparison_rationale": "More rigorous and comprehensive but assumes PyTorch fluency; retained as the systems-rigor companion source."
+            },
+            {
+              "candidate_name": "Karpathy nanoGPT",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_deferred",
+              "comparison_rationale": "Strong Transformer training reference but beyond the count-based baseline scope; deferred to later pretraining days."
+            }
+          ]
+        },
+        {
+          "id": "cs336-basics",
+          "title": "CS336 Assignment 1: Basics (Spring 2025 tagged release)",
+          "author": "Stanford University CS336 Staff",
+          "original_url": "https://github.com/stanford-cs336/assignment1-basics/tree/spring2025",
+          "relevant_timestamp": "README setup; tests/adapters.py; tests/test_optimizer.py; tests/test_nn_utils.py; tests/test_serialization.py",
+          "version_or_verification_date": "spring2025 tag; README, tests and MIT LICENSE checked 2026-11-01",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "software_repository_license_only": true,
+          "permission_basis": "External hyperlink only to the spring2025 assignment repository; its LICENSE is MIT. No assignment text, code or lecture material is imported.",
+          "prerequisites": "Python systems programming",
+          "selection_rationale": "Lead assignment-driven source for pretraining component practice and tests. nanoGPT remains a compact historical code-reading companion, not the current recommended training curriculum.",
+          "known_availability_limitations": "Public tagged handout and tests; full training needs suitable compute. The campus cluster is not required for reading or local component practice.",
+          "safe_fallback": "Local projects/text_tools deterministic artifacts provide the complete pipeline offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Karpathy nanoGPT",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Simpler code layout, useful complementary reference for minimal PyTorch Transformer."
+            },
+            {
+              "candidate_name": "Hugging Face Transformers Course",
+              "url": "https://huggingface.co/learn/nlp-course/chapter1/1",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-level API focus rather than building from raw tensor fundamentals."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-37-act-04",
+      "lesson_id": "les-37",
+      "title": "Independent mastery check: bytes, ids, and split evidence",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-37-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "py-unicode-howto",
+          "title": "Python Unicode HOWTO",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/howto/unicode.html",
+          "relevant_timestamp": "Sections: Encodings, UTF-8 rules, and error handling strategies",
+          "version_or_verification_date": "Python 3.12 documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "prerequisites": "Basic Python strings and byte literals",
+          "selection_rationale": "Normative reference for the strict/replace decoding behavior verified in the mastery check.",
+          "known_availability_limitations": "Hosted on python.org; the same text ships with local pydoc documentation bundles.",
+          "safe_fallback": "All mastery-check answers are computable with a local Python interpreter.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Unicode Standard (unicode.org) official documentation",
+              "url": "https://www.unicode.org/versions/latest/",
+              "license": "Unicode License Agreement / Terms of Use",
+              "status": "compared_alternative",
+              "comparison_rationale": "Exhaustive normative standard but far too deep for a first contact; the Python HOWTO teaches the same code point/encoding distinction in executable form."
+            },
+            {
+              "candidate_name": "Joel Spolsky: The Absolute Minimum Every Software Developer Must Know About Unicode",
+              "url": "https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/",
+              "license": "All Rights Reserved (blog)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong motivation and history but pre-Python-3 and not runnable; retained as optional background reading only."
+            }
+          ]
+        },
+        {
+          "id": "karpathy-makemore",
+          "title": "makemore: Character-level language models on names.txt",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/makemore",
+          "relevant_timestamp": "Corpus-to-tensor pipeline: stoi/itos lookup tables built from the training split only",
+          "version_or_verification_date": "Verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT License (repository) / Standard YouTube License (video, subtitle rights unknown)",
+          "license_restrictions": [
+            "Video subtitles have unknown distribution rights and are not imported"
+          ],
+          "has_unknown_subtitle_rights": true,
+          "software_repository_license_only": true,
+          "permission_basis": "Lawful external hyperlink to public repository; no code or transcript text imported.",
+          "prerequisites": "Basic Python",
+          "selection_rationale": "Reinforces that vocabulary tables and counts are fit on training data only, the rule assessed in this check.",
+          "known_availability_limitations": "GitHub repository is public; companion lecture video may be unreachable on some networks.",
+          "safe_fallback": "The local deterministic artifacts in projects/text_tools provide all required evidence offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Stanford CS336: Language Modeling from Scratch",
+              "url": "https://github.com/stanford-cs336/spring2024-assignment1-basics",
+              "license": "No license declared (the repository has no LICENSE file, so all rights are reserved by default)",
+              "status": "compared_alternative",
+              "comparison_rationale": "More rigorous and comprehensive but assumes PyTorch fluency; retained as the systems-rigor companion source."
+            },
+            {
+              "candidate_name": "Karpathy nanoGPT",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_deferred",
+              "comparison_rationale": "Strong Transformer training reference but beyond the count-based baseline scope; deferred to later pretraining days."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

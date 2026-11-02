@@ -1,0 +1,433 @@
+{
+  "id": "day-04",
+  "day_number": 4,
+  "active_minutes": 480,
+  "topic_category": "self-directed-learning-and-python",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-03"
+  ],
+  "recovery_links": [
+    "day-03",
+    "day-02"
+  ],
+  "activities": [
+    {
+      "id": "day-04-act-01",
+      "lesson_id": "les-04",
+      "title": "Value census and type labels",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "prerequisites": [
+        "day-03"
+      ],
+      "source_resources": [
+        {
+          "id": "automate-boring-stuff-3e",
+          "title": "Automate the Boring Stuff with Python, 3rd edition",
+          "author": "Al Sweigart",
+          "original_url": "https://automatetheboringstuff.com/3e/",
+          "relevant_timestamp": "Chapter 1; Practice Questions; Appendix B answers",
+          "version_or_verification_date": "Public edition checked 2026-11-01; moving pages may change",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Copyright Al Sweigart; edition-specific reuse terms unverified",
+          "license_restrictions": [
+            "linking only; no reproduction"
+          ],
+          "permission_basis": "External hyperlink only; no third-party prose, exercises, code or translations are imported.",
+          "prerequisites": "No prior programming required for Chapter 1; later chapters assume its basic Python concepts.",
+          "selection_rationale": "Beginner teaching and answer-keyed practice before checking exact semantics in the Python reference; selected chapters only, not the book's entire automation stack.",
+          "known_availability_limitations": "Free HTML; external website may be unavailable. Exact third-edition redistribution terms have not been verified, so no reuse permission is claimed.",
+          "safe_fallback": "Use the original localized explanations, exercises and checks already present in this activity; no external account or purchase is required for that fallback.",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Tutorial",
+              "url": "https://docs.python.org/3/tutorial/",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Guided Python syntax but assumes programming familiarity; paired with the beginner text rather than used as its replacement."
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Lectures and problem sets teach a broader CS1 course; the book offers shorter text-first entry and an answer appendix."
+            }
+          ],
+          "locator_url": "https://automatetheboringstuff.com/3e/chapter1.html"
+        },
+        {
+          "id": "py-docs-builtins-ticket26",
+          "title": "Python Standard Library: Built-in Types",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/stdtypes.html",
+          "relevant_timestamp": "Sections  Truth Value Testing, Comparisons, and Mutable Sequence Types",
+          "version_or_verification_date": "Python 3.12 documentation (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Linking only; no source text reproduced.",
+          "prerequisites": "Day 03 recovery drill",
+          "selection_rationale": "Normative reference for truthiness, comparison, binding, and mutation behavior.",
+          "known_availability_limitations": "Online Python documentation may be unavailable offline.",
+          "safe_fallback": "Run the included Python examples and consult the installed interpreter help.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Python Data Model reference",
+              "url": "https://docs.python.org/3/reference/datamodel.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Deeper object-semantics reference than the expression-level drills need; stdtypes keeps the operator-level material in scope."
+            },
+            {
+              "candidate_name": "The Python Tutorial: An Informal Introduction",
+              "url": "https://docs.python.org/3/tutorial/introduction.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Narrative introduction to the same operators; the library reference was selected as the normative signature source."
+            }
+          ]
+        },
+        {
+          "id": "git-scm-book-diffs",
+          "title": "Git User Manual: Recording Changes",
+          "author": "Git project",
+          "original_url": "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+          "relevant_timestamp": "Recording Changes to the Repository",
+          "version_or_verification_date": "Verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "CC BY-NC-SA 3.0 (book)",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no source text reproduced.",
+          "prerequisites": "Basic Git awareness",
+          "selection_rationale": "Primary reference for inspecting a small diff before a safe commit.",
+          "known_availability_limitations": "Online book may be unavailable offline.",
+          "safe_fallback": "Use git diff and git status locally; do not commit until the diff is understood.",
+          "compared_candidates": [
+            {
+              "candidate_name": "git-diff command reference",
+              "url": "https://git-scm.com/docs/git-diff",
+              "license": "Git documentation (GPL-2.0)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Command-level flag reference; the Pro Git chapter was selected for its guided walkthrough of inspecting changes before committing."
+            },
+            {
+              "candidate_name": "Atlassian Git tutorials: git diff",
+              "url": "https://www.atlassian.com/git/tutorials/saving-changes/git-diff",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Friendly commercial walkthrough; the book chapter provides deeper staging/index semantics for the same inspection habit."
+            }
+          ]
+        }
+      ],
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-04-act-01-q1",
+            "type": "choice",
+            "expected_answer": "a"
+          }
+        ]
+      },
+      "content_revision": "2026.11.01-rev5"
+    },
+    {
+      "id": "day-04-act-02",
+      "lesson_id": "les-04",
+      "title": "Bindings are names, not boxes",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "prerequisites": [
+        "day-03"
+      ],
+      "source_resources": [
+        {
+          "id": "py-docs-builtins-ticket26",
+          "title": "Python Standard Library: Built-in Types",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/stdtypes.html",
+          "relevant_timestamp": "Sections  Truth Value Testing, Comparisons, and Mutable Sequence Types",
+          "version_or_verification_date": "Python 3.12 documentation (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Linking only; no source text reproduced.",
+          "prerequisites": "Day 03 recovery drill",
+          "selection_rationale": "Normative reference for truthiness, comparison, binding, and mutation behavior.",
+          "known_availability_limitations": "Online Python documentation may be unavailable offline.",
+          "safe_fallback": "Run the included Python examples and consult the installed interpreter help.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Python Data Model reference",
+              "url": "https://docs.python.org/3/reference/datamodel.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Deeper object-semantics reference than the expression-level drills need; stdtypes keeps the operator-level material in scope."
+            },
+            {
+              "candidate_name": "The Python Tutorial: An Informal Introduction",
+              "url": "https://docs.python.org/3/tutorial/introduction.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Narrative introduction to the same operators; the library reference was selected as the normative signature source."
+            }
+          ]
+        },
+        {
+          "id": "git-scm-book-diffs",
+          "title": "Git User Manual: Recording Changes",
+          "author": "Git project",
+          "original_url": "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+          "relevant_timestamp": "Recording Changes to the Repository",
+          "version_or_verification_date": "Verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "CC BY-NC-SA 3.0 (book)",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no source text reproduced.",
+          "prerequisites": "Basic Git awareness",
+          "selection_rationale": "Primary reference for inspecting a small diff before a safe commit.",
+          "known_availability_limitations": "Online book may be unavailable offline.",
+          "safe_fallback": "Use git diff and git status locally; do not commit until the diff is understood.",
+          "compared_candidates": [
+            {
+              "candidate_name": "git-diff command reference",
+              "url": "https://git-scm.com/docs/git-diff",
+              "license": "Git documentation (GPL-2.0)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Command-level flag reference; the Pro Git chapter was selected for its guided walkthrough of inspecting changes before committing."
+            },
+            {
+              "candidate_name": "Atlassian Git tutorials: git diff",
+              "url": "https://www.atlassian.com/git/tutorials/saving-changes/git-diff",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Friendly commercial walkthrough; the book chapter provides deeper staging/index semantics for the same inspection habit."
+            }
+          ]
+        }
+      ],
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-04-act-02-q1",
+            "type": "choice",
+            "expected_answer": "a"
+          }
+        ]
+      },
+      "content_revision": "2026.10.31-rev1"
+    },
+    {
+      "id": "day-04-act-03",
+      "lesson_id": "les-04",
+      "title": "Small diff: make a report safer",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "prerequisites": [
+        "day-03"
+      ],
+      "source_resources": [
+        {
+          "id": "py-docs-builtins-ticket26",
+          "title": "Python Standard Library: Built-in Types",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/stdtypes.html",
+          "relevant_timestamp": "Sections  Truth Value Testing, Comparisons, and Mutable Sequence Types",
+          "version_or_verification_date": "Python 3.12 documentation (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Linking only; no source text reproduced.",
+          "prerequisites": "Day 03 recovery drill",
+          "selection_rationale": "Normative reference for truthiness, comparison, binding, and mutation behavior.",
+          "known_availability_limitations": "Online Python documentation may be unavailable offline.",
+          "safe_fallback": "Run the included Python examples and consult the installed interpreter help.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Python Data Model reference",
+              "url": "https://docs.python.org/3/reference/datamodel.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Deeper object-semantics reference than the expression-level drills need; stdtypes keeps the operator-level material in scope."
+            },
+            {
+              "candidate_name": "The Python Tutorial: An Informal Introduction",
+              "url": "https://docs.python.org/3/tutorial/introduction.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Narrative introduction to the same operators; the library reference was selected as the normative signature source."
+            }
+          ]
+        },
+        {
+          "id": "git-scm-book-diffs",
+          "title": "Git User Manual: Recording Changes",
+          "author": "Git project",
+          "original_url": "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+          "relevant_timestamp": "Recording Changes to the Repository",
+          "version_or_verification_date": "Verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "CC BY-NC-SA 3.0 (book)",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no source text reproduced.",
+          "prerequisites": "Basic Git awareness",
+          "selection_rationale": "Primary reference for inspecting a small diff before a safe commit.",
+          "known_availability_limitations": "Online book may be unavailable offline.",
+          "safe_fallback": "Use git diff and git status locally; do not commit until the diff is understood.",
+          "compared_candidates": [
+            {
+              "candidate_name": "git-diff command reference",
+              "url": "https://git-scm.com/docs/git-diff",
+              "license": "Git documentation (GPL-2.0)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Command-level flag reference; the Pro Git chapter was selected for its guided walkthrough of inspecting changes before committing."
+            },
+            {
+              "candidate_name": "Atlassian Git tutorials: git diff",
+              "url": "https://www.atlassian.com/git/tutorials/saving-changes/git-diff",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Friendly commercial walkthrough; the book chapter provides deeper staging/index semantics for the same inspection habit."
+            }
+          ]
+        }
+      ],
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-04-act-03-q1",
+            "type": "choice",
+            "expected_answer": "a"
+          }
+        ]
+      },
+      "content_revision": "2026.10.31-rev1"
+    },
+    {
+      "id": "day-04-act-04",
+      "lesson_id": "les-04",
+      "title": "Review and independent check",
+      "active_minutes": 120,
+      "activity_type": "review",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "prerequisites": [
+        "day-03"
+      ],
+      "source_resources": [
+        {
+          "id": "py-docs-builtins-ticket26",
+          "title": "Python Standard Library: Built-in Types",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/stdtypes.html",
+          "relevant_timestamp": "Sections  Truth Value Testing, Comparisons, and Mutable Sequence Types",
+          "version_or_verification_date": "Python 3.12 documentation (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Linking only; no source text reproduced.",
+          "prerequisites": "Day 03 recovery drill",
+          "selection_rationale": "Normative reference for truthiness, comparison, binding, and mutation behavior.",
+          "known_availability_limitations": "Online Python documentation may be unavailable offline.",
+          "safe_fallback": "Run the included Python examples and consult the installed interpreter help.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Python Data Model reference",
+              "url": "https://docs.python.org/3/reference/datamodel.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Deeper object-semantics reference than the expression-level drills need; stdtypes keeps the operator-level material in scope."
+            },
+            {
+              "candidate_name": "The Python Tutorial: An Informal Introduction",
+              "url": "https://docs.python.org/3/tutorial/introduction.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Narrative introduction to the same operators; the library reference was selected as the normative signature source."
+            }
+          ]
+        },
+        {
+          "id": "git-scm-book-diffs",
+          "title": "Git User Manual: Recording Changes",
+          "author": "Git project",
+          "original_url": "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+          "relevant_timestamp": "Recording Changes to the Repository",
+          "version_or_verification_date": "Verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "CC BY-NC-SA 3.0 (book)",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no source text reproduced.",
+          "prerequisites": "Basic Git awareness",
+          "selection_rationale": "Primary reference for inspecting a small diff before a safe commit.",
+          "known_availability_limitations": "Online book may be unavailable offline.",
+          "safe_fallback": "Use git diff and git status locally; do not commit until the diff is understood.",
+          "compared_candidates": [
+            {
+              "candidate_name": "git-diff command reference",
+              "url": "https://git-scm.com/docs/git-diff",
+              "license": "Git documentation (GPL-2.0)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Command-level flag reference; the Pro Git chapter was selected for its guided walkthrough of inspecting changes before committing."
+            },
+            {
+              "candidate_name": "Atlassian Git tutorials: git diff",
+              "url": "https://www.atlassian.com/git/tutorials/saving-changes/git-diff",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Friendly commercial walkthrough; the book chapter provides deeper staging/index semantics for the same inspection habit."
+            }
+          ]
+        }
+      ],
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-04-act-04-q1",
+            "type": "choice",
+            "expected_answer": "a"
+          }
+        ]
+      },
+      "content_revision": "2026.10.31-rev1"
+    }
+  ]
+}

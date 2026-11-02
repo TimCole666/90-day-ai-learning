@@ -1,0 +1,390 @@
+{
+  "id": "day-26",
+  "day_number": 26,
+  "active_minutes": 480,
+  "topic_category": "mathematics",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-25"
+  ],
+  "recovery_links": [
+    "day-25"
+  ],
+  "activities": [
+    {
+      "id": "day-26-act-01",
+      "lesson_id": "les-26",
+      "title": "Random Variables and Probability Distributions",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-25"
+      ],
+      "source_resources": [
+        {
+          "id": "openstax-introductory-statistics-2e",
+          "title": "Introductory Statistics 2e",
+          "author": "OpenStax, Rice University (Barbara Illowsky, Susan Dean)",
+          "original_url": "https://openstax.org/details/books/introductory-statistics-2e",
+          "relevant_timestamp": "Chapter 4: Discrete Random Variables (probability distribution functions)",
+          "version_or_verification_date": "2e web edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "textbook",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Lawful external reference under CC BY-NC-SA 4.0; lesson text and worked numbers are original curriculum material.",
+          "prerequisites": "High-school algebra; Day 25 probability foundations",
+          "selection_rationale": "Open textbook treatment of discrete random variables and distribution tables.",
+          "known_availability_limitations": "Hosted on openstax.org; free PDF and web view require network access.",
+          "safe_fallback": "All required definitions, tables, and worked answers are reproduced locally in this lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OCW 6.041 Probabilistic Systems Analysis",
+              "url": "https://ocw.mit.edu/courses/6-041-probabilistic-systems-analysis-and-applied-probability-fall-2010/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_deferred",
+              "comparison_rationale": "Rigorous but paced for a full graduate semester; exceeds the depth needed for Days 25-27 training-objective foundations."
+            },
+            {
+              "candidate_name": "Khan Academy Statistics and Probability",
+              "url": "https://www.khanacademy.org/math/statistics-probability",
+              "license": "CC BY-NC-SA 3.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Accessible video-first coverage; noncommercial/share-alike terms and video pacing make it a supplementary rather than primary link."
+            },
+            {
+              "candidate_name": "Harvard Stat 110 Introduction to Probability (Blitzstein & Hwang)",
+              "url": "https://projects.iq.harvard.edu/stat110/home",
+              "license": "CRC Press copyright (book); free lecture videos",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong intuition-building course; the printed textbook is paywalled, so it complements rather than replaces the openly licensed OpenStax text."
+            }
+          ]
+        },
+        {
+          "id": "cs229-probability-review",
+          "title": "CS229 Review of Probability Theory",
+          "author": "Stanford CS229 course staff (Arian Maleki, Tom Do)",
+          "original_url": "https://cs229.stanford.edu/section/cs229-prob.pdf",
+          "relevant_timestamp": "Section 2.4-2.5: Random variables, distributions, expectation",
+          "version_or_verification_date": "2020 public course notes (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "course_notes",
+          "license": "Stanford copyright; public course notes",
+          "license_restrictions": [
+            "No text extraction or redistribution permitted"
+          ],
+          "permission_basis": "Academic citation and linking only; explanations are original formulations.",
+          "prerequisites": "Multivariate calculus notation exposure",
+          "selection_rationale": "ML-oriented definition of random variables bridging to categorical token distributions.",
+          "known_availability_limitations": "Stanford-hosted PDF; availability depends on course site uptime.",
+          "safe_fallback": "Self-contained definitions and derivations in activity instructions and offline guide.",
+          "compared_candidates": [
+            {
+              "candidate_name": "OpenStax Introductory Statistics 2e",
+              "url": "https://openstax.org/details/books/introductory-statistics-2e",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Co-selected: provides the gentler beginner narrative; CS229 provides the ML-oriented notation bridge."
+            },
+            {
+              "candidate_name": "MIT OCW 18.05 Introduction to Probability and Statistics",
+              "url": "https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong full-course treatment with noncommercial/share-alike terms; heavier than the compact CS229 reference for this three-day block."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-26-act-02",
+      "lesson_id": "les-26",
+      "title": "Expectation, Variance, and Worked Distribution Tables",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-26-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "openstax-introductory-statistics-2e",
+          "title": "Introductory Statistics 2e",
+          "author": "OpenStax, Rice University (Barbara Illowsky, Susan Dean)",
+          "original_url": "https://openstax.org/details/books/introductory-statistics-2e",
+          "relevant_timestamp": "Chapter 4: Discrete Random Variables (mean, expected value, standard deviation)",
+          "version_or_verification_date": "2e web edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "textbook",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Lawful external reference under CC BY-NC-SA 4.0; lesson text and worked numbers are original curriculum material.",
+          "prerequisites": "High-school algebra; Day 25 probability foundations",
+          "selection_rationale": "Step-by-step open examples of expected value and variance from distribution tables.",
+          "known_availability_limitations": "Hosted on openstax.org; free PDF and web view require network access.",
+          "safe_fallback": "All required definitions, tables, and worked answers are reproduced locally in this lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OCW 6.041 Probabilistic Systems Analysis",
+              "url": "https://ocw.mit.edu/courses/6-041-probabilistic-systems-analysis-and-applied-probability-fall-2010/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_deferred",
+              "comparison_rationale": "Rigorous but paced for a full graduate semester; exceeds the depth needed for Days 25-27 training-objective foundations."
+            },
+            {
+              "candidate_name": "Khan Academy Statistics and Probability",
+              "url": "https://www.khanacademy.org/math/statistics-probability",
+              "license": "CC BY-NC-SA 3.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Accessible video-first coverage; noncommercial/share-alike terms and video pacing make it a supplementary rather than primary link."
+            },
+            {
+              "candidate_name": "Harvard Stat 110 Introduction to Probability (Blitzstein & Hwang)",
+              "url": "https://projects.iq.harvard.edu/stat110/home",
+              "license": "CRC Press copyright (book); free lecture videos",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong intuition-building course; the printed textbook is paywalled, so it complements rather than replaces the openly licensed OpenStax text."
+            }
+          ]
+        },
+        {
+          "id": "cs229-probability-review",
+          "title": "CS229 Review of Probability Theory",
+          "author": "Stanford CS229 course staff (Arian Maleki, Tom Do)",
+          "original_url": "https://cs229.stanford.edu/section/cs229-prob.pdf",
+          "relevant_timestamp": "Section 2.5-2.6: Expectation, variance, common discrete distributions",
+          "version_or_verification_date": "2020 public course notes (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "course_notes",
+          "license": "Stanford copyright; public course notes",
+          "license_restrictions": [
+            "No text extraction or redistribution permitted"
+          ],
+          "permission_basis": "Academic citation and linking only; explanations are original formulations.",
+          "prerequisites": "Multivariate calculus notation exposure",
+          "selection_rationale": "Concise reference for Var(X)=E[X^2]-E[X]^2 and Bernoulli variance used in ML derivations.",
+          "known_availability_limitations": "Stanford-hosted PDF; availability depends on course site uptime.",
+          "safe_fallback": "Self-contained definitions and derivations in activity instructions and offline guide.",
+          "compared_candidates": [
+            {
+              "candidate_name": "OpenStax Introductory Statistics 2e",
+              "url": "https://openstax.org/details/books/introductory-statistics-2e",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Co-selected: provides the gentler beginner narrative; CS229 provides the ML-oriented notation bridge."
+            },
+            {
+              "candidate_name": "MIT OCW 18.05 Introduction to Probability and Statistics",
+              "url": "https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong full-course treatment with noncommercial/share-alike terms; heavier than the compact CS229 reference for this three-day block."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-26-act-03",
+      "lesson_id": "les-26",
+      "title": "Sampling, Empirical Distributions, and Maximum Likelihood",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev2",
+      "prerequisites": [
+        "day-26-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "openstax-introductory-statistics-2e",
+          "title": "Introductory Statistics 2e",
+          "author": "OpenStax, Rice University (Barbara Illowsky, Susan Dean)",
+          "original_url": "https://openstax.org/details/books/introductory-statistics-2e",
+          "relevant_timestamp": "Chapter 1: Sampling and Data (sampling, variation); Chapter 4 (estimating parameters)",
+          "version_or_verification_date": "2e web edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "textbook",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Lawful external reference under CC BY-NC-SA 4.0; lesson text and worked numbers are original curriculum material.",
+          "prerequisites": "High-school algebra; Day 25 probability foundations",
+          "selection_rationale": "Open coverage of sampling variability and estimation that motivates the MLE and standard-error work here.",
+          "known_availability_limitations": "Hosted on openstax.org; free PDF and web view require network access.",
+          "safe_fallback": "All required definitions, simulations, and worked answers are reproduced locally in this lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OCW 6.041 Probabilistic Systems Analysis",
+              "url": "https://ocw.mit.edu/courses/6-041-probabilistic-systems-analysis-and-applied-probability-fall-2010/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_deferred",
+              "comparison_rationale": "Rigorous but paced for a full graduate semester; exceeds the depth needed for Days 25-27 training-objective foundations."
+            },
+            {
+              "candidate_name": "Khan Academy Statistics and Probability",
+              "url": "https://www.khanacademy.org/math/statistics-probability",
+              "license": "CC BY-NC-SA 3.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Accessible video-first coverage; noncommercial/share-alike terms and video pacing make it a supplementary rather than primary link."
+            },
+            {
+              "candidate_name": "Harvard Stat 110 Introduction to Probability (Blitzstein & Hwang)",
+              "url": "https://projects.iq.harvard.edu/stat110/home",
+              "license": "CRC Press copyright (book); free lecture videos",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong intuition-building course; the printed textbook is paywalled, so it complements rather than replaces the openly licensed OpenStax text."
+            }
+          ]
+        },
+        {
+          "id": "py-docs-random",
+          "title": "Python 3 random: Generate pseudo-random numbers",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/random.html",
+          "relevant_timestamp": "random.seed, random.randint, random.sample, random.choices",
+          "version_or_verification_date": "Python 3.12 documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Linking only; no source text reproduced.",
+          "prerequisites": "Basic Python syntax",
+          "selection_rationale": "Normative reference for the seeded draws used to build empirical distributions.",
+          "known_availability_limitations": "Online documentation may be unavailable offline.",
+          "safe_fallback": "Use the installed interpreter's help(random) and the included deterministic commands.",
+          "compared_candidates": [
+            {
+              "candidate_name": "NumPy random Generator documentation",
+              "url": "https://numpy.org/doc/stable/reference/random/generator.html",
+              "license": "BSD 3-Clause",
+              "status": "compared_deferred",
+              "comparison_rationale": "Faster vectorized sampling but adds a third-party dependency before the tensor track; deferred to the models-and-training days."
+            },
+            {
+              "candidate_name": "Python secrets module documentation",
+              "url": "https://docs.python.org/3/library/secrets.html",
+              "license": "PSF License Version 2",
+              "status": "compared_rejected_for_days_25_27",
+              "comparison_rationale": "Cryptographically secure randomness is unnecessary for reproducible statistical pedagogy and obscures the seed-based determinism the exercises require."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-26-act-04",
+      "lesson_id": "les-26",
+      "title": "Independent Mastery Check: Estimation and Sampling",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev2",
+      "prerequisites": [
+        "day-26-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "openstax-introductory-statistics-2e",
+          "title": "Introductory Statistics 2e",
+          "author": "OpenStax, Rice University (Barbara Illowsky, Susan Dean)",
+          "original_url": "https://openstax.org/details/books/introductory-statistics-2e",
+          "relevant_timestamp": "Chapters 1 and 4 review: sampling, distributions, expectation, variance",
+          "version_or_verification_date": "2e web edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "textbook",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Lawful external reference under CC BY-NC-SA 4.0; assessment items are original curriculum material.",
+          "prerequisites": "High-school algebra; Day 25 probability foundations",
+          "selection_rationale": "Open review coverage aligned with this day's assessment scope.",
+          "known_availability_limitations": "Hosted on openstax.org; free PDF and web view require network access.",
+          "safe_fallback": "The assessment is self-contained with original items and worked reference answers.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OCW 6.041 Probabilistic Systems Analysis",
+              "url": "https://ocw.mit.edu/courses/6-041-probabilistic-systems-analysis-and-applied-probability-fall-2010/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_deferred",
+              "comparison_rationale": "Rigorous but paced for a full graduate semester; exceeds the depth needed for Days 25-27 training-objective foundations."
+            },
+            {
+              "candidate_name": "Khan Academy Statistics and Probability",
+              "url": "https://www.khanacademy.org/math/statistics-probability",
+              "license": "CC BY-NC-SA 3.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Accessible video-first coverage; noncommercial/share-alike terms and video pacing make it a supplementary rather than primary link."
+            },
+            {
+              "candidate_name": "Harvard Stat 110 Introduction to Probability (Blitzstein & Hwang)",
+              "url": "https://projects.iq.harvard.edu/stat110/home",
+              "license": "CRC Press copyright (book); free lecture videos",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong intuition-building course; the printed textbook is paywalled, so it complements rather than replaces the openly licensed OpenStax text."
+            }
+          ]
+        },
+        {
+          "id": "cs229-probability-review",
+          "title": "CS229 Review of Probability Theory",
+          "author": "Stanford CS229 course staff (Arian Maleki, Tom Do)",
+          "original_url": "https://cs229.stanford.edu/section/cs229-prob.pdf",
+          "relevant_timestamp": "Sections 2.4-3: random variables, expectation, variance, maximum likelihood",
+          "version_or_verification_date": "2020 public course notes (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "course_notes",
+          "license": "Stanford copyright; public course notes",
+          "license_restrictions": [
+            "No text extraction or redistribution permitted"
+          ],
+          "permission_basis": "Academic citation and linking only; explanations are original formulations.",
+          "prerequisites": "Multivariate calculus notation exposure",
+          "selection_rationale": "Reference for estimation and MLE concepts this assessment checks without assistance.",
+          "known_availability_limitations": "Stanford-hosted PDF; availability depends on course site uptime.",
+          "safe_fallback": "The assessment is self-contained with original items and worked reference answers.",
+          "compared_candidates": [
+            {
+              "candidate_name": "OpenStax Introductory Statistics 2e",
+              "url": "https://openstax.org/details/books/introductory-statistics-2e",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Co-selected: provides the gentler beginner narrative; CS229 provides the ML-oriented notation bridge."
+            },
+            {
+              "candidate_name": "MIT OCW 18.05 Introduction to Probability and Statistics",
+              "url": "https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong full-course treatment with noncommercial/share-alike terms; heavier than the compact CS229 reference for this three-day block."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

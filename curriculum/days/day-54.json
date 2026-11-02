@@ -1,0 +1,344 @@
+{
+  "id": "day-54",
+  "day_number": 54,
+  "active_minutes": 480,
+  "topic_category": "models-and-training",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-53"
+  ],
+  "recovery_links": [
+    "day-51"
+  ],
+  "activities": [
+    {
+      "id": "day-54-act-01",
+      "lesson_id": "les-54",
+      "title": "Qualitative Failure Gallery: Degenerative Loops and Hallucinations",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-53"
+      ],
+      "source_resources": [
+        {
+          "id": "holtzman-degeneration-2019",
+          "title": "The Curious Case of Neural Text Degeneration",
+          "author": "Ari Holtzman, Jan Buys, Li Du, Maxwell Forbes, Yejin Choi",
+          "original_url": "https://arxiv.org/abs/1904.09751",
+          "version_or_verification_date": "ICLR 2020 / arXiv:1904.09751v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Softmax probabilities, cumulative probability distributions from Days 25-27 and 41-42.",
+          "selection_rationale": "Primary source introducing Nucleus (Top-p) sampling and analyzing the failure of greedy decoding (loops, repetition).",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Top-p truncation algorithms and worked probability cutoffs are completely explained in the lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Fan et al. Hierarchical Neural Story Generation (Top-k)",
+              "url": "https://arxiv.org/abs/1805.04833",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Introduces top-k sampling; Holtzman et al. dynamic nucleus threshold is compared directly against top-k."
+            },
+            {
+              "candidate_name": "Hugging Face Generation Strategies Guide",
+              "url": "https://huggingface.co/docs/transformers/generation_strategies",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Practical library guide; Holtzman provides the foundational mathematical reasoning."
+            }
+          ],
+          "relevant_timestamp": "Section 5.3 Repetition and Appendix B Example Generations"
+        },
+        {
+          "id": "karpathy-nanogpt-sample",
+          "title": "nanoGPT: sample.py autoregressive generation script",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/nanoGPT/blob/master/sample.py",
+          "version_or_verification_date": "Git master (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT license.",
+          "prerequisites": "PyTorch inference, torch.multinomial, and Day 48 decoder-only forward pass.",
+          "selection_rationale": "Compact historical code reference for the named implementation functions; CS336 spring2025 provides the lead component exercises. Do not infer top-p, atomic persistence or cloud budget enforcement from nanoGPT.",
+          "compared_candidates": [
+            {
+              "candidate_name": "llama.cpp sampling implementation",
+              "url": "https://github.com/ggerganov/llama.cpp",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "C++ implementation with high performance; nanoGPT is readable Python matched to our curriculum."
+            },
+            {
+              "candidate_name": "PyTorch text generation tutorial",
+              "url": "https://pytorch.org/tutorials/beginner/transformer_tutorial.html",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Encoder-decoder model; nanoGPT decoder-only autoregressive loop is the direct fit for modern LLMs."
+            }
+          ],
+          "known_availability_limitations": "Historical implementation reference: nanoGPT README marks the repository deprecated (November 2025). Toy CPU reading/runs do not establish full GPU pretraining feasibility.",
+          "safe_fallback": "The generation loop is implemented in runnable local scripts.",
+          "relevant_timestamp": "sample.py: temperature and top_k settings passed to model.generate (model.py: GPT.generate)"
+        }
+      ]
+    },
+    {
+      "id": "day-54-act-02",
+      "lesson_id": "les-54",
+      "title": "Small Model Limitations vs True Knowledge Acquisition",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-54-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "holtzman-degeneration-2019",
+          "title": "The Curious Case of Neural Text Degeneration",
+          "author": "Ari Holtzman, Jan Buys, Li Du, Maxwell Forbes, Yejin Choi",
+          "original_url": "https://arxiv.org/abs/1904.09751",
+          "version_or_verification_date": "ICLR 2020 / arXiv:1904.09751v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Softmax probabilities, cumulative probability distributions from Days 25-27 and 41-42.",
+          "selection_rationale": "Primary source introducing Nucleus (Top-p) sampling and analyzing the failure of greedy decoding (loops, repetition).",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Top-p truncation algorithms and worked probability cutoffs are completely explained in the lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Fan et al. Hierarchical Neural Story Generation (Top-k)",
+              "url": "https://arxiv.org/abs/1805.04833",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Introduces top-k sampling; Holtzman et al. dynamic nucleus threshold is compared directly against top-k."
+            },
+            {
+              "candidate_name": "Hugging Face Generation Strategies Guide",
+              "url": "https://huggingface.co/docs/transformers/generation_strategies",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Practical library guide; Holtzman provides the foundational mathematical reasoning."
+            }
+          ],
+          "locator_status": "whole_source_reference"
+        },
+        {
+          "id": "karpathy-nanogpt-model",
+          "title": "nanoGPT: model.py architecture implementation",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/nanoGPT/blob/master/model.py",
+          "version_or_verification_date": "Git master (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license.",
+          "prerequisites": "Python, PyTorch, and Day 43-45 attention fundamentals.",
+          "selection_rationale": "Compact historical code reference for the named implementation functions; CS336 spring2025 provides the lead component exercises. Do not infer top-p, atomic persistence or cloud budget enforcement from nanoGPT.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GPT-2 TensorFlow source (OpenAI)",
+              "url": "https://github.com/openai/gpt-2",
+              "license": "Modified MIT License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Original legacy TensorFlow 1.x code; nanoGPT provides clean modern PyTorch equivalent."
+            },
+            {
+              "candidate_name": "Llama 2 / 3 PyTorch source (Meta)",
+              "url": "https://github.com/meta-llama/llama",
+              "license": "Llama 2 Community License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Includes advanced production features (RoPE, GQA), but nanoGPT's simplicity is ideal for the core Days 46-48 assembly."
+            }
+          ],
+          "known_availability_limitations": "Historical implementation reference: nanoGPT README marks the repository deprecated (November 2025). Toy CPU reading/runs do not establish full GPU pretraining feasibility.",
+          "safe_fallback": "Local models and classes in the curriculum mirror nanoGPT semantics directly.",
+          "locator_status": "whole_source_reference"
+        }
+      ]
+    },
+    {
+      "id": "day-54-act-03",
+      "lesson_id": "les-54",
+      "title": "Ablation Studies: Model Size, Context Length, and Sampling Parameters",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-54-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "vaswani-attention-2017",
+          "title": "Attention Is All You Need",
+          "author": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin",
+          "original_url": "https://arxiv.org/abs/1706.03762",
+          "version_or_verification_date": "arXiv:1706.03762v7 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation and reference under arXiv open access terms; no paper figures or prose reproduced.",
+          "prerequisites": "Matrix multiplication and basic neural network concepts from Days 22-24 and 34-36.",
+          "selection_rationale": "Foundational primary literature defining the Transformer architecture, multi-head attention, and scaled dot-product attention.",
+          "known_availability_limitations": "Freely hosted on arXiv.org; PDF and HTML available.",
+          "safe_fallback": "All mathematical formulas and structural definitions are self-contained in the lesson text.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Illustrated Transformer (Jay Alammar)",
+              "url": "https://jalammar.github.io/illustrated-transformer/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-level visual intuition, but Vaswani et al. provides the primary mathematical specifications needed for implementation."
+            },
+            {
+              "candidate_name": "Annotated Transformer (Harvard NLP)",
+              "url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+              "license": "MIT",
+              "status": "compared_selected_for_day46_48",
+              "comparison_rationale": "Co-primary: PyTorch line-by-line implementation alongside the paper equations."
+            }
+          ],
+          "relevant_timestamp": "Section 6.2 Model Variations (Table 3)"
+        },
+        {
+          "id": "holtzman-degeneration-2019",
+          "title": "The Curious Case of Neural Text Degeneration",
+          "author": "Ari Holtzman, Jan Buys, Li Du, Maxwell Forbes, Yejin Choi",
+          "original_url": "https://arxiv.org/abs/1904.09751",
+          "version_or_verification_date": "ICLR 2020 / arXiv:1904.09751v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Softmax probabilities, cumulative probability distributions from Days 25-27 and 41-42.",
+          "selection_rationale": "Primary source introducing Nucleus (Top-p) sampling and analyzing the failure of greedy decoding (loops, repetition).",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Top-p truncation algorithms and worked probability cutoffs are completely explained in the lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Fan et al. Hierarchical Neural Story Generation (Top-k)",
+              "url": "https://arxiv.org/abs/1805.04833",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Introduces top-k sampling; Holtzman et al. dynamic nucleus threshold is compared directly against top-k."
+            },
+            {
+              "candidate_name": "Hugging Face Generation Strategies Guide",
+              "url": "https://huggingface.co/docs/transformers/generation_strategies",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Practical library guide; Holtzman provides the foundational mathematical reasoning."
+            }
+          ],
+          "relevant_timestamp": "Section 3.1 Nucleus Sampling (with Section 2.1 Text Generation Decoding Strategies)"
+        }
+      ]
+    },
+    {
+      "id": "day-54-act-04",
+      "lesson_id": "les-54",
+      "title": "Comprehensive Generation and Evaluation Mastery Exam",
+      "active_minutes": 120,
+      "activity_type": "review",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent_mastery",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-54-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "karpathy-nanogpt-sample",
+          "title": "nanoGPT: sample.py autoregressive generation script",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/nanoGPT/blob/master/sample.py",
+          "version_or_verification_date": "Git master (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT license.",
+          "prerequisites": "PyTorch inference, torch.multinomial, and Day 48 decoder-only forward pass.",
+          "selection_rationale": "Compact historical code reference for the named implementation functions; CS336 spring2025 provides the lead component exercises. Do not infer top-p, atomic persistence or cloud budget enforcement from nanoGPT.",
+          "compared_candidates": [
+            {
+              "candidate_name": "llama.cpp sampling implementation",
+              "url": "https://github.com/ggerganov/llama.cpp",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "C++ implementation with high performance; nanoGPT is readable Python matched to our curriculum."
+            },
+            {
+              "candidate_name": "PyTorch text generation tutorial",
+              "url": "https://pytorch.org/tutorials/beginner/transformer_tutorial.html",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Encoder-decoder model; nanoGPT decoder-only autoregressive loop is the direct fit for modern LLMs."
+            }
+          ],
+          "known_availability_limitations": "Historical implementation reference: nanoGPT README marks the repository deprecated (November 2025). Toy CPU reading/runs do not establish full GPU pretraining feasibility.",
+          "safe_fallback": "The generation loop is implemented in runnable local scripts.",
+          "relevant_timestamp": "sample.py: temperature and top_k settings passed to model.generate (model.py: GPT.generate)"
+        },
+        {
+          "id": "holtzman-degeneration-2019",
+          "title": "The Curious Case of Neural Text Degeneration",
+          "author": "Ari Holtzman, Jan Buys, Li Du, Maxwell Forbes, Yejin Choi",
+          "original_url": "https://arxiv.org/abs/1904.09751",
+          "version_or_verification_date": "ICLR 2020 / arXiv:1904.09751v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic reference under arXiv open access terms.",
+          "prerequisites": "Softmax probabilities, cumulative probability distributions from Days 25-27 and 41-42.",
+          "selection_rationale": "Primary source introducing Nucleus (Top-p) sampling and analyzing the failure of greedy decoding (loops, repetition).",
+          "known_availability_limitations": "Freely available on arXiv.",
+          "safe_fallback": "Top-p truncation algorithms and worked probability cutoffs are completely explained in the lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Fan et al. Hierarchical Neural Story Generation (Top-k)",
+              "url": "https://arxiv.org/abs/1805.04833",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Introduces top-k sampling; Holtzman et al. dynamic nucleus threshold is compared directly against top-k."
+            },
+            {
+              "candidate_name": "Hugging Face Generation Strategies Guide",
+              "url": "https://huggingface.co/docs/transformers/generation_strategies",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Practical library guide; Holtzman provides the foundational mathematical reasoning."
+            }
+          ],
+          "relevant_timestamp": "Section 3.1 Nucleus Sampling (with Section 2.1 Text Generation Decoding Strategies)"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "fixture": "pi-agent-disposable-project",
+  "status": "simulation-only",
+  "provider": null,
+  "model": null,
+  "model_version": null,
+  "verification_date": "2026-10-30",
+  "test_command": "python3 -m unittest discover -s tests",
+  "note": "No live Pi or provider run is claimed. Replace null fields only after authorized execution."
+}

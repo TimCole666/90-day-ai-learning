@@ -1,0 +1,209 @@
+{
+  "id": "day-11",
+  "day_number": 11,
+  "active_minutes": 480,
+  "topic_category": "self-directed-learning-and-python",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-10"
+  ],
+  "recovery_links": [
+    "day-07"
+  ],
+  "activities": [
+    {
+      "id": "day-11-act-01",
+      "lesson_id": "les-11",
+      "title": "Precise exception handling and guaranteed cleanup",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-10"
+      ],
+      "source_resources": [
+        {
+          "id": "py-tutorial-errors",
+          "title": "The Python Tutorial: Errors and Exceptions",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/errors.html",
+          "relevant_timestamp": "Sections 8.3–8.6 (handling exceptions, else, finally, cleanup actions)",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Primary reference for try/except/else/finally semantics and the with statement as predefined cleanup.",
+          "known_availability_limitations": "Online Python documentation may be unavailable without internet access.",
+          "safe_fallback": "Every clause behavior in the lesson is demonstrated by runnable local snippets.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OCW 6.0001 Lecture on Exceptions",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Solid lecture treatment, but paced for a semester course and requires video viewing; the tutorial section matches the exercise scope directly."
+            },
+            {
+              "candidate_name": "Python Standard Library: Built-in Exceptions",
+              "url": "https://docs.python.org/3/library/exceptions.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Reference-style exception hierarchy listing rather than the tutorial narrative; retained as lookup material for the recovery drills."
+            }
+          ],
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ]
+    },
+    {
+      "id": "day-11-act-02",
+      "lesson_id": "les-11",
+      "title": "Failure clinic: from traceback to a targeted fix",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-11-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "py-docs-exceptions",
+          "title": "Python Standard Library: Built-in Exceptions",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/exceptions.html",
+          "relevant_timestamp": "Concrete exceptions and Exception hierarchy",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Normative hierarchy used to justify the narrowest correct except clause during diagnosis.",
+          "known_availability_limitations": "Online Python documentation may be unavailable without internet access.",
+          "safe_fallback": "The clinic traceback is reproduced locally; help(ValueError) documents the hierarchy offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "W3Schools Python Exceptions",
+              "url": "https://www.w3schools.com/python/python_try_except.asp",
+              "license": "Proprietary",
+              "status": "compared_rejected_for_day11",
+              "comparison_rationale": "Encourages broad except blocks; the clinic instead requires naming the exact hierarchy level."
+            },
+            {
+              "candidate_name": "The Python Tutorial: Errors and Exceptions",
+              "url": "https://docs.python.org/3/tutorial/errors.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Friendlier first-pass narrative; the library reference was selected for the normative hierarchy the exercises name directly."
+            }
+          ],
+          "license_restrictions": [],
+          "source_type": "documentation",
+          "locator_url": "https://docs.python.org/3/library/exceptions.html#concrete-exceptions"
+        }
+      ]
+    },
+    {
+      "id": "day-11-act-03",
+      "lesson_id": "les-11",
+      "title": "Isolated environments with venv",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-11-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "py-tutorial-venv",
+          "title": "The Python Tutorial: Virtual Environments and Packages",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/venv.html",
+          "relevant_timestamp": "Section 12 (Virtual Environments and Packages; creating venvs, pip, requirements)",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Primary reference for python -m venv, interpreter isolation, and requirements files.",
+          "known_availability_limitations": "Online Python documentation may be unavailable without internet access; pip installs additionally need a package index.",
+          "safe_fallback": "The drill needs no network: venv creation, sys.executable inspection, and ModuleNotFoundError reproduction all run offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "pip documentation",
+              "url": "https://pip.pypa.io/en/stable/",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Primary reference for pip commands, but the tutorial section covers the create-activate-install loop as one narrative better suited to beginners."
+            },
+            {
+              "candidate_name": "virtualenv documentation",
+              "url": "https://virtualenv.pypa.io/en/latest/",
+              "license": "MIT License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Mature third-party environment tool with overlapping behavior; the stdlib venv tutorial was selected to avoid an extra dependency for first-time setup."
+            }
+          ],
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ]
+    },
+    {
+      "id": "day-11-act-04",
+      "lesson_id": "les-11",
+      "title": "Wrong-environment diagnosis drill",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-11-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "py-tutorial-venv",
+          "title": "The Python Tutorial: Virtual Environments and Packages",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/venv.html",
+          "relevant_timestamp": "Section 12 (Virtual Environments and Packages; creating venvs, pip, requirements)",
+          "version_or_verification_date": "Python 3.12 documentation; verified 2026-10-30",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Reference retained for the independent wrong-environment diagnosis assessment.",
+          "known_availability_limitations": "Online Python documentation may be unavailable without internet access.",
+          "safe_fallback": "The assessment reproduces ModuleNotFoundError with the local interpreter only.",
+          "compared_candidates": [
+            {
+              "candidate_name": "pip documentation",
+              "url": "https://pip.pypa.io/en/stable/",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Reference for install commands if the learner chooses the install-based fix."
+            },
+            {
+              "candidate_name": "virtualenv documentation",
+              "url": "https://virtualenv.pypa.io/en/latest/",
+              "license": "MIT License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Mature third-party environment tool with overlapping behavior; the stdlib venv tutorial was selected to avoid an extra dependency for first-time setup."
+            }
+          ],
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ]
+    }
+  ]
+}

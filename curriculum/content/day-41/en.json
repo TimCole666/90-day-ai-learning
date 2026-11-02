@@ -1,0 +1,170 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 41: The Neural Language Model Forward Pass",
+  "day_subtitle": "Trace a Makemore-style MLP end to end by hand: embedding lookup, context concatenation, the tanh hidden layer, output logits, and a numerically stable softmax. Every activity records prediction, observation, review, and recovery.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Models & Training",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "day_label": "Day 41",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Enter your predicted pre-activations, hidden values, logits, softmax probabilities, and traces here...",
+    "dev_slice_notice": "Verified curriculum module for the 90-Day AI Learning Platform.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account.",
+        "provider_error": "Authentication provider encountered an error.",
+        "server_error": "Authentication provider encountered an error.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    },
+    "quiz": {
+      "quiz_title": "Objective Knowledge Check: Forward Pass & Softmax",
+      "quiz_instructions": "Answer the following diagnostic questions to verify your understanding. Select your declared assistance condition before submitting.",
+      "assistance_mode_label": "Declared Assistance Condition",
+      "mode_independent": "Independent Mastery Check (No AI assistance)",
+      "mode_agent_assisted": "Agent-Assisted Engineering Check (Completed with AI assistance)",
+      "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+      "submit_btn": "Submit Answers",
+      "retry_btn": "Retry Quiz",
+      "view_hint": "Question Hint",
+      "mastery_criterion_label": "Mastery Criterion",
+      "mastery_criterion_desc": "Score 100% (3/3 correct) on an Independent Mastery Check.",
+      "score_label": "Score",
+      "passed_badge": "Passed",
+      "failed_badge": "Needs Review",
+      "independent_pass_badge": "Independent Mastery Verified",
+      "agent_assisted_pass_badge": "Agent-Assisted Verified",
+      "self_reported_badge": "Self-Reported Checkbox",
+      "stale_badge": "Historical (Revalidation Needed - Content Revision Changed)",
+      "attempts_history_title": "Attempt History & Evidence",
+      "no_attempts": "No attempts recorded yet."
+    }
+  },
+  "activities": {
+    "day-41-act-01": {
+      "title": "Neural Language Model Pipeline: Indices to Pre-Activations",
+      "prerequisites": "Day 40 embedding lookup and context concatenation; Days 34-36 MLP mechanics.",
+      "objective": "Walk the full pipeline indices -> C rows -> concatenated x -> hidden pre-activations, and compute the input and pre-activation vectors by hand.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Required work: use the Day 40 table C and context ('a','b'), so x = [0.2, -0.1, -0.4, 0.5]. Weights stay fixed today: W1 = [[0.5,-0.2,0.1],[0.3,0.4,-0.3],[-0.1,0.2,0.6],[0.2,-0.5,0.4]], b1 = [0.1,-0.1,0.0]. Compute each hidden pre-activation pre_j = sum_i x_i * W1[i][j] + b1[j]. Record your predicted values before inspecting the trace. Optional work: predict which single input coordinate has the largest influence on pre_1.",
+      "exercise_prompt": "1. Compute pre_0, pre_1, pre_2 for the x and W1 above, showing every product.\n2. Predict whether any pre-activation is exactly zero.\n3. Name the pipeline stages in order from raw symbols to pre.",
+      "hint": "pre_0 = 0.2*0.5 + (-0.1)*0.3 + (-0.4)*(-0.1) + 0.5*0.2 + 0.1. Keep signs attached to each product before summing.",
+      "answer": "pre_0 = 0.10 - 0.03 + 0.04 + 0.10 + 0.10 = 0.31; pre_1 = -0.04 - 0.04 - 0.08 - 0.25 - 0.10 = -0.51; pre_2 = 0.02 + 0.03 - 0.24 + 0.20 + 0.00 = 0.01. None is exactly zero, though pre_2 is small enough that tanh will be nearly linear there. Stages: symbols -> indices -> C rows -> concat -> x*W1 + b1 -> tanh -> *W2 + b2 -> softmax.",
+      "mastery_criterion": "Hand-computed pre-activations match [0.31, -0.51, 0.01] with each product shown, and the learner narrates the pipeline stages in order without notes."
+    },
+    "day-41-act-02": {
+      "title": "Hidden Layer by Hand: tanh and Why Nonlinearity Matters",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Apply tanh element-wise, compute the hidden vector exactly, and justify why a nonlinearity is required between the two linear maps.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Required work: h = tanh(pre) element-wise. Use tanh(0.31) = 0.300437, tanh(-0.51) = -0.469945, tanh(0.01) = 0.010000 and verify at least one with a calculator or Python math.tanh. Then answer the collapse question: if the activation were the identity instead of tanh, what would the two linear maps reduce to? Optional work: compute tanh(5.0) and tanh(-5.0) to observe saturation.",
+      "exercise_prompt": "1. Write the hidden vector h.\n2. tanh saturates: what is tanh(5.0) to 4 decimals, and what does saturation imply for very large pre-activations?\n3. Prove the collapse: with identity activation, h = x*W1 and z = h*W2, write z purely in terms of x.",
+      "hint": "tanh maps R into (-1,1); for large |pre| the output sticks near +-1. For the collapse, substitute h into z and regroup the matrix product.",
+      "answer": "h = [0.300437, -0.469945, 0.010000]. tanh(5.0) ~= 0.9999: outputs squash into (-1,1), so huge pre-activations stop growing and their gradients shrink. Without nonlinearity, z = x*W1*W2 = x*(W1*W2): the 'deep' network is one linear map and the hidden layer adds no expressive power.",
+      "mastery_criterion": "Correct h to 6 decimals, the saturation observation, and a one-line proof that stacked linear maps collapse to a single linear map."
+    },
+    "day-41-act-03": {
+      "title": "Logits, Numerically Stable Softmax, and the Output Distribution",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Compute logits z = h*W2 + b2, apply the max-shifted softmax, obtain the next-symbol distribution, and explain the stability trick with a counterexample.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Required work: W2 = [[0.2,-0.1,0.3,0.1],[0.4,0.2,-0.2,0.0],[-0.3,0.1,0.5,-0.4]], b2 = [0.05,-0.05,0.02,0.0]. Compute z = h*W2 + b2 for yesterday's h. Then softmax: subtract m = max(z), exponentiate, normalize. Counterexample: with logits [1000,999,998], naive exp(1000) overflows float64; the shifted version gives [0.665241, 0.244728, 0.090031]. Optional work: prove softmax(z - c) = softmax(z) for any constant c.",
+      "exercise_prompt": "1. Compute the four logits z.\n2. Compute exp(z_j - m) for m = max(z), the normalizing sum, and p.\n3. Verify p sums to 1.\n4. In one sentence, why does subtracting the max change nothing mathematically?",
+      "hint": "z_2 is the largest logit at about 0.209. After shifting: exp(-0.290011) ~= 0.748256, exp(-0.382153) ~= 0.682391, exp(0) = 1, exp(-0.183076) ~= 0.832705.",
+      "answer": "z = [-0.080891, -0.173033, 0.209120, 0.026044]. With m = 0.209120: exp(z - m) = [0.748256, 0.682391, 1.000000, 0.832705], sum = 3.263351, so p = [0.229291, 0.209107, 0.306433, 0.255169], which sums to 1.0. Shifting multiplies every unnormalized term by the same factor e^{-m}, which cancels between numerator and denominator - identical probabilities, no overflow.",
+      "mastery_criterion": "Correct z and p to 6 decimals, a verified sum-to-one check, and a correct invariance argument for the max shift."
+    },
+    "day-41-act-04": {
+      "title": "Independent Mastery Check: Full Forward Pass on a Held-Out Context",
+      "prerequisites": "Activities 41-01 through 41-03.",
+      "objective": "Reproduce the entire forward pass unaided for a new context ('b','a') and identify the predicted symbol honestly.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Required work: closed-book. For context ('b','a') = indices [2,1], compute the full forward pass with the same C, W1, b1, W2, b2 and predict the next symbol before opening the reference. Optional work: state the cross-entropy loss if the true next symbol were 'a' (index 1) - you will need it on Day 42.",
+      "exercise_prompt": "For context ('b','a'):\n1. Concatenated input x.\n2. Pre-activations and hidden vector h.\n3. Logits z.\n4. Probabilities p and the argmax symbol.",
+      "hint": "x = concat(C[2], C[1]) = [-0.4, 0.5, 0.2, -0.1]. Reuse W1, b1, W2, b2 exactly as in activities 41-01 to 41-03.",
+      "answer": "x = [-0.4, 0.5, 0.2, -0.1]; pre = [0.01, 0.27, -0.11]; h = [0.010000, 0.263625, -0.109558]; z = [0.190317, -0.009231, -0.084504, 0.044823]; p = [0.290410, 0.237875, 0.220627, 0.251087]. The argmax is index 0, symbol '.' - the model predicts '.', which is wrong for target 'a'. Untrained weights produce confident-looking errors; prediction quality comes from training, not architecture alone.",
+      "mastery_criterion": "Independent reproduction of x, h, z, p matching the reference to 6 decimals, and the argmax '.' identified as index 0 with an honest comment on untrained predictions.",
+      "quiz": {
+        "title": "Objective Knowledge Check: Forward Pass & Softmax",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "Why does the numerically stable softmax subtract max(z) from every logit before exponentiating?",
+            "options": {
+              "a": "It makes the forward pass faster",
+              "b": "It prevents exp() overflow while leaving the probabilities unchanged",
+              "c": "It is required by the tanh activation",
+              "d": "It reduces the vocabulary size"
+            },
+            "hint": "Think about what exp(1000) does in float64, and how a common factor cancels in a ratio.",
+            "explanation": "exp(1000) overflows float64, but softmax(z - m) = softmax(z) because the factor e^{-m} cancels between numerator and denominator."
+          },
+          {
+            "id": "q2",
+            "prompt": "Two stacked linear layers with no nonlinear activation between them are equivalent to:",
+            "options": {
+              "a": "a single linear map x * (W1 * W2)",
+              "b": "a function that cannot be written as a matrix",
+              "c": "a saturating nonlinearity",
+              "d": "the softmax function"
+            },
+            "hint": "Substitute h = x*W1 into z = h*W2.",
+            "explanation": "z = x*W1*W2 = x*(W1W2): matrix products are associative, so the composition of two linear maps is one linear map."
+          },
+          {
+            "id": "q3",
+            "prompt": "Given p = [0.290410, 0.237875, 0.220627, 0.251087] over symbols ['.','a','b','c'], the argmax prediction is:",
+            "options": {
+              "a": "'a'",
+              "b": "'.'",
+              "c": "'b'",
+              "d": "'c'"
+            },
+            "hint": "Find the largest probability and map its index back to the vocabulary order.",
+            "explanation": "The largest value is 0.290410 at index 0, which is symbol '.'. The argmax is a prediction, not necessarily the correct target."
+          }
+        ]
+      }
+    }
+  }
+}

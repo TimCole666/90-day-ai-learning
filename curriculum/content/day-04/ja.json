@@ -1,0 +1,594 @@
+{
+  "language": "ja",
+  "language_label": "日本語",
+  "day_title": "Day 04: 値・束縛・観測可能なテキスト",
+  "day_subtitle": "Python の式を予測して実行し、値と変数の束縛を区別し、ラベルをオブジェクトそのものと混同せずに観測できるテキスト／データを報告します。",
+  "time_budget_label": "480 分（8 時間の集中学習）",
+  "category_label": "自律学習手法と Python エンジニアリング基礎",
+  "common": {
+    "nav_calendar": "📅 カリキュラムカレンダー",
+    "nav_agent_track": "🤖 Agent ツールトラック",
+    "day_label": "第 04",
+    "prerequisites_title": "前提条件",
+    "objective_title": "学習目標",
+    "instructions_title": "手順",
+    "exercise_title": "演習と予測記録",
+    "hint_title": "ヒントを確認",
+    "reveal_answer": "参考解答と分析を表示",
+    "mastery_title": "アクティビティの習得基準",
+    "draft_placeholder": "ここに予測出力、実際の動作、根本原因の推論を入力してください...",
+    "dev_slice_notice": "ローカルの学習内容は利用できますが、受け入れ検証は未完了です。外部アクセス、有料ツール、本番環境の証拠は別に扱います。",
+    "sources_heading": "公式ソースリソースと権利証跡",
+    "source_author_label": "著者・提供機関",
+    "source_url_label": "オリジナル出所URL",
+    "source_range_label": "該当セクション・タイムスタンプ",
+    "source_verification_label": "検証バージョンと日付",
+    "source_reuse_label": "再利用区分",
+    "source_license_label": "ライセンスと権利情報",
+    "source_rationale_label": "選定理由",
+    "source_prereqs_label": "ソース前提知識",
+    "source_fallback_label": "安全フォールバック（オフライン回復性）",
+    "compared_candidates_heading": "比較対象候補リソースと選定評価",
+    "compared_status_label": "評価結果",
+    "auth": {
+      "sign_in": "Googleでログイン",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "ログアウト",
+      "signed_in_as": "ログイン中:",
+      "guest": "ゲストモード",
+      "link_github": "GitHubを連携",
+      "link_google": "Googleを連携",
+      "linked_identities": "連携済みアカウント",
+      "auth_errors": {
+        "access_denied": "認証がキャンセルされたか、アクセスが拒否されました。",
+        "invalid_state": "無効または期限切れの認証状態です。再試行してください。",
+        "identity_conflict": "このIDは既に別のアカウントに連携されています。既存の記録を保護するため、連携の競合は拒否されました。",
+        "provider_error": "認証プロバイダーでエラーが発生しました。後でもう一度お試しください。",
+        "server_error": "認証プロバイダーでエラーが発生しました。後でもう一度お試しください。",
+        "session_expired": "セッションの有効期限が切れました。再度ログインしてください。"
+      }
+    },
+    "progress": {
+      "save_btn": "進捗を保存",
+      "saved": "保存済み",
+      "saving": "保存中...",
+      "save_error": "保存に失敗しました",
+      "offline": "オフライン",
+      "mark_completed": "完了としてマーク",
+      "completed_badge": "完了"
+    },
+    "quiz": {
+      "quiz_title": "客観的理解度チェックと診断トレース",
+      "quiz_instructions": "以下の設問に解答して理解度を確認してください。提出前に利用した補助条件を誠実に申告してください。",
+      "assistance_mode_label": "申告補助条件",
+      "mode_independent": "独立習得確認 (AI支援なし)",
+      "mode_agent_assisted": "Agent支援エンジニアリング確認 (AI支援あり)",
+      "mode_disclaimer": "注記: AI不使用は誠実な申告条件であり、監視や強制検知ではありません。",
+      "submit_btn": "解答を提出",
+      "retry_btn": "クイズをやり直す",
+      "view_hint": "ヒントを確認",
+      "mastery_criterion_label": "習得基準",
+      "mastery_criterion_desc": "このアクティビティのクイズで全問正解（100%）すること。独立習得として記録するには、独立習得確認モード（AI支援なし）で取り組むこと。",
+      "score_label": "得点",
+      "passed_badge": "合格",
+      "failed_badge": "要復習",
+      "independent_pass_badge": "独立習得合格",
+      "agent_assisted_pass_badge": "Agent支援合格",
+      "self_reported_badge": "自己申告完了",
+      "stale_badge": "過去の記録 (コンテンツ更新のため再検証が必要)",
+      "attempts_history_title": "解答根拠と履歴",
+      "no_attempts": "提出履歴はありません。"
+    },
+    "submissions": {
+      "title": "学習プロジェクト提出と証拠",
+      "repo_label": "リポジトリリンク (GitHub / GitLab)",
+      "repo_placeholder": "https://github.com/...",
+      "report_label": "プロジェクト報告書またはドキュメントリンク (任意)",
+      "report_placeholder": "https://...",
+      "notes_label": "証拠メモと診断ログ (最大 4096 バイト)",
+      "notes_placeholder": "最小限の再現例 (MRE)、観察された結果、診断メモを記録してください...",
+      "assistance_mode_label": "申告された支援条件",
+      "mode_independent": "独立した完成 (AI支援なし)",
+      "mode_agent_assisted": "エージェント支援エンジニアリング (AIツールによる指導付き完了)",
+      "mode_disclaimer": "注：AIなしでの作業は誠実な申告条件であり、監視ではありません。",
+      "track_label": "エージェントツールトラック (該当する場合)",
+      "tracks": {
+        "none": "なし / 該当なし",
+        "claude_code": "Claude Code",
+        "codex": "Codex",
+        "pi_agent": "Pi Agent",
+        "deepseek_harness": "DeepSeek Harness"
+      },
+      "submit_btn": "プロジェクト証拠を提出",
+      "status_saving": "提出内容を保存中...",
+      "status_saved": "提出内容が正常に保存されました。",
+      "status_error": "提出の保存に失敗しました。",
+      "val_invalid_url": "無効なURL：リポジトリおよびレポートのリンクは http または https を使用する必要があります。",
+      "val_notes_too_long": "証拠メモが最大制限の 4096 バイトを超えています。",
+      "val_empty": "リポジトリリンク、レポートリンク、または証拠メモのいずれかを記入してください。",
+      "pasted_log_notice": "注意：貼り付けられた実行ログやメモは自己申告の証拠であり、独立した検証や自動テスト結果を構成するものではありません。",
+      "inspect_title": "現在提出されている証拠の詳細",
+      "status_self_reported": "自己申告の証拠 (Self-Reported Evidence)",
+      "status_verified_check": "確定的検証チェック (Verified Check)",
+      "status_independently_reviewed": "独立レビュー証拠 (Independently Reviewed Evidence)",
+      "status_stale": "過去の証拠 (再検証が必要 - コンテンツのリビジョンが変更されました)",
+      "no_submission": "提出記録はまだありません。"
+    }
+  },
+  "activities": {
+    "day-04-act-01": {
+      "title": "値の調査と型ラベル",
+      "prerequisites": "Day 03 のリカバリードリルを完了していること。ターミナルから Python を起動できること。予測→観察の手順を復習しておくこと。",
+      "objective": "repr()、type()、bool() を使って、画面上では似て見える値（0、\"0\"、\"\"、None）を区別し、テキストの \"0\" が数値の 0 ではない理由を説明できる。",
+      "assistance_policy_label": "独立習得チェック（AI 支援なし）。",
+      "instructions": "参照資料: この活動に割り当てられた既存の読解・練習時間内で、Automate the Boring Stuff with Python, 3rd edition の Chapter 1; Practice Questions; Appendix B answers を参照し、ローカル課題とのつながりを一つ自分の言葉で説明する。既存の演習と合格基準は維持し、外部資料が開けない場合は本コース独自の説明を使う。必須課題：次のコードを census.py として保存します。実行する前に、出力される各行の予測を書き出してください。その後 python3 census.py を実行し、正確な出力を記録して予測と比較します。\n\n```python\nfor value in [0, \"0\", \"\", None]:\n    print(repr(value), type(value).__name__, bool(value))\nprint(\"0\" == 0, int(\"0\") == 0)\n```\n\n\"0\"（テキスト）と 0（整数）が、repr() の表示・型・真偽値のすべてで異なる理由を 1～2 文で説明してください。\n\n任意課題：必須の証拠がそろった後でのみ、好きな値（例：0.0 や \"False\"）をリストに 1 つ追加し、その行を予測してから再実行します。",
+      "exercise_prompt": "次のプログラムを実行する前に 5 行すべての出力を予測し、その後で正確な出力を記録してください。\n\n```python\nfor value in [0, \"0\", \"\", None]:\n    print(repr(value), type(value).__name__, bool(value))\nprint(\"0\" == 0, int(\"0\") == 0)\n```\n\n最後に、テキストの \"0\" が数値のゼロではない理由を説明してください。",
+      "hint": "print() は引用符を表示しませんが、repr() は表示します。空でない文字列は、中身が 0 という 1 文字だけでも真になります。また、文字列が整数と等しくなることはありません。",
+      "answer": "正確な出力：\n\n```text\n0 int False\n'0' str True\n'' str False\nNone NoneType False\nFalse True\n```\n\n解説：repr() は文字列を引用符付きで表示するため、\"0\" は '0' と表示され、整数は 0 と表示されます。type(...).__name__ は 0 なら int、\"0\" と \"\" なら str、None なら NoneType です。bool() は数値のゼロ・空文字列・None に対して False ですが、\"0\" は空でない文字列なので True です。最終行のとおり \"0\" == 0 は False（str は int と等しくならない）で、int(\"0\") でテキストを数値 0 に変換すれば比較は True になります。",
+      "mastery_criterion": "予測ログと観測した出力に上記 5 行が正確に含まれ、説明の中で型の違い（str と int）、真偽値の規則（空でない文字列は True）、int() による明示的な変換が必要なことに触れていること。ログには必須／任意の区別と、AI 支援を使っていないことを明記すること。",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-04-act-01-q1",
+            "type": "choice",
+            "prompt": "`print(repr(\"0\"), type(\"0\").__name__, bool(\"0\"))` は何を出力しますか？",
+            "options": {
+              "a": "'0' str True",
+              "b": "0 int False",
+              "c": "'0' str False"
+            },
+            "expected_answer": "a",
+            "hint": "repr() は文字列の引用符を残します。文字列のうち偽になるのは空文字列だけです。",
+            "explanation": "\"0\" は 1 文字の文字列です。repr() では '0' と表示され、型は str、空でない文字列は真なので、出力は `'0' str True` です。"
+          }
+        ]
+      },
+      "source_resources": [
+        {
+          "id": "automate-boring-stuff-3e",
+          "title": "Automate the Boring Stuff with Python, 3rd edition",
+          "author": "Al Sweigart",
+          "original_url": "https://automatetheboringstuff.com/3e/",
+          "relevant_timestamp": "Chapter 1; Practice Questions; Appendix B answers",
+          "version_or_verification_date": "Public edition checked 2026-11-01; moving pages may change",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Copyright Al Sweigart; edition-specific reuse terms unverified",
+          "license_restrictions": [
+            "linking only; no reproduction"
+          ],
+          "permission_basis": "External hyperlink only; no third-party prose, exercises, code or translations are imported.",
+          "prerequisites": "No prior programming required for Chapter 1; later chapters assume its basic Python concepts.",
+          "selection_rationale": "Beginner teaching and answer-keyed practice before checking exact semantics in the Python reference; selected chapters only, not the book's entire automation stack.",
+          "known_availability_limitations": "Free HTML; external website may be unavailable. Exact third-edition redistribution terms have not been verified, so no reuse permission is claimed.",
+          "safe_fallback": "Use the original localized explanations, exercises and checks already present in this activity; no external account or purchase is required for that fallback.",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Tutorial",
+              "url": "https://docs.python.org/3/tutorial/",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Guided Python syntax but assumes programming familiarity; paired with the beginner text rather than used as its replacement."
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Lectures and problem sets teach a broader CS1 course; the book offers shorter text-first entry and an answer appendix."
+            }
+          ],
+          "locator_url": "https://automatetheboringstuff.com/3e/chapter1.html"
+        },
+        {
+          "id": "py-docs-builtins-ticket26",
+          "title": "Python Standard Library: Built-in Types",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/stdtypes.html",
+          "relevant_timestamp": "「真理値判定」「比較」「ミュータブルなシーケンス型」の各節",
+          "version_or_verification_date": "Python 3.12 documentation (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "リンクの掲載のみ。原文は転載していません。",
+          "prerequisites": "Day 03 の復旧演習",
+          "selection_rationale": "真偽値、比較、束縛、ミューテーションの動作を確認するための規範的なリファレンス。",
+          "known_availability_limitations": "オンラインの Python ドキュメントは、オフラインでは利用できない場合があります。",
+          "safe_fallback": "教材に含まれる Python の例を実行し、インストール済みインタープリタのヘルプを参照してください。",
+          "compared_candidates": [
+            {
+              "candidate_name": "Python Data Model reference",
+              "url": "https://docs.python.org/3/reference/datamodel.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "オブジェクトの意味論をより深く扱うリファレンスで、式レベルの演習に必要な範囲を超えます。stdtypes なら演算子レベルの内容に範囲を絞れます。"
+            },
+            {
+              "candidate_name": "The Python Tutorial: An Informal Introduction",
+              "url": "https://docs.python.org/3/tutorial/introduction.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ演算子を文章で順に説明する入門資料です。正規のシグネチャの参照元としてライブラリリファレンスを選びました。"
+            }
+          ]
+        },
+        {
+          "id": "git-scm-book-diffs",
+          "title": "Git User Manual: Recording Changes",
+          "author": "Git project",
+          "original_url": "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+          "relevant_timestamp": "リポジトリへの変更の記録",
+          "version_or_verification_date": "Verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "CC BY-NC-SA 3.0 (book)",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "リンクの掲載のみ。原文は転載していません。",
+          "prerequisites": "Git の基礎知識",
+          "selection_rationale": "安全にコミットする前に小さな差分を確認するための一次資料。",
+          "known_availability_limitations": "オンライン書籍は、オフラインでは利用できない場合があります。",
+          "safe_fallback": "ローカルで git diff と git status を使ってください。差分を理解するまではコミットしないでください。",
+          "compared_candidates": [
+            {
+              "candidate_name": "git-diff command reference",
+              "url": "https://git-scm.com/docs/git-diff",
+              "license": "Git documentation (GPL-2.0)",
+              "status": "compared_alternative",
+              "comparison_rationale": "コマンドのフラグを調べるためのリファレンスです。コミット前に変更を確認する手順を順に学べるため、Pro Git の章を選びました。"
+            },
+            {
+              "candidate_name": "Atlassian Git tutorials: git diff",
+              "url": "https://www.atlassian.com/git/tutorials/saving-changes/git-diff",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "商用提供の分かりやすい解説です。同じ変更確認の習慣について、書籍の章のほうがステージングとインデックスの意味を詳しく説明しています。"
+            }
+          ]
+        }
+      ],
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-04-act-02": {
+      "title": "束縛は名前であって箱ではない",
+      "prerequisites": "Day 04 のアクティビティ 1 を完了していること。ターミナルから Python を起動できること。",
+      "objective": "代入文を「名前がオブジェクトに束縛される」こととして追跡し、ある名前を再束縛しても別の名前が参照するオブジェクトは変わらないことを予測できる。",
+      "assistance_policy_label": "独立習得チェック（AI 支援なし）。",
+      "instructions": "必須課題：次のコードを binding.py として保存します。実行する前に、3 行の出力それぞれを予測し、代入ごとに「名前 → 参照先のリストオブジェクト」の矢印を 1 本ずつ描いてください。\n\n```python\nx = [\"draft\"]\ny = x\nx = [\"replaced\"]\nprint(y)\nprint(x)\nprint(x is y)\n```\n\npython3 binding.py を実行して正確な出力を記録し、3 行目でどの束縛が変わり、どの束縛が変わらなかったかを説明します。\n\n任意課題：必須の証拠がそろった後でのみ、3 行目の前後に print(id(x), id(y)) を追加し、何が変わるかを説明します。",
+      "exercise_prompt": "次のプログラムの 3 行の出力を予測し、実行して、どの名前が再束縛されたかを説明してください。\n\n```python\nx = [\"draft\"]\ny = x\nx = [\"replaced\"]\nprint(y)\nprint(x)\nprint(x is y)\n```",
+      "hint": "代入ごとの矢印をたどり、どの名前がまだ元のリストを指しているかを考えましょう。`x = [...]` は新しいリストを作り、名前 x だけを付け替えます。",
+      "answer": "正確な出力：\n\n```text\n['draft']\n['replaced']\nFalse\n```\n\n解説：1 行目で x を \"draft\" を含むリストに束縛します。2 行目で y を同じリストオブジェクトに束縛します。3 行目は新しいリスト [\"replaced\"] を作り、x だけをそれに再束縛します。y は元のリストを参照したままです。そのため print(y) は ['draft']、print(x) は ['replaced'] を表示し、2 つの名前が別のオブジェクトを指すので x is y は False です。Python はリストを単一引用符で表示する点にも注意してください。",
+      "mastery_criterion": "予測ログと観測した出力に上記 3 行が正確に含まれ、矢印図で 3 行目の後も y が元のリストに束縛されていることを示し、説明の中で「代入はオブジェクトを上書きするのではなく名前を付け替える」と述べていること。ログには必須／任意の区別と、AI 支援を使っていないことを明記すること。",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-04-act-02-q1",
+            "type": "choice",
+            "prompt": "`x = [\"draft\"]; y = x; x = [\"replaced\"]` を実行した後、`print(y)` は何を表示しますか？",
+            "options": {
+              "a": "['draft']",
+              "b": "['replaced']",
+              "c": "['draft', 'replaced']"
+            },
+            "expected_answer": "a",
+            "hint": "3 つ目の文は新しいリストを作り、名前 x だけを付け替えます。",
+            "explanation": "`y = x` で y は元のリストに束縛されます。`x = [\"replaced\"]` は x を新しいリストに再束縛するだけで y には触れないため、y は `['draft']` のままです。"
+          }
+        ]
+      },
+      "source_resources": [
+        {
+          "id": "py-docs-builtins-ticket26",
+          "title": "Python Standard Library: Built-in Types",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/stdtypes.html",
+          "relevant_timestamp": "「真理値判定」「比較」「ミュータブルなシーケンス型」の各節",
+          "version_or_verification_date": "Python 3.12 documentation (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "リンクの掲載のみ。原文は転載していません。",
+          "prerequisites": "Day 03 の復旧演習",
+          "selection_rationale": "真偽値、比較、束縛、ミューテーションの動作を確認するための規範的なリファレンス。",
+          "known_availability_limitations": "オンラインの Python ドキュメントは、オフラインでは利用できない場合があります。",
+          "safe_fallback": "教材に含まれる Python の例を実行し、インストール済みインタープリタのヘルプを参照してください。",
+          "compared_candidates": [
+            {
+              "candidate_name": "Python Data Model reference",
+              "url": "https://docs.python.org/3/reference/datamodel.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "オブジェクトの意味論をより深く扱うリファレンスで、式レベルの演習に必要な範囲を超えます。stdtypes なら演算子レベルの内容に範囲を絞れます。"
+            },
+            {
+              "candidate_name": "The Python Tutorial: An Informal Introduction",
+              "url": "https://docs.python.org/3/tutorial/introduction.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ演算子を文章で順に説明する入門資料です。正規のシグネチャの参照元としてライブラリリファレンスを選びました。"
+            }
+          ]
+        },
+        {
+          "id": "git-scm-book-diffs",
+          "title": "Git User Manual: Recording Changes",
+          "author": "Git project",
+          "original_url": "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+          "relevant_timestamp": "リポジトリへの変更の記録",
+          "version_or_verification_date": "Verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "CC BY-NC-SA 3.0 (book)",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "リンクの掲載のみ。原文は転載していません。",
+          "prerequisites": "Git の基礎知識",
+          "selection_rationale": "安全にコミットする前に小さな差分を確認するための一次資料。",
+          "known_availability_limitations": "オンライン書籍は、オフラインでは利用できない場合があります。",
+          "safe_fallback": "ローカルで git diff と git status を使ってください。差分を理解するまではコミットしないでください。",
+          "compared_candidates": [
+            {
+              "candidate_name": "git-diff command reference",
+              "url": "https://git-scm.com/docs/git-diff",
+              "license": "Git documentation (GPL-2.0)",
+              "status": "compared_alternative",
+              "comparison_rationale": "コマンドのフラグを調べるためのリファレンスです。コミット前に変更を確認する手順を順に学べるため、Pro Git の章を選びました。"
+            },
+            {
+              "candidate_name": "Atlassian Git tutorials: git diff",
+              "url": "https://www.atlassian.com/git/tutorials/saving-changes/git-diff",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "商用提供の分かりやすい解説です。同じ変更確認の習慣について、書籍の章のほうがステージングとインデックスの意味を詳しく説明しています。"
+            }
+          ]
+        }
+      ]
+    },
+    "day-04-act-03": {
+      "title": "小さな差分：レポートをより安全にする",
+      "prerequisites": "Day 04 のアクティビティ 1～2 を完了していること。Git がインストールされ user.name と user.email が設定済みであること。指示を出せる AI コーディング Agent があること。",
+      "objective": "Agent に小さくレビュー可能な変更を 1 つだけ行わせ、あいまいなテキストラベルを repr／型のレポートに置き換え、差分を自分で確認してその変更だけをコミットできる。",
+      "assistance_policy_label": "Agent 支援エンジニアリングチェック：Agent に与えた権限と自分のレビュー範囲を宣言すること。Agent の出力は独立した習得の証拠にはなりません。",
+      "instructions": "必須課題：誤解を招く元のレポートを含む練習用リポジトリを作成します。\n\n```bash\ngit init report-demo && cd report-demo\nprintf 'count = \"0\"\\nprint(\"count=\" + count)\\n' > report.py\ngit add report.py && git commit -m \"Add count report\"\npython3 report.py\n```\n\nこのプログラムは count=0 と表示しますが、count が数値の 0 ではなくテキストの \"0\" であることが隠れています。元の report.py は次のとおりです。\n\n```python\ncount = \"0\"\nprint(\"count=\" + count)\n```\n\nAgent に、report.py の print 行だけを変更して count の repr と型を表示するよう依頼してください。与えた権限（例：report.py の編集のみ、コミットは不可）を宣言します。何かを実行する前に、新しい出力を予測してください。その後、レビューとコミットは自分で行います。\n\n```bash\ngit status --short\ngit diff -- report.py\ngit diff --check\npython3 report.py\ngit add report.py\ngit commit -m \"Show repr and type in count report\"\ngit status --short\n```\n\ngit status に report.py 以外のファイル（例：?? notes.txt）が表示された場合、それは無関係な編集です。ステージせず、コミット前に削除または元に戻してください。\n\n任意課題：必須の証拠がそろった後でのみ、bool(count) も表示するよう Agent に依頼し、その 2 つ目の差分も同じ手順でレビューします。",
+      "exercise_prompt": "次の report.py から始めます。\n\n```python\ncount = \"0\"\nprint(\"count=\" + count)\n```\n\nAgent に print 行を変更させ、出力が count='0' type=str となるようにしてください。新しい出力の予測、レビューした git status --short と git diff -- report.py の出力、git diff --check の結果、作成したコミットを記録します。Agent が作成した無関係なファイルはすべて却下してください。",
+      "hint": "コミット前に git status --short、git diff -- report.py、git diff --check を使いましょう。ステージは git add report.py で行い、ここでは git add . を使わないでください。",
+      "answer": "参考となる変更（編集後の report.py）：\n\n```python\ncount = \"0\"\nprint(f\"count={count!r} type={type(count).__name__}\")\n```\n\n編集前の python3 report.py の出力は count=0 でした。編集後は正確に次のとおり表示されます。\n\n```text\ncount='0' type=str\n```\n\nAgent が notes.txt も作成していた場合、git status --short の出力は次のとおりです。\n\n```text\n M report.py\n?? notes.txt\n```\n\ngit diff -- report.py には変更行が 1 行だけ表示されます。\n\n```diff\ndiff --git a/report.py b/report.py\nindex c19f8e2..1ae4899 100644\n--- a/report.py\n+++ b/report.py\n@@ -1,2 +1,2 @@\n count = \"0\"\n-print(\"count=\" + count)\n+print(f\"count={count!r} type={type(count).__name__}\")\n```\n\ngit diff --check は何も表示せず、終了ステータス 0 で終わります（空白のエラーなし）。notes.txt を削除し（rm notes.txt）、git add report.py と git commit -m \"Show repr and type in count report\" を実行します。最後の git status --short は何も表示しません。このコミットは Agent 支援によるものであり、Agent の出力は独立した習得の証拠にはなりません。",
+      "mastery_criterion": "ログに、自分の予測、print 行だけが変わったことを示すレビュー済みの git diff、git diff --check の結果、観測した出力 count='0' type=str、report.py だけを含むコミット、Agent に与えた権限の宣言が含まれていること。ログには必須／任意の区別と、この作業が Agent 支援であることを明記すること。",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-04-act-03-q1",
+            "type": "choice",
+            "prompt": "Agent の編集をコミットする前に、`git status --short` が ` M report.py` と `?? notes.txt` を表示しました。notes.txt は依頼していません。安全な次の手順はどれですか？",
+            "options": {
+              "a": "`git diff -- report.py` を確認し、`git add report.py` で report.py だけをステージして、notes.txt はコミットに含めない。",
+              "b": "すべて Agent が行った変更なので、`git add .` を実行して全部コミットする。",
+              "c": "コミットは後で修正できるので、先にコミットしてから差分を確認する。"
+            },
+            "expected_answer": "a",
+            "hint": "小さくレビュー可能なコミットには、自分が依頼し確認した変更だけが含まれます。",
+            "explanation": "notes.txt は無関係な編集です。差分を確認して report.py だけをステージすれば、コミットは小さく検証済みのまま保てます。`git add .` は無関係なファイルまでコミットし、確認前のコミットは検証を飛ばしてしまいます。"
+          }
+        ]
+      },
+      "source_resources": [
+        {
+          "id": "py-docs-builtins-ticket26",
+          "title": "Python Standard Library: Built-in Types",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/stdtypes.html",
+          "relevant_timestamp": "「真理値判定」「比較」「ミュータブルなシーケンス型」の各節",
+          "version_or_verification_date": "Python 3.12 documentation (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "リンクの掲載のみ。原文は転載していません。",
+          "prerequisites": "Day 03 の復旧演習",
+          "selection_rationale": "真偽値、比較、束縛、ミューテーションの動作を確認するための規範的なリファレンス。",
+          "known_availability_limitations": "オンラインの Python ドキュメントは、オフラインでは利用できない場合があります。",
+          "safe_fallback": "教材に含まれる Python の例を実行し、インストール済みインタープリタのヘルプを参照してください。",
+          "compared_candidates": [
+            {
+              "candidate_name": "Python Data Model reference",
+              "url": "https://docs.python.org/3/reference/datamodel.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "オブジェクトの意味論をより深く扱うリファレンスで、式レベルの演習に必要な範囲を超えます。stdtypes なら演算子レベルの内容に範囲を絞れます。"
+            },
+            {
+              "candidate_name": "The Python Tutorial: An Informal Introduction",
+              "url": "https://docs.python.org/3/tutorial/introduction.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ演算子を文章で順に説明する入門資料です。正規のシグネチャの参照元としてライブラリリファレンスを選びました。"
+            }
+          ]
+        },
+        {
+          "id": "git-scm-book-diffs",
+          "title": "Git User Manual: Recording Changes",
+          "author": "Git project",
+          "original_url": "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+          "relevant_timestamp": "リポジトリへの変更の記録",
+          "version_or_verification_date": "Verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "CC BY-NC-SA 3.0 (book)",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "リンクの掲載のみ。原文は転載していません。",
+          "prerequisites": "Git の基礎知識",
+          "selection_rationale": "安全にコミットする前に小さな差分を確認するための一次資料。",
+          "known_availability_limitations": "オンライン書籍は、オフラインでは利用できない場合があります。",
+          "safe_fallback": "ローカルで git diff と git status を使ってください。差分を理解するまではコミットしないでください。",
+          "compared_candidates": [
+            {
+              "candidate_name": "git-diff command reference",
+              "url": "https://git-scm.com/docs/git-diff",
+              "license": "Git documentation (GPL-2.0)",
+              "status": "compared_alternative",
+              "comparison_rationale": "コマンドのフラグを調べるためのリファレンスです。コミット前に変更を確認する手順を順に学べるため、Pro Git の章を選びました。"
+            },
+            {
+              "candidate_name": "Atlassian Git tutorials: git diff",
+              "url": "https://www.atlassian.com/git/tutorials/saving-changes/git-diff",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "商用提供の分かりやすい解説です。同じ変更確認の習慣について、書籍の章のほうがステージングとインデックスの意味を詳しく説明しています。"
+            }
+          ]
+        }
+      ]
+    },
+    "day-04-act-04": {
+      "title": "復習と独立チェック",
+      "prerequisites": "Day 04 のアクティビティ 1～3 を完了していること。",
+      "objective": "AI の助けを一切借りずに、値と束縛に関する 3 つの短いスニペットの出力を予測し、実行して確かめ、食い違いの根本原因を説明できる。",
+      "assistance_policy_label": "独立習得チェック（AI 支援なし）。",
+      "instructions": "必須課題：AI を使わず、どれかを実行する前に、下の 3 つのスニペットの出力をすべて予測して書き出してください。その後、各スニペットを実行し（例：a.py、b.py、c.py として保存）、正確な出力を記録して、各行に「一致」か「不一致」の印を付けます。不一致を 1 つ選んで根本原因を説明してください。すべて一致した場合は、最も難しかったスニペットを説明します。\n\nスニペット A:\n```python\nprint(repr(None), repr(\"None\"), None == \"None\")\n```\n\nスニペット B:\n```python\na = \"draft\"\nb = a\na = a + \"!\"\nprint(a, b)\n```\n\nスニペット C:\n```python\nitems = [\"draft\"]\nalias = items\nitems = items + [\"final\"]\nprint(alias, items)\nprint(alias is items)\n```\n\n任意課題：必須の証拠がそろった後でのみ、どれか 1 つのスニペットの入力を 1 か所変え（例：スニペット B の \"!\" を \"?\" にする）、予測してから再実行します。",
+      "exercise_prompt": "次の 3 つのスニペットを予測してから実行し、予測と正確な出力を並べて記録してください。\n\nスニペット A:\n```python\nprint(repr(None), repr(\"None\"), None == \"None\")\n```\n\nスニペット B:\n```python\na = \"draft\"\nb = a\na = a + \"!\"\nprint(a, b)\n```\n\nスニペット C:\n```python\nitems = [\"draft\"]\nalias = items\nitems = items + [\"final\"]\nprint(alias, items)\nprint(alias is items)\n```\n\n不一致 1 つ（またはいちばん難しかったスニペット）を、値と束縛の観点から説明してください。",
+      "hint": "予測は必ず実行前に書きましょう。「これはラベル（テキスト）か、オブジェクトそのものか」「この文は新しいオブジェクトを作って名前を付け替えるのか、既存のオブジェクトを変えるのか」と問いかけてください。",
+      "answer": "スニペット A の出力：\n\n```text\nNone 'None' False\n```\n\nrepr(None) は None オブジェクトではなく、4 文字の文字列 \"None\" を返し、repr(\"None\") は先頭と末尾にシングルクォートを含む 6 文字の文字列 \"'None'\" を返します。print はこれらの文字列に外側の引用符を追加せずに表示するため、print(repr(None)) と print(None) はどちらも None と表示しますが、前者は文字列、後者は None 値を表示し、print(repr(\"None\")) は 'None' と表示します。None == \"None\" は False です。\n\nスニペット B の出力：\n\n```text\ndraft! draft\n```\n\na + \"!\" は新しい文字列を作り、a だけを再束縛します。b は元の \"draft\" を参照したままです。\n\nスニペット C の出力：\n\n```text\n['draft'] ['draft', 'final']\nFalse\n```\n\nitems + [\"final\"] は新しいリストを作り、items を再束縛します。alias は元の要素 1 つのリストを参照したままなので、alias is items は False です。\n\n不一致の説明の例：「スニペット C で + がリストを変更すると思い、['draft', 'final'] ['draft', 'final'] と予測した。実際には新しいリストが作られて items が再束縛されるので、alias は古いオブジェクトを保持している。」",
+      "mastery_criterion": "ログに、実行前に書いた予測、上記のとおりの 3 つのスニペットの正確な観測出力、そして不一致 1 つ（またはいちばん難しかったスニペット）についての値と束縛の観点からの正しい根本原因の説明が含まれていること。ログには必須／任意の区別と、AI 支援を使っていないことを明記すること。",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-04-act-04-q1",
+            "type": "choice",
+            "prompt": "`n = 5; m = n; n = n + 1; print(m, n)` は何を出力しますか？",
+            "options": {
+              "a": "5 6",
+              "b": "6 6",
+              "c": "5 5"
+            },
+            "expected_answer": "a",
+            "hint": "n + 1 は新しい整数オブジェクトを作り、その後で名前 n だけが再束縛されます。",
+            "explanation": "`m = n` で m は 5 に束縛されます。`n = n + 1` は n を新しい値 6 に束縛し、m は 5 のままなので、出力は `5 6` です。"
+          }
+        ]
+      },
+      "source_resources": [
+        {
+          "id": "py-docs-builtins-ticket26",
+          "title": "Python Standard Library: Built-in Types",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/stdtypes.html",
+          "relevant_timestamp": "「真理値判定」「比較」「ミュータブルなシーケンス型」の各節",
+          "version_or_verification_date": "Python 3.12 documentation (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "リンクの掲載のみ。原文は転載していません。",
+          "prerequisites": "Day 03 の復旧演習",
+          "selection_rationale": "真偽値、比較、束縛、ミューテーションの動作を確認するための規範的なリファレンス。",
+          "known_availability_limitations": "オンラインの Python ドキュメントは、オフラインでは利用できない場合があります。",
+          "safe_fallback": "教材に含まれる Python の例を実行し、インストール済みインタープリタのヘルプを参照してください。",
+          "compared_candidates": [
+            {
+              "candidate_name": "Python Data Model reference",
+              "url": "https://docs.python.org/3/reference/datamodel.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "オブジェクトの意味論をより深く扱うリファレンスで、式レベルの演習に必要な範囲を超えます。stdtypes なら演算子レベルの内容に範囲を絞れます。"
+            },
+            {
+              "candidate_name": "The Python Tutorial: An Informal Introduction",
+              "url": "https://docs.python.org/3/tutorial/introduction.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ演算子を文章で順に説明する入門資料です。正規のシグネチャの参照元としてライブラリリファレンスを選びました。"
+            }
+          ]
+        },
+        {
+          "id": "git-scm-book-diffs",
+          "title": "Git User Manual: Recording Changes",
+          "author": "Git project",
+          "original_url": "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+          "relevant_timestamp": "リポジトリへの変更の記録",
+          "version_or_verification_date": "Verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "CC BY-NC-SA 3.0 (book)",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "リンクの掲載のみ。原文は転載していません。",
+          "prerequisites": "Git の基礎知識",
+          "selection_rationale": "安全にコミットする前に小さな差分を確認するための一次資料。",
+          "known_availability_limitations": "オンライン書籍は、オフラインでは利用できない場合があります。",
+          "safe_fallback": "ローカルで git diff と git status を使ってください。差分を理解するまではコミットしないでください。",
+          "compared_candidates": [
+            {
+              "candidate_name": "git-diff command reference",
+              "url": "https://git-scm.com/docs/git-diff",
+              "license": "Git documentation (GPL-2.0)",
+              "status": "compared_alternative",
+              "comparison_rationale": "コマンドのフラグを調べるためのリファレンスです。コミット前に変更を確認する手順を順に学べるため、Pro Git の章を選びました。"
+            },
+            {
+              "candidate_name": "Atlassian Git tutorials: git diff",
+              "url": "https://www.atlassian.com/git/tutorials/saving-changes/git-diff",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "商用提供の分かりやすい解説です。同じ変更確認の習慣について、書籍の章のほうがステージングとインデックスの意味を詳しく説明しています。"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "source_resources": [
+    {
+      "id": "py-docs-builtins-ticket26",
+      "title": "Python 3 Built-in Types and Expressions",
+      "author": "Python Software Foundation",
+      "original_url": "https://docs.python.org/3/library/stdtypes.html",
+      "relevant_timestamp": "「真理値判定」「比較」「ミュータブルなシーケンス型」の各節",
+      "version_or_verification_date": "Python 3.12 documentation (verified 2026-10-30)",
+      "reuse_category": "linking",
+      "source_type": "documentation",
+      "license": "PSF License Version 2",
+      "license_restrictions": [],
+      "permission_basis": "リンクの掲載のみ。原文は転載していません。",
+      "prerequisites": "Day 03 の復旧演習",
+      "selection_rationale": "真偽値、比較、束縛、ミューテーションの動作を確認するための規範的なリファレンス。",
+      "known_availability_limitations": "オンラインの Python ドキュメントは、オフラインでは利用できない場合があります。",
+      "safe_fallback": "教材に含まれる Python の例を実行し、インストール済みインタープリタのヘルプを参照してください。"
+    },
+    {
+      "id": "git-scm-book-diffs",
+      "title": "Git User Manual: Recording Changes",
+      "author": "Git project",
+      "original_url": "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+      "relevant_timestamp": "リポジトリへの変更の記録",
+      "version_or_verification_date": "Verified 2026-10-30",
+      "reuse_category": "linking",
+      "source_type": "documentation",
+      "license": "CC BY-NC-SA 3.0 (book)",
+      "license_restrictions": [],
+      "permission_basis": "リンクの掲載のみ。原文は転載していません。",
+      "prerequisites": "Git の基礎知識",
+      "selection_rationale": "安全にコミットする前に小さな差分を確認するための一次資料。",
+      "known_availability_limitations": "オンライン書籍は、オフラインでは利用できない場合があります。",
+      "safe_fallback": "ローカルで git diff と git status を使ってください。差分を理解するまではコミットしないでください。"
+    }
+  ]
+}

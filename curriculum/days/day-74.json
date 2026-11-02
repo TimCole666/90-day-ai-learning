@@ -1,0 +1,350 @@
+{
+  "id": "day-74",
+  "day_number": 74,
+  "active_minutes": 480,
+  "topic_category": "agents",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-73"
+  ],
+  "recovery_links": [
+    "day-70"
+  ],
+  "activities": [
+    {
+      "id": "day-74-act-01",
+      "lesson_id": "les-74",
+      "title": "Tool Schemas as Contracts: tool_use, tool_calls, and JSON Schema",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-73"
+      ],
+      "source_resources": [
+        {
+          "id": "anthropic-tool-use-docs",
+          "title": "Anthropic Tool Use (Function Calling) Implementation Guide",
+          "author": "Anthropic PBC",
+          "original_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview",
+          "relevant_timestamp": "Tool Use Overview, Schema Definitions, and Stop Reasons",
+          "version_or_verification_date": "Claude API Specification (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Anthropic PBC copyright (no open license stated) / linked reference",
+          "license_restrictions": [
+            "Linking only; no documentation text is copied"
+          ],
+          "permission_basis": "Lawful external reference to standard public developer API specifications.",
+          "prerequisites": "REST API concepts, JSON schema specification, and basic Python client programming.",
+          "selection_rationale": "Detailed production reference for client-side tool definitions, tool_use content blocks, stop reason tool_use, and tool_result response formatting.",
+          "known_availability_limitations": "Publicly accessible on official Anthropic documentation portal.",
+          "safe_fallback": "Offline mock request/response cycles and tool payload schemas are provided in the repo.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Google Gemini Function Calling Documentation",
+              "url": "https://ai.google.dev/gemini-api/docs/function-calling",
+              "license": "Creative Commons Attribution 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Protobuf and REST function declaration schema; Anthropic documentation provides explicit structured message block mechanics (tool_use / tool_result)."
+            },
+            {
+              "candidate_name": "Cohere Tool Use and Multi-Step Agents Guide",
+              "url": "https://docs.cohere.com/docs/tool-use",
+              "license": "Open Documentation",
+              "status": "compared_alternative",
+              "comparison_rationale": "Multi-step tool calling parameter definitions; Anthropic specification demonstrates clear separated content blocks essential for inspectable event traces."
+            }
+          ]
+        },
+        {
+          "id": "openai-function-calling-guide",
+          "title": "OpenAI Function Calling and Structured Outputs Guide",
+          "author": "OpenAI",
+          "original_url": "https://developers.openai.com/api/docs/guides/function-calling",
+          "relevant_timestamp": "Function Calling Architecture and Strict Outputs",
+          "version_or_verification_date": "OpenAI API Reference (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "OpenAI copyright (no open license stated) / linked reference",
+          "license_restrictions": [
+            "Linking only; no documentation text is copied"
+          ],
+          "permission_basis": "Lawful external reference to standard public developer API specifications.",
+          "prerequisites": "JSON data structures, chat completion roles, and schema validation.",
+          "selection_rationale": "Widely adopted specification establishing tool choice parameters, JSON schema function descriptions, tool_calls arrays, and role: \"tool\" responses.",
+          "known_availability_limitations": "Publicly accessible on official OpenAI developer platform.",
+          "safe_fallback": "Standard schema dictionaries and simulated tool call responses are bundled in the repository.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Mistral AI Function Calling Guide",
+              "url": "https://docs.mistral.ai/capabilities/function_calling/",
+              "license": "Open Documentation",
+              "status": "compared_alternative",
+              "comparison_rationale": "Follows OpenAI-compatible schema convention; OpenAI documentation serves as the primary originating reference for tools and tool_calls schemas."
+            },
+            {
+              "candidate_name": "Ollama Tools and Function Calling Documentation",
+              "url": "https://ollama.com/blog/tool-support",
+              "license": "MIT / Open Documentation",
+              "status": "compared_alternative",
+              "comparison_rationale": "Local model runtime implementation of function calling; OpenAI docs document the standard schema contract and strict output validation."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-74-act-02",
+      "lesson_id": "les-74",
+      "title": "Author and Apply a JSON Schema for read_note Arguments",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-74-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "json-schema-core-2020",
+          "title": "JSON Schema: A Media Type for Describing JSON Documents (Draft 2020-12)",
+          "author": "Austin Wright, Henry Andrews, Ben Hutton, Greg Dennis",
+          "original_url": "https://json-schema.org/draft/2020-12/json-schema-core.html",
+          "relevant_timestamp": "Section 4 & 5 (Schema Objects and Keywords)",
+          "version_or_verification_date": "IETF Internet-Draft 2020-12 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "standard",
+          "license": "IETF Trust License / Open Standard",
+          "license_restrictions": [],
+          "permission_basis": "Lawful open standard specification reference.",
+          "prerequisites": "JSON data interchange formats, data typing, and structural validation concepts.",
+          "selection_rationale": "The normative standard governing parameter schemas, type validation, required constraints, additionalProperties restrictions, and descriptive metadata in tool definitions.",
+          "known_availability_limitations": "Publicly accessible on json-schema.org and IETF.",
+          "safe_fallback": "Compact schema validator examples and standard validation rules are embedded in local project code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "OpenAPI Specification 3.1.0 (OAI)",
+              "url": "https://spec.openapis.org/oas/v3.1.0",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Comprehensive REST API specification format; JSON Schema Draft 2020-12 is the exact underlying core used by modern agent tool definition protocols."
+            },
+            {
+              "candidate_name": "JSON Schema Draft-07 Specification",
+              "url": "https://json-schema.org/draft-07/json-schema-core.html",
+              "license": "IETF Open Standard",
+              "status": "compared_alternative",
+              "comparison_rationale": "Legacy JSON schema dialect; modern tool protocols standardise on 2020-12 with strict keyword support."
+            }
+          ]
+        },
+        {
+          "id": "rfc-8259-json",
+          "title": "RFC 8259: The JavaScript Object Notation (JSON) Data Interchange Format",
+          "author": "Tim Bray (Ed.)",
+          "original_url": "https://www.rfc-editor.org/rfc/rfc8259",
+          "relevant_timestamp": "Section 1-4 (JSON Syntax and Grammar)",
+          "version_or_verification_date": "IETF Standards Track RFC 8259 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "standard",
+          "license": "IETF Trust License / Open Standard",
+          "license_restrictions": [],
+          "permission_basis": "Lawful open standard specification reference.",
+          "prerequisites": "Text encoding, UTF-8 parsing, and serialized data exchange.",
+          "selection_rationale": "Foundational Internet standard defining strict JSON grammar, token parsing, and whitespace rules underpinning model tool calling serialization.",
+          "known_availability_limitations": "Publicly accessible permanently via RFC Editor repository.",
+          "safe_fallback": "JSON grammar parsing rules and error recovery guidelines are documented in curriculum notes.",
+          "compared_candidates": [
+            {
+              "candidate_name": "RFC 7049: Concise Binary Object Representation (CBOR)",
+              "url": "https://www.rfc-editor.org/rfc/rfc7049",
+              "license": "IETF Open Standard",
+              "status": "compared_alternative",
+              "comparison_rationale": "Binary serialization standard; text-based LLMs operate primarily on human-readable UTF-8 JSON interchange formats."
+            },
+            {
+              "candidate_name": "YAML 1.2 Specification (OASIS / yaml.org)",
+              "url": "https://yaml.org/spec/1.2.2/",
+              "license": "Open Standard",
+              "status": "compared_alternative",
+              "comparison_rationale": "Indentation-sensitive text format; JSON has universally standardized parsing across language runtimes and tool schemas."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-74-act-03",
+      "lesson_id": "les-74",
+      "title": "Failure Vocabulary: unknown_tool, invalid_arguments, not_found, size_limit",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-74-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "anthropic-mcp-spec",
+          "title": "Model Context Protocol (MCP) Specification",
+          "author": "Anthropic PBC & Open Source Contributors",
+          "original_url": "https://modelcontextprotocol.io/specification",
+          "relevant_timestamp": "Architecture Overview, Transports, Tools, and Resources",
+          "version_or_verification_date": "MCP Specification 2024-11-05 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Apache-2.0 (specification; unrelicensed legacy contributions remain MIT) / Open Specification",
+          "license_restrictions": [],
+          "permission_basis": "Lawful open protocol documentation and architecture specification under Apache-2.0 (legacy contributions under MIT).",
+          "prerequisites": "Client-server architecture, JSON-RPC 2.0 protocol, and standard IO communication.",
+          "selection_rationale": "Normative open architecture specification defining Host, Client, and Server separation, resource subscriptions, tool listing/invoking primitives, and JSON-RPC 2.0 message framing.",
+          "known_availability_limitations": "Publicly hosted on modelcontextprotocol.io and GitHub repository.",
+          "safe_fallback": "Architectural comparison tables, loop invariants, and message frame examples are self-contained in curriculum materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Language Server Protocol (LSP) Specification (Microsoft)",
+              "url": "https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/",
+              "license": "MIT License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Precursor JSON-RPC architecture for code intelligence in IDEs; MCP adapts similar client-server decoupling specifically for LLM context, tools, and prompts."
+            },
+            {
+              "candidate_name": "OpenAI Responses API Built-in Tools",
+              "url": "https://developers.openai.com/api/docs/guides/tools",
+              "license": "Proprietary Documentation",
+              "status": "compared_alternative",
+              "comparison_rationale": "Hosted, vendor-managed built-in tool execution (successor to the Assistants API tools); MCP provides an open, decoupled local/remote client-server standard."
+            }
+          ]
+        },
+        {
+          "id": "anthropic-tool-use-docs",
+          "title": "Anthropic Tool Use (Function Calling) Implementation Guide",
+          "author": "Anthropic PBC",
+          "original_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview",
+          "relevant_timestamp": "Tool Use Overview, Schema Definitions, and Stop Reasons",
+          "version_or_verification_date": "Claude API Specification (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Anthropic PBC copyright (no open license stated) / linked reference",
+          "license_restrictions": [
+            "Linking only; no documentation text is copied"
+          ],
+          "permission_basis": "Lawful external reference to standard public developer API specifications.",
+          "prerequisites": "REST API concepts, JSON schema specification, and basic Python client programming.",
+          "selection_rationale": "Detailed production reference for client-side tool definitions, tool_use content blocks, stop reason tool_use, and tool_result response formatting.",
+          "known_availability_limitations": "Publicly accessible on official Anthropic documentation portal.",
+          "safe_fallback": "Offline mock request/response cycles and tool payload schemas are provided in the repo.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Google Gemini Function Calling Documentation",
+              "url": "https://ai.google.dev/gemini-api/docs/function-calling",
+              "license": "Creative Commons Attribution 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Protobuf and REST function declaration schema; Anthropic documentation provides explicit structured message block mechanics (tool_use / tool_result)."
+            },
+            {
+              "candidate_name": "Cohere Tool Use and Multi-Step Agents Guide",
+              "url": "https://docs.cohere.com/docs/tool-use",
+              "license": "Open Documentation",
+              "status": "compared_alternative",
+              "comparison_rationale": "Multi-step tool calling parameter definitions; Anthropic specification demonstrates clear separated content blocks essential for inspectable event traces."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-74-act-04",
+      "lesson_id": "les-74",
+      "title": "Assessment: Validation Layers and Protocol Compliance Boundaries",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-74-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "anthropic-mcp-spec",
+          "title": "Model Context Protocol (MCP) Specification",
+          "author": "Anthropic PBC & Open Source Contributors",
+          "original_url": "https://modelcontextprotocol.io/specification",
+          "relevant_timestamp": "Architecture Overview, Transports, Tools, and Resources",
+          "version_or_verification_date": "MCP Specification 2024-11-05 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Apache-2.0 (specification; unrelicensed legacy contributions remain MIT) / Open Specification",
+          "license_restrictions": [],
+          "permission_basis": "Lawful open protocol documentation and architecture specification under Apache-2.0 (legacy contributions under MIT).",
+          "prerequisites": "Client-server architecture, JSON-RPC 2.0 protocol, and standard IO communication.",
+          "selection_rationale": "Normative open architecture specification defining Host, Client, and Server separation, resource subscriptions, tool listing/invoking primitives, and JSON-RPC 2.0 message framing.",
+          "known_availability_limitations": "Publicly hosted on modelcontextprotocol.io and GitHub repository.",
+          "safe_fallback": "Architectural comparison tables, loop invariants, and message frame examples are self-contained in curriculum materials.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Language Server Protocol (LSP) Specification (Microsoft)",
+              "url": "https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/",
+              "license": "MIT License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Precursor JSON-RPC architecture for code intelligence in IDEs; MCP adapts similar client-server decoupling specifically for LLM context, tools, and prompts."
+            },
+            {
+              "candidate_name": "OpenAI Responses API Built-in Tools",
+              "url": "https://developers.openai.com/api/docs/guides/tools",
+              "license": "Proprietary Documentation",
+              "status": "compared_alternative",
+              "comparison_rationale": "Hosted, vendor-managed built-in tool execution (successor to the Assistants API tools); MCP provides an open, decoupled local/remote client-server standard."
+            }
+          ]
+        },
+        {
+          "id": "json-schema-core-2020",
+          "title": "JSON Schema: A Media Type for Describing JSON Documents (Draft 2020-12)",
+          "author": "Austin Wright, Henry Andrews, Ben Hutton, Greg Dennis",
+          "original_url": "https://json-schema.org/draft/2020-12/json-schema-core.html",
+          "relevant_timestamp": "Section 4 & 5 (Schema Objects and Keywords)",
+          "version_or_verification_date": "IETF Internet-Draft 2020-12 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "standard",
+          "license": "IETF Trust License / Open Standard",
+          "license_restrictions": [],
+          "permission_basis": "Lawful open standard specification reference.",
+          "prerequisites": "JSON data interchange formats, data typing, and structural validation concepts.",
+          "selection_rationale": "The normative standard governing parameter schemas, type validation, required constraints, additionalProperties restrictions, and descriptive metadata in tool definitions.",
+          "known_availability_limitations": "Publicly accessible on json-schema.org and IETF.",
+          "safe_fallback": "Compact schema validator examples and standard validation rules are embedded in local project code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "OpenAPI Specification 3.1.0 (OAI)",
+              "url": "https://spec.openapis.org/oas/v3.1.0",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Comprehensive REST API specification format; JSON Schema Draft 2020-12 is the exact underlying core used by modern agent tool definition protocols."
+            },
+            {
+              "candidate_name": "JSON Schema Draft-07 Specification",
+              "url": "https://json-schema.org/draft-07/json-schema-core.html",
+              "license": "IETF Open Standard",
+              "status": "compared_alternative",
+              "comparison_rationale": "Legacy JSON schema dialect; modern tool protocols standardise on 2020-12 with strict keyword support."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

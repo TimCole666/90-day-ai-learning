@@ -1,0 +1,366 @@
+{
+  "id": "day-49",
+  "day_number": 49,
+  "active_minutes": 480,
+  "topic_category": "models-and-training",
+  "is_review_day": true,
+  "status": "available",
+  "prerequisites": [
+    "day-48"
+  ],
+  "recovery_links": [
+    "day-42"
+  ],
+  "activities": [
+    {
+      "id": "day-49-act-01",
+      "lesson_id": "les-49",
+      "title": "New Material: Autoregressive (x, y) Batches and get_batch",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev2",
+      "prerequisites": [
+        "day-48"
+      ],
+      "source_resources": [
+        {
+          "id": "karpathy-nanogpt-train",
+          "title": "nanoGPT: train.py pretraining loop",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/nanoGPT/blob/master/train.py",
+          "version_or_verification_date": "Git master commit 71c3905 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license.",
+          "prerequisites": "Python, PyTorch, and Day 46-48 Transformer model architecture.",
+          "selection_rationale": "Compact historical code reference for the named implementation functions; CS336 spring2025 provides the lead component exercises. Do not infer top-p, atomic persistence or cloud budget enforcement from nanoGPT.",
+          "safe_fallback": "Runnable pretraining scripts and step-by-step tensor mechanics are fully self-contained in the curriculum lessons.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Hugging Face Accelerate / Trainer",
+              "url": "https://github.com/huggingface/accelerate",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Heavy abstraction layer wrapping distributed training; nanoGPT exposes raw PyTorch loops without framework overhead."
+            },
+            {
+              "candidate_name": "Megatron-LM (NVIDIA)",
+              "url": "https://github.com/NVIDIA/Megatron-LM",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-performance enterprise distributed framework; unsuitable for local educational first-principles comprehension."
+            }
+          ],
+          "relevant_timestamp": "train.py: get_batch(split): x = data[i:i+block_size], y = data[i+1:i+1+block_size]",
+          "known_availability_limitations": "Historical implementation reference: nanoGPT README marks the repository deprecated (November 2025). Toy CPU reading/runs do not establish full GPU pretraining feasibility."
+        },
+        {
+          "id": "cs336-basics",
+          "title": "CS336 Assignment 1: Basics (Spring 2025 tagged release)",
+          "author": "Stanford University CS336 Staff",
+          "original_url": "https://github.com/stanford-cs336/assignment1-basics/tree/spring2025",
+          "version_or_verification_date": "spring2025 tag; README, tests and MIT LICENSE checked 2026-11-01",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "External hyperlink only to the spring2025 assignment repository; its LICENSE is MIT. No assignment text, code or lecture material is imported.",
+          "prerequisites": "Fluent Python, PyTorch, and linear algebra",
+          "selection_rationale": "Lead assignment-driven source for pretraining component practice and tests. nanoGPT remains a compact historical code-reading companion, not the current recommended training curriculum.",
+          "safe_fallback": "Local self-contained pretraining scripts run on standard local CPUs or budget GPUs without Stanford cluster dependency.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Karpathy nanoGPT",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Simpler code layout, useful complementary reference for minimal PyTorch Transformer."
+            },
+            {
+              "candidate_name": "Hugging Face Transformers Course",
+              "url": "https://huggingface.co/learn/nlp-course/chapter1/1",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-level API focus rather than building from raw tensor fundamentals."
+            }
+          ],
+          "software_repository_license_only": true,
+          "relevant_timestamp": "README setup; tests/adapters.py; tests/test_optimizer.py; tests/test_nn_utils.py; tests/test_serialization.py",
+          "known_availability_limitations": "Public tagged handout and tests; full training needs suitable compute. The campus cluster is not required for reading or local component practice."
+        }
+      ]
+    },
+    {
+      "id": "day-49-act-02",
+      "lesson_id": "les-49",
+      "title": "Review Drill: Scaled, Masked, Multi-Head Attention (Days 43-45)",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.11.01-rev2",
+      "prerequisites": [
+        "day-49-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "vaswani-attention-2017",
+          "title": "Attention Is All You Need",
+          "author": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin",
+          "original_url": "https://arxiv.org/abs/1706.03762",
+          "relevant_timestamp": "Section 3.2.1: Scaled Dot-Product Attention equation and query/key/value matrix definitions",
+          "version_or_verification_date": "NeurIPS 2017 / arXiv:1706.03762v7 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference to open-access paper; all explanations and mathematical formulations in this curriculum are original works.",
+          "prerequisites": "Linear algebra, matrix multiplication, softmax probability distributions",
+          "selection_rationale": "The foundational primary literature establishing scaled dot-product attention, multi-head projection mechanisms, and autoregressive causal masking.",
+          "known_availability_limitations": "Open-access paper freely hosted on arXiv.org; no paywall.",
+          "safe_fallback": "Complete original algebraic derivations, matrix examples, variance proofs, and tensor diagrams are self-contained in the curriculum text without external document dependency.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Bahdanau et al.: Neural Machine Translation by Jointly Learning to Align and Translate (ICLR 2015)",
+              "url": "https://arxiv.org/abs/1409.0473",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Pioneered additive attention in RNNs, but Vaswani scaled dot-product attention replaced additive alignment in modern LLM architectures due to parallel matrix multiplication speed."
+            },
+            {
+              "candidate_name": "Shaw et al.: Self-Attention with Relative Position Representations (NAACL 2018)",
+              "url": "https://arxiv.org/abs/1803.02155",
+              "license": "arXiv Open Access",
+              "status": "compared_deferred",
+              "comparison_rationale": "Introduces relative positional biases into attention; deferred to subsequent positional embedding modules after absolute scaled attention is thoroughly mastered."
+            },
+            {
+              "candidate_name": "Karpathy nanoGPT (causal self-attention module)",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_selected_co_primary",
+              "comparison_rationale": "Selected jointly as the primary code reference: translates Section 3.2 of the Vaswani paper into minimal, idiomatic PyTorch tensor operations."
+            }
+          ]
+        },
+        {
+          "id": "annotated-transformer",
+          "title": "The Annotated Transformer",
+          "author": "v2022: Austin Huang, Suraj Subramanian, Jonathan Sum, Khalid Almubarak, Stella Biderman; original: Sasha Rush (Harvard NLP)",
+          "original_url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+          "relevant_timestamp": "subsequent_mask implementation using torch.triu and triangular boolean masking",
+          "version_or_verification_date": "Updated 2022 edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT License terms; all text, examples, and exercise code in this curriculum are original works.",
+          "prerequisites": "Intermediate Python, PyTorch broadcasting and tensor slicing semantics",
+          "selection_rationale": "Widely used pedagogical commentary that pairs every paragraph of the original Vaswani paper with an executable, testable code cell.",
+          "known_availability_limitations": "Publicly hosted on Harvard SEAS and GitHub pages.",
+          "safe_fallback": "The curriculum provides standalone hand-worked numerical tables, explicit causal mask verification scripts, and offline analytical proofs.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Jay Alammar: The Illustrated Transformer",
+              "url": "https://jalammar.github.io/illustrated-transformer/",
+              "license": "CC BY-NC 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Spectacular visual diagrams and intuitive color-coding, but lacks executable tensor code and formal numerical shape validation."
+            },
+            {
+              "candidate_name": "Stanford CS224N: Natural Language Processing with Deep Learning (Lecture 10)",
+              "url": "https://web.stanford.edu/class/cs224n/",
+              "license": "Stanford University Copyright",
+              "status": "compared_alternative",
+              "comparison_rationale": "Rigorous academic slides and video lectures, but access to assignment grading is restricted to Stanford enrolled students."
+            },
+            {
+              "candidate_name": "Vaswani et al.: Attention Is All You Need",
+              "url": "https://arxiv.org/abs/1706.03762",
+              "license": "arXiv Open Access",
+              "status": "compared_selected_co_primary",
+              "comparison_rationale": "The original primary paper; Annotated Transformer annotates it directly."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-49-act-03",
+      "lesson_id": "les-49",
+      "title": "Review Practice: Block Anatomy, Parameter Ledger, and Forward Pass (Days 46-48)",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev2",
+      "prerequisites": [
+        "day-49-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "rmsnorm-paper-2019",
+          "title": "Root Mean Square Layer Normalization",
+          "author": "Biao Zhang, Rico Sennrich (University of Edinburgh)",
+          "original_url": "https://arxiv.org/abs/1910.07467",
+          "version_or_verification_date": "NeurIPS 2019 / arXiv:1910.07467v1 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation under arXiv open access terms.",
+          "prerequisites": "Variance, standard deviation, and LayerNorm basics.",
+          "selection_rationale": "Primary paper showing that mean-centering in LayerNorm can be discarded without performance loss, speeding up modern LLMs (LLaMA, Gemma).",
+          "compared_candidates": [
+            {
+              "candidate_name": "Ba et al. Layer Normalization (2016)",
+              "url": "https://arxiv.org/abs/1607.06450",
+              "license": "Open Access",
+              "status": "compared_selected_for_day46",
+              "comparison_rationale": "Original LayerNorm formulation with mean-centering; RMSNorm is compared directly against it as an optimization."
+            },
+            {
+              "candidate_name": "Ioffe & Szegedy Batch Normalization (2015)",
+              "url": "https://arxiv.org/abs/1502.03167",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Batch-dependent statistics; unsuitable for autoregressive sequence modeling."
+            }
+          ],
+          "known_availability_limitations": "Freely hosted on arXiv.",
+          "safe_fallback": "RMSNorm formulas and numerical comparisons are derived completely in the lesson.",
+          "relevant_timestamp": "Section 4 RMSNorm (Equation 4) and Section 4.1 Invariance Analysis"
+        },
+        {
+          "id": "vaswani-attention-2017",
+          "title": "Attention Is All You Need",
+          "author": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin",
+          "original_url": "https://arxiv.org/abs/1706.03762",
+          "version_or_verification_date": "arXiv:1706.03762v7 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation and reference under arXiv open access terms; no paper figures or prose reproduced.",
+          "prerequisites": "Matrix multiplication and basic neural network concepts from Days 22-24 and 34-36.",
+          "selection_rationale": "Foundational primary literature defining the Transformer architecture, multi-head attention, and scaled dot-product attention.",
+          "known_availability_limitations": "Freely hosted on arXiv.org; PDF and HTML available.",
+          "safe_fallback": "All mathematical formulas and structural definitions are self-contained in the lesson text.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Illustrated Transformer (Jay Alammar)",
+              "url": "https://jalammar.github.io/illustrated-transformer/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-level visual intuition, but Vaswani et al. provides the primary mathematical specifications needed for implementation."
+            },
+            {
+              "candidate_name": "Annotated Transformer (Harvard NLP)",
+              "url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+              "license": "MIT",
+              "status": "compared_selected_for_day46_48",
+              "comparison_rationale": "Co-primary: PyTorch line-by-line implementation alongside the paper equations."
+            }
+          ],
+          "relevant_timestamp": "Section 3 Model Architecture (3.1-3.5)"
+        }
+      ]
+    },
+    {
+      "id": "day-49-act-04",
+      "lesson_id": "les-49",
+      "title": "Week 7 Assessment: Find the Four Bugs in a Tiny GPT (Days 43-49)",
+      "active_minutes": 120,
+      "activity_type": "review",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.11.01-rev2",
+      "prerequisites": [
+        "day-49-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "vaswani-attention-2017",
+          "title": "Attention Is All You Need",
+          "author": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin",
+          "original_url": "https://arxiv.org/abs/1706.03762",
+          "relevant_timestamp": "Section 3.2.1: Scaled Dot-Product Attention equation and query/key/value matrix definitions",
+          "version_or_verification_date": "NeurIPS 2017 / arXiv:1706.03762v7 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference to open-access paper; all explanations and mathematical formulations in this curriculum are original works.",
+          "prerequisites": "Linear algebra, matrix multiplication, softmax probability distributions",
+          "selection_rationale": "The foundational primary literature establishing scaled dot-product attention, multi-head projection mechanisms, and autoregressive causal masking.",
+          "known_availability_limitations": "Open-access paper freely hosted on arXiv.org; no paywall.",
+          "safe_fallback": "Complete original algebraic derivations, matrix examples, variance proofs, and tensor diagrams are self-contained in the curriculum text without external document dependency.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Bahdanau et al.: Neural Machine Translation by Jointly Learning to Align and Translate (ICLR 2015)",
+              "url": "https://arxiv.org/abs/1409.0473",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Pioneered additive attention in RNNs, but Vaswani scaled dot-product attention replaced additive alignment in modern LLM architectures due to parallel matrix multiplication speed."
+            },
+            {
+              "candidate_name": "Shaw et al.: Self-Attention with Relative Position Representations (NAACL 2018)",
+              "url": "https://arxiv.org/abs/1803.02155",
+              "license": "arXiv Open Access",
+              "status": "compared_deferred",
+              "comparison_rationale": "Introduces relative positional biases into attention; deferred to subsequent positional embedding modules after absolute scaled attention is thoroughly mastered."
+            },
+            {
+              "candidate_name": "Karpathy nanoGPT (causal self-attention module)",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_selected_co_primary",
+              "comparison_rationale": "Selected jointly as the primary code reference: translates Section 3.2 of the Vaswani paper into minimal, idiomatic PyTorch tensor operations."
+            }
+          ]
+        },
+        {
+          "id": "rmsnorm-paper-2019",
+          "title": "Root Mean Square Layer Normalization",
+          "author": "Biao Zhang, Rico Sennrich (University of Edinburgh)",
+          "original_url": "https://arxiv.org/abs/1910.07467",
+          "version_or_verification_date": "NeurIPS 2019 / arXiv:1910.07467v1 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation under arXiv open access terms.",
+          "prerequisites": "Variance, standard deviation, and LayerNorm basics.",
+          "selection_rationale": "Primary paper showing that mean-centering in LayerNorm can be discarded without performance loss, speeding up modern LLMs (LLaMA, Gemma).",
+          "compared_candidates": [
+            {
+              "candidate_name": "Ba et al. Layer Normalization (2016)",
+              "url": "https://arxiv.org/abs/1607.06450",
+              "license": "Open Access",
+              "status": "compared_selected_for_day46",
+              "comparison_rationale": "Original LayerNorm formulation with mean-centering; RMSNorm is compared directly against it as an optimization."
+            },
+            {
+              "candidate_name": "Ioffe & Szegedy Batch Normalization (2015)",
+              "url": "https://arxiv.org/abs/1502.03167",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Batch-dependent statistics; unsuitable for autoregressive sequence modeling."
+            }
+          ],
+          "known_availability_limitations": "Freely hosted on arXiv.",
+          "safe_fallback": "RMSNorm formulas and numerical comparisons are derived completely in the lesson.",
+          "relevant_timestamp": "Section 4 RMSNorm (Equation 4) and Section 4.1 Invariance Analysis"
+        }
+      ]
+    }
+  ]
+}

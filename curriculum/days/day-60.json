@@ -1,0 +1,348 @@
+{
+  "id": "day-60",
+  "day_number": 60,
+  "active_minutes": 480,
+  "topic_category": "models-and-training",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-59"
+  ],
+  "recovery_links": [
+    "day-55"
+  ],
+  "activities": [
+    {
+      "id": "day-60-act-01",
+      "lesson_id": "les-60",
+      "title": "Final Checkpoint Validation, Perplexity and Coherence Evaluation",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev3",
+      "prerequisites": [
+        "day-59"
+      ],
+      "source_resources": [
+        {
+          "id": "karpathy-nanogpt-train",
+          "title": "nanoGPT: train.py pretraining loop",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/nanoGPT/blob/master/train.py",
+          "version_or_verification_date": "Git master commit 71c3905 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license.",
+          "prerequisites": "Python, PyTorch, and Day 46-48 Transformer model architecture.",
+          "selection_rationale": "Compact historical code reference for the named implementation functions; CS336 spring2025 provides the lead component exercises. Do not infer top-p, atomic persistence or cloud budget enforcement from nanoGPT.",
+          "known_availability_limitations": "Historical implementation reference: nanoGPT README marks the repository deprecated (November 2025). Toy CPU reading/runs do not establish full GPU pretraining feasibility.",
+          "safe_fallback": "Runnable pretraining scripts and step-by-step tensor mechanics are fully self-contained in the curriculum lessons.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Hugging Face Accelerate / Trainer",
+              "url": "https://github.com/huggingface/accelerate",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Heavy abstraction layer wrapping distributed training; nanoGPT exposes raw PyTorch loops without framework overhead."
+            },
+            {
+              "candidate_name": "Megatron-LM (NVIDIA)",
+              "url": "https://github.com/NVIDIA/Megatron-LM",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-performance enterprise distributed framework; unsuitable for local educational first-principles comprehension."
+            }
+          ],
+          "relevant_timestamp": "train.py: estimate_loss() averages eval_iters batches per split; run every eval_interval; best_val_loss decides when a checkpoint is saved"
+        },
+        {
+          "id": "cs336-basics",
+          "title": "CS336 Assignment 1: Basics (Spring 2025 tagged release)",
+          "author": "Stanford University CS336 Staff",
+          "original_url": "https://github.com/stanford-cs336/assignment1-basics/tree/spring2025",
+          "relevant_timestamp": "README setup; tests/adapters.py; tests/test_optimizer.py; tests/test_nn_utils.py; tests/test_serialization.py",
+          "version_or_verification_date": "spring2025 tag; README, tests and MIT LICENSE checked 2026-11-01",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "software_repository_license_only": true,
+          "permission_basis": "External hyperlink only to the spring2025 assignment repository; its LICENSE is MIT. No assignment text, code or lecture material is imported.",
+          "prerequisites": "Fluent Python, PyTorch, and linear algebra",
+          "selection_rationale": "Lead assignment-driven source for pretraining component practice and tests. nanoGPT remains a compact historical code-reading companion, not the current recommended training curriculum.",
+          "known_availability_limitations": "Public tagged handout and tests; full training needs suitable compute. The campus cluster is not required for reading or local component practice.",
+          "safe_fallback": "Local self-contained pretraining scripts run on standard local CPUs or budget GPUs without Stanford cluster dependency.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Karpathy nanoGPT",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Simpler code layout, useful complementary reference for minimal PyTorch Transformer."
+            },
+            {
+              "candidate_name": "Hugging Face Transformers Course",
+              "url": "https://huggingface.co/learn/nlp-course/chapter1/1",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-level API focus rather than building from raw tensor fundamentals."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-60-act-02",
+      "lesson_id": "les-60",
+      "title": "Comprehensive Cloud Spending Reconciliation and Cost Audit",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.11.01-rev3",
+      "prerequisites": [
+        "day-60-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "eleutherai-transformer-math",
+          "title": "Transformer Math 101",
+          "author": "Quentin Anthony, Stella Biderman, Hailey Schoelkopf",
+          "original_url": "https://blog.eleuther.ai/transformer-math/",
+          "version_or_verification_date": "EleutherAI Research Blog (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "article",
+          "license": "CC-BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under Creative Commons Attribution license.",
+          "prerequisites": "Transformer matrix dimensions and matrix multiplication FLOP counting.",
+          "selection_rationale": "Widely cited, practical industry guide deriving 6ND compute FLOPs, activation memory, KV cache size, and VRAM estimation.",
+          "known_availability_limitations": "Freely available on EleutherAI blog.",
+          "safe_fallback": "The 6ND derivation (2ND forward, 4ND backward) and peak VRAM estimation models are fully worked out in the curriculum.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Narayanan et al. Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM",
+              "url": "https://arxiv.org/abs/2104.04473",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Rigorous academic formulation; Transformer Math 101 provides accessible step-by-step arithmetic equations."
+            },
+            {
+              "candidate_name": "Kaplan et al. Section 2.1 Compute Budgeting",
+              "url": "https://arxiv.org/abs/2001.08361",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Original 6ND approximation; EleutherAI expands on activation memory and KV cache."
+            }
+          ],
+          "relevant_timestamp": "Engineering Takeaways for Compute Costs",
+          "locator_url": "https://blog.eleuther.ai/transformer-math/#engineering-takeaways-for-compute-costs"
+        },
+        {
+          "id": "cs336-basics",
+          "title": "CS336 Assignment 1: Basics (Spring 2025 tagged release)",
+          "author": "Stanford University CS336 Staff",
+          "original_url": "https://github.com/stanford-cs336/assignment1-basics/tree/spring2025",
+          "relevant_timestamp": "README setup; tests/adapters.py; tests/test_optimizer.py; tests/test_nn_utils.py; tests/test_serialization.py",
+          "version_or_verification_date": "spring2025 tag; README, tests and MIT LICENSE checked 2026-11-01",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "software_repository_license_only": true,
+          "permission_basis": "External hyperlink only to the spring2025 assignment repository; its LICENSE is MIT. No assignment text, code or lecture material is imported.",
+          "prerequisites": "Fluent Python, PyTorch, and linear algebra",
+          "selection_rationale": "Lead assignment-driven source for pretraining component practice and tests. nanoGPT remains a compact historical code-reading companion, not the current recommended training curriculum.",
+          "known_availability_limitations": "Public tagged handout and tests; full training needs suitable compute. The campus cluster is not required for reading or local component practice.",
+          "safe_fallback": "Local self-contained pretraining scripts run on standard local CPUs or budget GPUs without Stanford cluster dependency.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Karpathy nanoGPT",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Simpler code layout, useful complementary reference for minimal PyTorch Transformer."
+            },
+            {
+              "candidate_name": "Hugging Face Transformers Course",
+              "url": "https://huggingface.co/learn/nlp-course/chapter1/1",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-level API focus rather than building from raw tensor fundamentals."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-60-act-03",
+      "lesson_id": "les-60",
+      "title": "Safetensors Format Export and Destructive Cloud Resource Teardown",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev3",
+      "prerequisites": [
+        "day-60-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "safetensors-huggingface",
+          "title": "Safetensors: Simple, Safe and Fast Tensor Storage",
+          "author": "Nicolas Patry, Hugging Face Team",
+          "original_url": "https://github.com/huggingface/safetensors",
+          "version_or_verification_date": "Safetensors 0.4.x / GitHub (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "Apache-2.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under Apache-2.0 open-source terms.",
+          "prerequisites": "Binary serialization, memory mapping (mmap), and tensor state dictionaries.",
+          "selection_rationale": "Widely adopted format for secure model checkpoint export, preventing arbitrary code execution vulnerability inherent to Python pickle.",
+          "known_availability_limitations": "Freely available on GitHub and PyPI.",
+          "safe_fallback": "Zero-copy tensor slicing and header dictionary parsing are demonstrated in pure Python.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Python pickle module documentation",
+              "url": "https://docs.python.org/3/library/pickle.html",
+              "license": "PSF License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Default PyTorch serialization; Safetensors replaces pickle to eliminate arbitrary code execution security hazards."
+            },
+            {
+              "candidate_name": "ONNX Model Format Specification",
+              "url": "https://onnx.ai/",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Full computational graph interchange format; Safetensors focuses strictly on zero-overhead raw weight storage."
+            }
+          ],
+          "relevant_timestamp": "README 'Format' (8-byte header size, JSON header, tensor byte buffer)"
+        },
+        {
+          "id": "karpathy-nanogpt-train",
+          "title": "nanoGPT: train.py pretraining loop",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/nanoGPT/blob/master/train.py",
+          "version_or_verification_date": "Git master commit 71c3905 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license.",
+          "prerequisites": "Python, PyTorch, and Day 46-48 Transformer model architecture.",
+          "selection_rationale": "Compact historical code reference for the named implementation functions; CS336 spring2025 provides the lead component exercises. Do not infer top-p, atomic persistence or cloud budget enforcement from nanoGPT.",
+          "known_availability_limitations": "Historical implementation reference: nanoGPT README marks the repository deprecated (November 2025). Toy CPU reading/runs do not establish full GPU pretraining feasibility.",
+          "safe_fallback": "Runnable pretraining scripts and step-by-step tensor mechanics are fully self-contained in the curriculum lessons.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Hugging Face Accelerate / Trainer",
+              "url": "https://github.com/huggingface/accelerate",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Heavy abstraction layer wrapping distributed training; nanoGPT exposes raw PyTorch loops without framework overhead."
+            },
+            {
+              "candidate_name": "Megatron-LM (NVIDIA)",
+              "url": "https://github.com/NVIDIA/Megatron-LM",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-performance enterprise distributed framework; unsuitable for local educational first-principles comprehension."
+            }
+          ],
+          "relevant_timestamp": "train.py: checkpoint dict {'model', 'optimizer', 'model_args', 'iter_num', 'best_val_loss', 'config'} written with torch.save to out_dir/ckpt.pt; the init_from == 'resume' branch reloads it"
+        }
+      ]
+    },
+    {
+      "id": "day-60-act-04",
+      "lesson_id": "les-60",
+      "title": "Assessment: Four-Language Experimental Reproduction Report",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.11.01-rev3",
+      "prerequisites": [
+        "day-60-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "cs336-basics",
+          "title": "CS336 Assignment 1: Basics (Spring 2025 tagged release)",
+          "author": "Stanford University CS336 Staff",
+          "original_url": "https://github.com/stanford-cs336/assignment1-basics/tree/spring2025",
+          "relevant_timestamp": "README setup; tests/adapters.py; tests/test_optimizer.py; tests/test_nn_utils.py; tests/test_serialization.py",
+          "version_or_verification_date": "spring2025 tag; README, tests and MIT LICENSE checked 2026-11-01",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "software_repository_license_only": true,
+          "permission_basis": "External hyperlink only to the spring2025 assignment repository; its LICENSE is MIT. No assignment text, code or lecture material is imported.",
+          "prerequisites": "Fluent Python, PyTorch, and linear algebra",
+          "selection_rationale": "Lead assignment-driven source for pretraining component practice and tests. nanoGPT remains a compact historical code-reading companion, not the current recommended training curriculum.",
+          "known_availability_limitations": "Public tagged handout and tests; full training needs suitable compute. The campus cluster is not required for reading or local component practice.",
+          "safe_fallback": "Local self-contained pretraining scripts run on standard local CPUs or budget GPUs without Stanford cluster dependency.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Karpathy nanoGPT",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Simpler code layout, useful complementary reference for minimal PyTorch Transformer."
+            },
+            {
+              "candidate_name": "Hugging Face Transformers Course",
+              "url": "https://huggingface.co/learn/nlp-course/chapter1/1",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-level API focus rather than building from raw tensor fundamentals."
+            }
+          ]
+        },
+        {
+          "id": "safetensors-huggingface",
+          "title": "Safetensors: Simple, Safe and Fast Tensor Storage",
+          "author": "Nicolas Patry, Hugging Face Team",
+          "original_url": "https://github.com/huggingface/safetensors",
+          "version_or_verification_date": "Safetensors 0.4.x / GitHub (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "Apache-2.0",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under Apache-2.0 open-source terms.",
+          "prerequisites": "Binary serialization, memory mapping (mmap), and tensor state dictionaries.",
+          "selection_rationale": "Widely adopted format for secure model checkpoint export, preventing arbitrary code execution vulnerability inherent to Python pickle.",
+          "known_availability_limitations": "Freely available on GitHub and PyPI.",
+          "safe_fallback": "Zero-copy tensor slicing and header dictionary parsing are demonstrated in pure Python.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Python pickle module documentation",
+              "url": "https://docs.python.org/3/library/pickle.html",
+              "license": "PSF License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Default PyTorch serialization; Safetensors replaces pickle to eliminate arbitrary code execution security hazards."
+            },
+            {
+              "candidate_name": "ONNX Model Format Specification",
+              "url": "https://onnx.ai/",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Full computational graph interchange format; Safetensors focuses strictly on zero-overhead raw weight storage."
+            }
+          ],
+          "relevant_timestamp": "README 'Format' (8-byte header size, JSON header, tensor byte buffer)"
+        }
+      ]
+    }
+  ]
+}

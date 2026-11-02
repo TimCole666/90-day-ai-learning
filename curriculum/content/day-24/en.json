@@ -1,0 +1,78 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 24: Tensors, Broadcasting, Reshape, and Memory Ledgers",
+  "day_subtitle": "Generalize vectors and matrices to rank-n tensors with named axes (batch, time, channel); verify broadcasting rules and failure cases, reshape and view-versus-copy behavior, and memory ledgers for real model tensors. Every activity records prediction, observation, review, and recovery inside the 480-minute ledger.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Mathematics & Algorithmic Foundations",
+  "common": {
+    "nav_calendar": "Curriculum Calendar",
+    "day_label": "Day 24",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Record your predicted shapes, observed output, shape/memory ledger, review, and recovery evidence here...",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision"
+  },
+  "activities": {
+    "day-24-act-01": {
+      "title": "Tensors: axes, ranks, and model weight blocks",
+      "prerequisites": "Complete Day 23; use the listed recovery link if matrix shapes are shaky.",
+      "objective": "Describe a tensor as an n-dimensional array whose rank is its number of axes; name the batch, time, and channel axes of model tensors; and trace an embedding lookup from a table E of shape (V x d) to an output of shape (B, T, d).",
+      "assistance_policy_label": "Assistance allowed only after prediction and observed evidence are recorded.",
+      "instructions": "A scalar is rank 0, a vector rank 1, a matrix rank 2, and a batch of sequences of embeddings is a rank-3 tensor of shape (B, T, d): batch axis, time axis, channel axis. An embedding lookup gathers rows: ids of shape (B, T) into table E of shape (V, d) produce output (B, T, d). Weight matrices are rank-2 tensors; a hidden state carrying batch and time is rank 3.",
+      "exercise_prompt": "A small model has vocabulary V = 50000 and embedding width d = 512. Predict: (a) the number of scalar weights in table E; (b) the output shape when ids of shape (B=2, T=3) are looked up; (c) how many float32 values that output holds and its byte size.",
+      "hint": "Weight count is V * d. The lookup result carries one d-vector per (batch, time) position. float32 uses 4 bytes per value.",
+      "answer": "(a) E holds 50000 * 512 = 25,600,000 scalar weights. (b) Output shape (2, 3, 512): each of the 2*3 = 6 token positions is replaced by a 512-vector. (c) The output holds 2*3*512 = 3072 float32 values, i.e. 3072 * 4 = 12,288 bytes. The batch and time axes are new axes the lookup prepends to the row vector.",
+      "mastery_criterion": "Your ledger derives (B, T, d) from (V, d) and (B, T) without prompting, you compute both element counts exactly, and you can name the physical meaning of each axis (which item, which position, which feature)."
+    },
+    "day-24-act-02": {
+      "title": "Broadcasting rules and failure diagnosis",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Apply the broadcasting rule - align trailing axes; each pair of dimensions must be equal or one must be 1 - to predict outputs and diagnose failures before running code.",
+      "assistance_policy_label": "Independent practice: record predictions before checking results; assistance only after evidence is logged.",
+      "instructions": "Broadcasting applies to tensors of any rank: compare shapes right-to-left. Missing axes count as size 1 and a size-1 axis is stretched without copying memory. Bias addition in an MLP, (B, T, d_ff) + (d_ff,), broadcasts the bias over batch and time. A pair like (2, 3) and (4,) fails because 3 != 4 on the last axis.",
+      "exercise_prompt": "Predict each result or its failure: (a) [[1,2,3],[4,5,6]] + [10,20,30]; (b) [[1],[2]] + [[10,20,30]]; (c) shape (2,3) + shape (4,); (d) hidden (32,128,768) + bias (768,).",
+      "hint": "Write both shapes, align them on the right, and check each dimension pair against the equal-or-1 rule before computing any value.",
+      "answer": "(a) Trailing axes 3 and 3 match, so the row [10,20,30] is added to each row: [[11,22,33],[14,25,36]]. (b) (2,1) + (1,3) stretches both: [[11,21,31],[12,22,32]], an outer-sum of shape (2,3). (c) Failure: last axes 3 vs 4 are incompatible, libraries raise a broadcast error. (d) (768,) aligns with the channel axis, so bias adds over batch and time, output stays (32,128,768). Broadcasting performs the stretch logically, without materializing the repeated data.",
+      "mastery_criterion": "You predict all four outcomes (three shapes and one failure) unaided, reproduce both numeric results exactly, and explain why (2,3) + (4,) must fail under the trailing-axis rule."
+    },
+    "day-24-act-03": {
+      "title": "Reshape, views vs copies, and memory ledgers",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Predict reshape results knowing element count is invariant and order is row-major; distinguish views from copies (a transpose is a non-contiguous view, so reshape after transpose may copy); and keep a memory ledger of elements x itemsize for real model tensors.",
+      "assistance_policy_label": "Assistance allowed only after prediction and observed evidence are recorded.",
+      "instructions": "reshape re-reads the same flat buffer in C (row-major) order, so the element count must be preserved. Many reshapes and every plain transpose return views - new axis metadata on the same memory. A non-contiguous tensor (for example after .T) may force reshape to copy. Byte size = element count * itemsize; float32 has itemsize 4.",
+      "exercise_prompt": "Let a = [[1,2,3],[4,5,6]] of shape (2,3). Predict: (a) a reshaped to (3,2); (b) a flattened to (6,); (c) whether a.T.reshape(6) can share a's memory; (d) the byte size of a float32 hidden state of shape (32, 128, 768).",
+      "hint": "Write the elements in row-major order first: 1,2,3,4,5,6. For (c) ask whether the transposed layout is still contiguous. For (d) multiply the three axis sizes, then by 4.",
+      "answer": "(a) [[1,2],[3,4],[5,6]] - row-major order is preserved, only the axis boundaries move. (b) [1,2,3,4,5,6]. (c) a.T has shape (3,2) but strides a non-contiguous layout. A no-copy .view() is stride-constrained and raises here; .reshape(6) may allocate a copy instead - in NumPy it silently allocates new memory, and in PyTorch .view() would raise while .reshape() succeeds by copying (documented behavior, not executed). (d) 32*128*768 = 3,145,728 elements; x 4 bytes = 12,582,912 bytes = 12 MiB.",
+      "mastery_criterion": "You predict all four results, state the element-count invariant for reshape, and can explain the view-versus-copy caveat with the transpose example plus the 12 MiB ledger entry."
+    },
+    "day-24-act-04": {
+      "title": "Independent mastery: tensor shape and broadcasting audit",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Without assistance, audit a layer-norm-style computation end to end: predict reduction shapes with keepdims, broadcast subtraction, broadcast failures, and a memory ledger entry; write a recovery note for any miss.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "Closed book: predict first, compute second, compare. Write each tensor's shape beside its value. If a result surprises you, record which rule was misapplied and note the recovery link.",
+      "exercise_prompt": "Tasks: (a) for x = [[1,2,3],[4,5,6]] of shape (2,3), compute the mean over the last axis with keepdims and its shape; (b) x - mean broadcast result; (c) which of (2,3)+(3,), (2,3)+(4,), (2,1)+(1,3) fails and why; (d) bytes of a float32 logits tensor of shape (2, 3, 50000).",
+      "hint": "The mean axis shrinks to size 1 under keepdims, then broadcasting stretches it back for subtraction. For (d) multiply elements by 4.",
+      "answer": "(a) Row means are (2.0, 5.0) with shape (2,1) under keepdims. (b) Broadcast subtraction: [[-1,0,1],[-1,0,1]] of shape (2,3) - each row is centered by its own mean. (c) (2,3)+(4,) fails: trailing axes 3 vs 4 mismatch; the other two succeed as (2,3) and (2,3) after stretching the size-1 axes. (d) 2*3*50000 = 300,000 elements x 4 bytes = 1,200,000 bytes (~1.14 MiB). Comparison scope (float32 storage of the tensors named in this lesson only): these logits are about 98 times the (2, 3, 512) lookup output from the first activity (12,288 bytes), but smaller than the (32, 128, 768) hidden state (12,582,912 bytes) and far smaller than the embedding table E itself (25,600,000 weights = 102,400,000 bytes). No total, peak, or training-memory comparison is measured here.",
+      "mastery_criterion": "All four answers verified unaided with shapes written beside values; you state the broadcast failure rule and one sentence on why keepdims exists for reductions."
+    }
+  }
+}

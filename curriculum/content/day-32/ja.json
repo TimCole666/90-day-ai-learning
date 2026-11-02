@@ -1,0 +1,170 @@
+{
+  "language": "ja",
+  "language_label": "日本語",
+  "day_title": "第 32 日：トポロジカルソート、分岐勾配の累積加算と数値勾配検査トレランス",
+  "day_subtitle": "グラフ巡回と数値検証の習得：深さ優先後順トポロジカルソートの実装、勾配累積加算 (`+=`) による分岐連鎖律の正確な処理、および有限差分法による厳格な gradcheck 検証体系の構築。",
+  "time_budget_label": "480 分（8 時間の集中学習）",
+  "category_label": "数学とアルゴリズム基礎",
+  "common": {
+    "nav_calendar": "📅 カリキュラムカレンダー",
+    "day_label": "第 32 日",
+    "prerequisites_title": "前提条件",
+    "objective_title": "学習目標",
+    "instructions_title": "手順",
+    "exercise_title": "演習と予測記録",
+    "hint_title": "ヒントを確認",
+    "reveal_answer": "参考解答と分析を表示",
+    "mastery_title": "独立習得基準",
+    "draft_placeholder": "ここにトポロジカルソート順序、分岐累積方程式、数値差分誤差の計算を入力してください...",
+    "dev_slice_notice": "90 日 AI 学習プラットフォームの検証済み正式モジュールです。",
+    "sources_heading": "公式ソースリソースと権利証跡",
+    "source_author_label": "著者・提供機関",
+    "source_url_label": "オリジナル出所URL",
+    "source_range_label": "該当セクション・タイムスタンプ",
+    "source_verification_label": "検証バージョンと日付",
+    "source_reuse_label": "再利用区分",
+    "source_license_label": "ライセンスと権利情報",
+    "source_rationale_label": "選定理由",
+    "source_prereqs_label": "ソース前提知識",
+    "source_fallback_label": "安全フォールバック（オフライン回復性）",
+    "compared_candidates_heading": "比較対象候補リソースと選定評価",
+    "compared_status_label": "評価結果",
+    "auth": {
+      "sign_in": "Googleでログイン",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "ログアウト",
+      "signed_in_as": "ログイン中:",
+      "guest": "ゲストモード",
+      "link_github": "GitHubを連携",
+      "link_google": "Googleを連携",
+      "linked_identities": "連携済みアカウント",
+      "auth_errors": {
+        "access_denied": "認証がキャンセルされたか、アクセスが拒否されました。",
+        "invalid_state": "無効または期限切れの認証状態です。再試行してください。",
+        "identity_conflict": "このIDは既に別のアカウントに連携されています。",
+        "provider_error": "認証プロバイダーでエラーが発生しました。",
+        "server_error": "認証プロバイダーでエラーが発生しました。",
+        "session_expired": "セッションの有効期限が切れました。再度ログインしてください。"
+      }
+    },
+    "progress": {
+      "save_btn": "進捗を保存",
+      "saved": "保存済み",
+      "saving": "保存中...",
+      "save_error": "保存に失敗しました",
+      "offline": "オフライン",
+      "mark_completed": "完了としてマーク",
+      "completed_badge": "完了"
+    },
+    "quiz": {
+      "quiz_title": "客観的理解度チェック：トポロジー、分岐累積と数値勾配検査",
+      "quiz_instructions": "以下の設問に解答して理解度を確認してください。提出前に利用した補助条件を誠実に申告してください。",
+      "assistance_mode_label": "申告補助条件",
+      "mode_independent": "独立習得確認 (AI支援なし)",
+      "mode_agent_assisted": "Agent支援エンジニアリング確認 (AI支援あり)",
+      "mode_disclaimer": "注記: AI不使用は誠実な申告条件であり、監視や強制検知ではありません。",
+      "submit_btn": "解答を提出",
+      "retry_btn": "クイズをやり直す",
+      "view_hint": "ヒントを確認",
+      "mastery_criterion_label": "習得基準",
+      "mastery_criterion_desc": "独立習得確認モードで100%（3問中3問正解）を獲得すること。",
+      "score_label": "得点",
+      "passed_badge": "合格",
+      "failed_badge": "要復習",
+      "independent_pass_badge": "独立習得合格",
+      "agent_assisted_pass_badge": "Agent支援合格",
+      "self_reported_badge": "自己申告完了",
+      "stale_badge": "過去の記録 (コンテンツ更新のため再検証が必要)",
+      "attempts_history_title": "解答根拠と履歴",
+      "no_attempts": "提出履歴はありません。"
+    }
+  },
+  "activities": {
+    "day-32-act-01": {
+      "title": "有向非巡回グラフ（DAG）トポロジカルソートの実装",
+      "prerequisites": "第31日の計算グラフの概念と深さ優先探索（DFS）の基礎。",
+      "objective": "逆伝播において、あるノードの後退処理を実行する前に、そのノードのすべての下流消費ノードからの勾配伝播が完了していなければならない理由と後順巡回トポロジカルソートを理解する。",
+      "assistance_policy_label": "Agent支援エンジニアリング確認",
+      "instructions": "CLI を使用して分岐共有ノードグラフの構造を確認します:\n\n```bash\npython3 projects/autograd/cli.py graph --preset shared-node --format ascii\n```\n\nノード `a` が加算ノード $(a+b)$ と最終乗算ノード $(a+b) \\cdot a$ の双方に供給されていることを観察してください。任意の走査順や単純な幅優先探索では、すべての勾配寄与が到着する前に `a._backward()` が時期尚早に実行されてしまいます。",
+      "exercise_prompt": "$f = (a + b) \\cdot a$（$a = 3.0, b = 4.0$）について:\n1. 根ノード $f$ から開始する深さ優先探索（DFS）の巡回経路をトレースします。\n2. 訪問完了順（後順）でノードを列挙します。\n3. 反転した逆トポロジカル順序が、根ノード $f$ を最初、加算ノードを中間、葉ノード $a, b$ を最後に並べることを確認します。",
+      "hint": "後順 DFS の基本ロジック: 現在ノードの `_prev` に含まれるすべての子ノードを再帰的に走査し、すべての子ノードが完全に処理された後に初めて自身をリストに追加します。このリストを反転することで、どのノードもそれを参照するすべての下流ノードの後に配置されます。",
+      "answer": "参考解答:\n1. 根ノード $f$ の依存ノードは $\\{sum, a\\}$。\n2. 中間ノード $sum$ の依存ノードは $\\{a, b\\}$。\n3. DFS は $a, b$ を処理した後に $sum$ を追加し、最後に $f$ を追加します。\n4. 反転後の逆方向実行順序: $[f, sum, b, a]$。\n`backward()` 実行時、$f._backward()$、$sum._backward()$ の順で処理され、最終的にノード $a$ に両方のパスからの勾配が完全に蓄積されます。",
+      "mastery_criterion": "外部のグラフライブラリに頼らず、DFS による後順トポロジカルソートアルゴリズムを自力で実装できること。"
+    },
+    "day-32-act-02": {
+      "title": "共有ノードの勾配累積加算と多変数連鎖律",
+      "prerequisites": "多変数微積分の全微分連鎖律（全経路和の公式）およびアクティビティ 32-01。",
+      "objective": "複数経路から参照される変数に対して累積加算 (`+=`) が不可欠である数学的根拠を証明し、代入 (`=`) による上書きが致命的なバグを生む様子を検証する。",
+      "assistance_policy_label": "独立習得確認",
+      "instructions": "共有ノードプリセットに対して順方向および逆方向コマンドを実行します:\n\n```bash\npython3 projects/autograd/cli.py forward-backward --preset shared-node\n```\n\n$f = (a + b) \\cdot a$（$a = 3.0, b = 4.0$）において:\n$\\frac{\\partial f}{\\partial a} = 2a + b = 2(3) + 4 = 10.0$ となることを確認します。\n逆伝播が双方の分岐経路からの勾配を正しく累積していることを検証してください。",
+      "exercise_prompt": "$f(a, b) = (a + b) \\cdot a$（$a = 3.0, b = 4.0$）とします:\n1. $u = a + b$ と置き、$f = u \\cdot a$ とします。乗算ステップから $\\frac{\\partial f}{\\partial a}$（直接寄与）と $\\frac{\\partial f}{\\partial u}$ を計算します。\n2. 加算ステップ $u = a + b$ から $\\frac{\\partial u}{\\partial a}$ を求め、$a$ への寄与を計算します。\n3. $\\frac{\\partial f}{\\partial a} = \\frac{\\partial f}{\\partial u} \\frac{\\partial u}{\\partial a} + \\left(\\frac{\\partial f}{\\partial a}\\right)_{\\text{direct}}$ が $10.0$ となることを示します。\n4. 実装で `self.grad = ...`（代入）を使用した場合に生じる不具合を説明してください。",
+      "hint": "分岐 1（直接乗算項）: $f = u \\cdot a \\implies \\frac{\\partial f}{\\partial a}\\big|_{\\text{direct}} = u = a + b = 7.0$。\n分岐 2（加算経由）: $\\frac{\\partial f}{\\partial u} = a = 3.0$。$\\frac{\\partial u}{\\partial a} = 1.0$ より、$3.0 \\times 1.0 = 3.0$。\n合計 $= 7.0 + 3.0 = 10.0$。",
+      "answer": "参考解答:\n1. 直接乗算項の寄与: $\\frac{\\partial f}{\\partial a} = u = 3.0 + 4.0 = 7.0$。\n2. 間接加算項の寄与: $\\frac{\\partial f}{\\partial u} \\cdot \\frac{\\partial u}{\\partial a} = a \\cdot 1.0 = 3.0 \\times 1.0 = 3.0$。\n3. 解析的勾配の総和: $7.0 + 3.0 = 10.0$。\n4. 代入演算子 (`=`) を使用した場合、後から実行された分岐が先の分岐の勾配値を上書きしてしまい、結果が $3.0$ または $7.0$ に化けて重大な計算誤りが発生します。",
+      "mastery_criterion": "多分岐 DAG ノードにおいてなぜ `+=` が必須であるかを数学的に証明し、代入欠陥による数値的な誤りを指摘できること。"
+    },
+    "day-32-act-03": {
+      "title": "有限差分法による数値勾配検査 (Gradcheck) とトレランス設計",
+      "prerequisites": "テイラー展開および IEEE 754 浮動小数点丸め誤差の理解。",
+      "objective": "両側中心有限差分法を実装し、適切な相対誤差・絶対誤差トレランス基準を設計し、非微分折点（Kink Point）の数学的特異性を理解する。",
+      "assistance_policy_label": "Agent支援エンジニアリング確認",
+      "instructions": "複合式の数値勾配検査コマンドを実行します:\n\n```bash\npython3 projects/autograd/cli.py gradcheck --preset complex\n```\n\n続いて ReLU の折点における検査を実行します:\n\n```bash\npython3 projects/autograd/cli.py gradcheck --preset relu-kink\n```\n\n出力される相対誤差レポートと折点に関する説明を確認してください。",
+      "exercise_prompt": "1. 中心差分 $\\frac{f(x+h) - f(x-h)}{2h}$ の打ち切り誤差が $\\mathcal{O}(h^2)$ であるのに対し、前進差分 $\\frac{f(x+h) - f(x)}{h}$ が $\\mathcal{O}(h)$ となる理由を説明してください。\n2. 浮動小数点演算において、ステップ幅 $h$ を極端に小さく（例: $10^{-20}$）してはならない理由を述べてください。\n3. 解析勾配 $g_a = 10.0$ と数値勾配 $g_n = 9.999999999$ の相対誤差を計算し、$\\text{rtol} = 10^{-3}$ を満たすか判定してください。",
+      "hint": "テイラー展開: $f(x+h) = f(x) + h f'(x) + \\frac{h^2}{2} f''(x) + \\mathcal{O}(h^3)$。$f(x-h)$ と引き算すると偶数次項 $h^2 f''(x)$ が相殺され、誤差は $\\frac{h^3}{6} f'''(x) / (2h) = \\mathcal{O}(h^2)$ が主項となります。$h$ が極小だと情報落ち（桁落ち）が生じます。",
+      "answer": "参考解答:\n1. 対称差分により二次項の誤差が相殺されるため、打ち切り誤差が $\\mathcal{O}(h^2)$ に低減されます。\n2. $h$ が極端に小さい場合（$< 10^{-15}$）、$f(x+h)$ と $f(x-h)$ の上位ビットがほぼ一致し、引き算により有効桁数が著しく失われる（桁落ち）ためです。\n3. 相対誤差: $\\frac{|10.0 - 9.999999999|}{\\max(10.0, 9.999999999, 10^{-7})} = \\frac{10^{-9}}{10.0} = 10^{-10} < 10^{-3}$（検証合格）。",
+      "mastery_criterion": "ステップ幅 $h=10^{-5}$、トレランス $\\text{rtol}=10^{-3}, \\text{atol}=10^{-5}$ の選定根拠を論理的に説明し、ReLU(0) の折点での挙動の数学的意味を理解していること。"
+    },
+    "day-32-act-04": {
+      "title": "独立習得確認：トポロジカル順序と数値勾配検証",
+      "prerequisites": "アクティビティ 32-01 から 32-03。",
+      "objective": "AI支援のない独立環境下で、トポロジカル順序、分岐勾配の累積加算、有限差分数値検査を自力で遂行できることを確認する。",
+      "assistance_policy_label": "独立習得確認",
+      "instructions": "LLMや自動生成ツールを使わず、独立した環境で以下の問題を解いてください。演習草稿エリアに計算プロセスを記録してください。",
+      "exercise_prompt": "入力 $x = 2.0$ が $y_1 = x^2$ と $y_2 = 3x$ に分岐し、損失が $L = y_1 + y_2$ となる計算グラフを考えます:\n1. 解析的導関数 $\\frac{\\partial L}{\\partial x}$ を求めてください。\n2. $h = 0.001$ として $x = 2.0$ における中心有限差分勾配を計算してください。\n3. 解析勾配と数値勾配の相対誤差を計算してください。",
+      "hint": "$L = x^2 + 3x \\implies \\frac{\\partial L}{\\partial x} = 2x + 3$ です。$x=2.0$ で $\\frac{\\partial L}{\\partial x} = 2(2) + 3 = 7.0$。中心差分: $\\frac{((2.001)^2 + 3(2.001)) - ((1.999)^2 + 3(1.999))}{0.002}$。",
+      "answer": "参考解答:\n1. 解析導関数: $\\frac{\\partial L}{\\partial x} = 2x + 3 = 7.0$。\n2. 数値差分: $f(2.001) = 4.004001 + 6.003 = 10.007001$、$f(1.999) = 3.996001 + 5.997 = 9.993001$。\n中心差分: $(10.007001 - 9.993001) / 0.002 = 0.014000 / 0.002 = 7.000000$。\n3. 相対誤差は $0.0 < 10^{-5}$ であり、トレランスを満たします。",
+      "mastery_criterion": "多分岐勾配 $\\frac{\\partial L}{\\partial x} = 7.0$ を自力で導出し、有限差分法による検証誤差を $10^{-5}$ 以内に収められること。",
+      "quiz": {
+        "title": "客観的理解度チェック：トポロジー、分岐累積と数値勾配検査",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "計算グラフにおいてノード A がノード B とノード C の双方に入力され、B と C が共に損失 L に接続されている場合、逆伝播はどのような順序で実行される必要がありますか？",
+            "options": {
+              "a": "ノード A がノード B および C よりも先に実行される必要がある。",
+              "b": "順序は任意であり、DAG の実行順は勾配結果に影響しない。",
+              "c": "ノード B とノード C の双方が逆伝播を完全に完了した後にのみ、ノード A が実行される必要がある。",
+              "d": "ノード B さえ先に実行されれば、ノード C は A の後で実行されても構わない。"
+            },
+            "hint": "逆伝播においてノード A の勾配はどのノードから供給されるかを考えてください。",
+            "explanation": "逆伝播自動微分は出力から入力へと勾配を伝播するため、ノード A を参照するすべてのノード（B と C）が自身の `_backward()` を終えて `A.grad` に加算し終わってから、ノード A が自らの前駆ノードへ伝播する必要があります。"
+          },
+          {
+            "id": "q2",
+            "prompt": "ノード `a` が式の中で 2 回参照され、分岐 1 から $+3.0$、分岐 2 から $+7.0$ の勾配が伝播される場合、実装が `self.grad = ...`（代入）となっているとどうなりますか？",
+            "options": {
+              "a": "正しく $10.0$ の勾配が得られる。",
+              "b": "後から実行された分岐が前方の分岐の勾配を上書きし、`a.grad` が $3.0$ または $7.0$ になってしまう。",
+              "c": "ZeroDivisionError が送出される。",
+              "d": "計算グラフに循環依存のデッドロックが生じる。"
+            },
+            "hint": "代入（`=`）は既存の値を破棄し、加算代入（`+=`）は値を足し合わせます。",
+            "explanation": "代入演算子（`=`）を使用すると、以前の分岐で蓄積された勾配値が失われ、多変数全微分連鎖律 $\\sum \\frac{\\partial L}{\\partial y_j} \\frac{\\partial y_j}{\\partial x}$ の加算要件を満たせなくなります。"
+          },
+          {
+            "id": "q3",
+            "prompt": "$\\text{ReLU}(x)$ の $x = 0.0$ においてステップ幅 $h = 10^{-5}$ で数値勾配検査を行うと、中心有限差分は $0.5$ を返し、解析自動微分は $0.0$ を返します。この差が生じる本質的な原因は何ですか？",
+            "options": {
+              "a": "$x = 0.0$ は微分不可能な折点（Kink Point）であり、左微分が 0、右微分が 1 であるため、対称中心差分が双方の傾きを平均化するため。",
+              "b": "浮動小数点の指数演算がオーバーフローしたため。",
+              "c": "ステップ幅 $h=10^{-5}$ が 64 ビット浮動小数点に対して小さすぎるため。",
+              "d": "自動微分エンジンの ReLU 実装に致命的なバグが存在するため。"
+            },
+            "hint": "中心差分公式 $\\frac{\\max(0, h) - \\max(0, -h)}{2h}$ の計算結果を評価してください。",
+            "explanation": "$\\text{ReLU}(x)$ は $x=0$ で微分不可能です。中心差分は $\\frac{h - 0}{2h} = 0.5$ を計算しますが、解析的劣勾配実装では工学的規約として $0.0$ を採用しています。これは数学的特異点に起因する必然の差であり、コードのバグではありません。"
+          }
+        ]
+      }
+    }
+  }
+}

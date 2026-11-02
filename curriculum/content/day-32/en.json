@@ -1,0 +1,170 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 32: Topological Sorting, Shared-Node Gradient Accumulation & Gradcheck Tolerances",
+  "day_subtitle": "Master graph traversal and numerical verification: implement post-order DFS topological sorting, preserve multivariate branching with gradient accumulation, and perform central-difference gradchecks with justified tolerances.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Mathematics & Algorithmic Foundations",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "day_label": "Day 32",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Enter your topological sort ordering, branch accumulation equations, and numerical tolerance calculations here...",
+    "dev_slice_notice": "Verified curriculum module for the 90-Day AI Learning Platform.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account.",
+        "provider_error": "Authentication provider encountered an error.",
+        "server_error": "Authentication provider encountered an error.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    },
+    "quiz": {
+      "quiz_title": "Objective Knowledge Check: Topology, Accumulation & Numerical Gradcheck",
+      "quiz_instructions": "Answer the following diagnostic questions to verify your understanding. Select your declared assistance condition before submitting.",
+      "assistance_mode_label": "Declared Assistance Condition",
+      "mode_independent": "Independent Mastery Check (No AI assistance)",
+      "mode_agent_assisted": "Agent-Assisted Engineering Check (Completed with AI assistance)",
+      "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+      "submit_btn": "Submit Answers",
+      "retry_btn": "Retry Quiz",
+      "view_hint": "Question Hint",
+      "mastery_criterion_label": "Mastery Criterion",
+      "mastery_criterion_desc": "Score 100% (3/3 correct) on an Independent Mastery Check.",
+      "score_label": "Score",
+      "passed_badge": "Passed",
+      "failed_badge": "Needs Review",
+      "independent_pass_badge": "Independent Mastery Verified",
+      "agent_assisted_pass_badge": "Agent-Assisted Verified",
+      "self_reported_badge": "Self-Reported Checkbox",
+      "stale_badge": "Historical (Revalidation Needed - Content Revision Changed)",
+      "attempts_history_title": "Attempt History & Evidence",
+      "no_attempts": "No attempts recorded yet."
+    }
+  },
+  "activities": {
+    "day-32-act-01": {
+      "title": "Directed Acyclic Graph (DAG) Topological Sorting",
+      "prerequisites": "Day 31 computational graph concepts and depth-first search (DFS) fundamentals.",
+      "objective": "Understand why reverse-mode backpropagation requires post-order topological sorting so that all outgoing dependencies finish before a node executes its backward closure.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Inspect the branching shared-node graph structure using the CLI:\n\n```bash\npython3 projects/autograd/cli.py graph --preset shared-node --format ascii\n```\n\nNotice that node `a` feeds into both sum $(a+b)$ and final product $(a+b) \\cdot a$. A simple BFS or arbitrary traversal would run `a._backward()` before all downstream gradient contributions have arrived.",
+      "exercise_prompt": "Consider the expression $f = (a + b) \\cdot a$, where $a = 3.0, b = 4.0$.\n1. Trace the depth-first search (DFS) traversal starting at root node $f$.\n2. List the post-order sequence of nodes visited.\n3. Verify that the reversed sequence orders $f$ first, then the sum node, and finally leaf nodes $a, b$.",
+      "hint": "In post-order DFS: recursively visit child nodes in `node._prev`. Only after all child nodes are fully processed, append the current node to the list. Reversing this list guarantees that every node appears after all nodes that depend on it.",
+      "answer": "Reference Solution:\n1. Root $f$ has children $\\{sum, a\\}$.\n2. Child $sum$ has children $\\{a, b\\}$.\n3. DFS visits $a$, then $b$, appends $sum$, then appends $f$.\n4. Reversed topological ordering: $[f, sum, b, a]$.\nWhen `backward()` runs along this reversed sequence, $f._backward()$ fires first, then $sum._backward()$, and finally $a$'s gradient is fully accumulated.",
+      "mastery_criterion": "The learner independently writes a DFS post-order topological sort algorithm without relying on third-party graph libraries."
+    },
+    "day-32-act-02": {
+      "title": "Shared-Node Gradient Accumulation and Multivariable Chain Rule",
+      "prerequisites": "Multivariable calculus chain rule (sum over all paths) and Activity 32-01.",
+      "objective": "Prove that variables with multiple consumer branches require accumulation (`+=`), and demonstrate how assignment (`=`) creates subtle gradient corruption.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Execute the forward-backward pass on the shared-node graph preset:\n\n```bash\npython3 projects/autograd/cli.py forward-backward --preset shared-node\n```\n\nObserve that for $f = (a + b) \\cdot a$ at $a = 3.0, b = 4.0$:\n$\\frac{\\partial f}{\\partial a} = 2a + b = 2(3) + 4 = 10.0$.\nVerify that the backward pass correctly accumulates both paths.",
+      "exercise_prompt": "Given $f(a, b) = (a + b) \\cdot a$ with $a = 3.0, b = 4.0$:\n1. Let $u = a + b$. Then $f = u \\cdot a$. Calculate $\\frac{\\partial f}{\\partial u}$ and $\\frac{\\partial f}{\\partial a}$ from the multiplication step.\n2. From the addition step $u = a + b$, calculate $\\frac{\\partial u}{\\partial a}$ and its contribution to $a$.\n3. Show how applying $\\frac{\\partial f}{\\partial a} = \\frac{\\partial f}{\\partial u} \\frac{\\partial u}{\\partial a} + \\left(\\frac{\\partial f}{\\partial a}\\right)_{\\text{direct}}$ yields $10.0$.\n4. Explain what happens if an implementer writes `self.grad = ...` instead of `self.grad += ...`.",
+      "hint": "Branch 1: $f = u \\cdot a \\implies \\frac{\\partial f}{\\partial a}\\big|_{\\text{direct}} = u = a + b = 7.0$.\nBranch 2: $\\frac{\\partial f}{\\partial u} = a = 3.0$. Since $\\frac{\\partial u}{\\partial a} = 1.0$, contribution is $3.0 \\times 1.0 = 3.0$.\nSum $= 7.0 + 3.0 = 10.0$.",
+      "answer": "Reference Solution:\n1. Direct multiplication branch: $\\frac{\\partial f}{\\partial a} = u = 3.0 + 4.0 = 7.0$.\n2. Indirect addition branch: $\\frac{\\partial f}{\\partial u} \\cdot \\frac{\\partial u}{\\partial a} = a \\cdot 1.0 = 3.0 \\cdot 1.0 = 3.0$.\n3. Total analytical gradient: $7.0 + 3.0 = 10.0$.\n4. If `self.grad = ...` is used, the second branch will overwrite the first, yielding either $3.0$ or $7.0$ instead of the true gradient $10.0$.",
+      "mastery_criterion": "The learner proves why `+=` is mathematically required for multi-path DAG nodes and demonstrates the numerical defect caused by assignment."
+    },
+    "day-32-act-03": {
+      "title": "Finite-Difference Numerical Gradient Checking (Gradcheck) & Tolerances",
+      "prerequisites": "Taylor series expansion and floating-point error awareness (IEEE 754).",
+      "objective": "Implement two-sided central difference numerical gradient checking, establish rigorous relative/absolute tolerance thresholds, and understand non-differentiable kink points.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Run the numerical gradient check on a complex multi-operator expression:\n\n```bash\npython3 projects/autograd/cli.py gradcheck --preset complex\n```\n\nThen run the gradcheck on the ReLU kink point:\n\n```bash\npython3 projects/autograd/cli.py gradcheck --preset relu-kink\n```\n\nInspect the relative error and the kink disclosure in the output.",
+      "exercise_prompt": "1. Explain why central difference $\\frac{f(x+h) - f(x-h)}{2h}$ has truncation error $\\mathcal{O}(h^2)$ whereas forward difference $\\frac{f(x+h) - f(x)}{h}$ has error $\\mathcal{O}(h)$.\n2. Why can we not make $h$ arbitrarily small (e.g. $10^{-20}$)?\n3. Calculate the relative error between analytical gradient $g_a = 10.0$ and numerical gradient $g_n = 9.999999999$ and verify it meets $\\text{rtol} = 10^{-3}$.",
+      "hint": "Taylor expansion: $f(x+h) = f(x) + h f'(x) + \\frac{h^2}{2} f''(x) + \\mathcal{O}(h^3)$. Subtracting $f(x-h)$ cancels out the even second-order terms $h^2 f''(x)$, leaving error dominated by $\\frac{h^3}{6} f'''(x) / (2h) = \\mathcal{O}(h^2)$. At extremely small $h$, floating point catastrophic cancellation occurs.",
+      "answer": "Reference Solution:\n1. The symmetric difference cancels the quadratic $h^2 f''(x)$ error term, leaving $\\mathcal{O}(h^2)$ truncation error.\n2. When $h < 10^{-15}$, subtracting two nearly identical floats $f(x+h) - f(x-h)$ loses precision due to catastrophic cancellation.\n3. Relative error: $\\frac{|10.0 - 9.999999999|}{\\max(10.0, 9.999999999, 10^{-7})} = \\frac{10^{-9}}{10.0} = 10^{-10} < 10^{-3}$ (PASS).",
+      "mastery_criterion": "The learner justifies selection of step size $h=10^{-5}$ and tolerances $\\text{rtol}=10^{-3}, \\text{atol}=10^{-5}$, and explains why kinks like $\\text{ReLU}(0)$ produce expected mathematical divergence."
+    },
+    "day-32-act-04": {
+      "title": "Independent Mastery Check: Topological Order & Numerical Verification",
+      "prerequisites": "Activities 32-01 through 32-03.",
+      "objective": "Verify independent mastery of DAG topological ordering, gradient accumulation mechanics, and numerical gradcheck tolerances without AI assistance.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Complete the diagnostic check below under declared AI-free conditions. Record your answers and explanations in the draft area.",
+      "exercise_prompt": "Consider a computation graph where input $x = 2.0$ branches into $y_1 = x^2$ and $y_2 = 3x$, and loss is $L = y_1 + y_2$.\n1. Determine the analytical derivative $\\frac{\\partial L}{\\partial x}$.\n2. Compute the central finite difference approximation at $x = 2.0$ with $h = 0.001$.\n3. Compute the relative error between analytical and numerical gradients.",
+      "hint": "$L = x^2 + 3x \\implies \\frac{\\partial L}{\\partial x} = 2x + 3$. At $x=2.0$, $\\frac{\\partial L}{\\partial x} = 2(2) + 3 = 7.0$. Central difference: $\\frac{((2.001)^2 + 3(2.001)) - ((1.999)^2 + 3(1.999))}{0.002}$.",
+      "answer": "Reference Solution:\n1. Analytical: $\\frac{\\partial L}{\\partial x} = 2x + 3 = 7.0$.\n2. Numerical: $f(2.001) = 4.004001 + 6.003 = 10.007001$; $f(1.999) = 3.996001 + 5.997 = 9.993001$.\nDifference: $(10.007001 - 9.993001) / 0.002 = 0.014000 / 0.002 = 7.000000$.\n3. Relative error: $0.0 < 10^{-5}$.",
+      "mastery_criterion": "Independent derivation of multi-path gradient $\\frac{\\partial L}{\\partial x} = 7.0$ and calculation of finite difference verification matching analytical gradient within $10^{-5}$.",
+      "quiz": {
+        "title": "Objective Knowledge Check: Topology, Accumulation & Numerical Gradcheck",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "In a computational graph where node A feeds into both node B and node C, and both B and C feed into loss L, in what order must their backward passes execute?",
+            "options": {
+              "a": "A must execute before B and C.",
+              "b": "Arbitrary order; DAG order does not affect gradient results.",
+              "c": "Both B and C must finish executing their backward passes before A executes its backward pass.",
+              "d": "Only node B needs to execute before A."
+            },
+            "hint": "Think about where node A's upstream gradients come from in reverse mode.",
+            "explanation": "Because reverse-mode autodiff propagates from output to inputs, all consumers of node A (nodes B and C) must complete their `_backward()` passes and add their contributions into `A.grad` before node A can propagate to its own parents."
+          },
+          {
+            "id": "q2",
+            "prompt": "If node `a` is referenced twice in an expression, contributing $+3.0$ from branch 1 and $+7.0$ from branch 2, what bug occurs if the implementation writes `self.grad = ...` instead of `self.grad += ...`?",
+            "options": {
+              "a": "The gradient will be $10.0$ correctly.",
+              "b": "One branch will overwrite the other, resulting in `a.grad` being only $3.0$ or $7.0$.",
+              "c": "A ZeroDivisionError will be raised.",
+              "d": "A topological cycle will be formed in the DAG."
+            },
+            "hint": "Assignment replaces the current value; addition accumulates it.",
+            "explanation": "Using assignment (`=`) overwrites previously accumulated gradient contributions from earlier branches, violating the multivariable chain rule sum $\\sum \\frac{\\partial L}{\\partial y_j} \\frac{\\partial y_j}{\\partial x}$."
+          },
+          {
+            "id": "q3",
+            "prompt": "When performing numerical gradient checking on $\\text{ReLU}(x)$ at exactly $x = 0.0$ with $h = 10^{-5}$, why does the central difference return $0.5$ while analytical autodiff returns $0.0$?",
+            "options": {
+              "a": "$x = 0.0$ is a non-differentiable kink point where left derivative ($0$) and right derivative ($1$) diverge, so the central difference averages both slopes.",
+              "b": "There is a numerical overflow in floating-point exponent arithmetic.",
+              "c": "The step size $h=10^{-5}$ is too small for 64-bit IEEE 754 precision.",
+              "d": "The autograd engine has a bug in its ReLU implementation."
+            },
+            "hint": "Evaluate $\\frac{\\max(0, h) - \\max(0, -h)}{2h}$.",
+            "explanation": "$\\text{ReLU}(x)$ is non-differentiable at $x=0$. The central difference evaluates $\\frac{h - 0}{2h} = 0.5$, whereas analytical subgradient implementations adopt the convention $0.0$ at the kink. This is an expected mathematical singularity, not a code defect."
+          }
+        ]
+      }
+    }
+  }
+}

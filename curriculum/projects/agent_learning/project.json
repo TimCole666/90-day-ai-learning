@@ -1,0 +1,12 @@
+{
+  "id": "agent-learning-bounded-v1",
+  "title": "Bounded and Evaluable Agent Learning Project",
+  "artifact": "projects/agent_learning",
+  "entry_command": "python -m projects.agent_learning.cli evaluate --fixture summarize-notes --output /tmp/agent-run.json",
+  "model": {"adapter": "deterministic-v1", "live_provider": false},
+  "languages": ["en", "zh-Hans", "zh-Hant", "ja"],
+  "fixture_policy": "Create a disposable temporary workspace for every run; never use the repository working tree as a fixture.",
+  "controls": {"max_steps": 6, "max_retries": 2, "tool_payload_bytes": 4096, "tools": ["list_notes", "read_note", "write_report"]},
+  "evidence": {"trace_fields": ["action", "observation"], "forbidden_fields": ["thought", "chain_of_thought"], "resource_limit_note": "Budgets and path checks are controls, not OS sandbox guarantees."},
+  "assessment": ["task outcome", "tool behavior", "step and retry budgets", "failure feedback and safe termination"]
+}

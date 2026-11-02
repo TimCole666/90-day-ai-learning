@@ -1,0 +1,76 @@
+{
+  "language": "zh-Hans",
+  "language_label": "简体中文",
+  "day_title": "Day 10: 文件、路径与编码",
+  "day_subtitle": "把脆弱的文件读取变成可预测的程序：把路径锚定到脚本、显式写出编码、用 with 释放资源，并凭证据诊断缺失文件和无效内容。 Retrieval and lower-new-content review are part of the 480-minute ledger.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Self-Directed Learning & Python",
+  "common": {
+    "nav_calendar": "Curriculum Calendar",
+    "day_label": "Day 10",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Record your prediction, observed output, review, and recovery evidence here...",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "作者 / 机构",
+    "source_url_label": "原始出处链接",
+    "source_range_label": "对应章节 / 时间戳",
+    "source_verification_label": "验证版本与日期",
+    "source_rationale_label": "入选理由",
+    "source_prereqs_label": "来源前置条件",
+    "source_fallback_label": "安全回退方案（离线弹性）",
+    "compared_candidates_heading": "对比候选资源与选型分析"
+  },
+  "activities": {
+    "day-10-act-01": {
+      "title": "路径、编码与安全的文件读取",
+      "prerequisites": "完成上一个活动；如遇卡壳，请使用列出的恢复链接。",
+      "objective": "在 with 块内用显式 UTF-8 编码读取文本文件并统计非空行数。运行前先预测结果，再解释为什么相对路径取决于当前工作目录。",
+      "assistance_policy_label": "只有在记录了预测和观察到的证据之后，才允许使用协助。",
+      "instructions": "学习来源：在本活动现有的阅读与练习时段内，参考 Automate the Boring Stuff with Python, 3rd edition 的 Chapter 10; Practice Questions; Appendix B answers，用自己的话解释一处与本地任务的联系。保留现有练习与验收检查；若外部资料无法访问，使用课程自写的解释。在全新目录中创建 notes.txt，恰好三行：alpha、beta、gamma。open(\"notes.txt\") 这样的相对路径相对 Path.cwd() 解析，而不是相对脚本所在文件夹。迭代文件对象每次产生一行，每行都保留结尾的 \"\\n\"，但最后一行可能例外：如果文件不以换行符结尾，最后一行就没有换行符（写成 \"alpha\\nbeta\\ngamma\" 的文件，最后一行是 'gamma'）。line.strip() 会去掉该换行符及前后空白，因此由它判断一行是否为空。with 块是预定义的清理动作：即使读取抛出异常也会关闭文件。",
+      "exercise_prompt": "count = 0\nwith open(\"notes.txt\", encoding=\"utf-8\") as f:\n    for line in f:\n        if line.strip():\n            count += 1\nprint(count, f.closed)\n运行前先写下它会打印的那一行，并解释两个值各自为什么是这样。如果 notes.txt 不以换行符结尾，结果会变吗？",
+      "hint": "先预测再运行。路径困惑时先打印 Path.cwd()。比较迭代次数与非空行数；判空靠 strip() 而不是原始行。",
+      "answer": "count = 0\nwith open(\"notes.txt\", encoding=\"utf-8\") as f:\n    for line in f:\n        if line.strip():\n            count += 1\nprint(count, f.closed)\n输出：3 True。追踪：循环依次得到 'alpha\\n'、'beta\\n'、'gamma\\n'（若文件没有结尾换行符则为 'gamma'）；strip() 之后每一行都非空，所以 count 达到 3，最后一行的结尾换行符不会产生第四行。print 在 with 块退出之后才执行，此时 f 已关闭，所以 f.closed 为 True。",
+      "mastery_criterion": "预测与观察到的输出一致；能说明相对路径相对 Path.cwd() 解析；能展示 with 块结束后文件对象的关闭状态（f.closed）。",
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-10-act-02": {
+      "title": "先诊断缺失文件，再改代码",
+      "prerequisites": "完成上一个活动；如遇卡壳，请使用列出的恢复链接。",
+      "objective": "复现 open(\"data/notes.txt\") 抛出的 FileNotFoundError，并在改动任何代码之前，用 Path.exists() 和 Path.cwd() 的证据把原因归类为文件不存在或工作目录错误。",
+      "assistance_policy_label": "只有在记录了预测和观察到的证据之后，才允许使用协助。",
+      "instructions": "只在一次性夹具中操作：本活动的脚本会在一个全新的临时目录里创建 project/（包含 reader.py 和 data/notes.txt）以及一个空的同级文件夹 outside/，并在退出时删除它们，因此结果不会取决于你的家目录或真实项目里碰巧有什么。消息 [Errno 2] No such file or directory: 'data/notes.txt' 只说明相对路径无法从当前工作目录解析，无法区分两种原因。先收集证据：比较 Path.cwd() 与脚本所在文件夹，求值 Path(\"data/notes.txt\").exists()（相对 cwd），再令 BASE = Path(__file__).resolve().parent 并求值 (BASE / \"data\" / \"notes.txt\").exists()（相对脚本）。如果锚定路径存在而相对路径不存在，说明工作目录错了：改用 open(BASE / \"data\" / \"notes.txt\", encoding=\"utf-8\")。如果锚定路径也不存在，则夹具确实缺失，需要创建或恢复；改代码无济于事。",
+      "exercise_prompt": "从任意目录运行这个脚本。它会创建一次性夹具，然后运行未修改的 reader.py（打开相对路径 data/notes.txt）：一次以 project 文件夹为 cwd，一次以 outside/ 为 cwd。运行前，预测两次运行的退出码和打印的每一行。然后根据证据归类原因，并在不重写计数逻辑的前提下写出 reader.py 的最小修复。\n\n```python\nimport subprocess\nimport sys\nimport tempfile\nfrom pathlib import Path\n\nREADER = (\n    \"from pathlib import Path\\n\"\n    \"print('cwd is project:', Path.cwd() == Path(__file__).resolve().parent)\\n\"\n    \"print('exists:', Path('data/notes.txt').exists())\\n\"\n    \"with open('data/notes.txt', encoding='utf-8') as f:\\n\"\n    \"    print('lines:', sum(1 for line in f if line.strip()))\\n\"\n)\n\nwith tempfile.TemporaryDirectory() as tmp:\n    root = Path(tmp).resolve()\n    project = root / \"project\"\n    outside = root / \"outside\"\n    (project / \"data\").mkdir(parents=True)\n    outside.mkdir()\n    (project / \"data\" / \"notes.txt\").write_text(\"alpha\\nbeta\\ngamma\\n\", encoding=\"utf-8\")\n    (project / \"reader.py\").write_text(READER, encoding=\"utf-8\")\n    for label, cwd in [(\"project\", project), (\"outside\", outside)]:\n        run = subprocess.run([sys.executable, str(project / \"reader.py\")],\n                             cwd=cwd, capture_output=True, text=True)\n        print(f\"[{label}] exit={run.returncode}\")\n        print(run.stdout, end=\"\")\n        if run.stderr:\n            print(run.stderr.strip().splitlines()[-1])\n```",
+      "hint": "绝不要用重写代码来修缺失文件错误。先收集 cwd 和 exists() 证据，再决定修复属于路径锚定还是文件恢复。",
+      "answer": "练习脚本的观察输出（因为夹具是私有的，在每台机器上都相同）：\n\n```text\n[project] exit=0\ncwd is project: True\nexists: True\nlines: 3\n[outside] exit=1\ncwd is project: False\nexists: False\nFileNotFoundError: [Errno 2] No such file or directory: 'data/notes.txt'\n```\n\n诊断：文件存在（cwd 为 project 时 exists: True），但第二次运行的 cwd 不同（cwd is project: False），所以相对路径解析为并不存在的 outside/data/notes.txt。原因是工作目录，而不是文件缺失。最小修复：用 BASE = Path(__file__).resolve().parent 把路径锚定到脚本，并打开 BASE / \"data\" / \"notes.txt\"；计数那一行保持不变。下面的完整参考代码把锚定版 reader 写入一个新夹具，从两个文件夹分别运行，然后删除数据文件以展示另一种原因：当锚定路径本身不存在时，任何代码修改都没用，恢复夹具才能解决。\n\n```python\nimport subprocess\nimport sys\nimport tempfile\nfrom pathlib import Path\n\nFIXED = (\n    \"from pathlib import Path\\n\"\n    \"BASE = Path(__file__).resolve().parent\\n\"\n    \"with open(BASE / 'data' / 'notes.txt', encoding='utf-8') as f:\\n\"\n    \"    print('lines:', sum(1 for line in f if line.strip()))\\n\"\n)\n\n\ndef run(script, cwd):\n    done = subprocess.run([sys.executable, str(script)],\n                          cwd=cwd, capture_output=True, text=True)\n    if done.returncode == 0:\n        return f\"exit=0 {done.stdout.strip()}\"\n    last = done.stderr.strip().splitlines()[-1]\n    return f\"exit={done.returncode} {last.split(':')[0]}\"\n\n\nwith tempfile.TemporaryDirectory() as tmp:\n    root = Path(tmp).resolve()\n    project = root / \"project\"\n    outside = root / \"outside\"\n    notes = project / \"data\" / \"notes.txt\"\n    notes.parent.mkdir(parents=True)\n    outside.mkdir()\n    notes.write_text(\"alpha\\nbeta\\ngamma\\n\", encoding=\"utf-8\")\n    reader = project / \"reader.py\"\n    reader.write_text(FIXED, encoding=\"utf-8\")\n    print(\"anchored, from outside:\", run(reader, outside))\n    print(\"anchored, from project:\", run(reader, project))\n    notes.unlink()\n    print(\"fixture deleted, anchored path exists:\", notes.exists())\n    print(\"anchored, from project:\", run(reader, project))\n    notes.write_text(\"alpha\\nbeta\\ngamma\\n\", encoding=\"utf-8\")\n    print(\"fixture restored:\", run(reader, outside))\n```\n\n预期输出：\n\n```text\nanchored, from outside: exit=0 lines: 3\nanchored, from project: exit=0 lines: 3\nfixture deleted, anchored path exists: False\nanchored, from project: exit=1 FileNotFoundError\nfixture restored: exit=0 lines: 3\n```",
+      "mastery_criterion": "日志写明两种原因中哪一个成立、给出证明它的 cwd/exists() 证据，并应用最小修复（锚定路径或恢复文件），而不是重写读取程序。"
+    },
+    "day-10-act-03": {
+      "title": "无效内容：带跳过报告的容错解析",
+      "prerequisites": "完成上一个活动；如遇卡壳，请使用列出的恢复链接。",
+      "objective": "解析一个含有一行畸形数据的分数文件：记录每个被跳过的行号并继续处理。区分 UnicodeDecodeError（用错编码解码字节）与 ValueError（文本有效、数值无效）。",
+      "assistance_policy_label": "只有在记录了预测和观察到的证据之后，才允许使用协助。",
+      "instructions": "行形如 ana,7。int(\"x9\") 抛出 ValueError: invalid literal for int() with base 10: 'x9'。只用 try/except ValueError 包住 int(raw) 调用，把行号追加到 skipped 列表，并且只在解析成功时保存分数。解码问题是另一类失败：字节 b'caf\\xe9'（以 Latin-1 保存的 café）不是有效的 UTF-8，所以 b'caf\\xe9'.decode(\"utf-8\") 会抛出 UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe9 in position 3: unexpected end of data。不要把它推广成\"所有 Latin-1 文件按 UTF-8 解码都会失败\"：纯 ASCII 文件在两种编码下解码结果相同，而且有些字节序列在两种编码下都有效却表示不同的文本（b'caf\\xc3\\xa9' 在 UTF-8 下是 café，在 Latin-1 下是 cafÃ©），所以解码成功并不能证明编码正确。修复方法是写明真实编码——绝不用 errors=\"ignore\"，那会悄悄丢弃无法解码的字节、掩盖问题。",
+      "exercise_prompt": "给定行 ana,7 / bo,x9 / cy,5（每行一条），运行前先预测容错读取器的结果：哪些行进入 scores，哪些行号进入 skipped。然后从任意目录运行这个完整程序；它会把自己的 scores.txt 夹具写入一个临时目录（结束后删除），并在循环之前定义 scores 和 skipped。try 块只包住 int(raw)，并且只在解析成功后才保存分数。\n\n```python\nimport tempfile\nfrom pathlib import Path\n\nwith tempfile.TemporaryDirectory() as tmp:\n    path = Path(tmp) / \"scores.txt\"\n    path.write_text(\"ana,7\\nbo,x9\\ncy,5\\n\", encoding=\"utf-8\")\n    scores = {}\n    skipped = []\n    with open(path, encoding=\"utf-8\") as f:\n        for lineno, line in enumerate(f, 1):\n            line = line.strip()\n            if not line:\n                continue\n            name, _, raw = line.rpartition(\",\")\n            try:\n                score = int(raw)\n            except ValueError:\n                skipped.append(lineno)\n                continue\n            scores[name] = score\n    print(scores, skipped)\n```",
+      "hint": "让 try 块尽可能小——只包 int(raw) 调用——避免吞掉 open() 或拆行产生的错误。记录行号而不是只记数量。",
+      "answer": "预测与观察输出：\n\n```text\n{'ana': 7, 'cy': 5} [2]\n```\n\n第 2 行（bo,x9）在 try 内抛出 ValueError，所以它的行号进入 skipped，continue 跳过了赋值；第 1 行和第 3 行执行到 scores[name] = score。try 只包住 int(raw)，所以 open() 失败或拆行代码里的 bug 仍会以 traceback 暴露出来，而不会被悄悄算作坏行。enumerate(f, 1) 给物理行编号，所以空行也会让行号前进。解码问题是另一类失败，下面的程序把它与 ValueError 对比：\n\n```python\ndata = \"café\".encode(\"latin-1\")\nprint(data)\ntry:\n    data.decode(\"utf-8\")\nexcept UnicodeDecodeError as exc:\n    print(type(exc).__name__ + \":\", exc)\nprint(data.decode(\"latin-1\") == \"café\")\nprint(b\"plain ascii\".decode(\"utf-8\") == b\"plain ascii\".decode(\"latin-1\"))\nboth = b\"caf\\xc3\\xa9\"\nas_utf8 = both.decode(\"utf-8\")\nas_latin1 = both.decode(\"latin-1\")\nprint(as_utf8 == \"café\", as_latin1 == \"cafÃ©\", len(as_utf8), len(as_latin1))\n```\n\n预期输出：\n\n```text\nb'caf\\xe9'\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0xe9 in position 3: unexpected end of data\nTrue\nTrue\nTrue True 4 5\n```\n\nb'caf\\xe9' 是 Latin-1 编码的 café，不是有效的 UTF-8，所以按 UTF-8 解码会抛出 UnicodeDecodeError；修复方法是声明真实编码（这里是 encoding=\"latin-1\"）。纯 ASCII 在两种编码下解码结果相同，而 b'caf\\xc3\\xa9' 在两种编码下都能解码成功，却得到不同的文本（café 是 4 个字符，cafÃ© 是 5 个字符），所以解码成功并不能证明声明的编码正确。相比之下，ValueError 意味着文本解码正常，但某一行的值无效。",
+      "mastery_criterion": "有效行都被处理、跳过的行号被记录，并能正确命名两种失败：UnicodeDecodeError 意味着修正声明的编码；ValueError 意味着某行内容无效。"
+    },
+    "day-10-act-04": {
+      "title": "独立的文件汇总与恢复计划",
+      "prerequisites": "完成上一个活动；如遇卡壳，请使用列出的恢复链接。",
+      "objective": "闭卷实现 summarize_scores(path)，返回 {\"scores\": {name: 最高分}, \"skipped\": [行号], \"missing\": bool}。它必须能处理有效文件、含畸形行的文件和缺失文件而不崩溃。",
+      "assistance_policy_label": "独立掌握检查（不使用 AI 协助）。",
+      "instructions": "编码前先预测三个夹具的结果，检查期间不看答案、不用 AI。卡住时的恢复链接：缺失文件看 day-10-act-02，畸形行看 day-10-act-03。",
+      "exercise_prompt": "预期契约（在全新的临时目录中创建夹具，例如用 tempfile.TemporaryDirectory()，这样其他文件无法干扰）：内容为 ana,7 / bo,9 / ana,8 的 s1.txt 返回 {'scores': {'ana': 8, 'bo': 9}, 'skipped': [], 'missing': False}，因为 ana 的 8 胜过 7。内容为 ana,7 / bo,x9 / cy,5 的 s2.txt 返回 {'scores': {'ana': 7, 'cy': 5}, 'skipped': [2], 'missing': False}，因为第 2 行是畸形的。该临时目录中从未创建过的路径（例如 missing.txt）返回 {'scores': {}, 'skipped': [], 'missing': True}，而不是抛出异常。",
+      "hint": "某个夹具失败时缩小到那一个文件，对比预测字典与观察字典，再看对应的恢复链接。如实记录任何协助。",
+      "answer": "带有自包含夹具测试的参考实现（请在记录了你独立完成的尝试之后，再拿它与自己的版本比较）：\n\n```python\nimport tempfile\nfrom pathlib import Path\n\n\ndef summarize_scores(path):\n    result = {\"scores\": {}, \"skipped\": [], \"missing\": False}\n    try:\n        f = open(path, encoding=\"utf-8\")\n    except FileNotFoundError:\n        result[\"missing\"] = True\n        return result\n    with f:\n        for lineno, line in enumerate(f, 1):\n            line = line.strip()\n            if not line:\n                continue\n            name, sep, raw = line.rpartition(\",\")\n            try:\n                score = int(raw)\n            except ValueError:\n                score = None\n            if not sep or not name or score is None:\n                result[\"skipped\"].append(lineno)\n                continue\n            best = result[\"scores\"].get(name)\n            if best is None or score > best:\n                result[\"scores\"][name] = score\n    return result\n\n\nwith tempfile.TemporaryDirectory() as tmp:\n    base = Path(tmp)\n    (base / \"s1.txt\").write_text(\"ana,7\\nbo,9\\nana,8\\n\", encoding=\"utf-8\")\n    (base / \"s2.txt\").write_text(\"ana,7\\nbo,x9\\ncy,5\\n\", encoding=\"utf-8\")\n    print(summarize_scores(base / \"s1.txt\"))\n    print(summarize_scores(base / \"s2.txt\"))\n    print(summarize_scores(base / \"missing.txt\"))\n```\n\n预期输出：\n\n```text\n{'scores': {'ana': 8, 'bo': 9}, 'skipped': [], 'missing': False}\n{'scores': {'ana': 7, 'cy': 5}, 'skipped': [2], 'missing': False}\n{'scores': {}, 'skipped': [], 'missing': True}\n```\n\n为什么这样写：FileNotFoundError 处理器里只有 open()，所以只有文件缺失才会把 missing 设为 True，其他错误照常暴露。with f: 块在每条路径上都会关闭文件。ValueError 处理器里只有 int(raw)；没有逗号、名字为空或分数不是整数的行会被跳过，并记录其从 1 开始的行号。每个名字的最高分通过与已存值比较来保留，所以 ana 最终是 8。",
+      "mastery_criterion": "独立完成时三个夹具都精确返回预测的字典；畸形行按行号报告；缺失文件返回 missing 标志而不是 traceback。"
+    }
+  }
+}

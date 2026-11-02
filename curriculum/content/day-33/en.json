@@ -1,0 +1,170 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 33: Diagnostic Failure Case Analysis & Independent Mastery Project Rubric",
+  "day_subtitle": "Diagnose real-world autograd implementation defects, evaluate edge cases (repeated backward passes and vector outputs), understand engine scaling boundaries, and complete the AI-free Independent Mastery Check rubric.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Mathematics & Algorithmic Foundations",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "day_label": "Day 33",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Enter your diagnostic analysis, gradient error trace, and rubric self-assessment here...",
+    "dev_slice_notice": "Verified curriculum module for the 90-Day AI Learning Platform.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account.",
+        "provider_error": "Authentication provider encountered an error.",
+        "server_error": "Authentication provider encountered an error.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    },
+    "quiz": {
+      "quiz_title": "Objective Knowledge Check: Diagnostics, Repeated Backward & Mastery Rubric",
+      "quiz_instructions": "Answer the following diagnostic questions to verify your understanding. Select your declared assistance condition before submitting.",
+      "assistance_mode_label": "Declared Assistance Condition",
+      "mode_independent": "Independent Mastery Check (No AI assistance)",
+      "mode_agent_assisted": "Agent-Assisted Engineering Check (Completed with AI assistance)",
+      "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+      "submit_btn": "Submit Answers",
+      "retry_btn": "Retry Quiz",
+      "view_hint": "Question Hint",
+      "mastery_criterion_label": "Mastery Criterion",
+      "mastery_criterion_desc": "Score 100% (3/3 correct) on an Independent Mastery Check.",
+      "score_label": "Score",
+      "passed_badge": "Passed",
+      "failed_badge": "Needs Review",
+      "independent_pass_badge": "Independent Mastery Verified",
+      "agent_assisted_pass_badge": "Agent-Assisted Verified",
+      "self_reported_badge": "Self-Reported Checkbox",
+      "stale_badge": "Historical (Revalidation Needed - Content Revision Changed)",
+      "attempts_history_title": "Attempt History & Evidence",
+      "no_attempts": "No attempts recorded yet."
+    }
+  },
+  "activities": {
+    "day-33-act-01": {
+      "title": "Diagnostic Failure Case Analysis: Pinpointing the Overwrite Defect",
+      "prerequisites": "Day 32 gradient accumulation and numerical checking principles.",
+      "objective": "Pinpoint a minimal reproducible autograd failure case where faulty implementation leads to silent gradient corruption, and diagnose the root cause using numerical differences.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Execute the diagnostic failure demonstration using the CLI:\n\n```bash\npython3 projects/autograd/cli.py diagnose --bug-type overwrite-accumulation\n```\n\nObserve how the diagnostic harness isolates node `a` in $f = (a + b) \\cdot a$, showing analytical gradient $7.0$ versus numerical finite difference $10.0$ ($30\\%$ relative error).",
+      "exercise_prompt": "1. Write down the Minimal Reproducible Example (MRE) that triggers the overwrite bug.\n2. Explain why a single-line test case like $z = x \\cdot y$ would PASS gradcheck even if the engine contains the overwrite defect.\n3. Identify the exact line of code in `_backward()` that fixes the bug.",
+      "hint": "In graphs without fan-out (where each variable is used only once), each node has only a single consumer, so accumulation (`+=`) and assignment (`=`) yield identical results. The bug ONLY manifests when a variable branches into multiple operations.",
+      "answer": "Reference Solution:\n1. MRE: $a = \\text{Value}(3.0); b = \\text{Value}(4.0); f = (a + b) * a; f.\\text{backward}()$.\n2. Because in linear graphs without branching, each node receives only one incoming gradient contribution, so `=` happens to produce the correct value by accident.\n3. Replace `self.grad = ...` with `self.grad += ...` across all backward closures.",
+      "mastery_criterion": "The learner constructs an MRE that reliably differentiates between accumulating and overwriting autograd implementations."
+    },
+    "day-33-act-02": {
+      "title": "Autograd Edge Cases: Repeated Backward Invocations and Vector Outputs",
+      "prerequisites": "Activity 33-01 and topological traversal mechanics.",
+      "objective": "Understand the semantics of repeated backward invocations, explain why optimizer loops require explicit zeroing of gradients (`zero_grad()`), and trace multi-output scalarization.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Run the multi-output preset evaluation:\n\n```bash\npython3 projects/autograd/cli.py forward-backward --preset multi-output\n```\n\nObserve how `backward_multiple([y1, y2], grad_outputs=[1.0, 1.0])` seeds gradients for multiple terminal nodes simultaneously.",
+      "exercise_prompt": "1. If you call `out.backward()` twice in succession on the same graph without resetting `grad = 0.0`, what numerical values will the leaf gradients have?\n2. Why do frameworks like PyTorch accumulate gradients by default rather than resetting them on every `.backward()`?\n3. Formulate the mathematical Vector-Jacobian Product (VJP) for multi-output graphs.",
+      "hint": "Because `backward()` uses `+=`, running it twice doubles all gradients. PyTorch accumulates by default to enable gradient accumulation across micro-batches when fitting large models in limited GPU memory.",
+      "answer": "Reference Solution:\n1. Leaf gradients will be exactly doubled ($2 \\times$).\n2. Default accumulation allows gradient accumulation across multiple mini-batches before calling `optimizer.step()`, effectively simulating larger batch sizes.\n3. For vector output $\\mathbf{y} \\in \\mathbb{R}^m$, the backward pass computes $\\mathbf{v}^T J$ where $\\mathbf{v} = \\text{grad\\_outputs}$ and $J_{ij} = \\frac{\\partial y_i}{\\partial x_j}$.",
+      "mastery_criterion": "The learner explains why gradient zeroing is mandatory between training iterations and articulates the memory-efficiency benefit of default accumulation."
+    },
+    "day-33-act-03": {
+      "title": "Attribution, License Compliance, and Scalability Boundaries",
+      "prerequisites": "Activities 33-01 and 33-02.",
+      "objective": "Maintain rigorous open-source attribution, respect license boundaries, and distinguish between educational scalar engines and production tensor systems.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Review `projects/autograd/docs/guide.en.md` and the Stanford CS336 assignment attribution. Note how micrograd is licensed under MIT, requiring copyright notices, and how lectures have separate educational licensing restrictions.",
+      "exercise_prompt": "1. Why can a pure-Python scalar autograd engine NOT be used for pretraining a 7-billion parameter language model?\n2. Explain the difference between Python object pointer overhead vs contiguous strided C/CUDA tensor buffers.\n3. Document the licensing requirements for embedding code derived from Andrej Karpathy's micrograd.",
+      "hint": "In Python, every scalar `Value` object consumes dozens of bytes (object header, pointer references, dictionaries). A 7B model would consume terabytes of memory just for object references, and cannot exploit GPU tensor cores.",
+      "answer": "Reference Solution:\n1. Pure-Python scalar engines lack vectorization (SIMD) and GPU kernel acceleration, and create massive object overhead.\n2. A contiguous tensor stores floating-point numbers in linear memory buffers manipulated by compiled C++/CUDA kernels with zero per-element Python overhead.\n3. micrograd is licensed under MIT; any redistributions or derivative implementations must include the original copyright notice and permission notice.",
+      "mastery_criterion": "The learner accurately articulates the architectural boundaries between scalar educational engines and tensor compilers (PyTorch, JAX, Triton)."
+    },
+    "day-33-act-04": {
+      "title": "Independent Mastery Project Rubric & AI-Free Verification",
+      "prerequisites": "Activities 33-01 through 33-03.",
+      "objective": "Demonstrate complete unassisted mastery of the Automatic Differentiation Learning Project against verified rubric standards.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Evaluate your own autograd implementation against the three-part AI-free rubric. Complete the objective diagnostic quiz below without generative assistance.",
+      "exercise_prompt": "Review the 3-part Independent Mastery Rubric:\n1. Whiteboard Derivation: Write out the multivariable chain rule and prove why `+=` is mathematically required for DAG nodes.\n2. Scratch Implementation: Implement `Value` with `__add__`, `__mul__`, topological sort, and `backward()` from a blank text file.\n3. Numerical Verification: Write a central-difference gradcheck function and successfully detect the overwrite bug in a flawed implementation.\nConfirm and record your unassisted completion in the draft space.",
+      "hint": "Refer to the worked examples in `projects/autograd/docs/guide.en.md`. Ensure your explanation covers the difference between analytical derivatives and numerical approximations.",
+      "answer": "Reference Mastery Rubric Criteria:\n- Criterion 1: Complete analytical derivation of $\\sum \\frac{\\partial L}{\\partial y_j} \\frac{\\partial y_j}{\\partial x}$ for branching nodes.\n- Criterion 2: Working scalar autograd engine passing unit tests without third-party autodiff packages.\n- Criterion 3: Working finite-difference check with $\\text{rtol} \\le 10^{-3}$ identifying intentional defects.",
+      "mastery_criterion": "Demonstrated unassisted competence across all 3 rubric dimensions, verified by 100% score on the objective diagnostic assessment.",
+      "quiz": {
+        "title": "Objective Knowledge Check: Diagnostics, Repeated Backward & Mastery Rubric",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "In an iterative neural network training loop, what happens if parameter gradients are NOT cleared with `optimizer.zero_grad()` before calling `loss.backward()`?",
+            "options": {
+              "a": "Gradients will remain zero throughout training.",
+              "b": "Gradients from subsequent mini-batches will continuously accumulate onto previous gradients, corrupting the optimization trajectory.",
+              "c": "A memory allocation failure will be raised immediately.",
+              "d": "The model will automatically switch to second-order optimization."
+            },
+            "hint": "Recall that `backward()` uses `param.grad += ...`.",
+            "explanation": "Because `backward()` accumulates via `+=`, failing to zero gradients causes them to grow larger and larger with each iteration, computing an unweighted sum over all historical mini-batches instead of the current mini-batch gradient."
+          },
+          {
+            "id": "q2",
+            "prompt": "Why is a pure-Python scalar autograd engine (such as micrograd) fundamentally unsuited for large-scale language model pretraining?",
+            "options": {
+              "a": "Scalar autodiff is mathematically incapable of computing correct derivatives.",
+              "b": "Python cannot represent 32-bit floating point numbers.",
+              "c": "Pure Python scalar engines cannot be translated into bytecode.",
+              "d": "Every single scalar number requires an individual Python heap object with metadata overhead, preventing GPU kernel fusion, vectorization, and cache efficiency."
+            },
+            "hint": "Consider the memory overhead of billions of Python objects compared to contiguous tensor arrays.",
+            "explanation": "A pure Python scalar engine instantiates a heap object for every scalar calculation, incurring massive reference overhead and preventing SIMD/GPU tensor core utilization. Modern LLMs require contiguous tensor buffers operated on by compiled CUDA kernels."
+          },
+          {
+            "id": "q3",
+            "prompt": "In the Independent Mastery Check rubric for this project, which condition constitutes genuine evidence of independent competence?",
+            "options": {
+              "a": "Generating code using a large language model and running it without modification.",
+              "b": "Copying and pasting an existing open-source implementation.",
+              "c": "Independently deriving chain rule equations, implementing topological sort from scratch, and pinpointing failing-gradient defects using finite difference checks without AI assistance.",
+              "d": "Completing multiple choice questions by trial and error."
+            },
+            "hint": "Review the definition of Independent Mastery Check in GLOSSARY.md.",
+            "explanation": "Independent mastery requires unaided human derivation, implementation, and diagnostic reasoning, ensuring the learner possesses genuine conceptual understanding rather than superficial copy-pasting or unchecked generative prompting."
+          }
+        ]
+      }
+    }
+  }
+}

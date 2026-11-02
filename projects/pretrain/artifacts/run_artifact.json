@@ -1,0 +1,35 @@
+{
+  "completed_steps": 10,
+  "resumed_from_step": 0,
+  "train_loss": 4.03157901763916,
+  "val_loss": 4.037212371826172,
+  "model_config": {
+    "block_size": 16,
+    "vocab_size": 65,
+    "n_layer": 2,
+    "n_head": 2,
+    "n_embd": 16,
+    "dropout": 0.1,
+    "bias": false
+  },
+  "parameter_ledger": {
+    "token_embedding": 1040,
+    "position_embedding": 256,
+    "attention_per_layer": 1024,
+    "mlp_per_layer": 2048,
+    "all_layers": 6144,
+    "final_layernorm": 0,
+    "lm_head_tied": 0,
+    "total_parameters": 7440
+  },
+  "dataset_info": {
+    "data_path": "/home/tiancaijb/projects/learn-worktrees/ticket-18/data/tinyshakespeare.txt",
+    "data_hash": "86c4e6aa9db7c042ec79f339dcb96d42b0075e16b8fc2e86bf0ca57e2dc565ed",
+    "vocab_size": 65,
+    "train_ratio": 0.9
+  },
+  "generated_sample": "\naygo 3yVvn? wkFn",
+  "seed": 1337,
+  "device": "cpu",
+  "truthful_scope_disclaimer": "This small-model training run serves as an empirical verification of tokenization, causal masking, loss descent, and atomic checkpoint recovery. It is a local smoke/learning fixture and does not represent full convergence or cloud-scale foundation model pretraining."
+}

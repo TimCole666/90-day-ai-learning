@@ -1,0 +1,380 @@
+{
+  "id": "day-62",
+  "day_number": 62,
+  "active_minutes": 480,
+  "topic_category": "models-and-training",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-61"
+  ],
+  "recovery_links": [
+    "day-56"
+  ],
+  "activities": [
+    {
+      "id": "day-62-act-01",
+      "lesson_id": "les-62",
+      "title": "Autoregressive Next-Token Shifting and Causal Cross-Entropy Loss",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev5",
+      "prerequisites": [
+        "day-61"
+      ],
+      "source_resources": [
+        {
+          "id": "huggingface-llm-course-finetuning",
+          "title": "Hugging Face LLM Course: Fine-tuning LLMs",
+          "author": "Hugging Face course contributors",
+          "original_url": "https://huggingface.co/learn/llm-course/chapter11/1",
+          "relevant_timestamp": "Chapter 11.3: Dataset Preparation; Implementation with TRL",
+          "version_or_verification_date": "Public edition checked 2026-11-01; moving pages may change",
+          "reuse_category": "linking",
+          "source_type": "course",
+          "license": "Apache-2.0",
+          "license_restrictions": [],
+          "permission_basis": "External hyperlink only; no third-party prose, exercises, code or translations are imported.",
+          "prerequisites": "Python, PyTorch, language-model training and the preceding chat-format lessons.",
+          "selection_rationale": "Sequenced templates, supervised fine-tuning and evaluation teaching with exercises/quizzes. LoRA method and memory claims are checked against the original paper, PEFT and the local parameter ledger, not accepted wholesale from Chapter 11.4.",
+          "known_availability_limitations": "Free reading; hosted exercises can require accounts, model downloads and a GPU. Chapter 11.4 overstates GPU-memory savings by implying only adapters occupy GPU memory; that sentence is not adopted.",
+          "safe_fallback": "Use the original localized explanations, exercises and checks already present in this activity; no external account or purchase is required for that fallback.",
+          "compared_candidates": [
+            {
+              "candidate_name": "LoRA original paper",
+              "url": "https://arxiv.org/abs/2106.09685",
+              "license": "arXiv.org perpetual non-exclusive license / Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Retained for initialization and the low-rank method, not a beginner teaching sequence."
+            },
+            {
+              "candidate_name": "Hugging Face PEFT",
+              "url": "https://github.com/huggingface/peft",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Retained for actual API and implementation defaults; reference documentation is not a complete teaching course."
+            }
+          ],
+          "locator_url": "https://huggingface.co/learn/llm-course/chapter11/3"
+        },
+        {
+          "id": "pytorch-cross-entropy",
+          "title": "PyTorch Documentation: torch.nn.CrossEntropyLoss",
+          "author": "PyTorch Core Development Team",
+          "original_url": "https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html",
+          "version_or_verification_date": "PyTorch 2.x Documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD-3-Clause",
+          "license_restrictions": [],
+          "permission_basis": "Lawful reference under BSD 3-Clause open source license.",
+          "prerequisites": "Softmax probabilities, negative log likelihood, multi-class classification.",
+          "selection_rationale": "Primary specification for ignore_index=-100 behavior, weight averaging over unmasked tokens, and loss reduction arithmetic.",
+          "known_availability_limitations": "Freely available on pytorch.org.",
+          "safe_fallback": "Mathematical formulation of masked cross-entropy and equivalent tensor implementations are provided in lesson code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "TensorFlow tf.keras.losses.SparseCategoricalCrossentropy",
+              "url": "https://www.tensorflow.org/api_docs/python/tf/keras/losses/SparseCategoricalCrossentropy",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Keras cross-entropy loss with sample_weight masking; PyTorch ignore_index is the standard in transformer fine-tuning."
+            },
+            {
+              "candidate_name": "JAX Optax optax.softmax_cross_entropy_with_integer_labels",
+              "url": "https://optax.readthedocs.io/",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Functional cross-entropy with manual boolean masking; PyTorch ignore_index=-100 is our target implementation."
+            }
+          ],
+          "relevant_timestamp": "CrossEntropyLoss parameters ignore_index (default -100) and reduction"
+        },
+        {
+          "id": "ouyang-instructgpt-2022",
+          "title": "Training language models to follow instructions with human feedback",
+          "author": "Long Ouyang, Jeffrey Wu, Xu Jiang, Diogo Almeida, Carroll Wainwright, Pamela Mishkin, et al.",
+          "original_url": "https://arxiv.org/abs/2203.02155",
+          "version_or_verification_date": "arXiv:2203.02155v1 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Open access scientific paper citation.",
+          "prerequisites": "Supervised fine-tuning, conditional autoregressive generation.",
+          "selection_rationale": "Foundational InstructGPT paper defining the SFT objective: maximizing log-likelihood of demonstrator completions conditioned on prompts.",
+          "known_availability_limitations": "Freely accessible on arXiv.",
+          "safe_fallback": "The conditional likelihood objective and prompt-conditioning derivations are completely formulated in the review.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Ziegler et al. Fine-Tuning Language Models from Human Preferences",
+              "url": "https://arxiv.org/abs/1909.08593",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Earlier RLHF formulation on summarization; InstructGPT standardizes the prompt-response SFT training phase."
+            },
+            {
+              "candidate_name": "Chung et al. Scaling Instruction-Finetuned Language Models (Flan-PaLM)",
+              "url": "https://arxiv.org/abs/2210.11416",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Focuses on massive multi-task scaling; InstructGPT details the exact prompt-conditioned loss setup."
+            }
+          ],
+          "relevant_timestamp": "Section 3.5 Models (supervised fine-tuning, SFT)"
+        }
+      ]
+    },
+    {
+      "id": "day-62-act-02",
+      "lesson_id": "les-62",
+      "title": "Target Label Construction and Prompt Loss Masking with ignore_index = -100",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-62-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "pytorch-cross-entropy",
+          "title": "PyTorch Documentation: torch.nn.CrossEntropyLoss",
+          "author": "PyTorch Core Development Team",
+          "original_url": "https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html",
+          "version_or_verification_date": "PyTorch 2.x Documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD-3-Clause",
+          "license_restrictions": [],
+          "permission_basis": "Lawful reference under BSD 3-Clause open source license.",
+          "prerequisites": "Softmax probabilities, negative log likelihood, multi-class classification.",
+          "selection_rationale": "Primary specification for ignore_index=-100 behavior, weight averaging over unmasked tokens, and loss reduction arithmetic.",
+          "known_availability_limitations": "Freely available on pytorch.org.",
+          "safe_fallback": "Mathematical formulation of masked cross-entropy and equivalent tensor implementations are provided in lesson code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "TensorFlow tf.keras.losses.SparseCategoricalCrossentropy",
+              "url": "https://www.tensorflow.org/api_docs/python/tf/keras/losses/SparseCategoricalCrossentropy",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Keras cross-entropy loss with sample_weight masking; PyTorch ignore_index is the standard in transformer fine-tuning."
+            },
+            {
+              "candidate_name": "JAX Optax optax.softmax_cross_entropy_with_integer_labels",
+              "url": "https://optax.readthedocs.io/",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Functional cross-entropy with manual boolean masking; PyTorch ignore_index=-100 is our target implementation."
+            }
+          ],
+          "relevant_timestamp": "CrossEntropyLoss parameters ignore_index (default -100) and reduction"
+        },
+        {
+          "id": "stanford-alpaca-train-script",
+          "title": "Stanford Alpaca: train.py Supervised Fine-Tuning Script",
+          "author": "Stanford CRFM Team",
+          "original_url": "https://github.com/tatsu-lab/stanford_alpaca/blob/main/train.py",
+          "version_or_verification_date": "Stanford Alpaca train.py (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "repository",
+          "license": "Apache 2.0",
+          "license_restrictions": [],
+          "permission_basis": "Permissive open source reference under Apache 2.0.",
+          "prerequisites": "PyTorch Dataset, DataLoader, token masking with -100.",
+          "selection_rationale": "Standard open-source implementation showing labels = copy.deepcopy(input_ids) and targets[:prompt_len] = -100 masking.",
+          "known_availability_limitations": "Public GitHub repository.",
+          "safe_fallback": "The entire masking tensor construction and prompt boundary finding logic is self-contained in our exercises.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Hugging Face transformers run_clm.py",
+              "url": "https://github.com/huggingface/transformers/blob/main/examples/pytorch/language-modeling/run_clm.py",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Computes loss on all tokens (pre-training style); Alpaca train.py demonstrates target-only instruction masking."
+            },
+            {
+              "candidate_name": "DeepSpeed-Chat training pipeline",
+              "url": "https://github.com/microsoft/DeepSpeedExamples/tree/master/applications/DeepSpeed-Chat",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Complex distributed training pipeline; Alpaca train.py gives the minimal, readable reference implementation."
+            }
+          ],
+          "relevant_timestamp": "train.py: PROMPT_DICT, IGNORE_INDEX = -100, preprocess() masks the source tokens, DataCollatorForSupervisedDataset pads labels with IGNORE_INDEX"
+        }
+      ]
+    },
+    {
+      "id": "day-62-act-03",
+      "lesson_id": "les-62",
+      "title": "Dynamic Batch Padding, Collator Masking, and Gradient Verification",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-62-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "huggingface-trl-sfttrainer",
+          "title": "TRL: DataCollatorForCompletionOnlyLM and SFTTrainer Documentation",
+          "author": "Hugging Face TRL Maintainers",
+          "original_url": "https://huggingface.co/docs/trl/main/en/sft_trainer",
+          "version_or_verification_date": "Hugging Face TRL 0.8+ Documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Apache 2.0",
+          "license_restrictions": [],
+          "permission_basis": "Permissive open documentation under Apache 2.0.",
+          "prerequisites": "PyTorch collate_fn, Hugging Face Trainer.",
+          "selection_rationale": "Standard production library for completion-only loss masking, detailing response_template token matching and dynamic batch padding.",
+          "known_availability_limitations": "Publicly accessible online documentation.",
+          "safe_fallback": "Custom pure PyTorch implementation of response-template masking and dynamic padding is built step-by-step.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Unsloth FastLanguageModel SFT Data Prep",
+              "url": "https://github.com/unslothai/unsloth",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Optimized CUDA-kernel collators; TRL provides transparent pure-Python/PyTorch baseline."
+            },
+            {
+              "candidate_name": "NVIDIA NeMo Megatron Bridge SFT Collator",
+              "url": "https://docs.nvidia.com/nemo/megatron-bridge/latest/apidocs/bridge/bridge.data.collators.sft.html",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Enterprise Megatron-based collator; TRL is standard for community PyTorch/HF pipelines."
+            }
+          ],
+          "relevant_timestamp": "Looking deeper into the SFT method: Label shifting and masking; Train on completion only",
+          "locator_url": "https://huggingface.co/docs/trl/main/en/sft_trainer#label-shifting-and-masking"
+        },
+        {
+          "id": "pytorch-cross-entropy",
+          "title": "PyTorch Documentation: torch.nn.CrossEntropyLoss",
+          "author": "PyTorch Core Development Team",
+          "original_url": "https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html",
+          "version_or_verification_date": "PyTorch 2.x Documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD-3-Clause",
+          "license_restrictions": [],
+          "permission_basis": "Lawful reference under BSD 3-Clause open source license.",
+          "prerequisites": "Softmax probabilities, negative log likelihood, multi-class classification.",
+          "selection_rationale": "Primary specification for ignore_index=-100 behavior, weight averaging over unmasked tokens, and loss reduction arithmetic.",
+          "known_availability_limitations": "Freely available on pytorch.org.",
+          "safe_fallback": "Mathematical formulation of masked cross-entropy and equivalent tensor implementations are provided in lesson code.",
+          "compared_candidates": [
+            {
+              "candidate_name": "TensorFlow tf.keras.losses.SparseCategoricalCrossentropy",
+              "url": "https://www.tensorflow.org/api_docs/python/tf/keras/losses/SparseCategoricalCrossentropy",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Keras cross-entropy loss with sample_weight masking; PyTorch ignore_index is the standard in transformer fine-tuning."
+            },
+            {
+              "candidate_name": "JAX Optax optax.softmax_cross_entropy_with_integer_labels",
+              "url": "https://optax.readthedocs.io/",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Functional cross-entropy with manual boolean masking; PyTorch ignore_index=-100 is our target implementation."
+            }
+          ],
+          "relevant_timestamp": "CrossEntropyLoss parameters ignore_index (default -100) and reduction"
+        }
+      ]
+    },
+    {
+      "id": "day-62-act-04",
+      "lesson_id": "les-62",
+      "title": "Independent Assessment: Verified SFT Data Collator with Exact Masking Verification",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-62-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "stanford-alpaca-train-script",
+          "title": "Stanford Alpaca: train.py Supervised Fine-Tuning Script",
+          "author": "Stanford CRFM Team",
+          "original_url": "https://github.com/tatsu-lab/stanford_alpaca/blob/main/train.py",
+          "version_or_verification_date": "Stanford Alpaca train.py (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "repository",
+          "license": "Apache 2.0",
+          "license_restrictions": [],
+          "permission_basis": "Permissive open source reference under Apache 2.0.",
+          "prerequisites": "PyTorch Dataset, DataLoader, token masking with -100.",
+          "selection_rationale": "Standard open-source implementation showing labels = copy.deepcopy(input_ids) and targets[:prompt_len] = -100 masking.",
+          "known_availability_limitations": "Public GitHub repository.",
+          "safe_fallback": "The entire masking tensor construction and prompt boundary finding logic is self-contained in our exercises.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Hugging Face transformers run_clm.py",
+              "url": "https://github.com/huggingface/transformers/blob/main/examples/pytorch/language-modeling/run_clm.py",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Computes loss on all tokens (pre-training style); Alpaca train.py demonstrates target-only instruction masking."
+            },
+            {
+              "candidate_name": "DeepSpeed-Chat training pipeline",
+              "url": "https://github.com/microsoft/DeepSpeedExamples/tree/master/applications/DeepSpeed-Chat",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Complex distributed training pipeline; Alpaca train.py gives the minimal, readable reference implementation."
+            }
+          ],
+          "relevant_timestamp": "train.py: PROMPT_DICT, IGNORE_INDEX = -100, preprocess() masks the source tokens, DataCollatorForSupervisedDataset pads labels with IGNORE_INDEX"
+        },
+        {
+          "id": "huggingface-trl-sfttrainer",
+          "title": "TRL: DataCollatorForCompletionOnlyLM and SFTTrainer Documentation",
+          "author": "Hugging Face TRL Maintainers",
+          "original_url": "https://huggingface.co/docs/trl/main/en/sft_trainer",
+          "version_or_verification_date": "Hugging Face TRL 0.8+ Documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Apache 2.0",
+          "license_restrictions": [],
+          "permission_basis": "Permissive open documentation under Apache 2.0.",
+          "prerequisites": "PyTorch collate_fn, Hugging Face Trainer.",
+          "selection_rationale": "Standard production library for completion-only loss masking, detailing response_template token matching and dynamic batch padding.",
+          "known_availability_limitations": "Publicly accessible online documentation.",
+          "safe_fallback": "Custom pure PyTorch implementation of response-template masking and dynamic padding is built step-by-step.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Unsloth FastLanguageModel SFT Data Prep",
+              "url": "https://github.com/unslothai/unsloth",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Optimized CUDA-kernel collators; TRL provides transparent pure-Python/PyTorch baseline."
+            },
+            {
+              "candidate_name": "NVIDIA NeMo Megatron Bridge SFT Collator",
+              "url": "https://docs.nvidia.com/nemo/megatron-bridge/latest/apidocs/bridge/bridge.data.collators.sft.html",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Enterprise Megatron-based collator; TRL is standard for community PyTorch/HF pipelines."
+            }
+          ],
+          "relevant_timestamp": "Looking deeper into the SFT method: Label shifting and masking; Train on completion only",
+          "locator_url": "https://huggingface.co/docs/trl/main/en/sft_trainer#label-shifting-and-masking"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,346 @@
+{
+  "id": "day-24",
+  "day_number": 24,
+  "active_minutes": 480,
+  "topic_category": "mathematics",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-23"
+  ],
+  "recovery_links": [
+    "day-21"
+  ],
+  "activities": [
+    {
+      "id": "day-24-act-01",
+      "lesson_id": "les-24",
+      "title": "Tensors: axes, ranks, and model weight blocks",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-23"
+      ],
+      "source_resources": [
+        {
+          "id": "numpy-docs-ndarray",
+          "title": "NumPy Reference: The N-dimensional array (ndarray)",
+          "author": "NumPy Developers",
+          "original_url": "https://numpy.org/doc/stable/reference/arrays.ndarray.html",
+          "relevant_timestamp": "ndarray.ndim / ndarray.shape and axis ordering",
+          "version_or_verification_date": "NumPy 2.x documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD 3-Clause License",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under the NumPy BSD license; no documentation text imported.",
+          "prerequisites": "Basic Python",
+          "selection_rationale": "Primary semantics for ndarray shape, strides, reshape orders, and view-versus-copy behavior used in tensor memory accounting.",
+          "known_availability_limitations": "Hosted on numpy.org; an installed NumPy ships equivalent pydoc text.",
+          "safe_fallback": "Shape, stride, and memory-ledger exercises are fully explained with local runnable examples.",
+          "compared_candidates": [
+            {
+              "candidate_name": "PyTorch Documentation: torch.Tensor",
+              "url": "https://pytorch.org/docs/stable/tensors.html",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Equivalent tensor semantics in the framework used later in the curriculum; NumPy reference selected to keep Days 22-24 dependency-free."
+            },
+            {
+              "candidate_name": "NumPy User Guide: Broadcasting",
+              "url": "https://numpy.org/doc/stable/user/basics.broadcasting.html",
+              "license": "BSD 3-Clause License",
+              "status": "compared_selected_for_days_22_24",
+              "comparison_rationale": "Selected as co-primary for Day 24: the broadcasting rules page pairs with the ndarray attribute reference."
+            }
+          ]
+        },
+        {
+          "id": "3blue1brown-linear-algebra",
+          "title": "Essence of Linear Algebra",
+          "author": "Grant Sanderson (3Blue1Brown)",
+          "original_url": "https://www.3blue1brown.com/topics/linear-algebra",
+          "relevant_timestamp": "Chapter 3 review: a matrix is a rank-2 tensor",
+          "version_or_verification_date": "2016-2023 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "video",
+          "license": "3Blue1Brown copyright (all rights reserved); site FAQ permits only short clips under stated conditions",
+          "license_restrictions": [
+            "No video, audio, transcript or frame redistribution permitted"
+          ],
+          "permission_basis": "Lawful external linking only. 3Blue1Brown lessons and videos are copyright 3Blue1Brown; the site FAQ allows only short clips under stated conditions, and the CC BY-NC-SA 4.0 license of the 3b1b/videos repository covers animation code, not the videos. No video, audio, transcript or frames are imported.",
+          "prerequisites": "High-school coordinate geometry",
+          "selection_rationale": "Unequaled geometric and visual intuition for vectors, linear transformations, matrix multiplication, and inverses before tensor operations.",
+          "known_availability_limitations": "Video streaming hosted on YouTube and 3blue1brown.com; may be blocked by regional networks.",
+          "safe_fallback": "Geometric explanations, worked formulas, and coordinate exercises are fully provided as original lesson text.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OCW 18.06 Linear Algebra (Prof. Gilbert Strang)",
+              "url": "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Established textbook/lecture approach, strong mathematical rigor alongside 3Blue1Brown visual intuition."
+            },
+            {
+              "candidate_name": "Linear Algebra Done Right (Sheldon Axler)",
+              "url": "https://linear.axler.net/",
+              "license": "CC BY-NC (4th edition, Open Access)",
+              "status": "compared_rejected_for_curriculum",
+              "comparison_rationale": "Theoretical determinant-free proof structure is mathematically elegant but less aligned with computational tensor engineering."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-24-act-02",
+      "lesson_id": "les-24",
+      "title": "Broadcasting rules and failure diagnosis",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-24-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "numpy-docs-broadcasting",
+          "title": "NumPy User Guide: Broadcasting",
+          "author": "NumPy Developers",
+          "original_url": "https://numpy.org/doc/stable/user/basics.broadcasting.html",
+          "relevant_timestamp": "General broadcasting rules and incompatible-shape errors",
+          "version_or_verification_date": "NumPy 2.x documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD 3-Clause License",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under the NumPy BSD license; no documentation text imported.",
+          "prerequisites": "Basic Python and array indexing",
+          "selection_rationale": "Normative definition of broadcasting rules, shape mismatch errors, and implicit axis expansion shared by NumPy, PyTorch, and other tensor frameworks.",
+          "known_availability_limitations": "Hosted on numpy.org; an installed NumPy ships equivalent pydoc text.",
+          "safe_fallback": "Broadcasting rules, failure cases, and memory-layout caveats are fully explained with local runnable examples.",
+          "compared_candidates": [
+            {
+              "candidate_name": "PyTorch Documentation: Broadcasting semantics",
+              "url": "https://pytorch.org/docs/stable/notes/broadcasting.html",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Equivalent rules for PyTorch tensors; NumPy chosen because Day 24 exercises run without a PyTorch dependency, while the rule wording is identical."
+            },
+            {
+              "candidate_name": "NumPy Reference: The N-dimensional array (ndarray)",
+              "url": "https://numpy.org/doc/stable/reference/arrays.ndarray.html",
+              "license": "BSD 3-Clause License",
+              "status": "compared_selected_for_days_22_24",
+              "comparison_rationale": "Selected as co-primary for Day 24: normative shape/strides/reshape semantics complementing the broadcasting rules page."
+            }
+          ]
+        },
+        {
+          "id": "numpy-docs-ndarray",
+          "title": "NumPy Reference: The N-dimensional array (ndarray)",
+          "author": "NumPy Developers",
+          "original_url": "https://numpy.org/doc/stable/reference/arrays.ndarray.html",
+          "relevant_timestamp": "Implicit dimension expansion for element-wise ops",
+          "version_or_verification_date": "NumPy 2.x documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD 3-Clause License",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under the NumPy BSD license; no documentation text imported.",
+          "prerequisites": "Basic Python",
+          "selection_rationale": "Primary semantics for ndarray shape, strides, reshape orders, and view-versus-copy behavior used in tensor memory accounting.",
+          "known_availability_limitations": "Hosted on numpy.org; an installed NumPy ships equivalent pydoc text.",
+          "safe_fallback": "Shape, stride, and memory-ledger exercises are fully explained with local runnable examples.",
+          "compared_candidates": [
+            {
+              "candidate_name": "PyTorch Documentation: torch.Tensor",
+              "url": "https://pytorch.org/docs/stable/tensors.html",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Equivalent tensor semantics in the framework used later in the curriculum; NumPy reference selected to keep Days 22-24 dependency-free."
+            },
+            {
+              "candidate_name": "NumPy User Guide: Broadcasting",
+              "url": "https://numpy.org/doc/stable/user/basics.broadcasting.html",
+              "license": "BSD 3-Clause License",
+              "status": "compared_selected_for_days_22_24",
+              "comparison_rationale": "Selected as co-primary for Day 24: the broadcasting rules page pairs with the ndarray attribute reference."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-24-act-03",
+      "lesson_id": "les-24",
+      "title": "Reshape, views vs copies, and memory ledgers",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev2",
+      "prerequisites": [
+        "day-24-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "numpy-docs-ndarray",
+          "title": "NumPy Reference: The N-dimensional array (ndarray)",
+          "author": "NumPy Developers",
+          "original_url": "https://numpy.org/doc/stable/reference/arrays.ndarray.html",
+          "relevant_timestamp": "ndarray.reshape, ndarray.T, strides, and non-contiguous copies",
+          "version_or_verification_date": "NumPy 2.x documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD 3-Clause License",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under the NumPy BSD license; no documentation text imported.",
+          "prerequisites": "Basic Python",
+          "selection_rationale": "Primary semantics for ndarray shape, strides, reshape orders, and view-versus-copy behavior used in tensor memory accounting.",
+          "known_availability_limitations": "Hosted on numpy.org; an installed NumPy ships equivalent pydoc text.",
+          "safe_fallback": "Shape, stride, and memory-ledger exercises are fully explained with local runnable examples.",
+          "compared_candidates": [
+            {
+              "candidate_name": "PyTorch Documentation: torch.Tensor",
+              "url": "https://pytorch.org/docs/stable/tensors.html",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Equivalent tensor semantics in the framework used later in the curriculum; NumPy reference selected to keep Days 22-24 dependency-free."
+            },
+            {
+              "candidate_name": "NumPy User Guide: Broadcasting",
+              "url": "https://numpy.org/doc/stable/user/basics.broadcasting.html",
+              "license": "BSD 3-Clause License",
+              "status": "compared_selected_for_days_22_24",
+              "comparison_rationale": "Selected as co-primary for Day 24: the broadcasting rules page pairs with the ndarray attribute reference."
+            }
+          ]
+        },
+        {
+          "id": "numpy-docs-broadcasting",
+          "title": "NumPy User Guide: Broadcasting",
+          "author": "NumPy Developers",
+          "original_url": "https://numpy.org/doc/stable/user/basics.broadcasting.html",
+          "relevant_timestamp": "Broadcasting never materializes the expanded axes",
+          "version_or_verification_date": "NumPy 2.x documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD 3-Clause License",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under the NumPy BSD license; no documentation text imported.",
+          "prerequisites": "Basic Python and array indexing",
+          "selection_rationale": "Normative definition of broadcasting rules, shape mismatch errors, and implicit axis expansion shared by NumPy, PyTorch, and other tensor frameworks.",
+          "known_availability_limitations": "Hosted on numpy.org; an installed NumPy ships equivalent pydoc text.",
+          "safe_fallback": "Broadcasting rules, failure cases, and memory-layout caveats are fully explained with local runnable examples.",
+          "compared_candidates": [
+            {
+              "candidate_name": "PyTorch Documentation: Broadcasting semantics",
+              "url": "https://pytorch.org/docs/stable/notes/broadcasting.html",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Equivalent rules for PyTorch tensors; NumPy chosen because Day 24 exercises run without a PyTorch dependency, while the rule wording is identical."
+            },
+            {
+              "candidate_name": "NumPy Reference: The N-dimensional array (ndarray)",
+              "url": "https://numpy.org/doc/stable/reference/arrays.ndarray.html",
+              "license": "BSD 3-Clause License",
+              "status": "compared_selected_for_days_22_24",
+              "comparison_rationale": "Selected as co-primary for Day 24: normative shape/strides/reshape semantics complementing the broadcasting rules page."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-24-act-04",
+      "lesson_id": "les-24",
+      "title": "Independent mastery: tensor shape and broadcasting audit",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev2",
+      "prerequisites": [
+        "day-24-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "numpy-docs-ndarray",
+          "title": "NumPy Reference: The N-dimensional array (ndarray)",
+          "author": "NumPy Developers",
+          "original_url": "https://numpy.org/doc/stable/reference/arrays.ndarray.html",
+          "relevant_timestamp": "Full ndarray attribute reference for self-check",
+          "version_or_verification_date": "NumPy 2.x documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD 3-Clause License",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under the NumPy BSD license; no documentation text imported.",
+          "prerequisites": "Basic Python",
+          "selection_rationale": "Primary semantics for ndarray shape, strides, reshape orders, and view-versus-copy behavior used in tensor memory accounting.",
+          "known_availability_limitations": "Hosted on numpy.org; an installed NumPy ships equivalent pydoc text.",
+          "safe_fallback": "Shape, stride, and memory-ledger exercises are fully explained with local runnable examples.",
+          "compared_candidates": [
+            {
+              "candidate_name": "PyTorch Documentation: torch.Tensor",
+              "url": "https://pytorch.org/docs/stable/tensors.html",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Equivalent tensor semantics in the framework used later in the curriculum; NumPy reference selected to keep Days 22-24 dependency-free."
+            },
+            {
+              "candidate_name": "NumPy User Guide: Broadcasting",
+              "url": "https://numpy.org/doc/stable/user/basics.broadcasting.html",
+              "license": "BSD 3-Clause License",
+              "status": "compared_selected_for_days_22_24",
+              "comparison_rationale": "Selected as co-primary for Day 24: the broadcasting rules page pairs with the ndarray attribute reference."
+            }
+          ]
+        },
+        {
+          "id": "numpy-docs-broadcasting",
+          "title": "NumPy User Guide: Broadcasting",
+          "author": "NumPy Developers",
+          "original_url": "https://numpy.org/doc/stable/user/basics.broadcasting.html",
+          "relevant_timestamp": "Broadcasting rules reference for self-check",
+          "version_or_verification_date": "NumPy 2.x documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "BSD 3-Clause License",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under the NumPy BSD license; no documentation text imported.",
+          "prerequisites": "Basic Python and array indexing",
+          "selection_rationale": "Normative definition of broadcasting rules, shape mismatch errors, and implicit axis expansion shared by NumPy, PyTorch, and other tensor frameworks.",
+          "known_availability_limitations": "Hosted on numpy.org; an installed NumPy ships equivalent pydoc text.",
+          "safe_fallback": "Broadcasting rules, failure cases, and memory-layout caveats are fully explained with local runnable examples.",
+          "compared_candidates": [
+            {
+              "candidate_name": "PyTorch Documentation: Broadcasting semantics",
+              "url": "https://pytorch.org/docs/stable/notes/broadcasting.html",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Equivalent rules for PyTorch tensors; NumPy chosen because Day 24 exercises run without a PyTorch dependency, while the rule wording is identical."
+            },
+            {
+              "candidate_name": "NumPy Reference: The N-dimensional array (ndarray)",
+              "url": "https://numpy.org/doc/stable/reference/arrays.ndarray.html",
+              "license": "BSD 3-Clause License",
+              "status": "compared_selected_for_days_22_24",
+              "comparison_rationale": "Selected as co-primary for Day 24: normative shape/strides/reshape semantics complementing the broadcasting rules page."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

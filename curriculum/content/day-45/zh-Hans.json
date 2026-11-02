@@ -1,0 +1,170 @@
+{
+  "language": "zh-Hans",
+  "language_label": "简体中文",
+  "day_title": "第 45 天：多头注意力机制与数值稳定性",
+  "day_subtitle": "将多头注意力解构为线性子空间投影 W^Q, W^K, W^V, W^O。掌握跨 h 个并行注意力头的张量重塑 (B, h, T, d_k)，验证严谨的参数总账，并解决注意力实现中的边界数值不稳定性。",
+  "time_budget_label": "480 分钟主动学习（8 小时专注研读）",
+  "category_label": "模型与训练",
+  "common": {
+    "nav_calendar": "📅 课程日历与台账",
+    "day_label": "第 45 天",
+    "prerequisites_title": "前置要求",
+    "objective_title": "学习目标",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主演练与记录",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看参考解答与分析",
+    "mastery_title": "独立掌握标准",
+    "draft_placeholder": "在此记录多头张量形状变换、投影参数台账、数值稳定性推导与半精度极限分析草稿...",
+    "dev_slice_notice": "90 天 AI 学习平台的已验证正式课程模块。",
+    "sources_heading": "权威源资源与权利证明",
+    "source_author_label": "作者 / 机构",
+    "source_url_label": "原始出处链接",
+    "source_range_label": "对应章节 / 时间戳",
+    "source_verification_label": "验证版本与日期",
+    "source_reuse_label": "复用类别",
+    "source_license_label": "许可证与权利说明",
+    "source_rationale_label": "入选理由",
+    "source_prereqs_label": "来源前置条件",
+    "source_fallback_label": "安全回退方案（离线弹性）",
+    "compared_candidates_heading": "对比候选资源与选型分析",
+    "compared_status_label": "评估结论",
+    "auth": {
+      "sign_in": "使用 Google 登录",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "退出登录",
+      "signed_in_as": "已登录为",
+      "guest": "访客模式",
+      "link_github": "绑定 GitHub",
+      "link_google": "绑定 Google",
+      "linked_identities": "已绑定账号",
+      "auth_errors": {
+        "access_denied": "授权已取消或访问被拒绝。",
+        "invalid_state": "无效或已过期的授权状态令牌，请重试。",
+        "identity_conflict": "该第三方身份已被绑定至其他账号。",
+        "provider_error": "认证服务提供商发生错误。",
+        "server_error": "认证服务提供商发生错误。",
+        "session_expired": "登录会话已过期，请重新登录。"
+      }
+    },
+    "progress": {
+      "save_btn": "保存进度",
+      "saved": "已保存",
+      "saving": "正在保存...",
+      "save_error": "保存失败",
+      "offline": "离线状态",
+      "mark_completed": "标记为已完成",
+      "completed_badge": "已完成"
+    },
+    "quiz": {
+      "quiz_title": "客观理解度测试：多头注意力与数值稳定性",
+      "quiz_instructions": "请回答以下诊断题目检验掌握情况。提交前请诚实声明你的辅助条件。",
+      "assistance_mode_label": "声明辅助条件",
+      "mode_independent": "独立掌握检查 (无 AI 辅助)",
+      "mode_agent_assisted": "Agent 辅助工程检查 (借助 AI 完成)",
+      "mode_disclaimer": "说明：无 AI 辅助属于诚实声明条件，非平台监控或强制检测手段。",
+      "submit_btn": "提交答案",
+      "retry_btn": "重新测验",
+      "view_hint": "查看提示",
+      "mastery_criterion_label": "掌握标准",
+      "mastery_criterion_desc": "在独立掌握检查模式下获得 100% 得分（3/3 题完全正确）。",
+      "score_label": "测验得分",
+      "passed_badge": "通过",
+      "failed_badge": "未通过 (需复习)",
+      "independent_pass_badge": "独立掌握通过",
+      "agent_assisted_pass_badge": "Agent 辅助通过",
+      "self_reported_badge": "自主勾选完成",
+      "stale_badge": "历史记录 (内容已更新，需重新验证)",
+      "attempts_history_title": "作答应证与历史记录",
+      "no_attempts": "暂无测验记录。"
+    }
+  },
+  "activities": {
+    "day-45-act-01": {
+      "title": "多头子空间：为什么以及如何分割 d_model",
+      "prerequisites": "第 43-44 天的缩放点积注意力与因果掩码机制。",
+      "objective": "阐明多头注意力的表征必要性，形式化线性投影 W^Q, W^K, W^V, W^O，并推导微型模型与标准 GPT 规模的参数总账。",
+      "assistance_policy_label": "助教辅助工程检查",
+      "instructions": "必做任务：解释为什么单头注意力会将多种截然不同的关联（如句法主谓依存与长程语义共指）压缩为单一的加权平均。形式化 MultiHead(Q,K,V) = Concat(head_1, ..., head_h) W^O，其中每个 head_i = Attention(Q W_i^Q, K W_i^K, V W_i^V)。设 d_model = 4, h = 2，因此 d_k = d_v = 2。推导参数总账：W^Q, W^K, W^V, W^O 均为 (4, 4) 矩阵，各含 16 个参数（无偏置共 64 参数，含偏置共 80 参数）。计算 GPT-2 Small 的参数量：d_model = 768, h = 12, d_k = 64（权重 4 * 768*768 = 2,359,296，偏置 4*768 = 3,072，总计 2,362,368）。",
+      "exercise_prompt": "1. 为什么单个注意力头无法在关注相邻词元的同时关注远距离句法依存？\n2. 写出 d_model = 4, h = 2 在含偏置和不含偏置情况下的精确参数总账。\n3. 计算 GPT-2 Small 注意力层的参数总账（d_model = 768, h = 12）。",
+      "hint": "单个头对每对词元只能输出一个标量相关度，多头机制则提供 h 个独立的标量路由权重，使模型在不同特征子空间中并行关注不同模式。",
+      "answer": "单头注意力对每个位置的值向量只能生成单一的凸组合；若其权重被局部位置占满，便无法兼顾长程语法关联。对于 d_model=4, h=2：4 个 (4,4) 矩阵共 64 个权重；加偏置（+16）共 80 个参数。对于 GPT-2 Small：W^Q, W^K, W^V, W^O 为 4 个 (768,768) 矩阵 = 4 * 589,824 = 2,359,296 个权重；偏置为 4 * 768 = 3,072；总注意力参数量为 2,362,368。",
+      "mastery_criterion": "准确阐述多头子空间路由的表征意义，并无误推导出微型模型与 GPT-2 规模的完整参数台账。"
+    },
+    "day-45-act-02": {
+      "title": "张量重塑、转置与批处理注意力 (B, h, T, d_k)",
+      "prerequisites": "完成第 45 天活动 1。",
+      "objective": "完整追踪注意力前向计算中的张量阶数与维度变换：投影、分头转置 (B, T, h, d_k) -> (B, h, T, d_k)、批处理矩阵乘法及拼接。",
+      "assistance_policy_label": "独立掌握检查",
+      "instructions": "必做任务：追踪输入张量 X 形状为 (B, T, d_model) = (1, 2, 4) 在 h=2, d_k=2 多头注意力中的流动过程。步骤 1：线性投影 Q = X W^Q, K = X W^K, V = X W^V，形状为 (1, 2, 4)。步骤 2：view 重塑为 (B, T, h, d_k) = (1, 2, 2, 2)。步骤 3：转置维度 1 和 2 为 (B, h, T, d_k) = (1, 2, 2, 2)。步骤 4：分头矩阵乘法 Q @ K^T 得到 (1, 2, 2, 2)。步骤 5：除以 sqrt(2) 并施加因果掩码。步骤 6：与 V 相乘得 (1, 2, 2, 2)。步骤 7：转置回 (1, 2, 2, 2) 并展平拼接为 (1, 2, 4)。步骤 8：通过 W^O 投影为 (1, 2, 4)。使用 X = [[1, 0, 1, 0], [0, 2, 0, 1]] 与单位投影权重手算数值。",
+      "exercise_prompt": "1. 列出从输入 X 到最终输出 Out 的每一步张量形状。\n2. 对 X = [[1, 0, 1, 0], [0, 2, 0, 1]] 及单位阵投影，手算头 0 与头 1 的因果注意力矩阵。\n3. 计算经 W^O 投影后的最终拼接输出。",
+      "hint": "头 0 取前两维：Q_0 = K_0 = V_0 = [[1, 0], [0, 2]]。头 1 取后两维：Q_1 = K_1 = V_1 = [[1, 0], [0, 1]]。缩放因子为 sqrt(2) ~= 1.414214。",
+      "answer": "形状流：X: (1,2,4) -> Q,K,V: (1,2,4) -> view: (1,2,2,2) -> transpose(1,2): (1,2,2,2) -> Q @ K^T: (1,2,2,2) -> softmax: (1,2,2,2) -> attn @ V: (1,2,2,2) -> transpose(1,2): (1,2,2,2) -> flatten: (1,2,4) -> @ W^O: (1,2,4)。头 0 因果注意力：第 0 行 [1.0, 0.0]；第 1 行 [0.055807, 0.944193]。头 0 输出：[[1.0, 0.0], [0.055807, 1.888386]]。头 1 因果注意力：第 0 行 [1.0, 0.0]；第 1 行 [0.330238, 0.669762]。头 1 输出：[[1.0, 0.0], [0.330238, 0.669762]]。拼接后输出（W^O为单位阵）：第 0 行 [1.0, 0.0, 1.0, 0.0]；第 1 行 [0.055807, 1.888386, 0.330238, 0.669762]。",
+      "mastery_criterion": "完整推导所有张量形状变化，并准确计算出双头注意力的具体输出数值。"
+    },
+    "day-45-act-03": {
+      "title": "注意力中的数值稳定性：最大值平移、精度边界与掩码陷阱",
+      "prerequisites": "完成第 45 天活动 2。",
+      "objective": "剖析并解决注意力实现中的浮点数值漏洞：最大值平移 Softmax 不变性证明、全被掩码行的崩溃防范，以及 fp16/fp32 动态范围限制。",
+      "assistance_policy_label": "助教辅助工程检查",
+      "instructions": "必做任务：深入分析三大关键数值边界场景。场景 1：未平移指数溢出。在 float32 中，exp(z) 在 z >= 88.7 时上溢为 inf；在 float16 中，z >= 11.1 即发生溢出。代数证明平移不变性 softmax(z)_i = softmax(z - c)_i。场景 2：全掩码行崩溃（All-masked row）。当某一行全为 -inf 时（如带有填充 padding 的交叉注意力），max(z) = -inf，导致 -inf - (-inf) = NaN。给出避免产生 NaN 的安全实现方式。场景 3：混合精度下的掩码常数选取。解释为什么在 float16 下 -1e4 比 -1e9 更安全。",
+      "exercise_prompt": "1. 代数证明对于任意标量 c，均有 softmax(z - c) = softmax(z)。\n2. 在 PyTorch float16 中计算 torch.exp(torch.tensor(15.0, dtype=torch.float16)) 会发生什么？\n3. 当遇到完全被掩码的行时，工程上如何确保模型不输出 NaN？",
+      "hint": "exp(z_i - c) / sum_j exp(z_j - c) = [exp(z_i) * exp(-c)] / [exp(-c) * sum_j exp(z_j)]。在 float16 下最大有限表示值为 65504。",
+      "answer": "证明：exp(z_i - c) / sum_j exp(z_j - c) = (exp(z_i)*exp(-c)) / (exp(-c) * sum_j exp(z_j)) = exp(z_i) / sum_j exp(z_j)。在 float16 下，exp(15.0) 约为 3.269e6，超出 float16 最大可表示值（65,504），直接上溢为 inf；而在 float32 中可正常计算。对于全被掩码的行，实现时必须将 max 限制在有限数范围，或在 Softmax 后通过 torch.nan_to_num 或掩码置零（如 torch.where）将整行清零，避免 NaN 污染整个网络。",
+      "mastery_criterion": "给出严谨的平移不变性代数证明，并准确诊断 float16 上溢与全掩码行工程处理方案。"
+    },
+    "day-45-act-04": {
+      "title": "独立掌握检查：多头台账、因果不变性与稳定性检验",
+      "prerequisites": "活动 45-01 至 45-03。",
+      "objective": "在声明无 AI 辅助条件下，独立完成中型模型多头参数核算、端到端前向数值追踪、跨头因果不变性证明与数值稳定性检验。",
+      "assistance_policy_label": "独立掌握检查",
+      "instructions": "必做任务：闭卷独立作答。1. 计算中型 GPT（d_model = 1024, h = 16）单层注意力块的精确参数量（包含与不含偏置的 W^Q, W^K, W^V, W^O）。2. 证明为什么当每个单头满足因果性时，输出线性投影 W^O 绝不会跨词元泄露未来信息。3. 给定未缩放对数几率 [500.0, 502.0]，计算其精确的最大值平移 Softmax 概率。4. 完成客观选择题。",
+      "exercise_prompt": "1. d_model = 1024, h = 16 注意力层的总参数量（含与不含偏置）？\n2. 证明为什么 W^O 绝不会破坏各单头的因果不变性？\n3. 计算对数几率 [500.0, 502.0] 的精确 Softmax 输出。\n4. 完成 3 道单项选择题。",
+      "hint": "W^O 是逐位置作用的线性映射（形状 (B, T, d_model) @ (d_model, d_model)），它仅在相同时间步内混合不同头的特征，绝不跨时间维度 T 进行信息交换。",
+      "answer": "1. 每个投影矩阵为 (1024, 1024) = 1,048,576 参数。4 个投影共 4,194,304 个权重。偏置为 4 * 1024 = 4,096。含偏置总计 4,198,400 参数（不含偏置为 4,194,304）。2. W^O 是逐位置作用的线性变换：Out[t, :] = Concat(head_{1..h}[t, :]) W^O。因为每个单头在位置 t 的输出 head_i[t, :] 均仅依赖 <= t 的历史，拼接后在位置 t 的特征依然仅依赖 <= t。乘以 W^O 仅在线性组合同一位置内部的通道维度，时间步之间无任何交互，因此因果不变性严格保持。3. 最大值为 502.0。平移后对数几率为 [-2.0, 0.0]。exp([-2, 0]) = [exp(-2), 1] ~= [0.135335, 1.0]。和为 1.135335。概率为 [0.119203, 0.880797]。",
+      "mastery_criterion": "精确计算中型模型参数总账（4,194,304 / 4,198,400），严密证明 W^O 的逐位置因果保持性，客观测试题获 100% 满分。",
+      "quiz": {
+        "title": "客观理解度测试：多头注意力与数值稳定性",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "在模型嵌入维度 d_model = 768、注意力头数 h = 12 的多头注意力块中，每个单头的特征维度 d_k 是多少？",
+            "options": {
+              "a": "64",
+              "b": "12",
+              "c": "768",
+              "d": "96"
+            },
+            "hint": "将总模型维度 d_model 均分到 h 个并行注意力头中。",
+            "explanation": "d_k = d_model / h = 768 / 12 = 64。每个头在独立的 64 维特征子空间中进行注意力计算。"
+          },
+          {
+            "id": "q2",
+            "prompt": "对于包含投影矩阵 W^Q, W^K, W^V, W^O in R^{d_model x d_model}（不含偏置）的标准多头注意力层，当 d_model = 768 时总权重参数量是多少？",
+            "options": {
+              "a": "589,824",
+              "b": "2,359,296",
+              "c": "1,179,648",
+              "d": "3,072"
+            },
+            "hint": "注意力层包含 4 个大小为 d_model x d_model 的投影矩阵：Q、K、V 以及输出投影 O。",
+            "explanation": "每个投影矩阵参数量为 768 * 768 = 589,824。4 个矩阵总计 4 * 589,824 = 2,359,296 个参数。"
+          },
+          {
+            "id": "q3",
+            "prompt": "在采用最大值平移的 Softmax 实现 softmax(z)_i = exp(z_i - max(z)) / sum_j exp(z_j - max(z)) 中，减去 max(z) 的核心依据是什么？",
+            "options": {
+              "a": "由于 exp(z_i - c) / sum exp(z_j - c) = exp(z_i) / sum exp(z_j)，减去常数保持数学概率完全不变，同时避免了浮点指数上溢。",
+              "b": "它强制将所有输出概率转化为均匀分布 1/T。",
+              "c": "它将负的对数几率转为正数以便进行开方运算。",
+              "d": "它完全替代了下三角因果掩码的作用。"
+            },
+            "hint": "将分子与分母同时提取出公因子 exp(-c) 并约分。",
+            "explanation": "提取 exp(-c) 后分子分母完全相消，证明平移具有不变性。令 c = max(z) 可保证最大指数为 exp(0) = 1.0，彻底消除上溢风险。"
+          }
+        ]
+      }
+    }
+  }
+}

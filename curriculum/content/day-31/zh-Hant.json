@@ -1,0 +1,170 @@
+{
+  "language": "zh-Hant",
+  "language_label": "繁體中文",
+  "day_title": "第 31 天：前向計算圖、局部導數與反向傳播鏈式法則",
+  "day_subtitle": "掌握自動微分核心基礎：建構純量有向無環圖 (DAG) 計算圖、推導基礎算子局部導數，並手算追蹤反向傳播過程。",
+  "time_budget_label": "480 分鐘（8 小時專注學習）",
+  "category_label": "數學與演算法基礎",
+  "common": {
+    "nav_calendar": "📅 課程行事曆與台帳",
+    "day_label": "第 31 天",
+    "prerequisites_title": "前置要求",
+    "objective_title": "學習目標",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主實作與記錄",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看參考解答與分析",
+    "mastery_title": "獨立掌握標準",
+    "draft_placeholder": "在此輸入你的手動微分推導、前向計算值與反向梯度追蹤記錄...",
+    "dev_slice_notice": "90 天 AI 學習平台的已驗證正式課程模組。",
+    "sources_heading": "權威來源資源與權利證明",
+    "source_author_label": "作者 / 機構",
+    "source_url_label": "原始出處連結",
+    "source_range_label": "對應章節 / 時間戳",
+    "source_verification_label": "驗證版本與日期",
+    "source_reuse_label": "複用類別",
+    "source_license_label": "許可證與權利說明",
+    "source_rationale_label": "入選理由",
+    "source_prereqs_label": "來源前置條件",
+    "source_fallback_label": "安全回退方案（離線彈性）",
+    "compared_candidates_heading": "對比候選資源與選型分析",
+    "compared_status_label": "評估結論",
+    "auth": {
+      "sign_in": "使用 Google 登入",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "登出",
+      "signed_in_as": "已登入為",
+      "guest": "訪客模式",
+      "link_github": "綁定 GitHub",
+      "link_google": "綁定 Google",
+      "linked_identities": "已綁定帳號",
+      "auth_errors": {
+        "access_denied": "授權已取消或存取被拒絕。",
+        "invalid_state": "無效或已過期的授權狀態權杖，請重試。",
+        "identity_conflict": "該第三方身分已被綁定至其他帳號。",
+        "provider_error": "認證服務提供者發生錯誤。",
+        "server_error": "認證服務提供者發生錯誤。",
+        "session_expired": "登入工作階段已過期，請重新登入。"
+      }
+    },
+    "progress": {
+      "save_btn": "儲存進度",
+      "saved": "已儲存",
+      "saving": "正在儲存...",
+      "save_error": "儲存失敗",
+      "offline": "離線狀態",
+      "mark_completed": "標記為已完成",
+      "completed_badge": "已完成"
+    },
+    "quiz": {
+      "quiz_title": "客觀知識測驗：計算圖與反向鏈式法則",
+      "quiz_instructions": "請回答以下診斷題目檢驗掌握情況。提交前請誠實聲明你的輔助條件。",
+      "assistance_mode_label": "聲明輔助條件",
+      "mode_independent": "獨立掌握檢查 (無 AI 輔助)",
+      "mode_agent_assisted": "Agent 輔助工程檢查 (借助 AI 完成)",
+      "mode_disclaimer": "說明：無 AI 輔助屬於誠實聲明條件，非平台監控或強制檢測手段。",
+      "submit_btn": "提交答案",
+      "retry_btn": "重新測驗",
+      "view_hint": "查看提示",
+      "mastery_criterion_label": "掌握標準",
+      "mastery_criterion_desc": "在獨立掌握檢查模式下獲得 100% 得分（3/3 題完全正確）。",
+      "score_label": "測驗得分",
+      "passed_badge": "通過",
+      "failed_badge": "未通過 (需複習)",
+      "independent_pass_badge": "獨立掌握通過",
+      "agent_assisted_pass_badge": "Agent 輔助通過",
+      "self_reported_badge": "自主勾選完成",
+      "stale_badge": "歷史記錄 (內容已更新，需重新驗證)",
+      "attempts_history_title": "作答應證與歷史記錄",
+      "no_attempts": "暫無測驗記錄。"
+    }
+  },
+  "activities": {
+    "day-31-act-01": {
+      "title": "計算圖建構與純量前向求值",
+      "prerequisites": "第 30 天數學基礎、Python 物件導向基礎，以及理解變數作為記憶體參考的模型。",
+      "objective": "理解如何將純量算術表達式映射為由 `Value` 節點組成的有向無環圖 (DAG)，並追蹤前向求值流程。",
+      "assistance_policy_label": "Agent 輔助工程檢查",
+      "instructions": "在自動微分中，計算圖將每個數學運算表示為內部節點，操作數表示為輸入邊。執行圖結構檢視指令：\n\n```bash\npython3 projects/autograd/cli.py graph --preset neuron --format ascii\n```\n\n觀察 $x_1 w_1 + x_2 w_2 + b$ 如何流入激活函數 $o = \\tanh(n)$，並核對各前向計算節點數值。",
+      "exercise_prompt": "對於表達式 $f(x, y) = (x \\cdot y + 2)^2$，在 $x = 1.5, y = -2.0$ 處：\n1. 拆解步驟建構中間節點：令 $u = x \\cdot y$, $v = u + 2$, $f = v^2$。\n2. 計算 $u, v, f$ 的數值。\n3. 在下方實作區寫出你預測的前向節點數值，先不執行程式碼。",
+      "hint": "依序計算中間結果：$u = 1.5 \\times (-2.0) = -3.0$；接著 $v = -3.0 + 2 = -1.0$；最終 $f = (-1.0)^2 = 1.0$。",
+      "answer": "參考解答：\n- $u = 1.5 \\times (-2.0) = -3.0$\n- $v = -3.0 + 2 = -1.0$\n- $f = (-1.0)^2 = 1.0$\n該計算圖包含 2 個葉節點 ($x, y$)、1 個常數節點 ($2$) 與 3 個運算子節點 ($*, +, **2$)。",
+      "mastery_criterion": "學習者能夠準確將純量算術拆解為帶有父節點依賴 (`_prev`) 與純量數值 (`data`) 的 DAG 計算節點。"
+    },
+    "day-31-act-02": {
+      "title": "局部導數推導與基礎算子微分表",
+      "prerequisites": "一元微積分基礎（冪函數、指數、對數、雙曲正切導數）。",
+      "objective": "手算推導所有核心算子 (+, -, *, /, pow, exp, log, relu, tanh) 的局部偏導數，並設計 `_backward` 閉包。",
+      "assistance_policy_label": "獨立掌握檢查",
+      "instructions": "對每一個運算節點 $z = f(x, y)$，節點需要封裝 `_backward()` 閉包，將上游傳入梯度 (`out.grad`) 乘以局部導數 $\\frac{\\partial z}{\\partial x}$。查閱 `projects/autograd/docs/guide.zh-Hant.md` 中的算子導數彙整表。",
+      "exercise_prompt": "手算推導下列局部導數：\n1. 乘法 $z = x \\cdot y$：推導 $\\frac{\\partial z}{\\partial x}$ 與 $\\frac{\\partial z}{\\partial y}$。\n2. 冪函數 $z = x^n$（$n$ 為常數）：推導 $\\frac{\\partial z}{\\partial x}$。\n3. 雙曲正切 $z = \\tanh(x)$：用 $z$ 自身表達 $\\frac{\\partial z}{\\partial x}$。",
+      "hint": "回顧 $\\frac{d}{dx} \\tanh(x) = 1 - \\tanh^2(x)$。由於 $z = \\tanh(x)$ 已經儲存在節點的前向數值 `self.data` 中，局部導數直接記為 $1.0 - z^2$，無需重複計算昂貴的超越函數。",
+      "answer": "參考推導：\n1. 乘法 $z = x \\cdot y$：$\\frac{\\partial z}{\\partial x} = y$，$\\frac{\\partial z}{\\partial y} = x$。\n2. 冪函數 $z = x^n$：$\\frac{\\partial z}{\\partial x} = n x^{n-1}$。\n3. 雙曲正切 $z = \\tanh(x)$：$\\frac{\\partial z}{\\partial x} = 1 - z^2$。在 Python 中：`self.grad += (1.0 - out.data ** 2) * out.grad`。",
+      "mastery_criterion": "學習者無需查表或 AI 提示，能獨立寫出所有核心算子的局部導數與反向更新語句。"
+    },
+    "day-31-act-03": {
+      "title": "反向模式鏈式法則直覺與單神經元反向傳播手算追蹤",
+      "prerequisites": "完成活動 31-01 與 31-02。",
+      "objective": "理解多元微積分鏈式法則如何從目標損失反向傳遞至輸入權重，並對單神經元前向反向進行完整手算追蹤。",
+      "assistance_policy_label": "Agent 輔助工程檢查",
+      "instructions": "執行單神經元預設的前向與反向指令：\n\n```bash\npython3 projects/autograd/cli.py forward-backward --preset neuron\n```\n\n驗證反向傳播從 $o.\\text{grad} = 1.0$ 開始，穿過 $n = x_1 w_1 + x_2 w_2 + b$，得出 $\\frac{\\partial o}{\\partial w_1} = 1.0$ 與 $\\frac{\\partial o}{\\partial x_1} = -1.5$。",
+      "exercise_prompt": "已知 $o = \\tanh(n)$，$n = 0.8814$（$o \\approx 0.7071$）：\n1. 計算 $\\frac{\\partial o}{\\partial n} = 1 - o^2$。\n2. 已知 $n = x_1 w_1 + x_2 w_2 + b$，其中 $x_1 = 2.0, w_1 = -3.0$，計算 $\\frac{\\partial o}{\\partial x_1}$ 與 $\\frac{\\partial o}{\\partial w_1}$。\n3. 對比你的手動推導數值與 CLI 輸出。",
+      "hint": "$1 - 0.70710678^2 = 1 - 0.5 = 0.5$。根據鏈式法則，$\\frac{\\partial o}{\\partial x_1} = 0.5 \\times w_1 = 0.5 \\times (-3.0) = -1.5$，$\\frac{\\partial o}{\\partial w_1} = 0.5 \\times x_1 = 0.5 \\times 2.0 = 1.0$。",
+      "answer": "參考解答：\n- 局部 tanh 導數：$1 - (0.70710678)^2 = 0.500000$\n- $\\frac{\\partial o}{\\partial n} = 0.5$\n- $\\frac{\\partial o}{\\partial x_1} = 0.5 \\times (-3.0) = -1.5$\n- $\\frac{\\partial o}{\\partial w_1} = 0.5 \\times 2.0 = 1.0$\n與 `projects/autograd/cli.py forward-backward --preset neuron` 的結果完全吻合。",
+      "mastery_criterion": "學習者能夠穿越多層計算節點準確應用鏈式法則連乘，不遺漏任何中間縮放因子。"
+    },
+    "day-31-act-04": {
+      "title": "獨立掌握檢查：純量計算圖手算推導與反向傳播測驗",
+      "prerequisites": "活動 31-01 至 31-03。",
+      "objective": "在聲明無 AI 輔助的條件下，驗證獨立推導純量計算圖與鏈式法則反向傳播的能力。",
+      "assistance_policy_label": "獨立掌握檢查",
+      "instructions": "請在無大型語言模型、無自動代數計算器的獨立條件下完成下列推導。在實作草稿區寫下推導步驟與結果。",
+      "exercise_prompt": "對於損失函數 $L = (x \\cdot y + 2)^2$，在 $x = 1.5, y = -2.0$ 處：\n計算精確的解析導數 $\\frac{\\partial L}{\\partial x}$ 與 $\\frac{\\partial L}{\\partial y}$。寫明每一步鏈式法則代換。",
+      "hint": "令 $u = x \\cdot y + 2$，則 $L = u^2$。$\\frac{\\partial L}{\\partial u} = 2u$。再分別應用 $\\frac{\\partial u}{\\partial x} = y$ 以及 $\\frac{\\partial u}{\\partial y} = x$。",
+      "answer": "參考解答：\n$u = 1.5 \\times (-2.0) + 2 = -1.0$\n$L = (-1.0)^2 = 1.0$\n$\\frac{\\partial L}{\\partial u} = 2u = -2.0$\n$\\frac{\\partial L}{\\partial x} = \\frac{\\partial L}{\\partial u} \\cdot y = (-2.0) \\times (-2.0) = 4.0$\n$\\frac{\\partial L}{\\partial y} = \\frac{\\partial L}{\\partial u} \\cdot x = (-2.0) \\times 1.5 = -3.0$",
+      "mastery_criterion": "獨立推導得出 $\\frac{\\partial L}{\\partial x} = 4.0$ 與 $\\frac{\\partial L}{\\partial y} = -3.0$，並寫明中間變數定義與偏導相乘步驟。",
+      "quiz": {
+        "title": "客觀知識測驗：計算圖與反向鏈式法則",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "在反向模式自動微分中，遍歷 DAG 之前，根損失節點（Loss）的梯度 `loss.grad` 必須初始化為多少？",
+            "options": {
+              "a": "0.0",
+              "b": "1.0",
+              "c": "損失張量本身的前向值",
+              "d": "全域學習率"
+            },
+            "hint": "考慮數學定義：純量對自身的導數 $\\frac{\\partial L}{\\partial L}$ 是多少？",
+            "explanation": "因為 $\\frac{\\partial L}{\\partial L} = 1.0$，反向傳播必須以種子梯度 `grad = 1.0` 開始向後傳遞。"
+          },
+          {
+            "id": "q2",
+            "prompt": "對於運算節點 $z = x \\cdot y$，若當前 `z.grad` 為 $5.0$，且 $x = 2.0, y = -3.0$，則回傳給輸入 $x$ 的梯度貢獻是多少？",
+            "options": {
+              "a": "10.0",
+              "b": "-6.0",
+              "c": "-15.0",
+              "d": "2.5"
+            },
+            "hint": "根據鏈式法則：$\\frac{\\partial L}{\\partial x} = \\frac{\\partial L}{\\partial z} \\cdot \\frac{\\partial z}{\\partial x} = z.\\text{grad} \\cdot y$。",
+            "explanation": "$\\frac{\\partial L}{\\partial x} = z.\\text{grad} \\times y = 5.0 \\times (-3.0) = -15.0$。"
+          },
+          {
+            "id": "q3",
+            "prompt": "為什麼在神經網路訓練中，反向模式自動微分漸近複雜度顯著優於前向模式？",
+            "options": {
+              "a": "它只需一次反向傳播（複雜度與前向成比例），即可同時求出 1 個純量損失對所有 N 個參數的梯度。",
+              "b": "它完全消除了浮點數捨入誤差。",
+              "c": "它不需要在記憶體中保留任何中間激活值。",
+              "d": "它只能處理純量輸入和向量輸出。"
+            },
+            "hint": "考慮神經網路有 1 個輸出損失，但有數百萬個輸入參數的情況。",
+            "explanation": "反向模式自動微分僅需一次向後遍歷即可計算出純量損失對全部 $N$ 個參數的梯度 $\\nabla L \\in \\mathbb{R}^N$；而前向模式需要進行 $N$ 次獨立的前向遍歷。"
+          }
+        ]
+      }
+    }
+  }
+}

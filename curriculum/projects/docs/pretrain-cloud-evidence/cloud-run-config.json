@@ -1,0 +1,30 @@
+{
+  "config_id": "ticket-19-nanogpt-cloud-v1",
+  "recipe": "projects/pretrain/train.py",
+  "model": {
+    "block_size": 64,
+    "n_layer": 4,
+    "n_head": 4,
+    "n_embd": 64,
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "weight_decay": 0.01,
+    "max_iters": 1000,
+    "checkpoint_interval": 200,
+    "eval_interval": 200,
+    "seed": 1337
+  },
+  "data": {
+    "path": "data/tinyshakespeare.txt",
+    "sha256": "86c4e6aa9db7c042ec79f339dcb96d42b0075e16b8fc2e86bf0ca57e2dc565ed",
+    "split": "deterministic 90% train / 10% validation, as implemented by TextCorpusDataset"
+  },
+  "runtime_assumptions": {
+    "python": ">=3.10",
+    "pytorch": ">=2.0",
+    "cuda": "provider image must record exact CUDA and driver versions before execution",
+    "gpu": "not selected until an authorized provider and region are approved"
+  },
+  "config_sha256_method": "sha256 of this document with config_sha256 omitted; record the resulting digest in the evidence package",
+  "paid_execution": false
+}

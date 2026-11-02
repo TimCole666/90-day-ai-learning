@@ -1,0 +1,285 @@
+{
+  "language": "zh-Hans",
+  "language_label": "简体中文",
+  "day_title": "Day 09：列表、字典、频率统计与安全的 Git 恢复",
+  "day_subtitle": "新内容：列表与字典、字符频率统计（空、重复和 Unicode 码位的情况）、丢弃未提交修改与撤销（revert）已提交修改的区别，以及独立实现文本统计。间隔复习会再次用到第 08 天的不变量和第 05 天的别名。",
+  "time_budget_label": "480 分钟（8 小时专注学习）",
+  "category_label": "自主学习与 Python",
+  "common": {
+    "nav_calendar": "课程日历",
+    "day_label": "学习日 09",
+    "prerequisites_title": "先决条件",
+    "objective_title": "学习目标",
+    "instructions_title": "操作说明",
+    "exercise_title": "练习与预测记录",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看参考答案与追踪",
+    "mastery_title": "独立掌握标准",
+    "draft_placeholder": "在此记录你的预测、实际输出、复盘和恢复证据……",
+    "sources_heading": "来源资源与出处",
+    "source_author_label": "作者 / 机构",
+    "source_url_label": "原始出处链接",
+    "source_range_label": "对应章节 / 时间戳",
+    "source_verification_label": "验证版本与日期",
+    "source_rationale_label": "入选理由",
+    "source_prereqs_label": "来源前置条件",
+    "source_fallback_label": "安全回退方案（离线弹性）",
+    "compared_candidates_heading": "对比候选资源与选型分析"
+  },
+  "activities": {
+    "day-09-act-01": {
+      "source_resources": [
+        {
+          "id": "automate-boring-stuff-3e",
+          "title": "Automate the Boring Stuff with Python, 3rd edition",
+          "author": "Al Sweigart",
+          "original_url": "https://automatetheboringstuff.com/3e/",
+          "relevant_timestamp": "Chapter 6; Practice Questions; Appendix B answers",
+          "version_or_verification_date": "Public edition checked 2026-11-01; moving pages may change",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Copyright Al Sweigart; edition-specific reuse terms unverified",
+          "license_restrictions": [
+            "linking only; no reproduction"
+          ],
+          "permission_basis": "External hyperlink only; no third-party prose, exercises, code or translations are imported.",
+          "prerequisites": "No prior programming required for Chapter 1; later chapters assume its basic Python concepts.",
+          "selection_rationale": "Beginner teaching and answer-keyed practice before checking exact semantics in the Python reference; selected chapters only, not the book's entire automation stack.",
+          "known_availability_limitations": "Free HTML; external website may be unavailable. Exact third-edition redistribution terms have not been verified, so no reuse permission is claimed.",
+          "safe_fallback": "Use the original localized explanations, exercises and checks already present in this activity; no external account or purchase is required for that fallback.",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Tutorial",
+              "url": "https://docs.python.org/3/tutorial/",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Guided Python syntax but assumes programming familiarity; paired with the beginner text rather than used as its replacement."
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Lectures and problem sets teach a broader CS1 course; the book offers shorter text-first entry and an answer appendix."
+            }
+          ],
+          "locator_url": "https://automatetheboringstuff.com/3e/chapter6.html"
+        },
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2–4.10 节（for、range、定义函数）；数据结构见同一教程第 5 章",
+          "version_or_verification_date": "Python 3.12 文档（核验日期：2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "用于查阅 Python 迭代、函数和容器的第一手参考资料。",
+          "safe_fallback": "教材内已讲解所有必需的行为，可以离线完成。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "在语法层面定义相同的结构；选择教程章节是因为它循序渐进。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "以讲座节奏讲解相同的控制流；由于本课程已通过终端练习推进这些概念，暂不采用。"
+            }
+          ],
+          "prerequisites": "第 01–06 天的 Python 表达式与文件系统基础",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "列表与字典：有序元素与键值计数",
+      "prerequisites": "已完成第 08 天（包括其独立检查）。恢复：第 08 天（循环与不变量）、第 07 天活动 1（修改与重新绑定）；第 07 天是本单元的复习日。",
+      "objective": "创建并更新列表和字典，检查成员关系，用 get 安全读取不存在的键，并预测两个名字指向同一列表时的别名效果，包括空和 Unicode 的情况。",
+      "assistance_policy_label": "智能体协助练习：先写下自己的预测和实际输出，之后才可以请 AI 智能体解释或审阅，并且必须在证据中记录所受的协助。",
+      "instructions": "学习来源：在本活动现有的阅读与练习时段内，参考 Automate the Boring Stuff with Python, 3rd edition 的 Chapter 6; Practice Questions; Appendix B answers，用自己的话解释一处与本地任务的联系。保留现有练习与验收检查；若外部资料无法访问，使用课程自写的解释。**间隔复习热身：** 凭记忆说出第 08 天的计数不变量，并解释为什么 a = [1]; b = a; a.append(2) 会改变 b。今天你会在列表上看到同样的别名现象。\n\n**新概念：** list(text) 返回由码位组成的列表。列表保持元素顺序，append 在末尾添加。字典把键映射到值；d[key] = value 用于添加或替换，key in d 检查键是否存在，d.get(key, 0) 在键不存在时返回 0 而不是报错。字典会记住插入顺序。\n\n先预测打印的每一行，再运行：\n\n```python\nchars = list(\"ñu猫\")\nprint(chars, len(chars))\nprint(len(\"n\\u0303u\"), \"n\\u0303u\" == \"ñu\")\nseen = []\nfor ch in \"abca\":\n    if ch not in seen:\n        seen.append(ch)\nprint(seen)\nages = {}\nages[\"猫\"] = 3\nages[\"犬\"] = 5\nages[\"猫\"] = ages[\"猫\"] + 1\nprint(ages, len(ages), \"猫\" in ages, ages.get(\"鳥\", 0))\nalias = seen\nalias.append(\"z\")\nprint(seen)\nprint(list(\"\"), {})\n```",
+      "exercise_prompt": "写下全部六行打印内容的预测，再记录实际输出。解释为什么 len(\"n\\u0303u\") 为 3、为什么 seen 只保留每个字符的第一次出现，以及为什么通过 alias 追加也会改变 seen。",
+      "hint": "这里的 \"ñ\" 是一个码位；\"n\" 后接组合波浪符（U+0303）是两个码位。\"鳥\" 不是键，所以 ages.get(\"鳥\", 0) 返回 0。alias = seen 不会复制列表；两个名字指向同一个列表对象（第 05 天）。",
+      "answer": "准确输出：\n\n```text\n['ñ', 'u', '猫'] 3\n3 False\n['a', 'b', 'c']\n{'猫': 4, '犬': 5} 2 True 0\n['a', 'b', 'c', 'z']\n[] {}\n```\n\nlist(\"ñu猫\") 有三个码位。分解形式的 \"n\\u0303u\" 有三个码位，不等于两个码位的 \"ñu\"。循环只在字符尚未出现在 seen 中时才追加，所以结果是 [\"a\", \"b\", \"c\"]。给已存在的键赋值会替换其值，所以 \"猫\" 变为 4，字典仍然只有两个键。alias 和 seen 是同一个列表，所以 \"z\" 出现在 seen 中。空字符串得到空列表，{} 是空字典。",
+      "mastery_criterion": "六行都在运行前预测并逐一解释不符；能解释带默认值的 get、插入顺序、分解字符的长度以及列表别名。",
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-09-act-02": {
+      "source_resources": [
+        {
+          "id": "automate-boring-stuff-3e",
+          "title": "Automate the Boring Stuff with Python, 3rd edition",
+          "author": "Al Sweigart",
+          "original_url": "https://automatetheboringstuff.com/3e/",
+          "relevant_timestamp": "Chapter 7; Practice Questions; Appendix B answers",
+          "version_or_verification_date": "Public edition checked 2026-11-01; moving pages may change",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Copyright Al Sweigart; edition-specific reuse terms unverified",
+          "license_restrictions": [
+            "linking only; no reproduction"
+          ],
+          "permission_basis": "External hyperlink only; no third-party prose, exercises, code or translations are imported.",
+          "prerequisites": "No prior programming required for Chapter 1; later chapters assume its basic Python concepts.",
+          "selection_rationale": "Beginner teaching and answer-keyed practice before checking exact semantics in the Python reference; selected chapters only, not the book's entire automation stack.",
+          "known_availability_limitations": "Free HTML; external website may be unavailable. Exact third-edition redistribution terms have not been verified, so no reuse permission is claimed.",
+          "safe_fallback": "Use the original localized explanations, exercises and checks already present in this activity; no external account or purchase is required for that fallback.",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Tutorial",
+              "url": "https://docs.python.org/3/tutorial/",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Guided Python syntax but assumes programming familiarity; paired with the beginner text rather than used as its replacement."
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Lectures and problem sets teach a broader CS1 course; the book offers shorter text-first entry and an answer appendix."
+            }
+          ],
+          "locator_url": "https://automatetheboringstuff.com/3e/chapter7.html"
+        },
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2–4.10 节（for、range、定义函数）；数据结构见同一教程第 5 章",
+          "version_or_verification_date": "Python 3.12 文档（核验日期：2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "用于查阅 Python 迭代、函数和容器的第一手参考资料。",
+          "safe_fallback": "教材内已讲解所有必需的行为，可以离线完成。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "在语法层面定义相同的结构；选择教程章节是因为它循序渐进。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "以讲座节奏讲解相同的控制流；由于本课程已通过终端练习推进这些概念，暂不采用。"
+            }
+          ],
+          "prerequisites": "第 01–06 天的 Python 表达式与文件系统基础",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "用字典统计频率及其不变量",
+      "prerequisites": "今天的活动 1。恢复：第 08 天活动 1（计数不变量）和今天的活动 1（字典 get）。",
+      "objective": "实现 char_frequencies(text) 和 most_common(counts)，陈述字典不变量，并按码位粒度测试空、重复、区分大小写、表情符号和分解形式 Unicode 的输入。",
+      "assistance_policy_label": "智能体协助练习：先写下自己的预测和实际输出，之后才可以请 AI 智能体解释或审阅，并且必须在证据中记录所受的协助。",
+      "instructions": "学习来源：在本活动现有的阅读与练习时段内，参考 Automate the Boring Stuff with Python, 3rd edition 的 Chapter 7; Practice Questions; Appendix B answers，用自己的话解释一处与本地任务的联系。保留现有练习与验收检查；若外部资料无法访问，使用课程自写的解释。**间隔复习：** 这是把第 08 天的单个计数器推广为每个不同字符各一个计数器。\n\n**不变量：** 每次迭代开始时，counts 把目前已访问的每个码位映射到它被访问的次数，且所有值之和等于已访问的码位数。most_common 保存目前计数最大的字符；只有严格更大的计数才会替换它，所以并列时保留较早出现的字符。\n\n运行前预测每一行，并为 \"banana\" 写出追踪表（ch / counts）：\n\n```python\ndef char_frequencies(text):\n    counts = {}\n    for ch in text:\n        counts[ch] = counts.get(ch, 0) + 1\n    return counts\ndef most_common(counts):\n    best_char = None\n    best_count = 0\n    for ch in counts:\n        if counts[ch] > best_count:\n            best_char = ch\n            best_count = counts[ch]\n    return best_char\nprint(char_frequencies(\"\"))\nprint(char_frequencies(\"banana\"))\nprint(char_frequencies(\"猫猫犬\"))\nprint(char_frequencies(\"aA\"))\nprint(char_frequencies(\"😀😀\"))\nprint(char_frequencies(\"e\\u0301\") == {\"e\": 1, \"\\u0301\": 1})\nprint(most_common(char_frequencies(\"banana\")))\nprint(most_common(char_frequencies(\"abab\")))\nprint(most_common(char_frequencies(\"\")))\n```",
+      "exercise_prompt": "提交 char_frequencies(\"banana\") 的追踪表、全部九行打印内容的预测与观察，并各用一句话解释：为什么 \"aA\" 得到两个键，为什么 \"😀😀\" 的计数是 2，为什么空字符串得到 {} 和 None。",
+      "hint": "counts.get(ch, 0) + 1 对新字符从 1 开始，对已有字符加 1。Python 精确比较码位，所以 \"a\" 和 \"A\" 不同，像 \"😀\" 这样的表情符号是一个码位。在 \"abab\" 中，\"a\" 和 \"b\" 都达到 2；因为 2 不大于 2，\"b\" 不会替换 \"a\"。",
+      "answer": "准确输出：\n\n```text\n{}\n{'b': 1, 'a': 3, 'n': 2}\n{'猫': 2, '犬': 1}\n{'a': 1, 'A': 1}\n{'😀': 2}\nTrue\na\na\nNone\n```\n\n\"banana\" 的追踪：b 之后 {b: 1}；a 之后 {b: 1, a: 1}；n 之后 {b: 1, a: 1, n: 1}；a 之后 {b: 1, a: 2, n: 1}；n 之后 {b: 1, a: 2, n: 2}；a 之后 {b: 1, a: 3, n: 2}。值之和为 6 = len(\"banana\")，符合不变量。空文本不进入循环，所以 counts 保持 {}，most_common 返回 None。由于按码位计数且不做规范化，\"e\\u0301\" 产生两个键：\"e\" 和组合重音符。",
+      "mastery_criterion": "追踪表与参考一致；九行都预测正确或解释了不符；陈述了字典不变量和并列规则；正确处理空、重复、大小写和 Unicode 的情况。",
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-09-act-03": {
+      "source_resources": [
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2–4.10 节（for、range、定义函数）；数据结构见同一教程第 5 章",
+          "version_or_verification_date": "Python 3.12 文档（核验日期：2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "用于查阅 Python 迭代、函数和容器的第一手参考资料。",
+          "safe_fallback": "教材内已讲解所有必需的行为，可以离线完成。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "在语法层面定义相同的结构；选择教程章节是因为它循序渐进。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "以讲座节奏讲解相同的控制流；由于本课程已通过终端练习推进这些概念，暂不采用。"
+            }
+          ],
+          "prerequisites": "第 01–06 天的 Python 表达式与文件系统基础",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "安全的 Git 恢复：恢复未提交的修改，撤销已提交的修改",
+      "prerequisites": "今天的活动 1–2；已安装 Git。恢复：第 07 天活动 3 和第 08 天活动 3（git restore）。",
+      "objective": "在一次性仓库中为每种情况选择正确的安全工具：未提交的修改用 git restore（或保存的副本），已提交的修改用 git revert --no-edit HEAD，并逐一验证结果。",
+      "assistance_policy_label": "智能体协助练习：先写下自己的预测和实际输出，之后才可以请 AI 智能体解释或审阅，并且必须在证据中记录所受的协助。",
+      "instructions": "**间隔复习：** A 部分用今天的频率文件重复第 07–08 天的 git restore 流程。\n\n**新概念：** git revert 会创建一个新提交来抵消之前的某个提交，因此历史被保留而不是被改写。它只作用于已提交的修改；当工作区中受影响的文件有未提交修改时，它会拒绝执行。这正是为什么不能先提交基线、再做未提交的修改、然后尝试 git revert。\n\n每个部分使用一个新的临时目录，并先预测每一项输出。\n\n**A 部分：用 Git 恢复未提交的修改**\n\n```bash\ncd \"$(mktemp -d)\"\ngit init -q\ngit config user.name \"Learner\"\ngit config user.email \"learner@example.invalid\"\ncat > freq.py <<'EOF'\ndef char_frequencies(text):\n    counts = {}\n    for ch in text:\n        counts[ch] = counts.get(ch, 0) + 1\n    return counts\nprint(char_frequencies(\"猫猫犬\"))\nEOF\ngit add freq.py\ngit commit -q -m \"Add char_frequencies\"\npython3 freq.py\nprintf 'print(char_frequencies(\"\"))\\n' >> freq.py\ngit status --short\npython3 freq.py\ngit restore freq.py\ngit status --short\npython3 freq.py\n```\n\n**A 部分的替代方法：保存的副本（恢复时不需要 Git 命令）**\n\n```bash\ncd \"$(mktemp -d)\"\ngit init -q\ngit config user.name \"Learner\"\ngit config user.email \"learner@example.invalid\"\ncat > freq.py <<'EOF'\ndef char_frequencies(text):\n    counts = {}\n    for ch in text:\n        counts[ch] = counts.get(ch, 0) + 1\n    return counts\nprint(char_frequencies(\"猫猫犬\"))\nEOF\ngit add freq.py\ngit commit -q -m \"Add char_frequencies\"\npython3 freq.py\ncp freq.py freq.py.saved\nprintf 'oops\\n' >> freq.py\ncp freq.py.saved freq.py\nrm freq.py.saved\ngit status --short\npython3 freq.py\n```\n\n**B 部分：用新提交撤销已提交的修改**\n\n```bash\ncd \"$(mktemp -d)\"\ngit init -q\ngit config user.name \"Learner\"\ngit config user.email \"learner@example.invalid\"\ncat > freq.py <<'EOF'\ndef char_frequencies(text):\n    counts = {}\n    for ch in text:\n        counts[ch] = counts.get(ch, 0) + 1\n    return counts\nprint(char_frequencies(\"猫猫犬\"))\nEOF\ngit add freq.py\ngit commit -q -m \"Add char_frequencies\"\npython3 freq.py\nprintf 'print(\"debug\")\\n' >> freq.py\ngit commit -q -am \"Add debug print\"\npython3 freq.py\ngit revert --no-edit HEAD > /dev/null\ngit log --format=%s\ngit diff HEAD~2 HEAD\ngit status --short\npython3 freq.py\n```\n\n**C 部分：为什么顺序很重要**：演示存在未提交修改时 git revert 会拒绝执行。\n\n```bash\ncd \"$(mktemp -d)\"\ngit init -q\ngit config user.name \"Learner\"\ngit config user.email \"learner@example.invalid\"\ncat > freq.py <<'EOF'\ndef char_frequencies(text):\n    counts = {}\n    for ch in text:\n        counts[ch] = counts.get(ch, 0) + 1\n    return counts\nprint(char_frequencies(\"猫猫犬\"))\nEOF\ngit add freq.py\ngit commit -q -m \"Add char_frequencies\"\npython3 freq.py\nprintf 'print(\"debug\")\\n' >> freq.py\ngit commit -q -am \"Add debug print\"\nprintf 'oops\\n' >> freq.py\ngit revert --no-edit HEAD 2> /dev/null || echo \"revert refused: uncommitted change present\"\ngit status --short\n```",
+      "exercise_prompt": "每个部分都记录预测与实际输出。然后回答：哪个命令撤销未提交的修改，哪个命令撤销已提交的修改，什么能证明每次恢复成功，以及 C 部分中 git revert 为什么拒绝执行。含 Unicode 的输出 {'猫': 2, '犬': 1} 在修改前和恢复后必须完全相同。",
+      "hint": "restore 的证据：git status --short 没有输出，且脚本输出与已提交版本一致。revert 的证据：log 顶部出现新的 \"Revert ...\" 提交，且 git diff HEAD~2 HEAD 的输出为空（内容等于问题提交之前的版本）。在 C 部分，先运行 git restore freq.py 丢弃演示中未暂存的修改；如需保留它，先在仓库外保存副本，再恢复文件。确认 git status --short 没有输出，且 git log -1 --format=%s 仍显示 \"Add debug print\"，然后才运行 git revert --no-edit HEAD，撤销那次已经提交的调试修改。不要在 revert 之前提交这次未提交的修改。即使 Git 的拒绝信息建议提交或 stash 你的修改，这里也请忽略这条通用建议，按上面先 restore 的顺序操作。绝不要使用 reset --hard、clean 或 force-push。",
+      "answer": "A 部分的输出：\n\n```text\n{'猫': 2, '犬': 1}\n M freq.py\n{'猫': 2, '犬': 1}\n{}\n{'猫': 2, '犬': 1}\n```\n\n追加的那一行加入了打印空字典 {} 的 print；git restore 把它去掉，状态变为空，输出回到已提交的版本。\n\nA 部分替代方法的输出：\n\n```text\n{'猫': 2, '犬': 1}\n{'猫': 2, '犬': 1}\n```\n\n把保存的文件复制回来会精确恢复原始字节，所以 git status --short 没有输出。\n\nB 部分的输出：\n\n```text\n{'猫': 2, '犬': 1}\n{'猫': 2, '犬': 1}\ndebug\nRevert \"Add debug print\"\nAdd debug print\nAdd char_frequencies\n{'猫': 2, '犬': 1}\n```\n\n问题提交会打印 debug。git revert --no-edit HEAD 增加第三个提交 Revert \"Add debug print\"。git diff HEAD~2 HEAD 没有输出，证明文件与最初的提交一致；状态干净，输出回到 {'猫': 2, '犬': 1}。\n\nC 部分的输出：\n\n```text\n{'猫': 2, '犬': 1}\nrevert refused: uncommitted change present\n M freq.py\n```\n\n应用反向修改会覆盖 freq.py 上未提交的修改，所以 git revert 拒绝执行（退出码 128）；之后该修改仍然存在。",
+      "mastery_criterion": "三个部分都在一次性仓库中复现了参考输出；正确地把未提交修改对应到 git restore 或保存的副本、把已提交修改对应到 git revert --no-edit HEAD，展示了各自的验证方法，并解释了 C 部分的拒绝。"
+    },
+    "day-09-act-04": {
+      "source_resources": [
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2–4.10 节（for、range、定义函数）；数据结构见同一教程第 5 章",
+          "version_or_verification_date": "Python 3.12 文档（核验日期：2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "用于查阅 Python 迭代、函数和容器的第一手参考资料。",
+          "safe_fallback": "教材内已讲解所有必需的行为，可以离线完成。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "在语法层面定义相同的结构；选择教程章节是因为它循序渐进。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "以讲座节奏讲解相同的控制流；由于本课程已通过终端练习推进这些概念，暂不采用。"
+            }
+          ],
+          "prerequisites": "第 01–06 天的 Python 表达式与文件系统基础",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "独立实现文本统计",
+      "prerequisites": "已完成今天的活动 1–3 并记录证据。恢复：活动 2（频率）、第 08 天活动 2（函数契约）、第 07 天（条件复习）。",
+      "objective": "在无协助的情况下实现 text_stats(text)，报告码位长度、不同码位的个数、频率字典和出现最多的码位；对空、重复和 Unicode 文本都正确，并且可以安全地重复调用。",
+      "assistance_policy_label": "独立掌握检查：提交证据之前不使用任何 AI 协助，也不查看参考答案；如实申报所受的协助。",
+      "instructions": "**间隔复习：** 本活动把第 08 天的循环不变量和函数与今天的字典结合起来。提交证据之前，不要打开参考答案，也不要使用 AI。\n\ntext_stats(text) 的规格（返回恰好包含以下键的字典）：\n- \"code_points\"：text 中 Unicode 码位的个数（len(text)）。\n- \"distinct\"：不同码位的个数。\n- \"frequencies\"：从每个码位到其出现次数的字典，按首次出现的顺序排列。\n- \"most_common\"：出现次数最多的码位；并列时取最先出现的；空文本时为 None。\n严格按 Unicode 码位计数：不做大小写折叠，也不做规范化，所以 \"e\\u0301\" 是两个码位。每次调用都必须从全新的状态开始。\n\n写代码之前，先预测 \"\"、\"abca\"、\"😀😀a\" 和 \"naïve naïve\" 的完整结果，以及 \"e\\u0301\" 的 code_points、distinct 和 most_common。然后实现、测试，最后写出频率循环和最多值循环各自的不变量。",
+      "exercise_prompt": "提交：全部五个输入的预测、text_stats 代码、实际输出、两次调用 text_stats(\"abca\") 结果相等的检查，以及两个不变量。每处不符都写明你要回顾的恢复活动。",
+      "hint": "请在认真尝试之后再看：先构建 frequencies，再用第二个循环选出 most_common，只有计数严格更大时才替换答案。在函数内部创建字典，使各次调用不共享状态。",
+      "answer": "参考实现及其输出：\n\n```python\ndef text_stats(text):\n    frequencies = {}\n    for ch in text:\n        frequencies[ch] = frequencies.get(ch, 0) + 1\n    most_common = None\n    best = 0\n    for ch in frequencies:\n        if frequencies[ch] > best:\n            most_common = ch\n            best = frequencies[ch]\n    return {\n        \"code_points\": len(text),\n        \"distinct\": len(frequencies),\n        \"frequencies\": frequencies,\n        \"most_common\": most_common,\n    }\nprint(text_stats(\"\"))\nprint(text_stats(\"abca\"))\nprint(text_stats(\"😀😀a\"))\nprint(text_stats(\"naïve naïve\"))\ndecomposed = text_stats(\"e\\u0301\")\nprint(decomposed[\"code_points\"], decomposed[\"distinct\"], decomposed[\"most_common\"])\nprint(text_stats(\"abca\") == text_stats(\"abca\"))\n```\n\n```text\n{'code_points': 0, 'distinct': 0, 'frequencies': {}, 'most_common': None}\n{'code_points': 4, 'distinct': 3, 'frequencies': {'a': 2, 'b': 1, 'c': 1}, 'most_common': 'a'}\n{'code_points': 3, 'distinct': 2, 'frequencies': {'😀': 2, 'a': 1}, 'most_common': '😀'}\n{'code_points': 11, 'distinct': 6, 'frequencies': {'n': 2, 'a': 2, 'ï': 2, 'v': 2, 'e': 2, ' ': 1}, 'most_common': 'n'}\n2 2 e\nTrue\n```\n\n不变量：在第一个循环中，frequencies 把每个已访问的码位映射到目前为止的计数（值之和等于已访问数）；在第二个循环中，most_common 是已访问的键中计数最大且最早出现的码位，best 是该计数。\"naïve naïve\" 有 11 个码位；五个字母各出现两次，空格出现一次，所以最先出现的 \"n\" 在并列中胜出。这里使用的特定表情符号 \"😀\" 是一个码位，所以 \"😀😀a\" 有 3 个码位。显示为一个表情符号的内容也可能由多个码位组成。\"e\\u0301\" 有 2 个码位、2 个不同码位；两者都出现一次，所以最先出现的 \"e\" 胜出。空字符串得到零、{} 和 None；由于每次调用都新建字典，重复调用的结果相等。\n\n**text_stats(\"abca\") 的逐步追踪：** 第一行是初始状态，之后每行都是再访问一个码位后的状态。visited 和 sum 是追踪表的列，并非要求在函数中新增的变量。\n\n```text\nvisited | frequencies             | sum\n''      | {}                      | 0\n'a'     | {'a': 1}                | 1\n'ab'    | {'a': 1, 'b': 1}        | 2\n'abc'   | {'a': 1, 'b': 1, 'c': 1} | 3\n'abca'  | {'a': 2, 'b': 1, 'c': 1} | 4\n```\n\n最初字典为空、总和为 0。每次迭代恰好统计下一个码位一次，因此保持频率不变量；循环结束时，四个码位已全部统计。第二个循环尚未访问任何键时，most_common 为 None，best 为 0。访问每个键后的状态：\n\n```text\nch  | frequencies[ch] | most_common | best\n'a' | 2               | 'a'         | 2\n'b' | 1               | 'a'         | 2\n'c' | 1               | 'a'         | 2\n```\n\n因为 1 > 2 为 False，后两个键不会替换领先的键。访问完所有键后，由不变量得到 most_common = \"a\"、best = 2；最终结果的 code_points 为 4，distinct 为 3。输入为空时两个循环都不执行：frequencies 保持 {}，most_common 保持 None，best 保持 0，因此初始状态也证明了空输入的情况。",
+      "mastery_criterion": "无协助：text_stats 在全部五个输入（包括空、重复、表情符号、带重音和分解形式的文本）上按码位粒度与参考输出一致；重复调用结果相等；两个不变量陈述正确；每处不符都写明恢复活动。"
+    }
+  }
+}

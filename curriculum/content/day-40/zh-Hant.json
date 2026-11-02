@@ -1,0 +1,170 @@
+{
+  "language": "zh-Hant",
+  "language_label": "繁體中文",
+  "day_title": "第 40 天：可學習的嵌入表與分散式表示",
+  "day_subtitle": "以可學習的嵌入矩陣 C 取代稀疏的 one-hot 指示向量。證明查表等於選取行的恆等關係，把列讀作特徵空間中的點，並在前向傳播之前預測張量形狀與參數數量。每個活動都記錄預測、觀察、複習與復原。",
+  "time_budget_label": "480 分鐘主動學習時間（8 小時專注學習）",
+  "category_label": "模型與訓練",
+  "common": {
+    "nav_calendar": "📅 課程行事曆與台帳",
+    "day_label": "第 40 天",
+    "prerequisites_title": "前置要求",
+    "objective_title": "學習目標",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主實作與記錄",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看參考解答與分析",
+    "mastery_title": "獨立掌握標準",
+    "draft_placeholder": "在此記錄你的查表預測、相似度計算、串接向量與參數台帳……",
+    "dev_slice_notice": "90 天 AI 學習平台的已驗證正式課程模組。",
+    "sources_heading": "權威來源資源與權利證明",
+    "source_author_label": "作者 / 機構",
+    "source_url_label": "原始出處連結",
+    "source_range_label": "對應章節 / 時間戳",
+    "source_verification_label": "驗證版本與日期",
+    "source_reuse_label": "複用類別",
+    "source_license_label": "許可證與權利說明",
+    "source_rationale_label": "入選理由",
+    "source_prereqs_label": "來源前置條件",
+    "source_fallback_label": "安全回退方案（離線彈性）",
+    "compared_candidates_heading": "對比候選資源與選型分析",
+    "compared_status_label": "評估結論",
+    "auth": {
+      "sign_in": "使用 Google 登入",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "登出",
+      "signed_in_as": "已登入為",
+      "guest": "訪客模式",
+      "link_github": "綁定 GitHub",
+      "link_google": "綁定 Google",
+      "linked_identities": "已綁定帳號",
+      "auth_errors": {
+        "access_denied": "授權已取消或存取被拒絕。",
+        "invalid_state": "無效或已過期的授權狀態權杖，請重試。",
+        "identity_conflict": "該第三方身分已被綁定至其他帳號。",
+        "provider_error": "認證服務提供者發生錯誤。",
+        "server_error": "認證服務提供者發生錯誤。",
+        "session_expired": "登入工作階段已過期，請重新登入。"
+      }
+    },
+    "progress": {
+      "save_btn": "儲存進度",
+      "saved": "已儲存",
+      "saving": "正在儲存...",
+      "save_error": "儲存失敗",
+      "offline": "離線狀態",
+      "mark_completed": "標記為已完成",
+      "completed_badge": "已完成"
+    },
+    "quiz": {
+      "quiz_title": "客觀知識測驗：嵌入與查找表",
+      "quiz_instructions": "請回答以下診斷題目檢驗掌握情況。提交前請誠實聲明你的輔助條件。",
+      "assistance_mode_label": "聲明輔助條件",
+      "mode_independent": "獨立掌握檢查 (無 AI 輔助)",
+      "mode_agent_assisted": "Agent 輔助工程檢查 (借助 AI 完成)",
+      "mode_disclaimer": "說明：無 AI 輔助屬於誠實聲明條件，非平台監控或強制檢測手段。",
+      "submit_btn": "提交答案",
+      "retry_btn": "重新測驗",
+      "view_hint": "查看提示",
+      "mastery_criterion_label": "掌握標準",
+      "mastery_criterion_desc": "在獨立掌握檢查模式下獲得 100% 得分（3/3 題完全正確）。",
+      "score_label": "測驗得分",
+      "passed_badge": "通過",
+      "failed_badge": "未通過 (需複習)",
+      "independent_pass_badge": "獨立掌握通過",
+      "agent_assisted_pass_badge": "Agent 輔助通過",
+      "self_reported_badge": "自主勾選完成",
+      "stale_badge": "歷史記錄 (內容已更新，需重新驗證)",
+      "attempts_history_title": "作答應證與歷史記錄",
+      "no_attempts": "暫無測驗記錄。"
+    }
+  },
+  "activities": {
+    "day-40-act-01": {
+      "title": "從 one-hot 向量到嵌入查表",
+      "prerequisites": "第 39 天的斷詞與 n-gram 統計；數學模組中的矩陣乘法基礎。",
+      "objective": "推導為什麼嵌入查表等價於 one-hot 向量乘以嵌入矩陣，並對真實配置預測表的形狀與參數數量。",
+      "assistance_policy_label": "Agent 輔助工程檢查",
+      "instructions": "必做任務：使用小詞彙表 V = {'.', 'a', 'b', 'c'}（索引 0-3）與嵌入表 C，其各列分別為 '.'=[0.1,0.3]、'a'=[0.2,-0.1]、'b'=[-0.4,0.5]、'c'=[0.0,0.2]，形狀 (V,d) = (4,2)。證明 one-hot 向量 e_2 = [0,0,1,0] 與 C 相乘會選出第 2 列，得到 [-0.4, 0.5]。解釋為什麼程式以整數索引查表 C[i]，而不是物化一個 V 維 one-hot 向量。選做任務：說明若同一個字元由兩張不同的表嵌入，會有什麼變化。",
+      "exercise_prompt": "1. 用上表計算 e_3 * C，並說明選中了哪一列。\n2. 對姓名詞彙表 V=27、d=10，給出 C 的形狀與參數數量。\n3. 用一句話說明為什麼 C[i] 比先構造 e_i 再做乘法更省。",
+      "hint": "one-hot 向量除一個 1 之外全為 0；乘積中每個 0 都會抹掉 C 的一列，只有下標為 1 的那一列保留下來。參數數 = 列數 × 欄數。",
+      "answer": "e_3 = [0,0,0,1] 選中第 3 列，得到 [0.0, 0.2]。V=27、d=10 時，C 的形狀為 (27,10)，共 270 個參數。查表 C[i] 只需 O(d) 的計算與記憶體；one-hot 方式要花 O(V) 的代價卻只為丟棄 V-1 列，還浪費記憶體存放幾乎全零的向量。",
+      "mastery_criterion": "學習者能寫出恆等式 e_i * C = C[i,:]，正確算出兩個範例查表結果，並在無提示下推出 (27,10) 表的 270 個參數。"
+    },
+    "day-40-act-02": {
+      "title": "分散式表示：列即學習出的點",
+      "prerequisites": "完成上一活動；如受阻請使用列出的復原連結。",
+      "objective": "把嵌入列解釋為學習出的特徵空間中的座標，計算內積與餘弦相似度，並解釋為什麼未訓練的列不攜帶語義。",
+      "assistance_policy_label": "獨立掌握檢查",
+      "instructions": "必做任務：把 C 的每一列當作 R^2 中的點。對兩對列分別計算 dot(u,v) = sum_i u_i v_i 與 cos(u,v) = dot(u,v)/(||u||*||v||)。然後用自己的話解釋：要讓「相似」的字元最終彼此靠近，訓練必須改變什麼——表的初值是隨機的，所以初始距離沒有意義。選做任務：在紙上畫出四個點並標出最近的一對。",
+      "exercise_prompt": "使用列 '.'=[0.1,0.3]、'a'=[0.2,-0.1]、'b'=[-0.4,0.5]、'c'=[0.0,0.2]：\n1. 計算 dot('.', 'c') 與 cos('.', 'c')。\n2. 計算 cos('a', 'b')。\n3. 這張表中哪一對最近？在訓練之前你會信任這些相似度嗎？為什麼？",
+      "hint": "範數：||'.'|| = sqrt(0.10) ~= 0.3162，||'a'|| = sqrt(0.05) ~= 0.2236，||'b'|| = sqrt(0.41) ~= 0.6403，||'c'|| = 0.2。dot('.', 'c') = 0.1*0.0 + 0.3*0.2。",
+      "answer": "dot('.', 'c') = 0.06，cos('.', 'c') = 0.06 / (0.3162 * 0.2) ~= 0.9487（幾乎同向）。dot('a','b') = -0.13，所以 cos('a','b') = -0.13 / (0.2236 * 0.6403) ~= -0.908（幾乎反向）。此表中最近的一對是 ('.','c')。不可信——這些數值只是隨機初始化的巧合；只有在真實上下文上做梯度更新後，列間距離才有意義。",
+      "mastery_criterion": "獨立計算兩個餘弦相似度且誤差在 ±0.01 以內，並能正確說明隨機嵌入在訓練前不編碼任何語義。"
+    },
+    "day-40-act-03": {
+      "title": "上下文串接與參數台帳",
+      "prerequisites": "完成上一活動；如受阻請使用列出的復原連結。",
+      "objective": "按上下文順序串接各位置的嵌入列來組裝模型輸入，預測其維度，並為微型模型與姓名規模配置維護完整參數台帳。",
+      "assistance_policy_label": "Agent 輔助工程檢查",
+      "instructions": "必做任務：block_size = 2、上下文 ('a','b') = 索引 [1,2] 時，網路輸入為 x = concat(C[1], C[2]) = [0.2, -0.1, -0.4, 0.5]，維度 block_size * d = 4。為上下文 ('b','.') 構建同樣的向量。然後寫出微型模型（隱藏層大小 3）與姓名規模配置 V=27、d=10、block=3、hidden=100 的參數台帳。選做任務：解釋為什麼串接中的位置順序不能打亂。",
+      "exercise_prompt": "1. 寫出上下文 ('b','.') 的 x。\n2. 微型台帳：C (4x2)、W1 (4x3)、b1 (3)、W2 (3x4)、b2 (4)——總參數數？\n3. 姓名台帳：C (27x10)、W1 (30x100)、b1 (100)、W2 (100x27)、b2 (27)——總參數數？",
+      "hint": "串接按位置順序追加列：先 C[2] 再 C[0]。矩陣貢獻 列×欄 個參數；偏置貢獻其長度。",
+      "answer": "x = concat(C[2], C[0]) = [-0.4, 0.5, 0.1, 0.3]。微型合計：8 + 12 + 3 + 12 + 4 = 39 個參數。姓名合計：270 + 3000 + 100 + 2700 + 27 = 6097 個參數。位置順序很重要：concat(C[1], C[2]) 與 concat(C[2], C[1]) 不同，下游權重列正是按該順序訓練的。",
+      "mastery_criterion": "給出位置順序正確的串接向量，並推導出（而非背出）兩份台帳：39 與 6097。"
+    },
+    "day-40-act-04": {
+      "title": "獨立掌握檢查：查表、形狀與參數計數",
+      "prerequisites": "完成活動 40-01 至 40-03。",
+      "objective": "在聲明的無 AI 條件下，檢驗對嵌入查表、分散式幾何、上下文串接與參數核算的獨立掌握程度。",
+      "assistance_policy_label": "獨立掌握檢查",
+      "instructions": "必做任務：闔上書本，在打開參考解答或知識測驗之前，把推導過程記錄在草稿工作區。推導本身不得求助 AI 助手或計算器（事後可以驗算）。選做任務：把隱藏層改為 200，重做台帳並比較。",
+      "exercise_prompt": "新任務使用 V=8 個符號、d=4、block_size=3、hidden=64。\n1. C 的形狀與參數數。\n2. 串接輸入 x 的維度。\n3. C、W1、b1、W2、b2 的總參數數。\n4. 一句話：訓練為什麼會推動嵌入列移動？",
+      "hint": "x 有 block_size * d 個分量。台帳為 C + (block*d)*hidden + hidden + hidden*V + V。",
+      "answer": "C：形狀 (8,4) = 32 個參數。x 有 3*4 = 12 個分量。W1 (12,64) = 768，b1 = 64，W2 (64,8) = 512，b2 = 8。合計 = 32 + 768 + 64 + 512 + 8 = 1384。訓練按下一符號損失的梯度微調每一列，因此出現在相似上下文中的列收到相似的更新而彼此靠攏。",
+      "mastery_criterion": "獨立推導出全部四個答案：32 個參數、維度 12、合計 1384，以及關於梯度驅動列移動的正確一句話解釋。",
+      "quiz": {
+        "title": "客觀知識測驗：嵌入與查找表",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "把 V=27 個符號的詞彙表嵌入 d=10 維時，嵌入表 C 含有多少可訓練參數？",
+            "options": {
+              "a": "270",
+              "b": "2700",
+              "c": "27",
+              "d": "27000"
+            },
+            "hint": "C 每個符號一列、每個特徵一欄：參數數 = V * d。",
+            "explanation": "C 是 (27,10) 矩陣，因此含 27 * 10 = 270 個參數。"
+          },
+          {
+            "id": "q2",
+            "prompt": "one-hot 向量 e_i 與嵌入矩陣 C 相乘得到：",
+            "options": {
+              "a": "C 的第 i 欄",
+              "b": "C 的第 i 列",
+              "c": "第 i 列的 softmax",
+              "d": "第 i 個輸出 logit"
+            },
+            "hint": "e_i 中每個 0 都會在乘積中抹掉 C 的一列。",
+            "explanation": "e_i * C 選中 C 的第 i 列，因為只有第 i 個係數為 1；查表 C[i] 就是這同一個操作的直接實現。"
+          },
+          {
+            "id": "q3",
+            "prompt": "block_size = 3、嵌入維度 d = 10 時，串接上下文向量 x 的維度是多少？",
+            "options": {
+              "a": "13",
+              "b": "300",
+              "c": "30",
+              "d": "27"
+            },
+            "hint": "3 個上下文位置各貢獻 d 個特徵。",
+            "explanation": "x 串接 3 列各 10 個特徵，所以維度為 3 * 10 = 30。"
+          }
+        ]
+      }
+    }
+  }
+}

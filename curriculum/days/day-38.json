@@ -1,0 +1,365 @@
+{
+  "id": "day-38",
+  "day_number": 38,
+  "active_minutes": 480,
+  "topic_category": "models-and-training",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-37"
+  ],
+  "recovery_links": [
+    "day-35"
+  ],
+  "activities": [
+    {
+      "id": "day-38-act-01",
+      "lesson_id": "les-38",
+      "title": "Counting bigrams: from token stream to count table",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-37"
+      ],
+      "source_resources": [
+        {
+          "id": "karpathy-makemore",
+          "title": "makemore: Character-level language models on names.txt",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/makemore",
+          "relevant_timestamp": "makemore.py part 1 bigrams: counting consecutive character pairs into a frequency table",
+          "version_or_verification_date": "Verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT License (repository) / Standard YouTube License (video, subtitle rights unknown)",
+          "license_restrictions": [
+            "Video subtitles have unknown distribution rights and are not imported"
+          ],
+          "has_unknown_subtitle_rights": true,
+          "software_repository_license_only": true,
+          "permission_basis": "Lawful external hyperlink to public repository; no code or transcript text imported.",
+          "prerequisites": "Basic Python and Day 37 token ids",
+          "selection_rationale": "Standard minimal implementation of a count-based bigram language model on the same names.txt corpus family.",
+          "known_availability_limitations": "GitHub repository is public; companion lecture video may be unreachable on some networks.",
+          "safe_fallback": "The lesson builds the full count table locally in pure Python with verified counts.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Stanford CS336: Language Modeling from Scratch",
+              "url": "https://github.com/stanford-cs336/spring2024-assignment1-basics",
+              "license": "No license declared (the repository has no LICENSE file, so all rights are reserved by default)",
+              "status": "compared_alternative",
+              "comparison_rationale": "More rigorous and comprehensive but assumes PyTorch fluency; retained as the systems-rigor companion source."
+            },
+            {
+              "candidate_name": "Karpathy nanoGPT",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_deferred",
+              "comparison_rationale": "Strong Transformer training reference but beyond the count-based baseline scope; deferred to later pretraining days."
+            }
+          ]
+        },
+        {
+          "id": "jurafsky-slp3-ngram",
+          "title": "Speech and Language Processing, 3rd ed. draft, Chapter 3: N-gram Language Models",
+          "author": "Daniel Jurafsky, James H. Martin",
+          "original_url": "https://web.stanford.edu/~jurafsky/slp3/3.pdf",
+          "relevant_timestamp": "Sections 3.1-3.2: n-gram counts, Markov assumption, and maximum-likelihood estimation",
+          "version_or_verification_date": "Draft of 2026-08-19 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Free author-published draft chapter",
+          "license_restrictions": [
+            "Draft text is not reproduced; linking only"
+          ],
+          "permission_basis": "Lawful external hyperlink to the authors' public draft PDF; all explanations are original course text.",
+          "prerequisites": "Basic probability",
+          "selection_rationale": "Standard reference text defining n-gram models, count normalization, and the chain-rule decomposition used in this lesson.",
+          "known_availability_limitations": "Hosted on the author's Stanford site; chapter numbering may shift between drafts.",
+          "safe_fallback": "All definitions and worked count tables are included in the lesson itself.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Chen & Goodman: An Empirical Study of Smoothing Techniques for Language Modeling",
+              "url": "https://aclanthology.org/P96-1041/",
+              "license": "CC BY-NC-SA 3.0 (ACL Anthology, pre-2016 material)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Detailed smoothing survey but far beyond the add-one scope of a first n-gram day; optional further reading."
+            },
+            {
+              "candidate_name": "MIT OCW 6.863J Natural Language Processing",
+              "url": "https://ocw.mit.edu/courses/6-863j-natural-language-and-the-computer-representation-of-knowledge-spring-2003/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Solid academic lecture treatment but less current and less integrated with executable count tables than the SLP3 draft."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-38-act-02",
+      "lesson_id": "les-38",
+      "title": "Maximum-likelihood conditional probabilities",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-38-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "jurafsky-slp3-ngram",
+          "title": "Speech and Language Processing, 3rd ed. draft, Chapter 3: N-gram Language Models",
+          "author": "Daniel Jurafsky, James H. Martin",
+          "original_url": "https://web.stanford.edu/~jurafsky/slp3/3.pdf",
+          "relevant_timestamp": "Section 3.2: relative-frequency normalization P(w_n|w_{n-1}) = C(w_{n-1} w_n) / C(w_{n-1})",
+          "version_or_verification_date": "Draft of 2026-08-19 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Free author-published draft chapter",
+          "license_restrictions": [
+            "Draft text is not reproduced; linking only"
+          ],
+          "permission_basis": "Lawful external hyperlink to the authors' public draft PDF; all explanations are original course text.",
+          "prerequisites": "Basic probability",
+          "selection_rationale": "Normative definition of maximum-likelihood n-gram estimation used for the hand-computed probabilities in this activity.",
+          "known_availability_limitations": "Hosted on the author's Stanford site; chapter numbering may shift between drafts.",
+          "safe_fallback": "The lesson includes the complete worked normalization with verified fractions and decimals.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Chen & Goodman: An Empirical Study of Smoothing Techniques for Language Modeling",
+              "url": "https://aclanthology.org/P96-1041/",
+              "license": "CC BY-NC-SA 3.0 (ACL Anthology, pre-2016 material)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Detailed smoothing survey but far beyond the add-one scope of a first n-gram day; optional further reading."
+            },
+            {
+              "candidate_name": "MIT OCW 6.863J Natural Language Processing",
+              "url": "https://ocw.mit.edu/courses/6-863j-natural-language-and-the-computer-representation-of-knowledge-spring-2003/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Solid academic lecture treatment but less current and less integrated with executable count tables than the SLP3 draft."
+            }
+          ]
+        },
+        {
+          "id": "karpathy-makemore",
+          "title": "makemore: Character-level language models on names.txt",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/makemore",
+          "relevant_timestamp": "makemore.py part 1: row-normalizing the count matrix into P[i] = N[i] / N[i].sum()",
+          "version_or_verification_date": "Verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT License (repository) / Standard YouTube License (video, subtitle rights unknown)",
+          "license_restrictions": [
+            "Video subtitles have unknown distribution rights and are not imported"
+          ],
+          "has_unknown_subtitle_rights": true,
+          "software_repository_license_only": true,
+          "permission_basis": "Lawful external hyperlink to public repository; no code or transcript text imported.",
+          "prerequisites": "Basic Python",
+          "selection_rationale": "Shows the same normalization implemented over a real character-level count matrix on names.txt.",
+          "known_availability_limitations": "GitHub repository is public; companion lecture video may be unreachable on some networks.",
+          "safe_fallback": "The local worked example normalizes a fully printed 3-context table by hand.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Stanford CS336: Language Modeling from Scratch",
+              "url": "https://github.com/stanford-cs336/spring2024-assignment1-basics",
+              "license": "No license declared (the repository has no LICENSE file, so all rights are reserved by default)",
+              "status": "compared_alternative",
+              "comparison_rationale": "More rigorous and comprehensive but assumes PyTorch fluency; retained as the systems-rigor companion source."
+            },
+            {
+              "candidate_name": "Karpathy nanoGPT",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_deferred",
+              "comparison_rationale": "Strong Transformer training reference but beyond the count-based baseline scope; deferred to later pretraining days."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-38-act-03",
+      "lesson_id": "les-38",
+      "title": "Add-k smoothing, likelihood, and perplexity",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-38-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "jurafsky-slp3-ngram",
+          "title": "Speech and Language Processing, 3rd ed. draft, Chapter 3: N-gram Language Models",
+          "author": "Daniel Jurafsky, James H. Martin",
+          "original_url": "https://web.stanford.edu/~jurafsky/slp3/3.pdf",
+          "relevant_timestamp": "Sections 3.3-3.4: Laplace (add-one) smoothing, evaluation, and perplexity",
+          "version_or_verification_date": "Draft of 2026-08-19 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Free author-published draft chapter",
+          "license_restrictions": [
+            "Draft text is not reproduced; linking only"
+          ],
+          "permission_basis": "Lawful external hyperlink to the authors' public draft PDF; all explanations are original course text.",
+          "prerequisites": "Basic probability and logarithms",
+          "selection_rationale": "Standard treatment of smoothing zero counts and of perplexity as the inverse likelihood per token.",
+          "known_availability_limitations": "Hosted on the author's Stanford site; chapter numbering may shift between drafts.",
+          "safe_fallback": "The lesson contains the complete smoothed probability table and perplexity computation.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Chen & Goodman: An Empirical Study of Smoothing Techniques for Language Modeling",
+              "url": "https://aclanthology.org/P96-1041/",
+              "license": "CC BY-NC-SA 3.0 (ACL Anthology, pre-2016 material)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Detailed smoothing survey but far beyond the add-one scope of a first n-gram day; optional further reading."
+            },
+            {
+              "candidate_name": "MIT OCW 6.863J Natural Language Processing",
+              "url": "https://ocw.mit.edu/courses/6-863j-natural-language-and-the-computer-representation-of-knowledge-spring-2003/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Solid academic lecture treatment but less current and less integrated with executable count tables than the SLP3 draft."
+            }
+          ]
+        },
+        {
+          "id": "cs336-basics",
+          "title": "CS336 Assignment 1: Basics (Spring 2025 tagged release)",
+          "author": "Stanford University CS336 Staff",
+          "original_url": "https://github.com/stanford-cs336/assignment1-basics/tree/spring2025",
+          "relevant_timestamp": "README setup; tests/adapters.py; tests/test_optimizer.py; tests/test_nn_utils.py; tests/test_serialization.py",
+          "version_or_verification_date": "spring2025 tag; README, tests and MIT LICENSE checked 2026-11-01",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "software_repository_license_only": true,
+          "permission_basis": "External hyperlink only to the spring2025 assignment repository; its LICENSE is MIT. No assignment text, code or lecture material is imported.",
+          "prerequisites": "Python systems programming",
+          "selection_rationale": "Lead assignment-driven source for pretraining component practice and tests. nanoGPT remains a compact historical code-reading companion, not the current recommended training curriculum.",
+          "known_availability_limitations": "Public tagged handout and tests; full training needs suitable compute. The campus cluster is not required for reading or local component practice.",
+          "safe_fallback": "The lesson evaluates the smoothed model on a declared held-out sentence with verified numbers.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Karpathy nanoGPT",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_alternative",
+              "comparison_rationale": "Simpler code layout, useful complementary reference for minimal PyTorch Transformer."
+            },
+            {
+              "candidate_name": "Hugging Face Transformers Course",
+              "url": "https://huggingface.co/learn/nlp-course/chapter1/1",
+              "license": "Apache-2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-level API focus rather than building from raw tensor fundamentals."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-38-act-04",
+      "lesson_id": "les-38",
+      "title": "Independent mastery check: implement and verify a bigram baseline",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-38-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "jurafsky-slp3-ngram",
+          "title": "Speech and Language Processing, 3rd ed. draft, Chapter 3: N-gram Language Models",
+          "author": "Daniel Jurafsky, James H. Martin",
+          "original_url": "https://web.stanford.edu/~jurafsky/slp3/3.pdf",
+          "relevant_timestamp": "Sections 3.1-3.4 combined: counts, MLE, smoothing, and evaluation",
+          "version_or_verification_date": "Draft of 2026-08-19 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Free author-published draft chapter",
+          "license_restrictions": [
+            "Draft text is not reproduced; linking only"
+          ],
+          "permission_basis": "Lawful external hyperlink to the authors' public draft PDF; all explanations are original course text.",
+          "prerequisites": "Basic probability",
+          "selection_rationale": "Single primary source covering every formula assessed in the independent check.",
+          "known_availability_limitations": "Hosted on the author's Stanford site; chapter numbering may shift between drafts.",
+          "safe_fallback": "All assessed quantities were derived locally and verified by execution.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Chen & Goodman: An Empirical Study of Smoothing Techniques for Language Modeling",
+              "url": "https://aclanthology.org/P96-1041/",
+              "license": "CC BY-NC-SA 3.0 (ACL Anthology, pre-2016 material)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Detailed smoothing survey but far beyond the add-one scope of a first n-gram day; optional further reading."
+            },
+            {
+              "candidate_name": "MIT OCW 6.863J Natural Language Processing",
+              "url": "https://ocw.mit.edu/courses/6-863j-natural-language-and-the-computer-representation-of-knowledge-spring-2003/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Solid academic lecture treatment but less current and less integrated with executable count tables than the SLP3 draft."
+            }
+          ]
+        },
+        {
+          "id": "karpathy-makemore",
+          "title": "makemore: Character-level language models on names.txt",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/makemore",
+          "relevant_timestamp": "makemore.py part 1: negative log-likelihood averaging nll/N as the loss of the count model",
+          "version_or_verification_date": "Verified 2026-10-30",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT License (repository) / Standard YouTube License (video, subtitle rights unknown)",
+          "license_restrictions": [
+            "Video subtitles have unknown distribution rights and are not imported"
+          ],
+          "has_unknown_subtitle_rights": true,
+          "software_repository_license_only": true,
+          "permission_basis": "Lawful external hyperlink to public repository; no code or transcript text imported.",
+          "prerequisites": "Basic Python",
+          "selection_rationale": "Connects the hand-derived likelihood to the averaged negative log-likelihood used as a training loss.",
+          "known_availability_limitations": "GitHub repository is public; companion lecture video may be unreachable on some networks.",
+          "safe_fallback": "The mastery check reproduces the nll/N computation on a fully specified toy corpus.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Stanford CS336: Language Modeling from Scratch",
+              "url": "https://github.com/stanford-cs336/spring2024-assignment1-basics",
+              "license": "No license declared (the repository has no LICENSE file, so all rights are reserved by default)",
+              "status": "compared_alternative",
+              "comparison_rationale": "More rigorous and comprehensive but assumes PyTorch fluency; retained as the systems-rigor companion source."
+            },
+            {
+              "candidate_name": "Karpathy nanoGPT",
+              "url": "https://github.com/karpathy/nanoGPT",
+              "license": "MIT",
+              "status": "compared_deferred",
+              "comparison_rationale": "Strong Transformer training reference but beyond the count-based baseline scope; deferred to later pretraining days."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

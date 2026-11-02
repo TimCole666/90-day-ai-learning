@@ -1,0 +1,374 @@
+{
+  "id": "day-21",
+  "day_number": 21,
+  "active_minutes": 480,
+  "topic_category": "mathematics",
+  "is_review_day": true,
+  "status": "available",
+  "prerequisites": [
+    "day-20"
+  ],
+  "recovery_links": [
+    "day-20"
+  ],
+  "activities": [
+    {
+      "id": "day-21-act-01",
+      "lesson_id": "les-21",
+      "title": "Computational graphs: local derivatives and backward accumulation",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev2",
+      "prerequisites": [
+        "day-20"
+      ],
+      "source_resources": [
+        {
+          "id": "karpathy-micrograd",
+          "title": "micrograd: A tiny scalar-valued autograd engine",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/micrograd",
+          "relevant_timestamp": "micrograd/engine.py: class Value (_backward closures and backward() topological sort); README 'Example usage'",
+          "version_or_verification_date": "2022 (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "has_unknown_subtitle_rights": true,
+          "permission_basis": "Linking only; no transcript or code reproduced.",
+          "prerequisites": "Chain rule and partial derivatives (Study Days 19-20).",
+          "selection_rationale": "The scalar computational graph in this lesson is exactly the micrograd engine walkthrough; it previews the autograd project without importing any material.",
+          "known_availability_limitations": "Hosted on YouTube and GitHub; streaming may be blocked by regional networks or firewalls.",
+          "safe_fallback": "The full forward and backward pass is derived locally with numeric verification; no video is required.",
+          "compared_candidates": [
+            {
+              "candidate_name": "PyTorch Autograd Internals",
+              "url": "https://pytorch.org/docs/stable/notes/autograd.html",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Normative production documentation, but micrograd's pure Python implementation provides far superior initial clarity."
+            },
+            {
+              "candidate_name": "3Blue1Brown: What is Backpropagation?",
+              "url": "https://www.3blue1brown.com/lessons/backpropagation",
+              "license": "3Blue1Brown copyright (all rights reserved); site FAQ permits only short clips under stated conditions",
+              "status": "compared_alternative",
+              "comparison_rationale": "High visual quality, pairs cleanly as optional supplementary visual reference."
+            }
+          ]
+        },
+        {
+          "id": "openstax-calculus-3",
+          "title": "OpenStax Calculus Volume 3",
+          "author": "OpenStax, Rice University (Gilbert Strang, Edwin Herman, et al.)",
+          "original_url": "https://openstax.org/details/books/calculus-volume-3",
+          "relevant_timestamp": "Section 4.5: tree-diagram rule used to justify backward accumulation",
+          "version_or_verification_date": "OpenStax Calculus Volume 3 web edition (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "textbook",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "attribution",
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no source text or figures reproduced.",
+          "prerequisites": "Scalar chain rule (day-19) and partial derivatives (day-20).",
+          "selection_rationale": "Provides the formal chain rule statement that the graph walkthrough applies node by node.",
+          "known_availability_limitations": "Online textbook requires network access; a PDF mirror can be downloaded in advance.",
+          "safe_fallback": "The derivation uses only local rules already proven on Days 19-20.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OCW 18.02SC Multivariable Calculus (Prof. Denis Auroux)",
+              "url": "https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Selected as the lecture-depth companion for partial derivatives; OpenStax Volume 3 remains the written primary reference."
+            },
+            {
+              "candidate_name": "Khan Academy: Multivariable Calculus",
+              "url": "https://www.khanacademy.org/math/multivariable-calculus",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong visual coverage of gradients, but the OpenStax text better matches the lesson's theorem-plus-hand-check structure."
+            }
+          ],
+          "locator_url": "https://openstax.org/books/calculus-volume-3/pages/4-5-the-chain-rule"
+        }
+      ]
+    },
+    {
+      "id": "day-21-act-02",
+      "lesson_id": "les-21",
+      "title": "Shared nodes: why gradient contributions accumulate",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev2",
+      "prerequisites": [
+        "day-21-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "karpathy-micrograd",
+          "title": "micrograd: A tiny scalar-valued autograd engine",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/micrograd",
+          "relevant_timestamp": "micrograd/engine.py: class Value (_backward closures and backward() topological sort); README 'Example usage'",
+          "version_or_verification_date": "2022 (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "has_unknown_subtitle_rights": true,
+          "permission_basis": "Linking only; no transcript or code reproduced.",
+          "prerequisites": "Computational graph walkthrough (day-21-act-01).",
+          "selection_rationale": "The reusable-variable counterexample in this activity mirrors the accumulation behavior a correct engine must implement.",
+          "known_availability_limitations": "Hosted on YouTube and GitHub; streaming may be blocked by regional networks or firewalls.",
+          "safe_fallback": "The counterexample is proven locally by direct substitution and a finite-difference check.",
+          "compared_candidates": [
+            {
+              "candidate_name": "PyTorch Autograd Internals",
+              "url": "https://pytorch.org/docs/stable/notes/autograd.html",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Normative production documentation, but micrograd's pure Python implementation provides far superior initial clarity."
+            },
+            {
+              "candidate_name": "3Blue1Brown: What is Backpropagation?",
+              "url": "https://www.3blue1brown.com/lessons/backpropagation",
+              "license": "3Blue1Brown copyright (all rights reserved); site FAQ permits only short clips under stated conditions",
+              "status": "compared_alternative",
+              "comparison_rationale": "High visual quality, pairs cleanly as optional supplementary visual reference."
+            }
+          ]
+        },
+        {
+          "id": "openstax-calculus-3",
+          "title": "OpenStax Calculus Volume 3",
+          "author": "OpenStax, Rice University (Gilbert Strang, Edwin Herman, et al.)",
+          "original_url": "https://openstax.org/details/books/calculus-volume-3",
+          "relevant_timestamp": "Section 4.5: sum over all dependency paths when a variable is reused",
+          "version_or_verification_date": "OpenStax Calculus Volume 3 web edition (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "textbook",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "attribution",
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no source text or figures reproduced.",
+          "prerequisites": "Scalar chain rule (day-19) and partial derivatives (day-20).",
+          "selection_rationale": "States the rule that total derivatives add contributions along every path, which the counterexample verifies.",
+          "known_availability_limitations": "Online textbook requires network access; a PDF mirror can be downloaded in advance.",
+          "safe_fallback": "The proof reduces the composition to a single-variable expansion, independent of the external source.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OCW 18.02SC Multivariable Calculus (Prof. Denis Auroux)",
+              "url": "https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Selected as the lecture-depth companion for partial derivatives; OpenStax Volume 3 remains the written primary reference."
+            },
+            {
+              "candidate_name": "Khan Academy: Multivariable Calculus",
+              "url": "https://www.khanacademy.org/math/multivariable-calculus",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong visual coverage of gradients, but the OpenStax text better matches the lesson's theorem-plus-hand-check structure."
+            }
+          ],
+          "locator_url": "https://openstax.org/books/calculus-volume-3/pages/4-5-the-chain-rule"
+        }
+      ]
+    },
+    {
+      "id": "day-21-act-03",
+      "lesson_id": "les-21",
+      "title": "Finite-difference verification harness and retrieval review",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-21-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "py-docs-numeric-ops",
+          "title": "The Python Tutorial: Numbers and Expressions",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/introduction.html#numbers",
+          "relevant_timestamp": "Section 3.1.1 Numbers: arithmetic used by the verification harness",
+          "version_or_verification_date": "Python 3.12 documentation (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Linking only; no source text reproduced.",
+          "prerequisites": "Able to run a short Python file from the terminal.",
+          "selection_rationale": "Reference for the arithmetic in the central finite-difference helper reused across the block.",
+          "known_availability_limitations": "Online documentation may be unavailable offline.",
+          "safe_fallback": "The harness listing is embedded and runs on a standard Python install.",
+          "compared_candidates": [
+            {
+              "candidate_name": "math — Mathematical functions",
+              "url": "https://docs.python.org/3/library/math.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Extends the operator set to transcendental functions; kept as a follow-on once the arithmetic expressions are fluent."
+            },
+            {
+              "candidate_name": "The Python Tutorial: Floating Point Arithmetic Issues",
+              "url": "https://docs.python.org/3/tutorial/floatingpoint.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Explains binary float representation limits; deferred to the numerics days where tolerance reasoning is rehearsed."
+            }
+          ]
+        },
+        {
+          "id": "openstax-calculus-1",
+          "title": "OpenStax Calculus Volume 1",
+          "author": "OpenStax, Rice University (Gilbert Strang, Edwin Herman, et al.)",
+          "original_url": "https://openstax.org/details/books/calculus-volume-1",
+          "relevant_timestamp": "Sections 3.1-3.6 review scope for the block retrieval check",
+          "version_or_verification_date": "OpenStax Calculus Volume 1 web edition (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "open_textbook",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "attribution",
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no source text or figures reproduced.",
+          "prerequisites": "Derivative rules for powers and polynomials (Study Days 16-18).",
+          "selection_rationale": "Optional drill source for extra derivative review during the consolidation block.",
+          "known_availability_limitations": "Online textbook requires network access; a PDF mirror can be downloaded in advance.",
+          "safe_fallback": "The retrieval checklist is self-contained in the lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OpenCourseWare 18.01SC Single Variable Calculus",
+              "url": "https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_selected_for_visual_practice",
+              "comparison_rationale": "Strong exercises and transcripts, but the noncommercial share-alike terms and course navigation make OpenStax the primary stable text."
+            },
+            {
+              "candidate_name": "Paul's Online Math Notes: Calculus I",
+              "url": "https://tutorial.math.lamar.edu/Classes/CalcI/CalcI.aspx",
+              "license": "All Rights Reserved",
+              "status": "compared_rejected_for_reuse",
+              "comparison_rationale": "Useful reference, but rights and redistribution terms are less suitable for embedded recovery material."
+            },
+            {
+              "candidate_name": "SciPy Numerical Differentiation Documentation",
+              "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+              "license": "BSD-3-Clause",
+              "status": "compared_selected_for_numerics",
+              "comparison_rationale": "A primary API reference for numerical derivative step-size behavior; it complements rather than replaces the hand derivation."
+            }
+          ],
+          "locator_url": "https://openstax.org/books/calculus-volume-1/pages/3-6-the-chain-rule"
+        }
+      ]
+    },
+    {
+      "id": "day-21-act-04",
+      "lesson_id": "les-21",
+      "title": "Block review assessment: graph gradient, edge cases, and recovery plan",
+      "active_minutes": 120,
+      "activity_type": "review",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-21-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "karpathy-micrograd",
+          "title": "micrograd: A tiny scalar-valued autograd engine",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/micrograd",
+          "relevant_timestamp": "micrograd/engine.py: class Value (_backward closures and backward() topological sort); README 'Example usage'",
+          "version_or_verification_date": "2022 (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "has_unknown_subtitle_rights": true,
+          "permission_basis": "Linking only; no transcript or code reproduced.",
+          "prerequisites": "All of Study Days 19-21 activities 1-3.",
+          "selection_rationale": "Optional preview of the autograd engine that the independent graph computation imitates.",
+          "known_availability_limitations": "Hosted on YouTube and GitHub; streaming may be blocked by regional networks or firewalls.",
+          "safe_fallback": "The assessment is fully specified locally with a worked reference answer.",
+          "compared_candidates": [
+            {
+              "candidate_name": "PyTorch Autograd Internals",
+              "url": "https://pytorch.org/docs/stable/notes/autograd.html",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Normative production documentation, but micrograd's pure Python implementation provides far superior initial clarity."
+            },
+            {
+              "candidate_name": "3Blue1Brown: What is Backpropagation?",
+              "url": "https://www.3blue1brown.com/lessons/backpropagation",
+              "license": "3Blue1Brown copyright (all rights reserved); site FAQ permits only short clips under stated conditions",
+              "status": "compared_alternative",
+              "comparison_rationale": "High visual quality, pairs cleanly as optional supplementary visual reference."
+            }
+          ]
+        },
+        {
+          "id": "openstax-calculus-3",
+          "title": "OpenStax Calculus Volume 3",
+          "author": "OpenStax, Rice University (Gilbert Strang, Edwin Herman, et al.)",
+          "original_url": "https://openstax.org/details/books/calculus-volume-3",
+          "relevant_timestamp": "Section 4.6: gradients exist only where partials exist; review scope for edge cases",
+          "version_or_verification_date": "OpenStax Calculus Volume 3 web edition (verified 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "textbook",
+          "license": "CC BY-NC-SA 4.0",
+          "license_restrictions": [
+            "attribution",
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no source text or figures reproduced.",
+          "prerequisites": "Partial derivatives and the multivariable chain rule.",
+          "selection_rationale": "Frames the ReLU kink edge case reviewed in the block assessment.",
+          "known_availability_limitations": "Online textbook requires network access; a PDF mirror can be downloaded in advance.",
+          "safe_fallback": "The edge case is resolved locally with left and right slopes.",
+          "compared_candidates": [
+            {
+              "candidate_name": "MIT OCW 18.02SC Multivariable Calculus (Prof. Denis Auroux)",
+              "url": "https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Selected as the lecture-depth companion for partial derivatives; OpenStax Volume 3 remains the written primary reference."
+            },
+            {
+              "candidate_name": "Khan Academy: Multivariable Calculus",
+              "url": "https://www.khanacademy.org/math/multivariable-calculus",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong visual coverage of gradients, but the OpenStax text better matches the lesson's theorem-plus-hand-check structure."
+            }
+          ],
+          "locator_url": "https://openstax.org/books/calculus-volume-3/pages/4-6-directional-derivatives-and-the-gradient"
+        }
+      ]
+    }
+  ]
+}

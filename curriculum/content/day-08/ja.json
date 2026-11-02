@@ -1,0 +1,285 @@
+{
+  "language": "ja",
+  "language_label": "日本語",
+  "day_title": "Day 08: ループ、ループ不変条件、関数の入力と出力",
+  "day_subtitle": "新しい内容：テキストに対する for ループ、ループが正しい理由を説明する初心者向けのループ不変条件、入力と戻り値が明示された関数。各活動は Day 04〜07 の短い想起（間隔をあけた復習）から始め、予測・観察・回復の証拠を記録する。小さな変更は使い捨ての Git リポジトリで管理する。",
+  "time_budget_label": "480 分（8 時間の集中学習）",
+  "category_label": "自律学習と Python",
+  "common": {
+    "nav_calendar": "カリキュラムカレンダー",
+    "day_label": "学習日 08",
+    "prerequisites_title": "前提条件",
+    "objective_title": "学習目標",
+    "instructions_title": "手順",
+    "exercise_title": "演習と予測記録",
+    "hint_title": "ヒントを見る",
+    "reveal_answer": "参考解答とトレースを見る",
+    "mastery_title": "独立習得基準",
+    "draft_placeholder": "予測、実際の出力、振り返り、回復の証拠をここに記録...",
+    "sources_heading": "出典リソースと来歴",
+    "source_author_label": "著者・提供機関",
+    "source_url_label": "オリジナル出所URL",
+    "source_range_label": "該当セクション・タイムスタンプ",
+    "source_verification_label": "検証バージョンと日付",
+    "source_rationale_label": "選定理由",
+    "source_prereqs_label": "ソース前提知識",
+    "source_fallback_label": "安全フォールバック（オフライン回復性）",
+    "compared_candidates_heading": "比較対象候補リソースと選定評価"
+  },
+  "activities": {
+    "day-08-act-01": {
+      "source_resources": [
+        {
+          "id": "automate-boring-stuff-3e",
+          "title": "Automate the Boring Stuff with Python, 3rd edition",
+          "author": "Al Sweigart",
+          "original_url": "https://automatetheboringstuff.com/3e/",
+          "relevant_timestamp": "Chapter 3; Practice Questions; Appendix B answers",
+          "version_or_verification_date": "Public edition checked 2026-11-01; moving pages may change",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Copyright Al Sweigart; edition-specific reuse terms unverified",
+          "license_restrictions": [
+            "linking only; no reproduction"
+          ],
+          "permission_basis": "External hyperlink only; no third-party prose, exercises, code or translations are imported.",
+          "prerequisites": "No prior programming required for Chapter 1; later chapters assume its basic Python concepts.",
+          "selection_rationale": "Beginner teaching and answer-keyed practice before checking exact semantics in the Python reference; selected chapters only, not the book's entire automation stack.",
+          "known_availability_limitations": "Free HTML; external website may be unavailable. Exact third-edition redistribution terms have not been verified, so no reuse permission is claimed.",
+          "safe_fallback": "Use the original localized explanations, exercises and checks already present in this activity; no external account or purchase is required for that fallback.",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Tutorial",
+              "url": "https://docs.python.org/3/tutorial/",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Guided Python syntax but assumes programming familiarity; paired with the beginner text rather than used as its replacement."
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Lectures and problem sets teach a broader CS1 course; the book offers shorter text-first entry and an answer appendix."
+            }
+          ],
+          "locator_url": "https://automatetheboringstuff.com/3e/chapter3.html"
+        },
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2〜4.10 節（for、range、関数の定義）",
+          "version_or_verification_date": "Python 3.12 ドキュメント（確認日: 2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Python の反復処理、関数、コンテナを確認するための一次資料。",
+          "safe_fallback": "必要な動作はすべて教材内で説明しているため、オフラインでも完了できます。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ構文を文法レベルで定義するリファレンスです。段階を追って学べる構成のため、チュートリアルの章を選びました。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ制御フローを講義のペースで扱う教材です。本カリキュラムではターミナルでの演習を通じて概念を扱っているため、採用を見送りました。"
+            }
+          ],
+          "prerequisites": "Day 01〜06 の Python の式とファイルシステムの基礎",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "for ループと初心者向けのループ不変条件",
+      "prerequisites": "Day 07（独立チェックを含む）を修了していること。回復先：Day 07（値と条件）。Day 07 のループ予告は任意の予備知識。",
+      "objective": "文字列に対する for ループを 1 コードポイントずつトレースし、ループ前・各反復後・終了時に成り立つループ不変条件を、空文字列や Unicode 文字列の場合も含めて述べる。",
+      "assistance_policy_label": "エージェント支援の演習：まず自分の予測と実際の出力を記録すること。その後に限り AI エージェントに説明やレビューを頼んでよく、受けた支援は証拠に必ず記録する。",
+      "instructions": "参照資料: この活動に割り当てられた既存の読解・練習時間内で、Automate the Boring Stuff with Python, 3rd edition の Chapter 3; Practice Questions; Appendix B answers を参照し、ローカル課題とのつながりを一つ自分の言葉で説明する。既存の演習と合格基準は維持し、外部資料が開けない場合は本コース独自の説明を使う。**間隔をあけた復習のウォームアップ（10 分）：** bool(\"\")、bool(\" \")、\"0\" == 0 を記憶から予測し、確かめる。昨日の復習のおかげですぐ答えられるはずで、時間がかかるものが見直すべき点である。\n\n**新しい考え方：** for ループは各要素について本体を 1 回ずつ実行する。文字列の場合、要素は Unicode のコードポイント 1 つ。ループ不変条件とは、最初の反復の前に成り立ち、各反復の後も成り立ち続ける、変数についての文である。数える処理の不変条件は「total は、これまでに訪れた文字のうち一致したものの数に等しい」。\n\n1. 実行前に、visited / total / 不変条件は成り立つか？ の列でトレース表を埋める。\n2. コードを実行する。同じ列が出力されるので表と照合できる。\n3. 2 つ目のコードで、空文字列の場合（本体は 0 回実行）とコードポイントにまつわる意外な結果を確かめる。\n\n```python\ntext = \"été\"\ntarget = \"é\"\ntotal = 0\nvisited = \"\"\nfor ch in text:\n    if ch == target:\n        total += 1\n    visited += ch\n    print(repr(visited), total, total == visited.count(target))\nprint(\"final\", total, visited == text)\n```\n\n```python\ntext = \"\"\ntotal = 0\nfor ch in text:\n    total += 1\nprint(\"final\", total)\nprint(len(\"é\"), len(\"e\\u0301\"), \"é\" == \"e\\u0301\")\n```",
+      "exercise_prompt": "実行前に text = \"été\"、target = \"é\" の完全なトレース表を書く。次に 3 つの時点の不変条件を述べる：ループ前（total = 0、まだ何も訪れていない）、各反復後、終了時（visited == text なので total が答え）。最後に空文字列の場合と len(\"e\\u0301\") の出力を予測する。",
+      "hint": "ループ前は何も訪れておらず total は 0 なので、不変条件はすでに成り立つ。各反復で visited に 1 文字加わり、その文字が一致したときだけ total に 1 を足すので、不変条件は成り立ち続ける。1 コードポイント（U+00E9）で書いた \"é\" は、\"e\" に結合用アクセント（U+0301）を続けた 2 コードポイントの文字列とは別物である。",
+      "answer": "最初のコードの出力：\n\n```text\n'é' 1 True\n'ét' 1 True\n'été' 2 True\nfinal 2 True\n```\n\n解いたトレース：開始時 visited = \"\"、total = 0（何もない中に一致は 0 なので不変条件は真）。1 回目：ch = \"é\" は一致、total = 1、visited = \"é\"。2 回目：ch = \"t\" は一致しない、total は 1 のまま、visited = \"ét\"。3 回目：ch = \"é\" は一致、total = 2、visited = \"été\"。終了時は visited が text と等しいので、不変条件から total はテキスト全体の一致数 2 である。\n\n2 つ目のコードの出力：\n\n```text\nfinal 0\n1 2 False\n```\n\n空のテキストでは本体が一度も実行されず、total は 0 のままで、終了時も不変条件は成り立つ。Python はコードポイントを数えるので len(\"e\\u0301\") は 2 であり、分解形は 1 コードポイントの \"é\" と等しくない。",
+      "mastery_criterion": "実行前に書いたトレース表が実際の行と一致し、初期化・各反復後・終了時の不変条件を述べ、空文字列の場合と 2 コードポイントの分解形の場合を正しく予測している。",
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-08-act-02": {
+      "source_resources": [
+        {
+          "id": "automate-boring-stuff-3e",
+          "title": "Automate the Boring Stuff with Python, 3rd edition",
+          "author": "Al Sweigart",
+          "original_url": "https://automatetheboringstuff.com/3e/",
+          "relevant_timestamp": "Chapter 4; Practice Questions; Appendix B answers",
+          "version_or_verification_date": "Public edition checked 2026-11-01; moving pages may change",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Copyright Al Sweigart; edition-specific reuse terms unverified",
+          "license_restrictions": [
+            "linking only; no reproduction"
+          ],
+          "permission_basis": "External hyperlink only; no third-party prose, exercises, code or translations are imported.",
+          "prerequisites": "No prior programming required for Chapter 1; later chapters assume its basic Python concepts.",
+          "selection_rationale": "Beginner teaching and answer-keyed practice before checking exact semantics in the Python reference; selected chapters only, not the book's entire automation stack.",
+          "known_availability_limitations": "Free HTML; external website may be unavailable. Exact third-edition redistribution terms have not been verified, so no reuse permission is claimed.",
+          "safe_fallback": "Use the original localized explanations, exercises and checks already present in this activity; no external account or purchase is required for that fallback.",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Tutorial",
+              "url": "https://docs.python.org/3/tutorial/",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Guided Python syntax but assumes programming familiarity; paired with the beginner text rather than used as its replacement."
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Lectures and problem sets teach a broader CS1 course; the book offers shorter text-first entry and an answer appendix."
+            }
+          ],
+          "locator_url": "https://automatetheboringstuff.com/3e/chapter4.html"
+        },
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2〜4.10 節（for、range、関数の定義）。データ構造は同じチュートリアルの第 5 章",
+          "version_or_verification_date": "Python 3.12 ドキュメント（確認日: 2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Python の反復処理、関数、コンテナを確認するための一次資料。",
+          "safe_fallback": "必要な動作はすべて教材内で説明しているため、オフラインでも完了できます。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ構文を文法レベルで定義するリファレンスです。段階を追って学べる構成のため、チュートリアルの章を選びました。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ制御フローを講義のペースで扱う教材です。本カリキュラムではターミナルでの演習を通じて概念を扱っているため、採用を見送りました。"
+            }
+          ],
+          "prerequisites": "Day 01〜06 の Python の式とファイルシステムの基礎",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "関数：明示的な入力、戻り値、契約",
+      "prerequisites": "今日の活動 1。回復先：数える処理の不変条件は活動 1、小さな def の書き方は Day 06 活動 2。",
+      "objective": "数えるループを、明示的な入力（text、target）と整数の戻り値を持つ関数にまとめ、その契約を文書化し、return と print を区別する。",
+      "assistance_policy_label": "エージェント支援の演習：まず自分の予測と実際の出力を記録すること。その後に限り AI エージェントに説明やレビューを頼んでよく、受けた支援は証拠に必ず記録する。",
+      "instructions": "参照資料: この活動に割り当てられた既存の読解・練習時間内で、Automate the Boring Stuff with Python, 3rd edition の Chapter 4; Practice Questions; Appendix B answers を参照し、ローカル課題とのつながりを一つ自分の言葉で説明する。既存の演習と合格基準は維持し、外部資料が開けない場合は本コース独自の説明を使う。**間隔をあけた復習のウォームアップ：** a = [1]; b = a; a.append(2) の後に b に何が入っているか（Day 05）を記憶から書き、確かめる。\n\n**新しい考え方：** 関数の契約とは、どんな入力を期待し、何を返し、何を変えないかを述べたもの。count_char は text（文字列）と target（ちょうど 1 コードポイント）を受け取り、int を返し、入力を変更しない。return は呼び出し元に値を渡す。print は文字を表示するだけで、その関数は None を返す。\n\n1. count_char の 7 つの出力を予測してから実行する。\n2. shout の例の 2 行を予測してから実行する。\n\n```python\ndef count_char(text, target):\n    \"\"\"Return how many code points in text are equal to target (one code point).\"\"\"\n    total = 0\n    for ch in text:\n        if ch == target:\n            total += 1\n    return total\nprint(count_char(\"\", \"a\"))\nprint(count_char(\"aaaa\", \"a\"))\nprint(count_char(\"猫猫犬\", \"猫\"))\nprint(count_char(\"café\", \"e\"))\nprint(count_char(\"cafe\\u0301\", \"e\"))\noriginal = \"été\"\nprint(count_char(original, \"é\"), original)\nprint(count_char(\"abc\", \"ab\"))\n```\n\n```python\ndef shout(text):\n    print(text.upper())\nresult = shout(\"hi\")\nprint(result)\n```",
+      "exercise_prompt": "count_char の 7 回の呼び出し（空のテキスト、繰り返す文字、Unicode、合成済みと分解形の \"é\"、変わらない元の文字列、2 文字の target）と shout の例について予測を記録する。そのうえで count_char の契約（入力、出力、決して変えないもの）を自分の言葉で書く。",
+      "hint": "count_char(\"café\", \"e\") が 0 なのは、最後のコードポイントが \"e\" ではなく \"é\" だから。\"cafe\\u0301\" ではただの \"e\" が独立したコードポイントなので 1 になる。2 文字の target は 1 コードポイントと等しくならないので結果は 0：これは意味のある数ではなく契約違反である。文字列は変更できないので original は変わらない。",
+      "answer": "count_char の出力：\n\n```text\n0\n4\n2\n0\n1\n2 été\n0\n```\n\nshout の出力：\n\n```text\nHI\nNone\n```\n\n活動 1 の不変条件は関数の中でも成り立つので、返される total はテキスト全体の数になる。空文字列ではループ本体が実行されないので 0 を返す。shout は副作用として HI を表示し、何も返さないので result は None。契約：入力は text（str）と target（ちょうど 1 コードポイントの str）、出力は text の中で target と等しいコードポイントの数、入力は決して変更せず、グローバル変数も読まない。",
+      "mastery_criterion": "9 つの予測をすべて実行前に書き、違いを説明している。契約には 2 つの入力、target の前提条件、int の出力、変更しない保証が含まれる。shout の結果が None になる理由を説明できる。",
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-08-act-03": {
+      "source_resources": [
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2〜4.10 節（for、range、関数の定義）。データ構造は同じチュートリアルの第 5 章",
+          "version_or_verification_date": "Python 3.12 ドキュメント（確認日: 2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Python の反復処理、関数、コンテナを確認するための一次資料。",
+          "safe_fallback": "必要な動作はすべて教材内で説明しているため、オフラインでも完了できます。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ構文を文法レベルで定義するリファレンスです。段階を追って学べる構成のため、チュートリアルの章を選びました。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ制御フローを講義のペースで扱う教材です。本カリキュラムではターミナルでの演習を通じて概念を扱っているため、採用を見送りました。"
+            }
+          ],
+          "prerequisites": "Day 01〜06 の Python の式とファイルシステムの基礎",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "2 変数の不変条件と、小さなコミット・安全な復元",
+      "prerequisites": "今日の活動 1〜2、Git がインストール済みであること。回復先：git diff と git restore は Day 07 活動 3。",
+      "objective": "2 つのループ変数と明示した不変条件で longest_run(text, target) を実装し、使い捨てリポジトリに記録したうえで、不要な未コミットの編集を確認し、git restore で安全に破棄する。",
+      "assistance_policy_label": "エージェント支援の演習：まず自分の予測と実際の出力を記録すること。その後に限り AI エージェントに説明やレビューを頼んでよく、受けた支援は証拠に必ず記録する。",
+      "instructions": "**間隔をあけた復習：** Git の部分は Day 07 の復元手順を Python ファイルで繰り返すので、コマンドには見覚えがあるはず。\n\n**2 変数の不変条件：** 各反復の後、run は直前に訪れた文字で終わる target の連続の長さで、best はこれまでに訪れた範囲での最長の連続である。\n\n1. 実行前に 4 つの出力を予測し、\"aabaaa\" のトレース表（ch / run / best）を書く。\n\n```python\ndef longest_run(text, target):\n    best = 0\n    run = 0\n    for ch in text:\n        if ch == target:\n            run += 1\n        else:\n            run = 0\n        if run > best:\n            best = run\n    return best\nprint(longest_run(\"\", \"a\"))\nprint(longest_run(\"baaab\", \"a\"))\nprint(longest_run(\"aabaaa\", \"a\"))\nprint(longest_run(\"猫猫犬猫\", \"猫\"))\n```\n\n2. 新しい一時ディレクトリで関数をコミットし、不要なデバッグ行を追加して確認し、復元する。出力はすべて先に予測する：\n\n```bash\ncd \"$(mktemp -d)\"\ngit init -q\ngit config user.name \"Learner\"\ngit config user.email \"learner@example.invalid\"\ncat > stats.py <<'EOF'\ndef longest_run(text, target):\n    best = 0\n    run = 0\n    for ch in text:\n        if ch == target:\n            run += 1\n        else:\n            run = 0\n        if run > best:\n            best = run\n    return best\nprint(longest_run(\"猫猫犬猫\", \"猫\"))\nEOF\ngit add stats.py\ngit commit -q -m \"Add longest_run\"\npython3 stats.py\nprintf 'print(\"debug\", longest_run(\"\", \"a\"))\\n' >> stats.py\npython3 stats.py\ngit diff --stat\ngit restore stats.py\ngit status --short\npython3 stats.py\ngit log --format=%s\n```",
+      "exercise_prompt": "longest_run(\"aabaaa\", \"a\") のトレース表、4 回の呼び出し（空文字列と \"猫猫犬猫\" を含む）の予測と観察、そしてデバッグ行が現れること・差分の要約・git restore 後にクリーンな status と変わらない出力に戻ることを示す Git の記録を提出する。",
+      "hint": "一致しない文字は run を 0 に戻すが、best を下げることはない。空文字列ではどちらの変数も変わらないので結果は 0。Unicode の文字列 \"猫猫犬猫\" も、各文字が 1 コードポイントなので同じように動く。復元後に git status --short が空でなければ、git diff で何が残っているかを確かめる。",
+      "answer": "longest_run の出力：\n\n```text\n0\n3\n3\n2\n```\n\n\"aabaaa\" のトレース（ch: run, best）：a: 1, 1; a: 2, 2; b: 0, 2; a: 1, 2; a: 2, 2; a: 3, 3。各行の後で不変条件が成り立つので、終了時の best はテキスト全体の最長の連続 3 である。\n\nGit の記録の出力：\n\n```text\n2\n2\ndebug 0\n stats.py | 1 +\n 1 file changed, 1 insertion(+)\n2\nAdd longest_run\n```\n\n最初の 2 はコミット済みのスクリプトの出力。デバッグ行を追記するとスクリプトは 2 と debug 0 を出力し、差分の要約は 1 行の追加を示す。git restore でコミット済みのファイルが戻り、git status --short は何も出力せず、スクリプトは再び 2 を出力し、log にはコミットが 1 つのまま残る。",
+      "mastery_criterion": "トレース表が参考の行と一致し、4 回の呼び出しを正しく予測するか食い違いを説明し、Git の記録が参考出力と一致して、コミット履歴に触れずに不要な編集を取り除いたことを示している。"
+    },
+    "day-08-act-04": {
+      "source_resources": [
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2〜4.10 節（for、range、関数の定義）",
+          "version_or_verification_date": "Python 3.12 ドキュメント（確認日: 2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Python の反復処理、関数、コンテナを確認するための一次資料。",
+          "safe_fallback": "必要な動作はすべて教材内で説明しているため、オフラインでも完了できます。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ構文を文法レベルで定義するリファレンスです。段階を追って学べる構成のため、チュートリアルの章を選びました。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ制御フローを講義のペースで扱う教材です。本カリキュラムではターミナルでの演習を通じて概念を扱っているため、採用を見送りました。"
+            }
+          ],
+          "prerequisites": "Day 01〜06 の Python の式とファイルシステムの基礎",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "独立チェック：ループを予測し、関数を書く",
+      "prerequisites": "今日の活動 1〜3 を証拠付きで終えていること。回復先：活動 1（不変条件）、活動 2（契約）、Day 07（条件）。",
+      "objective": "支援なしで分岐を含むループをトレースし、空・繰り返し・Unicode のテキストをコードポイント単位で正しく扱う count_in(text, chars) を、不変条件を明示して実装する。",
+      "assistance_policy_label": "独立習得チェック：証拠を提出するまで AI の支援も参考解答も使わない。受けた支援は正直に申告する。",
+      "instructions": "**間隔をあけた復習：** ループ内の分岐は Day 06 の条件の再利用である。証拠を提出するまで参考解答を開かず、AI も使わない。\n\n1. このループが出力する数を予測してから実行する。文字列が空だった場合の結果も予測する。\n\n```python\ntotal = 0\nfor ch in \"a猫a\":\n    if ch != \"a\":\n        total += 10\n    else:\n        total += 1\nprint(total)\n```\n\n2. count_in(text, chars) を実装する：text のコードポイントのうち chars のどこかに現れるものの数を返す（1 文字の ch について、式 ch in chars は ch が chars に含まれるとき True）。不変条件をコメントか文で書いてから、count_in(\"\", \"aeiou\")、count_in(\"banana\", \"an\")、count_in(\"naïve\", \"aeiouï\")、count_in(\"cafe\\u0301\", \"é\")、count_in(\"猫と犬\", \"猫犬\") を予測し、テストする。",
+      "exercise_prompt": "ループの予測（空でない場合と空の場合）、不変条件付きの count_in のコード、5 つの予測と 5 つの実測結果、そして count_in(\"cafe\\u0301\", \"é\") が 0 になる理由を 1 文で提出する。",
+      "hint": "まず誠実に取り組んでから使うこと。total を 0 から始め、各コードポイントを 1 回ずつ訪れ、chars に含まれるときだけ 1 を足す。失敗したテストは 1 文字に縮める。",
+      "answer": "ループの出力：\n\n```text\n12\n```\n\n\"a\" で 1、\"猫\" で 10、\"a\" で 1 を足すので 12。空文字列なら本体は実行されず 0 を出力する。\n\ncount_in の参考実装とその出力：\n\n```python\ndef count_in(text, chars):\n    \"\"\"Return how many code points of text occur in chars.\"\"\"\n    total = 0\n    for ch in text:\n        if ch in chars:\n            total += 1\n    return total\nprint(count_in(\"\", \"aeiou\"))\nprint(count_in(\"banana\", \"an\"))\nprint(count_in(\"naïve\", \"aeiouï\"))\nprint(count_in(\"cafe\\u0301\", \"é\"))\nprint(count_in(\"猫と犬\", \"猫犬\"))\n```\n\n```text\n0\n5\n3\n0\n2\n```\n\n不変条件：各反復の開始時、total はすでに訪れたコードポイントのうち chars に含まれるものの数に等しい。\"banana\" では \"b\" 以外の 5 文字が \"an\" に含まれる。\"cafe\\u0301\" には合成済みの \"é\" と等しいコードポイントが 1 つもないので、結果は 0。",
+      "mastery_criterion": "支援なしで：ループの予測（空の場合を含む）が正しく、count_in が 5 ケースすべてに合格し、不変条件を正しく述べ、分解形アクセントのケースをコードポイントの単位で説明している。"
+    }
+  }
+}

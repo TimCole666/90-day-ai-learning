@@ -1,0 +1,4 @@
+{
+  "chars": " '()*+,.012457=?ABCDEFGHJLNOPRSTUW^_abcdefghiklmnoprstuvwxyz",
+  "vocab_size": 60
+}

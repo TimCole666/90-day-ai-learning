@@ -1,0 +1,35 @@
+{
+  "format": "learning-project-lora-v1",
+  "timestamp": "2026-10-31T18:04:19.226139+00:00",
+  "torch_version": "2.15.0+cu132",
+  "base_config": {
+    "block_size": 256,
+    "vocab_size": 60,
+    "n_layer": 2,
+    "n_head": 2,
+    "n_embd": 32,
+    "dropout": 0.0,
+    "bias": false
+  },
+  "r": 4,
+  "lora_alpha": 8.0,
+  "lora_dropout": 0.05,
+  "target_modules": [
+    "c_attn",
+    "c_proj"
+  ],
+  "parameter_ledger": {
+    "base_parameters": 34688,
+    "adapter_parameters": 2816,
+    "total_parameters": 37504,
+    "trainable_percentage": 7.5085,
+    "target_modules": [
+      "c_attn",
+      "c_proj"
+    ],
+    "adapted_module_count": 6,
+    "r": 4,
+    "lora_alpha": 8.0,
+    "scaling": 2.0
+  }
+}

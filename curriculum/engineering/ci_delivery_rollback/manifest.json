@@ -1,0 +1,22 @@
+{
+  "practice_id": "ci_delivery_rollback",
+  "title": "Continuous Integration, Controlled Delivery, and Rollback Practice",
+  "category": "engineering-foundations-and-delivery",
+  "entry_point": "scripts/ci_practice_runner.py",
+  "command": "python3 scripts/ci_practice_runner.py",
+  "target_project": "projects/text_tools",
+  "supported_languages": [
+    "zh-Hans",
+    "zh-Hant",
+    "en",
+    "ja"
+  ],
+  "stages": [
+    "clean_install",
+    "regression_exercise",
+    "conflict_resolution",
+    "controlled_deployment",
+    "health_failure_and_rollback"
+  ],
+  "license": "Apache-2.0 AND CC-BY-SA-4.0"
+}

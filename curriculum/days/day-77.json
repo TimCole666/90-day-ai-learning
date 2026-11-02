@@ -1,0 +1,363 @@
+{
+  "id": "day-77",
+  "day_number": 77,
+  "active_minutes": 480,
+  "topic_category": "agents",
+  "is_review_day": true,
+  "status": "available",
+  "prerequisites": [
+    "day-76"
+  ],
+  "recovery_links": [
+    "day-70"
+  ],
+  "activities": [
+    {
+      "id": "day-77-act-01",
+      "lesson_id": "les-77",
+      "title": "Retrieval Drill: Run-State and Execution-Limit Vocabulary",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-76"
+      ],
+      "source_resources": [
+        {
+          "id": "google-sre-cascading-failures",
+          "title": "Site Reliability Engineering, Chapter 22: Addressing Cascading Failures",
+          "author": "Mike Ulrich, in Site Reliability Engineering (eds. Betsy Beyer, Chris Jones, Jennifer Petoff, Niall Richard Murphy; Google)",
+          "original_url": "https://sre.google/sre-book/addressing-cascading-failures/",
+          "version_or_verification_date": "O'Reilly 2016 free online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-ND 4.0",
+          "license_restrictions": [
+            "noncommercial",
+            "no-derivatives"
+          ],
+          "permission_basis": "Lawful external hyperlink to Google's free web edition, published under CC BY-NC-ND 4.0 (Copyright 2017 Google, Inc.; published by O'Reilly Media); no text is imported.",
+          "prerequisites": "Retries, queueing, and load-shedding basics.",
+          "selection_rationale": "Primary analysis of how unbounded retries amplify partial outages into cascading failures, motivating hard retry budgets and deadlines in agent runtimes.",
+          "known_availability_limitations": "Free online HTML edition hosted by Google; pagination differs from print.",
+          "safe_fallback": "The retry-amplification scenario and budget arithmetic are fully reproduced in the lesson's worked example.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Release It! (Michael Nygard) - Stability patterns",
+              "url": "https://pragprog.com/titles/mnee2/release-it-second-edition/",
+              "license": "Commercial book",
+              "status": "compared_alternative",
+              "comparison_rationale": "Broader stability-pattern catalog (circuit breakers, bulkheads); the SRE chapter is free and directly quantifies retry amplification."
+            },
+            {
+              "candidate_name": "AWS Builder's Library: Timeouts, retries, and backoff with jitter",
+              "url": "https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/",
+              "license": "Amazon site content",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong companion article; the SRE chapter frames the failure mode (cascading overload) that the retry budget defends against."
+            }
+          ],
+          "relevant_timestamp": "Preventing Server Overload: Retries; Latency and Deadlines",
+          "locator_url": "https://sre.google/sre-book/addressing-cascading-failures/#retires"
+        },
+        {
+          "id": "aws-exponential-backoff-jitter",
+          "title": "Exponential Backoff And Jitter",
+          "author": "Marc Brooker, AWS Architecture Blog",
+          "original_url": "https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/",
+          "version_or_verification_date": "AWS Architecture Blog 2015 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "article",
+          "license": "Amazon Web Services site content / linked reference",
+          "license_restrictions": [
+            "noncommercial"
+          ],
+          "permission_basis": "Lawful external technical reference under public blog terms.",
+          "prerequisites": "Retries, timeouts, and basic probability of correlated load.",
+          "selection_rationale": "Detailed practitioner reference proving that full jitter (sleep = random_between(0, min(cap, base*2**attempt))) prevents synchronized retry storms and reduces total work during contention.",
+          "known_availability_limitations": "Public AWS blog post; stable URL since 2015.",
+          "safe_fallback": "The backoff exercise is implemented in pure Python with a local flaky stub; the derivation of jitter benefits is fully reproduced in lesson instructions.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Google Cloud retry strategy documentation",
+              "url": "https://cloud.google.com/storage/docs/retry-strategy",
+              "license": "CC BY 4.0 / documentation terms",
+              "status": "compared_alternative",
+              "comparison_rationale": "Product-scoped truncated exponential backoff recipe; Brooker's analysis explains why jitter matters, not just what to configure."
+            },
+            {
+              "candidate_name": "Polly resilience library retry policies (.NET)",
+              "url": "https://www.pollydocs.org/",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "Library implementation reference; the AWS article supplies the comparative evidence (with/without jitter) that anchors the lesson."
+            }
+          ],
+          "relevant_timestamp": "Adding Backoff; Adding Jitter (Full Jitter, Equal Jitter, Decorrelated Jitter)"
+        }
+      ]
+    },
+    {
+      "id": "day-77-act-02",
+      "lesson_id": "les-77",
+      "title": "Failure Taxonomy Drill: Classify Every Injected Fault",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-77-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "aws-exponential-backoff-jitter",
+          "title": "Exponential Backoff And Jitter",
+          "author": "Marc Brooker, AWS Architecture Blog",
+          "original_url": "https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/",
+          "version_or_verification_date": "AWS Architecture Blog 2015 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "article",
+          "license": "Amazon Web Services site content / linked reference",
+          "license_restrictions": [
+            "noncommercial"
+          ],
+          "permission_basis": "Lawful external technical reference under public blog terms.",
+          "prerequisites": "Retries, timeouts, and basic probability of correlated load.",
+          "selection_rationale": "Detailed practitioner reference proving that full jitter (sleep = random_between(0, min(cap, base*2**attempt))) prevents synchronized retry storms and reduces total work during contention.",
+          "known_availability_limitations": "Public AWS blog post; stable URL since 2015.",
+          "safe_fallback": "The backoff exercise is implemented in pure Python with a local flaky stub; the derivation of jitter benefits is fully reproduced in lesson instructions.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Google Cloud retry strategy documentation",
+              "url": "https://cloud.google.com/storage/docs/retry-strategy",
+              "license": "CC BY 4.0 / documentation terms",
+              "status": "compared_alternative",
+              "comparison_rationale": "Product-scoped truncated exponential backoff recipe; Brooker's analysis explains why jitter matters, not just what to configure."
+            },
+            {
+              "candidate_name": "Polly resilience library retry policies (.NET)",
+              "url": "https://www.pollydocs.org/",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "Library implementation reference; the AWS article supplies the comparative evidence (with/without jitter) that anchors the lesson."
+            }
+          ],
+          "relevant_timestamp": "Adding Backoff; Adding Jitter (Full Jitter, Equal Jitter, Decorrelated Jitter)"
+        },
+        {
+          "id": "stripe-idempotent-apis",
+          "title": "Stripe API Documentation: Idempotent Requests",
+          "author": "Stripe, Inc.",
+          "original_url": "https://docs.stripe.com/api/idempotent_requests",
+          "version_or_verification_date": "Stripe API documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "Stripe site content / linked reference",
+          "license_restrictions": [
+            "noncommercial"
+          ],
+          "permission_basis": "Lawful external technical reference under public documentation terms.",
+          "prerequisites": "HTTP APIs, retries, and side-effect semantics.",
+          "selection_rationale": "Standard production definition of idempotency keys: Stripe guarantees safe client retries by deduplicating POST requests on a caller-supplied key, the exact mechanism that turns at-least-once retries into effectively-once effects.",
+          "known_availability_limitations": "Vendor documentation; request-parameter details may evolve with API versions.",
+          "safe_fallback": "Idempotency semantics are demonstrated locally with repeated write_report calls and a sha256 dedupe key, no Stripe account needed.",
+          "compared_candidates": [
+            {
+              "candidate_name": "IETF draft: The Idempotency-Key HTTP Header Field",
+              "url": "https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/",
+              "license": "IETF Trust / open access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Standardization-track header specification; Stripe's live documentation is the more concrete deployed example."
+            },
+            {
+              "candidate_name": "AWS Builder's Library: Making retries safe with idempotent APIs",
+              "url": "https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/",
+              "license": "Amazon site content",
+              "status": "compared_alternative",
+              "comparison_rationale": "Deep design treatment of idempotent server design; Stripe provides the tighter client-visible contract cited in the exercise."
+            }
+          ],
+          "relevant_timestamp": "Idempotent requests (Idempotency-Key header; keys can be removed after at least 24 hours)",
+          "locator_url": "https://docs.stripe.com/api/idempotent_requests#api-section-idempotent_requests"
+        }
+      ]
+    },
+    {
+      "id": "day-77-act-03",
+      "lesson_id": "les-77",
+      "title": "Blameless Post-Mortem: The Stuck-Loop Run Timeline",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-77-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "google-sre-postmortem-culture",
+          "title": "Site Reliability Engineering, Chapter 15: Postmortem Culture: Learning from Failure",
+          "author": "John Lunney and Sue Lueder (ed. Gary O'Connor), in Site Reliability Engineering (eds. Betsy Beyer, Chris Jones, Jennifer Petoff, Niall Richard Murphy; Google)",
+          "original_url": "https://sre.google/sre-book/postmortem-culture/",
+          "version_or_verification_date": "O'Reilly 2016 free online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book_chapter",
+          "license": "CC BY-NC-ND 4.0",
+          "license_restrictions": [
+            "noncommercial",
+            "no-derivatives"
+          ],
+          "permission_basis": "Lawful external hyperlink to Google's free web edition, published under CC BY-NC-ND 4.0 (Copyright 2017 Google, Inc.; published by O'Reilly Media); no text is imported.",
+          "prerequisites": "Incident timelines, root-cause analysis, and action items.",
+          "selection_rationale": "Standard blameless post-mortem structure (summary, impact, root cause, timeline, action items) applied to the bounded agent's stuck-loop run.",
+          "known_availability_limitations": "Free online HTML edition hosted by Google.",
+          "safe_fallback": "A complete post-mortem template is embedded in the lesson; learners need only the recorded trace to fill it.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Etsy Code as Craft: Blameless PostMortems",
+              "url": "https://www.etsy.com/codeascraft/debriefing-facilitation-guide/",
+              "license": "Blog content / linked reference",
+              "status": "compared_alternative",
+              "comparison_rationale": "Facilitation guide for live debriefs; the SRE chapter provides the written artifact structure the exercise reproduces."
+            },
+            {
+              "candidate_name": "Atlassian Incident Postmortem templates",
+              "url": "https://www.atlassian.com/incident-management/postmortem",
+              "license": "Vendor site content",
+              "status": "compared_alternative",
+              "comparison_rationale": "Product-oriented templates; the SRE chapter emphasizes evidence-linked claims, which matches the trace-backed drill."
+            }
+          ],
+          "relevant_timestamp": "Chapter 15: blameless postmortems, trigger conditions, action items"
+        },
+        {
+          "id": "google-sre-cascading-failures",
+          "title": "Site Reliability Engineering, Chapter 22: Addressing Cascading Failures",
+          "author": "Mike Ulrich, in Site Reliability Engineering (eds. Betsy Beyer, Chris Jones, Jennifer Petoff, Niall Richard Murphy; Google)",
+          "original_url": "https://sre.google/sre-book/addressing-cascading-failures/",
+          "version_or_verification_date": "O'Reilly 2016 free online edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-ND 4.0",
+          "license_restrictions": [
+            "noncommercial",
+            "no-derivatives"
+          ],
+          "permission_basis": "Lawful external hyperlink to Google's free web edition, published under CC BY-NC-ND 4.0 (Copyright 2017 Google, Inc.; published by O'Reilly Media); no text is imported.",
+          "prerequisites": "Retries, queueing, and load-shedding basics.",
+          "selection_rationale": "Primary analysis of how unbounded retries amplify partial outages into cascading failures, motivating hard retry budgets and deadlines in agent runtimes.",
+          "known_availability_limitations": "Free online HTML edition hosted by Google; pagination differs from print.",
+          "safe_fallback": "The retry-amplification scenario and budget arithmetic are fully reproduced in the lesson's worked example.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Release It! (Michael Nygard) - Stability patterns",
+              "url": "https://pragprog.com/titles/mnee2/release-it-second-edition/",
+              "license": "Commercial book",
+              "status": "compared_alternative",
+              "comparison_rationale": "Broader stability-pattern catalog (circuit breakers, bulkheads); the SRE chapter is free and directly quantifies retry amplification."
+            },
+            {
+              "candidate_name": "AWS Builder's Library: Timeouts, retries, and backoff with jitter",
+              "url": "https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/",
+              "license": "Amazon site content",
+              "status": "compared_alternative",
+              "comparison_rationale": "Strong companion article; the SRE chapter frames the failure mode (cascading overload) that the retry budget defends against."
+            }
+          ],
+          "relevant_timestamp": "Triggering Conditions for Cascading Failures",
+          "locator_url": "https://sre.google/sre-book/addressing-cascading-failures/#triggering-conditions-for-cascading-failures"
+        }
+      ]
+    },
+    {
+      "id": "day-77-act-04",
+      "lesson_id": "les-77",
+      "title": "Consolidation & Assessment Review: Bounded-Run Evidence Pack",
+      "active_minutes": 120,
+      "activity_type": "review",
+      "category": "agents",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-77-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "python-subprocess-docs",
+          "title": "Python Standard Library: subprocess - Subprocess Management",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/subprocess.html",
+          "version_or_verification_date": "Python 3.13 documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under PSF open documentation terms; no source text imported into curriculum content.",
+          "prerequisites": "Processes, arguments, exit codes, and context managers.",
+          "selection_rationale": "Normative reference for subprocess.run(timeout=...), TimeoutExpired, DEVNULL stdin, and the documented kill scope: timeout terminates the child process; it does not define process-tree cleanup semantics.",
+          "known_availability_limitations": "Hosted on python.org; versioned per CPython release.",
+          "safe_fallback": "The kill-boundary experiment runs entirely in the standard library, so the documented semantics are exercised offline.",
+          "compared_candidates": [
+            {
+              "candidate_name": "POSIX standard: process creation and termination",
+              "url": "https://pubs.opengroup.org/onlinepubs/9699919799/",
+              "license": "IEEE/Open Group standard",
+              "status": "compared_alternative",
+              "comparison_rationale": "Formal POSIX semantics; the Python docs map directly onto the commands learners type."
+            },
+            {
+              "candidate_name": "psutil process-tree utilities",
+              "url": "https://psutil.readthedocs.io/",
+              "license": "BSD-3-Clause",
+              "status": "compared_alternative",
+              "comparison_rationale": "Third-party tree enumeration; the exercise deliberately demonstrates the stdlib boundary before reaching for helpers."
+            }
+          ],
+          "relevant_timestamp": "Using the subprocess Module (subprocess.run timeout) and Notes: Timeout Behavior",
+          "locator_url": "https://docs.python.org/3/library/subprocess.html#timeout-behavior"
+        },
+        {
+          "id": "langgraph-persistence-docs",
+          "title": "LangGraph Persistence: Checkpoints, Threads, and State Snapshots",
+          "author": "LangChain / LangGraph Documentation Team",
+          "original_url": "https://langchain-ai.github.io/langgraph/concepts/persistence/",
+          "version_or_verification_date": "LangGraph documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "MIT (LangGraph project) / documentation site terms",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external technical reference to open-source framework documentation.",
+          "prerequisites": "Agent loop fundamentals, tool calling, and JSON state serialization.",
+          "selection_rationale": "Primary reference for agent-run checkpointing: LangGraph checkpointers persist graph state at every super-step so interrupted runs resume from the last committed snapshot, the production analogue of this project's action/observation trace.",
+          "known_availability_limitations": "Hosted on GitHub Pages and versioned with the LangGraph release train; page layout may change between releases.",
+          "safe_fallback": "The checkpoint/replay exercise is implemented directly against the projects/agent_learning trace JSON; no framework installation is required.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Temporal Durable Execution documentation",
+              "url": "https://docs.temporal.io/",
+              "license": "MIT / documentation terms",
+              "status": "compared_alternative",
+              "comparison_rationale": "Temporal persists event histories for replay-based recovery of arbitrary workflows; LangGraph targets agent graphs specifically and stays closer to the learner's tool-loop mental model."
+            },
+            {
+              "candidate_name": "OpenAI Agents SDK session/state documentation",
+              "url": "https://openai.github.io/openai-agents-python/",
+              "license": "MIT / documentation terms",
+              "status": "compared_alternative",
+              "comparison_rationale": "Provider-scoped SDK sessions; LangGraph's explicit checkpoint model exposes the underlying state-transition semantics more transparently."
+            }
+          ],
+          "locator_status": "whole_source_reference"
+        }
+      ]
+    }
+  ]
+}

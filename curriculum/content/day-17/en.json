@@ -1,0 +1,144 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 17: Limits, derivatives, and nondifferentiability",
+  "day_subtitle": "Functions and change become calculable through definitions, worked derivations, retrieval, and honest numerical evidence.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Mathematics & Calculus",
+  "common": {
+    "nav_calendar": "Curriculum Calendar",
+    "day_label": "Day 17",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Record your prediction, work, observed result, review, and recovery evidence here...",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis"
+  },
+  "activities": {
+    "day-17-act-01": {
+      "title": "Derivative from the limit definition",
+      "prerequisites": "Complete the previous activity and use the listed recovery source if blocked.",
+      "objective": "Derive f'(a)=lim(h->0)[f(a+h)-f(a)]/h for f(x)=x^2 at a=3, naming h != 0 during cancellation and the two-sided limit assumption.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Study source: within this activity's existing reading/practice time, use MIT OCW 18.01SC Single Variable Calculus, Unit 1: Differentiation, Part A: Definition and Basic Rules; worked examples and problem sets, then explain one connection to the local task in your own words. Keep the local exercise and acceptance checks; use its original explanation if the external source is unavailable. 1. Write the definition with the point fixed: f'(3) = lim(h->0) [f(3+h) - f(3)]/h. Say what h is: a nonzero step, positive or negative.\n2. Predict the value from Day 16 Activity 4 (secant slopes 6.1, 6.01, ...).\n3. Expand f(3+h) completely before subtracting, and subtract f(3) as a whole.\n4. Factor h out of the numerator and cancel it, writing \"for h != 0\" next to the cancellation.\n5. Only then let h approach 0 in the simplified expression. The limit is about nearby h, not about h = 0 in the original quotient.\n6. Check the result numerically with h = 0.01 and h = -0.01, then repeat the derivation on the practice items.\n\n**Time plan (120 min): reading 30 + exercise 60 + check 30.** Reading: OpenStax Section 3.1 (defining the derivative). Exercise: items (a)-(c). Check: the mastery item at a=2, unaided, then a numerical check of each result.",
+      "exercise_prompt": "(a) Write f(3+h), subtract f(3), divide by h, simplify, and take the limit. Do not jump directly to the power rule. (b) Use the same definition for f(x)=x^2 at a general point a. (c) Use the definition for g(x)=1/x at a=2. Check (a) and (c) numerically with h=0.01.",
+      "hint": "Expand before cancelling. Cancellation is valid only for h != 0; the final limit asks what happens as h approaches zero, not what happens at h=0 in the quotient. Recovery: OpenStax Section 3.1 or redo the Day 16 bridge.",
+      "answer": "(a) f(3 + h) = (3 + h)^2 = 9 + 6h + h^2.\nf(3 + h) - f(3) = 9 + 6h + h^2 - 9 = 6h + h^2.\n[f(3 + h) - f(3)]/h = (6h + h^2)/h = 6 + h, for h != 0 (the cancellation divides by h).\nlim(h->0) (6 + h) = 6, so f'(3) = 6. Both one-sided limits are 6, because 6 + h approaches 6 whether h is positive or negative.\nNumerical check: h = 0.01 gives (9.0601 - 9)/0.01 = 6.01; h = -0.01 gives (8.9401 - 9)/(-0.01) = 5.99. Both are 0.01 away from 6, as 6 + h predicts.\n\n(b) [(a + h)^2 - a^2]/h = (2ah + h^2)/h = 2a + h for h != 0, so f'(a) = 2a. At a = 3 this gives 6 again; at a = 2 it gives 4 (the mastery item). This is the power rule for n = 2, derived rather than assumed.\n\n(c) g(2 + h) - g(2) = 1/(2 + h) - 1/2 = (2 - (2 + h))/(2(2 + h)) = -h/(2(2 + h)).\nDivide by h (h != 0, and h != -2 so that 2 + h is not zero): -1/(2(2 + h)).\nAs h approaches 0 this tends to -1/(2 * 2) = -1/4, so g'(2) = -0.25.\nNumerical check: h = 0.01 gives (1/2.01 - 0.5)/0.01 = (0.497512 - 0.5)/0.01 ≈ -0.2488, close to -0.25.\n\nCommon errors: writing (3 + h)^2 = 9 + h^2 (the 6h is missing); setting h = 0 before cancelling, which gives 0/0; leaving the answer as 6 + h.",
+      "mastery_criterion": "Unaided, derive the same result for f(x)=x^2 at a=2 and state why the derivative is 4.",
+      "source_recovery": "OpenStax Sections 2.1-3.2 and SciPy derivative documentation; if unavailable, the worked derivation and pure-Python tables in this activity are the offline fallback.",
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-17-act-02": {
+      "title": "Rules with assumptions and a worked polynomial",
+      "prerequisites": "Complete the previous activity and use the listed recovery source if blocked.",
+      "objective": "Apply constant, power, sum, and scalar-multiple rules to a polynomial while retaining the domain assumption that the expression is real-valued and differentiable at the evaluation point.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "1. List the rules you may use and what each needs: constant rule (d/dx c = 0), power rule (d/dx x^n = n x^(n-1)), constant-multiple rule, sum and difference rules. Each needs every term to be differentiable at the point.\n2. Split q(x) = x^3 - 2x + 1 into its three terms and differentiate one term at a time, naming the rule on each line.\n3. Keep the coefficient and lower the exponent by one: -2x is -2 x^1, so its derivative is -2 x^0 = -2.\n4. Assemble q'(x), then substitute x = 2 with brackets: 3(2)^2 - 2.\n5. Check the result with a central difference at h = 0.001, by hand or with a calculator.\n6. Repeat the routine on the practice items before looking at the worked answer.\n\n**Time plan (120 min): reading 25 + exercise 65 + check 30.** Reading: OpenStax Sections 3.2-3.3 (the derivative as a function, differentiation rules). Exercise: items (a)-(c) and the numerical check. Check: the mastery item on r(x), unaided, with every rule named.",
+      "exercise_prompt": "(a) For q(x)=x^3-2x+1, derive q'(x), then calculate q'(2). Show each term's derivative and the numerical substitution. (b) Find every x where q'(x)=0. (c) Differentiate u(x)=2x^5-3x^2+7x and evaluate u'(1). Check (a) with a central difference at h=0.001.",
+      "hint": "Differentiate term by term, keep the coefficient, and do not differentiate the exponent as if it were a coefficient. Recovery: OpenStax Section 3.2; offline fallback is the three-term derivation shown here.",
+      "answer": "(a) Term by term:\nd/dx x^3 = 3x^2 (power rule, n = 3)\nd/dx (-2x) = -2 (constant multiple of the power rule with n = 1: -2 * 1 * x^0)\nd/dx 1 = 0 (constant rule)\nSum rule: q'(x) = 3x^2 - 2 + 0 = 3x^2 - 2.\nAt x = 2: q'(2) = 3(2)^2 - 2 = 3 * 4 - 2 = 12 - 2 = 10.\nCentral-difference check with h = 0.001: q(2.001) = 8.012006001 - 4.002 + 1 = 5.010006001 and q(1.999) = 7.988005999 - 3.998 + 1 = 4.990005999. (5.010006001 - 4.990005999)/0.002 = 0.020000002/0.002 = 10.000001. The extra 0.000001 is exactly h^2 for this cubic, the truncation term of the central difference; it is not an error in q'(2).\n\n(b) 3x^2 - 2 = 0 gives x^2 = 2/3, so x = sqrt(2/3) ≈ 0.8165 or x = -sqrt(2/3) ≈ -0.8165. At these two points the tangent line is horizontal.\n\n(c) u'(x) = 10x^4 - 6x + 7, so u'(1) = 10 - 6 + 7 = 11.\n\nDomain note: polynomials are defined and differentiable for every real x, so no point needs to be excluded. The rules are shortcuts for the limit definition, and each one is proved from it.\n\nCommon errors: differentiating the exponent (writing 3x^3 or x^2); keeping the constant 1 as 1; substituting x = 2 before differentiating.",
+      "mastery_criterion": "Without assistance, differentiate r(x)=4x^3+x^2-5 and evaluate r'(1)=14, showing the rule used for every term.",
+      "source_recovery": "OpenStax Sections 2.1-3.2 and SciPy derivative documentation; if unavailable, the worked derivation and pure-Python tables in this activity are the offline fallback."
+    },
+    "day-17-act-03": {
+      "title": "A nondifferentiable counterexample",
+      "prerequisites": "Complete the previous activity and use the listed recovery source if blocked.",
+      "objective": "Explain why v(x)=|x| is continuous at 0 but not differentiable there: its left-hand and right-hand difference quotients are -1 and +1, so no common two-sided derivative exists.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "1. Establish continuity first: |x| approaches 0 = v(0) from both sides, so v is continuous at 0. Continuity is necessary for a derivative, but not sufficient.\n2. Write the difference quotient at 0: [v(0+h) - v(0)]/h = |h|/h.\n3. Split by the sign of h: for positive h, |h| = h; for negative h, |h| = -h. Never write |h| = h for negative h.\n4. Evaluate each case at h = 0.1 and h = -0.1, then state each one-sided limit.\n5. Conclude: a derivative exists only if both one-sided limits exist and are equal.\n6. Apply the same test to the practice functions; one of them is differentiable at 0, and one has a quotient that grows without bound.\n\n**Time plan (120 min): reading 25 + exercise 60 + check 35.** Reading: OpenStax Section 3.2 (differentiability and continuity: corners and vertical tangents). Exercise: items (a)-(c). Check: write the independent explanation the mastery criterion asks for, then compare.",
+      "exercise_prompt": "(a) Compute [v(0+h)-v(0)]/h separately for h>0 and h<0. Use h=.1 and h=-.1 as checks, then generalize. (b) Is w(x)=x|x| differentiable at 0? Use the same quotient. (c) For c(x)=x^(1/3) (the real cube root), compute the quotient at 0 for h=0.001 and h=-0.001, and say what happens as h approaches 0.",
+      "hint": "Split by the sign of h; do not use |h|=h for negative h. Recovery: OpenStax Section 3.1; offline fallback is the two-case quotient and a hand-drawn sharp corner.",
+      "answer": "(a) Continuity: lim(x->0) |x| = 0 = v(0), so v is continuous at 0.\nQuotient: [v(0 + h) - v(0)]/h = |h|/h.\nFor positive h, |h| = h, so the quotient is h/h = 1; at h = 0.1 it is 0.1/0.1 = 1.\nFor negative h, |h| = -h, so the quotient is -h/h = -1; at h = -0.1 it is 0.1/(-0.1) = -1.\nThe right-hand limit is 1 and the left-hand limit is -1. They differ, so the two-sided limit does not exist and v'(0) does not exist, even though v is continuous at 0. This is a counterexample to \"continuous always means differentiable.\" Geometrically, lines of slope 1 and -1 meet at a corner at the origin.\n\n(b) w(0) = 0, so the quotient is w(h)/h = h|h|/h = |h| for h != 0. As h approaches 0 from either side, |h| approaches 0. Both one-sided limits are 0, so w'(0) = 0. Multiplying by x removed the corner: the graph is -x^2 on the left and x^2 on the right, and they meet with the same slope 0.\n\n(c) c(h)/h = h^(1/3)/h = h^(-2/3). At h = 0.001: 0.1/0.001 = 100. At h = -0.001: (-0.1)/(-0.001) = 100. As h approaches 0 the quotient grows without bound (h^(-2/3) tends to +infinity), so c has a vertical tangent at 0 and no finite derivative, although it is continuous there.\n\nSummary: corner (|x|, unequal one-sided limits), smooth join (x|x|, equal limits), vertical tangent (cube root, infinite limit). A function with a jump is never differentiable at the jump, because differentiability implies continuity.",
+      "mastery_criterion": "Independent explanation must include continuity at 0, both one-sided quotient values, and the conclusion 'not differentiable at 0' rather than merely saying 'corner.'",
+      "source_recovery": "OpenStax Sections 2.1-3.2 and SciPy derivative documentation; if unavailable, the worked derivation and pure-Python tables in this activity are the offline fallback."
+    },
+    "day-17-act-04": {
+      "title": "Retrieval, derivative meaning, and mastery",
+      "prerequisites": "Complete the previous activity and use the listed recovery source if blocked.",
+      "objective": "Retrieve limit, derivative, slope, and nondifferentiability ideas and use them to interpret a derivative as a local linear approximation, with honest independent evidence.",
+      "instructions": "1. Closed book: write an answer to every part before you open notes, earlier answers or AI tools.\n2. Differentiate s with the rules, naming each one, then confirm s'(3) from the limit definition: expand s(3+h), subtract s(3), divide by h.\n3. Compute s(3) before writing the tangent line; a tangent line needs a point and a slope.\n4. Write the tangent in point-slope form, convert it to y = mx + b, and check it at x = 3.\n5. Use the tangent as a local linear approximation at x = 3.1 and compare it with the true s(3.1).\n6. For |x| at 0, write both one-sided difference quotients as limits with their values, then state the conclusion in one sentence.\n7. Mark your attempt against the reference. For each miss, revisit Activity 1, 2 or 3 and redo an equivalent item (for example, s at x = 1) unaided.\n\n**Time plan (120 min): reading 15 + exercise 60 + check 45.** Reading: only your notes from Activities 1-3. Exercise: the full closed-book prompt plus the linear approximation. Check: mark, revisit, and solve the x=1 variant unaided.",
+      "exercise_prompt": "Closed book: for s(x)=x^2-4x, find s'(x), s'(3), and the full tangent-line equation at x=3 (a slope alone is insufficient). Then contrast s with |x| at 0 in two sentences, including BOTH one-sided difference quotients lim(h->0+) and lim(h->0-) for |x|.",
+      "hint": "Find the value before the slope; the tangent line needs both (a,f(a)) and f'(a). Recovery: use Activities 1-3 and the OpenStax limit/derivative sections; write the failed step and retry it from first principles.",
+      "answer": "Rules: s'(x) = 2x - 4 (power rule on x^2, constant multiple on -4x). So s'(3) = 2(3) - 4 = 2.\nLimit-definition check: s(3 + h) = (3 + h)^2 - 4(3 + h) = 9 + 6h + h^2 - 12 - 4h = -3 + 2h + h^2. With s(3) = -3, [s(3 + h) - s(3)]/h = (2h + h^2)/h = 2 + h for h != 0, which tends to 2. Both methods agree.\n\nTangent line: s(3) = 9 - 12 = -3, so the point is (3, -3) and the slope is 2: y + 3 = 2(x - 3), or y = 2x - 9. Check at x = 3: 2(3) - 9 = -3.\n\nLocal linear approximation: at x = 3.1 the tangent gives 2(3.1) - 9 = -2.8; the true value is s(3.1) = 9.61 - 12.4 = -2.79. The error 0.01 is h^2 for h = 0.1, the term the line ignores.\n\nContrast with |x| at 0: unlike the smooth polynomial, |x| has unequal one-sided slopes at 0 and no derivative there: explicitly, lim(h->0+) (|h| - |0|)/h = +1 while lim(h->0-) (|h| - |0|)/h = -1. A polynomial has a tangent line at every point; |x| has none at 0, so no single line approximates its corner from both sides.\n\nVariant for the check: s'(1) = -2 and s(1) = -3, so the tangent at x = 1 is y = -2x - 1.\n\nCommon errors: giving the slope 2 as the whole answer; using s(3) = 3; giving |x| the derivative 0 at 0 by averaging +1 and -1.",
+      "mastery_criterion": "Independent Mastery Check: no AI, derive s'(3) from the limit definition or clearly apply justified rules, write the tangent line, and give the |x| counterexample with both one-sided quotients.",
+      "source_recovery": "OpenStax Sections 2.1-3.2 and SciPy derivative documentation; if unavailable, the worked derivation and pure-Python tables in this activity are the offline fallback.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance)"
+    }
+  },
+  "source_resources": [
+    {
+      "id": "openstax-calculus-1",
+      "title": "OpenStax Calculus Volume 1",
+      "author": "Gilbert Strang and Edwin Herman / OpenStax",
+      "original_url": "https://openstax.org/details/books/calculus-volume-1",
+      "relevant_timestamp": "Sections 2.1-2.3 (Functions, Limits, and the Derivative); Sections 3.1-3.2 (Derivative Rules)",
+      "version_or_verification_date": "3rd edition, verified 2026-10-30",
+      "reuse_category": "linking",
+      "source_type": "open_textbook",
+      "license": "CC BY-NC-SA 4.0",
+      "license_restrictions": [
+        "attribution",
+        "noncommercial",
+        "share-alike"
+      ],
+      "permission_basis": "Linking and short, independently authored examples; no textbook prose is reproduced or translated.",
+      "prerequisites": "Algebra, coordinate geometry, and function notation",
+      "selection_rationale": "Open, systematic treatment of the limit definition and derivative rules with stable section locations.",
+      "known_availability_limitations": "The hosted textbook may be unavailable offline or blocked by a network policy.",
+      "safe_fallback": "The authored derivations, tables, and exercises in these three Study Days are complete offline recovery material; use the linked section only for optional comparison.",
+      "compared_candidates": [
+        {
+          "candidate_name": "MIT OpenCourseWare 18.01SC Single Variable Calculus",
+          "url": "https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/",
+          "license": "CC BY-NC-SA 4.0",
+          "status": "compared_selected_for_visual_practice",
+          "comparison_rationale": "Excellent exercises and transcripts, but the noncommercial share-alike terms and course navigation make OpenStax the primary stable text."
+        },
+        {
+          "candidate_name": "Paul's Online Math Notes: Calculus I",
+          "url": "https://tutorial.math.lamar.edu/Classes/CalcI/CalcI.aspx",
+          "license": "All Rights Reserved",
+          "status": "compared_rejected_for_reuse",
+          "comparison_rationale": "Useful reference, but rights and redistribution terms are less suitable for embedded recovery material."
+        },
+        {
+          "candidate_name": "SciPy Numerical Differentiation Documentation",
+          "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+          "license": "BSD-3-Clause",
+          "status": "compared_selected_for_numerics",
+          "comparison_rationale": "A primary API reference for numerical derivative step-size behavior; it complements rather than replaces the hand derivation."
+        }
+      ]
+    },
+    {
+      "id": "scipy-derivative",
+      "title": "SciPy numerical derivative reference",
+      "author": "SciPy Developers",
+      "original_url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+      "relevant_timestamp": "derivative API: finite differences, step-size iteration, tolerances",
+      "version_or_verification_date": "SciPy documentation, verified 2026-10-30",
+      "reuse_category": "linking",
+      "source_type": "documentation",
+      "license": "BSD-3-Clause",
+      "license_restrictions": [],
+      "permission_basis": "Link only; all learner-facing explanations and examples are original.",
+      "prerequisites": "Python arithmetic and the definition of a derivative",
+      "selection_rationale": "Documents numerical differentiation as an approximation with finite step sizes and stopping criteria.",
+      "known_availability_limitations": "Requires network access for the current hosted API page.",
+      "safe_fallback": "The local Day 18 tables and pure-Python snippets reproduce the relevant finite-difference behavior without SciPy.",
+      "compared_candidates": []
+    }
+  ]
+}

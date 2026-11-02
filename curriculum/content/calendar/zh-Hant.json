@@ -1,0 +1,28 @@
+{
+  "page_title": "90 天課程行事曆與有效學習時間台帳",
+  "page_subtitle": "前置依賴全景、每週複習沉澱與 43,200 分鐘透明時間預算",
+  "ledger_title": "課程學習時間總帳 (Time Ledger)",
+  "total_days_label": "學習日",
+  "total_hours_label": "活躍學時",
+  "total_minutes_label": "有效分鐘",
+  "category_hours_label": "類別學時預算",
+  "categories": {
+    "self-directed-learning-and-python": "自律學習與 Python 工程",
+    "mathematics": "AI 數學與微積分/代數",
+    "models-and-training": "模型原理與訓練微調",
+    "agents": "AI Agent 與工程實踐"
+  },
+  "status_labels": {
+    "planned": "規劃中",
+    "available": "可學習",
+    "reviewed": "已複核",
+    "accepted": "已驗收"
+  },
+  "review_badge": "週度複習與考核日",
+  "prerequisites_label": "前置要求",
+  "recovery_label": "補救/複習路徑",
+  "open_day": "進入學習日",
+  "planned_notice": "本學習日內容規劃中，依據 Course Readiness Gate 驗收要求，未完成內容不可顯示為就緒狀態。",
+  "nav_calendar": "課程行事曆與台帳",
+  "nav_agent_track": "🤖 Agent 工具路線"
+}

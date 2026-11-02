@@ -1,0 +1,211 @@
+{
+  "language": "zh-Hans",
+  "language_label": "简体中文",
+  "day_title": "Day 07：每周复习——值、条件与安全的 Git",
+  "day_subtitle": "低新内容的复习日：用新的输入凭记忆提取第 04–06 天的内容（值与绑定、比较与显式条件、小差异与提交），最后独立自测。唯一的新内容是一条有脚手架的命令（git restore）和对第 08 天 for 循环的简短预览（不计评估）。提取练习、复习和独立检查共同填满 480 分钟的学习台账。",
+  "time_budget_label": "480 分钟（8 小时专注学习）",
+  "category_label": "自主学习与 Python",
+  "common": {
+    "nav_calendar": "课程日历",
+    "day_label": "学习日 07",
+    "prerequisites_title": "先决条件",
+    "objective_title": "学习目标",
+    "instructions_title": "操作说明",
+    "exercise_title": "练习与预测记录",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看参考答案与追踪",
+    "mastery_title": "独立掌握标准",
+    "draft_placeholder": "在此记录你的预测、实际输出、复盘和恢复证据……",
+    "sources_heading": "来源资源与出处",
+    "source_author_label": "作者 / 机构",
+    "source_url_label": "原始出处链接",
+    "source_range_label": "对应章节 / 时间戳",
+    "source_verification_label": "验证版本与日期",
+    "source_rationale_label": "入选理由",
+    "source_prereqs_label": "来源前置条件",
+    "source_fallback_label": "安全回退方案（离线弹性）",
+    "compared_candidates_heading": "对比候选资源与选型分析"
+  },
+  "activities": {
+    "day-07-act-01": {
+      "source_resources": [
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2–4.10 节（for、range、定义函数）；数据结构见同一教程第 5 章",
+          "version_or_verification_date": "Python 3.12 文档（核验日期：2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "用于查阅 Python 迭代、函数和容器的第一手参考资料。",
+          "safe_fallback": "教材内已讲解所有必需的行为，可以离线完成。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "在语法层面定义相同的结构；选择教程章节是因为它循序渐进。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "以讲座节奏讲解相同的控制流；由于本课程已通过终端练习推进这些概念，暂不采用。"
+            }
+          ],
+          "prerequisites": "第 01–06 天的 Python 表达式与文件系统基础",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "合上笔记提取：值与绑定（第 04–05 天）",
+      "prerequisites": "已完成第 06 天（包括其独立检查）。如果卡住，先回到第 06 天；关于值与绑定，复习第 04–05 天。",
+      "objective": "凭记忆回想 repr、type 和 bool 如何描述一个值，以及重新绑定与修改（变异）有何不同，然后用从未见过的输入（包括空字符串和 Unicode 文本）在 Python 中验证。",
+      "assistance_policy_label": "智能体协助练习：先写下自己的预测和实际输出，之后才可以请 AI 智能体解释或审阅，并且必须在证据中记录所受的协助。",
+      "instructions": "**间隔复习：** 第 04–05 天是两三天前的内容，所以今天先提取、再重读。先从记忆中把知识取出来再核对，比重读笔记记得更牢。本活动没有新内容。\n\n1. 合上笔记。对第一段代码中的每个值，写下你预期的三列：repr、类型名和 bool。也预测最后一行（len 统计的是 Unicode 码位数，而不是字节数）。\n2. 运行代码，标出所有与预测不符的行。\n3. 对绑定代码同样先预测两行，再运行。\n4. 对每处不符，用一句话写出你忘记的规则以及讲授它的那一天（值见第 04 天，变异与同一性见第 05 天）。\n\n```python\ndef show(value):\n    print(repr(value), type(value).__name__, bool(value))\nshow(0.0)\nshow(\"0.0\")\nshow(\"\")\nshow(\"猫\")\nshow([\"\"])\nshow(None)\nprint(len(\"猫\"), len(\"café\"))\n```\n\n```python\na = [\"猫\"]\nb = a\na.append(\"犬\")\nprint(b, a is b)\nc = [\"猫\"]\nd = c\nc = c + [\"犬\"]\nprint(d, c is d)\n```",
+      "exercise_prompt": "制作预测表：每个值一行（0.0、\"0.0\"、\"\"、\"猫\"、[\"\"]、None），列为 repr / type / bool，并加上对 len(\"猫\") 和 len(\"café\") 的预测。然后预测绑定代码打印的两行，并说明哪个名字被修改了对象、哪个名字被重新绑定。",
+      "hint": "只有空字符串为假；任何非空字符串都为真，即使是 \"0.0\" 或一个空格。包含一个空字符串的列表并不是空列表。append 修改的是两个名字共同指向的那个列表对象；c = c + [...] 会创建新列表，只移动名字 c。",
+      "answer": "第一段代码的准确输出：\n\n```text\n0.0 float False\n'0.0' str True\n'' str False\n'猫' str True\n[''] list True\nNone NoneType False\n1 4\n```\n\n绑定代码的准确输出：\n\n```text\n['猫', '犬'] True\n['猫'] False\n```\n\n原因：0.0 和 None 为假，\"\" 是空字符串，所以为假；所有非空字符串都为真，包括 \"0.0\"。[\"\"] 是含一个元素的列表，所以为真。\"猫\" 是 1 个码位，\"café\" 是 4 个。在绑定代码中，a 和 b 指向同一个列表，因此 append 的结果通过 b 也能看到，a is b 仍为 True。c + [\"犬\"] 创建了新列表，d 仍指向原来的 [\"猫\"]，所以 c is d 为 False。",
+      "mastery_criterion": "预测在运行前写好，覆盖全部六个值、两个 len 结果和绑定代码的两行；每处不符都有一句规则和一个恢复日（第 04 天或第 05 天）。"
+    },
+    "day-07-act-02": {
+      "source_resources": [
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2–4.10 节（for、range、定义函数）；数据结构见同一教程第 5 章",
+          "version_or_verification_date": "Python 3.12 文档（核验日期：2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "用于查阅 Python 迭代、函数和容器的第一手参考资料。",
+          "safe_fallback": "教材内已讲解所有必需的行为，可以离线完成。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "在语法层面定义相同的结构；选择教程章节是因为它循序渐进。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "以讲座节奏讲解相同的控制流；由于本课程已通过终端练习推进这些概念，暂不采用。"
+            }
+          ],
+          "prerequisites": "第 01–06 天的 Python 表达式与文件系统基础",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "提取练习：比较与显式条件（第 05–06 天）",
+      "prerequisites": "今天的活动 1。如果对比较感到陌生，复习第 05 天；条件与输入规范化请复习第 06 天。",
+      "objective": "回想 == 与 is 的区别，并凭记忆重写一个第 06 天风格的分类函数，用显式条件处理空输入、纯空白输入、十进制数字和 Unicode 数字。",
+      "assistance_policy_label": "智能体协助练习：先写下自己的预测和实际输出，之后才可以请 AI 智能体解释或审阅，并且必须在证据中记录所受的协助。",
+      "instructions": "**间隔复习：** 本活动用新输入复习第 05 天（比较）和第 06 天（条件），所以无法依赖记住的答案。\n\n1. 预测比较这一行打印的五个布尔值，然后运行。\n2. 不看第 06 天，写出 label(raw)：先 strip；结果为空字符串时返回 \"missing\"；strip 后的文本是十进制数字时返回 \"number \" 加整数值；否则返回 \"text \" 加 strip 后的文本。运行自己的版本之前先预测六行输出。\n3. 将你的函数与下面的参考实现比较，并运行两者。\n\n```python\nprint(0 == 0.0, \"0\" == 0, None is None, [] == [], [] is [])\n```\n\n```python\ndef label(raw):\n    text = raw.strip()\n    if text == \"\":\n        return \"missing\"\n    if text.isdecimal():\n        return \"number \" + str(int(text))\n    return \"text \" + text\nprint(label(\"  猫 \"))\nprint(label(\"\"))\nprint(label(\"   \"))\nprint(label(\"007\"))\nprint(label(\"-3\"))\nprint(label(\"٣\"))\n```\n\n**第 08 天预览（不计评估，有脚手架）：** 运行下面的循环，只需观察循环体对每个字符执行一次。明天会正式学习循环。\n\n```python\nfor ch in \"猫a\":\n    print(ch, ch == \"a\")\n```",
+      "exercise_prompt": "写下五个比较的预测和你自己的 label(raw)，再预测 \"  猫 \"、\"\"、\"   \"、\"007\"、\"-3\" 和 \"٣\"（阿拉伯-印度数字 3）的六个输出。运行后解释 \"٣\" 出人意料的结果。",
+      "hint": "== 比较值；is 判断两个名字是否指向同一个对象。每写一次 [] 都会创建一个新列表。先 strip，再判断是否为空字符串：全是空格的字符串 strip() 之后就变成空的。isdecimal() 不仅对 0–9 为 True，对许多文字系统的十进制数字也为 True，int() 也接受它们。",
+      "answer": "比较的输出：\n\n```text\nTrue False True True False\n```\n\n0 == 0.0 按数值比较（True）；字符串永远不等于整数（False）；None is None 是判断 None 的安全写法（True）；两个空列表相等（True），但它们是两个不同的对象（False）。\n\nlabel 的输出：\n\n```text\ntext 猫\nmissing\nmissing\nnumber 7\ntext -3\nnumber 3\n```\n\n追踪：\"  猫 \" strip 后是 \"猫\"，不是十进制数字，所以得到 \"text 猫\"。\"\" 和 \"   \" strip 后都是空字符串，所以是 \"missing\"。\"007\" 是十进制数字，int(\"007\") 为 7。\"-3\" 含有负号，isdecimal() 为 False，仍是文本。\"٣\" 是 Unicode 十进制数字，isdecimal() 为 True，int(\"٣\") 为 3。预览的输出是 猫 False，然后是 a True。",
+      "mastery_criterion": "五个比较预测和六个 label 预测都在运行前写好；你自己的 label(raw) 完全复现参考输出；能解释为什么 \"   \" 是 missing、为什么 \"٣\" 是数字。"
+    },
+    "day-07-act-03": {
+      "source_resources": [
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2–4.10 节（for、range、定义函数）；数据结构见同一教程第 5 章",
+          "version_or_verification_date": "Python 3.12 文档（核验日期：2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "用于查阅 Python 迭代、函数和容器的第一手参考资料。",
+          "safe_fallback": "教材内已讲解所有必需的行为，可以离线完成。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "在语法层面定义相同的结构；选择教程章节是因为它循序渐进。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "以讲座节奏讲解相同的控制流；由于本课程已通过终端练习推进这些概念，暂不采用。"
+            }
+          ],
+          "prerequisites": "第 01–06 天的 Python 表达式与文件系统基础",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "安全 Git 复习：检查、校验、提交并恢复未提交的修改",
+      "prerequisites": "今天的活动 1–2；已安装 Git。如果对 git diff 或小提交感到陌生，复习第 04 天活动 3 和第 06 天活动 3。",
+      "objective": "在一次性仓库中复习第 04–06 天的安全修改流程（diff、diff --check、小提交、log），并用一条有脚手架的新命令 git restore 丢弃未提交的修改，再验证结果。",
+      "assistance_policy_label": "智能体协助练习：先写下自己的预测和实际输出，之后才可以请 AI 智能体解释或审阅，并且必须在证据中记录所受的协助。",
+      "instructions": "**间隔复习：** 提交前检查差异已在第 04 天和第 06 天练习过；今天在新的练习仓库中凭记忆重复一遍。**今天的新内容（有脚手架）：** git restore FILE 默认从索引（暂存区）恢复工作区中的已跟踪文件；它不改变索引，也不取消暂存的修改。在本练习仓库中，索引与 HEAD（最新提交）相同，因此丢弃未暂存的修改后会恢复为该已提交版本。它不能撤销提交；那是第 09 天的内容。\n\n只在新的临时目录中操作，绝不在课程仓库中操作。每条命令之前先写下你预期的输出（“没有输出”也算一种预测）。然后运行整个序列：\n\n```bash\ncd \"$(mktemp -d)\"\ngit init -q\ngit config user.name \"Learner\"\ngit config user.email \"learner@example.invalid\"\nprintf 'label: 猫\\n' > notes.txt\ngit add notes.txt\ngit commit -q -m \"Add notes\"\nprintf 'label: 猫\\ncount: 1\\n' > notes.txt\ngit diff --stat\ngit diff --check\ngit add notes.txt\ngit commit -q -m \"Add count line\"\ngit log --format=%s\nprintf 'oops\\n' >> notes.txt\ngit status --short\ngit restore notes.txt\ngit status --short\ncat notes.txt\n```",
+      "exercise_prompt": "先预测 git diff --stat、git diff --check、git log --format=%s 以及两次 git status --short 的输出，再运行序列并记录实际输出。最后写出 git restore 之后的文件内容，并解释含 Unicode 的那一行 \"label: 猫\" 为什么保留了下来。",
+      "hint": "没有空白错误时，git diff --check 什么也不打印。对未暂存的修改，git status --short 打印 \" M notes.txt\"（开头一个空格，然后是 M）；工作区干净时输出为空。git restore 只影响未提交的修改，所以两次提交都留在 log 中。这里绝不要使用 reset --hard、clean 或 force-push。",
+      "answer": "整个序列的准确输出：\n\n```text\n notes.txt | 1 +\n 1 file changed, 1 insertion(+)\nAdd count line\nAdd notes\n M notes.txt\nlabel: 猫\ncount: 1\n```\n\n逐行说明：差异摘要显示新增一行；git diff --check 没有输出（无空白错误）；log 按从新到旧列出两次提交；追加 \"oops\" 后，简短状态为 \" M notes.txt\"；git restore 从索引恢复文件，而本练习仓库中的索引仍与 HEAD 相同，因此未暂存的修改被丢弃，索引不变，第二次状态没有输出，文件重新只包含 \"label: 猫\" 和 \"count: 1\"。含 Unicode 的那一行之所以保留，是因为它属于已提交的版本。",
+      "mastery_criterion": "运行前记录了预测；实际输出与参考输出完全一致；能说明 git restore 适用的场合（已跟踪文件上未提交的修改），并说明它不能撤销提交。"
+    },
+    "day-07-act-04": {
+      "source_resources": [
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2–4.10 节（for、range、定义函数）；数据结构见同一教程第 5 章",
+          "version_or_verification_date": "Python 3.12 文档（核验日期：2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "用于查阅 Python 迭代、函数和容器的第一手参考资料。",
+          "safe_fallback": "教材内已讲解所有必需的行为，可以离线完成。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "在语法层面定义相同的结构；选择教程章节是因为它循序渐进。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "以讲座节奏讲解相同的控制流；由于本课程已通过终端练习推进这些概念，暂不采用。"
+            }
+          ],
+          "prerequisites": "第 01–06 天的 Python 表达式与文件系统基础",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "每周独立检查：第 04–06 天",
+      "prerequisites": "已完成今天的活动 1–3 并记录证据。恢复链接：第 04 天（值）、第 05 天（绑定与比较）、第 06 天（条件与安全 Git）。",
+      "objective": "在无协助的情况下预测值、绑定和比较的结果，从零实现一个使用显式条件的小函数，并凭记忆写出安全检查命令。",
+      "assistance_policy_label": "独立掌握检查：提交证据之前不使用任何 AI 协助，也不查看参考答案；如实申报所受的协助。",
+      "instructions": "**间隔复习：** 这是第 04–06 天的每周巩固检查。提交证据之前，不要打开参考答案，也不要使用 AI。\n\n1. 先书面预测这段代码打印的三行，再运行：\n\n```python\nprint(repr(\"0\"), bool(\"0\"), \"0\" == 0)\nx = [\"a\"]\ny = x\nx.append(\"é\")\nprint(y)\nx = [\"a\"]\ny = x\nx = x + [\"é\"]\nprint(y)\n```\n\n2. 从零写出 describe(raw)：strip 后为空时返回 \"empty\"，是十进制数字时返回 \"digits\"，否则返回 \"text\"。先预测，再用 \"\"、\" \"、\"42\"、\"４２\"（全角数字）和 \"猫\" 测试。\n3. 凭记忆列出：在一次性仓库中提交前检查修改要运行的命令，以及丢弃已跟踪文件上未提交修改的命令。",
+      "exercise_prompt": "提交：三行代码的预测和实际输出；describe(raw) 的代码及五个预测、五个实测结果；安全检查与恢复的命令清单；如有不符，写出你要回顾的恢复日。",
+      "hint": "请在认真尝试之后再看：把失败的情况缩减为一个输入，比较预测与实际输出，指出涉及的规则（空字符串、strip、isdecimal、修改与重新绑定）。",
+      "answer": "代码输出：\n\n```text\n'0' True False\n['a', 'é']\n['a']\n```\n\ndescribe(raw) 的参考实现及其输出：\n\n```python\ndef describe(raw):\n    text = raw.strip()\n    if text == \"\":\n        return \"empty\"\n    if text.isdecimal():\n        return \"digits\"\n    return \"text\"\nprint(describe(\"\"))\nprint(describe(\" \"))\nprint(describe(\"42\"))\nprint(describe(\"４２\"))\nprint(describe(\"猫\"))\n```\n\n```text\nempty\nempty\ndigits\ndigits\ntext\n```\n\n\" \" strip 后是空字符串，所以是 empty。全角 \"４２\" 由 Unicode 十进制数字组成，所以是 digits。安全检查：运行 git status --short、git diff、git diff --check，理解差异后再执行 git add FILE 和 git commit；用 git restore FILE 丢弃未提交的修改，并确认 git status --short 没有输出。",
+      "mastery_criterion": "无协助：三行预测先写好；describe(raw) 通过全部五个用例（包括空、纯空白和全角 Unicode 数字）；命令清单正确；每处不符都写明恢复日。"
+    }
+  }
+}

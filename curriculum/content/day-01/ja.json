@@ -1,0 +1,269 @@
+{
+ "language": "ja",
+ "language_label": "日本語",
+ "day_title": "第 1 日：診断、学習法と環境",
+ "day_subtitle": "診断、予測・実験・振り返り、検索練習、概念分解と検証済みターミナル環境を使います。既存の変更例は共有トレーサーバレットであり、重複させません。",
+ "time_budget_label": "480 分（8 時間の集中学習）",
+ "category_label": "自律学習手法と Python エンジニアリング基礎",
+ "common": {
+  "nav_calendar": "📅 カリキュラムカレンダー",
+  "nav_agent_track": "🤖 Agent ツールトラック",
+  "day_label": "第 1 日",
+  "prerequisites_title": "前提条件",
+  "objective_title": "学習目標",
+  "instructions_title": "手順",
+  "exercise_title": "演習と予測記録",
+  "hint_title": "ヒントを確認",
+  "reveal_answer": "参考解答と分析を表示",
+  "mastery_title": "独立習得基準",
+  "draft_placeholder": "ここに予測出力、実際の動作、根本原因の推論を入力してください...",
+  "dev_slice_notice": "スタディデイ 01–03 のローカル教材はレビュー用に公開されており、受け入れ審査は進行中です。外部アクセス・有料ツール・本番証拠は明示的に切り分けられており、完全性は主張しません。",
+  "sources_heading": "公式ソースリソースと権利証跡",
+  "source_author_label": "著者・提供機関",
+  "source_url_label": "オリジナル出所URL",
+  "source_range_label": "該当セクション・タイムスタンプ",
+  "source_verification_label": "検証バージョンと日付",
+  "source_reuse_label": "再利用区分",
+  "source_license_label": "ライセンスと権利情報",
+  "source_rationale_label": "選定理由",
+  "source_prereqs_label": "ソース前提知識",
+  "source_fallback_label": "安全フォールバック（オフライン回復性）",
+  "compared_candidates_heading": "比較対象候補リソースと選定評価",
+  "compared_status_label": "評価結果",
+  "auth": {
+   "sign_in": "Googleでログイン",
+   "sign_in_google": "Google",
+   "sign_in_github": "GitHub",
+   "sign_out": "ログアウト",
+   "signed_in_as": "ログイン中:",
+   "guest": "ゲストモード",
+   "link_github": "GitHubを連携",
+   "link_google": "Googleを連携",
+   "linked_identities": "連携済みアカウント",
+   "auth_errors": {
+    "access_denied": "認証がキャンセルされたか、アクセスが拒否されました。",
+    "invalid_state": "無効または期限切れの認証状態です。再試行してください。",
+    "identity_conflict": "このIDは既に別のアカウントに連携されています。既存の記録を保護するため、連携の競合は拒否されました。",
+    "provider_error": "認証プロバイダーでエラーが発生しました。後でもう一度お試しください。",
+    "server_error": "認証プロバイダーでエラーが発生しました。後でもう一度お試しください。",
+    "session_expired": "セッションの有効期限が切れました。再度ログインしてください。"
+   }
+  },
+  "progress": {
+   "save_btn": "進捗を保存",
+   "saved": "保存済み",
+   "saving": "保存中...",
+   "save_error": "保存に失敗しました",
+   "offline": "オフライン",
+   "mark_completed": "完了としてマーク",
+   "completed_badge": "完了"
+  },
+  "quiz": {
+   "quiz_title": "客観的理解度チェックと診断トレース",
+   "quiz_instructions": "以下の設問に解答して理解度を確認してください。提出前に利用した補助条件を誠実に申告してください。",
+   "assistance_mode_label": "申告補助条件",
+   "mode_independent": "独立習得確認 (AI支援なし)",
+   "mode_agent_assisted": "Agent支援エンジニアリング確認 (AI支援あり)",
+   "mode_disclaimer": "注記: AI不使用は誠実な申告条件であり、監視や強制検知ではありません。",
+   "submit_btn": "解答を提出",
+   "retry_btn": "クイズをやり直す",
+   "view_hint": "ヒントを確認",
+   "mastery_criterion_label": "習得基準",
+   "mastery_criterion_desc": "独立習得確認モードで100%（3問中3問正解）を獲得すること。",
+   "score_label": "得点",
+   "passed_badge": "合格",
+   "failed_badge": "要復習",
+   "independent_pass_badge": "独立習得合格",
+   "agent_assisted_pass_badge": "Agent支援合格",
+   "self_reported_badge": "自己申告完了",
+   "stale_badge": "過去の記録 (コンテンツ更新のため再検証が必要)",
+   "attempts_history_title": "解答根拠と履歴",
+   "no_attempts": "提出履歴はありません。"
+  },
+  "submissions": {
+   "title": "学習プロジェクト提出と証拠",
+   "repo_label": "リポジトリリンク (GitHub / GitLab)",
+   "repo_placeholder": "https://github.com/...",
+   "report_label": "プロジェクト報告書またはドキュメントリンク (任意)",
+   "report_placeholder": "https://...",
+   "notes_label": "証拠メモと診断ログ (最大 4096 バイト)",
+   "notes_placeholder": "最小限の再現例 (MRE)、観察された結果、診断メモを記録してください...",
+   "assistance_mode_label": "申告された支援条件",
+   "mode_independent": "独立した完成 (AI支援なし)",
+   "mode_agent_assisted": "エージェント支援エンジニアリング (AIツールによる指導付き完了)",
+   "mode_disclaimer": "注：AIなしでの作業は誠実な申告条件であり、監視ではありません。",
+   "track_label": "エージェントツールトラック (該当する場合)",
+   "tracks": {
+    "none": "なし / 該当なし",
+    "claude_code": "Claude Code",
+    "codex": "Codex",
+    "pi_agent": "Pi Agent",
+    "deepseek_harness": "DeepSeek Harness"
+   },
+   "submit_btn": "プロジェクト証拠を提出",
+   "status_saving": "提出内容を保存中...",
+   "status_saved": "提出内容が正常に保存されました。",
+   "status_error": "提出の保存に失敗しました。",
+   "val_invalid_url": "無効なURL：リポジトリおよびレポートのリンクは http または https を使用する必要があります。",
+   "val_notes_too_long": "証拠メモが最大制限の 4096 バイトを超えています。",
+   "val_empty": "リポジトリリンク、レポートリンク、または証拠メモのいずれかを記入してください。",
+   "pasted_log_notice": "注意：貼り付けられた実行ログやメモは自己申告の証拠であり、独立した検証や自動テスト結果を構成するものではありません。",
+   "inspect_title": "現在提出されている証拠の詳細",
+   "status_self_reported": "自己申告の証拠 (Self-Reported Evidence)",
+   "status_verified_check": "確定的検証チェック (Verified Check)",
+   "status_independently_reviewed": "独立レビュー証拠 (Independently Reviewed Evidence)",
+   "status_stale": "過去の証拠 (再検証が必要 - コンテンツのリビジョンが変更されました)",
+   "no_submission": "提出記録はまだありません。"
+  }
+ },
+ "activities": {
+  "day-01-act-01": {
+   "title": "学習手法、極小再現、および予測-実験-振り返りの実践",
+   "prerequisites": "高校レベルの読解力とターミナル操作の基礎知識。高度な Python 構文の事前知識は不要です。",
+   "objective": "既存のミューテーション・トレーサー教材で、診断セルフチェックと「予測-実験-振り返り」ループを実践する：コード実行前に予測結果を記録し、実行後に差異を分析し、極小再現例（MRE）と根本原因仮説を導出したうえで、概念を名前・オブジェクト・ミューテーション・割り当て・証拠に分解する。",
+   "assistance_policy_label": "独立習得確認 (Independent Mastery Check)。予測と観測出力を記録した後に受ける支援は復習・修復のみに限定し、このチェックの AI 完了を意味しません。評価対象の説明文は必ず無支援で作成し、支援による復習後は新たな独立チェックで再確認してから習得を申告します。",
+   "instructions": "プログラミングやモデルのデバッグにおいて、推測の繰り返しや無秩序なプロンプト入力は根本的な理解不足を覆い隠してしまいます。本アクティビティでは、変数の可変性と参照に関する典型的な課題を対象に、「予測-実験-振り返り」のサイクルを実践します。",
+   "exercise_prompt": "以下の Python コードを観察し、実行する前に下部の入力欄に予想される出力を記述してください：\n\n```python\na = [1, 2, 3]\nb = a\nb.append(4)\nc = a + [5]\nprint('Case 1:', a)\nprint('Case 2:', c)\nprint('Case 3:', a is b, a is c)\n```\n\n予測完了後、なぜ `b.append(4)` は `a` を変更し、`a + [5]` は `a` を変更しないのかを分析してください。さらに極小再現例（MRE）として、`b` と `a` が同一オブジェクトを参照していることを示す短い証人スニペットを記述してください。これは予期せぬ挙動への対処だけでなく、同一性の主張を裏付ける証拠なので、予測がすべて正しくても必須です。",
+   "hint": "ヒント：Python において変数名はメモリ上のオブジェクトへの参照です。`b = a` はリストの新しいコピーを作成するのではなく、同じオブジェクトに別の名前を割り当てます。`.append()` はインプレース（破壊的）変更ですが、`+` 演算子は新しいリストを割り当てて返します。",
+   "answer": "模範解答および実行トレース：\n1. 予測出力：\n   Case 1: [1, 2, 3, 4]\n   Case 2: [1, 2, 3, 4, 5]\n   Case 3: True False\n2. 根本原因の分析：\n   - `b = a` により `a` と `b` は同一のオブジェクトを参照します（`id(a) == id(b)`）。`b.append(4)` による変更は同じリストに反映されるため、`a` の内容も更新されます。\n   - `a + [5]` は新しいリストオブジェクトを割り当てて `c` にバインドします。したがって `a is c` は `False` となり、`a` 自体は不変のまま保たれます。\n3. 極小再現例 (MRE):\n   ```python\n   x = []\n   y = x\n   y.append(1)\n   assert x == [1] and x is y  # 破壊的変更が共有参照に波及する\n   ```",
+   "mastery_criterion": "習得基準：外部AIの補助に頼ることなく、破壊的変更と新規割り当ての違いを正確に予測し、予測・実測・原因究明を含む3段階の診断ログに加え、極小の同一性/ミューテーション証人スニペット（MRE）を自力で記述できること。MREは予測結果に関わらず必須とする。",
+   "source_resources": [
+    {
+     "id": "py-docs-datamodel",
+     "title": "Pythonデータモデルとミュータビリティ公式リファレンス",
+     "author": "Pythonソフトウェア財団 (Python Software Foundation)",
+     "original_url": "https://docs.python.org/3/reference/datamodel.html",
+     "relevant_timestamp": "第3.1節および第3.2節（オブジェクト、値、型）",
+     "version_or_verification_date": "Python 3.12 公式ドキュメント（検証日: 2026-10-30）",
+     "reuse_category": "linking",
+     "reuse_category_label": "リンク参照（合法的外部参照・未許可インポートなし）",
+     "license": "PSF License Version 2",
+     "license_restrictions": [],
+     "permission_basis": "PSFオープンライセンスに基づく合法的外部参照。プロプライエタリな素材の全文複製は一切行っていません。",
+     "selection_rationale": "Pythonのオブジェクト同一性、参照、ミュータブル/イミュータブルに関する厳密な公式仕様であり、不正確な二次解説を排除するため選定。",
+     "prerequisites": "基本的なターミナル操作の基礎知識および高校レベルの読解力",
+     "known_availability_limitations": "python.org にてホスト。世界中からアクセス可能、標準ライブラリ内包のオフラインpydocが利用可能。",
+     "safe_fallback": "外部接続が遮断された場合でも、ローカルの pydoc および本教材内の完全な解説・演習コードによりオフラインで学習を完結できます。",
+     "compared_candidates": [
+      {
+       "candidate_name": "MIT OCW 6.0001 (Prof. Eric Grimson)",
+       "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+       "license": "CC BY-NC-SA 4.0",
+       "status": "比較検討（Day 01では不採用）",
+       "comparison_rationale": "計算論的思考の講義として優れているが、即時の最小再現コード（MRE）検証よりも伝統的な講義進行に重点があるため見送り。"
+      },
+      {
+       "candidate_name": "Stanford CS336: Language Modeling from Scratch (Spring 2024)",
+       "url": "https://github.com/stanford-cs336/spring2024-assignment1-basics",
+       "license": "No license declared (the repository has no LICENSE file, so all rights are reserved by default)",
+       "status": "比較検討（後続フェーズで採用）",
+       "comparison_rationale": "言語モデルのスクラッチ実装において卓越した深度を持つが、PyTorchとGPU環境を前提とするためDay 30-60へ延期。"
+      },
+      {
+       "candidate_name": "3Blue1Brown: 線形代数の本質",
+       "url": "https://www.3blue1brown.com/topics/linear-algebra",
+       "license": "3Blue1Brown copyright (all rights reserved); site FAQ permits only short clips under stated conditions",
+       "status": "比較検討（後続フェーズで採用）",
+       "comparison_rationale": "幾何学的直観に秀でており、Day 10-18の数学基礎で採用。Day 01の参照学習には含めず。"
+      },
+      {
+       "candidate_name": "Andrej Karpathy: micrograd",
+       "url": "https://github.com/karpathy/micrograd",
+       "license": "MIT (Repository) / Standard YouTube License (Video)",
+       "status": "比較検討（後続フェーズで採用）",
+       "comparison_rationale": "自動微分の実装解説として最適。コードはMITライセンスだが動画字幕の再配布権が不明なため全文翻訳インポートは禁止し、Day 19-25にて合法リンクとして活用。"
+      }
+     ],
+     "source_type": "documentation"
+    }
+   ],
+   "optional_media": {
+    "title": "オプション動画リソース（利用不能でも学習は遮断されません）",
+    "url": "https://example.com/videos/day-01-prediction.mp4",
+    "fallback_notice": "注記：外部のオプション動画リソースは利用不可です。教材本文、自律演習、ヒント、習得基準は完全なオフライン環境で動作します。"
+   },
+   "quiz": {
+    "title": "Day 01 客観的診断クイズ: オブジェクト参照とインプレース変更",
+    "mastery_criterion": "AI支援なしの独立モードで100%（3問全問正解）を獲得すること。",
+    "questions": [
+     {
+      "id": "q1",
+      "prompt": "コード `a = [1, 2, 3]; b = a; b.append(4)` を実行した後の `a` の最終的な値は何ですか？",
+      "options": {
+       "a": "[1, 2, 3]",
+       "b": "[1, 2, 3, 4]",
+       "c": "[1, 2, 3, 5]",
+       "d": "[4, 1, 2, 3]"
+      },
+      "hint": "Pythonにおいて変数代入は識別子を既存オブジェクトに束縛する処理であり、コピーを作成しません。",
+      "explanation": "`b = a` は `b` と `a` を同一のリストオブジェクトに紐付けます。`b.append(4)` はそのオブジェクトをインプレースで変更するため、`a` も `[1, 2, 3, 4]` となります。"
+     },
+     {
+      "id": "q2",
+      "prompt": "続けて `c = a + [5]` を実行した場合、式 `a is c` の評価結果はどうなりますか？",
+      "options": {
+       "a": "True",
+       "b": "TypeError",
+       "c": "False",
+       "d": "None"
+      },
+      "hint": "リストの `+` 結合演算は既存のリストを変更せず、新しいリストオブジェクトを割り当てて返します。",
+      "explanation": "`a + [5]` は新しいリストオブジェクトを生成して返します。`is` 演算子は2つの名前が同一のオブジェクトを参照しているか（`id(a) == id(c)` が成り立つか）を検証するため、結果は `False` となります。"
+     },
+     {
+      "id": "q3",
+      "prompt": "Pythonにおける代入文 `b = a` の基礎メカニズムとして正確な説明はどれですか？",
+      "options": {
+       "a": "Pythonはリスト要素のディープコピーを自動作成する。",
+       "b": "変数 `b` と `a` の双方がメモリ上の全く同一のオブジェクトを参照する。",
+       "c": "要素長が一致する2つのオブジェクトが存在する場合、Pythonランタイムは自動的に内容を同期する。",
+       "d": "代入演算子は可変リストを自動的にイミュータブルなタプルに変換する。"
+      },
+      "hint": "参照セマンティクスと値コピーの区別を意識してください。",
+      "explanation": "Pythonの変数はオブジェクトを指す名前付き参照です。代入は新しい名前 `b` を `a` が指す既存のオブジェクトに束縛するだけです。"
+     }
+    ]
+   },
+   "tracer_bullet": "この既存のミューテーション例はデイ 01–03 共通のトレーサー教材です。その観察と証拠を再利用してください。別の活動にコピーしないでください。"
+  },
+  "day-01-act-02": {
+   "title": "Python 環境構築・ターミナル操作と仮想環境の分離",
+   "prerequisites": "一般的なOSでのターミナル実行権限。",
+   "objective": "空のサンドボックスディレクトリにクリーンな Python 3.12+ 仮想環境を作成し、`sys.prefix`、`sys.executable`、`python -m pip` でインタプリタとパッケージの分離を検証する。",
+   "assistance_policy_label": "自律的習得確認 (Independent Mastery Check)",
+   "instructions": "評価は POSIX シェル（Linux/macOS の bash または zsh）で行います。仮想環境が有効化されていない新しいターミナルで開始してください — 開始前プローブが `True` を示すことを確認し、報告された実行パスと prefix を記録します。Windows の対応コマンドは末尾に示しますが、本教材では未実行です。\n\n```sh\npython3 --version\npython3 -c \"import sys; print(sys.executable); print(sys.prefix); print(sys.base_prefix); print(sys.prefix == sys.base_prefix)\"\nmkdir venv-sandbox && cd venv-sandbox\nprintf 'marker\\n' > marker.txt\npython3 -m venv .venv\n. .venv/bin/activate          # bash/zsh; cmd.exe and PowerShell differ (below)\necho \"$VIRTUAL_ENV\"\npython -c \"import sys; print(sys.executable); print(sys.prefix); print(sys.base_prefix); print(sys.prefix == sys.base_prefix)\"\npython -c \"print(open('marker.txt').read().strip())\"\npython -m pip --version\ndeactivate\npython3 -c \"import sys; print(sys.executable); print(sys.prefix); print(sys.base_prefix); print(sys.prefix == sys.base_prefix)\"\n```\n\n期待される不変条件：\n- `python3 --version` が Python 3.12 以降を報告してから作業を開始する。\n- 新規シェルの開始前プローブは `sys.prefix == sys.base_prefix` が `True` と表示し、そのパスを開始前の状態として記録する。\n- 有効化後、`$VIRTUAL_ENV` は `.venv` を指し、`sys.executable` は `.venv` 内を示し、`sys.prefix` が `.venv` パスと一致する一方 `sys.base_prefix` は基底インストールを指し続ける — この不一致が分離の検証。`sys.executable` は呼び出しパス（シンボリックリンクの可能性あり）を示すため、物理実行ファイルの解決ではなく prefix の値で確認する。\n- venv インタプリタ自身が `marker.txt` を読み `marker` を出力する：venv の Python は `.venv` 外・作業ディレクトリ内のファイルを読める — 分離はインタプリタ/パッケージであり、ファイルシステムのサンドボックスではない。\n- `python -m pip --version` は `.venv` の site-packages 内の pip を報告する。`python -m pip` で pip が有効なインタプリタと対になる。\n- `deactivate` 後の終了プローブは開始前に記録した値と一致する（`sys.prefix == sys.base_prefix` が再び `True`）。\n\nWindows の対応コマンド（本教材では未実行の参考手順）：`py -m venv .venv` で作成、`.venv\\Scripts\\Activate.ps1`（PowerShell）または `.venv\\Scripts\\activate.bat`（cmd.exe）で有効化。診断は PowerShell では `$env:VIRTUAL_ENV`、cmd.exe では `%VIRTUAL_ENV%`、コマンド検索は `command -v`/`echo $PATH` の代わりに `where.exe python`。`deactivate`、`python -c`、`sys.prefix`/`sys.base_prefix` チェックは共通です。\n\n対応する Python が利用できない場合は、演習内の記録フォールバックに従い、環境部分を未実施のまま習得済みとは申告しないでください。\n\n範囲の注意：仮想環境が分離するのは `sys.prefix`/`sys.path` を介した Python インタプリタとインストール済みパッケージです。venv の Python によるマーカー読み取りが示すとおり、ファイルシステムやセキュリティのサンドボックスではなく、内部のプログラムはファイルを読めます。Python 自体のバージョン固定でもありません。",
+   "exercise_prompt": "仮想環境が有効化されていない新しいターミナルで作業手順を実行します：開始前プローブを記録し、新規の空ディレクトリで `.venv` を作成・有効化し、`echo $VIRTUAL_ENV`、venv 内プローブ、venv インタプリタによる `marker.txt` の読み取り、`python -m pip --version` を記録し、`deactivate` 後に終了プローブが開始前の記録と一致することを確認します。`python3 --version` が失敗するか 3.12 未満を報告した場合、規定の環境は達成不可として申告しないでください。古いインタプリタがある場合は観測バージョンを記録し、そのバージョンに限定した同じチェックを実行します。インタプリタが無い場合は `command -v python3`（Windows では `where.exe python`）、`python3 --version`、`echo $PATH`（Windows では `%PATH%` / `$env:PATH`）と観測エラーを記録し、Python のインストールを復習タスクとして予定してください。未実行の環境タスクは習得の証拠になりません。",
+   "hint": "`python3 -m venv` が失敗した場合（ensurepip エラー等）は記録してフォールバックに進み、飛ばさないでください。POSIX での有効化は `source .venv/bin/activate`、Windows は `.venv\\Scripts\\Activate.ps1`（PowerShell）/ `.venv\\Scripts\\activate.bat`（cmd.exe）。有効化の判断は `sys.prefix`/`sys.base_prefix` プローブと `echo $VIRTUAL_ENV`（PowerShell は `$env:VIRTUAL_ENV`、cmd.exe は `%VIRTUAL_ENV%`）で行い、プロンプト装飾では判断しません。",
+   "answer": "参考実行記録（新規シェルの bash/zsh。パスは例）：\n\n```text\n$ python3 --version\nPython 3.14.8\n$ python3 -c \"import sys; print(sys.executable); print(sys.prefix); ...\"\n/usr/bin/python3         # 開始前の状態：基底インタプリタ、venv は未有効化\n/usr\n/usr\nTrue                     # 新規シェルでは prefix == base_prefix\n$ mkdir venv-sandbox && cd venv-sandbox && printf 'marker\\n' > marker.txt && python3 -m venv .venv\n$ . .venv/bin/activate\n$ echo \"$VIRTUAL_ENV\"\n.../venv-sandbox/.venv\n$ python -c \"import sys; print(sys.executable); print(sys.prefix); ...\"\n.../venv-sandbox/.venv/bin/python   # 呼び出しパス（シンボリックリンクの可能性）— prefix で確認\n.../venv-sandbox/.venv\n/usr\nFalse                    # prefix != base_prefix → インタプリタが分離\n$ python -c \"print(open('marker.txt').read().strip())\"\nmarker                   # venv の Python が .venv 外のファイルを読める → ファイルシステムのサンドボックスではない\n$ python -m pip --version\npip 26.2.1 from .../venv-sandbox/.venv/lib/python3.14/site-packages/pip (python 3.14)\n$ deactivate\n$ python3 -c \"import sys; print(sys.executable); print(sys.prefix); ...\"\n/usr/bin/python3         # 記録した開始前の状態に戻った\n/usr\n/usr\nTrue\n```\n\n不変条件が成り立つ理由：`sys.prefix` は実行中インタプリタが属する環境を、`sys.base_prefix` は常に基底インストールを示します。venv 内ではこの2つが異なり、これが分離の確認可能な特徴です。`sys.executable` は呼び出しに使われたパスを示し `.venv` 内のシンボリックリンクの場合があるため、確認は解決済み実行パスではなく prefix の値で行います。`python -m pip` は有効なインタプリタ経由で pip を解決します。`$VIRTUAL_ENV` と PATH の変更が有効化の機構であり、`deactivate` がそれを戻し、終了プローブは記録した開始前の状態と一致しなければなりません。\n\n境界：この分離はインタプリタとパッケージに限られます — venv インタプリタ自身が `.venv` 外の `marker.txt` を読み `marker` を表示したとおり、ファイルシステムのサンドボックスではありません。`.venv` は作成に使ったインタプリタに結び付いたままです。",
+   "mastery_criterion": "仮想環境の無い新規シェルで、新規ディレクトリ内の 作成→有効化→検証→無効化 を自力で実行し、venv 内プローブで `sys.prefix != sys.base_prefix` と `python -m pip` の `.venv` 内解決、`marker.txt` 読み取りによる非サンドボックス実証、および終了プローブの開始前記録との一致を含む記録を提示できること。加えて、インタプリタ分離とファイルシステム/セキュリティサンドボックスの違いを1行で正しく説明できること。対応 Python が無い場合はこの部分の習得を申告せず、記録済みフォールバック証拠と復習タスクを代わりに提示します。",
+   "optional_media": null,
+   "tracer_bullet": null
+  },
+  "day-01-act-03": {
+   "title": "Git の基礎：リポジトリ初期化、コミットと状態確認",
+   "prerequisites": "基本的なファイルコマンド（mkdir, cd, ls）と `git --version` が動作すること。",
+   "objective": "使い捨ての Git リポジトリを自力で初期化し、変更→ステージ→コミット→ログ確認の一巡を、各段階で `git status`、`git diff`、`git log` により検証する。",
+   "assistance_policy_label": "自律的習得確認 (Independent Mastery Check)",
+   "instructions": "評価対象タスク（独立実施）：以下の一連の作業を、新規作成した使い捨てディレクトリ内で自力で行います。本プロジェクトや既存の作業ツリー内では絶対に実行しないでください。破壊的コマンド（`reset --hard`、`clean`、`push --force`）は使用しません。作者情報が無くコミットに失敗した場合は、示した方法でそのリポジトリ内にのみ設定します。\n\n```sh\nmkdir git-sandbox && cd git-sandbox\ngit init\ngit config user.name \"Learner\"\ngit config user.email \"learner@example.invalid\"\nprintf 'first line\\n' > notes.txt\ngit status\ngit add notes.txt\ngit diff --cached\ngit commit -m \"Add notes file\"\nprintf 'second line\\n' >> notes.txt\ngit status\ngit diff\ngit add notes.txt\ngit commit -m \"Append a second line to notes\"\ngit log --oneline\ngit status\n```\n\n期待される不変条件：\n- `git add` 前の `git status` は `notes.txt` を未追跡（untracked）として示し、ステージ後の `git diff --cached` は `+` 始まりの新規行を示す。\n- 変更後、`git status`/`git status --porcelain` はファイルを未ステージの変更（` M`）として示し、`git diff` がその未ステージ差分を表示する。\n- `git log --oneline` は2件のコミットを新しい順に列挙し、最後の `git status` はクリーンな作業ツリーを報告する。\n- `--global` を付けない `git config user.name`/`user.email` はこのリポジトリの `.git/config` にのみ書き込まれ、マシン全体の設定は変更されない。\n\n各コマンドと観測出力をログに記録してください。\n\n任意・評価外のオリエンテーション（本チェックの対象外）：後で使う Agent ツールを Agent Tool Track ページで確認しても構いません。これは見学のみで、本独立習得確認の一部でも証拠でもありません。",
+   "exercise_prompt": "新規の空ディレクトリで上記のコマンド列をすべて実行してください。評価対象の成果物は、`notes.txt` の 未追跡→ステージ済み→コミット済み の遷移、2回目の 変更→ステージ→コミット サイクル、および2件を列挙する最終 `git log --oneline` を示すコマンドと出力の記録です。加えて、status に関する観察を1件記録してください。`git status` が報告した内容で予期しなかった点、または予期しない点がなかった場合は、予期どおりの状態遷移を1つ挙げ、その実際の出力と、その出力がなぜ予測を裏付けるかを説明してください。生の予測と生の出力はそのまま記録してください。",
+   "hint": "`git commit` が作者情報の未設定を報告した場合は、示された2行の `git config user.name`/`user.email` をそのまま実行してください。`--global` を付けないため、そのリポジトリの `.git/config` にのみ適用され、マシン全体の設定は変わりません。`git status` の出力は上から順に、未追跡・変更・ステージ済みの状態を区別して読みます。",
+   "answer": "参考実行記録（抜粋。ハッシュや `main`/`master` 名は環境で変化）：\n\n```text\n$ git status\n... Untracked files: notes.txt            # 新規ファイル、まだ未ステージ\n$ git add notes.txt && git diff --cached\n+first line                              # ステージ済みの追加が見える\n$ git commit -m \"Add notes file\"\n[main (root-commit) 8bddb5d] Add notes file\n$ printf 'second line\\n' >> notes.txt && git status --porcelain\n M notes.txt                             # 変更済み、まだ未ステージ\n$ git diff\n+second line                             # 未ステージ差分が見える\n$ git add notes.txt && git commit -m \"Append a second line to notes\"\n[main a0d6969] Append a second line to notes\n$ git log --oneline\na0d6969 Append a second line to notes    # 新しい順\n8bddb5d Add notes file\n```\n\nコミットはステージ済みツリーのスナップショットに、0個以上の親コミットIDとメタデータを加えたものです（最初のルートコミットには親がありません）。`git log` がそのスナップショットの存在を検証します。`git status` は未追跡（`??`）、未ステージ変更（` M`）、ステージ済みを区別し、`git diff` は未ステージ差分、`git diff --cached` はステージ済み差分を示します。作者情報は `--global` なしの `git config` で設定したため、この使い捨てリポジトリの `.git/config` にのみ存在します。`git-sandbox/` 以外には触れておらず、破壊的コマンドも不要でした。",
+   "mastery_criterion": "使い捨てディレクトリ内で、既存のリポジトリ状態・破壊的コマンド・エージェント支援なしに、新規リポジトリの初期化→ファイル変更→ステージ→ステージ差分の確認→コミット→`git log --oneline` による2件確認→クリーンな `git status` までの全工程を自力で実行できること。",
+   "optional_media": null,
+   "tracer_bullet": null
+  },
+  "day-01-act-04": {
+   "title": "第 1 日の振り返り：想起練習と学習ログの作成",
+   "prerequisites": "本日の最初のアクティビティ3件を完了していること。",
+   "objective": "閉巻で今日の主要概念を自分の言葉で書き出し、1つの誤解を根拠により修正する（誤解が見つからなかった場合は、その旨を明示した上で、ありがちな誤解を1つ根拠付きで棄却する）、そして具体的な復習ステップを予定する想起ログを作成する。",
+   "assistance_policy_label": "自律的習得確認 (Independent Mastery Check)",
+   "instructions": "レッスンとノートを閉じ、支援なしで行います。\n第1段階 — 無支援の想起（参照資料は閉じた状態）：今日の3系統（オブジェクト参照とミューテーション、仮想環境の分離、Git の 変更→ステージ→コミット サイクル）について、何も参照せず記憶にある内容を書き出します。\n第2段階 — 参照確認と修正：ここで初めて参考解答を開き、想起が誤りまたは不完全だった箇所を印し、ルーブリックに従って誤解を1件扱います。第1段階の記述は上書きせず注釈し、無支援の試行が区別できるようにします。\n第3段階 — 新たな無支援チェック（再び参照資料を閉じる）：修正または想起した概念を新しい小さな事例に適用し（新しいコードの出力予測やチェックの再導出）、結果を記録します。\n第4段階 — 短い復習ステップを予定する：Day 02 開始前に最も弱い項目を再自測する、具体的な時刻とトリガーを決めます。\n\nルーブリック — ログは次の4項目すべてを満たすこと：\n- 無支援の想起段階で、少なくとも2つの Day 01 概念をコピーではなく自分の言葉で再述している\n- 実際の誤解1件を修正した具体的根拠と対で記録するか、見つからなかった場合は「見つからなかった」旨を明示した上で、あり得る一般的な誤解1つを根拠つきで棄却する\n- 第3段階の新たな無支援の転用/想起チェックを結果とともに記録している（「全部正しかった」だけの申告は何も立証しない）\n- 具体的な時刻とトリガーを伴う復習ステップが1つ予定されている\n分量は証拠ではありません。ルーブリックを満たす短いログは、長い要約より優れます。",
+   "exercise_prompt": "手順で説明した想起ログを作成してください：まず無支援で想起し、次に参照確認による修正（または「見つからなかった」旨の明示的な代替）、新たな無支援チェック、復習ステップの予定まで行います。",
+   "hint": "ルーブリックが評価するのは根拠づけられた修正と新たなチェックであり、文章の完成度ではありません。誤りを捏造する必要もありません。対照実験では想起練習が反復学習より遅延後の散文保持を改善しました（Roediger & Karpicke, 2006）。これは裏付けのある手法の一つであり、万能の最適手法ではありません。",
+   "answer": "記入例（参考であり、転写用テンプレートではありません）：\n\n```text\n第1段階 - 無支援の想起（参照資料は閉じた状態）：\n- `b = a` は b に同じリストを参照させるので b.append は a を変える。\n  `a + [5]` は c 用の新しいリストを作る。\n- venv は分離を与える。「プログラム全体をサンドボックスする」と書いた — 誤り。\n- git add はファイルをスナップショットし、commit が保存する。\n\n第2段階 - 参照確認と修正（ここで参照資料を開く）：\n誤解：仮想環境はプログラムが自分のファイルを読むのを防ぐ。\n本日実際に観測した根拠：有効化した .venv の中で venv インタプリタ自身の `python` が\n`marker.txt` を読み 'marker' を表示した — .venv の外だが使い捨てサンドボックス内のファイル。\nvenv プローブで変わったのは sys.executable/sys.prefix と pip が使う\nsite-packages であり、ファイルアクセスは遮断されていない。これは\nインタプリタ/パッケージの分離であり、ファイルシステムのサンドボックスではない。\n想起できなかった項目：`python -m pip` が裸の `pip` より推奨される理由\n（推測せず正直に記録）。\n\n第3段階 - 新たな無支援チェック（再び参照資料を閉じる）：\nノートなしの新例：`d = [9]; e = d; e.append(0)` — 無支援の予測：e が同じリストオブジェクトを\n参照するので d == [9, 0]。その後実際に実行して [9, 0] を観測——記憶上の主張ではなく\n実際の出力による確認結果である。\n\n第4段階 - 復習ステップ：\n明日 09:00、Day 02 開始前に `b = a` と `a + [5]` を記憶から再導出し、\n不明なら sys.prefix != sys.base_prefix のプローブを再実行する。\n```\n\nルーブリックとの自己照合：第1段階は2つの概念を独自の言い回しで再述し、第2段階は誤解1件を本日実際に観測したコマンド出力と対で記録しています（見つからなかった場合は「誤解なし」の記録と、根拠つきで棄却した一般的な誤解を書きます）。第3段階は新たな無支援チェックと結果を記録し、第4段階は日時指定の復習ステップを予定しています。「全部正しかった」だけの申告はルーブリックの証拠項目を満たしません。",
+   "mastery_criterion": "ルーブリックの全項目を満たす閉巻の想起ログを作成できること：自分の言葉で再述した Day 01 の概念2つ以上；具体的根拠で修正された実際の誤解1件、または見つからなかった場合の明示記録と根拠つきで棄却した一般的誤解；結果を記録した新たな無支援の転用チェック；予定された復習ステップ1つ。語数・文字数や根拠のない正答申告は概念習得の証拠ではありません。",
+   "optional_media": null,
+   "tracer_bullet": null
+  }
+ }
+}

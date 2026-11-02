@@ -1,0 +1,211 @@
+{
+  "language": "ja",
+  "language_label": "日本語",
+  "day_title": "Day 07: 週次復習 — 値・条件・安全な Git",
+  "day_subtitle": "新規内容を抑えた復習日：Day 04〜06（値と束縛、比較と明示的な条件、小さな差分とコミット）を新しい入力で記憶から想起し、最後に独力で確認する。新しい要素は足場付きのコマンド 1 つ（git restore）と、Day 08 の for ループの短い予告（評価対象外）だけ。想起・復習・独立チェックで 480 分の学習台帳を満たす。",
+  "time_budget_label": "480 分（8 時間の集中学習）",
+  "category_label": "自律学習と Python",
+  "common": {
+    "nav_calendar": "カリキュラムカレンダー",
+    "day_label": "学習日 07",
+    "prerequisites_title": "前提条件",
+    "objective_title": "学習目標",
+    "instructions_title": "手順",
+    "exercise_title": "演習と予測記録",
+    "hint_title": "ヒントを見る",
+    "reveal_answer": "参考解答とトレースを見る",
+    "mastery_title": "独立習得基準",
+    "draft_placeholder": "予測、実際の出力、振り返り、回復の証拠をここに記録...",
+    "sources_heading": "出典リソースと来歴",
+    "source_author_label": "著者・提供機関",
+    "source_url_label": "オリジナル出所URL",
+    "source_range_label": "該当セクション・タイムスタンプ",
+    "source_verification_label": "検証バージョンと日付",
+    "source_rationale_label": "選定理由",
+    "source_prereqs_label": "ソース前提知識",
+    "source_fallback_label": "安全フォールバック（オフライン回復性）",
+    "compared_candidates_heading": "比較対象候補リソースと選定評価"
+  },
+  "activities": {
+    "day-07-act-01": {
+      "source_resources": [
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2〜4.10 節（for、range、関数の定義）。データ構造は同じチュートリアルの第 5 章",
+          "version_or_verification_date": "Python 3.12 ドキュメント（確認日: 2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Python の反復処理、関数、コンテナを確認するための一次資料。",
+          "safe_fallback": "必要な動作はすべて教材内で説明しているため、オフラインでも完了できます。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ構文を文法レベルで定義するリファレンスです。段階を追って学べる構成のため、チュートリアルの章を選びました。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ制御フローを講義のペースで扱う教材です。本カリキュラムではターミナルでの演習を通じて概念を扱っているため、採用を見送りました。"
+            }
+          ],
+          "prerequisites": "Day 01〜06 の Python の式とファイルシステムの基礎",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "ノートを閉じて想起する：値と束縛（Day 04〜05）",
+      "prerequisites": "Day 06（独立チェックを含む）を修了していること。行き詰まったらまず Day 06 に戻り、値と束縛については Day 04〜05 を見直す。",
+      "objective": "repr・type・bool が値をどう表すか、再束縛と変更（ミューテーション）がどう違うかを記憶から想起し、初めて見る入力（空文字列や Unicode 文字列を含む）で Python を使って確かめる。",
+      "assistance_policy_label": "エージェント支援の演習：まず自分の予測と実際の出力を記録すること。その後に限り AI エージェントに説明やレビューを頼んでよく、受けた支援は証拠に必ず記録する。",
+      "instructions": "**間隔をあけた復習：** Day 04〜05 は 2〜3 日前の内容なので、今日は読み返す前に想起する。記憶から引き出してから確かめるほうが、ノートを読み返すより長く定着する。この活動に新しい内容はない。\n\n1. ノートを閉じ、最初のコードの各値について repr、型名、bool の 3 列を予想して書く。最後の行も予測する（len はバイト数ではなく Unicode のコードポイント数を数える）。\n2. コードを実行し、予測と違った行に印を付ける。\n3. 束縛のコードでも 2 行を予測してから実行する。\n4. 食い違いごとに、忘れていた規則とそれを扱う日（値は Day 04、変更と同一性は Day 05）を 1 文で書く。\n\n```python\ndef show(value):\n    print(repr(value), type(value).__name__, bool(value))\nshow(0.0)\nshow(\"0.0\")\nshow(\"\")\nshow(\"猫\")\nshow([\"\"])\nshow(None)\nprint(len(\"猫\"), len(\"café\"))\n```\n\n```python\na = [\"猫\"]\nb = a\na.append(\"犬\")\nprint(b, a is b)\nc = [\"猫\"]\nd = c\nc = c + [\"犬\"]\nprint(d, c is d)\n```",
+      "exercise_prompt": "値ごとに 1 行（0.0、\"0.0\"、\"\"、\"猫\"、[\"\"]、None）、列は repr / type / bool の予測表を作り、len(\"猫\") と len(\"café\") の予測も加える。次に束縛のコードが出力する 2 行を予測し、どの名前が変更され、どの名前が再束縛されたかを説明する。",
+      "hint": "偽になる文字列は空文字列だけで、空でない文字列は \"0.0\" や空白 1 つでも真になる。空文字列を 1 つ含むリストは空ではない。append は 2 つの名前が指している既存のリストそのものを変える。c = c + [...] は新しいリストを作り、名前 c だけを付け替える。",
+      "answer": "最初のコードの正確な出力：\n\n```text\n0.0 float False\n'0.0' str True\n'' str False\n'猫' str True\n[''] list True\nNone NoneType False\n1 4\n```\n\n束縛のコードの正確な出力：\n\n```text\n['猫', '犬'] True\n['猫'] False\n```\n\n理由：0.0 と None は偽で、\"\" は空文字列なので偽。空でない文字列は \"0.0\" も含めてすべて真。[\"\"] は要素が 1 つあるリストなので真。\"猫\" は 1 コードポイント、\"café\" は 4 コードポイント。束縛のコードでは a と b が同じリストを指すので、append の結果は b からも見え、a is b は True のまま。c + [\"犬\"] は新しいリストを作るので、d は元の [\"猫\"] を指したままで c is d は False になる。",
+      "mastery_criterion": "実行前に書いた予測が 6 つの値・2 つの len・束縛の 2 行をすべて網羅し、食い違いのそれぞれに 1 文の規則と回復先の日（Day 04 または Day 05）が書かれている。"
+    },
+    "day-07-act-02": {
+      "source_resources": [
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2〜4.10 節（for、range、関数の定義）。データ構造は同じチュートリアルの第 5 章",
+          "version_or_verification_date": "Python 3.12 ドキュメント（確認日: 2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Python の反復処理、関数、コンテナを確認するための一次資料。",
+          "safe_fallback": "必要な動作はすべて教材内で説明しているため、オフラインでも完了できます。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ構文を文法レベルで定義するリファレンスです。段階を追って学べる構成のため、チュートリアルの章を選びました。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ制御フローを講義のペースで扱う教材です。本カリキュラムではターミナルでの演習を通じて概念を扱っているため、採用を見送りました。"
+            }
+          ],
+          "prerequisites": "Day 01〜06 の Python の式とファイルシステムの基礎",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "想起：比較と明示的な条件（Day 05〜06）",
+      "prerequisites": "今日の活動 1。比較に不安があれば Day 05、条件分岐と入力の正規化については Day 06 を見直す。",
+      "objective": "== と is の違いを想起し、空文字列・空白だけの入力・10 進数字・Unicode の数字を明示的な条件で扱う Day 06 型の分類関数を記憶から作り直す。",
+      "assistance_policy_label": "エージェント支援の演習：まず自分の予測と実際の出力を記録すること。その後に限り AI エージェントに説明やレビューを頼んでよく、受けた支援は証拠に必ず記録する。",
+      "instructions": "**間隔をあけた復習：** Day 05（比較）と Day 06（条件）を新しい入力で扱うので、覚えている答えには頼れない。\n\n1. 比較の行が出力する 5 つの真偽値を予測してから実行する。\n2. Day 06 を見ずに label(raw) を書く：テキストを strip し、結果が空文字列なら \"missing\"、strip 後のテキストが 10 進数字なら \"number \" と整数値、それ以外は \"text \" と strip 後のテキストを返す。自分の版を実行する前に 6 行の出力を予測する。\n3. 自分の関数を下の参考実装と比べ、両方を実行する。\n\n```python\nprint(0 == 0.0, \"0\" == 0, None is None, [] == [], [] is [])\n```\n\n```python\ndef label(raw):\n    text = raw.strip()\n    if text == \"\":\n        return \"missing\"\n    if text.isdecimal():\n        return \"number \" + str(int(text))\n    return \"text \" + text\nprint(label(\"  猫 \"))\nprint(label(\"\"))\nprint(label(\"   \"))\nprint(label(\"007\"))\nprint(label(\"-3\"))\nprint(label(\"٣\"))\n```\n\n**Day 08 の予告（評価対象外・足場付き）：** 下のループを実行し、本体が 1 文字につき 1 回実行されることだけを観察する。ループは明日きちんと学ぶ。\n\n```python\nfor ch in \"猫a\":\n    print(ch, ch == \"a\")\n```",
+      "exercise_prompt": "5 つの比較の予測と自分の label(raw) を書き、\"  猫 \"、\"\"、\"   \"、\"007\"、\"-3\"、\"٣\"（アラビア・インド数字の 3）に対する 6 つの出力を予測する。実行後、\"٣\" の意外な結果を説明する。",
+      "hint": "== は値を比べ、is は 2 つの名前が同じオブジェクトを指すかを調べる。[] を書くたびに新しいリストができる。先に strip してから空文字列かを調べる：空白だけの文字列は strip() で空になる。isdecimal() は 0〜9 だけでなく多くの文字体系の 10 進数字で True になり、int() もそれを受け付ける。",
+      "answer": "比較の出力：\n\n```text\nTrue False True True False\n```\n\n0 == 0.0 は数値として比べるので True、文字列は整数と等しくならないので False、None is None は None を調べる安全な書き方で True、空リスト同士は等しい（True）が別々のオブジェクト（False）。\n\nlabel の出力：\n\n```text\ntext 猫\nmissing\nmissing\nnumber 7\ntext -3\nnumber 3\n```\n\nトレース：\"  猫 \" は strip すると \"猫\" で、10 進数字ではないので \"text 猫\"。\"\" と \"   \" はどちらも strip すると空文字列なので \"missing\"。\"007\" は 10 進数字で int(\"007\") は 7。\"-3\" はマイナス記号を含むので isdecimal() が False となり text のまま。\"٣\" は Unicode の 10 進数字なので isdecimal() が True、int(\"٣\") は 3。予告の出力は 猫 False、次に a True。",
+      "mastery_criterion": "5 つの比較と 6 つの label の予測を実行前に書き、自分の label(raw) が参考出力を完全に再現し、\"   \" が missing になる理由と \"٣\" が数値になる理由を説明できる。"
+    },
+    "day-07-act-03": {
+      "source_resources": [
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2〜4.10 節（for、range、関数の定義）。データ構造は同じチュートリアルの第 5 章",
+          "version_or_verification_date": "Python 3.12 ドキュメント（確認日: 2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Python の反復処理、関数、コンテナを確認するための一次資料。",
+          "safe_fallback": "必要な動作はすべて教材内で説明しているため、オフラインでも完了できます。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ構文を文法レベルで定義するリファレンスです。段階を追って学べる構成のため、チュートリアルの章を選びました。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ制御フローを講義のペースで扱う教材です。本カリキュラムではターミナルでの演習を通じて概念を扱っているため、採用を見送りました。"
+            }
+          ],
+          "prerequisites": "Day 01〜06 の Python の式とファイルシステムの基礎",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "安全な Git の復習：確認・チェック・コミット・未コミット変更の復元",
+      "prerequisites": "今日の活動 1〜2、Git がインストール済みであること。git diff や小さなコミットに不安があれば Day 04 活動 3 と Day 06 活動 3 を見直す。",
+      "objective": "Day 04〜06 の安全な変更手順（diff、diff --check、小さなコミット、log）を使い捨てリポジトリで復習し、新しい足場付きコマンド git restore で未コミットの編集を破棄して結果を確かめる。",
+      "assistance_policy_label": "エージェント支援の演習：まず自分の予測と実際の出力を記録すること。その後に限り AI エージェントに説明やレビューを頼んでよく、受けた支援は証拠に必ず記録する。",
+      "instructions": "**間隔をあけた復習：** コミット前に差分を確認する練習は Day 04 と Day 06 で行った。今日は新しいフィクスチャで記憶から繰り返す。**今日の新要素（足場付き）：** git restore FILE は、デフォルトではインデックス（ステージング領域）を元に作業ツリー内の追跡中のファイルを復元する。インデックス自体は変えず、ステージ済みの変更も解除しない。このフィクスチャではインデックスが HEAD（最新のコミット）と同じなので、ステージしていない編集を破棄するとそのコミット済みの版に戻る。コミットは取り消せない（それは Day 09 で扱う）。\n\n作業は必ず新しい一時ディレクトリで行い、カリキュラムのリポジトリでは行わない。各コマンドの前に、何が出力されるかを書く（何も出力されない、も予測に数える）。そのうえで一連のコマンドを実行する：\n\n```bash\ncd \"$(mktemp -d)\"\ngit init -q\ngit config user.name \"Learner\"\ngit config user.email \"learner@example.invalid\"\nprintf 'label: 猫\\n' > notes.txt\ngit add notes.txt\ngit commit -q -m \"Add notes\"\nprintf 'label: 猫\\ncount: 1\\n' > notes.txt\ngit diff --stat\ngit diff --check\ngit add notes.txt\ngit commit -q -m \"Add count line\"\ngit log --format=%s\nprintf 'oops\\n' >> notes.txt\ngit status --short\ngit restore notes.txt\ngit status --short\ncat notes.txt\n```",
+      "exercise_prompt": "git diff --stat、git diff --check、git log --format=%s、2 回の git status --short の出力を予測してから実行し、実際の出力を記録する。最後に git restore 後のファイル内容を書き、Unicode を含む行 \"label: 猫\" が残った理由を説明する。",
+      "hint": "git diff --check は空白の誤りがなければ何も出力しない。git status --short は、ステージしていない変更があると \" M notes.txt\"（先頭に空白、次に M）を出力し、クリーンなら空の出力になる。git restore は未コミットの変更しか触らないので、2 つのコミットは log に残る。ここで reset --hard、clean、force-push は使わない。",
+      "answer": "一連のコマンドの正確な出力：\n\n```text\n notes.txt | 1 +\n 1 file changed, 1 insertion(+)\nAdd count line\nAdd notes\n M notes.txt\nlabel: 猫\ncount: 1\n```\n\n1 行ずつ：差分の要約は 1 行の追加を示す。git diff --check は何も出力しない（空白の誤りなし）。log には新しい順に 2 つのコミットが並ぶ。\"oops\" を追記すると短い status は \" M notes.txt\"。git restore はインデックスから復元する。このフィクスチャではインデックスが HEAD と同じままなので、インデックスを変えずにステージしていない編集だけが破棄され、2 回目の status は何も出力せず、ファイルは再び \"label: 猫\" と \"count: 1\" だけになる。Unicode の行が残ったのは、それがコミット済みの版に含まれていたから。",
+      "mastery_criterion": "実行前に予測を記録し、実際の出力が参考出力と完全に一致し、git restore が適切な場面（追跡中ファイルへの未コミットの編集）と、それがコミットを取り消さないことを説明できる。"
+    },
+    "day-07-act-04": {
+      "source_resources": [
+        {
+          "id": "py-tutorial-control-flow",
+          "title": "The Python Tutorial: More Control Flow Tools",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/tutorial/controlflow.html",
+          "relevant_timestamp": "第 4.2〜4.10 節（for、range、関数の定義）。データ構造は同じチュートリアルの第 5 章",
+          "version_or_verification_date": "Python 3.12 ドキュメント（確認日: 2026-10-30）",
+          "reuse_category": "linking",
+          "license": "PSF License Version 2",
+          "permission_basis": "Linking only; no text reproduced from the source.",
+          "selection_rationale": "Python の反復処理、関数、コンテナを確認するための一次資料。",
+          "safe_fallback": "必要な動作はすべて教材内で説明しているため、オフラインでも完了できます。",
+          "compared_candidates": [
+            {
+              "candidate_name": "The Python Language Reference: Compound statements",
+              "url": "https://docs.python.org/3/reference/compound_stmts.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ構文を文法レベルで定義するリファレンスです。段階を追って学べる構成のため、チュートリアルの章を選びました。"
+            },
+            {
+              "candidate_name": "MIT OCW 6.0001 Introduction to Computer Science and Programming in Python",
+              "url": "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "同じ制御フローを講義のペースで扱う教材です。本カリキュラムではターミナルでの演習を通じて概念を扱っているため、採用を見送りました。"
+            }
+          ],
+          "prerequisites": "Day 01〜06 の Python の式とファイルシステムの基礎",
+          "license_restrictions": [],
+          "source_type": "documentation"
+        }
+      ],
+      "title": "週次の独立チェック：Day 04〜06",
+      "prerequisites": "今日の活動 1〜3 を証拠付きで終えていること。回復先：Day 04（値）、Day 05（束縛と比較）、Day 06（条件と安全な Git）。",
+      "objective": "支援なしで値・束縛・比較の結果を予測し、明示的な条件を使う小さな関数を一から実装し、安全な確認コマンドを記憶から書く。",
+      "assistance_policy_label": "独立習得チェック：証拠を提出するまで AI の支援も参考解答も使わない。受けた支援は正直に申告する。",
+      "instructions": "**間隔をあけた復習：** これは Day 04〜06 をまとめる週次の定着チェックである。証拠を提出するまで参考解答を開かず、AI も使わない。\n\n1. 次のコードが出力する 3 行を紙に予測してから実行する：\n\n```python\nprint(repr(\"0\"), bool(\"0\"), \"0\" == 0)\nx = [\"a\"]\ny = x\nx.append(\"é\")\nprint(y)\nx = [\"a\"]\ny = x\nx = x + [\"é\"]\nprint(y)\n```\n\n2. describe(raw) を一から書く：strip 後のテキストが空なら \"empty\"、10 進数字なら \"digits\"、それ以外は \"text\" を返す。\"\"、\" \"、\"42\"、\"４２\"（全角数字）、\"猫\" について予測してからテストする。\n3. 使い捨てリポジトリでコミット前に変更を確認するために実行するコマンドと、追跡中ファイルへの未コミットの編集を破棄するコマンドを、記憶から列挙する。",
+      "exercise_prompt": "提出物：3 行の予測と実際の出力、describe(raw) のコードと 5 つの予測・5 つの実測結果、安全な確認と復元のコマンド一覧、食い違いがあればその回復先の日。",
+      "hint": "まず誠実に取り組んでから使うこと。失敗したケースは入力 1 つに縮め、予測と実際の出力を比べ、関係する規則（空文字列、strip、isdecimal、変更と再束縛）を特定する。",
+      "answer": "コードの出力：\n\n```text\n'0' True False\n['a', 'é']\n['a']\n```\n\ndescribe(raw) の参考実装とその出力：\n\n```python\ndef describe(raw):\n    text = raw.strip()\n    if text == \"\":\n        return \"empty\"\n    if text.isdecimal():\n        return \"digits\"\n    return \"text\"\nprint(describe(\"\"))\nprint(describe(\" \"))\nprint(describe(\"42\"))\nprint(describe(\"４２\"))\nprint(describe(\"猫\"))\n```\n\n```text\nempty\nempty\ndigits\ndigits\ntext\n```\n\n\" \" は strip すると空文字列になるので empty。全角の \"４２\" は Unicode の 10 進数字なので digits。安全な確認：git status --short、git diff、git diff --check を実行し、差分を理解してから git add FILE と git commit を行う。未コミットの編集は git restore FILE で破棄し、git status --short が何も出力しないことを確かめる。",
+      "mastery_criterion": "支援なしで：3 行の予測を先に書き、describe(raw) が空・空白のみ・全角 Unicode 数字を含む 5 ケースすべてに合格し、コマンド一覧が正しく、食い違いごとに回復先の日が書かれている。"
+    }
+  }
+}

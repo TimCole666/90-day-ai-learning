@@ -1,0 +1,78 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 22: Vectors, Dot Products, and Matrices as Linear Maps",
+  "day_subtitle": "Study vectors and matrices geometrically and numerically: linear combinations, dot products, and matrix-vector products; connect every object to model weight matrices and embedding tables. Every activity records prediction, observation, review, and recovery inside the 480-minute ledger.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Mathematics & Algorithmic Foundations",
+  "common": {
+    "nav_calendar": "Curriculum Calendar",
+    "day_label": "Day 22",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Record your predicted values, observed output, shape ledger, review, and recovery evidence here...",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision"
+  },
+  "activities": {
+    "day-22-act-01": {
+      "title": "Vectors as arrows, lists, and embeddings",
+      "prerequisites": "Complete Day 21 review; use the listed recovery link if any concept below is missing.",
+      "objective": "Represent a vector both as an arrow in the plane and as an ordered list of numbers; compute addition, scalar multiplication, and linear combinations component-wise, then connect a token embedding to a vector in d dimensions.",
+      "assistance_policy_label": "Assistance allowed only after prediction and observed evidence are recorded.",
+      "instructions": "A vector v = (v1, v2, ..., vd) is both an arrow in d-dimensional space and a row of numbers. Addition and scalar multiplication act component-wise. A linear combination a*v + b*w mixes two vectors; the span is every point reachable by such mixes. In a language model, each token id selects one row of an embedding table E of shape V x d, so that row is a vector in R^d.",
+      "exercise_prompt": "Let v = (1, 2) and w = (3, -1). Before computing anything, predict: (a) v + w; (b) 2*v; (c) the linear combination 2*v - w. Then verify by hand and in code.",
+      "hint": "Work component by component: (v+w)_i = v_i + w_i and (c*v)_i = c*v_i. Sketch the arrows on grid paper to see the parallelogram for v + w.",
+      "answer": "(a) v + w = (1+3, 2-1) = (4, 1). (b) 2*v = (2, 4). (c) 2*v - w = (2-3, 4+1) = (-1, 5). The parallelogram rule places v + w at the far corner of the parallelogram built from v and w. An embedding row E[token_id] is exactly such a vector with d coordinates.",
+      "mastery_criterion": "Your prediction table matches every computed coordinate, you can describe the parallelogram geometry of v + w, and you can state in one sentence why an embedding-table row is a vector."
+    },
+    "day-22-act-02": {
+      "title": "Dot products: alignment, projections, and attention scores",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Compute the dot product u.v = sum_i u_i*v_i, interpret it as a scaled projection measuring alignment between two vectors, and recognize it as the query-key score inside attention.",
+      "assistance_policy_label": "Independent practice: record predictions before checking results; assistance only after evidence is logged.",
+      "instructions": "Multiply corresponding coordinates and sum the products. Geometrically u.v = |u| |v| cos(theta). For nonzero vectors, the sign gives the angle class: positive means acute, zero means right (orthogonal), and negative means obtuse. The magnitude also scales with both norms, so a large positive value alone does not mean the vectors point the same way - use the normalized cosine for directional similarity. A zero vector has no defined angle. An attention score is exactly a dot product between a query row and a key row of the model's weight output.",
+      "exercise_prompt": "Let u = (2, 1, 0) and v = (1, 3, 4). Predict: (a) u.v; (b) cos(theta) = u.v / (|u| |v|); (c) for query q = (1, 0, 1) and keys k1 = (1, 0, 1), k2 = (0, 1, 0), which attention score q.k is larger?",
+      "hint": "Sum the three pairwise products for the dot product. For the cosine, divide by the product of the two norms. For attention, ask which key is more aligned with the query. For nonzero vectors the SIGN of the dot product already tells acute (positive), right (zero), or obtuse (negative); the normalized cosine measures directional alignment; a zero vector has no defined angle.",
+      "answer": "(a) u.v = 2*1 + 1*3 + 0*4 = 5. (b) |u| = sqrt(5) ~ 2.236, |v| = sqrt(26) ~ 5.099, so cos(theta) = 5/sqrt(130) ~ 0.44. (c) q.k1 = 1+0+1 = 2 and q.k2 = 0, so attention places more weight on key 1. An orthogonal query-key pair scores exactly 0. Note magnitude alone does not order angles: u = (1000, 0), v = (1, 1000) has u.v = 1000 yet angle about 89.94 degrees (cos about 0.001) - large dot, near-orthogonal. Sign decides the qualitative class; cosine normalizes away scale.",
+      "mastery_criterion": "Unaided, you reproduce all three numeric results, explain why an orthogonal pair scores 0, and name where dot products appear in attention scores and cosine similarity."
+    },
+    "day-22-act-03": {
+      "title": "A matrix is a linear transformation of space",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Apply a matrix to a vector two ways - the row-dot-product picture and the column-picture - and predict the geometric effect of reflection, rotation, and a general weight matrix.",
+      "assistance_policy_label": "Assistance allowed only after prediction and observed evidence are recorded.",
+      "instructions": "An m x d matrix times a d-vector yields an m-vector. Row picture: each output entry is a dot product between a matrix row and the input. Column picture: A*x = x1*col1 + x2*col2 + ..., a linear combination of the matrix columns. A model weight matrix W of shape d_out x d_in is a linear map transforming a hidden-state vector x, exactly like the maps below. A weight matrix is also a rank-2 tensor; Days 23-24 extend this shape reasoning to higher ranks.",
+      "exercise_prompt": "Take x = (2, 1). Predict the output of each matrix before computing: (a) reflection A = [[1,0],[0,-1]]; (b) 90-degree rotation R = [[0,-1],[1,0]]; (c) W = [[2,0],[1,3]] using both the row and column pictures.",
+      "hint": "For the column picture, scale each column by its matching input coordinate, then add the results. Cross-check every answer row-by-row with dot products.",
+      "answer": "(a) A*x = (2, -1): the x-axis flip sends (2,1) below the axis. (b) R*x = (-1, 2): the 90-degree counterclockwise rotation. (c) Column picture: 2*(2,1) + 1*(0,3) = (4,5). Row picture: row 1 gives 2*2 + 0*1 = 4, row 2 gives 1*2 + 3*1 = 5, so W*x = (4,5). Both pictures always agree because they expand the same sum.",
+      "mastery_criterion": "Both pictures give identical results in your written trace, you predicted the flip and rotation before computing, and you state the shapes of W, x, and W*x (2x2 . 2 -> 2)."
+    },
+    "day-22-act-04": {
+      "title": "Independent mastery: vector algebra and matrix-vector products",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Without assistance, predict and verify a linear combination, a dot product, and a matrix-vector product; write a recovery note naming the rule behind any miss.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "Closed book: predict first, compute second, compare. If a result surprises you, record which rule was misapplied and note the recovery link (Day 21 review or the listed sources).",
+      "exercise_prompt": "Tasks: (a) dot product e1.e2 for e1 = (1, 2, 2), e2 = (2, -1, 2); (b) W'*x for W' = [[1,2],[0,1]], x = (3, 1); (c) write the full shape ledger for (b).",
+      "hint": "Redo one row at a time and write the shape ledger (2x2) . (2) -> (2) beside your work. Small errors usually hide inside one coordinate.",
+      "answer": "(a) e1.e2 = 1*2 + 2*(-1) + 2*2 = 2 - 2 + 4 = 4. (b) Row 1: 1*3 + 2*1 = 5; row 2: 0*3 + 1*1 = 1; so W'*x = (5, 1). Column check: 3*(1,0) + 1*(2,1) = (5,1). (c) (2x2 matrix) . (2-vector) -> (2-vector); output entry i is the dot product of row i with x.",
+      "mastery_criterion": "All three predictions verified unaided; the shape ledger and one sentence connecting W*x to a model weight matrix applied to a hidden state are written in your own words."
+    }
+  }
+}

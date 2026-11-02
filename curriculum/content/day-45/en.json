@@ -1,0 +1,170 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 45: Multi-Head Attention Mechanics and Numerical Stability",
+  "day_subtitle": "Deconstruct Multi-Head Attention into linear subspace projections W^Q, W^K, W^V, W^O. Master tensor reshaping across h parallel heads (B, h, T, d_k), verify exact parameter ledgers, and resolve edge-case numerical instabilities in attention implementation.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Models & Training",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "day_label": "Day 45",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Enter your multi-head tensor shapes, projection parameter ledgers, numerical stability proofs, and fp16 limits here...",
+    "dev_slice_notice": "Verified curriculum module for the 90-Day AI Learning Platform.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account.",
+        "provider_error": "Authentication provider encountered an error.",
+        "server_error": "Authentication provider encountered an error.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    },
+    "quiz": {
+      "quiz_title": "Objective Knowledge Check: Multi-Head Attention and Stability",
+      "quiz_instructions": "Answer the following diagnostic questions to verify your understanding. Select your declared assistance condition before submitting.",
+      "assistance_mode_label": "Declared Assistance Condition",
+      "mode_independent": "Independent Mastery Check (No AI assistance)",
+      "mode_agent_assisted": "Agent-Assisted Engineering Check (Completed with AI assistance)",
+      "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+      "submit_btn": "Submit Answers",
+      "retry_btn": "Retry Quiz",
+      "view_hint": "Question Hint",
+      "mastery_criterion_label": "Mastery Criterion",
+      "mastery_criterion_desc": "Score 100% (3/3 correct) on an Independent Mastery Check.",
+      "score_label": "Score",
+      "passed_badge": "Passed",
+      "failed_badge": "Needs Review",
+      "independent_pass_badge": "Independent Mastery Verified",
+      "agent_assisted_pass_badge": "Agent-Assisted Verified",
+      "self_reported_badge": "Self-Reported Checkbox",
+      "stale_badge": "Historical (Revalidation Needed - Content Revision Changed)",
+      "attempts_history_title": "Attempt History & Evidence",
+      "no_attempts": "No attempts recorded yet."
+    }
+  },
+  "activities": {
+    "day-45-act-01": {
+      "title": "Multi-Head Subspaces: Why and How Heads Divide d_model",
+      "prerequisites": "Day 43-44 scaled dot-product attention and causal masking.",
+      "objective": "Explain the representational necessity of multi-head attention, define linear projections W^Q, W^K, W^V, W^O, and verify parameter ledgers for tiny and standard configurations.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Required work: explain why a single attention head compresses multiple distinct relationship types (e.g., syntactic dependency vs semantic topic) into a single average. Define MultiHead(Q,K,V) = Concat(head_1, ..., head_h) W^O, where each head_i = Attention(Q W_i^Q, K W_i^K, V W_i^V). Let d_model = 4, h = 2, so d_k = d_v = 2. Derive the parameter ledger: W^Q, W^K, W^V, W^O each have shape (4, 4) = 16 parameters (total 64 without bias, or 80 with 4x4 biases). Then compute the ledger for GPT-2 Small: d_model = 768, h = 12, d_k = 64 (4 * 768*768 = 2,359,296 weights, + 4*768 = 3,072 biases, total 2,362,368).",
+      "exercise_prompt": "1. Why can a single attention head not simultaneously focus on positional proximity and long-range syntactic agreement?\n2. Write the parameter ledger for d_model = 4, h = 2 with and without biases.\n3. Write the exact parameter ledger for GPT-2 Small attention layer (d_model = 768, h = 12).",
+      "hint": "A single head produces one scalar attention weight per pair of tokens. Multiple heads provide h independent scalar weights per token pair, allowing independent subspace representations.",
+      "answer": "A single head can only compute one convex combination of values per token; if it attends to adjacent words, it cannot simultaneously attend to distant subjects. For d_model=4, h=2: four (4,4) matrices = 64 weights; with biases (+16) total is 80. For GPT-2 Small: W^Q, W^K, W^V, W^O are four (768,768) matrices = 4 * 589,824 = 2,359,296 weights; 4 bias vectors of length 768 = 3,072; total attention parameters = 2,362,368.",
+      "mastery_criterion": "Precise conceptual explanation of subspace routing and error-free parameter accounting for both tiny and GPT-2 scales."
+    },
+    "day-45-act-02": {
+      "title": "Tensor Reshaping, Transposition, and Batched Attention (B, h, T, d_k)",
+      "prerequisites": "Complete Day 45 Activity 1.",
+      "objective": "Trace tensor rank and dimension transformations across projections, head splitting (B, T, h, d_k) -> (B, h, T, d_k), batched matrix multiplication, and concatenation.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Required work: trace an input batch X of shape (B, T, d_model) = (1, 2, 4) through Multi-Head Attention with h=2, d_k=2. Step 1: linear projection Q = X W^Q, K = X W^K, V = X W^V of shape (1, 2, 4). Step 2: reshape to (B, T, h, d_k) = (1, 2, 2, 2). Step 3: transpose dims 1 and 2 to (B, h, T, d_k) = (1, 2, 2, 2). Step 4: batched score matmul Q @ K^T of shape (1, 2, 2, 2) @ (1, 2, 2, 2) -> (1, 2, 2, 2) via transpose(-2, -1) yielding (B, h, T, T) = (1, 2, 2, 2). Step 5: scale by sqrt(2) and apply causal mask. Step 6: matmul with V yielding (1, 2, 2, 2). Step 7: transpose back to (1, 2, 2, 2) and flatten to (1, 2, 4). Step 8: project through W^O of shape (4, 4) -> (1, 2, 4). Trace with X = [[1, 0, 1, 0], [0, 2, 0, 1]] and identity projection weights.",
+      "exercise_prompt": "1. List the tensor shapes at every step from input X to output Out.\n2. For X = [[1, 0, 1, 0], [0, 2, 0, 1]] with identity projections, compute the causal attention weights for Head 0 and Head 1.\n3. Compute the final concatenated output after W^O.",
+      "hint": "Head 0 slices dims 0..1: Q_0 = K_0 = V_0 = [[1, 0], [0, 2]]. Head 1 slices dims 2..3: Q_1 = K_1 = V_1 = [[1, 0], [0, 1]]. Scale is sqrt(2) ~= 1.414214.",
+      "answer": "Shape trace: X: (1,2,4) -> Q,K,V: (1,2,4) -> view: (1,2,2,2) -> transpose(1,2): (1,2,2,2) -> Q @ K^T: (1,2,2,2) -> softmax: (1,2,2,2) -> attn @ V: (1,2,2,2) -> transpose(1,2): (1,2,2,2) -> flatten: (1,2,4) -> @ W^O: (1,2,4). Head 0 causal attn: row 0 is [1.0, 0.0]; row 1 is [0.055807, 0.944193]. Head 0 out: [[1.0, 0.0], [0.055807, 1.888386]]. Head 1 causal attn: row 0 is [1.0, 0.0]; row 1 is [0.330238, 0.669762]. Head 1 out: [[1.0, 0.0], [0.330238, 0.669762]]. Concatenated output (with W^O=I): row 0 is [1.0, 0.0, 1.0, 0.0]; row 1 is [0.055807, 1.888386, 0.330238, 0.669762].",
+      "mastery_criterion": "Complete step-by-step tensor shape derivation and correct numerical evaluation of head-split attention and concatenation."
+    },
+    "day-45-act-03": {
+      "title": "Numerical Stability in Attention: Max-Shift, Precision Limits, and Masking Hazards",
+      "prerequisites": "Complete Day 45 Activity 2.",
+      "objective": "Identify and mitigate floating-point vulnerabilities in attention: max-shift invariant softmax, all-masked row handling, and fp16 vs fp32 dynamic range limits.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check",
+      "instructions": "Required work: analyze three critical numerical edge cases. Case 1: Exponential overflow without max-shift. In float32, exp(z) overflows to inf at z >= 88.7; in float16, overflow occurs at z >= 11.1. Prove the shift identity softmax(z)_i = softmax(z - c)_i for c = max(z). Case 2: All-masked row hazard. If an entire row is masked by -inf (e.g., cross-attention with padded context), max(z) = -inf, producing -inf - (-inf) = NaN. Show how safe implementations replace NaN rows with 0 or uniform distribution. Case 3: Mask representation in mixed precision. Explain why -1e9 is unsafe in float16: it is outside the float16 range, so PyTorch's masked_fill raises an overflow error, and an explicit cast turns it into -inf, which brings back the all-masked-row NaN hazard above. Explain why -1e4 is preferred for half-precision safety.",
+      "exercise_prompt": "1. Prove algebraically that softmax(z - c) = softmax(z) for any scalar c.\n2. In Python/PyTorch float16, what happens when computing torch.exp(torch.tensor(15.0, dtype=torch.float16)) vs float32?\n3. How should an attention implementation handle an input sequence with empty valid keys without crashing into NaNs?",
+      "hint": "exp(z_i - c) / sum_j exp(z_j - c) = [exp(z_i) * exp(-c)] / [sum_j exp(z_j) * exp(-c)] = exp(z_i) / sum_j exp(z_j). In float16, max finite value is 65504.",
+      "answer": "Proof: exp(z_i - c) / sum_j exp(z_j - c) = (exp(z_i)*exp(-c)) / (exp(-c) * sum_j exp(z_j)) = exp(z_i) / sum_j exp(z_j). In float16, exp(15.0) ~= 3.269e6, which exceeds the max float16 representable value (65,504) and overflows to inf; in float32, it evaluates safely. For all-masked rows, implementations must either clamp max to a finite value (e.g., torch.where(mask.all(dim=-1), 0.0, ...)) or zero out the row after softmax to prevent NaN generation.",
+      "mastery_criterion": "Rigorous mathematical proof of shift invariance and correct diagnostic handling of float16 overflow and all-masked row edge cases."
+    },
+    "day-45-act-04": {
+      "title": "Independent Mastery Check: Multi-Head Accounting, Causal Invariance, and Stability",
+      "prerequisites": "Activities 45-01 through 45-03.",
+      "objective": "Demonstrate unassisted mastery of multi-head attention parameter accounting, end-to-end forward computation trace, and numerical stability validation under declared AI-free conditions.",
+      "assistance_policy_label": "Independent Mastery Check",
+      "instructions": "Required work: work independently without AI assistants or external calculators. 1. Compute the exact parameter ledger for a Medium GPT attention block: d_model = 1024, h = 16 (weights and biases for W^Q, W^K, W^V, W^O). 2. Explain why causal invariance is strictly preserved across all h heads and through the linear output projection W^O. 3. Given logits [500.0, 502.0], compute the exact max-shifted softmax probabilities. 4. Complete the objective knowledge check quiz.",
+      "exercise_prompt": "1. Total parameters for d_model = 1024, h = 16 attention layer (with and without biases)?\n2. Prove why W^O cannot leak future information across tokens if each individual head is causal.\n3. Compute exact softmax on logits [500.0, 502.0].\n4. Complete the 3-question quiz.",
+      "hint": "W^O operates position-wise (shape (B, T, d_model) @ (d_model, d_model)); it mixes head dimensions within the same token position, never across time steps T.",
+      "answer": "1. Each projection is (1024, 1024) = 1,048,576. Four projections = 4,194,304 weights. Biases = 4 * 1024 = 4,096. Total with biases = 4,198,400 (without biases: 4,194,304). 2. W^O is a position-wise linear map: Out[t, :] = Concat(head_{1..h}[t, :]) W^O. Because each head_i[t, :] depends only on tokens <= t, their concatenation at position t depends only on <= t. Multiplying by W^O contracts features within position t and never cross-attends across different time steps. 3. Max is 502.0. Shifted logits: [-2.0, 0.0]. exp([-2, 0]) = [exp(-2), 1] ~= [0.135335, 1.0]. Sum = 1.135335. Probabilities = [0.119203, 0.880797].",
+      "mastery_criterion": "Exact parameter ledgers (4,194,304 / 4,198,400), rigorous proof of position-wise preservation through W^O, and 100% quiz score.",
+      "quiz": {
+        "title": "Objective Knowledge Check: Multi-Head Attention and Stability",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "In a Multi-Head Attention block with model dimension d_model = 768 and h = 12 heads, what is the head dimension d_k for each individual head?",
+            "options": {
+              "a": "64",
+              "b": "12",
+              "c": "768",
+              "d": "96"
+            },
+            "hint": "Divide the total embedding dimension d_model equally among the h parallel heads.",
+            "explanation": "d_k = d_model / h = 768 / 12 = 64. Each head operates on a distinct 64-dimensional subspace."
+          },
+          {
+            "id": "q2",
+            "prompt": "For a standard Multi-Head Attention layer with projection matrices W^Q, W^K, W^V, W^O in R^{d_model x d_model} without bias terms, how many weight parameters are present when d_model = 768?",
+            "options": {
+              "a": "589,824",
+              "b": "2,359,296",
+              "c": "1,179,648",
+              "d": "3,072"
+            },
+            "hint": "There are 4 projection matrices of size d_model x d_model: Q, K, V, and output O.",
+            "explanation": "Each matrix contains 768 * 768 = 589,824 parameters. Four projection matrices total 4 * 589,824 = 2,359,296 parameters."
+          },
+          {
+            "id": "q3",
+            "prompt": "In the max-shifted softmax implementation softmax(z)_i = exp(z_i - max(z)) / sum_j exp(z_j - max(z)), why is subtracting max(z) mathematically valid and computationally essential?",
+            "options": {
+              "a": "It preserves the exact mathematical probability distribution because exp(z_i - c) / sum exp(z_j - c) = exp(z_i) / sum exp(z_j), while preventing floating-point overflow.",
+              "b": "It forces all probabilities to become uniform 1/T.",
+              "c": "It turns negative logits into positive values so that square roots can be taken.",
+              "d": "It eliminates the need for causal masking."
+            },
+            "hint": "Factor exp(-c) out of both numerator and denominator.",
+            "explanation": "Factoring out exp(-c) cancels perfectly, proving invariance under constant shift. Setting c = max(z) ensures the largest exponent is exp(0) = 1.0, eliminating float overflow."
+          }
+        ]
+      }
+    }
+  }
+}

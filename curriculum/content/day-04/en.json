@@ -1,0 +1,274 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 04: Values, binding, and observable text",
+  "day_subtitle": "Predict and run Python expressions, distinguish a value from a variable binding, and report observable text/data without confusing a label with the object.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "Self-Directed Learning & Python",
+  "common": {
+    "nav_calendar": "📅 Curriculum Calendar",
+    "nav_agent_track": "🤖 Agent Tool Track",
+    "day_label": "Day 04",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Activity Mastery Criterion",
+    "draft_placeholder": "Enter your predicted output, observed behavior, and root-cause derivation here...",
+    "dev_slice_notice": "Local learning content is available; acceptance remains pending. External access, paid tools, and production evidence are tracked separately.",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "auth": {
+      "sign_in": "Sign in with Google",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "Sign out",
+      "signed_in_as": "Signed in as",
+      "guest": "Guest mode",
+      "link_github": "Link GitHub",
+      "link_google": "Link Google",
+      "linked_identities": "Linked accounts",
+      "auth_errors": {
+        "access_denied": "Authorization was cancelled or access was denied.",
+        "invalid_state": "Invalid or expired authorization state. Please try again.",
+        "identity_conflict": "This identity is already linked to another account. Conflict rejected to preserve existing records.",
+        "provider_error": "Authentication provider encountered an error. Please try again later.",
+        "server_error": "Authentication provider encountered an error. Please try again later.",
+        "session_expired": "Your session has expired. Please sign in again."
+      }
+    },
+    "progress": {
+      "save_btn": "Save Progress",
+      "saved": "Saved",
+      "saving": "Saving...",
+      "save_error": "Save failed",
+      "offline": "Offline mode",
+      "mark_completed": "Mark as Completed",
+      "completed_badge": "Completed"
+    },
+    "quiz": {
+      "quiz_title": "Objective Knowledge Check & Diagnostic Trace",
+      "quiz_instructions": "Answer the following questions to verify your understanding. Select your declared assistance condition before submitting.",
+      "assistance_mode_label": "Declared Assistance Condition",
+      "mode_independent": "Independent Mastery Check (No AI assistance)",
+      "mode_agent_assisted": "Agent-Assisted Engineering Check (Completed with AI assistance)",
+      "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+      "submit_btn": "Submit Answers",
+      "retry_btn": "Retry Quiz",
+      "view_hint": "Question Hint",
+      "mastery_criterion_label": "Mastery Criterion",
+      "mastery_criterion_desc": "Score 100% (all questions correct) on this activity's quiz. Independent mastery requires Independent Mastery Check mode (no AI assistance).",
+      "score_label": "Score",
+      "passed_badge": "Passed",
+      "failed_badge": "Needs Review",
+      "independent_pass_badge": "Independent Mastery Verified",
+      "agent_assisted_pass_badge": "Agent-Assisted Verified",
+      "self_reported_badge": "Self-Reported Checkbox",
+      "stale_badge": "Historical (Revalidation Needed - Content Revision Changed)",
+      "attempts_history_title": "Attempt History & Evidence",
+      "no_attempts": "No attempts recorded yet."
+    },
+    "submissions": {
+      "title": "Learning Project Submission & Evidence",
+      "repo_label": "Repository Link (GitHub / GitLab)",
+      "repo_placeholder": "https://github.com/...",
+      "report_label": "Report Link (Optional)",
+      "report_placeholder": "https://...",
+      "notes_label": "Evidence Notes & Diagnostic Log (Max 4096 bytes)",
+      "notes_placeholder": "Record minimal reproducible examples (MRE), observed results, or diagnosis notes...",
+      "assistance_mode_label": "Declared Assistance Condition",
+      "mode_independent": "Independent Project (No AI assistance)",
+      "mode_agent_assisted": "Agent-Assisted Project (Directed AI assistance)",
+      "mode_disclaimer": "Note: AI-free work is an honest declared condition, not claimed surveillance.",
+      "track_label": "Agent Tool Track (if applicable)",
+      "tracks": {
+        "none": "None / Not Applicable",
+        "claude_code": "Claude Code",
+        "codex": "Codex",
+        "pi_agent": "Pi Agent",
+        "deepseek_harness": "DeepSeek Harness"
+      },
+      "submit_btn": "Submit Project Evidence",
+      "status_saving": "Saving submission...",
+      "status_saved": "Submission saved successfully.",
+      "status_error": "Submission failed.",
+      "val_invalid_url": "Invalid URL: Repository and report links must use http or https.",
+      "val_notes_too_long": "Evidence notes exceed the maximum limit of 4096 bytes.",
+      "val_empty": "Please provide at least a repository link, report link, or evidence notes.",
+      "pasted_log_notice": "Notice: Pasted execution logs and notes are self-reported evidence and do not constitute independent or automated verification.",
+      "inspect_title": "Current Submitted Evidence Details",
+      "status_self_reported": "Self-Reported Evidence",
+      "status_verified_check": "Deterministic Verification Check",
+      "status_independently_reviewed": "Independently Reviewed Evidence",
+      "status_stale": "Historical Evidence (Revalidation Needed - Content Revision Changed)",
+      "no_submission": "No submission recorded yet."
+    }
+  },
+  "activities": {
+    "day-04-act-01": {
+      "title": "Value census and type labels",
+      "prerequisites": "Day 03 recovery drill; Python can be launched from the terminal; review the prediction/observation method.",
+      "objective": "Use repr(), type(), and bool() to tell apart values that look alike on screen (0, \"0\", \"\", None), and explain why the text \"0\" is not the number 0.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "Study source: within this activity's existing reading/practice time, use Automate the Boring Stuff with Python, 3rd edition, Chapter 1; Practice Questions; Appendix B answers, then explain one connection to the local task in your own words. Keep the local exercise and acceptance checks; use its original explanation if the external source is unavailable. Required work: Save the following as census.py. Before running it, write a prediction for each output line. Then run python3 census.py, capture the exact output, and compare it with your prediction.\n\n```python\nfor value in [0, \"0\", \"\", None]:\n    print(repr(value), type(value).__name__, bool(value))\nprint(\"0\" == 0, int(\"0\") == 0)\n```\n\nExplain in one or two sentences why \"0\" (text) and 0 (integer) print differently with repr(), have different types, and have different truth values.\n\nOptional work: only after the required evidence is complete, add one more value of your choice (for example 0.0 or \"False\") to the list, predict its row, and run again.",
+      "exercise_prompt": "Predict all five output lines of this program before running it, then record the exact output:\n\n```python\nfor value in [0, \"0\", \"\", None]:\n    print(repr(value), type(value).__name__, bool(value))\nprint(\"0\" == 0, int(\"0\") == 0)\n```\n\nFinally, explain why the text \"0\" is not numeric zero.",
+      "hint": "print() hides quotes; repr() shows them. A non-empty string is truthy even if its only character is 0, and a string never equals an int.",
+      "answer": "Exact output:\n\n```text\n0 int False\n'0' str True\n'' str False\nNone NoneType False\nFalse True\n```\n\nExplanation: repr() shows quotes around strings, so \"0\" prints as '0' while the integer prints as 0. type(...).__name__ is int for 0, str for \"0\" and \"\", and NoneType for None. bool() is False for numeric zero, the empty string, and None, but True for \"0\" because it is a non-empty string. The last line shows \"0\" == 0 is False (a str never equals an int); int(\"0\") converts the text to the number 0, so that comparison is True.",
+      "mastery_criterion": "Your prediction log and observed output contain all five exact lines above, and your explanation names the type difference (str vs int), the truthiness rule (non-empty string is True), and the need for an explicit conversion with int(). The log states the required/optional boundary and that no AI assistance was used.",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-04-act-01-q1",
+            "type": "choice",
+            "prompt": "What does `print(repr(\"0\"), type(\"0\").__name__, bool(\"0\"))` print?",
+            "options": {
+              "a": "'0' str True",
+              "b": "0 int False",
+              "c": "'0' str False"
+            },
+            "expected_answer": "a",
+            "hint": "repr() keeps the quotes of a string, and only the empty string is falsy among strings.",
+            "explanation": "\"0\" is a one-character string: repr() shows it as '0', its type is str, and any non-empty string is truthy, so the line is `'0' str True`."
+          }
+        ]
+      },
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-04-act-02": {
+      "title": "Bindings are names, not boxes",
+      "prerequisites": "Activity 1 of Day 04 completed; Python can be launched from the terminal.",
+      "objective": "Trace assignment statements as names bound to objects, and predict that rebinding one name does not change the object another name refers to.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "Required work: Save the following as binding.py. Before running it, write a prediction for each of the three output lines and draw one arrow per assignment from the name to the list object it refers to.\n\n```python\nx = [\"draft\"]\ny = x\nx = [\"replaced\"]\nprint(y)\nprint(x)\nprint(x is y)\n```\n\nRun python3 binding.py, capture the exact output, and explain which binding changed on line 3 and which did not.\n\nOptional work: only after the required evidence is complete, add print(id(x), id(y)) before and after line 3 and describe what changes.",
+      "exercise_prompt": "Predict the three output lines of this program, run it, and explain which name was rebound:\n\n```python\nx = [\"draft\"]\ny = x\nx = [\"replaced\"]\nprint(y)\nprint(x)\nprint(x is y)\n```",
+      "hint": "Track each assignment arrow and ask which name still points at the original list. `x = [...]` creates a new list and moves only the name x.",
+      "answer": "Exact output:\n\n```text\n['draft']\n['replaced']\nFalse\n```\n\nExplanation: line 1 binds x to a list containing \"draft\". Line 2 binds y to that same list object. Line 3 creates a new list [\"replaced\"] and rebinds only x to it; y still refers to the original list. Therefore print(y) shows ['draft'], print(x) shows ['replaced'], and x is y is False because the two names now refer to different objects. Note that Python prints lists with single quotes.",
+      "mastery_criterion": "Your prediction log and observed output contain the three exact lines above, your arrow diagram shows y still bound to the original list after line 3, and your explanation says that assignment rebinds a name rather than overwriting the object. The log states the required/optional boundary and that no AI assistance was used.",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-04-act-02-q1",
+            "type": "choice",
+            "prompt": "After `x = [\"draft\"]; y = x; x = [\"replaced\"]`, what does `print(y)` show?",
+            "options": {
+              "a": "['draft']",
+              "b": "['replaced']",
+              "c": "['draft', 'replaced']"
+            },
+            "expected_answer": "a",
+            "hint": "The third statement creates a new list and moves only the name x.",
+            "explanation": "`y = x` binds y to the original list. `x = [\"replaced\"]` rebinds x to a new list and leaves y untouched, so y still shows `['draft']`."
+          }
+        ]
+      }
+    },
+    "day-04-act-03": {
+      "title": "Small diff: make a report safer",
+      "prerequisites": "Activities 1–2 of Day 04 completed; Git installed with user.name and user.email configured; an AI coding agent you may direct.",
+      "objective": "Direct an agent to make one small, reviewable change that replaces an ambiguous text label with a repr/type report, then verify the diff yourself and commit only that change.",
+      "assistance_policy_label": "Agent-Assisted Engineering Check: declare the permissions you granted and your review boundary; agent output is not independent mastery evidence.",
+      "instructions": "Required work: Create a practice repository with the original, misleading report:\n\n```bash\ngit init report-demo && cd report-demo\nprintf 'count = \"0\"\\nprint(\"count=\" + count)\\n' > report.py\ngit add report.py && git commit -m \"Add count report\"\npython3 report.py\n```\n\nThe program prints count=0, which hides that count is the text \"0\", not the number 0. The original report.py is:\n\n```python\ncount = \"0\"\nprint(\"count=\" + count)\n```\n\nAsk your agent to change only the print line in report.py so it shows the repr and the type of count. Declare the permission you gave (for example: edit report.py only, no commits). Before running anything, predict what the new output will be. Then review and commit yourself:\n\n```bash\ngit status --short\ngit diff -- report.py\ngit diff --check\npython3 report.py\ngit add report.py\ngit commit -m \"Show repr and type in count report\"\ngit status --short\n```\n\nIf git status lists any file other than report.py (for example ?? notes.txt), it is an unrelated edit: do not stage it; delete or restore it before committing.\n\nOptional work: only after the required evidence is complete, ask the agent to also print bool(count) and review that second diff the same way.",
+      "exercise_prompt": "Starting from this report.py:\n\n```python\ncount = \"0\"\nprint(\"count=\" + count)\n```\n\nHave an agent change the print line so the output shows count='0' type=str. Record your prediction of the new output, the git status --short and git diff -- report.py output you reviewed, the result of git diff --check, and the commit you made. Reject any unrelated file the agent created.",
+      "hint": "Use git status --short, git diff -- report.py, and git diff --check before committing. Stage with git add report.py, never git add . here.",
+      "answer": "Reference change (report.py after the edit):\n\n```python\ncount = \"0\"\nprint(f\"count={count!r} type={type(count).__name__}\")\n```\n\nBefore the edit, python3 report.py printed count=0. After the edit it prints exactly:\n\n```text\ncount='0' type=str\n```\n\nIf the agent also created notes.txt, git status --short shows:\n\n```text\n M report.py\n?? notes.txt\n```\n\ngit diff -- report.py shows exactly one changed line:\n\n```diff\ndiff --git a/report.py b/report.py\nindex c19f8e2..1ae4899 100644\n--- a/report.py\n+++ b/report.py\n@@ -1,2 +1,2 @@\n count = \"0\"\n-print(\"count=\" + count)\n+print(f\"count={count!r} type={type(count).__name__}\")\n```\n\ngit diff --check prints nothing and exits with status 0 (no whitespace errors). Remove notes.txt (rm notes.txt), then run git add report.py and git commit -m \"Show repr and type in count report\". A final git status --short prints nothing. The commit is agent-assisted: the agent output is not independent mastery evidence.",
+      "mastery_criterion": "Your log contains your prediction, the reviewed git diff showing only the print line changed, the git diff --check result, the observed output count='0' type=str, a commit that touches only report.py, and a declaration of the permissions you granted the agent. The log states the required/optional boundary and that this work was agent-assisted.",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-04-act-03-q1",
+            "type": "choice",
+            "prompt": "Before committing the agent's edit, `git status --short` shows ` M report.py` and `?? notes.txt`. You never asked for notes.txt. What is the safe next step?",
+            "options": {
+              "a": "Review `git diff -- report.py`, stage only report.py with `git add report.py`, and keep notes.txt out of the commit.",
+              "b": "Run `git add .` and commit everything, because the agent made all of the changes.",
+              "c": "Commit first and inspect the diff afterwards, since a commit can be amended later."
+            },
+            "expected_answer": "a",
+            "hint": "A small, reviewable commit contains only the change you asked for and have inspected.",
+            "explanation": "notes.txt is an unrelated edit. Reviewing the diff and staging only report.py keeps the commit small and verified; `git add .` would commit the unrelated file, and committing before review skips verification."
+          }
+        ]
+      }
+    },
+    "day-04-act-04": {
+      "title": "Review and independent check",
+      "prerequisites": "Activities 1–3 of Day 04 completed.",
+      "objective": "Without any AI help, predict the output of three short value/binding snippets, check them by running, and explain the root cause of any mismatch.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "Required work: Without AI, write your prediction for every output line of the three snippets below before running any of them. Then run each snippet (for example as a.py, b.py, c.py), capture the exact output, and mark each line as match or mismatch. Explain the root cause of one mismatch; if every prediction matched, explain the snippet you found hardest.\n\nSnippet A:\n```python\nprint(repr(None), repr(\"None\"), None == \"None\")\n```\n\nSnippet B:\n```python\na = \"draft\"\nb = a\na = a + \"!\"\nprint(a, b)\n```\n\nSnippet C:\n```python\nitems = [\"draft\"]\nalias = items\nitems = items + [\"final\"]\nprint(alias, items)\nprint(alias is items)\n```\n\nOptional work: only after the required evidence is complete, change one input in one snippet (for example replace \"!\" with \"?\" in Snippet B), predict, and run it again.",
+      "exercise_prompt": "Predict, then run, these three snippets and record your predictions next to the exact output:\n\nSnippet A:\n```python\nprint(repr(None), repr(\"None\"), None == \"None\")\n```\n\nSnippet B:\n```python\na = \"draft\"\nb = a\na = a + \"!\"\nprint(a, b)\n```\n\nSnippet C:\n```python\nitems = [\"draft\"]\nalias = items\nitems = items + [\"final\"]\nprint(alias, items)\nprint(alias is items)\n```\n\nExplain one mismatch (or your hardest snippet) in terms of value versus binding.",
+      "hint": "Write each prediction before execution. Ask: is this a label (text) or the object itself? Does this statement create a new object and rebind a name, or change an existing object?",
+      "answer": "Snippet A output:\n\n```text\nNone 'None' False\n```\n\nrepr(None) returns the four-character string \"None\", not the None object; repr(\"None\") returns the six-character string \"'None'\", whose first and last characters are single quotes. print displays these strings without adding surrounding quotes: print(repr(None)) and print(None) both display None, but the former prints a string and the latter prints the None value, while print(repr(\"None\")) displays 'None'. None == \"None\" is False.\n\nSnippet B output:\n\n```text\ndraft! draft\n```\n\na + \"!\" builds a new string and rebinds only a; b still refers to the original \"draft\".\n\nSnippet C output:\n\n```text\n['draft'] ['draft', 'final']\nFalse\n```\n\nitems + [\"final\"] builds a new list and rebinds items; alias still refers to the original one-element list, so alias is items is False.\n\nExample mismatch explanation: \"I predicted ['draft', 'final'] ['draft', 'final'] for Snippet C because I thought + modified the list. It creates a new list and rebinds items, so alias keeps the old object.\"",
+      "mastery_criterion": "Your log shows predictions written before execution, the exact observed output of all three snippets as listed above, and a correct root-cause explanation of one mismatch (or the hardest snippet) in terms of value versus binding. The log states the required/optional boundary and that no AI assistance was used.",
+      "quiz": {
+        "mastery_score": 100,
+        "questions": [
+          {
+            "id": "day-04-act-04-q1",
+            "type": "choice",
+            "prompt": "What does `n = 5; m = n; n = n + 1; print(m, n)` print?",
+            "options": {
+              "a": "5 6",
+              "b": "6 6",
+              "c": "5 5"
+            },
+            "expected_answer": "a",
+            "hint": "n + 1 produces a new integer object; then only the name n is rebound.",
+            "explanation": "`m = n` binds m to 5. `n = n + 1` binds n to a new value 6 and leaves m bound to 5, so the output is `5 6`."
+          }
+        ]
+      }
+    }
+  },
+  "source_resources": [
+    {
+      "id": "py-docs-builtins-ticket26",
+      "title": "Python 3 Built-in Types and Expressions",
+      "author": "Python Software Foundation",
+      "original_url": "https://docs.python.org/3/library/stdtypes.html",
+      "relevant_timestamp": "Sections  Truth Value Testing, Comparisons, and Mutable Sequence Types",
+      "version_or_verification_date": "Python 3.12 documentation (verified 2026-10-30)",
+      "reuse_category": "linking",
+      "source_type": "documentation",
+      "license": "PSF License Version 2",
+      "license_restrictions": [],
+      "permission_basis": "Linking only; no source text reproduced.",
+      "prerequisites": "Day 03 recovery drill",
+      "selection_rationale": "Normative reference for truthiness, comparison, binding, and mutation behavior.",
+      "known_availability_limitations": "Online Python documentation may be unavailable offline.",
+      "safe_fallback": "Run the included Python examples and consult the installed interpreter help."
+    },
+    {
+      "id": "git-scm-book-diffs",
+      "title": "Git User Manual: Recording Changes",
+      "author": "Git project",
+      "original_url": "https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository",
+      "relevant_timestamp": "Recording Changes to the Repository",
+      "version_or_verification_date": "Verified 2026-10-30",
+      "reuse_category": "linking",
+      "source_type": "documentation",
+      "license": "CC BY-NC-SA 3.0 (book)",
+      "license_restrictions": [],
+      "permission_basis": "Linking only; no source text reproduced.",
+      "prerequisites": "Basic Git awareness",
+      "selection_rationale": "Primary reference for inspecting a small diff before a safe commit.",
+      "known_availability_limitations": "Online book may be unavailable offline.",
+      "safe_fallback": "Use git diff and git status locally; do not commit until the diff is understood."
+    }
+  ]
+}

@@ -1,0 +1,366 @@
+{
+  "id": "day-81",
+  "day_number": 81,
+  "active_minutes": 480,
+  "topic_category": "self-directed-learning-and-python",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-80"
+  ],
+  "recovery_links": [
+    "day-79",
+    "day-77"
+  ],
+  "activities": [
+    {
+      "id": "day-81-act-01",
+      "lesson_id": "les-81",
+      "title": "Controlled Delivery Pipeline and Release Evidence",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-80"
+      ],
+      "source_resources": [
+        {
+          "id": "github-actions-docs",
+          "title": "GitHub Actions Documentation",
+          "author": "GitHub, Inc.",
+          "original_url": "https://docs.github.com/en/actions",
+          "version_or_verification_date": "GitHub Docs continuous publication (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "GitHub product documentation published under Creative Commons Attribution 4.0; the curriculum links to it and paraphrases concepts without importing text.",
+          "prerequisites": "YAML familiarity, shell commands, and Git hosting vocabulary.",
+          "selection_rationale": "Primary reference for pipeline stages, required status checks, and branch protection mechanics that the local CI practice runner mirrors in a disposable environment.",
+          "known_availability_limitations": "Public documentation site; exact workflow syntax evolves with the product.",
+          "safe_fallback": "Pipeline stage semantics (lint, test, package, deploy gate) are exercised offline by scripts/ci_practice_runner.py; no GitHub account or push authorization is required for the practice.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GitLab CI/CD Documentation",
+              "url": "https://docs.gitlab.com/ee/ci/",
+              "license": "CC BY-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Equivalent pipeline concepts under a different provider; GitHub Actions matches the hosted-workflow conventions used in this project's delivery story."
+            },
+            {
+              "candidate_name": "Jenkins User Documentation",
+              "url": "https://www.jenkins.io/doc/",
+              "license": "CC BY-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Self-hosted CI server documentation; GitHub Actions better matches the hosted pipeline model the learner will meet first."
+            }
+          ],
+          "locator_status": "whole_source_reference"
+        },
+        {
+          "id": "google-sre-release-engineering",
+          "title": "Site Reliability Engineering, Chapter 8: Release Engineering",
+          "author": "Dinah McNutt (ed. Betsy Beyer, Tim Harvey), in Site Reliability Engineering (eds. Betsy Beyer, Chris Jones, Jennifer Petoff, Niall Richard Murphy; Google)",
+          "original_url": "https://sre.google/sre-book/release-engineering/",
+          "version_or_verification_date": "O'Reilly 2016 free web edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-ND 4.0",
+          "license_restrictions": [
+            "noncommercial",
+            "no-derivatives"
+          ],
+          "permission_basis": "Google hosts a free-to-read web edition; the curriculum links to it without importing text.",
+          "prerequisites": "Build and deployment vocabulary; version control basics.",
+          "selection_rationale": "Widely used industry reference for hermetic builds, release approval gates, and rollback-ready deployment doctrine that anchor Day 81's controlled delivery and verified rollback exercises.",
+          "known_availability_limitations": "Free web edition hosted by Google; the print edition is paid.",
+          "safe_fallback": "The controlled delivery and rollback runbook is fully executable offline via the scripts/ci_practice_runner.py deploy stage, which emits recorded evidence payloads.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Martin Fowler: BlueGreenDeployment",
+              "url": "https://martinfowler.com/bliki/BlueGreenDeployment.html",
+              "license": "Copyright Martin Fowler; free public web article",
+              "status": "compared_alternative",
+              "comparison_rationale": "Focused single-pattern bliki on blue/green cutover; the SRE chapter covers the wider release-engineering lifecycle including build hermeticity and rollback policy."
+            },
+            {
+              "candidate_name": "Continuous Delivery (Humble & Farley)",
+              "url": "https://www.oreilly.com/library/view/continuous-delivery/9780321670250/",
+              "license": "All Rights Reserved (paid)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Foundational paid text on deployment pipelines; the SRE web edition provides equivalent operational doctrine at zero cost with a stable public URL."
+            }
+          ],
+          "relevant_timestamp": "Continuous Build and Deployment (Building, Branching, Testing, Packaging, Deployment)",
+          "locator_url": "https://sre.google/sre-book/release-engineering/#continuous-build-and-deployment-Yms8u8"
+        }
+      ]
+    },
+    {
+      "id": "day-81-act-02",
+      "lesson_id": "les-81",
+      "title": "Merge Conflict Resolution and Safe Recovery in a Disposable Repository",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-81-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "git-book",
+          "title": "Pro Git, Second Edition",
+          "author": "Scott Chacon and Ben Straub",
+          "original_url": "https://git-scm.com/book/en/v2",
+          "relevant_timestamp": "Chapter 3 (Git Branching), Section 7.7 (Reset Demystified), Sections 5.2/6.2 (Contributing to a Project)",
+          "version_or_verification_date": "Second edition (Apress, 2014) (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-SA 3.0",
+          "license_restrictions": [
+            "noncommercial",
+            "share-alike"
+          ],
+          "permission_basis": "Linking only; no book text reproduced in curriculum content; reuse limited to noncommercial references consistent with CC BY-NC-SA 3.0.",
+          "prerequisites": "Basic git status/log/diff vocabulary from earlier study days",
+          "selection_rationale": "Freely licensed reference for branching, merging, conflict resolution, and safe recovery vocabulary used through the delivery workflow.",
+          "known_availability_limitations": "Readable free at git-scm.com; availability depends on the site staying online.",
+          "safe_fallback": "git help <command> and the Git manual pages ship with Git and cover the same commands offline; every required workflow is stated locally in the lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GitHub Skills interactive courses",
+              "url": "https://skills.github.com/",
+              "license": "MIT (varies by course)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Interactive but requires a GitHub account and an external service; disposable local repositories keep the exercise self-contained."
+            },
+            {
+              "candidate_name": "Atlassian Git Tutorials",
+              "url": "https://www.atlassian.com/git/tutorials",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Vendor-owned prose with no permissive license; Pro Git covers the same ground under CC BY-NC-SA."
+            }
+          ]
+        },
+        {
+          "id": "google-sre-release-engineering",
+          "title": "Site Reliability Engineering, Chapter 8: Release Engineering",
+          "author": "Dinah McNutt (ed. Betsy Beyer, Tim Harvey), in Site Reliability Engineering (eds. Betsy Beyer, Chris Jones, Jennifer Petoff, Niall Richard Murphy; Google)",
+          "original_url": "https://sre.google/sre-book/release-engineering/",
+          "version_or_verification_date": "O'Reilly 2016 free web edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-ND 4.0",
+          "license_restrictions": [
+            "noncommercial",
+            "no-derivatives"
+          ],
+          "permission_basis": "Google hosts a free-to-read web edition; the curriculum links to it without importing text.",
+          "prerequisites": "Build and deployment vocabulary; version control basics.",
+          "selection_rationale": "Widely used industry reference for hermetic builds, release approval gates, and rollback-ready deployment doctrine that anchor Day 81's controlled delivery and verified rollback exercises.",
+          "known_availability_limitations": "Free web edition hosted by Google; the print edition is paid.",
+          "safe_fallback": "The controlled delivery and rollback runbook is fully executable offline via the scripts/ci_practice_runner.py deploy stage, which emits recorded evidence payloads.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Martin Fowler: BlueGreenDeployment",
+              "url": "https://martinfowler.com/bliki/BlueGreenDeployment.html",
+              "license": "Copyright Martin Fowler; free public web article",
+              "status": "compared_alternative",
+              "comparison_rationale": "Focused single-pattern bliki on blue/green cutover; the SRE chapter covers the wider release-engineering lifecycle including build hermeticity and rollback policy."
+            },
+            {
+              "candidate_name": "Continuous Delivery (Humble & Farley)",
+              "url": "https://www.oreilly.com/library/view/continuous-delivery/9780321670250/",
+              "license": "All Rights Reserved (paid)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Foundational paid text on deployment pipelines; the SRE web edition provides equivalent operational doctrine at zero cost with a stable public URL."
+            }
+          ],
+          "relevant_timestamp": "Continuous Build and Deployment: Branching",
+          "locator_url": "https://sre.google/sre-book/release-engineering/#branching-nqs9tMud"
+        }
+      ]
+    },
+    {
+      "id": "day-81-act-03",
+      "lesson_id": "les-81",
+      "title": "Health Failure Detection and the Verified Rollback Runbook",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-81-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "google-sre-release-engineering",
+          "title": "Site Reliability Engineering, Chapter 8: Release Engineering",
+          "author": "Dinah McNutt (ed. Betsy Beyer, Tim Harvey), in Site Reliability Engineering (eds. Betsy Beyer, Chris Jones, Jennifer Petoff, Niall Richard Murphy; Google)",
+          "original_url": "https://sre.google/sre-book/release-engineering/",
+          "version_or_verification_date": "O'Reilly 2016 free web edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-ND 4.0",
+          "license_restrictions": [
+            "noncommercial",
+            "no-derivatives"
+          ],
+          "permission_basis": "Google hosts a free-to-read web edition; the curriculum links to it without importing text.",
+          "prerequisites": "Build and deployment vocabulary; version control basics.",
+          "selection_rationale": "Widely used industry reference for hermetic builds, release approval gates, and rollback-ready deployment doctrine that anchor Day 81's controlled delivery and verified rollback exercises.",
+          "known_availability_limitations": "Free web edition hosted by Google; the print edition is paid.",
+          "safe_fallback": "The controlled delivery and rollback runbook is fully executable offline via the scripts/ci_practice_runner.py deploy stage, which emits recorded evidence payloads.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Martin Fowler: BlueGreenDeployment",
+              "url": "https://martinfowler.com/bliki/BlueGreenDeployment.html",
+              "license": "Copyright Martin Fowler; free public web article",
+              "status": "compared_alternative",
+              "comparison_rationale": "Focused single-pattern bliki on blue/green cutover; the SRE chapter covers the wider release-engineering lifecycle including build hermeticity and rollback policy."
+            },
+            {
+              "candidate_name": "Continuous Delivery (Humble & Farley)",
+              "url": "https://www.oreilly.com/library/view/continuous-delivery/9780321670250/",
+              "license": "All Rights Reserved (paid)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Foundational paid text on deployment pipelines; the SRE web edition provides equivalent operational doctrine at zero cost with a stable public URL."
+            }
+          ],
+          "relevant_timestamp": "Continuous Build and Deployment: Deployment",
+          "locator_url": "https://sre.google/sre-book/release-engineering/#deployment-dbsMi8um"
+        },
+        {
+          "id": "fowler-continuous-integration",
+          "title": "Continuous Integration",
+          "author": "Martin Fowler",
+          "original_url": "https://martinfowler.com/articles/continuousIntegration.html",
+          "version_or_verification_date": "Second edition web article (May 2006) (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "article",
+          "license": "All Rights Reserved (martinfowler.com)",
+          "license_restrictions": [
+            "Article is linked, not copied; pipeline practice uses the repository's own runner"
+          ],
+          "permission_basis": "Lawful external linking to a freely accessible web article; no text is imported into curriculum materials.",
+          "prerequisites": "Version control basics, automated test suites, and build vocabulary.",
+          "selection_rationale": "Standard practitioner reference defining the CI contract this block rehearses: every change merges to a mainline verified by an automated build and test run, and failures are fixed before further work proceeds.",
+          "known_availability_limitations": "Publicly hosted on martinfowler.com; long-term availability not guaranteed.",
+          "safe_fallback": "The CI gate contract (lint, test, package, verdict) is executed locally by scripts/ci_practice_runner.py with no external dependency.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GitHub Actions Documentation",
+              "url": "https://docs.github.com/en/actions",
+              "license": "CC BY 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Provider-specific workflow syntax; Fowler's article states the vendor-neutral CI discipline the learner must internalize first, while the docs are kept as the pipeline-mechanics source."
+            },
+            {
+              "candidate_name": "Atlassian Continuous Integration Guide",
+              "url": "https://www.atlassian.com/continuous-delivery/continuous-integration",
+              "license": "All Rights Reserved",
+              "status": "compared_alternative",
+              "comparison_rationale": "Vendor-oriented tutorial; Fowler's original definition keeps the explanation tool-agnostic and historically important."
+            }
+          ],
+          "relevant_timestamp": "Practices of Continuous Integration: Make the Build Self-Testing; Fix Broken Builds Immediately"
+        }
+      ]
+    },
+    {
+      "id": "day-81-act-04",
+      "lesson_id": "les-81",
+      "title": "Assessment: Delivery Report, Result Explanation and Limitations",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "self-directed-learning-and-python",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-81-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "google-sre-release-engineering",
+          "title": "Site Reliability Engineering, Chapter 8: Release Engineering",
+          "author": "Dinah McNutt (ed. Betsy Beyer, Tim Harvey), in Site Reliability Engineering (eds. Betsy Beyer, Chris Jones, Jennifer Petoff, Niall Richard Murphy; Google)",
+          "original_url": "https://sre.google/sre-book/release-engineering/",
+          "version_or_verification_date": "O'Reilly 2016 free web edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "CC BY-NC-ND 4.0",
+          "license_restrictions": [
+            "noncommercial",
+            "no-derivatives"
+          ],
+          "permission_basis": "Google hosts a free-to-read web edition; the curriculum links to it without importing text.",
+          "prerequisites": "Build and deployment vocabulary; version control basics.",
+          "selection_rationale": "Widely used industry reference for hermetic builds, release approval gates, and rollback-ready deployment doctrine that anchor Day 81's controlled delivery and verified rollback exercises.",
+          "known_availability_limitations": "Free web edition hosted by Google; the print edition is paid.",
+          "safe_fallback": "The controlled delivery and rollback runbook is fully executable offline via the scripts/ci_practice_runner.py deploy stage, which emits recorded evidence payloads.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Martin Fowler: BlueGreenDeployment",
+              "url": "https://martinfowler.com/bliki/BlueGreenDeployment.html",
+              "license": "Copyright Martin Fowler; free public web article",
+              "status": "compared_alternative",
+              "comparison_rationale": "Focused single-pattern bliki on blue/green cutover; the SRE chapter covers the wider release-engineering lifecycle including build hermeticity and rollback policy."
+            },
+            {
+              "candidate_name": "Continuous Delivery (Humble & Farley)",
+              "url": "https://www.oreilly.com/library/view/continuous-delivery/9780321670250/",
+              "license": "All Rights Reserved (paid)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Foundational paid text on deployment pipelines; the SRE web edition provides equivalent operational doctrine at zero cost with a stable public URL."
+            }
+          ],
+          "relevant_timestamp": "Philosophy: Hermetic Builds; Enforcement of Policies and Procedures",
+          "locator_url": "https://sre.google/sre-book/release-engineering/#philosophy-1LsKiY"
+        },
+        {
+          "id": "github-actions-docs",
+          "title": "GitHub Actions Documentation",
+          "author": "GitHub, Inc.",
+          "original_url": "https://docs.github.com/en/actions",
+          "version_or_verification_date": "GitHub Docs continuous publication (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "CC BY 4.0",
+          "license_restrictions": [],
+          "permission_basis": "GitHub product documentation published under Creative Commons Attribution 4.0; the curriculum links to it and paraphrases concepts without importing text.",
+          "prerequisites": "YAML familiarity, shell commands, and Git hosting vocabulary.",
+          "selection_rationale": "Primary reference for pipeline stages, required status checks, and branch protection mechanics that the local CI practice runner mirrors in a disposable environment.",
+          "known_availability_limitations": "Public documentation site; exact workflow syntax evolves with the product.",
+          "safe_fallback": "Pipeline stage semantics (lint, test, package, deploy gate) are exercised offline by scripts/ci_practice_runner.py; no GitHub account or push authorization is required for the practice.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GitLab CI/CD Documentation",
+              "url": "https://docs.gitlab.com/ee/ci/",
+              "license": "CC BY-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Equivalent pipeline concepts under a different provider; GitHub Actions matches the hosted-workflow conventions used in this project's delivery story."
+            },
+            {
+              "candidate_name": "Jenkins User Documentation",
+              "url": "https://www.jenkins.io/doc/",
+              "license": "CC BY-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Self-hosted CI server documentation; GitHub Actions better matches the hosted pipeline model the learner will meet first."
+            }
+          ],
+          "locator_status": "whole_source_reference"
+        }
+      ]
+    }
+  ]
+}

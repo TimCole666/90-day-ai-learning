@@ -1,0 +1,87 @@
+{
+  "language": "en",
+  "language_label": "English",
+  "day_title": "Day 20: Partial derivatives and the gradient vector",
+  "day_subtitle": "Differentiate one variable at a time, assemble the gradient vector, and prove that shared dependency paths add contributions. Every claim is checked by hand against a finite difference or a direct substitution.",
+  "time_budget_label": "480 active minutes (8 hours focused study)",
+  "category_label": "AI Mathematics & Calculus",
+  "common": {
+    "nav_calendar": "Curriculum Calendar",
+    "day_label": "Day 20",
+    "prerequisites_title": "Prerequisites",
+    "objective_title": "Learning Objective",
+    "instructions_title": "Instructions",
+    "exercise_title": "Practice & Prediction Log",
+    "hint_title": "View Hint",
+    "reveal_answer": "Inspect Reference Solution & Trace",
+    "mastery_title": "Independent Mastery Criterion",
+    "draft_placeholder": "Record your prediction, hand derivation, finite-difference check, and recovery evidence here...",
+    "sources_heading": "Authoritative Source Resources & Provenance",
+    "source_author_label": "Author",
+    "source_url_label": "Original Source Link",
+    "source_range_label": "Relevant Section / Range",
+    "source_verification_label": "Verified Version & Date",
+    "source_reuse_label": "Reuse Category",
+    "source_license_label": "License & Rights",
+    "source_rationale_label": "Selection Rationale",
+    "source_prereqs_label": "Source Prerequisites",
+    "source_fallback_label": "Safe Fallback (Offline Resilience)",
+    "compared_candidates_heading": "Compared Candidate Sources & Selection Analysis",
+    "compared_status_label": "Decision",
+    "progress": {
+      "save_btn": "Save Progress",
+      "mark_completed": "Mark as Completed"
+    }
+  },
+  "activities": {
+    "day-20-act-01": {
+      "title": "Partial derivatives: hold every other variable constant",
+      "prerequisites": "Day 19 chain rule drills; if the scalar rule is shaky, open the day-level recovery link before continuing.",
+      "objective": "Define the partial derivative as the ordinary derivative along one axis with all other variables frozen, compute both partials of a polynomial by hand, and confirm them with finite differences.",
+      "assistance_policy_label": "Assistance allowed only after prediction and observed evidence are recorded.",
+      "instructions": "Study source: within this activity's existing reading/practice time, use MIT OCW 18.02SC Multivariable Calculus, Part 2: Partial Derivatives; differentiation, chain rule and gradient sessions, then explain one connection to the local task in your own words. Keep the local exercise and acceptance checks; use its original explanation if the external source is unavailable. For f(x, y) = x^2 y + 3y - x, freeze y and differentiate in x: ∂f/∂x = 2xy - 1. Freeze x and differentiate in y: ∂f/∂y = x^2 + 3. At the point (2, 1): f = 4*1 + 3 - 2 = 5, ∂f/∂x = 4 - 1 = 3, ∂f/∂y = 4 + 3 = 7. Predict these before checking with central differences: (f(2.00001, 1) - f(1.99999, 1)) / 0.00002 approaches 3, and the y-slice approaches 7.",
+      "exercise_prompt": "Compute by hand and verify numerically: (a) both partials of f(x, y) = x^2 y + 3y - x at (2, 1); (b) both partials of f(x, y) = x y^2 at (3, 2). Record the frozen variable for every differentiation.",
+      "hint": "For (b), ∂f/∂x treats y^2 as a constant coefficient on x, giving y^2; ∂f/∂y treats x as a constant coefficient, giving 2xy.",
+      "answer": "(a) ∂f/∂x = 2xy - 1 = 3 and ∂f/∂y = x^2 + 3 = 7 at (2, 1); f(2, 1) = 5. Central differences return about 3.0000 and 7.0000. (b) f(x, y) = x y^2: ∂f/∂x = y^2 = 4 and ∂f/∂y = 2xy = 12 at (3, 2); f(3, 2) = 12. If your symbolic result and the finite difference disagree, check all three: the derivation (which variable you held fixed on each line), the numerical check code (function definition, evaluation point, which variable is perturbed), and the step size h (compare h = 1e-3, 1e-4, 1e-5; a true match stays stable).",
+      "mastery_criterion": "You compute both partials for both functions unaided, state which variable was frozen in each line, and your four values 3, 7, 4, 12 all match a finite-difference check you ran yourself.",
+      "source_recovery": "If blocked, revisit the Day 19 derivative drills first; the OpenStax partial-derivative section and the MIT OCW lecture segment provide the same slice-and-differentiate definition with more examples.",
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-20-act-02": {
+      "title": "The gradient vector points up the steepest slope",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Assemble partials into the gradient vector, normalize it into a unit direction, and verify that the directional slope along the gradient equals its norm.",
+      "assistance_policy_label": "Independent practice: predict first and preserve the recorded unaided attempt; any later help is a separate assisted-recovery phase, and a fresh equivalent unaided check is required before the idea counts as independent evidence.",
+      "instructions": "The gradient is ∇f = (∂f/∂x, ∂f/∂y). For f(x, y) = x^2 + y^2, ∇f = (2x, 2y). At (3, 4): ∇f = (6, 8), norm sqrt(36 + 64) = 10, unit direction (0.6, 0.8). The key fact: the directional slope along the gradient equals its norm. Predict (f(3 + 0.6h, 4 + 0.8h) - f(3, 4)) / h for small h before computing; it should approach 10. If you use help after the preserved attempt, treat it as assisted recovery: keep the original attempt unchanged, and pass a fresh equivalent unaided check before calling the idea remediated.",
+      "exercise_prompt": "Compute by hand: (a) ∇f and its norm for f(x, y) = x^2 + y^2 at (3, 4), then verify the directional slope along the unit gradient approaches the norm; (b) ∇f and its norm for f(x, y) = xy + y^2 at (1, 2).",
+      "hint": "For (b), ∂f/∂x = y and ∂f/∂y = x + 2y, so the gradient is (2, 5) at (1, 2) and the norm is sqrt(4 + 25) = sqrt(29) ≈ 5.385.",
+      "answer": "(a) ∇f = (6, 8), norm 10, unit (0.6, 0.8). With h = 0.0001, f(3 + 0.6h, 4 + 0.8h) = f(3.00006, 4.00008) = 25.00100001, so the difference quotient (25.00100001 - 25) / 0.0001 ≈ 10.0001 matches the norm; displayed rounded as 25.001 it would give only about 10. (b) ∇f = (y, x + 2y) = (2, 5) at (1, 2), norm sqrt(29) ≈ 5.3852, unit direction approximately (0.3714, 0.9285).",
+      "mastery_criterion": "Unaided, you produce both gradients (6, 8) and (2, 5), both norms 10 and sqrt(29) ≈ 5.385, and you verify numerically that the slope along the unit gradient equals the norm for part (a).",
+      "source_recovery": "If the directional check confuses you, recompute the x-slice and y-slice from activity 1; the OpenStax gradient section states the steepest-ascent theorem used here."
+    },
+    "day-20-act-03": {
+      "title": "Multivariable chain rule: shared paths add contributions",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Apply the multivariable chain rule dz/dt = (∂f/∂x)(dx/dt) + (∂f/∂y)(dy/dt), verify it by direct substitution, and prove that a variable used on two paths contributes twice — not once.",
+      "assistance_policy_label": "Assistance allowed only after prediction and observed evidence are recorded.",
+      "instructions": "Let z = f(x, y) = xy with x = t^2, y = 3t. The chain rule gives dz/dt = y * 2t + x * 3 = 6t^2 + 3t^2 = 9t^2. Check by substituting first: z = 3t^3, so dz/dt = 9t^2 — identical. Then the shared-variable case: L = a*b with b = a + 1. Treat a as reaching L through two paths: directly into the first factor (contribution b) and through b into the second factor (contribution a * db/da = a * 1). Total dL/da = b + a = 2a + 1. Counting only one path is the reusable-variable counterexample.",
+      "exercise_prompt": "Compute and verify: (a) dz/dt at t = 2 for z = xy, x = t^2, y = 3t — both by the chain rule and by substituting z = 3t^3; (b) dL/da at a = 3 for L = a*b, b = a + 1, showing both path contributions and the wrong single-path answer.",
+      "hint": "For (b), substituting gives L = a^2 + a, so dL/da = 2a + 1 = 7 at a = 3. The direct-factor path alone would claim only b = 4 — off by the second path's a = 3.",
+      "answer": "(a) Chain rule: dz/dt = y*2t + x*3 = 9t^2; at t = 2 that is 36 (z = 3t^3 = 24, and 9t^2 gives the same 36). A finite difference on 3t^3 at t = 2 returns about 36.0000. (b) Two paths: first factor contributes b = 4, second contributes a * 1 = 3; total dL/da = 7, matching the direct derivative of a^2 + a at a = 3. The single-path answer 4 (or 3) is wrong — shared paths always add, which is exactly why autograd engines accumulate gradients.",
+      "mastery_criterion": "You show both path products for each problem, get 36 and 7 confirmed by an independent method, and can explain in one sentence why the reusable-variable answer must sum contributions rather than pick one.",
+      "source_recovery": "If blocked, redo the scalar chain rule from Day 19 first; the OpenStax Volume 3 chain rule section draws the same tree diagram this activity uses."
+    },
+    "day-20-act-04": {
+      "title": "Independent mastery check: gradients, verification, and edge cases",
+      "prerequisites": "Complete the previous activity; use the listed recovery link if blocked.",
+      "objective": "Under closed-book conditions, compute a gradient and its norm, verify the steepest-ascent property numerically, and identify a point where the gradient does not exist.",
+      "assistance_policy_label": "Independent Mastery Check (no AI assistance).",
+      "instructions": "No notes or AI during the check. Part 1: compute ∇f and ||∇f|| for f(x, y) = x^2 + 2y^2 at (1, 1). Part 2: verify numerically that stepping along the unit gradient raises f fastest — the directional slope equals the norm. Part 3: f(x, y) = |x| + |y| at (0, 0): show that both partial derivatives fail to exist there by comparing slopes arriving from the left and the right along each axis.",
+      "exercise_prompt": "Submit: the gradient and its norm for Part 1, your verification numbers for Part 2, the conflicting slopes for Part 3, and one sentence explaining why the gradient is undefined at that point.",
+      "hint": "For Part 1, ∂f/∂x = 2x and ∂f/∂y = 4y. For Part 3, the x-slice through the origin is |x|, whose left slope -1 disagrees with right slope +1.",
+      "answer": "Part 1: ∇f = (2x, 4y) = (2, 4) at (1, 1); norm sqrt(4 + 16) = sqrt(20) = 2*sqrt(5) ≈ 4.4721. Part 2: unit direction (1/sqrt(5), 2/sqrt(5)) ≈ (0.4472, 0.8944); the difference quotient along it approaches ≈ 4.4721, equal to the norm. Part 3: along the x-axis the slope is -1 from the left and +1 from the right (same along y), so neither partial exists and ∇f is undefined at (0, 0). Recovery: log the missed piece and re-attempt the matching earlier activity after a break.",
+      "mastery_criterion": "All three parts correct unaided: (2, 4) with norm 2*sqrt(5) ≈ 4.4721 verified directionally, and the -1/+1 slope conflict correctly explained, plus an honest recovery note for anything missed.",
+      "source_recovery": "If you miss a part, schedule a recovery block using the day-level recovery link and re-attempt after rest; the OpenStax gradient section explains why differentiability is required."
+    }
+  }
+}

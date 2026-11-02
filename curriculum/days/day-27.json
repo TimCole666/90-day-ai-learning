@@ -1,0 +1,386 @@
+{
+  "id": "day-27",
+  "day_number": 27,
+  "active_minutes": 480,
+  "topic_category": "mathematics",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-26"
+  ],
+  "recovery_links": [
+    "day-26"
+  ],
+  "activities": [
+    {
+      "id": "day-27-act-01",
+      "lesson_id": "les-27",
+      "title": "Logarithms, Surprisal, and Units of Information",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev3",
+      "prerequisites": [
+        "day-26"
+      ],
+      "source_resources": [
+        {
+          "id": "mackay-itila",
+          "title": "Information Theory, Inference, and Learning Algorithms",
+          "author": "David J. C. MacKay",
+          "original_url": "https://www.inference.org.uk/itila/book.html",
+          "relevant_timestamp": "Chapter 2: Probability, Entropy, and Inference (Shannon information content)",
+          "version_or_verification_date": "Cambridge University Press 2003, authorized free PDF (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Cambridge University Press copyright; free online reading authorized",
+          "license_restrictions": [
+            "No text extraction or redistribution permitted"
+          ],
+          "permission_basis": "Academic citation and linking only; explanations are original formulations.",
+          "prerequisites": "Probability foundations (Day 25-26)",
+          "selection_rationale": "Freely available textbook introducing surprisal -log p with worked numerical exercises.",
+          "known_availability_limitations": "Hosted on the author's site at inference.org.uk.",
+          "safe_fallback": "All required definitions, tables, and worked answers are reproduced locally in this lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Cover & Thomas, Elements of Information Theory",
+              "url": "https://onlinelibrary.wiley.com/doi/book/10.1002/047174882X",
+              "license": "Wiley copyright",
+              "status": "compared_alternative",
+              "comparison_rationale": "The standard rigorous reference; paywalled, so it is cited alongside MacKay only via linking rather than as the sole learner-facing text."
+            },
+            {
+              "candidate_name": "James V. Stone, Information Theory: A Tutorial Introduction",
+              "url": "https://arxiv.org/abs/1802.05968",
+              "license": "Open Access / CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Gentler introduction freely readable on arXiv; less depth on coding and inference connections needed for the language-model-loss bridge."
+            },
+            {
+              "candidate_name": "Shannon, A Mathematical Theory of Communication (1948)",
+              "url": "https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf",
+              "license": "Bell System Technical Journal copyright",
+              "status": "compared_alternative",
+              "comparison_rationale": "Historical primary source; valuable citation but dated notation makes it supplementary rather than primary for learners."
+            }
+          ]
+        },
+        {
+          "id": "py-docs-math",
+          "title": "Python 3 math: Mathematical functions",
+          "author": "Python Software Foundation",
+          "original_url": "https://docs.python.org/3/library/math.html",
+          "relevant_timestamp": "math.log, math.log2, math.log1p (log bases and near-zero precision)",
+          "version_or_verification_date": "Python 3.12 documentation (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "PSF License Version 2",
+          "license_restrictions": [],
+          "permission_basis": "Linking only; no source text reproduced.",
+          "prerequisites": "Basic Python syntax",
+          "selection_rationale": "Normative reference for the log-base and log1p calls used in the surprisal table.",
+          "known_availability_limitations": "Online documentation may be unavailable offline.",
+          "safe_fallback": "Use the installed interpreter's help(math) and the included deterministic commands.",
+          "compared_candidates": [
+            {
+              "candidate_name": "NumPy log and ufunc documentation",
+              "url": "https://numpy.org/doc/stable/reference/ufuncs.html",
+              "license": "BSD 3-Clause",
+              "status": "compared_deferred",
+              "comparison_rationale": "Vectorized logs arrive with the tensor track; scalar math functions keep Day 27 dependency-free."
+            },
+            {
+              "candidate_name": "decimal — Decimal fixed point and floating point arithmetic",
+              "url": "https://docs.python.org/3/library/decimal.html",
+              "license": "PSF License Version 2",
+              "status": "compared_alternative",
+              "comparison_rationale": "Decimal-precision reference rather than binary float math; math remains the correct module for the operators and constants these days use."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-27-act-02",
+      "lesson_id": "les-27",
+      "title": "Entropy of a Distribution",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-27-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "mackay-itila",
+          "title": "Information Theory, Inference, and Learning Algorithms",
+          "author": "David J. C. MacKay",
+          "original_url": "https://www.inference.org.uk/itila/book.html",
+          "relevant_timestamp": "Chapter 2: Shannon information content and entropy; Chapter 4 (source coding theorem)",
+          "version_or_verification_date": "Cambridge University Press 2003, authorized free PDF (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Cambridge University Press copyright; free online reading authorized",
+          "license_restrictions": [
+            "No text extraction or redistribution permitted"
+          ],
+          "permission_basis": "Academic citation and linking only; explanations are original formulations.",
+          "prerequisites": "Probability foundations (Day 25-26)",
+          "selection_rationale": "Authorized-free textbook derivations of entropy as expected surprisal and ideal code length.",
+          "known_availability_limitations": "Hosted on the author's site at inference.org.uk.",
+          "safe_fallback": "All required definitions, tables, and worked answers are reproduced locally in this lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Cover & Thomas, Elements of Information Theory",
+              "url": "https://onlinelibrary.wiley.com/doi/book/10.1002/047174882X",
+              "license": "Wiley copyright",
+              "status": "compared_alternative",
+              "comparison_rationale": "The standard rigorous reference; paywalled, so it is cited alongside MacKay only via linking rather than as the sole learner-facing text."
+            },
+            {
+              "candidate_name": "James V. Stone, Information Theory: A Tutorial Introduction",
+              "url": "https://arxiv.org/abs/1802.05968",
+              "license": "Open Access / CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Gentler introduction freely readable on arXiv; less depth on coding and inference connections needed for the language-model-loss bridge."
+            },
+            {
+              "candidate_name": "Shannon, A Mathematical Theory of Communication (1948)",
+              "url": "https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf",
+              "license": "Bell System Technical Journal copyright",
+              "status": "compared_alternative",
+              "comparison_rationale": "Historical primary source; valuable citation but dated notation makes it supplementary rather than primary for learners."
+            }
+          ]
+        },
+        {
+          "id": "cover-thomas-eit",
+          "title": "Elements of Information Theory",
+          "author": "Thomas M. Cover, Joy A. Thomas",
+          "original_url": "https://onlinelibrary.wiley.com/doi/book/10.1002/047174882X",
+          "relevant_timestamp": "Chapter 2: Entropy, Relative Entropy, and Mutual Information",
+          "version_or_verification_date": "2nd Edition, Wiley 2006 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Wiley copyright / Academic linking only",
+          "license_restrictions": [
+            "No text extraction or distribution permitted"
+          ],
+          "permission_basis": "Academic citation and linking; explanations are original formulations.",
+          "prerequisites": "Probability foundations and logarithms",
+          "selection_rationale": "Detailed mathematical reference for entropy properties cited alongside the free MacKay text.",
+          "known_availability_limitations": "Published textbook behind library or purchase access.",
+          "safe_fallback": "Self-contained derivations in activity instructions and offline guide.",
+          "compared_candidates": [
+            {
+              "candidate_name": "David MacKay, Information Theory, Inference, and Learning Algorithms",
+              "url": "https://www.inference.org.uk/itila/book.html",
+              "license": "Cambridge University Press copyright; free online reading authorized",
+              "status": "compared_alternative",
+              "comparison_rationale": "Co-selected: equally rigorous and freely readable online, so it carries the primary learner-facing role."
+            },
+            {
+              "candidate_name": "Dive into Deep Learning: Information Theory appendix",
+              "url": "https://d2l.ai/chapter_appendix-mathematics-for-deep-learning/information-theory.html",
+              "license": "CC BY-SA 4.0 (book text) / modified MIT (sample code)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Code-integrated deep-learning framing; useful supplementary reading but less mathematically complete for entropy proofs."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-27-act-03",
+      "lesson_id": "les-27",
+      "title": "Cross-Entropy, KL Divergence, and Language-Model Loss",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev2",
+      "prerequisites": [
+        "day-27-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "cover-thomas-eit",
+          "title": "Elements of Information Theory",
+          "author": "Thomas M. Cover, Joy A. Thomas",
+          "original_url": "https://onlinelibrary.wiley.com/doi/book/10.1002/047174882X",
+          "relevant_timestamp": "Chapter 2: relative entropy (KL divergence) and its non-negativity",
+          "version_or_verification_date": "2nd Edition, Wiley 2006 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Wiley copyright / Academic linking only",
+          "license_restrictions": [
+            "No text extraction or distribution permitted"
+          ],
+          "permission_basis": "Academic citation and linking; explanations are original formulations.",
+          "prerequisites": "Probability foundations and logarithms",
+          "selection_rationale": "Standard reference for D_KL(p||q) definitions and asymmetry used in this activity.",
+          "known_availability_limitations": "Published textbook behind library or purchase access.",
+          "safe_fallback": "Self-contained derivations in activity instructions and offline guide.",
+          "compared_candidates": [
+            {
+              "candidate_name": "David MacKay, Information Theory, Inference, and Learning Algorithms",
+              "url": "https://www.inference.org.uk/itila/book.html",
+              "license": "Cambridge University Press copyright; free online reading authorized",
+              "status": "compared_alternative",
+              "comparison_rationale": "Co-selected: equally rigorous and freely readable online, so it carries the primary learner-facing role."
+            },
+            {
+              "candidate_name": "Dive into Deep Learning: Information Theory appendix",
+              "url": "https://d2l.ai/chapter_appendix-mathematics-for-deep-learning/information-theory.html",
+              "license": "CC BY-SA 4.0 (book text) / modified MIT (sample code)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Code-integrated deep-learning framing; useful supplementary reading but less mathematically complete for entropy proofs."
+            }
+          ]
+        },
+        {
+          "id": "mackay-itila",
+          "title": "Information Theory, Inference, and Learning Algorithms",
+          "author": "David J. C. MacKay",
+          "original_url": "https://www.inference.org.uk/itila/book.html",
+          "relevant_timestamp": "Chapters 2 and 5: cross-entropy ideas, symbol codes, and noisy-channel models",
+          "version_or_verification_date": "Cambridge University Press 2003, authorized free PDF (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Cambridge University Press copyright; free online reading authorized",
+          "license_restrictions": [
+            "No text extraction or redistribution permitted"
+          ],
+          "permission_basis": "Academic citation and linking only; explanations are original formulations.",
+          "prerequisites": "Probability foundations (Day 25-26)",
+          "selection_rationale": "Authorized-free bridge from coding theory to probabilistic models used for the LM-loss connection.",
+          "known_availability_limitations": "Hosted on the author's site at inference.org.uk.",
+          "safe_fallback": "All required definitions, derivations, and worked answers are reproduced locally in this lesson.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Cover & Thomas, Elements of Information Theory",
+              "url": "https://onlinelibrary.wiley.com/doi/book/10.1002/047174882X",
+              "license": "Wiley copyright",
+              "status": "compared_alternative",
+              "comparison_rationale": "The standard rigorous reference; paywalled, so it is cited alongside MacKay only via linking rather than as the sole learner-facing text."
+            },
+            {
+              "candidate_name": "James V. Stone, Information Theory: A Tutorial Introduction",
+              "url": "https://arxiv.org/abs/1802.05968",
+              "license": "Open Access / CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Gentler introduction freely readable on arXiv; less depth on coding and inference connections needed for the language-model-loss bridge."
+            },
+            {
+              "candidate_name": "Shannon, A Mathematical Theory of Communication (1948)",
+              "url": "https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf",
+              "license": "Bell System Technical Journal copyright",
+              "status": "compared_alternative",
+              "comparison_rationale": "Historical primary source; valuable citation but dated notation makes it supplementary rather than primary for learners."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "day-27-act-04",
+      "lesson_id": "les-27",
+      "title": "Independent Mastery Check: Information-Theoretic Losses",
+      "active_minutes": 120,
+      "activity_type": "assessment",
+      "category": "mathematics",
+      "status": "available",
+      "assistance_policy": "independent",
+      "content_revision": "2026.10.30-rev2",
+      "prerequisites": [
+        "day-27-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "mackay-itila",
+          "title": "Information Theory, Inference, and Learning Algorithms",
+          "author": "David J. C. MacKay",
+          "original_url": "https://www.inference.org.uk/itila/book.html",
+          "relevant_timestamp": "Chapters 2 and 4 review: entropy and source coding exercises",
+          "version_or_verification_date": "Cambridge University Press 2003, authorized free PDF (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Cambridge University Press copyright; free online reading authorized",
+          "license_restrictions": [
+            "No text extraction or redistribution permitted"
+          ],
+          "permission_basis": "Academic citation and linking only; assessment items are original formulations.",
+          "prerequisites": "Probability foundations (Day 25-26)",
+          "selection_rationale": "Authorized-free exercise coverage aligned with this day's assessment scope.",
+          "known_availability_limitations": "Hosted on the author's site at inference.org.uk.",
+          "safe_fallback": "The assessment is self-contained with original items and worked reference answers.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Cover & Thomas, Elements of Information Theory",
+              "url": "https://onlinelibrary.wiley.com/doi/book/10.1002/047174882X",
+              "license": "Wiley copyright",
+              "status": "compared_alternative",
+              "comparison_rationale": "The standard rigorous reference; paywalled, so it is cited alongside MacKay only via linking rather than as the sole learner-facing text."
+            },
+            {
+              "candidate_name": "James V. Stone, Information Theory: A Tutorial Introduction",
+              "url": "https://arxiv.org/abs/1802.05968",
+              "license": "Open Access / CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Gentler introduction freely readable on arXiv; less depth on coding and inference connections needed for the language-model-loss bridge."
+            },
+            {
+              "candidate_name": "Shannon, A Mathematical Theory of Communication (1948)",
+              "url": "https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf",
+              "license": "Bell System Technical Journal copyright",
+              "status": "compared_alternative",
+              "comparison_rationale": "Historical primary source; valuable citation but dated notation makes it supplementary rather than primary for learners."
+            }
+          ]
+        },
+        {
+          "id": "cover-thomas-eit",
+          "title": "Elements of Information Theory",
+          "author": "Thomas M. Cover, Joy A. Thomas",
+          "original_url": "https://onlinelibrary.wiley.com/doi/book/10.1002/047174882X",
+          "relevant_timestamp": "Chapter 2 review problems: entropy and relative entropy",
+          "version_or_verification_date": "2nd Edition, Wiley 2006 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "book",
+          "license": "Wiley copyright / Academic linking only",
+          "license_restrictions": [
+            "No text extraction or distribution permitted"
+          ],
+          "permission_basis": "Academic citation and linking; explanations are original formulations.",
+          "prerequisites": "Probability foundations and logarithms",
+          "selection_rationale": "Reference for entropy and KL identities this assessment checks without assistance.",
+          "known_availability_limitations": "Published textbook behind library or purchase access.",
+          "safe_fallback": "The assessment is self-contained with original items and worked reference answers.",
+          "compared_candidates": [
+            {
+              "candidate_name": "David MacKay, Information Theory, Inference, and Learning Algorithms",
+              "url": "https://www.inference.org.uk/itila/book.html",
+              "license": "Cambridge University Press copyright; free online reading authorized",
+              "status": "compared_alternative",
+              "comparison_rationale": "Co-selected: equally rigorous and freely readable online, so it carries the primary learner-facing role."
+            },
+            {
+              "candidate_name": "Dive into Deep Learning: Information Theory appendix",
+              "url": "https://d2l.ai/chapter_appendix-mathematics-for-deep-learning/information-theory.html",
+              "license": "CC BY-SA 4.0 (book text) / modified MIT (sample code)",
+              "status": "compared_alternative",
+              "comparison_rationale": "Code-integrated deep-learning framing; useful supplementary reading but less mathematically complete for entropy proofs."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

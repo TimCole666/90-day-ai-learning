@@ -1,0 +1,170 @@
+{
+  "language": "zh-Hans",
+  "language_label": "简体中文",
+  "day_title": "第 40 天：可学习的嵌入表与分布式表示",
+  "day_subtitle": "用可学习的嵌入矩阵 C 取代稀疏的 one-hot 指示向量。证明查表等于选行的恒等关系，把行读作特征空间中的点，并在前向传播之前预测张量形状与参数数量。每个活动都记录预测、观察、复习与恢复。",
+  "time_budget_label": "480 分钟主动学习时间（8 小时专注学习）",
+  "category_label": "模型与训练",
+  "common": {
+    "nav_calendar": "📅 课程日历与台账",
+    "day_label": "第 40 天",
+    "prerequisites_title": "前置要求",
+    "objective_title": "学习目标",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主演练与记录",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看参考解答与分析",
+    "mastery_title": "独立掌握标准",
+    "draft_placeholder": "在此记录你的查表预测、相似度计算、拼接向量与参数台账……",
+    "dev_slice_notice": "90 天 AI 学习平台的已验证正式课程模块。",
+    "sources_heading": "权威源资源与权利证明",
+    "source_author_label": "作者 / 机构",
+    "source_url_label": "原始出处链接",
+    "source_range_label": "对应章节 / 时间戳",
+    "source_verification_label": "验证版本与日期",
+    "source_reuse_label": "复用类别",
+    "source_license_label": "许可证与权利说明",
+    "source_rationale_label": "入选理由",
+    "source_prereqs_label": "来源前置条件",
+    "source_fallback_label": "安全回退方案（离线弹性）",
+    "compared_candidates_heading": "对比候选资源与选型分析",
+    "compared_status_label": "评估结论",
+    "auth": {
+      "sign_in": "使用 Google 登录",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "退出登录",
+      "signed_in_as": "已登录为",
+      "guest": "访客模式",
+      "link_github": "绑定 GitHub",
+      "link_google": "绑定 Google",
+      "linked_identities": "已绑定账号",
+      "auth_errors": {
+        "access_denied": "授权已取消或访问被拒绝。",
+        "invalid_state": "无效或已过期的授权状态令牌，请重试。",
+        "identity_conflict": "该第三方身份已被绑定至其他账号。",
+        "provider_error": "认证服务提供商发生错误。",
+        "server_error": "认证服务提供商发生错误。",
+        "session_expired": "登录会话已过期，请重新登录。"
+      }
+    },
+    "progress": {
+      "save_btn": "保存进度",
+      "saved": "已保存",
+      "saving": "正在保存...",
+      "save_error": "保存失败",
+      "offline": "离线状态",
+      "mark_completed": "标记为已完成",
+      "completed_badge": "已完成"
+    },
+    "quiz": {
+      "quiz_title": "客观知识测验：嵌入与查找表",
+      "quiz_instructions": "请回答以下诊断题目检验掌握情况。提交前请诚实声明你的辅助条件。",
+      "assistance_mode_label": "声明辅助条件",
+      "mode_independent": "独立掌握检查 (无 AI 辅助)",
+      "mode_agent_assisted": "Agent 辅助工程检查 (借助 AI 完成)",
+      "mode_disclaimer": "说明：无 AI 辅助属于诚实声明条件，非平台监控或强制检测手段。",
+      "submit_btn": "提交答案",
+      "retry_btn": "重新测验",
+      "view_hint": "查看提示",
+      "mastery_criterion_label": "掌握标准",
+      "mastery_criterion_desc": "在独立掌握检查模式下获得 100% 得分（3/3 题完全正确）。",
+      "score_label": "测验得分",
+      "passed_badge": "通过",
+      "failed_badge": "未通过 (需复习)",
+      "independent_pass_badge": "独立掌握通过",
+      "agent_assisted_pass_badge": "Agent 辅助通过",
+      "self_reported_badge": "自主勾选完成",
+      "stale_badge": "历史记录 (内容已更新，需重新验证)",
+      "attempts_history_title": "作答应证与历史记录",
+      "no_attempts": "暂无测验记录。"
+    }
+  },
+  "activities": {
+    "day-40-act-01": {
+      "title": "从 one-hot 向量到嵌入查表",
+      "prerequisites": "第 39 天的分词与 n-gram 统计；数学模块中的矩阵乘法基础。",
+      "objective": "推导为什么嵌入查表等价于 one-hot 向量乘以嵌入矩阵，并对真实配置预测表的形状与参数数量。",
+      "assistance_policy_label": "Agent 辅助工程检查",
+      "instructions": "必做任务：使用小词汇表 V = {'.', 'a', 'b', 'c'}（索引 0-3）与嵌入表 C，其各行分别为 '.'=[0.1,0.3]、'a'=[0.2,-0.1]、'b'=[-0.4,0.5]、'c'=[0.0,0.2]，形状 (V,d) = (4,2)。证明 one-hot 向量 e_2 = [0,0,1,0] 与 C 相乘会选出第 2 行，得到 [-0.4, 0.5]。解释为什么代码用整数索引查表 C[i] 而不去物化一个 V 维 one-hot 向量。选做任务：说明若同一个字符由两张不同的表嵌入，会有什么变化。",
+      "exercise_prompt": "1. 用上表计算 e_3 * C，并说明选中了哪一行。\n2. 对姓名词汇表 V=27、d=10，给出 C 的形状与参数数量。\n3. 用一句话说明为什么 C[i] 比先构造 e_i 再做乘法更省。",
+      "hint": "one-hot 向量除一个 1 之外全为 0；乘积中每个 0 都会抹掉 C 的一行，只有下标为 1 的那一行保留下来。参数数 = 行数 × 列数。",
+      "answer": "e_3 = [0,0,0,1] 选中第 3 行，得到 [0.0, 0.2]。V=27、d=10 时，C 的形状为 (27,10)，共 270 个参数。查表 C[i] 只需 O(d) 的计算与内存；one-hot 方式要花 O(V) 的代价却只为丢弃 V-1 行，还浪费内存存放几乎全零的向量。",
+      "mastery_criterion": "学习者能写出恒等式 e_i * C = C[i,:]，正确算出两个示例查表结果，并在无提示下推出 (27,10) 表的 270 个参数。"
+    },
+    "day-40-act-02": {
+      "title": "分布式表示：行即学习出的点",
+      "prerequisites": "完成上一活动；如受阻请使用列出的恢复链接。",
+      "objective": "把嵌入行解释为学习出的特征空间中的坐标，计算点积与余弦相似度，并解释为什么未训练的行不携带语义。",
+      "assistance_policy_label": "独立掌握检查",
+      "instructions": "必做任务：把 C 的每一行当作 R^2 中的点。对两对行分别计算 dot(u,v) = sum_i u_i v_i 与 cos(u,v) = dot(u,v)/(||u||*||v||)。然后用自己的话解释：要让“相似”的字符最终彼此靠近，训练必须改变什么——表的初值是随机的，所以初始距离没有意义。选做任务：在纸上画出四个点并标出最近的一对。",
+      "exercise_prompt": "使用行 '.'=[0.1,0.3]、'a'=[0.2,-0.1]、'b'=[-0.4,0.5]、'c'=[0.0,0.2]：\n1. 计算 dot('.', 'c') 与 cos('.', 'c')。\n2. 计算 cos('a', 'b')。\n3. 这张表中哪一对最近？在训练之前你会信任这些相似度吗？为什么？",
+      "hint": "范数：||'.'|| = sqrt(0.10) ~= 0.3162，||'a'|| = sqrt(0.05) ~= 0.2236，||'b'|| = sqrt(0.41) ~= 0.6403，||'c'|| = 0.2。dot('.', 'c') = 0.1*0.0 + 0.3*0.2。",
+      "answer": "dot('.', 'c') = 0.06，cos('.', 'c') = 0.06 / (0.3162 * 0.2) ~= 0.9487（几乎同向）。dot('a','b') = -0.13，所以 cos('a','b') = -0.13 / (0.2236 * 0.6403) ~= -0.908（几乎反向）。此表中最近的一对是 ('.','c')。不可信——这些数值只是随机初始化的巧合；只有在真实上下文上做梯度更新后，行距才有意义。",
+      "mastery_criterion": "独立计算两个余弦相似度且误差在 ±0.01 以内，并能正确说明随机嵌入在训练前不编码任何语义。"
+    },
+    "day-40-act-03": {
+      "title": "上下文拼接与参数台账",
+      "prerequisites": "完成上一活动；如受阻请使用列出的恢复链接。",
+      "objective": "按上下文顺序拼接各位置的嵌入行来组装模型输入，预测其维度，并为微型模型与姓名规模配置维护完整参数台账。",
+      "assistance_policy_label": "Agent 辅助工程检查",
+      "instructions": "必做任务：block_size = 2、上下文 ('a','b') = 索引 [1,2] 时，网络输入为 x = concat(C[1], C[2]) = [0.2, -0.1, -0.4, 0.5]，维度 block_size * d = 4。为上下文 ('b','.') 构建同样的向量。然后写出微型模型（隐藏层大小 3）与姓名规模配置 V=27、d=10、block=3、hidden=100 的参数台账。选做任务：解释为什么拼接中的位置顺序不能打乱。",
+      "exercise_prompt": "1. 写出上下文 ('b','.') 的 x。\n2. 微型台账：C (4x2)、W1 (4x3)、b1 (3)、W2 (3x4)、b2 (4)——总参数数？\n3. 姓名台账：C (27x10)、W1 (30x100)、b1 (100)、W2 (100x27)、b2 (27)——总参数数？",
+      "hint": "拼接按位置顺序追加行：先 C[2] 再 C[0]。矩阵贡献 行×列 个参数；偏置贡献其长度。",
+      "answer": "x = concat(C[2], C[0]) = [-0.4, 0.5, 0.1, 0.3]。微型合计：8 + 12 + 3 + 12 + 4 = 39 个参数。姓名合计：270 + 3000 + 100 + 2700 + 27 = 6097 个参数。位置顺序很重要：concat(C[1], C[2]) 与 concat(C[2], C[1]) 不同，下游权重行正是按该顺序训练的。",
+      "mastery_criterion": "给出位置顺序正确的拼接向量，并推导出（而非背出）两份台账：39 与 6097。"
+    },
+    "day-40-act-04": {
+      "title": "独立掌握检查：查表、形状与参数计数",
+      "prerequisites": "完成活动 40-01 至 40-03。",
+      "objective": "在声明的无 AI 条件下，检验对嵌入查表、分布式几何、上下文拼接与参数核算的独立掌握程度。",
+      "assistance_policy_label": "独立掌握检查",
+      "instructions": "必做任务：合上书本，在打开参考解答或知识测验之前，把推导过程记录在草稿工作区。推导本身不得求助 AI 助手或计算器（事后可以验算）。选做任务：把隐藏层改为 200，重做台账并比较。",
+      "exercise_prompt": "新任务使用 V=8 个符号、d=4、block_size=3、hidden=64。\n1. C 的形状与参数数。\n2. 拼接输入 x 的维度。\n3. C、W1、b1、W2、b2 的总参数数。\n4. 一句话：训练为什么会推动嵌入行移动？",
+      "hint": "x 有 block_size * d 个分量。台账为 C + (block*d)*hidden + hidden + hidden*V + V。",
+      "answer": "C：形状 (8,4) = 32 个参数。x 有 3*4 = 12 个分量。W1 (12,64) = 768，b1 = 64，W2 (64,8) = 512，b2 = 8。合计 = 32 + 768 + 64 + 512 + 8 = 1384。训练按下一符号损失的梯度微调每一行，因此出现在相似上下文中的行收到相似的更新而彼此靠拢。",
+      "mastery_criterion": "独立推导出全部四个答案：32 个参数、维度 12、合计 1384，以及关于梯度驱动行移动的正确一句话解释。",
+      "quiz": {
+        "title": "客观知识测验：嵌入与查找表",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "把 V=27 个符号的词汇表嵌入 d=10 维时，嵌入表 C 含有多少可训练参数？",
+            "options": {
+              "a": "270",
+              "b": "2700",
+              "c": "27",
+              "d": "27000"
+            },
+            "hint": "C 每个符号一行、每个特征一列：参数数 = V * d。",
+            "explanation": "C 是 (27,10) 矩阵，因此含 27 * 10 = 270 个参数。"
+          },
+          {
+            "id": "q2",
+            "prompt": "one-hot 向量 e_i 与嵌入矩阵 C 相乘得到：",
+            "options": {
+              "a": "C 的第 i 列",
+              "b": "C 的第 i 行",
+              "c": "第 i 行的 softmax",
+              "d": "第 i 个输出 logit"
+            },
+            "hint": "e_i 中每个 0 都会在乘积中抹掉 C 的一行。",
+            "explanation": "e_i * C 选中 C 的第 i 行，因为只有第 i 个系数为 1；查表 C[i] 就是这同一个操作的直接实现。"
+          },
+          {
+            "id": "q3",
+            "prompt": "block_size = 3、嵌入维度 d = 10 时，拼接上下文向量 x 的维度是多少？",
+            "options": {
+              "a": "13",
+              "b": "300",
+              "c": "30",
+              "d": "27"
+            },
+            "hint": "3 个上下文位置各贡献 d 个特征。",
+            "explanation": "x 拼接 3 行各 10 个特征，所以维度为 3 * 10 = 30。"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "language": "zh-Hans",
+  "language_label": "简体中文",
+  "day_title": "第 16 天：函数、斜率与极限",
+  "day_subtitle": "通过定义、分步推导、检索练习与诚实的数值证据，让函数与变化变得可计算。",
+  "time_budget_label": "480 分钟主动学习（8 小时专注学习）",
+  "category_label": "数学与微积分",
+  "common": {
+    "nav_calendar": "课程日历",
+    "day_label": "Day 16",
+    "prerequisites_title": "前提条件",
+    "objective_title": "学习目标",
+    "instructions_title": "操作说明",
+    "exercise_title": "练习与预测记录",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看参考解答与推导过程",
+    "mastery_title": "独立掌握标准",
+    "draft_placeholder": "在此记录你的预测、演算过程、观察结果、复盘和恢复证据……",
+    "sources_heading": "权威来源资源与出处",
+    "source_author_label": "作者 / 机构",
+    "source_url_label": "原始出处链接",
+    "source_range_label": "对应章节 / 时间戳",
+    "source_verification_label": "验证版本与日期",
+    "source_rationale_label": "入选理由",
+    "source_prereqs_label": "来源前置条件",
+    "source_fallback_label": "安全回退方案（离线弹性）",
+    "compared_candidates_heading": "对比候选资源与选型分析"
+  },
+  "activities": {
+    "day-16-act-01": {
+      "title": "作为映射的函数",
+      "prerequisites": "完成前一项活动；如遇困难，使用列出的恢复来源。",
+      "objective": "把函数理解为一种规则：它把定义域中每个允许的输入恰好映射到一个输出。在使用公式前先建立表格，并说明定义域、值域、单位与假设。",
+      "assistance_policy_label": "Agent 辅助工程检查",
+      "instructions": "1. 先读定义：从定义域 D 出发的函数 f，给 D 中每个输入 x 恰好指定一个输出 f(x)。动用公式之前，先写出 D、输出集合和单位（这里只是普通的数）。\n2. 计算前先预测：哪个输入给出最小输出？哪些输入对会得到相同的输出？\n3. 逐列建表：先 x，再 x^2，最后 x^2+1。最常见的失误出在“先平方再加 1”这一步；(-2)^2 是 4，不是 -4。\n4. 值域要从代数推出，而不只看表：对每个实数 x 都有 x^2 ≥ 0，所以 x^2+1 ≥ 1；并且每个 y ≥ 1 都能由 x = sqrt(y-1) 取到。\n5. 用练习题检验定义：只要某个输入对应了两个不同的输出，这个关系就不再是函数。\n6. 把预测与表格对比，如有不符，用一句话记录。\n\n**时间安排（120 分钟）：阅读 30 + 练习 60 + 检查 30。** 阅读：OpenStax《微积分》第 1 卷第 2.1 节（定义、定义域与值域、竖线检验）。练习：表格以及练习 (b)(c)。检查：合上笔记重做掌握标准中的题目，再与参考答案逐行对照。",
+      "exercise_prompt": "(a) 对 f(x)=x^2+1，为 x=-2,-1,0,1,2 列表。说明它在实数范围内的定义域和值域。然后解释为什么一个输入不能有两个输出。(b) 对 h(x)=sqrt(x-2)，写出实数定义域和值域，并计算 h(2)、h(3)、h(6)。(c) 判断下列各项是否是 x 的函数：关系 {(1,2), (2,3), (1,4)}，以及规则 x = y^2。",
+      "hint": "写出映射箭头 x -> f(x)，并标注输入列与输出列。先算平方再加 1。恢复：OpenStax《微积分》第 1 卷第 2.1 节；若不可用，重新画出五行表格并使用上面的定义。",
+      "answer": "(a) 先平方，逐行计算：\nx = -2：x^2 = 4，f(-2) = 5\nx = -1：x^2 = 1，f(-1) = 2\nx = 0：x^2 = 0，f(0) = 1\nx = 1：x^2 = 1，f(1) = 2\nx = 2：x^2 = 4，f(2) = 5\n定义域：全体实数 x，因为平方和加 1 对所有实数都有定义。值域：y ≥ 1。理由：x^2 ≥ 0，且仅在 x = 0 时取等号，所以 f(x) ≥ 1；并且每个 y ≥ 1 都能取到，因为取 x = sqrt(y - 1) 就有 f(x) = y。表格只显示五个输出，值域的结论需要这段代数推理。\n一个输入只有一个输出：函数是确定性的规则，所以把 f(2) 算两次，两次都必须得 5。两个输入共享一个输出是允许的（f(-2) = f(2) = 5）；一个输入有两个输出则不允许。\n\n(b) 平方根要求被开方数非负，所以 x - 2 ≥ 0，定义域为 x ≥ 2。h(2) = sqrt(0) = 0，h(3) = sqrt(1) = 1，h(6) = sqrt(4) = 2。值域：y ≥ 0，因为算术平方根不会为负，且每个 y ≥ 0 都可由 x = y^2 + 2 取到。\n\n(c) {(1,2), (2,3), (1,4)} 不是函数：输入 1 同时对应 2 和 4。x = y^2 不能把 y 定义为 x 的函数：x = 4 时 y = 2 和 y = -2 都成立。限制 y ≥ 0 后得到函数 y = sqrt(x)。\n\n常见错误：写成 (-2)^2 + 1 = -3；照抄定义域，把值域写成全体实数；因为两个输入都得 5 就说 f 不是函数。",
+      "mastery_criterion": "在无人协助的情况下，给出定义域和值域的定义，算出五个正确输出，并说出“每个输入恰好一个输出”这一假设。",
+      "source_recovery": "OpenStax 第 2.1-3.2 节与 SciPy 导数文档；若不可用，本活动中的分步推导和纯 Python 表格即为离线后备材料。"
+    },
+    "day-16-act-02": {
+      "title": "平均变化率与割线斜率",
+      "prerequisites": "完成前一项活动；如遇困难，使用列出的恢复来源。",
+      "objective": "用 (f(b)-f(a))/(b-a) 计算平均变化率，解释其单位，并区分经过两点的割线与在一点处的切线。",
+      "assistance_policy_label": "独立掌握检查（无 AI 辅助）",
+      "instructions": "学习来源：在本活动现有的阅读与练习时段内，参考 MIT OCW 18.01SC Single Variable Calculus 的 Unit 1: Differentiation; Part A: Definition and Basic Rules; derivative introduction and worked practice，用自己的话解释一处与本地任务的联系。保留现有练习与验收检查；若外部资料无法访问，使用课程自写的解释。1. 把端点记为 a 和 b，分别计算 f(a) 和 f(b)，写出两个点 (a, f(a)) 和 (b, f(b))。\n2. 根据形状预测斜率的符号：x^2+1 在 x ≥ 0 时递增，所以在 [2,5] 上斜率应为正。\n3. 写出商 (f(b)-f(a))/(b-a)，分子与分母保持相同的顺序，并标上单位：输出单位 / 输入单位。\n4. 用点斜式 y - f(a) = m(x - a) 把斜率写成割线方程，并检查它经过 (b, f(b))。\n5. 让区间向 a = 2 收缩，观察平均斜率的变化；这张表就是通往 Day 17 导数的桥梁。\n6. 对比预测与结果；如不一致，先重新计算端点值。\n\n**时间安排（120 分钟）：阅读 25 + 练习 65 + 检查 30。** 阅读：OpenStax 第 2.2 节（割线斜率、平均变化率）。练习：(a)-(d)。检查：独立完成 f(x)=3x-4 的掌握题，再对照。",
+      "exercise_prompt": "(a) 对函数 f(x)=x^2+1 在 [2,5] 上，计算端点值、平均变化率和割线斜率。计算前先预测斜率是否为正。(b) 写出这条割线的方程，并在 x=5 处验证。(c) 计算 [2,2.5]、[2,2.1]、[2,2.01] 上的平均变化率，并描述规律。(d) 若 x 是以秒计的时间、f(x) 是以米计的距离，说明 (a) 中斜率的单位和含义。",
+      "hint": "分子与分母保持相同的顺序。单位是输出单位/输入单位。恢复：OpenStax 第 2.2 节；离线后备是本卡片展示的商式和你画的两点图。",
+      "answer": "(a) f(2) = 4 + 1 = 5，f(5) = 25 + 1 = 26。平均变化率 = (26 - 5)/(5 - 2) = 21/3 = 7。割线斜率是同一个数：经过 (2, 5) 和 (5, 26) 的直线，每增加 1 个输入单位，输出上升 7 个单位。与预测一致，为正。\n\n(b) 点斜式：y - 5 = 7(x - 2)，即 y = 7x - 9。验证：7(5) - 9 = 26 = f(5)，7(2) - 9 = 5 = f(2)。\n\n(c) f(2.5) = 7.25，斜率 (7.25 - 5)/0.5 = 4.5。f(2.1) = 5.41，斜率 0.41/0.1 = 4.1。f(2.01) = 5.0401，斜率 0.0401/0.01 = 4.01。斜率趋近 4。\n原因：对这个函数，[a, b] 上的斜率为 ((b^2 + 1) - (a^2 + 1))/(b - a) = (b - a)(b + a)/(b - a) = a + b（因为 b != a 才能约分）。这解释了所有数值：2 + 5 = 7，2 + 2.5 = 4.5，而 b 趋近 2 时 a + b 趋近 4。Day 17 把这个极限称为导数 f'(2) = 4。\n\n(d) 单位：米每秒。从 t = 2 到 t = 5 的 3 秒内物体走了 21 m，所以平均速度为 7 m/s。它不说明任何单一时刻的速度。\n\n割线需要两个不同的输入：b = a 时商为 0/0，没有定义，所以瞬时斜率需要极限。",
+      "mastery_criterion": "独立计算 f(x)=3x-4 在 [1,6] 上的平均斜率（结果为 3），并解释为什么割线需要两个不同的输入。",
+      "source_recovery": "OpenStax 第 2.1-3.2 节与 SciPy 导数文档；若不可用，本活动中的分步推导和纯 Python 表格即为离线后备材料。",
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-16-act-03": {
+      "title": "用邻近值认识极限",
+      "prerequisites": "完成前一项活动；如遇困难，使用列出的恢复来源。",
+      "objective": "把双侧极限当作对邻近输出值的预测来使用，说明逼近假设，并在不暗中重新定义原函数的前提下化简可去间断点。",
+      "assistance_policy_label": "Agent 辅助工程检查",
+      "instructions": "1. 代入前先检查定义域：g(x)=(x^2-1)/(x-1) 只在 x != 1 时有定义。代入 x = 1 得到 0/0，这不是一个值。\n2. 因式分解前，先根据表达式的形状预测极限。\n3. 分解 x^2 - 1 = (x - 1)(x + 1) 并约去 (x - 1)，同时写明：因为 x != 1，约分才成立。\n4. 用原式从两侧建表（x = 0.9, 0.99 和 x = 1.01, 1.1），再确认化简后的式子给出相同的值。\n5. 只有当左右两侧的值趋近同一个数时，才写双侧极限；否则写“不存在”，并给出两个单侧极限。\n6. 写解答时把 g(1) 和极限分开：前者是函数值，后者描述附近的取值。\n\n**时间安排（120 分钟）：阅读 30 + 练习 60 + 检查 30。** 阅读：OpenStax 第 2.3 节（极限法则、可去间断点、单侧极限）。练习：(a)-(c)。检查：不借助任何帮助，书面解释 g(1) 与极限的区别，再对照。",
+      "exercise_prompt": "(a) 设 g(x)=(x^2-1)/(x-1)，x != 1。分解分子，用 x=.9,.99,1.01,1.1 制作 1 附近的数值表，并说明 lim(x->1)g(x)。按给定规则，g(1) 有定义吗？(b) 对 k(x)=(x^2-4)/(x-2) 在 x=2 附近重复，使用 x=1.9 和 2.1。(c) 对 s(x)=|x|/x，计算 s(-0.1)、s(-0.01)、s(0.01)、s(0.1)，判断 lim(x->0)s(x) 是否存在。",
+      "hint": "在检查定义域之前不要代入 1。先因式分解，再在邻近（不必相等）的输入上对化简后的表达式求值。恢复：OpenStax 第 2.3 节；离线后备是本卡片中的因式分解与表格。",
+      "answer": "(a) 当 x != 1 时，g(x) = (x - 1)(x + 1)/(x - 1) = x + 1。约分合法，仅因为 x - 1 != 0。\n用原式建表：x = 0.9：(0.81 - 1)/(-0.1) = 1.9；x = 0.99：(0.9801 - 1)/(-0.01) = 1.99；x = 1.01：(1.0201 - 1)/0.01 = 2.01；x = 1.1：(1.21 - 1)/0.1 = 2.1。化简式 x + 1 给出同样的四个值。\n从左侧，输出 1.9、1.99 逐渐升向 2；从右侧，2.1、2.01 逐渐降向 2。两侧一致，所以 lim(x->1) g(x) = 2。\ng(1) 没有定义：规则排除了 x = 1。图像是直线 y = x + 1，在 (1, 2) 处有一个洞。写 g(1) = 2 等于定义了一个新函数，并不是由极限推出的。\n\n(b) 当 x != 2 时，k(x) = (x - 2)(x + 2)/(x - 2) = x + 2。k(1.9) = (3.61 - 4)/(-0.1) = 3.9，k(2.1) = (4.41 - 4)/0.1 = 4.1，所以 lim(x->2) k(x) = 4，而 k(2) 没有定义。\n\n(c) 对正的 x，|x|/x = x/x = 1；对负的 x，|x|/x = -x/x = -1。所以 s(-0.1) = s(-0.01) = -1，s(0.01) = s(0.1) = 1。左极限为 -1，右极限为 1，两者不同，所以 lim(x->0) s(x) 不存在，因式分解也无法补救。与 (a) 不同，这是跳跃，而不是可去的洞。\n\n常见错误：把 x = 1 代入原式并写 0/0 = 1；只用一侧的值；声称 g(1) = 2。",
+      "mastery_criterion": "不使用 AI，解释 g(1) 与极限的区别，并正确预测四个表值和双侧极限。",
+      "source_recovery": "OpenStax 第 2.1-3.2 节与 SciPy 导数文档；若不可用，本活动中的分步推导和纯 Python 表格即为离线后备材料。"
+    },
+    "day-16-act-04": {
+      "title": "检索练习与独立衔接",
+      "prerequisites": "完成前一项活动；如遇困难，使用列出的恢复来源。",
+      "objective": "检索函数、割线斜率与极限的概念，并把它们与“瞬时导数是割线斜率的极限”这一思想联系起来。记录预测、演算、观察和一次恢复行动。",
+      "instructions": "1. 闭卷作答：在每一题都写出答案之前，笔记、本页前面的答案和 AI 工具都保持关闭。\n2. 代入任何数字之前，先写出以 3 + h 为端点的一般商式。\n3. 完整展开 (3 + h)^2，减去 p(3)，写明 h != 0 之后再约去 h。\n4. 对 h = 0.1, 0.01, 0.001 以及 h = -0.1, -0.01 计算化简后的商，覆盖 3 的两侧。\n5. 用自己的话说明在 3 处存在导数所需的假设。\n6. 然后再打开参考答案，逐行标记“一致”或“遗漏”，每个遗漏都记下你要回看的活动（1、2 或 3）。恢复是对一道等价的新题重新作答，而不是抄答案。\n\n**时间安排（120 分钟）：阅读 15 + 练习 60 + 检查 45。** 阅读：只看自己在活动 1-3 中的笔记。练习：闭卷完成 (1)-(4)。检查：批改作答，回看每个遗漏对应的活动，然后在 a=1 处重做第 (4) 题。",
+      "exercise_prompt": "闭卷完成：(1) 求 p(x)=x^2 在 [3,3.1] 上的平均斜率；(2) 预测当第二个端点趋近 3 时会发生什么；(3) 说明在 x=3 处存在导数所需的假设。展示每一次代入。(4) 在 a=-1 处重复 (1)-(2)：写出 p 在 [-1,-1+h] 上的商式并求其极限。",
+      "hint": "先写出含 h 的商式，再展开，并且只约去已知非零的因子（h != 0）。恢复：重看活动 1-3 或 OpenStax 第 2.1-2.3 节链接；记录确切的分歧之处，而不是照抄答案。",
+      "answer": "(1) p(3) = 9，p(3.1) = 3.1^2 = 9.61。平均斜率 = (9.61 - 9)/(3.1 - 3) = 0.61/0.1 = 6.1。\n\n(2) 以 3 + h 为端点：(p(3 + h) - p(3))/h = ((9 + 6h + h^2) - 9)/h = (6h + h^2)/h = 6 + h，在 h != 0 时成立。\nh = 0.1 得 6.1（与 (1) 一致），h = 0.01 得 6.01，h = 0.001 得 6.001；从左侧，h = -0.1 得 5.9，h = -0.01 得 5.99。两侧都趋近 6，所以割线斜率趋近 6，即 3 处的瞬时斜率。\n\n(3) 假设：p 在包含 3 的某个开区间上有定义（这里是全体实数）；商式只在 h != 0 时构造；并且商式的双侧极限存在，即左右两侧的值趋近同一个数。若单侧极限不同（如 |x| 在 0 处），就没有导数。\n\n(4) p(-1 + h) = 1 - 2h + h^2，所以 (p(-1 + h) - p(-1))/h = (-2h + h^2)/h = -2 + h（h != 0），趋近 -2。-1 处斜率为负，因为抛物线在那里下降。一般地，这个极限是 2a，Day 17 会证明这一规律。\n\n批改要点：漏掉 h^2 项、没写 h != 0 就约去 h、只检查正的 h，是三种需要记录的遗漏；它们分别指向活动 2（割线商式）或活动 3（极限）。",
+      "mastery_criterion": "独立掌握检查：不使用 AI、不查答案，推导含 h 的表达式，代入 h=.1 求值，并用完整步骤论证极限值 6。",
+      "source_recovery": "OpenStax 第 2.1-3.2 节与 SciPy 导数文档；若不可用，本活动中的分步推导和纯 Python 表格即为离线后备材料。",
+      "assistance_policy_label": "独立掌握检查（无 AI 辅助）"
+    }
+  },
+  "source_resources": [
+    {
+      "id": "openstax-calculus-1",
+      "title": "OpenStax《微积分》第一卷（Calculus Volume 1）",
+      "author": "Gilbert Strang and Edwin Herman / OpenStax",
+      "original_url": "https://openstax.org/details/books/calculus-volume-1",
+      "relevant_timestamp": "第 2.1-2.3 节（函数、极限与导数）；第 3.1-3.2 节（求导法则）",
+      "version_or_verification_date": "第 3 版，验证于 2026-10-30",
+      "reuse_category": "linking",
+      "source_type": "open_textbook",
+      "license": "CC BY-NC-SA 4.0",
+      "license_restrictions": [
+        "attribution",
+        "noncommercial",
+        "share-alike"
+      ],
+      "permission_basis": "仅链接并附独立编写的简短示例；未复制或翻译教科书原文。",
+      "prerequisites": "代数、坐标几何与函数记号",
+      "selection_rationale": "以开放体系系统讲解极限定义与求导法则，章节位置稳定。",
+      "known_availability_limitations": "托管版教科书可能离线不可用，或被网络策略阻断。",
+      "safe_fallback": "这三个学习日中原创的推导、表格与练习即为完整的离线恢复材料；链接章节仅供可选对照。",
+      "compared_candidates": [
+        {
+          "candidate_name": "MIT OpenCourseWare 18.01SC Single Variable Calculus",
+          "url": "https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/",
+          "license": "CC BY-NC-SA 4.0",
+          "status": "compared_selected_for_visual_practice",
+          "comparison_rationale": "练习与文字讲稿质量很高，但非商业性相同方式共享条款和课程导航结构使 OpenStax 成为更稳定的首选教材。"
+        },
+        {
+          "candidate_name": "Paul's Online Math Notes: Calculus I",
+          "url": "https://tutorial.math.lamar.edu/Classes/CalcI/CalcI.aspx",
+          "license": "All Rights Reserved",
+          "status": "compared_rejected_for_reuse",
+          "comparison_rationale": "有用的参考，但其权利与再分发条款不太适合作为嵌入式恢复材料。"
+        },
+        {
+          "candidate_name": "SciPy Numerical Differentiation Documentation",
+          "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+          "license": "BSD-3-Clause",
+          "status": "compared_selected_for_numerics",
+          "comparison_rationale": "数值导数步长行为的主要 API 参考；它对手工推导是补充而非替代。"
+        }
+      ]
+    },
+    {
+      "id": "scipy-derivative",
+      "title": "SciPy 数值导数参考",
+      "author": "SciPy Developers",
+      "original_url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+      "relevant_timestamp": "derivative API：有限差分、步长迭代、容差",
+      "version_or_verification_date": "SciPy 文档，验证于 2026-10-30",
+      "reuse_category": "linking",
+      "source_type": "documentation",
+      "license": "BSD-3-Clause",
+      "license_restrictions": [],
+      "permission_basis": "仅链接；所有面向学习者的讲解与示例均为原创。",
+      "prerequisites": "Python 算术与导数定义",
+      "selection_rationale": "将数值微分记述为具有有限步长和停止准则的近似方法。",
+      "known_availability_limitations": "访问当前托管的 API 页面需要网络连接。",
+      "safe_fallback": "本地第 18 天的表格与纯 Python 代码片段无需 SciPy 即可复现相关有限差分行为。",
+      "compared_candidates": []
+    }
+  ]
+}

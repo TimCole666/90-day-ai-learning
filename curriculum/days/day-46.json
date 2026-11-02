@@ -1,0 +1,446 @@
+{
+  "id": "day-46",
+  "day_number": 46,
+  "active_minutes": 480,
+  "topic_category": "models-and-training",
+  "is_review_day": false,
+  "status": "available",
+  "prerequisites": [
+    "day-45"
+  ],
+  "recovery_links": [
+    "day-43"
+  ],
+  "activities": [
+    {
+      "id": "day-46-act-01",
+      "lesson_id": "les-46",
+      "title": "Layer Normalization and RMSNorm: Mathematics and Numerical Stability",
+      "active_minutes": 120,
+      "activity_type": "lesson",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-45"
+      ],
+      "source_resources": [
+        {
+          "id": "rmsnorm-paper-2019",
+          "title": "Root Mean Square Layer Normalization",
+          "author": "Biao Zhang, Rico Sennrich (University of Edinburgh)",
+          "original_url": "https://arxiv.org/abs/1910.07467",
+          "version_or_verification_date": "NeurIPS 2019 / arXiv:1910.07467v1 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation under arXiv open access terms.",
+          "prerequisites": "Variance, standard deviation, and LayerNorm basics.",
+          "selection_rationale": "Primary paper showing that mean-centering in LayerNorm can be discarded without performance loss, speeding up modern LLMs (LLaMA, Gemma).",
+          "compared_candidates": [
+            {
+              "candidate_name": "Ba et al. Layer Normalization (2016)",
+              "url": "https://arxiv.org/abs/1607.06450",
+              "license": "Open Access",
+              "status": "compared_selected_for_day46",
+              "comparison_rationale": "Original LayerNorm formulation with mean-centering; RMSNorm is compared directly against it as an optimization."
+            },
+            {
+              "candidate_name": "Ioffe & Szegedy Batch Normalization (2015)",
+              "url": "https://arxiv.org/abs/1502.03167",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Batch-dependent statistics; unsuitable for autoregressive sequence modeling."
+            }
+          ],
+          "known_availability_limitations": "Freely hosted on arXiv.",
+          "safe_fallback": "RMSNorm formulas and numerical comparisons are derived completely in the lesson.",
+          "relevant_timestamp": "Section 4 RMSNorm (Equation 4) and Section 4.1 Invariance Analysis"
+        },
+        {
+          "id": "annotated-transformer",
+          "title": "The Annotated Transformer",
+          "author": "v2022: Austin Huang, Suraj Subramanian, Jonathan Sum, Khalid Almubarak, Stella Biderman; original: Sasha Rush (Harvard NLP)",
+          "original_url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+          "version_or_verification_date": "Updated PyTorch 2.0 edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license.",
+          "prerequisites": "PyTorch tensor operations and attention theory.",
+          "selection_rationale": "Clear reference implementation of Transformer modules, residual connections, and layer normalization.",
+          "compared_candidates": [
+            {
+              "candidate_name": "HuggingFace Transformers library source",
+              "url": "https://github.com/huggingface/transformers",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Industrial scale with hundreds of model variations; Annotated Transformer is pedagogically focused on the core architecture."
+            },
+            {
+              "candidate_name": "PyTorch nn.Transformer documentation",
+              "url": "https://pytorch.org/docs/stable/generated/torch.nn.Transformer.html",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Standard library implementation, but internal C++ bindings obscure the first-principles data flow."
+            }
+          ],
+          "known_availability_limitations": "Web article on nlp.seas.harvard.edu.",
+          "safe_fallback": "All block assembly and normalization logic are provided in runnable local Python snippets.",
+          "relevant_timestamp": "Encoder and Decoder Stacks (class LayerNorm, class SublayerConnection)",
+          "locator_url": "https://nlp.seas.harvard.edu/annotated-transformer/#encoder-and-decoder-stacks"
+        }
+      ]
+    },
+    {
+      "id": "day-46-act-02",
+      "lesson_id": "les-46",
+      "title": "Residual Connections and Identity Gradient Highways",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-46-act-01"
+      ],
+      "source_resources": [
+        {
+          "id": "vaswani-attention-2017",
+          "title": "Attention Is All You Need",
+          "author": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin",
+          "original_url": "https://arxiv.org/abs/1706.03762",
+          "version_or_verification_date": "arXiv:1706.03762v7 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation and reference under arXiv open access terms; no paper figures or prose reproduced.",
+          "prerequisites": "Matrix multiplication and basic neural network concepts from Days 22-24 and 34-36.",
+          "selection_rationale": "Foundational primary literature defining the Transformer architecture, multi-head attention, and scaled dot-product attention.",
+          "known_availability_limitations": "Freely hosted on arXiv.org; PDF and HTML available.",
+          "safe_fallback": "All mathematical formulas and structural definitions are self-contained in the lesson text.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Illustrated Transformer (Jay Alammar)",
+              "url": "https://jalammar.github.io/illustrated-transformer/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-level visual intuition, but Vaswani et al. provides the primary mathematical specifications needed for implementation."
+            },
+            {
+              "candidate_name": "Annotated Transformer (Harvard NLP)",
+              "url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+              "license": "MIT",
+              "status": "compared_selected_for_day46_48",
+              "comparison_rationale": "Co-primary: PyTorch line-by-line implementation alongside the paper equations."
+            }
+          ],
+          "relevant_timestamp": "Section 3.1 Encoder and Decoder Stacks (residual connection around each sub-layer, then layer normalization)"
+        },
+        {
+          "id": "karpathy-nanogpt-model",
+          "title": "nanoGPT: model.py architecture implementation",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/nanoGPT/blob/master/model.py",
+          "version_or_verification_date": "Git master (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license.",
+          "prerequisites": "Python, PyTorch, and Day 43-45 attention fundamentals.",
+          "selection_rationale": "Compact historical code reference for the named implementation functions; CS336 spring2025 provides the lead component exercises. Do not infer top-p, atomic persistence or cloud budget enforcement from nanoGPT.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GPT-2 TensorFlow source (OpenAI)",
+              "url": "https://github.com/openai/gpt-2",
+              "license": "Modified MIT License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Original legacy TensorFlow 1.x code; nanoGPT provides clean modern PyTorch equivalent."
+            },
+            {
+              "candidate_name": "Llama 2 / 3 PyTorch source (Meta)",
+              "url": "https://github.com/meta-llama/llama",
+              "license": "Llama 2 Community License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Includes advanced production features (RoPE, GQA), but nanoGPT's simplicity is ideal for the core Days 46-48 assembly."
+            }
+          ],
+          "known_availability_limitations": "Historical implementation reference: nanoGPT README marks the repository deprecated (November 2025). Toy CPU reading/runs do not establish full GPU pretraining feasibility.",
+          "safe_fallback": "Local models and classes in the curriculum mirror nanoGPT semantics directly.",
+          "relevant_timestamp": "model.py: class Block (x = x + attn(ln_1(x)); x = x + mlp(ln_2(x)))"
+        }
+      ]
+    },
+    {
+      "id": "day-46-act-03",
+      "lesson_id": "les-46",
+      "title": "Pre-LN vs Post-LN Architecture Analysis",
+      "active_minutes": 120,
+      "activity_type": "practice",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "agent_assisted",
+      "content_revision": "2026.11.01-rev4",
+      "prerequisites": [
+        "day-46-act-02"
+      ],
+      "source_resources": [
+        {
+          "id": "vaswani-attention-2017",
+          "title": "Attention Is All You Need",
+          "author": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin",
+          "original_url": "https://arxiv.org/abs/1706.03762",
+          "version_or_verification_date": "arXiv:1706.03762v7 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation and reference under arXiv open access terms; no paper figures or prose reproduced.",
+          "prerequisites": "Matrix multiplication and basic neural network concepts from Days 22-24 and 34-36.",
+          "selection_rationale": "Foundational primary literature defining the Transformer architecture, multi-head attention, and scaled dot-product attention.",
+          "known_availability_limitations": "Freely hosted on arXiv.org; PDF and HTML available.",
+          "safe_fallback": "All mathematical formulas and structural definitions are self-contained in the lesson text.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Illustrated Transformer (Jay Alammar)",
+              "url": "https://jalammar.github.io/illustrated-transformer/",
+              "license": "CC BY-NC-SA 4.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "High-level visual intuition, but Vaswani et al. provides the primary mathematical specifications needed for implementation."
+            },
+            {
+              "candidate_name": "Annotated Transformer (Harvard NLP)",
+              "url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+              "license": "MIT",
+              "status": "compared_selected_for_day46_48",
+              "comparison_rationale": "Co-primary: PyTorch line-by-line implementation alongside the paper equations."
+            }
+          ],
+          "relevant_timestamp": "Section 3.1 Encoder and Decoder Stacks (LayerNorm(x + Sublayer(x)), the post-LN placement)"
+        },
+        {
+          "id": "annotated-transformer",
+          "title": "The Annotated Transformer",
+          "author": "v2022: Austin Huang, Suraj Subramanian, Jonathan Sum, Khalid Almubarak, Stella Biderman; original: Sasha Rush (Harvard NLP)",
+          "original_url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+          "version_or_verification_date": "Updated PyTorch 2.0 edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license.",
+          "prerequisites": "PyTorch tensor operations and attention theory.",
+          "selection_rationale": "Clear reference implementation of Transformer modules, residual connections, and layer normalization.",
+          "compared_candidates": [
+            {
+              "candidate_name": "HuggingFace Transformers library source",
+              "url": "https://github.com/huggingface/transformers",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Industrial scale with hundreds of model variations; Annotated Transformer is pedagogically focused on the core architecture."
+            },
+            {
+              "candidate_name": "PyTorch nn.Transformer documentation",
+              "url": "https://pytorch.org/docs/stable/generated/torch.nn.Transformer.html",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Standard library implementation, but internal C++ bindings obscure the first-principles data flow."
+            }
+          ],
+          "known_availability_limitations": "Web article on nlp.seas.harvard.edu.",
+          "safe_fallback": "All block assembly and normalization logic are provided in runnable local Python snippets.",
+          "relevant_timestamp": "Encoder and Decoder Stacks (class SublayerConnection: x + dropout(sublayer(norm(x))))",
+          "locator_url": "https://nlp.seas.harvard.edu/annotated-transformer/#encoder-and-decoder-stacks"
+        },
+        {
+          "id": "xiong-pre-ln-2020",
+          "title": "On Layer Normalization in the Transformer Architecture",
+          "author": "Ruibin Xiong, Yunchang Yang, Di He, Kai Zheng, Shuxin Zheng, Chen Xing, Huishuai Zhang, Yanyan Lan, Liwei Wang, Tie-Yan Liu",
+          "original_url": "https://arxiv.org/abs/2002.04745",
+          "version_or_verification_date": "arXiv:2002.04745v2 (Verified: 2026-11-01)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "arXiv.org perpetual non-exclusive license / Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation and reference under arXiv open access terms; no paper figures or prose reproduced.",
+          "prerequisites": "LayerNorm and residual connections from Days 46-01 and 46-02; gradients from Days 31-36.",
+          "selection_rationale": "Supports the activity's stability claim: Post-LN has large expected gradients near the output at initialization and needs warm-up; Pre-LN trained without warm-up reached comparable results in the paper's experiments.",
+          "known_availability_limitations": "Freely hosted on arXiv.org; the proofs in the appendix use mean-field assumptions stated in Section 3.3.",
+          "safe_fallback": "The lesson states the Pre-LN and Post-LN formulas and the warm-up finding in its own words.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Liu et al.: Understanding the Difficulty of Training Transformers (EMNLP 2020)",
+              "url": "https://arxiv.org/abs/2004.08249",
+              "license": "arXiv Open Access",
+              "status": "compared_deferred",
+              "comparison_rationale": "Argues that Post-LN instability comes from amplified dependence on the residual branch and proposes Admin initialization; deeper than this activity needs, so deferred."
+            },
+            {
+              "candidate_name": "Wang et al.: Learning Deep Transformer Models for Machine Translation (ACL 2019)",
+              "url": "https://arxiv.org/abs/1906.01787",
+              "license": "arXiv Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Reports that pre-norm Transformers train deeper stacks than post-norm ones, but is empirical and specific to translation; Xiong et al. give the gradient analysis this activity asks learners to explain."
+            }
+          ],
+          "relevant_timestamp": "Abstract; Section 3.3 Understanding the Transformer at initialization (Theorem 1, gradients of the last layer); Section 4 Experiments (Pre-LN without warm-up)"
+        },
+        {
+          "id": "radford-gpt2-2019",
+          "title": "Language Models are Unsupervised Multitask Learners",
+          "author": "Alec Radford, Jeffrey Wu, Rewon Child, David Luan, Dario Amodei, Ilya Sutskever",
+          "original_url": "https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf",
+          "version_or_verification_date": "OpenAI Technical Report 2019 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access / OpenAI Public Publication",
+          "license_restrictions": [],
+          "permission_basis": "Lawful academic citation of foundation language model research.",
+          "prerequisites": "Autoregressive conditional likelihood, cross-entropy loss, perplexity exponentiation.",
+          "selection_rationale": "Example of a widely used decoder-only LM that places layer normalization before each sub-block.",
+          "known_availability_limitations": "Freely accessible PDF from OpenAI.",
+          "safe_fallback": "Conditional log-likelihood equations, length normalization factors, and held-out cross-entropy calculations are fully derived in lesson material.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Kaplan et al. Scaling Laws for Neural Language Models",
+              "url": "https://arxiv.org/abs/2001.08361",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Focuses on empirical power-law loss curves; Radford et al. establishes the zero-shot log-likelihood task evaluation protocol."
+            },
+            {
+              "candidate_name": "Hoffmann et al. Training Compute-Optimal Large Language Models (Chinchilla)",
+              "url": "https://arxiv.org/abs/2203.15556",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Optimal compute scaling; Radford provides the fundamental zero-shot conditional probability formulation."
+            }
+          ],
+          "relevant_timestamp": "Section 2.3 Model (layer normalization moved to the input of each sub-block)"
+        },
+        {
+          "id": "touvron-llama2-2023",
+          "title": "Llama 2: Open Foundation and Fine-Tuned Chat Models",
+          "author": "Hugo Touvron, Louis Martin, Kevin Stone, Peter Albert, Amjad Almahairi, et al.",
+          "original_url": "https://arxiv.org/abs/2307.09288",
+          "version_or_verification_date": "arXiv:2307.09288v2 (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "paper",
+          "license": "Open Access",
+          "license_restrictions": [],
+          "permission_basis": "Open access scientific paper citation.",
+          "prerequisites": "Transformer architecture, RLHF/SFT pipelines.",
+          "selection_rationale": "Example of a widely used decoder-only LLM that normalizes before each sub-layer, with RMSNorm in place of LayerNorm.",
+          "known_availability_limitations": "Freely accessible on arXiv.",
+          "safe_fallback": "The LLaMA-2 prompt structure, token boundary rules, and comparative analysis are fully worked out in curriculum lessons.",
+          "compared_candidates": [
+            {
+              "candidate_name": "Touvron et al. LLaMA: Open and Efficient Foundation Language Models",
+              "url": "https://arxiv.org/abs/2302.13971",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Original foundation model paper without conversational chat tuning details; LLaMA-2 formalizes dialogue formatting."
+            },
+            {
+              "candidate_name": "Jiang et al. Mistral 7B",
+              "url": "https://arxiv.org/abs/2310.06825",
+              "license": "Open Access",
+              "status": "compared_alternative",
+              "comparison_rationale": "Adopts similar [INST] formatting; LLaMA-2 provides the foundational ablation on system prompt integration."
+            }
+          ],
+          "relevant_timestamp": "Section 2.2 Training Details (pre-normalization using RMSNorm)"
+        }
+      ]
+    },
+    {
+      "id": "day-46-act-04",
+      "lesson_id": "les-46",
+      "title": "Independent Transformer Block Assembly Check",
+      "active_minutes": 120,
+      "activity_type": "review",
+      "category": "models-and-training",
+      "status": "available",
+      "assistance_policy": "independent_mastery",
+      "content_revision": "2026.10.30-rev1",
+      "prerequisites": [
+        "day-46-act-03"
+      ],
+      "source_resources": [
+        {
+          "id": "karpathy-nanogpt-model",
+          "title": "nanoGPT: model.py architecture implementation",
+          "author": "Andrej Karpathy",
+          "original_url": "https://github.com/karpathy/nanoGPT/blob/master/model.py",
+          "version_or_verification_date": "Git master (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "code_repository",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license.",
+          "prerequisites": "Python, PyTorch, and Day 43-45 attention fundamentals.",
+          "selection_rationale": "Compact historical code reference for the named implementation functions; CS336 spring2025 provides the lead component exercises. Do not infer top-p, atomic persistence or cloud budget enforcement from nanoGPT.",
+          "compared_candidates": [
+            {
+              "candidate_name": "GPT-2 TensorFlow source (OpenAI)",
+              "url": "https://github.com/openai/gpt-2",
+              "license": "Modified MIT License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Original legacy TensorFlow 1.x code; nanoGPT provides clean modern PyTorch equivalent."
+            },
+            {
+              "candidate_name": "Llama 2 / 3 PyTorch source (Meta)",
+              "url": "https://github.com/meta-llama/llama",
+              "license": "Llama 2 Community License",
+              "status": "compared_alternative",
+              "comparison_rationale": "Includes advanced production features (RoPE, GQA), but nanoGPT's simplicity is ideal for the core Days 46-48 assembly."
+            }
+          ],
+          "known_availability_limitations": "Historical implementation reference: nanoGPT README marks the repository deprecated (November 2025). Toy CPU reading/runs do not establish full GPU pretraining feasibility.",
+          "safe_fallback": "Local models and classes in the curriculum mirror nanoGPT semantics directly.",
+          "relevant_timestamp": "model.py: class Block (x = x + attn(ln_1(x)); x = x + mlp(ln_2(x)))"
+        },
+        {
+          "id": "annotated-transformer",
+          "title": "The Annotated Transformer",
+          "author": "v2022: Austin Huang, Suraj Subramanian, Jonathan Sum, Khalid Almubarak, Stella Biderman; original: Sasha Rush (Harvard NLP)",
+          "original_url": "https://nlp.seas.harvard.edu/annotated-transformer/",
+          "version_or_verification_date": "Updated PyTorch 2.0 edition (Verified: 2026-10-30)",
+          "reuse_category": "linking",
+          "source_type": "documentation",
+          "license": "MIT",
+          "license_restrictions": [],
+          "permission_basis": "Lawful external reference under MIT open source license.",
+          "prerequisites": "PyTorch tensor operations and attention theory.",
+          "selection_rationale": "Clear reference implementation of Transformer modules, residual connections, and layer normalization.",
+          "compared_candidates": [
+            {
+              "candidate_name": "HuggingFace Transformers library source",
+              "url": "https://github.com/huggingface/transformers",
+              "license": "Apache 2.0",
+              "status": "compared_alternative",
+              "comparison_rationale": "Industrial scale with hundreds of model variations; Annotated Transformer is pedagogically focused on the core architecture."
+            },
+            {
+              "candidate_name": "PyTorch nn.Transformer documentation",
+              "url": "https://pytorch.org/docs/stable/generated/torch.nn.Transformer.html",
+              "license": "Modified BSD",
+              "status": "compared_alternative",
+              "comparison_rationale": "Standard library implementation, but internal C++ bindings obscure the first-principles data flow."
+            }
+          ],
+          "known_availability_limitations": "Web article on nlp.seas.harvard.edu.",
+          "safe_fallback": "All block assembly and normalization logic are provided in runnable local Python snippets.",
+          "relevant_timestamp": "Encoder and Decoder Stacks (class EncoderLayer, class DecoderLayer)",
+          "locator_url": "https://nlp.seas.harvard.edu/annotated-transformer/#encoder-and-decoder-stacks"
+        }
+      ]
+    }
+  ]
+}

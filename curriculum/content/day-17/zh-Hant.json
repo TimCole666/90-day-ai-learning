@@ -1,0 +1,144 @@
+{
+  "language": "zh-Hant",
+  "language_label": "繁體中文",
+  "day_title": "第 17 天：極限、導數與不可導性",
+  "day_subtitle": "透過定義、分步推導、檢索練習與誠實的數值證據，讓函數與變化變得可計算。",
+  "time_budget_label": "480 分鐘主動學習（8 小時專注學習）",
+  "category_label": "數學與微積分",
+  "common": {
+    "nav_calendar": "課程日曆",
+    "day_label": "Day 17",
+    "prerequisites_title": "前提條件",
+    "objective_title": "學習目標",
+    "instructions_title": "操作說明",
+    "exercise_title": "練習與預測紀錄",
+    "hint_title": "查看提示",
+    "reveal_answer": "檢視參考解答與推導過程",
+    "mastery_title": "獨立掌握標準",
+    "draft_placeholder": "在此記錄你的預測、演算過程、觀察結果、複盤與恢復證據……",
+    "sources_heading": "權威來源資源與出處",
+    "source_author_label": "作者 / 機構",
+    "source_url_label": "原始出處連結",
+    "source_range_label": "對應章節 / 時間戳",
+    "source_verification_label": "驗證版本與日期",
+    "source_rationale_label": "入選理由",
+    "source_prereqs_label": "來源前置條件",
+    "source_fallback_label": "安全回退方案（離線彈性）",
+    "compared_candidates_heading": "對比候選資源與選型分析"
+  },
+  "activities": {
+    "day-17-act-01": {
+      "title": "由極限定義求導數",
+      "prerequisites": "完成前一項活動；如遇困難，使用列出的恢復來源。",
+      "objective": "對 f(x)=x^2 在 a=3 處推導 f'(a)=lim(h->0)[f(a+h)-f(a)]/h，指明約分時 h != 0 以及雙側極限假設。",
+      "assistance_policy_label": "Agent 輔助工程檢查",
+      "instructions": "學習來源：在本活動現有的閱讀與練習時段內，參考 MIT OCW 18.01SC Single Variable Calculus 的 Unit 1: Differentiation, Part A: Definition and Basic Rules; worked examples and problem sets，用自己的話解釋一處與本地任務的聯繫。保留現有練習與驗收檢查；若外部資料無法存取，使用課程自寫的解釋。1. 固定點寫出定義：f'(3) = lim(h->0) [f(3+h) - f(3)]/h。說清 h 是什麼：一個非零的步長，可正可負。\n2. 根據 Day 16 活動 4 的割線斜率（6.1、6.01、……）預測結果。\n3. 相減之前先把 f(3+h) 完全展開，再把 f(3) 作為整體減去。\n4. 從分子中提出 h 並約去，在約分旁寫上「當 h != 0 時」。\n5. 然後才在化簡後的式子裡讓 h 趨近 0。極限描述的是附近的 h，而不是原商式在 h = 0 處的值。\n6. 用 h = 0.01 和 h = -0.01 做數值檢驗，再對練習題重複同樣的推導。\n\n**時間安排（120 分鐘）：閱讀 30 + 練習 60 + 檢查 30。** 閱讀：OpenStax 第 3.1 節（導數的定義）。練習：(a)-(c)。檢查：獨立完成 a=2 的精熟題，並對每個結果做數值檢驗。",
+      "exercise_prompt": "(a) 寫出 f(3+h)，減去 f(3)，除以 h，化簡後取極限。不要直接跳到冪法則。(b) 對 f(x)=x^2 在一般點 a 處使用同一定義。(c) 對 g(x)=1/x 在 a=2 處使用定義。用 h=0.01 對 (a) 和 (c) 做數值檢驗。",
+      "hint": "先展開再約分。約分只在 h != 0 時成立；最後的極限問的是 h 趨近零時的行為，而不是商式在 h=0 處的取值。恢復：OpenStax 第 3.1 節，或重做第 16 天的銜接活動。",
+      "answer": "(a) f(3 + h) = (3 + h)^2 = 9 + 6h + h^2。\nf(3 + h) - f(3) = 9 + 6h + h^2 - 9 = 6h + h^2。\n[f(3 + h) - f(3)]/h = (6h + h^2)/h = 6 + h，當 h != 0 時（約分就是除以 h）。\nlim(h->0) (6 + h) = 6，所以 f'(3) = 6。無論 h 為正還是為負，6 + h 都趨近 6，所以兩個單側極限都是 6。\n數值檢驗：h = 0.01 得 (9.0601 - 9)/0.01 = 6.01；h = -0.01 得 (8.9401 - 9)/(-0.01) = 5.99。兩者與 6 都相差 0.01，正如 6 + h 所預測。\n\n(b) [(a + h)^2 - a^2]/h = (2ah + h^2)/h = 2a + h（h != 0），所以 f'(a) = 2a。a = 3 時再次得到 6；a = 2 時得到 4（精熟題）。這就是 n = 2 時的冪法則，是推導出來的，而不是假定的。\n\n(c) g(2 + h) - g(2) = 1/(2 + h) - 1/2 = (2 - (2 + h))/(2(2 + h)) = -h/(2(2 + h))。\n除以 h（h != 0，且 h != -2，使 2 + h 不為零）：-1/(2(2 + h))。\nh 趨近 0 時它趨近 -1/(2 * 2) = -1/4，所以 g'(2) = -0.25。\n數值檢驗：h = 0.01 時 (1/2.01 - 0.5)/0.01 = (0.497512 - 0.5)/0.01 ≈ -0.2488，接近 -0.25。\n\n常見錯誤：寫成 (3 + h)^2 = 9 + h^2（漏了 6h）；約分前就令 h = 0，得到 0/0；把答案留成 6 + h。",
+      "mastery_criterion": "獨立對 f(x)=x^2 在 a=2 處推導同樣的結果，並說明導數為 4 的理由。",
+      "source_recovery": "OpenStax 第 2.1-3.2 節與 SciPy 導數文件；若不可用，本活動中的分步推導和純 Python 表格即為離線後備材料。",
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-17-act-02": {
+      "title": "帶假設的求導法則與多項式實例",
+      "prerequisites": "完成前一項活動；如遇困難，使用列出的恢復來源。",
+      "objective": "對多項式應用常數、冪、和、數乘求導法則，同時保留「表達式為實值且在求值點可導」的定義域假設。",
+      "assistance_policy_label": "獨立掌握檢查（無 AI 輔助）",
+      "instructions": "1. 列出可以使用的法則及其條件：常數法則（d/dx c = 0）、冪法則（d/dx x^n = n x^(n-1)）、常數倍法則、和差法則。每條都要求各項在該點可微。\n2. 把 q(x) = x^3 - 2x + 1 拆成三項，逐項求導，每一行註明所用法則。\n3. 保留係數，指數減一：-2x 就是 -2 x^1，其導數為 -2 x^0 = -2。\n4. 組合出 q'(x)，再帶括號代入 x = 2：3(2)^2 - 2。\n5. 用 h = 0.001 的中心差分（手算或計算機）檢驗結果。\n6. 在看解答之前，用同樣的流程完成練習題。\n\n**時間安排（120 分鐘）：閱讀 25 + 練習 65 + 檢查 30。** 閱讀：OpenStax 第 3.2-3.3 節（作為函數的導數、微分法則）。練習：(a)-(c) 及數值檢驗。檢查：獨立完成關於 r(x) 的精熟題，並寫明每一條法則。",
+      "exercise_prompt": "(a) 對 q(x)=x^3-2x+1，推導 q'(x)，再計算 q'(2)。展示每一項的導數和數值代入過程。(b) 求出所有使 q'(x)=0 的 x。(c) 對 u(x)=2x^5-3x^2+7x 求導並計算 u'(1)。用 h=0.001 的中心差分檢驗 (a)。",
+      "hint": "逐項求導，保留係數，不要把指數當作係數去求導。恢復：OpenStax 第 3.2 節；離線後備是這裡展示的三項推導。",
+      "answer": "(a) 逐項求導：\nd/dx x^3 = 3x^2（冪法則，n = 3）\nd/dx (-2x) = -2（n = 1 的冪法則乘以常數：-2 * 1 * x^0）\nd/dx 1 = 0（常數法則）\n和法則：q'(x) = 3x^2 - 2 + 0 = 3x^2 - 2。\n在 x = 2：q'(2) = 3(2)^2 - 2 = 3 * 4 - 2 = 12 - 2 = 10。\n用 h = 0.001 的中心差分檢驗：q(2.001) = 8.012006001 - 4.002 + 1 = 5.010006001，q(1.999) = 7.988005999 - 3.998 + 1 = 4.990005999。(5.010006001 - 4.990005999)/0.002 = 0.020000002/0.002 = 10.000001。多出的 0.000001 對這個三次多項式恰好是 h^2，即中心差分的截斷項，並不是 q'(2) 算錯了。\n\n(b) 3x^2 - 2 = 0 得 x^2 = 2/3，所以 x = sqrt(2/3) ≈ 0.8165 或 x = -sqrt(2/3) ≈ -0.8165。在這兩點切線是水平的。\n\n(c) u'(x) = 10x^4 - 6x + 7，所以 u'(1) = 10 - 6 + 7 = 11。\n\n定義域說明：多項式對所有實數 x 都有定義且可微，不需要排除任何點。這些法則是極限定義的捷徑，每一條都可由定義證明。\n\n常見錯誤：對指數求導（寫成 3x^3 或 x^2）；把常數 1 保留為 1；在求導之前就代入 x = 2。",
+      "mastery_criterion": "在無協助的情況下求 r(x)=4x^3+x^2-5 的導數並算得 r'(1)=14，說明每一項所用的法則。",
+      "source_recovery": "OpenStax 第 2.1-3.2 節與 SciPy 導數文件；若不可用，本活動中的分步推導和純 Python 表格即為離線後備材料。"
+    },
+    "day-17-act-03": {
+      "title": "一個不可導的反例",
+      "prerequisites": "完成前一項活動；如遇困難，使用列出的恢復來源。",
+      "objective": "解釋為什麼 v(x)=|x| 在 0 處連續但不可導：其左、右差商分別為 -1 和 +1，因此不存在共同的雙側導數。",
+      "assistance_policy_label": "Agent 輔助工程檢查",
+      "instructions": "1. 先確認連續性：|x| 從兩側都趨近 0 = v(0)，所以 v 在 0 處連續。連續是可微的必要條件，但不是充分條件。\n2. 寫出 0 處的差商：[v(0+h) - v(0)]/h = |h|/h。\n3. 按 h 的正負分情況：h 為正時 |h| = h；h 為負時 |h| = -h。絕不要對負的 h 寫 |h| = h。\n4. 分別在 h = 0.1 和 h = -0.1 處計算，然後寫出每個單側極限。\n5. 結論：只有兩個單側極限都存在且相等時，導數才存在。\n6. 對練習中的函數做同樣的檢驗：其中一個在 0 處可微，另一個的商會無限增大。\n\n**時間安排（120 分鐘）：閱讀 25 + 練習 60 + 檢查 35。** 閱讀：OpenStax 第 3.2 節（可微性與連續性：尖點與鉛直切線）。練習：(a)-(c)。檢查：獨立寫出精熟標準要求的解釋，再對照。",
+      "exercise_prompt": "(a) 分別對 h>0 和 h<0 計算 [v(0+h)-v(0)]/h。用 h=.1 和 h=-.1 檢驗，然後推廣。(b) w(x)=x|x| 在 0 處可微嗎？用同樣的商式。(c) 對 c(x)=x^(1/3)（實數立方根），在 h=0.001 和 h=-0.001 處計算 0 處的商，並說明 h 趨近 0 時會發生什麼。",
+      "hint": "按 h 的符號分情況；當 h 為負時不要用 |h|=h。恢復：OpenStax 第 3.1 節；離線後備是雙情形商式和手繪的尖角。",
+      "answer": "(a) 連續性：lim(x->0) |x| = 0 = v(0)，所以 v 在 0 處連續。\n商式：[v(0 + h) - v(0)]/h = |h|/h。\nh 為正時，|h| = h，商為 h/h = 1；h = 0.1 時為 0.1/0.1 = 1。\nh 為負時，|h| = -h，商為 -h/h = -1；h = -0.1 時為 0.1/(-0.1) = -1。\n右極限為 1，左極限為 -1。兩者不同，所以雙側極限不存在，v'(0) 也不存在，儘管 v 在 0 處連續。這是對「連續就一定可微」的反例。幾何上，斜率為 1 和 -1 的兩條直線在原點形成尖角。\n\n(b) w(0) = 0，所以當 h != 0 時商為 w(h)/h = h|h|/h = |h|。h 從任一側趨近 0 時，|h| 都趨近 0。兩個單側極限都是 0，所以 w'(0) = 0。乘以 x 消除了尖角：圖形左側是 -x^2，右側是 x^2，兩段以相同的斜率 0 相接。\n\n(c) c(h)/h = h^(1/3)/h = h^(-2/3)。h = 0.001 時：0.1/0.001 = 100。h = -0.001 時：(-0.1)/(-0.001) = 100。h 趨近 0 時商無限增大（h^(-2/3) 趨於 +無窮），所以 c 在 0 處有鉛直切線，沒有有限的導數，儘管它在那裡連續。\n\n小結：尖角（|x|，單側極限不等）、平滑銜接（x|x|，極限相等）、鉛直切線（立方根，極限為無窮）。有跳躍的函數在跳躍點絕不可微，因為可微蘊含連續。",
+      "mastery_criterion": "獨立解釋必須包含 0 處的連續性、兩個單側商值，以及「在 0 處不可導」的結論，而不能只說「有個尖角」。",
+      "source_recovery": "OpenStax 第 2.1-3.2 節與 SciPy 導數文件；若不可用，本活動中的分步推導和純 Python 表格即為離線後備材料。"
+    },
+    "day-17-act-04": {
+      "title": "檢索、導數意義與掌握",
+      "prerequisites": "完成前一項活動；如遇困難，使用列出的恢復來源。",
+      "objective": "檢索極限、導數、斜率與不可導的概念，用它們把導數解釋為局部線性近似，並給出誠實的獨立證據。",
+      "instructions": "1. 閉卷：在打開筆記、前面的答案或 AI 工具之前，先寫出每一部分的答案。\n2. 用法則對 s 求導並註明每一條，再用極限定義確認 s'(3)：展開 s(3+h)，減去 s(3)，除以 h。\n3. 寫切線前先算出 s(3)；切線需要一個點和一個斜率。\n4. 先用點斜式寫出切線，再化成 y = mx + b，並在 x = 3 處檢驗。\n5. 把切線當作 x = 3.1 處的局部線性近似，與真實的 s(3.1) 比較。\n6. 對 |x| 在 0 處，把兩個單側差商寫成帶數值的極限，再用一句話給出結論。\n7. 對照參考答案批改。每個遺漏都回看活動 1、2 或 3，並獨立重做一道等價題（例如 s 在 x = 1 處）。\n\n**時間安排（120 分鐘）：閱讀 15 + 練習 60 + 檢查 45。** 閱讀：只看自己在活動 1-3 中的筆記。練習：完整的閉卷題目加線性近似。檢查：批改、回看，並獨立完成 x=1 的變式。",
+      "exercise_prompt": "閉卷：對 s(x)=x^2-4x，求 s'(x)、s'(3) 以及 x=3 處的完整切線方程式（只給斜率不夠）。然後用兩句話對比 s 與 |x| 在 0 處的差異，並給出 |x| 的兩個單側差商 lim(h->0+) 和 lim(h->0-)。",
+      "hint": "先求函數值再求斜率；切線需要 (a,f(a)) 和 f'(a) 兩者。恢復：利用活動 1-3 和 OpenStax 極限/導數章節；寫下失敗的步驟並從第一性原理重做。",
+      "answer": "法則：s'(x) = 2x - 4（對 x^2 用冪法則，對 -4x 用常數倍法則）。所以 s'(3) = 2(3) - 4 = 2。\n極限定義檢驗：s(3 + h) = (3 + h)^2 - 4(3 + h) = 9 + 6h + h^2 - 12 - 4h = -3 + 2h + h^2。由 s(3) = -3，[s(3 + h) - s(3)]/h = (2h + h^2)/h = 2 + h（h != 0），趨近 2。兩種方法一致。\n\n切線：s(3) = 9 - 12 = -3，所以切點為 (3, -3)，斜率為 2：y + 3 = 2(x - 3)，即 y = 2x - 9。在 x = 3 處檢驗：2(3) - 9 = -3。\n\n局部線性近似：在 x = 3.1 處切線給出 2(3.1) - 9 = -2.8；真實值 s(3.1) = 9.61 - 12.4 = -2.79。誤差 0.01 就是 h = 0.1 時的 h^2，正是直線忽略的那一項。\n\n與 |x| 在 0 處對比：與平滑的多項式不同，|x| 在 0 處左右斜率不等，因此在那裡沒有導數：明確地說，lim(h->0+) (|h| - |0|)/h = +1，而 lim(h->0-) (|h| - |0|)/h = -1。多項式在每一點都有切線；|x| 在 0 處沒有，所以沒有一條直線能從兩側同時近似它的尖角。\n\n檢查用的變式：s'(1) = -2，s(1) = -3，所以 x = 1 處的切線為 y = -2x - 1。\n\n常見錯誤：只寫斜率 2 作為全部答案；把 s(3) 算成 3；把 +1 和 -1 取平均，說 |x| 在 0 處的導數為 0。",
+      "mastery_criterion": "獨立掌握檢查：不使用 AI，由極限定義推導 s'(3)（或清楚應用已論證的法則），寫出切線，並給出 |x| 反例及兩個單側商。",
+      "source_recovery": "OpenStax 第 2.1-3.2 節與 SciPy 導數文件；若不可用，本活動中的分步推導和純 Python 表格即為離線後備材料。",
+      "assistance_policy_label": "獨立掌握檢查（無 AI 輔助）"
+    }
+  },
+  "source_resources": [
+    {
+      "id": "openstax-calculus-1",
+      "title": "OpenStax《微積分》第一卷（Calculus Volume 1）",
+      "author": "Gilbert Strang and Edwin Herman / OpenStax",
+      "original_url": "https://openstax.org/details/books/calculus-volume-1",
+      "relevant_timestamp": "第 2.1-2.3 節（函數、極限與導數）；第 3.1-3.2 節（求導法則）",
+      "version_or_verification_date": "第 3 版，驗證於 2026-10-30",
+      "reuse_category": "linking",
+      "source_type": "open_textbook",
+      "license": "CC BY-NC-SA 4.0",
+      "license_restrictions": [
+        "attribution",
+        "noncommercial",
+        "share-alike"
+      ],
+      "permission_basis": "僅連結並附獨立撰寫的簡短範例；未複製或翻譯教科書原文。",
+      "prerequisites": "代數、座標幾何與函數記號",
+      "selection_rationale": "以開放體系系統講解極限定義與求導法則，章節位置穩定。",
+      "known_availability_limitations": "託管版教科書可能離線不可用，或被網路策略阻斷。",
+      "safe_fallback": "這三個學習日中自撰的推導、表格與練習即為完整的離線恢復材料；連結章節僅供可選對照。",
+      "compared_candidates": [
+        {
+          "candidate_name": "MIT OpenCourseWare 18.01SC Single Variable Calculus",
+          "url": "https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/",
+          "license": "CC BY-NC-SA 4.0",
+          "status": "compared_selected_for_visual_practice",
+          "comparison_rationale": "練習與文字講稿品質很高，但非商業性相同方式共享條款和課程導覽結構使 OpenStax 成為更穩定的首選教材。"
+        },
+        {
+          "candidate_name": "Paul's Online Math Notes: Calculus I",
+          "url": "https://tutorial.math.lamar.edu/Classes/CalcI/CalcI.aspx",
+          "license": "All Rights Reserved",
+          "status": "compared_rejected_for_reuse",
+          "comparison_rationale": "有用的參考，但其權利與再散布條款較不適合作為嵌入式恢復材料。"
+        },
+        {
+          "candidate_name": "SciPy Numerical Differentiation Documentation",
+          "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+          "license": "BSD-3-Clause",
+          "status": "compared_selected_for_numerics",
+          "comparison_rationale": "數值導數步長行為的主要 API 參考；它對手工推導是補充而非替代。"
+        }
+      ]
+    },
+    {
+      "id": "scipy-derivative",
+      "title": "SciPy 數值導數參考",
+      "author": "SciPy Developers",
+      "original_url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.differentiate.derivative.html",
+      "relevant_timestamp": "derivative API：有限差分、步長迭代、容差",
+      "version_or_verification_date": "SciPy 文件，驗證於 2026-10-30",
+      "reuse_category": "linking",
+      "source_type": "documentation",
+      "license": "BSD-3-Clause",
+      "license_restrictions": [],
+      "permission_basis": "僅連結；所有面向學習者的講解與範例均為自撰。",
+      "prerequisites": "Python 算術與導數定義",
+      "selection_rationale": "將數值微分記述為具有有限步長與停止準則的近似方法。",
+      "known_availability_limitations": "存取目前託管的 API 頁面需要網路連線。",
+      "safe_fallback": "本地第 18 天的表格與純 Python 程式碼片段無需 SciPy 即可重現相關有限差分行為。",
+      "compared_candidates": []
+    }
+  ]
+}

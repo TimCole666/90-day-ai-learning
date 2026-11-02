@@ -1,0 +1,170 @@
+{
+  "language": "zh-Hant",
+  "language_label": "繁體中文",
+  "day_title": "第 41 天：神經語言模型的前向傳播",
+  "day_subtitle": "用手算把 Makemore 式 MLP 從頭走到尾：嵌入查表、上下文串接、tanh 隱藏層、輸出 logit、數值穩定的 softmax。每個活動都記錄預測、觀察、複習與復原。",
+  "time_budget_label": "480 分鐘主動學習時間（8 小時專注學習）",
+  "category_label": "模型與訓練",
+  "common": {
+    "nav_calendar": "📅 課程行事曆與台帳",
+    "day_label": "第 41 天",
+    "prerequisites_title": "前置要求",
+    "objective_title": "學習目標",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主實作與記錄",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看參考解答與分析",
+    "mastery_title": "獨立掌握標準",
+    "draft_placeholder": "在此記錄你預測的預激活值、隱向量、logit、softmax 機率與推演過程……",
+    "dev_slice_notice": "90 天 AI 學習平台的已驗證正式課程模組。",
+    "sources_heading": "權威來源資源與權利證明",
+    "source_author_label": "作者 / 機構",
+    "source_url_label": "原始出處連結",
+    "source_range_label": "對應章節 / 時間戳",
+    "source_verification_label": "驗證版本與日期",
+    "source_reuse_label": "複用類別",
+    "source_license_label": "許可證與權利說明",
+    "source_rationale_label": "入選理由",
+    "source_prereqs_label": "來源前置條件",
+    "source_fallback_label": "安全回退方案（離線彈性）",
+    "compared_candidates_heading": "對比候選資源與選型分析",
+    "compared_status_label": "評估結論",
+    "auth": {
+      "sign_in": "使用 Google 登入",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "登出",
+      "signed_in_as": "已登入為",
+      "guest": "訪客模式",
+      "link_github": "綁定 GitHub",
+      "link_google": "綁定 Google",
+      "linked_identities": "已綁定帳號",
+      "auth_errors": {
+        "access_denied": "授權已取消或存取被拒絕。",
+        "invalid_state": "無效或已過期的授權狀態權杖，請重試。",
+        "identity_conflict": "該第三方身分已被綁定至其他帳號。",
+        "provider_error": "認證服務提供者發生錯誤。",
+        "server_error": "認證服務提供者發生錯誤。",
+        "session_expired": "登入工作階段已過期，請重新登入。"
+      }
+    },
+    "progress": {
+      "save_btn": "儲存進度",
+      "saved": "已儲存",
+      "saving": "正在儲存...",
+      "save_error": "儲存失敗",
+      "offline": "離線狀態",
+      "mark_completed": "標記為已完成",
+      "completed_badge": "已完成"
+    },
+    "quiz": {
+      "quiz_title": "客觀知識測驗：前向傳播與 softmax",
+      "quiz_instructions": "請回答以下診斷題目檢驗掌握情況。提交前請誠實聲明你的輔助條件。",
+      "assistance_mode_label": "聲明輔助條件",
+      "mode_independent": "獨立掌握檢查 (無 AI 輔助)",
+      "mode_agent_assisted": "Agent 輔助工程檢查 (借助 AI 完成)",
+      "mode_disclaimer": "說明：無 AI 輔助屬於誠實聲明條件，非平台監控或強制檢測手段。",
+      "submit_btn": "提交答案",
+      "retry_btn": "重新測驗",
+      "view_hint": "查看提示",
+      "mastery_criterion_label": "掌握標準",
+      "mastery_criterion_desc": "在獨立掌握檢查模式下獲得 100% 得分（3/3 題完全正確）。",
+      "score_label": "測驗得分",
+      "passed_badge": "通過",
+      "failed_badge": "未通過 (需複習)",
+      "independent_pass_badge": "獨立掌握通過",
+      "agent_assisted_pass_badge": "Agent 輔助通過",
+      "self_reported_badge": "自主勾選完成",
+      "stale_badge": "歷史記錄 (內容已更新，需重新驗證)",
+      "attempts_history_title": "作答應證與歷史記錄",
+      "no_attempts": "暫無測驗記錄。"
+    }
+  },
+  "activities": {
+    "day-41-act-01": {
+      "title": "神經語言模型流水線：從索引到預激活",
+      "prerequisites": "第 40 天的嵌入查表與上下文串接；第 34-36 天的 MLP 機制。",
+      "objective": "走完 索引 → C 的列 → 串接 x → 隱藏層預激活 的完整流水線，並手算輸入向量與預激活向量。",
+      "assistance_policy_label": "Agent 輔助工程檢查",
+      "instructions": "必做任務：沿用第 40 天的表 C 與上下文 ('a','b')，故 x = [0.2, -0.1, -0.4, 0.5]。今天權重固定：W1 = [[0.5,-0.2,0.1],[0.3,0.4,-0.3],[-0.1,0.2,0.6],[0.2,-0.5,0.4]]，b1 = [0.1,-0.1,0.0]。計算各隱藏層預激活 pre_j = sum_i x_i * W1[i][j] + b1[j]。先記錄你的預測值再查看推演。選做任務：預測哪個輸入座標對 pre_1 影響最大。",
+      "exercise_prompt": "1. 用上面的 x 與 W1 計算 pre_0、pre_1、pre_2，寫出每一個乘積。\n2. 預測是否有某個預激活恰好為 0。\n3. 按順序說出從原始符號到 pre 的流水線各階段。",
+      "hint": "pre_0 = 0.2*0.5 + (-0.1)*0.3 + (-0.4)*(-0.1) + 0.5*0.2 + 0.1。求和前保持每個乘積的符號。",
+      "answer": "pre_0 = 0.10 - 0.03 + 0.04 + 0.10 + 0.10 = 0.31；pre_1 = -0.04 - 0.04 - 0.08 - 0.25 - 0.10 = -0.51；pre_2 = 0.02 + 0.03 - 0.24 + 0.20 + 0.00 = 0.01。沒有一個恰好為 0，但 pre_2 足夠小，tanh 在那裡近似線性。各階段：符號 → 索引 → C 的列 → 串接 → x*W1 + b1 → tanh → *W2 + b2 → softmax。",
+      "mastery_criterion": "手算預激活寫出每個乘積並與 [0.31, -0.51, 0.01] 一致，學習者能不看筆記按順序敘述流水線各階段。"
+    },
+    "day-41-act-02": {
+      "title": "手算隱藏層：tanh 與為何需要非線性",
+      "prerequisites": "完成上一活動；如受阻請使用列出的復原連結。",
+      "objective": "逐元素施加 tanh，精確算出隱向量，並論證兩層線性映射之間為何必須有非線性。",
+      "assistance_policy_label": "獨立掌握檢查",
+      "instructions": "必做任務：h = tanh(pre) 逐元素計算。使用 tanh(0.31) = 0.300437、tanh(-0.51) = -0.469945、tanh(0.01) = 0.010000，並用計算器或 Python 的 math.tanh 驗算至少一個。然後回答坍縮問題：若激活函數換成恆等映射而非 tanh，兩個線性映射會退化成什麼？選做任務：計算 tanh(5.0) 與 tanh(-5.0) 以觀察飽和。",
+      "exercise_prompt": "1. 寫出隱向量 h。\n2. tanh 會飽和：tanh(5.0) 取四位小數是多少？飽和對非常大的預激活意味著什麼？\n3. 證明坍縮：恆等激活時 h = x*W1、z = h*W2，請把 z 只用 x 表示。",
+      "hint": "tanh 把 R 映入 (-1,1)；|pre| 很大時輸出貼近 ±1。坍縮證明：把 h 代入 z，再對矩陣乘積重新加括號。",
+      "answer": "h = [0.300437, -0.469945, 0.010000]。tanh(5.0) ~= 0.9999：輸出被壓進 (-1,1)，巨大預激活不再增長且梯度變小。沒有非線性時 z = x*W1*W2 = x*(W1*W2)：所謂「深」網路只是一個線性映射，隱藏層不增加任何表達能力。",
+      "mastery_criterion": "h 精確到小數點後 6 位，給出飽和觀察，並能用一行證明堆疊的線性映射坍縮成單個線性映射。"
+    },
+    "day-41-act-03": {
+      "title": "logit、數值穩定的 softmax 與輸出分布",
+      "prerequisites": "完成上一活動；如受阻請使用列出的復原連結。",
+      "objective": "計算 logit z = h*W2 + b2，執行減最大值 softmax，得到下一符號分布，並用反例解釋穩定性技巧。",
+      "assistance_policy_label": "Agent 輔助工程檢查",
+      "instructions": "必做任務：W2 = [[0.2,-0.1,0.3,0.1],[0.4,0.2,-0.2,0.0],[-0.3,0.1,0.5,-0.4]]，b2 = [0.05,-0.05,0.02,0.0]。用昨天的 h 計算 z = h*W2 + b2。然後做 softmax：減去 m = max(z)，取指數，正規化。反例：logit [1000,999,998] 時，樸素 exp(1000) 在 float64 中溢位；平移版本給出 [0.665241, 0.244728, 0.090031]。選做任務：證明對任意常數 c 都有 softmax(z - c) = softmax(z)。",
+      "exercise_prompt": "1. 計算四個 logit z。\n2. 取 m = max(z)，計算 exp(z_j - m)、正規化之和與 p。\n3. 驗證 p 之和為 1。\n4. 用一句話說明為什麼減去最大值在數學上不改變結果。",
+      "hint": "z_2 是最大的 logit，約 0.209。平移後：exp(-0.290011) ~= 0.748256，exp(-0.382153) ~= 0.682391，exp(0) = 1，exp(-0.183076) ~= 0.832705。",
+      "answer": "z = [-0.080891, -0.173033, 0.209120, 0.026044]。取 m = 0.209120：exp(z - m) = [0.748256, 0.682391, 1.000000, 0.832705]，和 = 3.263351，故 p = [0.229291, 0.209107, 0.306433, 0.255169]，其和為 1.0。平移相當於給每個未正規化項乘以同一因子 e^{-m}，在分子分母之間約掉——機率完全相同，且不會溢位。",
+      "mastery_criterion": "z 與 p 精確到小數點後 6 位，完成和為 1 的驗證，並對減最大值的不變性給出正確論證。"
+    },
+    "day-41-act-04": {
+      "title": "獨立掌握檢查：在保留上下文上的完整前向傳播",
+      "prerequisites": "完成活動 41-01 至 41-03。",
+      "objective": "對新上下文 ('b','a') 獨立復現整條前向傳播，並誠實指出預測符號。",
+      "assistance_policy_label": "獨立掌握檢查",
+      "instructions": "必做任務：闔上書本。對上下文 ('b','a') = 索引 [2,1]，用同一套 C、W1、b1、W2、b2 計算完整前向傳播，並在打開參考解答前預測下一符號。選做任務：若真實下一符號為 'a'（索引 1），寫出其交叉熵損失——第 42 天會用到。",
+      "exercise_prompt": "對上下文 ('b','a')：\n1. 串接輸入 x。\n2. 預激活與隱向量 h。\n3. logit z。\n4. 機率 p 與 argmax 符號。",
+      "hint": "x = concat(C[2], C[1]) = [-0.4, 0.5, 0.2, -0.1]。W1、b1、W2、b2 與活動 41-01 至 41-03 完全相同。",
+      "answer": "x = [-0.4, 0.5, 0.2, -0.1]；pre = [0.01, 0.27, -0.11]；h = [0.010000, 0.263625, -0.109558]；z = [0.190317, -0.009231, -0.084504, 0.044823]；p = [0.290410, 0.237875, 0.220627, 0.251087]。argmax 是索引 0，即符號 '.'——模型預測 '.'，而目標 'a' 錯了。未訓練的權重會產出看似自信的錯誤；預測品質來自訓練，而非架構本身。",
+      "mastery_criterion": "獨立復現 x、h、z、p 並與參考值精確到小數點後 6 位一致，指出 argmax '.' 是索引 0，並對未訓練預測給出誠實評論。",
+      "quiz": {
+        "title": "客觀知識測驗：前向傳播與 softmax",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "數值穩定的 softmax 為什麼在取指數前從每個 logit 中減去 max(z)？",
+            "options": {
+              "a": "讓前向傳播更快",
+              "b": "在保持機率不變的同時防止 exp() 溢位",
+              "c": "tanh 激活要求這樣做",
+              "d": "縮小詞彙表"
+            },
+            "hint": "想想 float64 中 exp(1000) 會怎樣，以及公共因子如何在比值中約掉。",
+            "explanation": "exp(1000) 在 float64 中溢位，但 softmax(z - m) = softmax(z)，因為因子 e^{-m} 在分子分母之間約掉。"
+          },
+          {
+            "id": "q2",
+            "prompt": "兩個堆疊的線性層之間沒有非線性激活時，它等價於：",
+            "options": {
+              "a": "單個線性映射 x * (W1 * W2)",
+              "b": "一個無法用矩陣寫出的函數",
+              "c": "一個飽和非線性",
+              "d": "softmax 函數"
+            },
+            "hint": "把 h = x*W1 代入 z = h*W2。",
+            "explanation": "z = x*W1*W2 = x*(W1W2)：矩陣乘法滿足結合律，兩個線性映射的複合仍是一個線性映射。"
+          },
+          {
+            "id": "q3",
+            "prompt": "給定符號 ['.','a','b','c'] 上的 p = [0.290410, 0.237875, 0.220627, 0.251087]，argmax 預測是：",
+            "options": {
+              "a": "'a'",
+              "b": "'.'",
+              "c": "'b'",
+              "d": "'c'"
+            },
+            "hint": "找出最大的機率，把它的下標映射回詞彙表順序。",
+            "explanation": "最大值是索引 0 處的 0.290410，對應符號 '.'。argmax 是預測，不一定是正確目標。"
+          }
+        ]
+      }
+    }
+  }
+}

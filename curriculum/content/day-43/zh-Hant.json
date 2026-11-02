@@ -1,0 +1,171 @@
+{
+  "language": "zh-Hant",
+  "language_label": "繁體中文",
+  "day_title": "第 43 天：縮放點積注意力與查詢-鍵-值投影",
+  "day_subtitle": "將注意力機制形式化為用查詢匹配鍵以加權聚合值。推導 R^{d_k} 中點積的方差，證明為什麼 1/sqrt(d_k) 縮放因子能防止 Softmax 梯度消失，並透過手算與代碼完整追蹤 (T, d_k) 形狀的分數矩陣。",
+  "time_budget_label": "480 分鐘主動學習（8 小時專注研讀）",
+  "category_label": "模型與訓練",
+  "common": {
+    "nav_calendar": "📅 課程行事曆與台帳",
+    "day_label": "第 43 天",
+    "prerequisites_title": "前置要求",
+    "objective_title": "學習目標",
+    "instructions_title": "操作指引",
+    "exercise_title": "自主實作與記錄",
+    "hint_title": "查看提示",
+    "reveal_answer": "查看參考解答與分析",
+    "mastery_title": "獨立掌握標準",
+    "draft_placeholder": "在此記錄您的分數矩陣計算、縮放除法、Softmax 分佈推導以及方差證明草稿...",
+    "dev_slice_notice": "90 天 AI 學習平台的已驗證正式課程模組。",
+    "sources_heading": "權威來源資源與權利證明",
+    "source_author_label": "作者 / 機構",
+    "source_url_label": "原始出處連結",
+    "source_range_label": "對應章節 / 時間戳",
+    "source_verification_label": "驗證版本與日期",
+    "source_reuse_label": "複用類別",
+    "source_license_label": "許可證與權利說明",
+    "source_rationale_label": "入選理由",
+    "source_prereqs_label": "來源前置條件",
+    "source_fallback_label": "安全回退方案（離線彈性）",
+    "compared_candidates_heading": "對比候選資源與選型分析",
+    "compared_status_label": "評估結論",
+    "auth": {
+      "sign_in": "使用 Google 登入",
+      "sign_in_google": "Google",
+      "sign_in_github": "GitHub",
+      "sign_out": "登出",
+      "signed_in_as": "已登入為",
+      "guest": "訪客模式",
+      "link_github": "綁定 GitHub",
+      "link_google": "綁定 Google",
+      "linked_identities": "已綁定帳號",
+      "auth_errors": {
+        "access_denied": "授權已取消或存取被拒絕。",
+        "invalid_state": "無效或已過期的授權狀態權杖，請重試。",
+        "identity_conflict": "該第三方身分已被綁定至其他帳號。",
+        "provider_error": "認證服務提供者發生錯誤。",
+        "server_error": "認證服務提供者發生錯誤。",
+        "session_expired": "登入工作階段已過期，請重新登入。"
+      }
+    },
+    "progress": {
+      "save_btn": "儲存進度",
+      "saved": "已儲存",
+      "saving": "正在儲存...",
+      "save_error": "儲存失敗",
+      "offline": "離線狀態",
+      "mark_completed": "標記為已完成",
+      "completed_badge": "已完成"
+    },
+    "quiz": {
+      "quiz_title": "客觀理解度測試：縮放點積注意力機制",
+      "quiz_instructions": "請回答以下診斷題目檢驗掌握情況。提交前請誠實聲明你的輔助條件。",
+      "assistance_mode_label": "聲明輔助條件",
+      "mode_independent": "獨立掌握檢查 (無 AI 輔助)",
+      "mode_agent_assisted": "Agent 輔助工程檢查 (借助 AI 完成)",
+      "mode_disclaimer": "說明：無 AI 輔助屬於誠實聲明條件，非平台監控或強制檢測手段。",
+      "submit_btn": "提交答案",
+      "retry_btn": "重新測驗",
+      "view_hint": "查看提示",
+      "mastery_criterion_label": "掌握標準",
+      "mastery_criterion_desc": "在獨立掌握檢查模式下獲得 100% 得分（3/3 題完全正確）。",
+      "score_label": "測驗得分",
+      "passed_badge": "通過",
+      "failed_badge": "未通過 (需複習)",
+      "independent_pass_badge": "獨立掌握通過",
+      "agent_assisted_pass_badge": "Agent 輔助通過",
+      "self_reported_badge": "自主勾選完成",
+      "stale_badge": "歷史記錄 (內容已更新，需重新驗證)",
+      "attempts_history_title": "作答應證與歷史記錄",
+      "no_attempts": "暫無測驗記錄。"
+    }
+  },
+  "activities": {
+    "day-43-act-01": {
+      "title": "查詢、鍵與值：向量角色與注意力公式形式化",
+      "prerequisites": "第 41-42 天的前向傳播、矩陣乘法與逐行 Softmax 機制。",
+      "objective": "將注意力機制分解為用查詢檢索鍵以聚合值的路由過程，推導張量維度，並完成原始點積分數矩陣的數值計算。",
+      "assistance_policy_label": "助教輔助工程檢查",
+      "instructions": "學習來源：在本活動現有的閱讀與練習時段內，參考 Stanford CS224N: Natural Language Processing with Deep Learning 的 Winter 2026 Lecture 05 Transformers (2026-01-20); attention and self-attention slides，用自己的話解釋一處與本地任務的聯繫。保留現有練習與驗收檢查；若外部資料無法存取，使用課程自寫的解釋。必做任務：形式化縮放點積注意力公式 Attention(Q, K, V) = softmax(Q K^T / sqrt(d_k)) V。給定序列長度 T=3、鍵維度 d_k=4、值維度 d_v=2。設定 Q 各行為 q_0=[2.0, 0.0, 2.0, 0.0], q_1=[0.0, 2.0, 0.0, 2.0], q_2=[1.0, 1.0, 1.0, 1.0]；K 各行為 k_0=[1.0, 0.0, 1.0, 0.0], k_1=[0.0, 2.0, 0.0, 1.0], k_2=[2.0, 1.0, 0.0, 1.0]；V 各行為 v_0=[1.0, 0.0], v_1=[0.0, 2.0], v_2=[1.0, 1.0]。逐步手算原始分數矩陣 S_raw = Q K^T。闡述查詢（當前位置在找什麼）、鍵（當前位置提供什麼資訊）與值（傳輸的具體表徵內容）的幾何與物理意義。",
+      "exercise_prompt": "1. 計算 S_raw = Q K^T 的 3x3 矩陣全部數值。\n2. 明確給出 Q、K、V、Q K^T 以及最終輸出矩陣的張量形狀。\n3. 用兩句話說明為什麼注意力是一種數據驅動的關聯檢索，而非靜態固定權重層？",
+      "hint": "S_raw 的第 i 行第 j 列是 q_i 與 k_j 的內積。例如 S_raw[0,0] = 2*1 + 0*0 + 2*1 + 0*0 = 4。",
+      "answer": "S_raw 矩陣：第 0 行 [4.0, 0.0, 4.0]；第 1 行 [0.0, 6.0, 4.0]；第 2 行 [2.0, 3.0, 4.0]。張量形狀：Q 為 (3,4)，K 為 (3,4)，V 為 (3,2)，Q K^T 為 (3,3)，輸出為 (3,2)。傳統線性層權重是訓練後凍結的固定參數，而注意力權重是由當前動態上下文即時計算出的自適應路由係數。",
+      "mastery_criterion": "準確列出矩陣乘法各步驟，得到完全正確的 3x3 S_raw 矩陣及各張量形狀。",
+      "content_revision": "2026.11.01-rev5"
+    },
+    "day-43-act-02": {
+      "title": "縮放因子 sqrt(d_k) 與注意力分數矩陣 Softmax",
+      "prerequisites": "完成第 43 天活動 1。",
+      "objective": "對分數矩陣應用 1/sqrt(d_k) 縮放因子，計算數值穩定的逐行 Softmax 機率分佈，並完成值的加權聚合輸出。",
+      "assistance_policy_label": "獨立掌握檢查",
+      "instructions": "必做任務：當 d_k = 4 時，縮放因子為 sqrt(4) = 2.0。將 S_raw 各元素除以 2.0 獲得縮放矩陣 S = S_raw / 2.0。隨後採用最大值平移法逐行計算 Softmax：第 0 行縮放值為 [2.0, 0.0, 2.0]；第 1 行為 [0.0, 3.0, 2.0]；第 2 行為 [1.0, 1.5, 2.0]。求出注意力權重矩陣 A = softmax(S)，並計算最終輸出 Out = A V。驗證 A 的每一行求和嚴格為 1.0。",
+      "exercise_prompt": "1. 寫出縮放後的分數矩陣 S = S_raw / 2.0。\n2. 計算精確到小數點後 6 位的 Softmax 注意力矩陣 A。\n3. 計算所有 3 個位置的輸出表徵向量 Out = A V。",
+      "hint": "第 0 行最大值為 2.0。exp([0, -2, 0]) = [1.0, 0.135335, 1.0]，和為 2.135335。A[0, :] = [0.468311, 0.063379, 0.468311]。",
+      "answer": "縮放矩陣 S：\n[[2.0, 0.0, 2.0],\n [0.0, 3.0, 2.0],\n [1.0, 1.5, 2.0]]。\nSoftmax 權重矩陣 A：\n第 0 行：[0.468311, 0.063379, 0.468311]\n第 1 行：[0.035119, 0.705385, 0.259496]\n第 2 行：[0.186324, 0.307196, 0.506480]。\n輸出 Out = A V：\n第 0 行：[0.936622, 0.595069]\n第 1 行：[0.294615, 1.670266]\n第 2 行：[0.692804, 1.120872]。",
+      "mastery_criterion": "獨立推導 S 矩陣，求得與參考值在 4 位小數內一致的注意力機率並計算出正確的 Out。"
+    },
+    "day-43-act-03": {
+      "title": "方差縮放推導與梯度飽和反例剖析",
+      "prerequisites": "完成第 43 天活動 2；具備初等機率統計與微積分基礎。",
+      "objective": "在數學上證明兩個 d_k 維獨立隨機向量的點積方差為 d_k，並定量演示未縮放時 Softmax 梯度嚴重消失的數值反例。",
+      "assistance_policy_label": "助教輔助工程檢查",
+      "instructions": "必做任務：設 q 與 k 的各分量 q_i, k_i 相互獨立，且 E[q_i] = E[k_i] = 0, Var(q_i) = Var(k_i) = 1。推導 E[q . k] = 0 與 Var(q . k) = d_k。證明 Var((q . k) / sqrt(d_k)) = 1。隨後分析反例：當 d_k = 64 時，sqrt(d_k) = 8。若不縮放，點積標準差高達 8，極易產生 +16 和 -16 的對數幾率。計算 softmax([16, 0, -16]) 的機率輸出，並依據 Softmax 導數公式 dp_i / dz_j = p_i (delta_ij - p_j) 說明梯度為什麼幾乎為 0。",
+      "exercise_prompt": "1. 利用獨立零均值變數性質 Var(XY) = E[X^2]E[Y^2] 給出完整的方差推導步驟。\n2. 計算 softmax([16, 0, -16]) 並在數值上給出其局域梯度幅度。\n3. 說明為什麼未縮放點積會導致深層 Transformer 在訓練初期即陷入優化停滯？",
+      "hint": "Var(q_i k_i) = 1 * 1 - 0 = 1。求和 d_k 個相同項得 d_k。softmax([16, 0, -16]) 中最大項機率高達 0.99999989，最小項為 1.266e-14。",
+      "answer": "推導：E[q . k] = sum E[q_i k_i] = 0。每一項的方差為 Var(q_i k_i) = E[q_i^2] E[k_i^2] - (E[q_i]E[k_i])^2 = 1*1 - 0 = 1。因各分量獨立，和的方差等於方差的和：Var(q . k) = d_k。因此 Var((q . k)/sqrt(d_k)) = (1/d_k)*d_k = 1。如果不除以 sqrt(d_k)，大維度會導致輸入分數絕對值過大，Softmax 輸出極端趨向 1 和 0（如 [0.99999989, 1.125e-7, 1.266e-14]）；根據導數公式 dp_i/dz_j = p_i(delta_ij - p_j)，梯度隨之指數級趨近於 0，反向傳播失效。",
+      "mastery_criterion": "完整書寫代數推導過程並給出數值反例的具體計算結果。"
+    },
+    "day-43-act-04": {
+      "title": "獨立掌握檢查：點積注意力運算與張量形狀",
+      "prerequisites": "活動 43-01 至 43-03。",
+      "objective": "在聲明無 AI 輔助的條件下，獨立完成全新配置的縮放點積注意力手算、方差推導與張量形狀契約檢驗。",
+      "assistance_policy_label": "獨立掌握檢查",
+      "instructions": "必做任務：閉卷獨立作答，不依賴 AI 助手與現成計算器。面對新配置 T=2, d_k=4, d_v=2：Q 矩陣包含行 [0.0, 2.0, 0.0, 2.0], [2.0, 0.0, 2.0, 0.0]；K 矩陣包含行 [0.0, 2.0, 0.0, 2.0], [1.0, 0.0, 1.0, 0.0]；V 矩陣包含行 [2.0, 1.0], [0.0, 3.0]。計算原始點積矩陣 S_raw，以 sqrt(4)=2 進行縮放，求出精確的 Softmax 矩陣與最終輸出表徵。完成客觀測試題。",
+      "exercise_prompt": "1. 計算 S_raw 與縮放後的 S = S_raw / 2.0。\n2. 計算精確的 2x2 Softmax 權重矩陣 A。\n3. 計算 2x2 輸出表徵矩陣 Out = A V。\n4. 完成 3 道單項選擇題。",
+      "hint": "S_raw[0,0] = 0*0 + 2*2 + 0*0 + 2*2 = 8；S_raw[0,1] = 0；S_raw[1,0] = 0；S_raw[1,1] = 4。縮放後第 0 行為 [4, 0]，第 1 行為 [0, 2]。",
+      "answer": "S_raw = [[8.0, 0.0], [0.0, 4.0]]。縮放 S = [[4.0, 0.0], [0.0, 2.0]]。Softmax A：第 0 行 [0.982014, 0.017986]；第 1 行 [0.119203, 0.880797]。輸出 Out：第 0 行 = 0.982014*[2,1] + 0.017986*[0,3] = [1.964028, 1.035972]；第 1 行 = 0.119203*[2,1] + 0.880797*[0,3] = [0.238406, 2.761594]。",
+      "mastery_criterion": "獨立推導出 S、A、Out 矩陣全套數值，且客觀測試題獲得 100% 滿分。",
+      "quiz": {
+        "title": "客觀理解度測試：縮放點積注意力機制",
+        "questions": [
+          {
+            "id": "q1",
+            "prompt": "將點積結果 Q K^T 除以 sqrt(d_k) 的核心數學動機是什麼？",
+            "options": {
+              "a": "將點積分數的方差歸一化為 1，防止隨著 d_k 增大導致 Softmax 梯度消失。",
+              "b": "確保注意力分數矩陣恆為對稱矩陣。",
+              "c": "將注意力計算的記憶體複雜度從 O(T^2) 降低到 O(T)。",
+              "d": "強制施加自迴歸因果因式分解約束。"
+            },
+            "hint": "回顧 d_k 個獨立標準常態乘積項求和後的方差變化。",
+            "explanation": "當查詢和鍵的各分量為獨立標準常態變數時，其點積均值為 0，方差為 d_k。除以 sqrt(d_k) 可將方差拉回 1.0，防止 Softmax 進入飽和區。"
+          },
+          {
+            "id": "q2",
+            "prompt": "對於序列長度 T=3、鍵維度 d_k=4、值維度 d_v=2 的輸入，注意力分數矩陣 S = (Q K^T) / sqrt(d_k) 的張量形狀是什麼？",
+            "options": {
+              "a": "(4, 4)",
+              "b": "(3, 3)",
+              "c": "(3, 2)",
+              "d": "(4, 2)"
+            },
+            "hint": "Q 的形狀為 (T, d_k)，K^T 的形狀為 (d_k, T)，矩陣乘法收縮 d_k 維度。",
+            "explanation": "(T, d_k) 乘以 (d_k, T) 產生 (T, T) 的成對相關度矩陣，當 T=3 時為 (3, 3)。"
+          },
+          {
+            "id": "q3",
+            "prompt": "若向量 q, k in R^{d_k} 的各分量相互獨立且服從零均值、單位方差分佈，其未縮放點積 q . k 的方差是多少？",
+            "options": {
+              "a": "1",
+              "b": "sqrt(d_k)",
+              "c": "d_k",
+              "d": "d_k^2"
+            },
+            "hint": "獨立隨機變數和的方差等於各隨機變數方差之和。",
+            "explanation": "Var(q . k) = sum_{i=1}^{d_k} Var(q_i k_i) = sum_{i=1}^{d_k} 1 = d_k。"
+          }
+        ]
+      }
+    }
+  }
+}
